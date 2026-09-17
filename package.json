@@ -4,15 +4,28 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:cli": "bash scripts/build-cli.sh",
-    "test": "node --test tests/*.test.mjs",
-    "oracle": "node src/run.mjs --oracle",
-    "run": "node src/run.mjs"
+    "build:cli": "bash lark-cli-mock/scripts/build-cli.sh",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.*",
+    "test:go": "cd lark-cli-mock/cli && go test ./... && go vet ./...",
+    "oracle": "tsx lark-cli-mock/src/main.ts --agent oracle",
+    "run": "tsx lark-cli-mock/src/main.ts",
+    "check": "npm run typecheck && npm run format:check && npm test && npm run test:go",
+    "prepare:harbor": "node lark-cli-mock/scripts/prepare-harbor.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "dependencies": {
-    "@openai/codex-sdk": "0.154.0"
+    "@openai/codex-sdk": "0.154.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.3",
+    "prettier": "3.9.7",
+    "tsx": "4.23.13",
+    "typescript": "7.0.2"
   }
 }

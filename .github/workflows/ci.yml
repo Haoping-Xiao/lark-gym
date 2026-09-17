@@ -1,0 +1,35 @@
+name: verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x'
+          cache-dependency-path: lark-cli-mock/cli/go.sum
+      - run: npm ci
+      - run: npm run build:cli
+      - run: npm run check
+      - run: npm run oracle
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: oracle-results
+          path: runs/
+  # CI runs deterministic checks only. Real Codex smoke runs require an authorized login.
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: bash lark-cli-mock/scripts/test-harbor-container.sh
