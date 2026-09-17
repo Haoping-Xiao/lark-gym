@@ -9,15 +9,12 @@ Turn office agent failures into stateful environments for evaluation and reinfor
 通过真实 lark-cli，在有状态的飞书 Mock 中运行和评测 Agent。当前包含一个跨 Sheets、Calendar、Base、IM 的维护通知 case。
 
 ```text
-cases/maintenance-notice/    Harbor task：任务、seed、harness、参考解、评分器
-lark-cli-mock/
-  cli/                      上游 CLI host：凭据和 HTTP transport 扩展
-  src/interception/         Codex PreToolUse 命令改写
-  src/backends/feishu/       共享业务状态、接口和 seed 校验
-  src/adapters/             Agent harness 接入
-  src/runtime/              case 生命周期和运行产物
-  src/harbor/               容器服务及评分状态落盘
-tests/                     CLI、状态一致性、拦截与生命周期回归测试
+tasks/maintenance-notice/   Harbor task：任务、seed、工具说明、参考解、评分器
+gyms/lark-cli/             真实 CLI 接入、共享状态服务、seed 校验
+experiments/               Harbor job 范本与本地 SDK 运行配置
+scripts/                   CLI 构建、Harbor 打包与容器测试
+src/                       保留的本地 SDK 运行器及 Codex hook 接入
+tests/                     OfficeGym 自身回归测试
 ```
 
 ## 本地运行
@@ -33,7 +30,7 @@ npm run run                    # Codex SDK 实际运行
 npm run run -- --model MODEL    # 显式固定模型
 ```
 
-配置位于 `cases/maintenance-notice/harness/codex.json`，可用 `--config PATH` 替换。SDK 固定为 0.154.0；CLI 固定为 `0493db0cd1a10d6dd8a2295128bec3e319c7fbb0`，构建时下载，不修改上游。未指定模型时使用 Codex 已有配置。CLI host 未打包上游内嵌 skills，也未加载 Aily 插件。
+配置位于 `experiments/local-codex.json`，可用 `--config PATH` 替换。SDK 固定为 0.154.0；CLI 固定为 `0493db0cd1a10d6dd8a2295128bec3e319c7fbb0`，构建时下载，不修改上游。未指定模型时使用 Codex 已有配置。CLI host 未打包上游内嵌 skills，也未加载 Aily 插件。
 
 Agent 使用普通域命令，例如 `./lark-cli sheets +cells-get`。参考 [RTK](https://github.com/rtk-ai/rtk) 的宿主 hook 协议，PreToolUse 用 `updatedInput` 替换可执行文件并注入本次 Mock 地址；业务参数保留，再由 CLI transport 将请求转向本地 HTTP 服务。这里实现的是命令拦截，没有引入 RTK 二进制或输出压缩。禁止 raw `api`；缺少 Mock 地址时 CLI 直接失败。
 
@@ -45,18 +42,23 @@ Case 使用 Harbor 1.4 task 配置、`environment/Dockerfile`、`solution/solve.
 
 ```bash
 npm run prepare:harbor
-harbor run --path cases/maintenance-notice --agent oracle
+harbor run --path tasks/maintenance-notice --agent oracle
+harbor run -c experiments/maintenance-codex.yaml
 ```
 
 生成目录只含运行依赖、Mock 和 CLI 源码，不含参考解、评分器或登录数据。Harbor 在执行阶段挂载 solution/tests。评分器输出 `/logs/verifier/reward.txt`，服务每次请求后保存状态和操作历史。
 
-本机已验证服务→真实 CLI 参考解→状态落盘→评分器；当前开发机没有 Docker，完整 Harbor 容器运行尚未验证。不要将目录兼容视为容器实测成功。
+Docker 镜像、真实 CLI 参考解和独立评分入口已在 GitHub CI 跑通；完整 Harbor 调度尚未实测。Harbor job 范本通过配置 schema 校验，执行仍需安装 Harbor 和相应 Agent 凭据。
 
-## Case 与扩展
+## Task 与 Gym
 
 维护通知改编自 [AutomationBench example 1236](https://github.com/zapier/AutomationBench/blob/4a8e1061254004d9dac807054eed33fad7d1ff14/automationbench/domains/operations/tasks.py#L6877)。原始 Google/Airtable/Gmail 操作迁移为飞书；来源、差异和许可证保存在 case 中。评分检查先读规则、选择正确窗口、通知与记录完整，以及全程没有误改其他资源；取消错误会议不能消除违规记录。
 
-增加 case 时复制 task 布局，提供 `case.ts` 中定义的 seed 校验、backend、oracle、verify，在 `lark-cli-mock/src/core/catalog.ts` 注册。业务评分属于 case；运行器不包含题目条件。新接口放在共享 backend，并测试交叉读取、写后读、拒绝写入和状态隔离。
+Task 绑定具体 gym：`environment/Dockerfile` 接入工具环境，seed 和评分器保留在 task。Harbor job 的 `agents` 选择执行器与模型；`task.toml` 的 `[agent]` 仅定义执行约束。切换 Agent 不应更改任务和评分器，迁移到另一套办公工具则创建 task 变体。
+
+新增 Harbor task 使用相同目录约定即可；如需本地 SDK 调试，再实现 `task.ts` 并注册到 `src/core/catalog.ts`。新工具环境放入 `gyms/<原工具名>/`。不创建独立 bindings 层，优先使用 Harbor 内置 Agent 接入。
+
+容器中的 `lark-cli` wrapper 和 transport 负责转发，与 Agent 无关。本地 SDK 入口保留 Codex PreToolUse hook；选择 Harbor 内置 Codex 不会自动加载这个 hook。
 
 ## 验证边界
 

@@ -3,18 +3,18 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { startMock } from '../lark-cli-mock/src/backends/feishu/server.mjs';
-import { verify } from '../cases/maintenance-notice/tests/verify.mjs';
-import { oracle } from '../cases/maintenance-notice/solution/oracle.mjs';
+import { startMock } from '../gyms/lark-cli/src/server.mjs';
+import { verify } from '../tasks/maintenance-notice/tests/verify.mjs';
+import { oracle } from '../tasks/maintenance-notice/solution/oracle.mjs';
 const seed = JSON.parse(
   await readFile(
     new URL(
-      '../cases/maintenance-notice/environment/seed.json',
+      '../tasks/maintenance-notice/environment/seed.json',
       import.meta.url,
     ),
   ),
 );
-const binary = new URL('../lark-cli-mock/bin/lark-cli', import.meta.url)
+const binary = new URL('../gyms/lark-cli/bin/lark-cli', import.meta.url)
   .pathname;
 const event = {
   summary: 'Data Closet',

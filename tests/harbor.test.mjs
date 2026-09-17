@@ -6,7 +6,7 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { promisify } from 'node:util';
-import { oracle } from '../cases/maintenance-notice/solution/oracle.mjs';
+import { oracle } from '../tasks/maintenance-notice/solution/oracle.mjs';
 const exec = promisify(execFile);
 test(
   'Harbor service persists CLI mutations for the standalone verifier',
@@ -18,9 +18,9 @@ test(
     const child = spawn(
       process.execPath,
       [
-        'lark-cli-mock/src/harbor/serve.mjs',
+        'gyms/lark-cli/src/serve.mjs',
         '--seed',
-        'cases/maintenance-notice/environment/seed.json',
+        'tasks/maintenance-notice/environment/seed.json',
         '--state',
         state,
         '--ready',
@@ -44,7 +44,7 @@ test(
       }
       assert.ok(endpoint, 'Mock service readiness timed out');
       const verifier = () =>
-        exec(process.execPath, ['cases/maintenance-notice/tests/entry.mjs'], {
+        exec(process.execPath, ['tasks/maintenance-notice/tests/entry.mjs'], {
           env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: dir },
         });
       await verifier();
@@ -53,7 +53,7 @@ test(
         '0',
       );
       await oracle((args) =>
-        exec(resolve('lark-cli-mock/bin/lark-cli'), args, {
+        exec(resolve('gyms/lark-cli/bin/lark-cli'), args, {
           env: { PATH: process.env.PATH, HOME: dir, FEISHU_MOCK_URL: endpoint },
         }),
       );

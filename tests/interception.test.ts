@@ -4,12 +4,10 @@ import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { configSchema } from '../lark-cli-mock/src/core/config.js';
-import { loadCase } from '../lark-cli-mock/src/core/catalog.js';
-const hook = new URL(
-  '../lark-cli-mock/src/interception/rewrite.py',
-  import.meta.url,
-).pathname;
+import { configSchema } from '../src/core/config.js';
+import { loadTask } from '../src/core/catalog.js';
+const hook = new URL('../src/adapters/codex/rewrite.py', import.meta.url)
+  .pathname;
 function invoke(command: string) {
   const dir = mkdtempSync(join(tmpdir(), 'feishu-hook-test-'));
   try {
@@ -68,11 +66,11 @@ test('non-CLI computation is not rewritten', () => {
 });
 test('case contracts validate configuration and seed before execution', () => {
   assert.throws(() =>
-    configSchema.parse({ case: 'maintenance-notice', agent: 'unknown' }),
+    configSchema.parse({ task: 'maintenance-notice', agent: 'unknown' }),
   );
   assert.throws(() =>
-    configSchema.parse({ case: 'maintenance-notice', timeoutMs: 0 }),
+    configSchema.parse({ task: 'maintenance-notice', timeoutMs: 0 }),
   );
-  assert.throws(() => loadCase('missing'));
-  assert.throws(() => loadCase('maintenance-notice').validateSeed({}));
+  assert.throws(() => loadTask('missing'));
+  assert.throws(() => loadTask('maintenance-notice').validateSeed({}));
 });
