@@ -1,4 +1,10 @@
-# Feishu CLI environments
+# OfficeGym
+
+**Every failure becomes a training ground.**
+
+Turn office agent failures into stateful environments for evaluation and reinforcement learning.
+
+把真实办公 badcase 转化为可复现、可验证的环境，用于评测与 RL 训练。
 
 通过真实 lark-cli，在有状态的飞书 Mock 中运行和评测 Agent。当前包含一个跨 Sheets、Calendar、Base、IM 的维护通知 case。
 
