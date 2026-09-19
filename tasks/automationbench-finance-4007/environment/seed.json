@@ -1,0 +1,108 @@
+{
+  "now": "2026-02-05T14:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_exp_tracker": {
+      "title": "Expense Tracker",
+      "sheets": {
+        "ws_submissions": {
+          "title": "Submissions",
+          "values": [
+            ["Amount", "Category", "Date", "Description", "source_message_id"]
+          ]
+        },
+        "ws_policy": {
+          "title": "Expense Policy",
+          "values": [
+            ["Rule", "Detail"],
+            [
+              "Allowed Categories",
+              "Travel, Meals, Office Supplies, Software, Consulting"
+            ],
+            [
+              "Meal Limit",
+              "Individual meals capped at $75 per person. Receipts over this limit must include number of attendees in the description."
+            ],
+            [
+              "Rejected Categories",
+              "Entertainment, Personal, Gifts - these require VP pre-approval and cannot be submitted through the standard channel."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_EXPENSES",
+      "name": "expense-submissions",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_EXPENSES",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_exp_001\\\", \\\"channel_id\\\": \\\"C_EXPENSES\\\", \\\"user_id\\\": \\\"U_ALICE\\\", \\\"ts\\\": \\\"1770292000.000100\\\"}\\nExpense: Client lunch at Bella Italia, $127.50, category: Meals, date: 2026-02-04\"}"
+      },
+      "create_time": "1770292000.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_EXPENSES",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_exp_002\\\", \\\"channel_id\\\": \\\"C_EXPENSES\\\", \\\"user_id\\\": \\\"U_BOB\\\", \\\"ts\\\": \\\"1770292000.000200\\\"}\\nExpense: Uber to airport, $45.00, category: Travel, date: 2026-02-03\"}"
+      },
+      "create_time": "1770292000.000200"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_C_EXPENSES",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_exp_003\\\", \\\"channel_id\\\": \\\"C_EXPENSES\\\", \\\"user_id\\\": \\\"U_CAROL\\\", \\\"ts\\\": \\\"1770292000.000300\\\"}\\nExpense: Team building escape room, $890.00, category: Entertainment, date: 2026-02-01\"}"
+      },
+      "create_time": "1770292000.000300"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f001\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_SARAH\\\", \\\"ts\\\": \\\"1706100000.000100\\\"}\\nReminder: month-end close starts next Monday. Please have all journal entries submitted by Thursday.\"}"
+      },
+      "create_time": "1706100000.000100"
+    }
+  ]
+}

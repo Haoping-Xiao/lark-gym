@@ -1,0 +1,166 @@
+{
+  "now": "2026-02-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_vendor_pmts": {
+      "title": "Vendor Payments",
+      "sheets": {
+        "ws_jan_pmts": {
+          "title": "January 2026",
+          "values": [
+            ["Payment ID", "Date", "Vendor", "Amount", "Reference", "Flag"],
+            [
+              "VP-001",
+              "2026-01-05",
+              "Acme Supplies",
+              "$2,400.00",
+              "INV-A-100",
+              ""
+            ],
+            [
+              "VP-002",
+              "2026-01-08",
+              "CloudHost Pro",
+              "$9,600.00",
+              "INV-CH-200",
+              ""
+            ],
+            [
+              "VP-003",
+              "2026-01-10",
+              "Acme Supplies",
+              "$2,400.00",
+              "INV-A-101",
+              ""
+            ],
+            [
+              "VP-004",
+              "2026-01-15",
+              "Metro Supply",
+              "$780.00",
+              "INV-M-050",
+              ""
+            ],
+            [
+              "VP-005",
+              "2026-01-20",
+              "CloudHost Pro",
+              "$9,600.00",
+              "INV-CH-201",
+              ""
+            ],
+            ["VP-006", "2026-01-22", "Metro Supply", "$780.00", "INV-M-051", ""]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ap@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "vendor-relations@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_FIN_ALERTS",
+      "name": "finance-alerts",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_dup_policy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_dup_policy\\\", \\\"thread_id\\\": \\\"th_dup_policy\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Duplicate Payment Detection Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-15T08:00:00Z\\\"}\\n消息 ID：msg_dup_policy\\n来源：controller@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-15T08:00:00Z\\n主题：Duplicate Payment Detection Policy\\nDefinition of potential duplicate: same vendor name AND same dollar amount within a 7 calendar day window. Flag both payments in the pair. Report all suspected pairs to the controller.\"}"
+      },
+      "create_time": "1768464000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
+      },
+      "create_time": "1769079600000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f001\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_SARAH\\\", \\\"ts\\\": \\\"1706100000.000100\\\"}\\nReminder: month-end close starts next Monday. Please have all journal entries submitted by Thursday.\"}"
+      },
+      "create_time": "1706100000.000100"
+    }
+  ]
+}

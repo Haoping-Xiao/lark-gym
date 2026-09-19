@@ -1,0 +1,123 @@
+{
+  "now": "2026-02-01T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_leases": {
+      "title": "Lease Schedule",
+      "sheets": {
+        "ws_active_leases": {
+          "title": "Active Leases",
+          "values": [
+            [
+              "Lease",
+              "Landlord",
+              "Monthly Payment",
+              "Due Day",
+              "Lease End",
+              "Auto-Renew"
+            ],
+            [
+              "Main Office",
+              "Premier Properties",
+              "$15,000",
+              "1st",
+              "2026-12-31",
+              "No"
+            ],
+            [
+              "Warehouse A",
+              "Industrial Spaces Inc",
+              "$8,500",
+              "1st",
+              "2026-04-30",
+              "Yes"
+            ],
+            [
+              "Equipment (Copier)",
+              "TechLease Corp",
+              "$350",
+              "1st",
+              "2026-03-15",
+              "No"
+            ],
+            [
+              "Company Vehicles",
+              "AutoFleet Leasing",
+              "$4,200",
+              "1st",
+              "2027-06-30",
+              "Yes"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "lease",
+        "type": "text"
+      },
+      {
+        "name": "landlord",
+        "type": "text"
+      },
+      {
+        "name": "due_date",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_FIN_ALERTS",
+      "name": "finance-alerts",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

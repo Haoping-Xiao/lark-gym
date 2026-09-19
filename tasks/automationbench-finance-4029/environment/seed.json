@@ -1,0 +1,96 @@
+{
+  "now": "2026-02-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_payroll": {
+      "title": "Payroll Data",
+      "sheets": {
+        "ws_current": {
+          "title": "Feb 1-15 2026",
+          "values": [
+            ["Employee", "Gross Pay", "Department"],
+            ["Alice Park", "$4,800", "Engineering"],
+            ["Bob Chen", "$5,500", "Engineering"],
+            ["Carol Diaz", "$4,200", "Marketing"],
+            ["Dave Kim", "$6,800", "Sales"],
+            ["Eve Liu", "$3,900", "Operations"],
+            ["Frank Torres", "$0", "Marketing"]
+          ]
+        },
+        "ws_previous": {
+          "title": "Jan 16-31 2026",
+          "values": [
+            ["Employee", "Gross Pay", "Department"],
+            ["Alice Park", "$4,800", "Engineering"],
+            ["Bob Chen", "$4,500", "Engineering"],
+            ["Carol Diaz", "$4,200", "Marketing"],
+            ["Dave Kim", "$5,200", "Sales"],
+            ["Eve Liu", "$3,900", "Operations"],
+            ["Frank Torres", "$4,200", "Marketing"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "payroll@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_payroll_proc",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_payroll_proc\\\", \\\"thread_id\\\": \\\"th_payroll_proc\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"payroll@company.example.com\\\"], \\\"subject\\\": \\\"Payroll Review Procedures\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T08:00:00Z\\\"}\\n消息 ID：msg_payroll_proc\\n来源：hr@company.example.com\\n收件人：payroll@company.example.com\\n日期：2026-02-01T08:00:00Z\\n主题：Payroll Review Procedures\\nPayroll variance rules:\\n\\n1. Flag any employee with a change greater than 10% from previous period\\n2. New hires (no previous period data) should be noted but not flagged\\n3. Terminated employees (in current with $0) should be excluded from the report\\n4. Include the percentage change and dollar difference for each flagged employee\\n\\n- HR\"}"
+      },
+      "create_time": "1769932800000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    }
+  ]
+}

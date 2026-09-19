@@ -1,0 +1,152 @@
+{
+  "now": "2026-04-02T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_ic_billing": {
+      "title": "IC Billing",
+      "sheets": {
+        "ws_shared_svcs": {
+          "title": "Shared Services",
+          "values": [
+            ["Service", "Total Cost", "Driver"],
+            ["IT Support", "$60,000", "Headcount"],
+            ["HR Services", "$20,000", "FTE"],
+            ["Legal", "$40,000", "Revenue"]
+          ]
+        },
+        "ws_drivers": {
+          "title": "Allocation Drivers",
+          "values": [
+            ["Subsidiary", "Email", "Headcount", "FTE", "Revenue"],
+            [
+              "East Division",
+              "eastfin@company.example.com",
+              "60",
+              "30",
+              "400000"
+            ],
+            [
+              "West Division",
+              "westfin@company.example.com",
+              "80",
+              "50",
+              "400000"
+            ],
+            [
+              "South Division",
+              "southfin@company.example.com",
+              "60",
+              "20",
+              "200000"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_quickbooks_qc_east",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_east",
+          "display_name": "East Division",
+          "email": "eastfin@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_west",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_west",
+          "display_name": "West Division",
+          "email": "westfin@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_south",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_south",
+          "display_name": "South Division",
+          "email": "southfin@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "display_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "period",
+        "type": "text"
+      },
+      {
+        "name": "total_amount",
+        "type": "number"
+      },
+      {
+        "name": "it_support",
+        "type": "number"
+      },
+      {
+        "name": "hr_services",
+        "type": "number"
+      },
+      {
+        "name": "legal",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "eastfin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "southfin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "westfin@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

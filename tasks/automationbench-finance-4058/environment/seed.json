@@ -1,0 +1,218 @@
+{
+  "now": "2026-02-01T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_prepaids": {
+      "title": "Prepaid Schedule",
+      "sheets": {
+        "ws_prepaid_items": {
+          "title": "Active Prepaids",
+          "values": [
+            [
+              "Item",
+              "Total",
+              "Term (Months)",
+              "Start Date",
+              "Expense Account",
+              "Amortized to Date",
+              "Remaining",
+              "Notes"
+            ],
+            [
+              "Annual Insurance",
+              "$24,000",
+              "12",
+              "2025-07-01",
+              "Insurance Expense",
+              "$14,000",
+              "$10,000",
+              ""
+            ],
+            [
+              "Software License",
+              "$6,000",
+              "12",
+              "2026-01-01",
+              "Software Expense",
+              "$500",
+              "$5,500",
+              "Jan amortization already recorded - skip this month"
+            ],
+            [
+              "Office Lease Deposit",
+              "$18,000",
+              "24",
+              "2026-04-01",
+              "Rent Expense",
+              "$0",
+              "$18,000",
+              ""
+            ],
+            [
+              "Marketing Retainer",
+              "$9,000",
+              "6",
+              "2025-09-01",
+              "Marketing Expense",
+              "$9,000",
+              "$0",
+              ""
+            ],
+            [
+              "Cloud Hosting Prepaid",
+              "$3,600",
+              "12",
+              "2026-02-01",
+              "Hosting Expense",
+              "$0",
+              "$3,600",
+              ""
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "item",
+        "type": "text"
+      },
+      {
+        "name": "period",
+        "type": "text"
+      },
+      {
+        "name": "debit_account",
+        "type": "text"
+      },
+      {
+        "name": "credit_account",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "accounting@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "vp-finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ACCT",
+      "name": "accounting",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_amort_rules",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_amort_rules\\\", \\\"thread_id\\\": \\\"th_amort\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"Prepaid Amortization Rules\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-28T08:00:00Z\\\"}\\n消息 ID：msg_amort_rules\\n来源：controller@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-01-28T08:00:00Z\\n主题：Prepaid Amortization Rules\\nAmortization rules:\\n\\n1. Monthly amount = Total Prepaid / Term in Months\\n2. Only amortize items where the current date falls within the coverage period\\n3. Items that haven't started yet (Start Date > current month): skip\\n4. Items fully amortized (Remaining = $0): skip\\n5. Round to nearest cent\\n6. Report: Debit Expense Account, Credit Prepaid Asset\\n\\n- Controller\"}"
+      },
+      "create_time": "1769587200000"
+    },
+    {
+      "message_id": "om_msg_vp_accel",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_accel\\\", \\\"thread_id\\\": \\\"th_vp_accel\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"Insurance Amortization Acceleration\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-30T09:00:00Z\\\"}\\n消息 ID：msg_vp_accel\\n来源：vp-finance@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-01-30T09:00:00Z\\n主题：Insurance Amortization Acceleration\\nTeam - per the policy review, the Annual Insurance prepaid should be amortized at double the monthly rate for February (2x the standard monthly amount). We're accelerating recognition due to the mid-year policy change. This overrides the standard straight-line calculation for this item only. All other items use standard amortization.\\n\\n- VP Finance\"}"
+      },
+      "create_time": "1769763600000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_ACCT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_sw_corr\\\", \\\"channel_id\\\": \\\"C_ACCT\\\", \\\"user_id\\\": \\\"U_CONTROLLER\\\", \\\"ts\\\": \\\"1769904000.000100\\\"}\\nCorrection on the Software License prepaid: the total should be $7,200 not $6,000. The vendor sent an updated invoice. This changes the monthly amortization amount. However, since Jan is already recorded, apply the corrected monthly rate starting this month.\"}"
+      },
+      "create_time": "1769904000.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f001\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_SARAH\\\", \\\"ts\\\": \\\"1706100000.000100\\\"}\\nReminder: month-end close starts next Monday. Please have all journal entries submitted by Thursday.\"}"
+      },
+      "create_time": "1706100000.000100"
+    }
+  ]
+}
