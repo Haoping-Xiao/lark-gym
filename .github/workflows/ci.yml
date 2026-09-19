@@ -43,6 +43,13 @@ jobs:
           python-version: '3.13'
       - run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
       - run: bash scripts/build-images.sh
+      - name: Check one native Harbor task before the full suite
+        timeout-minutes: 10
+        run: |
+          harbor run --path tasks/automationbench-simple-3001 --agent oracle --jobs-dir runs/harbor --job-name smoke-oracle
+          python scripts/check-harbor-results.py runs/harbor/smoke-oracle 1 automationbench-simple-3001
+          harbor run --path tasks/automationbench-simple-3001 --agent nop --jobs-dir runs/harbor --job-name smoke-nop
+          python scripts/check-harbor-results.py runs/harbor/smoke-nop 0 automationbench-simple-3001
       - run: harbor run --config experiments/eval/oracle.yaml
       - run: python scripts/check-harbor-results.py runs/harbor/automationbench-oracle 1
       - run: harbor run --config experiments/eval/nop.yaml

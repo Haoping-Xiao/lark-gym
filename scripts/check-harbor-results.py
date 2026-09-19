@@ -2,7 +2,9 @@
 import json, sys
 from pathlib import Path
 job=Path(sys.argv[1]);expected=int(sys.argv[2])
-tasks={p.name for p in Path('tasks').glob('automationbench-*') if p.is_dir()}
+pattern=sys.argv[3] if len(sys.argv)>3 else 'automationbench-*'
+tasks={p.name for p in Path('tasks').glob(pattern) if p.is_dir()}
+assert tasks,('empty task selection',pattern)
 seen=set()
 for p in job.glob('*/result.json'):
     result=json.loads(p.read_text());name=result['task_name'].split('/')[-1]
