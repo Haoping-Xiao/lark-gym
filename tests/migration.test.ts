@@ -170,6 +170,34 @@ for (const task of (await readdir('tasks')).filter((n) =>
           Object.assign(backend.world, structuredClone(solved));
         }
 
+        for (const vcEvent of (expected.events || []).filter(
+          (e: { vc_data?: unknown }) => e.vc_data,
+        )) {
+          const event = backend.world.events.find(
+            (e: { summary: string }) => e.summary === vcEvent.summary,
+          );
+          delete event.vc_data;
+          assert.equal(
+            await grade(),
+            '0',
+            'A scheduled event missing its required video settings must fail',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
+
+        for (const createdChat of expected.new_chats || []) {
+          const chat = backend.world.chats.find(
+            (c: { name: string }) => c.name === createdChat.name,
+          );
+          chat.member_ids = [];
+          assert.equal(
+            await grade(),
+            '0',
+            'Creating a room without inviting its account team must fail',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
+
         for (const membership of expected.memberships || []) {
           const chat = backend.world.chats.find(
             (c: { chat_id: string }) => c.chat_id === membership.chat_id,

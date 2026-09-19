@@ -1,0 +1,225 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_incidents": {
+      "title": "Incidents",
+      "sheets": {
+        "ws_facilities": {
+          "title": "Facilities",
+          "values": [
+            [
+              "Impact",
+              "Location",
+              "Reported",
+              "Severity",
+              "Status",
+              "Summary",
+              "Notes"
+            ],
+            [
+              "Critical",
+              "Badge Readers - HQ",
+              "2026-01-28",
+              "1",
+              "Open",
+              "Badge readers offline - HQ",
+              ""
+            ],
+            [
+              "Critical",
+              "Loading Dock",
+              "2026-01-29",
+              "2",
+              "Open",
+              "Dock door sensor intermittent",
+              ""
+            ],
+            [
+              "Critical",
+              "Badge Readers - Annex",
+              "2026-01-26",
+              "1",
+              "Resolved",
+              "Badge readers offline - Annex building",
+              ""
+            ],
+            [
+              "Low",
+              "Warehouse",
+              "2026-01-27",
+              "3",
+              "Open",
+              "HVAC noisy but working",
+              ""
+            ],
+            [
+              "Low",
+              "Badge Readers - West Wing",
+              "2026-01-27",
+              "1",
+              "Open",
+              "Badge readers intermittent - West Wing",
+              ""
+            ],
+            [
+              "Critical",
+              "Server Room",
+              "2026-01-27",
+              "2",
+              "Open",
+              "Temperature alert - Server Room",
+              ""
+            ],
+            [
+              "Critical",
+              "Badge Readers - HQ East",
+              "2026-01-28",
+              "1",
+              "Open",
+              "Badge readers offline - HQ East entrance",
+              "duplicate of row 2 - same root cause, do not escalate separately"
+            ],
+            [
+              "Critical",
+              "Parking Garage",
+              "2026-01-27",
+              "1",
+              "Open",
+              "Gate barrier malfunction - Parking",
+              "vendor investigating - hold escalation pending diagnosis"
+            ]
+          ]
+        },
+        "ws_escalation_rules": {
+          "title": "Escalation Rules",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Duplicate Incident Policy",
+              "Incidents with Notes indicating 'duplicate' must NOT be escalated separately. They share root cause with another incident and will be resolved together."
+            ],
+            [
+              "Vendor Investigation Hold",
+              "Incidents with Notes indicating 'vendor investigating' or 'hold escalation' must NOT be escalated until the vendor completes their diagnosis."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_jira_jira_proj_1",
+        "fields": {
+          "collection": "jira_project",
+          "source_action_id": "jira_proj_1",
+          "project": "OPS",
+          "project_id": "proj_ops",
+          "searchByParameter": "Operations Support"
+        }
+      },
+      {
+        "record_id": "rec_jira_jira_proj_1b",
+        "fields": {
+          "collection": "jira_project",
+          "source_action_id": "jira_proj_1b",
+          "project": "OPSS",
+          "project_id": "proj_opss",
+          "searchByParameter": "Ops Support"
+        }
+      },
+      {
+        "record_id": "rec_jira_jira_proj_1c",
+        "fields": {
+          "collection": "jira_project",
+          "source_action_id": "jira_proj_1c",
+          "project": "OPER",
+          "project_id": "proj_oper",
+          "searchByParameter": "Operations"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "source_action_id",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "project_id",
+        "type": "text"
+      },
+      {
+        "name": "searchByParameter",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      },
+      {
+        "name": "cloudId",
+        "type": "text"
+      },
+      {
+        "name": "space_id",
+        "type": "text"
+      },
+      {
+        "name": "type",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "issue_external_id",
+        "type": "text"
+      },
+      {
+        "name": "comment",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ops-team@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

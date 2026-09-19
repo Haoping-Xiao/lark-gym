@@ -1,0 +1,2450 @@
+{
+  "now": "2026-02-20T12:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_engagement_policy": {
+      "title": "Engagement Scoring Policy",
+      "sheets": {
+        "ws_tiers": {
+          "title": "Attendance Tiers",
+          "values": [
+            ["tier", "min_pct", "max_pct", "action", "exec_note"],
+            [
+              "Strong",
+              "75",
+              "100",
+              "Advance to next stage",
+              "If exec (CEO/CTO/CFO/VP) present, add 'Executive engaged' to description"
+            ],
+            [
+              "Moderate",
+              "50",
+              "74",
+              "Add 'Partial attendance' note to description",
+              ""
+            ],
+            ["Weak", "0", "49", "Mark 'at risk' in description", ""]
+          ]
+        },
+        "ws_calc_rules": {
+          "title": "Calculation Rules",
+          "values": [
+            ["rule", "description"],
+            [
+              "Attendance Rate",
+              "Count participants who stayed >50% of meeting duration, divide by total registrants"
+            ],
+            ["Stage Advance", "Demo -> Proposal"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoom_meetings_mtg_att_002",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "mtg_att_002",
+          "topic": "Demo - HighAttend Corp",
+          "type": 1,
+          "start_time": "2026-02-13T14:00:00Z",
+          "duration": 60,
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_mtg_partial_001",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "mtg_partial_001",
+          "topic": "Demo - PartialCo",
+          "type": 1,
+          "start_time": "2026-02-14T10:00:00Z",
+          "duration": 60,
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_mtg_low_001",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "mtg_low_001",
+          "topic": "Demo - LowShow Inc",
+          "type": 1,
+          "start_time": "2026-02-15T15:00:00Z",
+          "duration": 60,
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_015",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_015",
+          "topic": "Summit Group - Exec Sponsor Meeting",
+          "type": 2,
+          "start_time": "2026-02-17T15:00:00Z",
+          "duration": 45,
+          "host_email": "ae5@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_006",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_006",
+          "topic": "Enterprise Webinar: Sales Automation 2026",
+          "type": 1,
+          "start_time": "2026-02-27T18:00:00Z",
+          "duration": 60,
+          "host_email": "mkt@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_008",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_008",
+          "topic": "Starling Financial - Contract Review",
+          "type": 2,
+          "start_time": "2026-03-01T16:00:00Z",
+          "duration": 60,
+          "host_email": "ae1@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_019",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_019",
+          "topic": "Highpoint Consulting - Proposal Review",
+          "type": 2,
+          "start_time": "2026-02-19T16:00:00Z",
+          "duration": 45,
+          "host_email": "ae5@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_011",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_011",
+          "topic": "Eastgate Solutions - ROI Workshop",
+          "type": 2,
+          "start_time": "2026-02-19T14:00:00Z",
+          "duration": 90,
+          "host_email": "ae4@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_026",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_026",
+          "topic": "Wavecrest Analytics - Technical Demo",
+          "type": 2,
+          "start_time": "2026-03-03T14:00:00Z",
+          "duration": 60,
+          "host_email": "se2@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_018",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_018",
+          "topic": "Foxridge Capital - Executive Review",
+          "type": 2,
+          "start_time": "2026-02-18T09:00:00Z",
+          "duration": 60,
+          "host_email": "ae4@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_022",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_022",
+          "topic": "Meadowbrook Tech - ROI Analysis",
+          "type": 2,
+          "start_time": "2026-02-24T14:00:00Z",
+          "duration": 45,
+          "host_email": "ae3@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_012",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_012",
+          "topic": "Montclair Industries - Renewal Call",
+          "type": 2,
+          "start_time": "2026-02-21T11:00:00Z",
+          "duration": 30,
+          "host_email": "ae3@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_025",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_025",
+          "topic": "Northstar Media - Partnership Call",
+          "type": 2,
+          "start_time": "2026-02-27T11:00:00Z",
+          "duration": 45,
+          "host_email": "ae2@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_023",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_023",
+          "topic": "Riverview Partners - Implementation Review",
+          "type": 2,
+          "start_time": "2026-02-25T10:00:00Z",
+          "duration": 60,
+          "host_email": "cse@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_027",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_027",
+          "topic": "Harbourview Capital - Strategy Session",
+          "type": 2,
+          "start_time": "2026-03-04T10:00:00Z",
+          "duration": 60,
+          "host_email": "ae5@noiseco.example.com",
+          "status": "waiting"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_030",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_030",
+          "topic": "Terrace Software - Onboarding Session",
+          "type": 2,
+          "start_time": "2026-03-07T09:00:00Z",
+          "duration": 90,
+          "host_email": "cse@noiseco.example.com",
+          "status": "waiting"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_009",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_009",
+          "topic": "Weekly Pipeline Review — Week 9",
+          "type": 2,
+          "start_time": "2026-03-02T15:00:00Z",
+          "duration": 60,
+          "host_email": "mgr@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_002",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_002",
+          "topic": "BlueStar Ventures - Product Demo",
+          "type": 2,
+          "start_time": "2026-02-20T10:00:00Z",
+          "duration": 60,
+          "host_email": "ae2@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_001",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_001",
+          "topic": "Ironclad Systems - Discovery Call",
+          "type": 2,
+          "start_time": "2026-02-18T14:00:00Z",
+          "duration": 30,
+          "host_email": "ae1@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_016",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_016",
+          "topic": "Sunstone Capital - Contract Negotiation",
+          "type": 2,
+          "start_time": "2026-02-16T10:00:00Z",
+          "duration": 60,
+          "host_email": "ae1@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_003",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_003",
+          "topic": "Q1 Sales Team Standup",
+          "type": 2,
+          "start_time": "2026-02-24T09:00:00Z",
+          "duration": 30,
+          "host_email": "mgr@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_024",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_024",
+          "topic": "Stonebridge Holdings - Renewal Discussion",
+          "type": 2,
+          "start_time": "2026-02-26T15:00:00Z",
+          "duration": 30,
+          "host_email": "ae1@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_013",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_013",
+          "topic": "Product Roadmap Webinar — March 2026",
+          "type": 1,
+          "start_time": "2026-03-04T18:00:00Z",
+          "duration": 75,
+          "host_email": "pm@noiseco.example.com",
+          "status": "waiting"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_005",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_005",
+          "topic": "Vertex Capital - Executive Briefing",
+          "type": 2,
+          "start_time": "2026-02-26T11:00:00Z",
+          "duration": 60,
+          "host_email": "ae3@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_004",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_004",
+          "topic": "Cascade Analytics - Technical Deep Dive",
+          "type": 2,
+          "start_time": "2026-02-25T15:00:00Z",
+          "duration": 90,
+          "host_email": "se1@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_007",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_007",
+          "topic": "Thornwood Partners - Security Review",
+          "type": 2,
+          "start_time": "2026-03-01T13:00:00Z",
+          "duration": 45,
+          "host_email": "se2@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_021",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_021",
+          "topic": "Q1 Forecast Call — All Reps",
+          "type": 2,
+          "start_time": "2026-02-23T09:00:00Z",
+          "duration": 90,
+          "host_email": "mgr@noiseco.example.com",
+          "status": "ended"
+        }
+      },
+      {
+        "record_id": "rec_zoom_meetings_zoom_noise_014",
+        "fields": {
+          "collection": "zoom_meetings",
+          "id": "zoom_noise_014",
+          "topic": "Pacific Ridge Corp - Implementation Kickoff",
+          "type": 2,
+          "start_time": "2026-03-05T09:00:00Z",
+          "duration": 120,
+          "host_email": "cse@noiseco.example.com",
+          "status": "waiting"
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_0",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_att_002",
+          "user_email": "ceo@highattend.example.com",
+          "user_name": "CEO HighAttend",
+          "duration": 55
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_1",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_att_002",
+          "user_email": "vp@highattend.example.com",
+          "user_name": "VP HighAttend",
+          "duration": 50
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_2",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_att_002",
+          "user_email": "mgr1@highattend.example.com",
+          "user_name": "Mgr1 HighAttend",
+          "duration": 58
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_3",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_att_002",
+          "user_email": "mgr2@highattend.example.com",
+          "user_name": "Mgr2 HighAttend",
+          "duration": 45
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_4",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_partial_001",
+          "user_email": "p1@partial.example.com",
+          "user_name": "Person1",
+          "duration": 55
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_5",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_partial_001",
+          "user_email": "p2@partial.example.com",
+          "user_name": "Person2",
+          "duration": 50
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_6",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_partial_001",
+          "user_email": "p3@partial.example.com",
+          "user_name": "Person3",
+          "duration": 40
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_7",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_partial_001",
+          "user_email": "p4@partial.example.com",
+          "user_name": "Person4",
+          "duration": 15
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_8",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_partial_001",
+          "user_email": "p5@partial.example.com",
+          "user_name": "Person5",
+          "duration": 10
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_9",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_low_001",
+          "user_email": "l1@lowshow.example.com",
+          "user_name": "Low1",
+          "duration": 55
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_10",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_low_001",
+          "user_email": "l2@lowshow.example.com",
+          "user_name": "Low2",
+          "duration": 5
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_11",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_low_001",
+          "user_email": "l3@lowshow.example.com",
+          "user_name": "Low3",
+          "duration": 10
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_12",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "mtg_low_001",
+          "user_email": "l4@lowshow.example.com",
+          "user_name": "Low4",
+          "duration": 8
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_13",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_004",
+          "user_id": "zoom_np_004",
+          "user_name": "Megan Sullivan",
+          "user_email": "megan.sullivan@thornwood.example.com",
+          "join_time": "2026-03-01T13:00:00Z",
+          "leave_time": "2026-03-01T13:45:00Z",
+          "duration": 45
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_14",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_002",
+          "user_id": "zoom_np_002",
+          "user_name": "Carmen Valdez",
+          "user_email": "carmen.valdez@bluestar.example.com",
+          "join_time": "2026-02-20T10:02:00Z",
+          "leave_time": "2026-02-20T11:00:00Z",
+          "duration": 58
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_15",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_003",
+          "user_id": "zoom_np_003",
+          "user_name": "Daniel Park",
+          "user_email": "daniel.park@cascadeanalytics.example.com",
+          "join_time": "2026-02-25T15:01:00Z",
+          "leave_time": "2026-02-25T16:30:00Z",
+          "duration": 89
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_16",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_009",
+          "user_id": "zoom_np_009",
+          "user_name": "Tyler Brooks",
+          "user_email": "tyler.brooks@pacific.example.com",
+          "join_time": "2026-03-05T09:00:00Z",
+          "leave_time": "2026-03-05T11:00:00Z",
+          "duration": 120
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_17",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_010",
+          "user_id": "zoom_np_010",
+          "user_name": "Lauren Simmons",
+          "user_email": "lauren.simmons@summit.example.com",
+          "join_time": "2026-02-17T15:01:00Z",
+          "leave_time": "2026-02-17T15:40:00Z",
+          "duration": 39
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_18",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_005",
+          "user_id": "zoom_np_005",
+          "user_name": "Kevin Walsh",
+          "user_email": "kevin.walsh@starling.example.com",
+          "join_time": "2026-03-01T16:00:00Z",
+          "leave_time": "2026-03-01T17:00:00Z",
+          "duration": 60
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_19",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_008",
+          "user_id": "zoom_np_008",
+          "user_name": "Natalie Hoffman",
+          "user_email": "natalie.hoffman@montclair.example.com",
+          "join_time": "2026-02-21T11:00:00Z",
+          "leave_time": "2026-02-21T11:25:00Z",
+          "duration": 25
+        }
+      },
+      {
+        "record_id": "rec_zoom_participants_source_index_20",
+        "fields": {
+          "collection": "zoom_participants",
+          "meeting_id": "zoom_noise_006",
+          "user_id": "zoom_np_006",
+          "user_name": "Ananya Desai",
+          "user_email": "ananya.desai@redwood.example.com",
+          "join_time": "2026-03-03T10:00:00Z",
+          "leave_time": "2026-03-03T10:28:00Z",
+          "duration": 28
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_0",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_att_002",
+          "email": "ceo@highattend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_1",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_att_002",
+          "email": "vp@highattend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_2",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_att_002",
+          "email": "mgr1@highattend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_3",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_att_002",
+          "email": "mgr2@highattend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_4",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_partial_001",
+          "email": "p1@partial.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_5",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_partial_001",
+          "email": "p2@partial.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_6",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_partial_001",
+          "email": "p3@partial.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_7",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_partial_001",
+          "email": "p4@partial.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_8",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_partial_001",
+          "email": "p5@partial.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_9",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_low_001",
+          "email": "l1@lowshow.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_10",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_low_001",
+          "email": "l2@lowshow.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_11",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_low_001",
+          "email": "l3@lowshow.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoom_registrants_source_index_12",
+        "fields": {
+          "collection": "zoom_registrants",
+          "meeting_id": "mtg_low_001",
+          "email": "l4@lowshow.example.com"
+        }
+      },
+      {
+        "record_id": "rec_003xx000004HA01",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "CEO",
+          "last_name": "HighAttend",
+          "email": "ceo@highattend.example.com",
+          "title": "CEO",
+          "account_id": "001xx000003HA01"
+        }
+      },
+      {
+        "record_id": "rec_003xx000004PA01",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Person1",
+          "last_name": "Partial",
+          "email": "p1@partial.example.com",
+          "title": "Manager",
+          "account_id": "001xx000003PA01"
+        }
+      },
+      {
+        "record_id": "rec_003xx000004LO01",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Low1",
+          "last_name": "LowShow",
+          "email": "l1@lowshow.example.com",
+          "title": "Analyst",
+          "account_id": "001xx000003LO01"
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC024",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Abigail",
+          "last_name": "Garrett",
+          "email": "abigail.garrett@highpointcon.example.com",
+          "phone": "+1-555-223-2161",
+          "account_id": "001xx000099NA024",
+          "title": "Customer Success Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC011",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Marcus",
+          "last_name": "Reed",
+          "email": "marcus.reed@summitgrouph.example.com",
+          "phone": "+1-555-210-2070",
+          "account_id": "001xx000099NA011",
+          "title": "Enterprise Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC009",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Tyler",
+          "last_name": "Brooks",
+          "email": "tyler.brooks@montclairind.example.com",
+          "phone": "+1-555-208-2056",
+          "account_id": "001xx000099NA009",
+          "title": "Sales Development Rep",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC019",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Caleb",
+          "last_name": "Pierce",
+          "email": "caleb.pierce@westbrookgro.example.com",
+          "phone": "+1-555-218-2126",
+          "account_id": "001xx000099NA019",
+          "title": "Inside Sales Rep",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC023",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Justin",
+          "last_name": "Lawson",
+          "email": "justin.lawson@foxridgecapi.example.com",
+          "phone": "+1-555-222-2154",
+          "account_id": "001xx000099NA023",
+          "title": "Enterprise Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC053",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Phoenix",
+          "last_name": "Briggs",
+          "email": "phoenix.briggs@lakefrontven.example.com",
+          "phone": "+1-555-252-2364",
+          "account_id": "001xx000099NA018",
+          "title": "Head of Partnerships",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC045",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Rowan",
+          "last_name": "Snyder",
+          "email": "rowan.snyder@pacificridge.example.com",
+          "phone": "+1-555-244-2308",
+          "account_id": "001xx000099NA010",
+          "title": "Enterprise BDR",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC052",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Indigo",
+          "last_name": "Hammond",
+          "email": "indigo.hammond@ironridgesol.example.com",
+          "phone": "+1-555-251-2357",
+          "account_id": "001xx000099NA017",
+          "title": "Sales Excellence Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC038",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Quinn",
+          "last_name": "Higgins",
+          "email": "quinn.higgins@cascadeanaly.example.com",
+          "phone": "+1-555-237-2259",
+          "account_id": "001xx000099NA003",
+          "title": "Solutions Consultant",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC018",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Olivia",
+          "last_name": "Haynes",
+          "email": "olivia.haynes@lakefrontven.example.com",
+          "phone": "+1-555-217-2119",
+          "account_id": "001xx000099NA018",
+          "title": "Partner Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC022",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Grace",
+          "last_name": "Stanton",
+          "email": "grace.stanton@clearwatersy.example.com",
+          "phone": "+1-555-221-2147",
+          "account_id": "001xx000099NA022",
+          "title": "Marketing Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC020",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hannah",
+          "last_name": "Fletcher",
+          "email": "hannah.fletcher@alpinedigita.example.com",
+          "phone": "+1-555-219-2133",
+          "account_id": "001xx000099NA020",
+          "title": "Sales Operations Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC047",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sawyer",
+          "last_name": "Fleming",
+          "email": "sawyer.fleming@riverviewpar.example.com",
+          "phone": "+1-555-246-2322",
+          "account_id": "001xx000099NA012",
+          "title": "Sales Operations Lead",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC014",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Chloe",
+          "last_name": "Warren",
+          "email": "chloe.warren@silverstoneg.example.com",
+          "phone": "+1-555-213-2091",
+          "account_id": "001xx000099NA014",
+          "title": "Regional Sales Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC033",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Taylor",
+          "last_name": "Walton",
+          "email": "taylor.walton@uplandsystem.example.com",
+          "phone": "+1-555-232-2224",
+          "account_id": "001xx000099NA033",
+          "title": "Account Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC017",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ethan",
+          "last_name": "Nichols",
+          "email": "ethan.nichols@ironridgesol.example.com",
+          "phone": "+1-555-216-2112",
+          "account_id": "001xx000099NA017",
+          "title": "Senior Account Executive",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC030",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hailey",
+          "last_name": "Chandler",
+          "email": "hailey.chandler@stonebridgeh.example.com",
+          "phone": "+1-555-229-2203",
+          "account_id": "001xx000099NA030",
+          "title": "Director of Operations",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC032",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Peyton",
+          "last_name": "Barker",
+          "email": "peyton.barker@terracesoftw.example.com",
+          "phone": "+1-555-231-2217",
+          "account_id": "001xx000099NA032",
+          "title": "Channel Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC028",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Madison",
+          "last_name": "Payne",
+          "email": "madison.payne@parksidesolu.example.com",
+          "phone": "+1-555-227-2189",
+          "account_id": "001xx000099NA028",
+          "title": "VP of Customer Success",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC031",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Jordan",
+          "last_name": "Marsh",
+          "email": "jordan.marsh@sunstonecapi.example.com",
+          "phone": "+1-555-230-2210",
+          "account_id": "001xx000099NA031",
+          "title": "Senior BDR",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC013",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Derek",
+          "last_name": "Hamilton",
+          "email": "derek.hamilton@northgatetec.example.com",
+          "phone": "+1-555-212-2084",
+          "account_id": "001xx000099NA013",
+          "title": "Solutions Architect",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC036",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Casey",
+          "last_name": "Erickson",
+          "email": "casey.erickson@ironcladsyst.example.com",
+          "phone": "+1-555-235-2245",
+          "account_id": "001xx000099NA001",
+          "title": "Territory Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC027",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Cameron",
+          "last_name": "Burke",
+          "email": "cameron.burke@oceanfrontla.example.com",
+          "phone": "+1-555-226-2182",
+          "account_id": "001xx000099NA027",
+          "title": "Strategic Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC025",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Logan",
+          "last_name": "Holt",
+          "email": "logan.holt@meadowbrookt.example.com",
+          "phone": "+1-555-224-2168",
+          "account_id": "001xx000099NA025",
+          "title": "Sales Engineer",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC015",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Nathan",
+          "last_name": "Barnes",
+          "email": "nathan.barnes@cloudbridges.example.com",
+          "phone": "+1-555-214-2098",
+          "account_id": "001xx000099NA015",
+          "title": "VP of Engineering",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC054",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Wren",
+          "last_name": "Ramsey",
+          "email": "wren.ramsey@westbrookgro.example.com",
+          "phone": "+1-555-253-2371",
+          "account_id": "001xx000099NA019",
+          "title": "Strategic Sales Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC049",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Harley",
+          "last_name": "Schultz",
+          "email": "harley.schultz@silverstoneg.example.com",
+          "phone": "+1-555-248-2336",
+          "account_id": "001xx000099NA014",
+          "title": "Inside Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC040",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hayden",
+          "last_name": "Lowe",
+          "email": "hayden.lowe@thornwoodpar.example.com",
+          "phone": "+1-555-239-2273",
+          "account_id": "001xx000099NA005",
+          "title": "Sales Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC048",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Quinn",
+          "last_name": "Townsend",
+          "email": "quinn.townsend@northgatetec.example.com",
+          "phone": "+1-555-247-2329",
+          "account_id": "001xx000099NA013",
+          "title": "Key Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC008",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Natalie",
+          "last_name": "Hoffman",
+          "email": "natalie.hoffman@eastgatesolu.example.com",
+          "phone": "+1-555-207-2049",
+          "account_id": "001xx000099NA008",
+          "title": "Customer Success Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC055",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Remy",
+          "last_name": "Padilla",
+          "email": "remy.padilla@alpinedigita.example.com",
+          "phone": "+1-555-254-2378",
+          "account_id": "001xx000099NA020",
+          "title": "Global Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC026",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Zoe",
+          "last_name": "Spencer",
+          "email": "zoe.spencer@northstarmed.example.com",
+          "phone": "+1-555-225-2175",
+          "account_id": "001xx000099NA026",
+          "title": "Head of Sales",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC050",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "River",
+          "last_name": "Williamson",
+          "email": "river.williamson@cloudbridges.example.com",
+          "phone": "+1-555-249-2343",
+          "account_id": "001xx000099NA015",
+          "title": "Director of Business Dev",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC041",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Blake",
+          "last_name": "Parsons",
+          "email": "blake.parsons@starlingfina.example.com",
+          "phone": "+1-555-240-2280",
+          "account_id": "001xx000099NA006",
+          "title": "Business Development Dir",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC037",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Drew",
+          "last_name": "Zimmerman",
+          "email": "drew.zimmerman@bluestarvent.example.com",
+          "phone": "+1-555-236-2252",
+          "account_id": "001xx000099NA002",
+          "title": "VP of Sales",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC042",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Finley",
+          "last_name": "Hoover",
+          "email": "finley.hoover@redwoodtechn.example.com",
+          "phone": "+1-555-241-2287",
+          "account_id": "001xx000099NA007",
+          "title": "Customer Solutions Lead",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC012",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Amber",
+          "last_name": "Foster",
+          "email": "amber.foster@riverviewpar.example.com",
+          "phone": "+1-555-211-2077",
+          "account_id": "001xx000099NA012",
+          "title": "Business Development Rep",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC035",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Riley",
+          "last_name": "Griffith",
+          "email": "riley.griffith@zenithplatfo.example.com",
+          "phone": "+1-555-234-2238",
+          "account_id": "001xx000099NA035",
+          "title": "Demand Generation Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC021",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ryan",
+          "last_name": "Holloway",
+          "email": "ryan.holloway@baysideanaly.example.com",
+          "phone": "+1-555-220-2140",
+          "account_id": "001xx000099NA021",
+          "title": "Director of Partnerships",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC043",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Avery",
+          "last_name": "Benson",
+          "email": "avery.benson@eastgatesolu.example.com",
+          "phone": "+1-555-242-2294",
+          "account_id": "001xx000099NA008",
+          "title": "Partner Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC039",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Reese",
+          "last_name": "Sutton",
+          "email": "reese.sutton@vertexcapita.example.com",
+          "phone": "+1-555-238-2266",
+          "account_id": "001xx000099NA004",
+          "title": "Account Coordinator",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC004",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Megan",
+          "last_name": "Sullivan",
+          "email": "megan.sullivan@vertexcapita.example.com",
+          "phone": "+1-555-203-2021",
+          "account_id": "001xx000099NA004",
+          "title": "Account Executive",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC005",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Kevin",
+          "last_name": "Walsh",
+          "email": "kevin.walsh@thornwoodpar.example.com",
+          "phone": "+1-555-204-2028",
+          "account_id": "001xx000099NA005",
+          "title": "Product Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC044",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Parker",
+          "last_name": "Harvey",
+          "email": "parker.harvey@montclairind.example.com",
+          "phone": "+1-555-243-2301",
+          "account_id": "001xx000099NA009",
+          "title": "Growth Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC007",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Brandon",
+          "last_name": "Ortega",
+          "email": "brandon.ortega@redwoodtechn.example.com",
+          "phone": "+1-555-206-2042",
+          "account_id": "001xx000099NA007",
+          "title": "Chief Revenue Officer",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_006xx000004HA01",
+        "fields": {
+          "collection": "opportunities",
+          "name": "HighAttend Deal",
+          "account_id": "001xx000003HA01",
+          "stage_name": "Demo",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000004PA01",
+        "fields": {
+          "collection": "opportunities",
+          "name": "PartialCo Deal",
+          "account_id": "001xx000003PA01",
+          "stage_name": "Demo",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000004LO01",
+        "fields": {
+          "collection": "opportunities",
+          "name": "LowShow Deal",
+          "account_id": "001xx000003LO01",
+          "stage_name": "Demo",
+          "description": "Strategic account - override attendance rules. Always advance to Proposal regardless of attendance metrics."
+        }
+      },
+      {
+        "record_id": "rec_006xx000004CW01",
+        "fields": {
+          "collection": "opportunities",
+          "name": "HighAttend Renewal",
+          "account_id": "001xx000003HA01",
+          "stage_name": "Closed Won",
+          "description": "Renewed last quarter"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO011",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Summit Group Holdings - Platform License",
+          "stage_name": "Prospecting",
+          "close_date": "2026-02-11T00:00:00",
+          "amount": 60000.0,
+          "account_id": "001xx000099NA011",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO003",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Cascade Analytics - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-03-03T00:00:00",
+          "amount": 45000.0,
+          "account_id": "001xx000099NA003",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO016",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Harbourview Capital - Platform License",
+          "stage_name": "Prospecting",
+          "close_date": "2026-07-16T00:00:00",
+          "amount": 70000.0,
+          "account_id": "001xx000099NA016",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO015",
+        "fields": {
+          "collection": "opportunities",
+          "name": "CloudBridge Systems - Platform License",
+          "stage_name": "Id. Decision Makers",
+          "close_date": "2026-06-15T00:00:00",
+          "amount": 320000.0,
+          "account_id": "001xx000099NA015",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO007",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Redwood Technologies - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-07-07T00:00:00",
+          "amount": 95000.0,
+          "account_id": "001xx000099NA007",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO018",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Lakefront Ventures - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-09-18T00:00:00",
+          "amount": 90000.0,
+          "account_id": "001xx000099NA018",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO009",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Montclair Industries - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-09-09T00:00:00",
+          "amount": 25000.0,
+          "account_id": "001xx000099NA009",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO004",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Vertex Capital - Platform License",
+          "stage_name": "Value Proposition",
+          "close_date": "2026-04-04T00:00:00",
+          "amount": 200000.0,
+          "account_id": "001xx000099NA004",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO001",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ironclad Systems - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-01-01T00:00:00",
+          "amount": 85000.0,
+          "account_id": "001xx000099NA001",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO020",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Alpine Digital - Platform License",
+          "stage_name": "Needs Analysis",
+          "close_date": "2026-02-20T00:00:00",
+          "amount": 150000.0,
+          "account_id": "001xx000099NA020",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO002",
+        "fields": {
+          "collection": "opportunities",
+          "name": "BlueStar Ventures - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-02-02T00:00:00",
+          "amount": 120000.0,
+          "account_id": "001xx000099NA002",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO008",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Eastgate Solutions - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-08-08T00:00:00",
+          "amount": 55000.0,
+          "account_id": "001xx000099NA008",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO005",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Thornwood Partners - Platform License",
+          "stage_name": "Prospecting",
+          "close_date": "2026-05-05T00:00:00",
+          "amount": 30000.0,
+          "account_id": "001xx000099NA005",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO014",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Silverstone Group - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-05-14T00:00:00",
+          "amount": 40000.0,
+          "account_id": "001xx000099NA014",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO017",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ironridge Solutions - Platform License",
+          "stage_name": "Value Proposition",
+          "close_date": "2026-08-17T00:00:00",
+          "amount": 50000.0,
+          "account_id": "001xx000099NA017",
+          "description": "null"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "topic",
+        "type": "text"
+      },
+      {
+        "name": "type",
+        "type": "number"
+      },
+      {
+        "name": "start_time",
+        "type": "text"
+      },
+      {
+        "name": "duration",
+        "type": "number"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "host_email",
+        "type": "text"
+      },
+      {
+        "name": "meeting_id",
+        "type": "text"
+      },
+      {
+        "name": "user_email",
+        "type": "text"
+      },
+      {
+        "name": "user_name",
+        "type": "text"
+      },
+      {
+        "name": "user_id",
+        "type": "text"
+      },
+      {
+        "name": "join_time",
+        "type": "text"
+      },
+      {
+        "name": "leave_time",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "stage_name",
+        "type": "text"
+      },
+      {
+        "name": "close_date",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "abigail.garrett@highpointcon.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ae1@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ae2@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "ae3@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "ae4@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "ae5@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "amber.foster@riverviewpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "ananya.desai@redwood.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "avery.benson@eastgatesolu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "blake.parsons@starlingfina.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "brandon.ortega@redwoodtechn.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "caleb.pierce@westbrookgro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "cameron.burke@oceanfrontla.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "carmen.valdez@bluestar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "casey.erickson@ironcladsyst.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "ceo@highattend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "chloe.warren@silverstoneg.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "cse@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "daniel.park@cascadeanalytics.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "derek.hamilton@northgatetec.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "drew.zimmerman@bluestarvent.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "ethan.nichols@ironridgesol.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "finley.hoover@redwoodtechn.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "grace.stanton@clearwatersy.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "hailey.chandler@stonebridgeh.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "hannah.fletcher@alpinedigita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "harley.schultz@silverstoneg.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "hayden.lowe@thornwoodpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "indigo.hammond@ironridgesol.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "jordan.marsh@sunstonecapi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "justin.lawson@foxridgecapi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "kevin.walsh@starling.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "kevin.walsh@thornwoodpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "l1@lowshow.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_34",
+      "name": "l2@lowshow.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_35",
+      "name": "l3@lowshow.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_36",
+      "name": "l4@lowshow.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_37",
+      "name": "lauren.simmons@summit.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_38",
+      "name": "logan.holt@meadowbrookt.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_39",
+      "name": "madison.payne@parksidesolu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_40",
+      "name": "marcus.reed@summitgrouph.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_41",
+      "name": "megan.sullivan@thornwood.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_42",
+      "name": "megan.sullivan@vertexcapita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_43",
+      "name": "mgr1@highattend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_44",
+      "name": "mgr2@highattend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_45",
+      "name": "mgr@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_46",
+      "name": "mkt@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_47",
+      "name": "natalie.hoffman@eastgatesolu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_48",
+      "name": "natalie.hoffman@montclair.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_49",
+      "name": "nathan.barnes@cloudbridges.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_50",
+      "name": "olivia.haynes@lakefrontven.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_51",
+      "name": "p1@partial.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_52",
+      "name": "p2@partial.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_53",
+      "name": "p3@partial.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_54",
+      "name": "p4@partial.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_55",
+      "name": "p5@partial.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_56",
+      "name": "parker.harvey@montclairind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_57",
+      "name": "peyton.barker@terracesoftw.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_58",
+      "name": "phoenix.briggs@lakefrontven.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_59",
+      "name": "pm@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_60",
+      "name": "quinn.higgins@cascadeanaly.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_61",
+      "name": "quinn.townsend@northgatetec.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_62",
+      "name": "reese.sutton@vertexcapita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_63",
+      "name": "remy.padilla@alpinedigita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_64",
+      "name": "riley.griffith@zenithplatfo.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_65",
+      "name": "river.williamson@cloudbridges.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_66",
+      "name": "rowan.snyder@pacificridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_67",
+      "name": "ryan.holloway@baysideanaly.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_68",
+      "name": "sawyer.fleming@riverviewpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_69",
+      "name": "se1@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_70",
+      "name": "se2@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_71",
+      "name": "taylor.walton@uplandsystem.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_72",
+      "name": "tyler.brooks@montclairind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_73",
+      "name": "tyler.brooks@pacific.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_74",
+      "name": "vp@highattend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_75",
+      "name": "wren.ramsey@westbrookgro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_76",
+      "name": "zoe.spencer@northstarmed.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_PIPE",
+      "name": "pipeline-updates",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990024.000024\\\", \\\"user_id\\\": \\\"U_noise_24\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nRiverside Insurance just posted a LinkedIn job for a 'Platform Manager' — good upsell signal!\"}"
+      },
+      "create_time": "1740990024.000024"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990013.000013\\\", \\\"user_id\\\": \\\"U_noise_13\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nHarbourview Capital: champion just left the company 😬 Need to re-map the account\"}"
+      },
+      "create_time": "1740990013.000013"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990028.000028\\\", \\\"user_id\\\": \\\"U_noise_28\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nUpland Systems ghosted for 3 weeks. Sent breakup email. Sometimes that works 😅\"}"
+      },
+      "create_time": "1740990028.000028"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990049.000049\\\", \\\"user_id\\\": \\\"U_noise_49\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nWeek 10 starts Monday. Let's sprint to close! Who needs backup on any deals?\"}"
+      },
+      "create_time": "1740990049.000049"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990050.000050\\\", \\\"user_id\\\": \\\"U_noise_50\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nMaplecrest Systems sent us an unsolicited security questionnaire — anyone know this account?\"}"
+      },
+      "create_time": "1740990050.000050"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990047.000047\\\", \\\"user_id\\\": \\\"U_noise_47\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nCloudBridge legal has questions about data residency. Looping in our DPO for a joint call.\"}"
+      },
+      "create_time": "1740990047.000047"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990010.000010\\\", \\\"user_id\\\": \\\"U_noise_10\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nStandup: Yesterday - Vertex Capital call. Today - Northgate demo. Blocker: legal review taking 2 weeks\"}"
+      },
+      "create_time": "1740990010.000010"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990040.000040\\\", \\\"user_id\\\": \\\"U_noise_40\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nNew pricing deck is live — v3.2. All previous versions deprecated, please update your decks.\"}"
+      },
+      "create_time": "1740990040.000040"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990015.000015\\\", \\\"user_id\\\": \\\"U_noise_15\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nWeek 9 leaderboard just posted. Three of us are over 130% — great work everyone!\"}"
+      },
+      "create_time": "1740990015.000015"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990019.000019\\\", \\\"user_id\\\": \\\"U_noise_19\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nHighpoint Consulting wants a custom integration quote. Looping in Solutions team.\"}"
+      },
+      "create_time": "1740990019.000019"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990001.000001\\\", \\\"user_id\\\": \\\"U_noise_01\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nMorning all! Big week ahead — let's close Q1 strong 💪\"}"
+      },
+      "create_time": "1740990001.000001"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990033.000033\\\", \\\"user_id\\\": \\\"U_noise_33\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nSunstone Capital agreed to a 2-year deal at 8% discount. Checking with VP before countersigning.\"}"
+      },
+      "create_time": "1740990033.000033"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990048.000048\\\", \\\"user_id\\\": \\\"U_noise_48\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nMeadowbrook Tech rescheduled again — Q2 for sure. Marking as delayed in CRM.\"}"
+      },
+      "create_time": "1740990048.000048"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990043.000043\\\", \\\"user_id\\\": \\\"U_noise_43\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nStonebridge Holdings asked for a multi-year price lock. Escalating to pricing committee.\"}"
+      },
+      "create_time": "1740990043.000043"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990031.000031\\\", \\\"user_id\\\": \\\"U_noise_31\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nJust got off a call with Harbourview — they want to move to contract this week. Need legal ASAP.\"}"
+      },
+      "create_time": "1740990031.000031"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990021.000021\\\", \\\"user_id\\\": \\\"U_noise_21\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nOOO: I'm out Thursday-Friday. Northstar Media is covered by Jordan if anything urgent comes up.\"}"
+      },
+      "create_time": "1740990021.000021"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990014.000014\\\", \\\"user_id\\\": \\\"U_noise_14\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nGood news: Alpine Digital signed! 2-year deal, $110k ARR. Nicely done Kevin!\"}"
+      },
+      "create_time": "1740990014.000014"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990008.000008\\\", \\\"user_id\\\": \\\"U_noise_08\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nCascade Analytics came back from procurement — they're asking for net-60 terms\"}"
+      },
+      "create_time": "1740990008.000008"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990011.000011\\\", \\\"user_id\\\": \\\"U_noise_11\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nWho owns the Silverstone Group account? Need to coordinate on renewal timing.\"}"
+      },
+      "create_time": "1740990011.000011"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990039.000039\\\", \\\"user_id\\\": \\\"U_noise_39\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nQ1 close plan: 5 deals in final stage, $620k at risk. Let's align on blockers today.\"}"
+      },
+      "create_time": "1740990039.000039"
+    },
+    {
+      "message_id": "om_slack_20",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990045.000045\\\", \\\"user_id\\\": \\\"U_noise_45\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nIronridge is back! After 6 weeks dark they replied to the breakup email. Scheduling a call.\"}"
+      },
+      "create_time": "1740990045.000045"
+    },
+    {
+      "message_id": "om_slack_21",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990007.000007\\\", \\\"user_id\\\": \\\"U_noise_07\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nPSA: CRM maintenance Saturday 2-4am. Save your work Friday night.\"}"
+      },
+      "create_time": "1740990007.000007"
+    },
+    {
+      "message_id": "om_slack_22",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990036.000036\\\", \\\"user_id\\\": \\\"U_noise_36\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nOceanfront Labs pilot complete — 9/10 satisfaction. Moving to full deployment next month 🎉\"}"
+      },
+      "create_time": "1740990036.000036"
+    },
+    {
+      "message_id": "om_slack_23",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990023.000023\\\", \\\"user_id\\\": \\\"U_noise_23\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nParkside Solutions: renewal conversation starting. They want a multi-year discount.\"}"
+      },
+      "create_time": "1740990023.000023"
+    },
+    {
+      "message_id": "om_slack_24",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990029.000029\\\", \\\"user_id\\\": \\\"U_noise_29\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nWavecrest Analytics on boarding call went great. Happy customer — ask for referral?\"}"
+      },
+      "create_time": "1740990029.000029"
+    },
+    {
+      "message_id": "om_slack_25",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990005.000005\\\", \\\"user_id\\\": \\\"U_noise_05\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nAnyone have a good champion letter template for manufacturing accounts?\"}"
+      },
+      "create_time": "1740990005.000005"
+    },
+    {
+      "message_id": "om_slack_26",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990038.000038\\\", \\\"user_id\\\": \\\"U_noise_38\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nAnyone have a warm contact at Northstar Media? Need an intro for the media vertical.\"}"
+      },
+      "create_time": "1740990038.000038"
+    },
+    {
+      "message_id": "om_slack_27",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990006.000006\\\", \\\"user_id\\\": \\\"U_noise_06\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nBlueStar Ventures just signed the NDA — moving to discovery this week\"}"
+      },
+      "create_time": "1740990006.000006"
+    },
+    {
+      "message_id": "om_slack_28",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990017.000017\\\", \\\"user_id\\\": \\\"U_noise_17\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nClearwater Systems legal is asking about SOC 2 Type II — grabbing report from InfoSec\"}"
+      },
+      "create_time": "1740990017.000017"
+    },
+    {
+      "message_id": "om_slack_29",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990037.000037\\\", \\\"user_id\\\": \\\"U_noise_37\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nUpdated security questionnaire template posted in Google Drive. Check #sales-enablement.\"}"
+      },
+      "create_time": "1740990037.000037"
+    },
+    {
+      "message_id": "om_slack_30",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990041.000041\\\", \\\"user_id\\\": \\\"U_noise_41\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nWavecrest Analytics asking for a case study. Does anyone have an analytics vertical reference?\"}"
+      },
+      "create_time": "1740990041.000041"
+    },
+    {
+      "message_id": "om_slack_31",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990030.000030\\\", \\\"user_id\\\": \\\"U_noise_30\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nZenith Platforms contract fully executed ✅ Handing off to CS now.\"}"
+      },
+      "create_time": "1740990030.000030"
+    },
+    {
+      "message_id": "om_slack_32",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990022.000022\\\", \\\"user_id\\\": \\\"U_noise_22\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nOceanfront Labs is doing a PoC. Week 2 check-in call went well — they love the API.\"}"
+      },
+      "create_time": "1740990022.000022"
+    },
+    {
+      "message_id": "om_slack_33",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990002.000002\\\", \\\"user_id\\\": \\\"U_noise_02\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nJust wrapped the Ironclad demo. Really engaged team, feels like a solid Proposal push.\"}"
+      },
+      "create_time": "1740990002.000002"
+    },
+    {
+      "message_id": "om_slack_34",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990034.000034\\\", \\\"user_id\\\": \\\"U_noise_34\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nReminder: all deals >$50k need second-level approval. Submit in Salesforce before EOD.\"}"
+      },
+      "create_time": "1740990034.000034"
+    },
+    {
+      "message_id": "om_slack_35",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990027.000027\\\", \\\"user_id\\\": \\\"U_noise_27\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nTerrace Software asked for implementation timeline — sending over SOW template today\"}"
+      },
+      "create_time": "1740990027.000027"
+    },
+    {
+      "message_id": "om_slack_36",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990026.000026\\\", \\\"user_id\\\": \\\"U_noise_26\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nSunstone Capital: new CFO coming in. Scheduling intro call for next week.\"}"
+      },
+      "create_time": "1740990026.000026"
+    },
+    {
+      "message_id": "om_slack_37",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990016.000016\\\", \\\"user_id\\\": \\\"U_noise_16\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nBayside Analytics is evaluating us vs. Competitor X. Request for a third reference call.\"}"
+      },
+      "create_time": "1740990016.000016"
+    },
+    {
+      "message_id": "om_slack_38",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990020.000020\\\", \\\"user_id\\\": \\\"U_noise_20\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nMeadowbrook Tech delayed decision to Q2 — board didn't approve new software spend this quarter\"}"
+      },
+      "create_time": "1740990020.000020"
+    },
+    {
+      "message_id": "om_slack_39",
+      "chat_id": "oc_C_PIPE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990009.000009\\\", \\\"user_id\\\": \\\"U_noise_09\\\", \\\"channel_id\\\": \\\"C_PIPE\\\"}\\nNew competitive intel doc posted in #competitive. Ironridge is offering 20% discount to steal accounts.\"}"
+      },
+      "create_time": "1740990009.000009"
+    }
+  ]
+}

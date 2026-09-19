@@ -27,8 +27,12 @@ type Check = {
   field: string;
   value: string | number;
   mode: string;
+  contains?: string[];
+  forbidden?: string[];
 };
 const expected: {
+  new_chats?: { name: string; description: string; user_ids: string[] }[];
+  memberships?: { chat_id: string; user_ids: string[] }[];
   order_groups?: { kind: string; ids?: string[]; collection?: string }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
@@ -46,7 +50,7 @@ const expected: {
     value: string | number;
   }[];
   creates: Fields[];
-  messages: { chat_id: string; contains: string[] }[];
+  messages: { chat_id?: string; chat_name?: string; contains: string[] }[];
 } = JSON.parse(
   readFileSync(
     fileURLToPath(new URL('./expected.json', import.meta.url)),
@@ -69,9 +73,12 @@ const checks = expected.updates.map((check) => {
   return {
     ...check,
     passed:
-      check.mode === 'contains'
-        ? typeof value === 'string' && value.includes(String(check.value))
-        : isDeepStrictEqual(value, check.value),
+      !(check.forbidden || []).some((part) => String(value).includes(part)) &&
+      (check.contains
+        ? check.contains.every((part) => String(value).includes(part))
+        : check.mode === 'contains'
+          ? typeof value === 'string' && value.includes(String(check.value))
+          : isDeepStrictEqual(value, check.value)),
   };
 });
 const originalIds = new Set(
@@ -125,7 +132,15 @@ const consumedMessages = new Set<string>();
 const messageChecks = (expected.messages || []).map((check) => {
   const match = sent.find(
     (m: { message_id: string; chat_id: string; body: { content: string } }) => {
-      if (consumedMessages.has(m.message_id) || m.chat_id !== check.chat_id)
+      if (
+        consumedMessages.has(m.message_id) ||
+        m.chat_id !==
+          (check.chat_name
+            ? world.chats.find(
+                (c: { name: string }) => c.name === check.chat_name,
+              )?.chat_id
+            : check.chat_id)
+      )
         return false;
       try {
         const text = JSON.parse(m.body.content).text;
@@ -205,12 +220,19 @@ const eventChecks = (expected.events || []).map((check) => ({
           )) &&
         event.calendar_id === check.calendar_id &&
         event.status !== 'cancelled' &&
-        (!check.vc || event.vc_data?.vc_type === 'vc') &&
-        (!check.password_required ||
+        (!(check.vc || check.vc_data?.vc_type === 'vc') ||
+          event.vc_data?.vc_type === 'vc') &&
+        (!(
+          check.password_required || check.vc_data?.meeting_settings?.password
+        ) ||
           Boolean(event.vc_data?.meeting_settings?.password)) &&
-        (!check.join_meeting_permission ||
+        (!(
+          check.join_meeting_permission ||
+          check.vc_data?.meeting_settings?.join_meeting_permission
+        ) ||
           event.vc_data?.meeting_settings?.join_meeting_permission ===
-            check.join_meeting_permission) &&
+            (check.join_meeting_permission ||
+              check.vc_data?.meeting_settings?.join_meeting_permission)) &&
         (check.summary_contains
           ? event.summary.includes(check.summary_contains)
           : event.summary === check.summary) &&
@@ -224,7 +246,56 @@ const eventChecks = (expected.events || []).map((check) => ({
     },
   ),
 }));
+const membershipChecks = (expected.memberships || []).map((check) => ({
+  ...check,
+  passed: isDeepStrictEqual(
+    [
+      ...(world.chats.find(
+        (c: { chat_id: string }) => c.chat_id === check.chat_id,
+      )?.member_ids || []),
+    ].sort(),
+    [
+      ...new Set([
+        ...(seed.chats.find(
+          (c: { chat_id: string }) => c.chat_id === check.chat_id,
+        )?.member_ids || []),
+        ...check.user_ids,
+      ]),
+    ].sort(),
+  ),
+}));
+const originalChats = new Set(
+  seed.chats.map((c: { chat_id: string }) => c.chat_id),
+);
+const newChats = world.chats.filter(
+  (c: { chat_id: string }) => !originalChats.has(c.chat_id),
+);
+const chatChecks = (expected.new_chats || []).map((check) => ({
+  ...check,
+  passed:
+    newChats.filter(
+      (c: { name: string; description: string; member_ids: string[] }) =>
+        c.name === check.name &&
+        c.description === check.description &&
+        isDeepStrictEqual(
+          [...(c.member_ids || [])].sort(),
+          [...check.user_ids].sort(),
+        ),
+    ).length === 1,
+}));
 const protectedWorld = structuredClone(world);
+protectedWorld.chats = protectedWorld.chats.filter((c: { chat_id: string }) =>
+  originalChats.has(c.chat_id),
+);
+for (const check of expected.memberships || []) {
+  const chat = protectedWorld.chats.find(
+    (c: { chat_id: string }) => c.chat_id === check.chat_id,
+  );
+  if (chat)
+    chat.member_ids = seed.chats.find(
+      (c: { chat_id: string }) => c.chat_id === check.chat_id,
+    ).member_ids;
+}
 protectedWorld.events = protectedWorld.events.filter(
   (e: { event_id: string }) => originalEvents.has(e.event_id),
 );
@@ -320,6 +391,9 @@ const orderChecks = (expected.order_groups || []).map((group) => {
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  newChats.length === (expected.new_chats || []).length &&
+  chatChecks.every((c) => c.passed) &&
+  membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
@@ -338,6 +412,8 @@ writeFileSync(
       success,
       checks,
       creationChecks,
+      chatChecks,
+      membershipChecks,
       orderChecks,
       messageChecks,
       forbiddenMessageChecks,

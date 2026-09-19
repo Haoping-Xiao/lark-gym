@@ -1,4 +1,4 @@
-import { chatMembers } from './chat-members.ts';
+import { chatMembers, createChat } from './chat-members.ts';
 import http from 'node:http';
 import { isDeepStrictEqual } from 'node:util';
 
@@ -566,6 +566,14 @@ export async function startMock(seed, options = {}) {
         fail,
         page,
       );
+    if (method === 'POST' && p === '/open-apis/im/v1/chats')
+      return createChat(world, q, body, fail);
+    const chatPath = p.match(/^\/open-apis\/im\/v1\/chats\/([^/]+)$/);
+    if (method === 'GET' && chatPath) {
+      const chat = world.chats.find((c) => c.chat_id === chatPath[1]);
+      if (!chat) fail(404, 232001, 'Chat not found');
+      return clone(chat);
+    }
     if (method === 'GET' && p === '/open-apis/im/v1/chats')
       return page(world.chats, q);
     if (method === 'POST' && p === '/open-apis/im/v1/messages') {

@@ -63,3 +63,92 @@ test('Membership CLI writes are readable, idempotent, permission checked and run
     await b.close();
   }
 });
+
+test('Created group is readable across chat/member/message APIs and isolated from other runs', async () => {
+  const seed = JSON.parse(
+    await readFile(
+      'tasks/automationbench-sales-609/environment/seed.json',
+      'utf8',
+    ),
+  );
+  const a = await startMock(seed),
+    b = await startMock(seed);
+  const cli = (backend: typeof a, args: string[]) =>
+    exec(resolve('gyms/lark-cli/bin/lark-cli'), ['im', ...args], {
+      env: { ...process.env, FEISHU_MOCK_URL: backend.url },
+    });
+  try {
+    const before = structuredClone(a.world.chats);
+    await assert.rejects(
+      cli(a, [
+        'chats',
+        'create',
+        '--user-id-type',
+        'user_id',
+        '--data',
+        JSON.stringify({
+          name: 'Invalid',
+          user_id_list: ['U_SCHEN', 'missing'],
+        }),
+      ]),
+    );
+    assert.deepEqual(a.world.chats, before);
+    const result = JSON.parse(
+      (
+        await cli(a, [
+          'chats',
+          'create',
+          '--user-id-type',
+          'user_id',
+          '--data',
+          JSON.stringify({
+            name: 'Account room',
+            description: 'Customer account',
+            user_id_list: ['U_SCHEN'],
+          }),
+        ])
+      ).stdout,
+    );
+    const id = result.data.chat_id;
+    assert.ok(id);
+    assert.match(
+      (await cli(a, ['chats', 'get', '--chat-id', id])).stdout,
+      /Customer account/,
+    );
+    assert.match(
+      (
+        await cli(a, [
+          'chat.members',
+          'get',
+          '--chat-id',
+          id,
+          '--member-id-type',
+          'user_id',
+        ])
+      ).stdout,
+      /U_SCHEN/,
+    );
+    await cli(a, ['+messages-send', '--chat-id', id, '--text', 'Welcome']);
+    assert.match(
+      (await cli(a, ['+chat-messages-list', '--chat-id', id])).stdout,
+      /Welcome/,
+    );
+    assert.doesNotMatch((await cli(b, ['+chat-list'])).stdout, /Account room/);
+    await assert.rejects(cli(b, ['chats', 'get', '--chat-id', id]));
+    b.world.chat_creation_allowed = false;
+    await assert.rejects(
+      cli(b, [
+        'chats',
+        'create',
+        '--user-id-type',
+        'user_id',
+        '--data',
+        '{"name":"Denied"}',
+      ]),
+    );
+    assert.deepEqual(b.world.chats, seed.chats);
+  } finally {
+    await a.close();
+    await b.close();
+  }
+});

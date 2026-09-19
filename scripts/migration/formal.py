@@ -33,8 +33,18 @@ for row in rows:
             assert isinstance(payload.get('mock_responses',{}),dict),(key,'invalid model fixtures')
             assert set(payload.get('mock_responses',{})) <= {m['id'] for m in src.get('gmail',{}).get('messages',[])},(key,'unbound model fixture')
             continue # Upstream tool test fixtures are not agent-visible business data.
-        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable','docusign','calendly','google_drive','zoom'] or empty(payload),(key,'unmapped source app',app)
+        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable','docusign','calendly','google_drive','zoom','twilio','asana','trello','monday','jira','basecamp3','confluence','notion','pipefy','clickup','wrike'] or empty(payload),(key,'unmapped source app',app)
     records=[]
+    for app in ['asana','trello','monday','jira','basecamp3','confluence','notion','pipefy','clickup','wrike','google_drive']:
+        data=src.get(app,{})
+        assert app=='google_drive' or not any(not empty(v) for k,v in data.items() if k!='actions'),(key,'unsupported project source collection',app)
+        for action,items in data.get('actions',{}).items():
+            assert action.startswith(('find','get','search','list')) or action in ['board_list','project','folder','organization_card'],(key,'non-lookup source action',app,action)
+            for source_index,item in enumerate(items):
+                assert isinstance(item.get('params'),dict),(key,'invalid source lookup',app,action)
+                identity='rec_'+app+'_'+item['id']
+                if any(r['record_id']==identity for r in records):identity+='_'+str(source_index)
+                records.append({'record_id':identity,'fields':{'collection':app+'_'+action,'source_action_id':item['id'],**{k:scalar(v) for k,v in item['params'].items()}}})
     if recipe.get('mail_state'):
         for item in src.get('gmail',{}).get('messages',[]):
             records.append({'record_id':'rec_mail_'+str(item['id']),'fields':{'collection':'mail_messages',**{k:scalar(v) for k,v in item.items()}}})
@@ -54,13 +64,14 @@ for row in rows:
             for item in table.get('records',[]):
                 assert not set(item['fields'])&{'collection','source_base_id','source_table_id','source_record_id','source_metadata'},(key,'airtable field collision')
                 records.append({'record_id':'rec_airtable_'+base['id']+'_'+table['id']+'_'+item['id'],'fields':{'collection':'airtable_records','source_base_id':base['id'],'source_table_id':table['id'],'source_record_id':item['id'],'source_metadata':scalar({k:v for k,v in item.items() if k!='fields'}),**{k:scalar(v) for k,v in item['fields'].items()}}})
-    for app in ['docusign','calendly','google_drive','zoom']:
+    for app in ['docusign','calendly','google_drive','zoom','twilio']:
         for collection,items in src.get(app,{}).items():
-            if collection=='actions' and empty(items):continue
+            if collection=='actions' and (app=='google_drive' or empty(items)):continue
             assert isinstance(items,list),(key,'unsupported scheduling collection',app,collection)
             for index,item in enumerate(items):
                 assert isinstance(item,dict),(key,'invalid scheduling record',app,collection)
-                identity=str(item.get('id',item.get('template_id',item.get('uri','source_index_'+str(index)))))
+                identity=str(item.get('id',item.get('sid',item.get('envelope_id',item.get('template_id',item.get('uri','source_index_'+str(index)))))))
+                identity=re.sub(r'[^A-Za-z0-9_-]','_',identity) # URI stays in fields; route IDs must be path-safe.
                 records.append({'record_id':'rec_'+app+'_'+collection+'_'+identity,'fields':{'collection':app+'_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     for collection,items in src.get('salesforce',{}).items():
         for item in items:
@@ -109,6 +120,7 @@ for row in rows:
             for index,item in enumerate(items):
                 assert isinstance(item,dict),(key,'invalid social record',app,collection)
                 identity=str(item.get('id','source_index_'+str(index)))
+                identity=re.sub(r'[^A-Za-z0-9_-]','_',identity) # URI stays in fields; route IDs must be path-safe.
                 records.append({'record_id':'rec_'+app+'_'+collection+'_'+identity,'fields':{'collection':app+'_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     mailing=src.get('mailchimp',{})
     mailingLists={a['id'] for a in mailing.get('audiences',[])}
@@ -187,7 +199,12 @@ for row in rows:
         channel_id='oc_'+str(m.get('channel_id',m.get('channel','')))
         if not any(c['chat_id']==channel_id for c in chats):chats.append({'chat_id':channel_id,'name':channel_id,'chat_mode':'group'})
         messages.append({'message_id':'om_slack_'+str(i),'chat_id':'oc_'+str(m.get('channel_id',m.get('channel',''))),'msg_type':'text','body':{'content':json.dumps({'text':'原始消息元数据：'+json.dumps({k:v for k,v in m.items() if k!='text'},ensure_ascii=False)+'\n'+m.get('text','')},ensure_ascii=False)},'create_time':str(m.get('ts','0'))})
+    assert len({r['record_id'] for r in records})==len(records),(key,'duplicate mapped record IDs')
     updates=[];commands=[['im','+chat-messages-list','--chat-id','oc_mail'],['base','+record-list','--base-token','base_crm','--table-id','tbl_crm']]
+    newChatIds={}
+    for index,chat in enumerate(recipe.get('new_chats',[]),1):
+        newChatIds[chat['name']]='oc_created_'+str(index)
+        commands.append(['im','chats','create','--user-id-type','user_id','--data',json.dumps({'name':chat['name'],'description':chat['description'],'chat_mode':'group','user_id_list':chat['user_ids']},ensure_ascii=False)])
     membershipChecks=[]
     if recipe.get('memberships'):
         for chat in chats:
@@ -197,7 +214,7 @@ for row in rows:
         membershipChecks.append({'chat_id':cid,'user_ids':addition['user_ids']})
         commands.append(['im','chat.members','create','--chat-id',cid,'--member-id-type','user_id','--data',json.dumps({'id_list':addition['user_ids']})])
     for u in recipe.get('updates',[]):
-        record=next(r for r in records if r['record_id']=='rec_'+u['id'])
+        record=next(r for r in records if r['record_id'] in ['rec_'+u['id'],'rec_'+re.sub(r'[^A-Za-z0-9_-]','_',u['id'])])
         for field,value in u['fields'].items():
             record['fields'].setdefault(field,'')
             updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
@@ -232,8 +249,8 @@ for row in rows:
         if event.get('attendees'):commands.append(['calendar','event.attendees','create','--calendar-id',cid,'--event-id',eid,'--data',json.dumps({'attendees':[{'type':'third_party','third_party_email':a} for a in event['attendees']]})])
     messageChecks=[]
     for m in recipe.get('messages',[]):
-        cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else next(c['chat_id'] for c in chats if c['name']==m['channel'])
-        messageChecks.append({'chat_id':cid,'contains':m['contains']})
+        cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else newChatIds[m['channel']] if m.get('channel') in newChatIds else next(c['chat_id'] for c in chats if c['name']==m['channel'])
+        messageChecks.append({**({'chat_name':m['channel']} if m.get('channel') in newChatIds else {'chat_id':cid}),'contains':m['contains']})
         commands.append(['im','+messages-send','--chat-id',cid,'--text',m['text']])
     if 'command_order' in recipe:
         order=recipe['command_order']
@@ -267,9 +284,10 @@ for row in rows:
                 tokens=a.get('text_contains',[])
                 forbidden.append({'chat_id':userDestinations[uid],'contains':[tokens] if isinstance(tokens,str) else tokens})
         elif a['type']=='twilio_sms_not_sent':
-            assert a['to'] in phoneDestinations,(key,'missing source phone',a['to'])
+            phone=a.get('to',a.get('to_number'))
+            assert phone in phoneDestinations,(key,'missing source phone',phone)
             tokens=a.get('body_contains',[])
-            forbidden.append({'chat_id':phoneDestinations[a['to']],'contains':[tokens] if isinstance(tokens,str) else tokens})
+            forbidden.append({'chat_id':phoneDestinations[phone],'contains':[tokens] if isinstance(tokens,str) else tokens})
         elif a['type'] in ['slack_message_not_exists','slack_message_not_in_channel']:
             scope=a.get('channel_name',a.get('channel',a.get('channel_id')))
             cids=[c['chat_id'] for c in chats if c['name']==scope or c['chat_id']=='oc_'+str(scope)] if scope else [c['chat_id'] for c in chats if c.get('chat_mode')!='p2p' and c['chat_id']!='oc_mail']
@@ -310,12 +328,14 @@ for row in rows:
         forbiddenRecords.append({'equals':{'collection':collection,**{target:a[source] for source,target in ids.items() if source in a}},'contains':{field:parts} if parts else {}})
     fields={k:'number' if isinstance(v,(int,float)) else 'text' for r in records for k,v in r['fields'].items()}
     for r in recipe.get('creates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r.items()})
+    for r in recipe.get('updates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r['fields'].items()})
     seed={'now':now,'spreadsheet_token':'ss_unused','sheets':{},'spreadsheets':spreadsheets,'calendars':calendars,'events':events,'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records,'fields':[{'name':k,'type':v} for k,v in fields.items()]},'chats':chats,'messages':messages}
+    if newChatIds:seed['chat_creation_allowed']=True
     target=ROOT/'tasks'/('automationbench-'+key)
     shutil.copytree(ROOT/'tasks/automationbench-simple-3001',target,dirs_exist_ok=True)
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{'memberships':membershipChecks,'source_assertion_overrides':overrides,'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
+    write('tests/expected.json',{'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'

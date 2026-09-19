@@ -1,0 +1,130 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_move_plan": {
+      "title": "Move Plan",
+      "sheets": {
+        "ws_tasks": {
+          "title": "Tasks",
+          "values": [
+            ["Task", "Phase", "Status", "Due", "Notes"],
+            ["Floor Plan Signoff", "Phase 1", "Pending", "2026-02-12", ""],
+            ["Floor Plan Signoff", "Phase 1", "Complete", "2026-02-01", ""],
+            ["Floor Plan Signoff", "Phase 2", "Pending", "2026-02-08", ""],
+            ["Floor Plan Review", "Phase 1", "Pending", "2026-02-05", ""],
+            ["Floor Plan Signoff", "Phase 1", "On Hold", "2026-02-06", ""],
+            [
+              "Floor Plan Signoff",
+              "Phase 1",
+              "Pending",
+              "2026-02-03",
+              "ownership disputed - Legal team confirmation required before scheduling"
+            ]
+          ]
+        },
+        "ws_policy": {
+          "title": "Move Task Policy",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Status Filter",
+              "Only tasks with Status = 'Pending' are eligible for scheduling. Tasks marked 'On Hold' or 'Complete' must not be included."
+            ],
+            [
+              "Ownership Dispute Hold",
+              "Tasks where Notes contain 'disputed' must not be scheduled until Legal team confirms resolution. Contact legal-ops@company.example.com for status."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_asana_as_rec_3",
+        "fields": {
+          "collection": "asana_find_section",
+          "source_action_id": "as_rec_3",
+          "workspace": "ws_ops",
+          "project": "proj_move",
+          "name": "Planning",
+          "section": "sec_plan"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "source_action_id",
+        "type": "text"
+      },
+      {
+        "name": "workspace",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "section",
+        "type": "text"
+      },
+      {
+        "name": "tag",
+        "type": "text"
+      },
+      {
+        "name": "dueDate",
+        "type": "text"
+      },
+      {
+        "name": "account",
+        "type": "text"
+      },
+      {
+        "name": "todo_set",
+        "type": "text"
+      },
+      {
+        "name": "todo_list",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "name": "due_on",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "legal-ops@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

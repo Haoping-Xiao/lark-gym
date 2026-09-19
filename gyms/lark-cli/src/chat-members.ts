@@ -69,3 +69,63 @@ export function chatMembers(
     pending_approval_id_list: [],
   };
 }
+
+// Group creation uses the same chat and membership state as list/read/send.
+export function createChat(
+  world: World & { chat_creation_allowed?: boolean },
+  query: URLSearchParams,
+  body: Record<string, unknown>,
+  fail: Fail,
+) {
+  if (!world.chat_creation_allowed)
+    return fail(403, 99991672, 'Chat creation not permitted');
+  if (query.get('user_id_type') !== 'user_id')
+    return fail(501, 990001, 'ENV_UNSUPPORTED: chat creation requires user_id');
+  if (
+    Object.keys(body).some(
+      (key) =>
+        ![
+          'name',
+          'description',
+          'chat_mode',
+          'chat_type',
+          'user_id_list',
+        ].includes(key),
+    ) ||
+    query.has('uuid')
+  )
+    return fail(501, 990001, 'ENV_UNSUPPORTED: chat creation option');
+  if (
+    typeof body.name !== 'string' ||
+    !body.name.trim() ||
+    (body.description !== undefined && typeof body.description !== 'string') ||
+    (body.chat_mode && body.chat_mode !== 'group') ||
+    (body.chat_type && !['private', 'public'].includes(String(body.chat_type)))
+  )
+    return fail(400, 232003, 'Invalid group fields');
+  const ids = body.user_id_list || [];
+  if (
+    !Array.isArray(ids) ||
+    ids.some(
+      (id) =>
+        typeof id !== 'string' ||
+        !world.base.records.some(
+          (r) => r.fields.collection === 'lookup_users' && r.fields.id === id,
+        ),
+    )
+  )
+    return fail(400, 232004, 'Unknown user ID; no chat created');
+  let index = 1;
+  while (world.chats.some((c) => c.chat_id === `oc_created_${index}`)) index++;
+  const chat = {
+    chat_id: `oc_created_${index}`,
+    name: body.name,
+    description: body.description || '',
+    chat_mode: 'group',
+    chat_type: body.chat_type || 'private',
+    member_ids: [...new Set(ids)],
+    can_manage_members: true,
+  };
+  world.chats.push(chat);
+  return chat;
+}

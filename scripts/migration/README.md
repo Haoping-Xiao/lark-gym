@@ -153,3 +153,30 @@ HR 全部100题已生成并通过逐题CLI验收，累计547/800；新增批次�
 - 705/813签署请求台账加实际私聊，Sent不是Signed，通知后回写审计描述；705授权暂停优先，813EU/HIPAA/SOC2/金额模板按首次命中且包含必要legal signer。706 workspace/member角色台账含4个联系人与创建者owner，不声称复刻真实文档ACL。
 
 547题整库回归：562个测试、Go test/vet及本地oracle通过。572题新增部分已逐题校验；容器验收仍以对应提交CI产物为准。
+
+销售100题已全部适配；累计611题（另继续运营），以下新增语义差异需与原任务一起审阅：
+
+- 821旧合同void后创建Premium签署请求并私聊CEO，再回写175000金额及旧新合同审计；837路由顺序保存为签署队列，只通知第一位，不把未来签署视为完成。1153未来30日含边界、不续已过期，风险账户只任务；1156仅Proposal按金额模板，Gov保留procurement review，不生成受限合同。
+- 1158冻结18:00使源当日14:00完成事件不处于未来；只关闭有效新签两单，125000汇总、两位感谢、仅需开票者建billing task。1161明确本周为周一Jan19至Jan21，区分过去7/14日；窗口内2新签请求、已发0，Jan18旧单不计，不补写不在范围者。
+- 807冻结Feb20 11:00，先Qualification再外部联系人任务再通知，排除己方contractor；814录像只发源链接，不下载，6私聊包括CC owner/培训/Discovery，培训另群及log，Discovery CRM笔记不带链接。819按上个完整周Feb9–15，参会100/60/25三个分支、Closed Won不动。
+- 838最近90日结束会议，参会记录duration/会议duration算术平均，源规则可能负数但红色下限0，明确floor0，分数90/0/50；空health_score仍保留来源空值编码，字段类型结合后续写入推断为number。839互斥预约时段不叠加，60/10；840升职不能虚构新入职，3独立信号分别任务，显式High>=2/Medium=1，增长25%。
+- 808旧champion仅标Former Employee，保留公司/邮箱并建notes、邀请台账；新公司已有account走re-engage，否则新lead。1001按既定地区与职位enrich对应lead，LinkedIn邀请为Pending业务记录。816原prompt只说contacts而断言含Qualified lead，本适配公开范围Active contacts和Qualified leads，Manager以上；2私聊、1邀请，只有contacts追加marker。828最近7日Director+人物去重，1新lead、原contact跟进、2邀请，不伪称购买意向。
+- 803按配置等级创建3线索，CRM已有者不重复，summary只报计数和新lead分钟数，排除名单不泄露。1163最新10points/question覆盖表中15，70/30/5并检查每项得分。1200只计已结束外部会议、每场不按人数重复，ROI6000/100000/4000，2复核任务。
+- 703最新Product明确暂停全部C-level且未撤销，原正断言要求立即预约与来源冲突；保留原status、description记录Booking paused与依据，不伪造invitee（覆盖原索引0/1/4/5）。704原冻结时刻早于报告所指当天会议，改17:00 UTC后，缺席写对应invitee，任务含15:00和87000，旧会议不动。
+- 801原Calendly取消回写台账，新预约落飞书真实日历，Thursday补定Feb26 UTC且选最早完整空档15:30；URI仍在字段，路由record_id将标点改下划线并拒绝映射碰撞。811高价值阈值以最新VP政策，不遵从账户备注越权，2简报仅1高价值通知。815原题未规定取消顺序，补created_at最新优先、最少取消至全部限额满足，内部不计；取消evt_a9并同步invitee，2人通知和三rep容量汇总。
+- 831源未给response time定义，明确为预约start-created安排等待时间（不是now-created），26/102小时两处超标，先task再account审计再告警。1007提供summary作转录替代，不伪造音视频分析；3user_id私聊、机会和群摘要。1116 Jan20 amendment明确替代Jan19：pricing归Dave、technical归Alice、ROI归Carol；原断言仍要求旧人，覆盖4/15/16/17并记录。
+- 1144原未定时刻补Feb25 10UTC，60分钟真实日历3人并建prep task；1145当前周允许最早日当地10:00（Feb24 London），以邮件身份而非CRM备注或Slack建议选人；1146原无日期补Feb25起逐日10UTC，3角色/时长，各步stage存计划，实际会议非已举行，最终Proposal在创建日程之后。
+- 1148原无时刻补09–17UTC最早空档，host以邮箱calendar_id体现，PIP及全日占用排除，CRMowner按映射，75000和原description不改。1170原无风险阈值补整体<50%，逐次1/4、1/4、1/4、2/4及5/16=31.25%，只内部跟进。1172固定Jan22 17UTC一小时，4Americas实际日历/attendees/私聊，EMEA3<4及APAC2<3不建会。
+- 1179全部外部预约改飞书日程：prep、Pricing、Technical Q&A，合同Draft不发，talking points由agent综合并注明未知ROI。1180补高参与>=45分钟、Director/VP/C-level，保持人数>=50，稳定account_external_id关联新账户/机会，不猜金额。1181健康120000预约+Draft，风险80000内部review+High task；源缺CSM身份不造人，AutoRenew不动作，讨论提纲存业务台账。
+- 609新增实际建群及GET详情，成员/发消息读写同一份状态，创建权限显式seed能力，user_id类型；非法成员原子拒绝，跨run隔离。Slack topic改飞书description、原CRM集成标记保留，不声称完整飞书权限覆盖。
+- 1002原无日期按availability选择冻结时间后第一个周一窗口Mar2 09:00 LosAngeles，60分钟视频日历，waiting room明确替代only_event_attendees加密码，不称逐人审批；无来源客户邮箱不造参会人。补视频配置评分缺口：不仅存在日历事件，还需vc、要求的入会范围及非空密码，新增移除vc_data反例，修复已有8道视频题评分器。
+- 1008 CRM明确approved450000与客户请求750000冲突，适配声明批准值为发送上限；最新客户签署人Emily，14天期限从Feb28加至Mar13，不触发500K的Kickoff；原索引0/4覆盖并说明，不自动把要价升为批准值。
+
+运营新增1201–1204：项目系统来源仅有查询fixture时，展开为带源ID的Base实体，保留所有查询参数；任务/文档/评论用实际业务记录，不以伪造工具调用日志评分。1201任务保存section/tag；1202源没有card本体，明确新建该card目标状态记录，不补猜旧内容；1203精确主IT Cutover有效版本，status/due直接写实体并按1of9及REF确认；1204源没有通知渠道，补明确ops-team收件地址，先真实通知再记录notified comment，issue与comment用稳定incident:<Location>业务引用关联。
+
+累计643题已通过本地逐题校验；611题整库回归627项测试及Go test/vet、oracle通过。以下运营适配保留完整来源数据，新增业务对象不等同外部产品真实执行：
+
+- 1205 Drive查询fixture映射共享Base，Final文件归档并登记Notion；1206冻结Feb10，Feb12日历先于Maintenance评论；1207金额与CFO审批阻断仍有效；1208检查任务和审计行；1209仅有效Hold项目推进，另一项只警示；1210Critical且有clearance的badge事项优先；1212登记未来生效政策，不称已经执行；1213文件QA编号及归档，不因归档消除HOLD，缺creator视为内部的假设公开，重复fixture ID加索引保留原ID。
+- 1214仅有效最终visitor清单；1216四项未读vendor审核处理；1217争议行另询Legal而不解除hold；1219按最新重排创建Feb25晚间日历及after-hours通知；1221仅有Legal clearance者归档，保险证明不能解除法律hold；1222Feb5 blackout排除；1223按重批800不擅用950；1224缺Due者不可选，Scheduled不虚构具体日程。
+- 1231采购hold优先于4950额度条件，选4800无hold项；1232完成NDA来信写评论及host通知，不把提醒算签署；1234通用v3.2版本登记，不把hotfix当全员发布；1235Q1 Full Planned审计；1236Feb22停电只排期不执行；1237缺原card本体，公开新建目标状态记录；1244Finance校正ARR275000且CRM账号存在，缺账号的更大项不补造；1248冻结Jan29 04UTC，monitoring升级P1，primary电话号码IM替代SMS，历史Twilio只读台账保留，to_number负断言别名受检。
+- 1249最高风险Overdue设备配可用同认证检查员，真实飞书60分钟日历及attendee，检查台账Scheduled不改已完成；1251只Approved High Risk最高Urgency，45分钟视频日历与前日prep；1253租金并列时按最早到期明确规则，Commercial且Notice Period Met，签署台账Sent加实际私聊/两份抄送，非Signed；1255安全clearance政策排除更早Core Auth，Production/Critical/Ready最旧可用者，3小时视频日历和前中后三任务，只安排不执行DR。
