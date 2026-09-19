@@ -3,7 +3,7 @@ import json, sys
 from pathlib import Path
 job=Path(sys.argv[1]);expected=int(sys.argv[2])
 pattern=sys.argv[3] if len(sys.argv)>3 else 'automationbench-*'
-tasks={p.name for p in Path('tasks').glob(pattern) if p.is_dir()}
+tasks=set(json.loads(Path(pattern[1:]).read_text())) if pattern.startswith('@') else {p.name for p in Path('tasks').glob(pattern) if p.is_dir()}
 assert tasks,('empty task selection',pattern)
 seen=set()
 for p in job.glob('*/result.json'):
