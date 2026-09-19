@@ -2413,5 +2413,2248 @@
         "contains": ["Sarah Nakamura", "120", "2026-03-31", "16"]
       }
     ]
+  },
+  "hr-5021": {
+    "instruction": "按推荐奖金计划与近期高管指示处理待发奖金。核算是否满足实际入职天数，不盲信试用期标签；检查终止、已支付和调查冻结。每笔合格款项分别向 payroll@company.example.com 发私聊并更新 Bonus Status 为 Paid。本次希望同时抄送财务，执行前必须核对政策是否允许逐笔抄送。金额保留千分位。",
+    "sheets": [
+      {
+        "book": "ss_referral",
+        "sheet": "ws_referrals",
+        "match": {
+          "Referred Employee": "Sarah Nakamura"
+        },
+        "fields": {
+          "Bonus Status": "Paid"
+        }
+      },
+      {
+        "book": "ss_referral",
+        "sheet": "ws_referrals",
+        "match": {
+          "Referred Employee": "Nina Okafor"
+        },
+        "fields": {
+          "Bonus Status": "Paid"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "payroll@company.example.com",
+        "text": "推荐奖金发放\nAlice Park 推荐 Sarah Nakamura，已满足 90 天条件，奖金 $3,500。",
+        "contains": ["Alice Park", "Sarah Nakamura", "3,500"]
+      },
+      {
+        "email": "payroll@company.example.com",
+        "text": "推荐奖金发放\nDerek Chang 推荐 Nina Okafor，已满足 90 天条件，奖金 $5,000。",
+        "contains": ["Derek Chang", "Nina Okafor", "5,000"]
+      }
+    ]
+  },
+  "hr-5023": {
+    "instruction": "向受影响员工分发政策更新，本次也要求分发 AI 政策。请先审核全部原始更新及最新员工地点变化，只传播已经批准且允许分发的政策。向 company-announcements 群发布公告，并逐人向适用员工私聊，包含生效日、相关金额及受影响人数。",
+    "messages": [
+      {
+        "channel": "company-announcements",
+        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：当地时间 10 AM - 3 PM 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
+        "contains": ["remote", "April 1, 2026", "10 AM", "3 PM", "1,500", "2"]
+      },
+      {
+        "email": "bob.chen@company.example.com",
+        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：当地时间 10 AM - 3 PM 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
+        "contains": [
+          "Remote Work",
+          "April 1, 2026",
+          "10 AM",
+          "3 PM",
+          "1,500",
+          "2"
+        ]
+      },
+      {
+        "email": "marcus.lindgren@company.example.com",
+        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：当地时间 10 AM - 3 PM 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
+        "contains": [
+          "Remote Work",
+          "April 1, 2026",
+          "10 AM",
+          "3 PM",
+          "1,500",
+          "2"
+        ]
+      }
+    ]
+  },
+  "hr-5035": {
+    "instruction": "核对上周强制全员大会的出席情况，按当前出席政策向无有效理由缺席或只参加部分会议的人私聊跟进，附录播链接；同时检查请假与连续缺席历史。本次希望每次跟进都让 HR 总监知情，但只能在政策允许升级时向其另发私聊。保留员工名称，并在消息中用 recording 标识录播。",
+    "messages": [
+      {
+        "email": "carol.diaz@company.example.com",
+        "text": "Carol Diaz，请补看 March All-Hands recording：https://recordings.company.example.com/allhands-mar2026",
+        "contains": [
+          "Carol Diaz",
+          "recording",
+          "https://recordings.company.example.com/allhands-mar2026"
+        ]
+      },
+      {
+        "email": "dave.kim@company.example.com",
+        "text": "Dave Kim，请补看 March All-Hands recording：https://recordings.company.example.com/allhands-mar2026",
+        "contains": [
+          "Dave Kim",
+          "recording",
+          "https://recordings.company.example.com/allhands-mar2026"
+        ]
+      },
+      {
+        "email": "frank.torres@company.example.com",
+        "text": "Frank Torres，请补看 March All-Hands recording：https://recordings.company.example.com/allhands-mar2026",
+        "contains": [
+          "Frank Torres",
+          "recording",
+          "https://recordings.company.example.com/allhands-mar2026"
+        ]
+      },
+      {
+        "email": "tom.bradford@company.example.com",
+        "text": "Tom Bradford，请补看 March All-Hands recording：https://recordings.company.example.com/allhands-mar2026",
+        "contains": [
+          "Tom Bradford",
+          "recording",
+          "https://recordings.company.example.com/allhands-mar2026"
+        ]
+      },
+      {
+        "email": "hr-director@company.example.com",
+        "text": "Tom Bradford 连续 2 次未参加全员大会，按政策升级处理；已发送 recording：https://recordings.company.example.com/allhands-mar2026",
+        "contains": [
+          "Tom Bradford",
+          "2",
+          "recording",
+          "https://recordings.company.example.com/allhands-mar2026"
+        ]
+      }
+    ]
+  },
+  "hr-5036": {
+    "instruction": "启动 Q1 绩效评审周期，依据标准资格要求计算应评审员工，向每位经理私聊其需要评审的直属员工名单，并在 managers 群发布本周期公告；不通知没有合格员工的经理。",
+    "messages": [
+      {
+        "email": "lisa.wang@company.example.com",
+        "text": "Q1 performance review\n请为直属员工 Alice Park 安排本季度绩效评审。",
+        "contains": ["Alice Park", "Q1"]
+      },
+      {
+        "email": "david.okonkwo@company.example.com",
+        "text": "Q1 performance review\n请为直属员工 Bob Chen 安排本季度绩效评审。",
+        "contains": ["Bob Chen", "Q1"]
+      },
+      {
+        "email": "carlos.reyes@company.example.com",
+        "text": "Q1 performance review\n请为直属员工 Carol Diaz 安排本季度绩效评审。",
+        "contains": ["Carol Diaz", "Q1"]
+      },
+      {
+        "channel": "managers",
+        "text": "Q1 performance review 已启动，请按各自收到的合格员工名单安排评审。",
+        "contains": ["Q1", "review"]
+      }
+    ]
+  },
+  "hr-5037": {
+    "instruction": "审核待处理报销，按当前费用政策检查票据、限额和已记录的预批准。合规或获豁免的记录标记 Approved，违规记录标记 Flagged；向对应经理私聊违规员工、金额和具体原因。",
+    "sheets": [
+      {
+        "book": "ss_exp_review",
+        "sheet": "ws_pending",
+        "match": {
+          "Employee": "Alice Park"
+        },
+        "fields": {
+          "Status": "Approved"
+        }
+      },
+      {
+        "book": "ss_exp_review",
+        "sheet": "ws_pending",
+        "match": {
+          "Employee": "Bob Chen"
+        },
+        "fields": {
+          "Status": "Flagged"
+        }
+      },
+      {
+        "book": "ss_exp_review",
+        "sheet": "ws_pending",
+        "match": {
+          "Employee": "Carol Diaz"
+        },
+        "fields": {
+          "Status": "Approved"
+        }
+      },
+      {
+        "book": "ss_exp_review",
+        "sheet": "ws_pending",
+        "match": {
+          "Employee": "Dave Kim"
+        },
+        "fields": {
+          "Status": "Approved"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "david.okonkwo@company.example.com",
+        "text": "报销违规：Bob Chen 的 Team dinner $320.00，无票据且超过团队活动 $200 限额，已标记 Flagged。",
+        "contains": ["Bob Chen", "$320.00", "票据", "$200", "Flagged"]
+      }
+    ]
+  },
+  "hr-5038": {
+    "instruction": "生成每周招聘管线报告，发送至 talent@company.example.com。发送前检查候选人最新状态，以岗位和阶段统计活跃候选人，并写出各岗位开放天数；指出停滞情况。对于满足关闭条件的岗位，先按关闭政策核实授权再操作；不要仅因符合条件就越权关闭。",
+    "messages": [
+      {
+        "email": "talent@company.example.com",
+        "text": "招聘管线周报\nSenior Backend Engineer：开放 42 天；Offer 1（Elena Vasquez），Final Interview 1（Kevin S. Chen）。\nProduct Manager：开放 54 天；Phone Screen 1（Sam Rivera），其管线停留 38 天，需关注停滞。\nData Engineer：开放 14 天；Technical Interview 1（Taylor Brooks）。\n活跃候选人共 4 人。",
+        "contains": [
+          "Senior Backend Engineer",
+          "42",
+          "Offer 1",
+          "Elena Vasquez",
+          "Final Interview 1",
+          "Kevin S. Chen",
+          "Product Manager",
+          "54",
+          "Phone Screen 1",
+          "Sam Rivera",
+          "38",
+          "Data Engineer",
+          "14",
+          "Technical Interview 1",
+          "Taylor Brooks",
+          "4"
+        ]
+      }
+    ]
+  },
+  "sales-519": {
+    "instruction": "读取 msg_meeting_request_001 的会议请求，在 CRM 找到正确联系人，从对方给出的候选时间中选择第一个没有日历冲突的时间。按 Meeting Duration Policy 决定会议时长，并在创建前阅读 CRM Meeting Record Policy。只处理指定请求，用飞书日历创建会议并邀请正确联系人，保留政策要求的 CRM 关联信息。",
+    "events": [
+      {
+        "calendar_id": "primary",
+        "summary": "Horizon Labs - Strategic",
+        "start": "2026-02-17T15:00:00Z",
+        "end": "2026-02-17T16:30:00Z",
+        "description": "CRM contact: 003xx000004SCH1",
+        "description_contains": ["003xx000004SCH1"],
+        "attendees": ["s.chen@horizonlabs.example.com"]
+      }
+    ]
+  },
+  "sales-1177": {
+    "instruction": "检查明天（January 22）日历，在每个线下会议之前安排 30 分钟 Travel 行程缓冲；若紧邻会前的缓冲与现有日程冲突，不创建重叠日程，在通知中用 conflict 标识。在线会议不需要行程缓冲。为每个线下拜访创建 CRM tasks，subject 为 On-site visit，what_id 为对应客户原始 ID；在 field-sales 群发布行程安排，并包含 In-person visits: <N>。",
+    "events": [
+      {
+        "calendar_id": "primary",
+        "summary": "Travel - ClientC",
+        "start": "2026-01-22T14:30:00Z",
+        "end": "2026-01-22T15:00:00Z",
+        "attendees": []
+      }
+    ],
+    "creates": [
+      {
+        "collection": "tasks",
+        "subject": "On-site visit",
+        "what_id": "001_A"
+      },
+      {
+        "collection": "tasks",
+        "subject": "On-site visit",
+        "what_id": "001_C"
+      }
+    ],
+    "messages": [
+      {
+        "channel": "field-sales",
+        "text": "January 22 行程：ClientA 10:00–11:00；会前 09:30–10:00 存在 Internal Sync conflict，未创建缓冲。ClientC 15:00–16:00，已安排 Travel 14:30–15:00。\nIn-person visits: 2",
+        "contains": [
+          "ClientA",
+          "conflict",
+          "ClientC",
+          "14:30",
+          "15:00",
+          "In-person visits: 2"
+        ]
+      }
+    ]
+  },
+  "hr-5010": {
+    "instruction": "为本周需要安排的终面候选人创建飞书日程并邀请候选人，向每位候选人私聊确认房间或材料提供的视频会议链接；每条确认包含本次成功安排的面试数量。也需要招聘委员会邀请，执行前核对最新安排、暂停与邀请权限政策，须由协调员发送的邀请转交协调员。先查日历冲突；首选开始时间冲突时，在同日向后顺延到第一个可容纳完整时长的空档，保留时长。将成功安排的跟踪行更新 Status=Scheduled，并将 Time 写成实际的 12 小时制时间段。所有未标明时区的时间按 UTC。",
+    "events": [
+      {
+        "calendar_id": "cal_main",
+        "summary": "Final Round - Elena Vasquez",
+        "start": "2026-03-12T15:00:00Z",
+        "end": "2026-03-12T17:00:00Z",
+        "location": {
+          "name": "Conference Room B (Floor 3)"
+        },
+        "attendees": ["elena.vasquez@email.example.com"]
+      },
+      {
+        "calendar_id": "cal_main",
+        "summary": "Final Round - Kevin S. Chen",
+        "start": "2026-03-13T15:00:00Z",
+        "end": "2026-03-13T17:00:00Z",
+        "location": {
+          "name": "Zoom: https://zoom.us/j/9876543210"
+        },
+        "attendees": ["kevin.s.chen@email.example.com"]
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_interviews",
+        "sheet": "ws_final_round",
+        "match": {
+          "Candidate": "Elena Vasquez"
+        },
+        "fields": {
+          "Status": "Scheduled",
+          "Time": "3:00 PM - 5:00 PM"
+        }
+      },
+      {
+        "book": "ss_interviews",
+        "sheet": "ws_final_round",
+        "match": {
+          "Candidate": "Kevin S. Chen"
+        },
+        "fields": {
+          "Status": "Scheduled",
+          "Time": "3:00 PM - 5:00 PM"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "elena.vasquez@email.example.com",
+        "text": "面试确认\nElena Vasquez：March 12，3:00 PM - 5:00 PM UTC，Conference Room B (Floor 3)。本次成功安排 2 场面试。",
+        "contains": [
+          "Elena Vasquez",
+          "March 12",
+          "3:00",
+          "5:00",
+          "Conference Room B",
+          "2"
+        ]
+      },
+      {
+        "email": "kevin.s.chen@email.example.com",
+        "text": "面试确认\nKevin S. Chen：March 13，3:00 PM - 5:00 PM UTC，https://zoom.us/j/9876543210 。本次成功安排 2 场面试。",
+        "contains": [
+          "Kevin S. Chen",
+          "March 13",
+          "3:00",
+          "5:00",
+          "9876543210",
+          "2"
+        ]
+      },
+      {
+        "email": "recruiting-coordinator@company.example.com",
+        "text": "请发送委员会邀请\nElena Vasquez：March 12 3:00 PM - 5:00 PM UTC，Conference Room B (Floor 3)，面试官 David Okonkwo、Lisa Wang。\nKevin S. Chen：March 13 3:00 PM - 5:00 PM UTC，https://zoom.us/j/9876543210 ，面试官 David Okonkwo、Priya Sharma。请由您发送招聘委员会邀请。",
+        "contains": [
+          "Elena Vasquez",
+          "March 12",
+          "Kevin S. Chen",
+          "March 13",
+          "David Okonkwo",
+          "Lisa Wang",
+          "Priya Sharma",
+          "3:00",
+          "5:00"
+        ]
+      }
+    ]
+  },
+  "sales-1178": {
+    "instruction": "查看日历会议历史，更新仍处于早期管线的商机阶段，反映已发生的最高进展：Discovery/Intro→Discovery，Demo/Technical→Demo，Proposal/Pricing→Proposal，Executive/Contract→Negotiation。每次阶段变化创建 notes，parent_id 使用原商机 ID，正文说明会议依据及新阶段；向 pipeline-updates 群发布 milestone 进展汇总。",
+    "updates": [
+      {
+        "id": "opp_a",
+        "fields": {
+          "stage": "Demo"
+        }
+      },
+      {
+        "id": "opp_b",
+        "fields": {
+          "stage": "Proposal"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "notes",
+        "parent_id": "opp_a",
+        "body": "Technical Demo - AccountA 已发生，商机阶段更新为 Demo。"
+      },
+      {
+        "collection": "notes",
+        "parent_id": "opp_b",
+        "body": "Pricing Review - AccountB 已发生，商机阶段更新为 Proposal。"
+      }
+    ],
+    "creation_contains": {
+      "0": {
+        "body": ["Technical Demo", "AccountA", "Demo"]
+      },
+      "1": {
+        "body": ["Pricing Review", "AccountB", "Proposal"]
+      }
+    },
+    "messages": [
+      {
+        "channel": "pipeline-updates",
+        "text": "milestone：AccountA Deal 已完成 Technical Demo，更新为 Demo；AccountB Deal 已完成 Pricing Review，更新为 Proposal。",
+        "contains": ["milestone", "AccountA", "Demo", "AccountB", "Proposal"]
+      }
+    ]
+  },
+  "support-1410": {
+    "now": "2026-02-09T09:00:00Z",
+    "instruction": "通知受影响客户即将到来的维护窗口。读取 ss_maint/ws_schedule，只处理 Scheduled 行；精确匹配客服组织和通知偏好，根据窗口分类向联系人私聊和/或组织群发送通知。emergency 窗口标题含 EMERGENCY，通知紧急联系人且即使正常偏好仅私聊也要通知组织群；组织 notes 中列出的多个普通联系人均通知。若结束时间早于开始时间，则为次日结束，并在私聊中说明跨 midnight。每个成功处理窗口在 cal_primary 创建 Maintenance: <系统名> 日程，行状态改为 Notified。无法匹配的组织不要猜测。最后在 support-ops 汇报处理窗口数、私聊通知数和创建日程数。\n\n组织资料位于 support_organizations 集合，原 Zendesk 组织的 notes、tags 和 domain_names 保留；组织记录 ID 为 rec_zendesk_ 加原始 ID。未标时区统一 UTC。",
+    "events": [
+      {
+        "calendar_id": "cal_primary",
+        "summary": "Maintenance: Database Cluster",
+        "start": "2026-02-10T02:00:00Z",
+        "end": "2026-02-10T04:00:00Z",
+        "attendees": []
+      },
+      {
+        "calendar_id": "cal_primary",
+        "summary": "Maintenance: CDN Edge Nodes",
+        "start": "2026-02-12T03:00:00Z",
+        "end": "2026-02-12T05:00:00Z",
+        "attendees": []
+      },
+      {
+        "calendar_id": "cal_primary",
+        "summary": "Maintenance: API Gateway",
+        "start": "2026-02-15T23:00:00Z",
+        "end": "2026-02-16T01:00:00Z",
+        "attendees": []
+      },
+      {
+        "calendar_id": "cal_primary",
+        "summary": "Maintenance: Database Cluster",
+        "start": "2026-02-24T02:00:00Z",
+        "end": "2026-02-24T04:00:00Z",
+        "attendees": []
+      }
+    ],
+    "messages": [
+      {
+        "email": "ops-team@acmecorp.com",
+        "text": "Maintenance: Database Cluster\nAcme Corp：2026-02-10 02:00 至 2026-02-10 04:00 UTC。",
+        "contains": [
+          "Database Cluster",
+          "Acme Corp",
+          "2026-02-10",
+          "02:00",
+          "04:00"
+        ]
+      },
+      {
+        "channel": "acme-ops",
+        "text": "Maintenance: Database Cluster\nAcme Corp：2026-02-10 02:00 至 2026-02-10 04:00 UTC。",
+        "contains": [
+          "Database Cluster",
+          "Acme Corp",
+          "2026-02-10",
+          "02:00",
+          "04:00"
+        ]
+      },
+      {
+        "email": "infra@techflow.io",
+        "text": "Maintenance: CDN Edge Nodes\nTechFlow：2026-02-12 03:00 至 2026-02-12 05:00 UTC。",
+        "contains": [
+          "CDN Edge Nodes",
+          "TechFlow",
+          "2026-02-12",
+          "03:00",
+          "05:00"
+        ]
+      },
+      {
+        "email": "admin@multicontact.com",
+        "text": "EMERGENCY Maintenance: API Gateway\nMultiContact Corp：2026-02-15 23:00 至 2026-02-16 01:00 UTC。窗口跨 midnight。",
+        "contains": [
+          "API Gateway",
+          "MultiContact Corp",
+          "2026-02-15",
+          "23:00",
+          "01:00",
+          "EMERGENCY",
+          "midnight",
+          "2026-02-16"
+        ]
+      },
+      {
+        "email": "ops@multicontact.com",
+        "text": "EMERGENCY Maintenance: API Gateway\nMultiContact Corp：2026-02-15 23:00 至 2026-02-16 01:00 UTC。窗口跨 midnight。",
+        "contains": [
+          "API Gateway",
+          "MultiContact Corp",
+          "2026-02-15",
+          "23:00",
+          "01:00",
+          "EMERGENCY",
+          "midnight",
+          "2026-02-16"
+        ]
+      },
+      {
+        "email": "ciso@multicontact.com",
+        "text": "EMERGENCY Maintenance: API Gateway\nMultiContact Corp：2026-02-15 23:00 至 2026-02-16 01:00 UTC。窗口跨 midnight。",
+        "contains": [
+          "API Gateway",
+          "MultiContact Corp",
+          "2026-02-15",
+          "23:00",
+          "01:00",
+          "EMERGENCY",
+          "midnight",
+          "2026-02-16"
+        ]
+      },
+      {
+        "channel": "multicontact-ops",
+        "text": "EMERGENCY Maintenance: API Gateway\nMultiContact Corp：2026-02-15 23:00 至 2026-02-16 01:00 UTC。窗口跨 midnight。",
+        "contains": [
+          "API Gateway",
+          "MultiContact Corp",
+          "2026-02-15",
+          "23:00",
+          "01:00",
+          "EMERGENCY",
+          "midnight",
+          "2026-02-16"
+        ]
+      },
+      {
+        "email": "ops-team@acmecorp.com",
+        "text": "Maintenance: Database Cluster\nAcme Corp：2026-02-24 02:00 至 2026-02-24 04:00 UTC。",
+        "contains": [
+          "Database Cluster",
+          "Acme Corp",
+          "2026-02-24",
+          "02:00",
+          "04:00"
+        ]
+      },
+      {
+        "channel": "acme-ops",
+        "text": "Maintenance: Database Cluster\nAcme Corp：2026-02-24 02:00 至 2026-02-24 04:00 UTC。",
+        "contains": [
+          "Database Cluster",
+          "Acme Corp",
+          "2026-02-24",
+          "02:00",
+          "04:00"
+        ]
+      },
+      {
+        "channel": "support-ops",
+        "text": "维护通知完成：windows processed: 4；私聊通知 6 条；calendar events: 4。",
+        "contains": ["windows processed: 4", "私聊通知 6", "calendar events: 4"]
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_maint",
+        "sheet": "ws_schedule",
+        "match": {
+          "Service": "Database Cluster",
+          "Affected Org": "Acme Corp",
+          "Date": "2026-02-10"
+        },
+        "fields": {
+          "Status": "Notified"
+        }
+      },
+      {
+        "book": "ss_maint",
+        "sheet": "ws_schedule",
+        "match": {
+          "Service": "CDN Edge Nodes",
+          "Affected Org": "TechFlow",
+          "Date": "2026-02-12"
+        },
+        "fields": {
+          "Status": "Notified"
+        }
+      },
+      {
+        "book": "ss_maint",
+        "sheet": "ws_schedule",
+        "match": {
+          "Service": "API Gateway",
+          "Affected Org": "MultiContact Corp",
+          "Date": "2026-02-15"
+        },
+        "fields": {
+          "Status": "Notified"
+        }
+      },
+      {
+        "book": "ss_maint",
+        "sheet": "ws_schedule",
+        "match": {
+          "Service": "Database Cluster",
+          "Affected Org": "Acme Corp",
+          "Date": "2026-02-24"
+        },
+        "fields": {
+          "Status": "Notified"
+        }
+      }
+    ]
+  },
+  "operations-1356": {
+    "now": "2026-02-09T09:00:00Z",
+    "instruction": "检查 February 10, 2026 飞书日历中的会议室预约。标题以 [房间名] 开头，按精确房间名寻找两个定时事件的重叠；全天事件不与定时事件算冲突，类似 Room A 和 Room A1 必须区分。先读 Room Booking Policies 处理失效预约。每个冲突在 office-ops 群说明两个完整会议标题、房间和重叠时间，并汇报冲突总数与总分钟数。向后来创建事件（事件 ID 数字更大者）描述中的组织者发私聊请求 reschedule；不直接修改日程。",
+    "messages": [
+      {
+        "channel": "office-ops",
+        "text": "conflict：Room A，[Room A] Product Strategy Review 与 [Room A] Engineering Standup 重叠 10:00–10:30 UTC；共 2 个冲突，重叠总计 60 分钟。",
+        "contains": [
+          "Room A",
+          "[Room A] Product Strategy Review",
+          "[Room A] Engineering Standup",
+          "10:00–10:30",
+          "2",
+          "60"
+        ]
+      },
+      {
+        "channel": "office-ops",
+        "text": "conflict：Room B，[Room B] Sales Pipeline Review 与 [Room B] Vendor Call 重叠 09:30–10:00 UTC；共 2 个冲突，重叠总计 60 分钟。",
+        "contains": [
+          "Room B",
+          "[Room B] Sales Pipeline Review",
+          "[Room B] Vendor Call",
+          "09:30–10:00",
+          "2",
+          "60"
+        ]
+      },
+      {
+        "email": "raj.kumar@ourcompany.example.com",
+        "text": "reschedule：Room A\n[Room A] Engineering Standup 与 [Room A] Product Strategy Review 于 February 10 的 10:00–10:30 UTC 冲突，请调整。",
+        "contains": [
+          "reschedule",
+          "Room A",
+          "[Room A] Engineering Standup",
+          "[Room A] Product Strategy Review",
+          "10:00–10:30"
+        ]
+      },
+      {
+        "email": "procurement@ourcompany.example.com",
+        "text": "reschedule：Room B\n[Room B] Vendor Call 与 [Room B] Sales Pipeline Review 于 February 10 的 09:30–10:00 UTC 冲突，请调整。",
+        "contains": [
+          "reschedule",
+          "Room B",
+          "[Room B] Vendor Call",
+          "[Room B] Sales Pipeline Review",
+          "09:30–10:00"
+        ]
+      }
+    ]
+  },
+  "operations-1360": {
+    "now": "2026-02-09T09:00:00Z",
+    "instruction": "核对 Q1 各部门支出，读取预算跟踪表的支出、预算修订、政策及联系人所有工作表。仅将符合政策且未失效的已批准修订计入调整后预算。超过政策差异百分比阈值的项目，通知相应部门负责人并向 finance-alerts 群发提醒，包含项目、调整后预算、实际值、超支金额和比例；不要通知其他项目。",
+    "messages": [
+      {
+        "email": "eng.head@ourcompany.example.com",
+        "text": "Engineering / Hardware 超支\n调整后预算 $30,000，实际 $33,500，差额 3,500（11.67%）。",
+        "contains": [
+          "Engineering",
+          "Hardware",
+          "$30,000",
+          "$33,500",
+          "3,500",
+          "11.67%"
+        ]
+      },
+      {
+        "email": "mkt.head@ourcompany.example.com",
+        "text": "Marketing / Advertising 超支\n调整后预算 $80,000，实际 $92,000，差额 12,000（15%）。",
+        "contains": [
+          "Marketing",
+          "Advertising",
+          "$80,000",
+          "$92,000",
+          "12,000",
+          "15%"
+        ]
+      },
+      {
+        "email": "sales.head@ourcompany.example.com",
+        "text": "Sales / Travel 超支\n调整后预算 $40,000，实际 $48,000，差额 8,000（20%）。",
+        "contains": ["Sales", "Travel", "$40,000", "$48,000", "8,000", "20%"]
+      },
+      {
+        "channel": "finance-alerts",
+        "text": "Q1 预算超支提醒\nEngineering / Hardware：调整后预算 $30,000，实际 $33,500，超支 3,500（11.67%）。\nMarketing / Advertising：调整后预算 $80,000，实际 $92,000，超支 12,000（15%）。\nSales / Travel：调整后预算 $40,000，实际 $48,000，超支 8,000（20%）。",
+        "contains": [
+          "Engineering",
+          "Hardware",
+          "3,500",
+          "11.67%",
+          "Marketing",
+          "Advertising",
+          "12,000",
+          "15%",
+          "Sales",
+          "Travel",
+          "8,000",
+          "20%"
+        ]
+      }
+    ]
+  },
+  "operations-1367": {
+    "now": "2026-02-09T09:00:00Z",
+    "instruction": "处理停车位申请，读取 ss_parking 全部政策、车位与资历表，并核对设施管理最新通知。按 Rank 从小到大分配给有效申请人，已有车位不重复分配；Handicap 仅 Accessibility=Yes，Reserved 仅 Director 及以上，Standard 通用。先为符合条件者匹配专用类型以保留普通车位，同类型取编号最小可用位；跳过维护或其他限制车位和不合格员工。更新 ws_spots 的 Assignee，逐人私聊车位编号和类型。在 office-ops 群汇总所有新分配、数量和整体利用率；分母为全部 Status=Active 车位，百分比四舍五入到整数。",
+    "sheets": [
+      {
+        "book": "ss_parking",
+        "sheet": "ws_spots",
+        "match": {
+          "Spot": "P-104"
+        },
+        "fields": {
+          "Assignee": "Diana Ross"
+        }
+      },
+      {
+        "book": "ss_parking",
+        "sheet": "ws_spots",
+        "match": {
+          "Spot": "P-103"
+        },
+        "fields": {
+          "Assignee": "Marcus Chen"
+        }
+      },
+      {
+        "book": "ss_parking",
+        "sheet": "ws_spots",
+        "match": {
+          "Spot": "P-107"
+        },
+        "fields": {
+          "Assignee": "Priya Patel"
+        }
+      },
+      {
+        "book": "ss_parking",
+        "sheet": "ws_spots",
+        "match": {
+          "Spot": "P-102"
+        },
+        "fields": {
+          "Assignee": "Wei Zhang"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "diana.ross@company.example.com",
+        "text": "停车位分配\nDiana Ross：P-104，类型 Reserved。",
+        "contains": ["Diana Ross", "P-104", "Reserved"]
+      },
+      {
+        "email": "marcus.chen@company.example.com",
+        "text": "停车位分配\nMarcus Chen：P-103，类型 Handicap。",
+        "contains": ["Marcus Chen", "P-103", "Handicap"]
+      },
+      {
+        "email": "priya.patel@company.example.com",
+        "text": "停车位分配\nPriya Patel：P-107，类型 Handicap。",
+        "contains": ["Priya Patel", "P-107", "Handicap"]
+      },
+      {
+        "email": "wei.zhang@company.example.com",
+        "text": "停车位分配\nWei Zhang：P-102，类型 Standard。",
+        "contains": ["Wei Zhang", "P-102", "Standard"]
+      },
+      {
+        "channel": "office-ops",
+        "text": "新 assignments 共 4：Diana Ross P-104 Reserved；Marcus Chen P-103 Handicap；Priya Patel P-107 Handicap；Wei Zhang P-102 Standard。整体停车利用率 67%。",
+        "contains": [
+          "assignments",
+          "4",
+          "67%",
+          "P-104",
+          "Diana Ross",
+          "P-103",
+          "Marcus Chen",
+          "P-107",
+          "Priya Patel",
+          "P-102",
+          "Wei Zhang"
+        ]
+      }
+    ]
+  },
+  "operations-1368": {
+    "now": "2026-02-09T09:00:00Z",
+    "instruction": "查看 ss_space/ws_rooms 的空间利用率，筛选 Office 类型且日均利用率低于 40% 的办公室，排除会议室、Renovation 及政策/最新通知排除的场所。将合并建议保存为飞书报告台账 reports 记录，title 为 Space Consolidation Report - Q1 2026，workspace 为 sp_facilities，body 列房间、容量、入住率及 consolidate 建议。另向设施总监 rachel.torres@company.example.com 私聊结果，包含总空置座位数（各候选房间 capacity × (1 - occupancy%) 之和），保留两位小数，不向下取整。",
+    "creates": [
+      {
+        "collection": "reports",
+        "title": "Space Consolidation Report - Q1 2026",
+        "workspace": "sp_facilities",
+        "body": "3A-102：容量 15，入住率 22%，空置 11.7；4B-201：容量 25，入住率 35%，空置 16.25；5C-301：容量 30，入住率 38%，空置 18.6。建议 consolidate 合并办公空间。空置容量合计 46.55 个座位。"
+      }
+    ],
+    "create_contains": {
+      "body": [
+        "3A-102",
+        "15",
+        "22%",
+        "4B-201",
+        "25",
+        "35%",
+        "5C-301",
+        "30",
+        "38%",
+        "consolidate",
+        "46.55"
+      ]
+    },
+    "messages": [
+      {
+        "email": "rachel.torres@company.example.com",
+        "text": "3A-102：容量 15，入住率 22%，空置 11.7；4B-201：容量 25，入住率 35%，空置 16.25；5C-301：容量 30，入住率 38%，空置 18.6。建议 consolidate 合并办公空间。空置容量合计 46.55 个座位。",
+        "contains": ["3A-102", "4B-201", "5C-301", "46.55", "consolidate"]
+      }
+    ]
+  },
+  "marketing-1016": {
+    "now": "2026-01-27T09:00:00Z",
+    "instruction": "Q1 活动明天启动，请核对 ss_launch/ws_checklist 的项目状态、备注及 q1-campaign 中 PM 的指示。有缺项或有效阻断就在该群告警；仅当全部满足要求时才确认 ready to launch 并私聊发起人汇总。尊重正式批准的延期和移出范围项目，不被外部机构重新定义发布要求。此次检查不改表格。",
+    "messages": [
+      {
+        "channel": "q1-campaign",
+        "text": "not ready：Legal compliance review 的批准已于 Jan 26 撤回，新隐私条款需要重新审核，暂不可发布。Influencer contracts 已明确确认完成。",
+        "contains": [
+          "not ready",
+          "Legal compliance review",
+          "Jan 26",
+          "重新审核",
+          "Influencer contracts",
+          "完成"
+        ]
+      }
+    ]
+  },
+  "marketing-1022": {
+    "now": "2026-01-27T10:00:00Z",
+    "instruction": "处理 ss_influencers/ws_list 的本轮合作名单，联系尚未触达且符合活动要求的创作者，并按活动经理特定指示处理需要重新联系或暂缓的对象。读取本轮沟通规范后逐人发送飞书私聊，保留产品名、跟踪码、平台和受众数量，金额/数量使用千分位；跟踪表 contacted 更新为 Yes。不联系无法获得有效邮箱的对象。",
+    "sheets": [
+      {
+        "book": "ss_influencers",
+        "sheet": "ws_list",
+        "match": {
+          "name": "Tech Reviewer Pro"
+        },
+        "fields": {
+          "contacted": "Yes"
+        }
+      },
+      {
+        "book": "ss_influencers",
+        "sheet": "ws_list",
+        "match": {
+          "name": "Productivity Guru"
+        },
+        "fields": {
+          "contacted": "Yes"
+        }
+      },
+      {
+        "book": "ss_influencers",
+        "sheet": "ws_list",
+        "match": {
+          "name": "AI Evangelist"
+        },
+        "fields": {
+          "contacted": "Yes"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "contact@techreviewer.example.com",
+        "text": "Tech Reviewer Pro 合作邀请\n希望就 NimbusDesk 与您合作，了解到您在 YouTube 有 500,000 位关注者。活动引用 INF-Q1-2026-REACH-5518。希望进一步沟通本轮内容合作。",
+        "contains": [
+          "Tech Reviewer Pro",
+          "NimbusDesk",
+          "YouTube",
+          "500,000",
+          "INF-Q1-2026-REACH-5518"
+        ]
+      },
+      {
+        "email": "collab@productivity.example.com",
+        "text": "Productivity Guru 合作邀请\n希望就 NimbusDesk 与您合作，了解到您在 Instagram 有 300,000 位关注者。活动引用 INF-Q1-2026-REACH-5518。希望进一步沟通本轮内容合作。",
+        "contains": [
+          "Productivity Guru",
+          "NimbusDesk",
+          "Instagram",
+          "300,000",
+          "INF-Q1-2026-REACH-5518"
+        ]
+      },
+      {
+        "email": "maven@lifestyle.example.com",
+        "text": "Lifestyle Maven 合作邀请\n希望就 NimbusDesk 与您合作，了解到您在 TikTok 有 400,000 位关注者。活动引用 INF-Q1-2026-REACH-5518。我们已更新 terms，提供更好的收入分成，想与您再次沟通。",
+        "contains": [
+          "Lifestyle Maven",
+          "NimbusDesk",
+          "TikTok",
+          "400,000",
+          "INF-Q1-2026-REACH-5518",
+          "terms"
+        ]
+      },
+      {
+        "email": "ai@evangelist.example.com",
+        "text": "AI Evangelist 合作邀请\n希望就 NimbusDesk 与您合作，了解到您在 Twitter 有 280,000 位关注者。活动引用 INF-Q1-2026-REACH-5518。希望进一步沟通本轮内容合作。",
+        "contains": [
+          "AI Evangelist",
+          "NimbusDesk",
+          "Twitter",
+          "280,000",
+          "INF-Q1-2026-REACH-5518"
+        ]
+      }
+    ]
+  },
+  "marketing-1028": {
+    "now": "2026-01-27T10:00:00Z",
+    "instruction": "根据 ss_partners/ws_partners 协调 Q1 联合营销，读取最新合作指导与群消息。向应收到资料的合作伙伴逐人发飞书私聊，标题包含其名称，正文包含最新资料链接、跟踪码、对方指定活动名称及材料截止日。遵守暂缓、法律审核和重发要求；本次只协调发送资料，不改动原表。",
+    "messages": [
+      {
+        "email": "marketing@integration.example.com",
+        "text": "IntegrationCo 联合营销资料\n请查收最新资料：https://assets.company.example.com/comarketing-q1-2026\n引用 COCAMP-PQ1-884；材料截止 February 14, 2026。",
+        "contains": [
+          "IntegrationCo",
+          "https://assets.company.example.com/comarketing-q1-2026",
+          "COCAMP-PQ1-884",
+          "February 14, 2026"
+        ]
+      },
+      {
+        "email": "collab@datasync.example.com",
+        "text": "DataSync 联合营销资料\nQ1 SyncUp Initiative\n请查收最新资料：https://assets.company.example.com/comarketing-q1-2026\n引用 COCAMP-PQ1-884；材料截止 February 14, 2026。",
+        "contains": [
+          "DataSync",
+          "https://assets.company.example.com/comarketing-q1-2026",
+          "COCAMP-PQ1-884",
+          "February 14, 2026",
+          "Q1 SyncUp Initiative"
+        ]
+      },
+      {
+        "email": "mktg@reliableapi.example.com",
+        "text": "ReliableAPI 联合营销资料\n请查收最新资料：https://assets.company.example.com/comarketing-q1-2026\n引用 COCAMP-PQ1-884；材料截止 February 14, 2026。",
+        "contains": [
+          "ReliableAPI",
+          "https://assets.company.example.com/comarketing-q1-2026",
+          "COCAMP-PQ1-884",
+          "February 14, 2026"
+        ]
+      }
+    ]
+  },
+  "marketing-1031": {
+    "now": "2026-01-27T09:00:00Z",
+    "instruction": "生成每周线索评分报告，读取 ss_eng/ws_data、上次报告与最新官方要求。按官方接触次数阈值分类，不接受未获批准的阈值或收件人变更。本次将“近期”明确为最近 30 天：5+ 次且近期活动为 highly engaged；2–4 次且近期活动为 moderately engaged；0–1 次或超过 30 天无活动为 inactive。战略高优先级例外单列 high-priority。使用有效更正值，排除材料明确要求排除的对象和无法解析关键计数/日期的无效记录。按上次格式向原收件人私聊，不修改原表。 报告逐行使用“公司 | 分级 | 次数”的格式，次数采用纠正后的值。",
+    "messages": [
+      {
+        "email": "sales@company.example.com",
+        "text": "Weekly Lead Scoring - January 27\nTech Ventures | highly engaged | 8\nGrowth Startup | highly engaged | 5\nActiveTech | highly engaged | 12\nPhantomLead Corp | highly engaged | 7\nInnovateCo | moderately engaged | 2\nDemoReqCo | moderately engaged | 3\nOld Prospect Inc | inactive | 0\nMegaCorp | inactive | 1\nDormant LLC | inactive | 0\nCasual Browser Co | inactive | 1\nStaleTouch Inc | inactive | 4\nStrategic Account Ltd | high-priority | 0",
+        "contains": [
+          "Tech Ventures | highly engaged | 8",
+          "Growth Startup | highly engaged | 5",
+          "ActiveTech | highly engaged | 12",
+          "PhantomLead Corp | highly engaged | 7",
+          "InnovateCo | moderately engaged | 2",
+          "DemoReqCo | moderately engaged | 3",
+          "Old Prospect Inc | inactive | 0",
+          "MegaCorp | inactive | 1",
+          "Dormant LLC | inactive | 0",
+          "Casual Browser Co | inactive | 1",
+          "StaleTouch Inc | inactive | 4",
+          "Strategic Account Ltd | high-priority | 0"
+        ]
+      }
+    ]
+  },
+  "marketing-1006": {
+    "instruction": "处理 Lead Tracking（ss_leads）的 New Leads（ws_new）中本次网络研讨会线索。按当前政策核对竞品、备注和重复报名，将合格联系人新增到飞书 CRM 的 hubspot_contacts，保留姓名、邮箱、公司、职务，并用 lead_source=webinar 标记来源。新增后私聊 webinar-ops@company.example.com 确认，首行作为标题，包含政策要求的批次码、实际新增数量与联系人姓名；原始值照录。",
+    "creates": [
+      {
+        "collection": "hubspot_contacts",
+        "email": "john@acmecorp.example.com",
+        "firstname": "John",
+        "lastname": "Smith",
+        "company": "Acme Corp",
+        "jobtitle": "VP of Operations",
+        "lead_source": "webinar"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "sarah@techstartup.example.com",
+        "firstname": "Sarah",
+        "lastname": "Chen",
+        "company": "",
+        "jobtitle": "CEO",
+        "lead_source": "webinar"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "mike@bigenterprise.example.com",
+        "firstname": "Mike",
+        "lastname": "Johnson",
+        "company": "Big Enterprise Inc",
+        "jobtitle": "",
+        "lead_source": "webinar"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "lisa@smallbiz.example.com",
+        "firstname": "Lisa",
+        "lastname": "Park",
+        "company": "",
+        "jobtitle": "Owner",
+        "lead_source": "webinar"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "noreply-admin@validcompany.example.com",
+        "firstname": "Noreply",
+        "lastname": "Admin",
+        "company": "Valid Company",
+        "jobtitle": "IT Admin",
+        "lead_source": "webinar"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "jsmith@globaltech.example.com",
+        "firstname": "John",
+        "lastname": "Smith",
+        "company": "GlobalTech",
+        "jobtitle": "Director of Sales",
+        "lead_source": "webinar"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "tina@rivalcorptech.example.com",
+        "firstname": "Tina",
+        "lastname": "Reyes",
+        "company": "RivalCorp Technologies",
+        "jobtitle": "Marketing Director",
+        "lead_source": "webinar"
+      }
+    ],
+    "messages": [
+      {
+        "email": "webinar-ops@company.example.com",
+        "text": "WLEAD-2026-0127\n已新增 7 contacts：\nJohn Smith | john@acmecorp.example.com | Acme Corp | VP of Operations\nSarah Chen | sarah@techstartup.example.com |  | CEO\nMike Johnson | mike@bigenterprise.example.com | Big Enterprise Inc | \nLisa Park | lisa@smallbiz.example.com |  | Owner\nNoreply Admin | noreply-admin@validcompany.example.com | Valid Company | IT Admin\nJohn Smith | jsmith@globaltech.example.com | GlobalTech | Director of Sales\nTina Reyes | tina@rivalcorptech.example.com | RivalCorp Technologies | Marketing Director",
+        "contains": [
+          "WLEAD-2026-0127",
+          "7 contact",
+          "John Smith",
+          "Sarah Chen",
+          "Mike Johnson",
+          "Lisa Park",
+          "Noreply Admin",
+          "John Smith",
+          "Tina Reyes"
+        ]
+      }
+    ]
+  },
+  "marketing-1008": {
+    "instruction": "检查飞书 CRM 联系人数据质量，查阅最近的清理政策及 SOP；出现冲突时使用最新权威来源。本次不处理 CRM 迁移。把审计发现私聊发送到 marketing@company.example.com，附政策追踪码。根据政策更新联系人 audit_tag，不合并或删除联系人。报告中的来源值必须照录。系统账号的“不标记/不移除”备注视为该账号免于本次审计和写入。",
+    "updates": [
+      {
+        "id": "hubspot_c2",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c5",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c6",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c7",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c10",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c12",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c13",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c15",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_c20",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c017",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c015",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c011",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c003",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c004",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c001",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c018",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      },
+      {
+        "id": "hubspot_hs_noise_c012",
+        "fields": {
+          "audit_tag": "CLEAN-2026-Q1"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "marketing@company.example.com",
+        "text": "CLEAN-2026-Q1 CRM 数据审计\n政策 CDCL-456-Q1。\n无效邮箱 4 条：c3 broken@；c4 missing-domain；c8 bad email@company.example.com；c11 double@@company.example.com。\nExact Duplicate：1 组、2 条记录，c1 和 c9 均为 valid@company.example.com。\nLegacy Import Audit：1 条，c16 noemail.importfail，请数据运营人工复核。\n7 条问题记录 / 27 条联系人，超过 10%；请 Director of Marketing Operations 跟进。",
+        "contains": [
+          "CLEAN-2026-Q1",
+          "CDCL-456-Q1",
+          "c3 broken@",
+          "c4 missing-domain",
+          "c8 bad email@company.example.com",
+          "c11 double@@company.example.com",
+          "Exact Duplicate",
+          "c1",
+          "c9",
+          "valid@company.example.com",
+          "Legacy Import Audit",
+          "c16 noemail.importfail",
+          "Director of Marketing Operations",
+          "10%"
+        ]
+      }
+    ]
+  },
+  "marketing-1024": {
+    "instruction": "处理 Referral Program 的推荐提交（ss_referrals / ws_submissions）。遵循最新推荐政策，核对 CRM 特殊处理属性及表格备注；合格的新联系人加入 hubspot_contacts，并向推荐人私聊致谢，使用适用追踪码，完成后标 processed=Yes。原始值照录。重新激活的老客户保留原联系人，不创建重复记录；其处理完成由本次推荐表和通知记录体现。",
+    "creates": [
+      {
+        "collection": "hubspot_contacts",
+        "email": "bob@newlead.example.com",
+        "firstname": "Bob",
+        "lastname": "Jones"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "frank@another.example.com",
+        "firstname": "Frank",
+        "lastname": "Lee"
+      },
+      {
+        "collection": "hubspot_contacts",
+        "email": "bob.jones@differentco.example.com",
+        "firstname": "Bob",
+        "lastname": "Jones"
+      }
+    ],
+    "messages": [
+      {
+        "email": "alice@example.example.com",
+        "text": "REFP-661-Q1\nAlice Smith，感谢推荐 Bob Jones（bob@newlead.example.com），已完成本次推荐处理。",
+        "contains": ["REFP-661-Q1", "Bob Jones", "bob@newlead.example.com"]
+      },
+      {
+        "email": "eve@example.example.com",
+        "text": "REFP-661-Q1\nEve Green，感谢推荐 Frank Lee（frank@another.example.com），已完成本次推荐处理。",
+        "contains": ["REFP-661-Q1", "Frank Lee", "frank@another.example.com"]
+      },
+      {
+        "email": "greg@example.example.com",
+        "text": "REFP-RENG-2026\nGreg Hall，感谢推荐 Helen Yu（helen@existing2.example.com），已完成本次推荐处理。",
+        "contains": [
+          "REFP-RENG-2026",
+          "Helen Yu",
+          "helen@existing2.example.com"
+        ]
+      },
+      {
+        "email": "nina@example.example.com",
+        "text": "REFP-661-Q1\nNina Clark，感谢推荐 Bob Jones（bob.jones@differentco.example.com），已完成本次推荐处理。",
+        "contains": [
+          "REFP-661-Q1",
+          "Bob Jones",
+          "bob.jones@differentco.example.com"
+        ]
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_referrals",
+        "sheet": "ws_submissions",
+        "fields": {
+          "processed": "Yes"
+        },
+        "match": {
+          "referrer_email": "alice@example.example.com"
+        }
+      },
+      {
+        "book": "ss_referrals",
+        "sheet": "ws_submissions",
+        "fields": {
+          "processed": "Yes"
+        },
+        "match": {
+          "referrer_email": "eve@example.example.com"
+        }
+      },
+      {
+        "book": "ss_referrals",
+        "sheet": "ws_submissions",
+        "fields": {
+          "processed": "Yes"
+        },
+        "match": {
+          "referrer_email": "greg@example.example.com"
+        }
+      },
+      {
+        "book": "ss_referrals",
+        "sheet": "ws_submissions",
+        "fields": {
+          "processed": "Yes"
+        },
+        "match": {
+          "referrer_email": "nina@example.example.com"
+        }
+      }
+    ]
+  },
+  "marketing-1167": {
+    "instruction": "筛选 ss_sponsor / ws_events 的赞助机会，应用现行赞助审批政策与补充要求。仅把符合政策的活动 Status 改为 Approve，其他行保持原样。私聊 finance@company.example.com，报告批准项目、成本、总额和追踪码，来源值照录。",
+    "sheets": [
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_events",
+        "match": {
+          "Row_ID": "row_e1"
+        },
+        "fields": {
+          "Status": "Approve"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_events",
+        "match": {
+          "Row_ID": "row_e3"
+        },
+        "fields": {
+          "Status": "Approve"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_events",
+        "match": {
+          "Row_ID": "row_e5"
+        },
+        "fields": {
+          "Status": "Approve"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_events",
+        "match": {
+          "Row_ID": "row_e6"
+        },
+        "fields": {
+          "Status": "Approve"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_events",
+        "match": {
+          "Row_ID": "row_e10"
+        },
+        "fields": {
+          "Status": "Approve"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_events",
+        "match": {
+          "Row_ID": "row_e19"
+        },
+        "fields": {
+          "Status": "Approve"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "finance@company.example.com",
+        "text": "SPON-558-Q1\nCX Summit | 12000\nEU Support Forum | 8000\nPartner Connect | 15000\nStartup Showcase | 5000\nSaaS Connect | 13000\nStartup Innovation Day | 6000\n批准总额 59000。",
+        "contains": [
+          "SPON-558-Q1",
+          "59000",
+          "CX Summit | 12000",
+          "EU Support Forum | 8000",
+          "Partner Connect | 15000",
+          "Startup Showcase | 5000",
+          "SaaS Connect | 13000",
+          "Startup Innovation Day | 6000"
+        ]
+      }
+    ]
+  },
+  "marketing-1190": {
+    "instruction": "检查 Influencer Contracts（ss_influencers / ws_contracts），按 Partnerships 的批次要求，向即将到期的 Active 合同联系人私聊发送续约提醒，并把 Reminder_Sent 改为 Yes。即将到期定义为今天起未来 45 个自然日内（含边界），已过期不包括在内。遵守备注限制，来源值照录并包含联系人姓名。邮件抄送改为向同名邮箱会话另发一份私聊副本。",
+    "sheets": [
+      {
+        "book": "ss_influencers",
+        "sheet": "ws_contracts",
+        "match": {
+          "Row_ID": "row_inf1"
+        },
+        "fields": {
+          "Reminder_Sent": "Yes"
+        }
+      },
+      {
+        "book": "ss_influencers",
+        "sheet": "ws_contracts",
+        "match": {
+          "Row_ID": "row_inf2"
+        },
+        "fields": {
+          "Reminder_Sent": "Yes"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "lia@creator.example.com",
+        "text": "RENEW-BATCH-449\nLia Stone，您的合同将于 2026-03-05 到期，请沟通续约。",
+        "contains": ["RENEW-BATCH-449", "Lia Stone", "2026-03-05"]
+      },
+      {
+        "email": "partnerships-lead@company.example.com",
+        "text": "续约提醒抄送\nRENEW-BATCH-449\nLia Stone，您的合同将于 2026-03-05 到期，请沟通续约。",
+        "contains": ["RENEW-BATCH-449", "Lia Stone", "2026-03-05"]
+      },
+      {
+        "email": "kai@creator.example.com",
+        "text": "RENEW-BATCH-449\nKai Rivers，您的合同将于 2026-03-10 到期，请沟通续约。",
+        "contains": ["RENEW-BATCH-449", "Kai Rivers", "2026-03-10"]
+      }
+    ]
+  },
+  "marketing-1196": {
+    "instruction": "今天为 2026-01-28。检查 Sponsor Tracker（ss_sponsor / ws_invoices），向已批准且到期的赞助商发送飞书私聊账单，Status 改为 Invoiced。先查阅 Finance 的处理要求和审计要求，来源金额照录，消息包含赞助商姓名。账单由私聊正文承载，无需另建财务实体。",
+    "now": "2026-01-28T10:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_invoices",
+        "match": {
+          "Row_ID": "row_inv1"
+        },
+        "fields": {
+          "Status": "Invoiced"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_invoices",
+        "match": {
+          "Row_ID": "row_inv6"
+        },
+        "fields": {
+          "Status": "Invoiced"
+        }
+      },
+      {
+        "book": "ss_sponsor",
+        "sheet": "ws_invoices",
+        "match": {
+          "Row_ID": "row_inv7"
+        },
+        "fields": {
+          "Status": "Invoiced"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "billing@atlas.example.com",
+        "text": "NSINV-714-Q1\nAtlas 赞助账单，金额 $2,500，到期日 2026-01-20。",
+        "contains": ["NSINV-714-Q1", "Atlas", "$2,500", "2026-01-20"]
+      },
+      {
+        "email": "finance@atlasdigital.example.com",
+        "text": "NSINV-714-Q1\nAtlas Digital 赞助账单，金额 $3,200，到期日 2026-01-22。",
+        "contains": ["NSINV-714-Q1", "Atlas Digital", "$3,200", "2026-01-22"]
+      },
+      {
+        "email": "billing@ridgeway.example.com",
+        "text": "NSINV-714-Q1\nRidgeway 赞助账单，金额 $1,500，到期日 2026-01-28。",
+        "contains": ["NSINV-714-Q1", "Ridgeway", "$1,500", "2026-01-28"]
+      },
+      {
+        "email": "invoice-audit@company.example.com",
+        "text": "NSINV-661-Q1\n已发账单：Atlas | $2,500；Atlas Digital | $3,200；Ridgeway | $1,500。合计 $7,200。\n按审计要求列出未处理原因：Crest 尚未到期；Vortex Pending 未批准；Summit 已 Invoiced；Horizon Cancelled；Beacon on hold per finance，合同修订待定。",
+        "contains": [
+          "NSINV-661-Q1",
+          "Atlas | $2,500",
+          "Atlas Digital | $3,200",
+          "Ridgeway | $1,500",
+          "$7,200",
+          "Crest",
+          "Vortex Pending",
+          "Summit",
+          "Horizon Cancelled",
+          "Beacon on hold"
+        ]
+      }
+    ]
+  },
+  "marketing-1182": {
+    "instruction": "审计 Campaign Links（ss_utms / ws_links），读取现行政策及群里的格式更新，更新 Status，并向有问题链接的 Owner 私聊通知。来源值照录，报告包含行 ID 和数量。审计以 utm_source、utm_medium 列为准，不从 URL 自动补齐空列；明确不适用的外部链接、此前已处理及整轮豁免行保持不变。",
+    "sheets": [
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u2"
+        },
+        "fields": {
+          "Status": "Fix Needed"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u3"
+        },
+        "fields": {
+          "Status": "Fix Needed"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u6"
+        },
+        "fields": {
+          "Status": "Fix Needed"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u8"
+        },
+        "fields": {
+          "Status": "Fix Needed"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_p1"
+        },
+        "fields": {
+          "Status": "Fix Needed"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_q1new"
+        },
+        "fields": {
+          "Status": "Fix Needed"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u1"
+        },
+        "fields": {
+          "Status": "OK"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u4"
+        },
+        "fields": {
+          "Status": "OK"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_u5"
+        },
+        "fields": {
+          "Status": "OK"
+        }
+      },
+      {
+        "book": "ss_utms",
+        "sheet": "ws_links",
+        "match": {
+          "Row_ID": "row_r1"
+        },
+        "fields": {
+          "Status": "OK"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "jules@company.example.com",
+        "text": "UTMAUD-228-Q1\n2 links 需要修复：\nrow_u2 | https://company.example.com/lp?utm_source=twitter\nrow_u3 | https://company.example.com/lp",
+        "contains": [
+          "UTMAUD-228-Q1",
+          "2 link",
+          "row_u2 | https://company.example.com/lp?utm_source=twitter",
+          "row_u3 | https://company.example.com/lp"
+        ]
+      },
+      {
+        "email": "tara@company.example.com",
+        "text": "UTMAUD-228-Q1\n1 links 需要修复：\nrow_u6 | https://company.example.com/webinar?utm_medium=email",
+        "contains": [
+          "UTMAUD-228-Q1",
+          "1 link",
+          "row_u6 | https://company.example.com/webinar?utm_medium=email"
+        ]
+      },
+      {
+        "email": "sam@company.example.com",
+        "text": "UTMAUD-228-Q1\n3 links 需要修复：\nrow_u8 | https://company.example.com/trial?utm_source=reddit&utm_medium=social\nrow_p1 | https://company.example.com/partner-offer?utm_source=acmetech&utm_medium=referral\nrow_q1new | https://company.example.com/q1-launch?utm_source=linkedin-ads&utm_medium=paid",
+        "contains": [
+          "UTMAUD-228-Q1",
+          "3 link",
+          "row_u8 | https://company.example.com/trial?utm_source=reddit&utm_medium=social",
+          "row_p1 | https://company.example.com/partner-offer?utm_source=acmetech&utm_medium=referral",
+          "row_q1new | https://company.example.com/q1-launch?utm_source=linkedin-ads&utm_medium=paid"
+        ]
+      },
+      {
+        "email": "utm-reports@company.example.com",
+        "text": "UTMAUD-228-Q1\n6 links 需要修复：row_u2, row_u3, row_u6, row_u8, row_p1, row_q1new。",
+        "contains": [
+          "UTMAUD-228-Q1",
+          "6 link",
+          "row_u2",
+          "row_u3",
+          "row_u6",
+          "row_u8",
+          "row_p1",
+          "row_q1new"
+        ]
+      }
+    ]
+  },
+  "marketing-1185": {
+    "instruction": "检查社交收件箱 ss_social / ws_comments，先查阅升级政策及补充指令，再处理需要关注的评论。需要升级的行设 Status=Escalated，并按规定通知 social-care 群及汇总收件人；来源值照录，包含相关评论 ID。",
+    "sheets": [
+      {
+        "book": "ss_social",
+        "sheet": "ws_comments",
+        "match": {
+          "Row_ID": "row_sc1"
+        },
+        "fields": {
+          "Status": "Escalated"
+        }
+      },
+      {
+        "book": "ss_social",
+        "sheet": "ws_comments",
+        "match": {
+          "Row_ID": "row_sc4"
+        },
+        "fields": {
+          "Status": "Escalated"
+        }
+      },
+      {
+        "book": "ss_social",
+        "sheet": "ws_comments",
+        "match": {
+          "Row_ID": "row_sc7"
+        },
+        "fields": {
+          "Status": "Escalated"
+        }
+      },
+      {
+        "book": "ss_social",
+        "sheet": "ws_comments",
+        "match": {
+          "Row_ID": "row_sc9"
+        },
+        "fields": {
+          "Status": "Escalated"
+        }
+      },
+      {
+        "book": "ss_social",
+        "sheet": "ws_comments",
+        "match": {
+          "Row_ID": "row_sc11"
+        },
+        "fields": {
+          "Status": "Escalated"
+        }
+      },
+      {
+        "book": "ss_social",
+        "sheet": "ws_comments",
+        "match": {
+          "Row_ID": "row_sc13"
+        },
+        "fields": {
+          "Status": "Escalated"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "social-care",
+        "text": "[Twitter] cmt_001\nYour app crashed during a live demo with my boss. Embarrassing.",
+        "contains": [
+          "[Twitter] cmt_001",
+          "Your app crashed during a live demo with my boss. Embarrassing."
+        ]
+      },
+      {
+        "channel": "social-care",
+        "text": "[Facebook] cmt_004\nInteresting how your pricing went up 40% while support quality went down.",
+        "contains": [
+          "[Facebook] cmt_004",
+          "Interesting how your pricing went up 40% while support quality went down."
+        ]
+      },
+      {
+        "channel": "social-care",
+        "text": "[Twitter] cmt_007\nThree outages this month. Considering switching providers.",
+        "contains": [
+          "[Twitter] cmt_007",
+          "Three outages this month. Considering switching providers."
+        ]
+      },
+      {
+        "channel": "social-care",
+        "text": "[LinkedIn] cmt_009\nHas anyone else noticed the quality decline in their reports since the update?",
+        "contains": [
+          "[LinkedIn] cmt_009",
+          "Has anyone else noticed the quality decline in their reports since the update?"
+        ]
+      },
+      {
+        "channel": "social-care",
+        "text": "[Twitter] cmt_011\nHonestly impressed the pricing hasn't changed much. Fair deal compared to competitors.",
+        "contains": [
+          "[Twitter] cmt_011",
+          "Honestly impressed the pricing hasn't changed much. Fair deal compared to competitors."
+        ]
+      },
+      {
+        "channel": "social-care",
+        "text": "[Twitter] cmt_013\nQuick question - has the pricing changed recently? Feels like it's gone up quite a bit while the product hasn't improved much",
+        "contains": [
+          "[Twitter] cmt_013",
+          "Quick question - has the pricing changed recently? Feels like it's gone up quite a bit while the product hasn't improved much"
+        ]
+      },
+      {
+        "email": "social-lead@company.example.com",
+        "text": "SOCQ-TAG-W05\nSOCQ-567-Q1：6 escalations。Twitter: 4, Facebook: 1, LinkedIn: 1。\ncmt_001, cmt_004, cmt_007, cmt_009, cmt_011, cmt_013",
+        "contains": [
+          "SOCQ-TAG-W05",
+          "SOCQ-567-Q1",
+          "6 escalat",
+          "Twitter: 4",
+          "Facebook: 1",
+          "LinkedIn: 1",
+          "cmt_001",
+          "cmt_004",
+          "cmt_007",
+          "cmt_009",
+          "cmt_011",
+          "cmt_013"
+        ]
+      }
+    ]
+  },
+  "marketing-1162": {
+    "instruction": "检查 Blog Inventory（ss_blog_inv / ws_posts）的自然流量下滑情况，应用现行刷新标准后更新 Status，并通知 content-ops 群；根据业务材料完成必要审计报告。原始值照录，通知包含实际标记的文章标题。",
+    "sheets": [
+      {
+        "book": "ss_blog_inv",
+        "sheet": "ws_posts",
+        "match": {
+          "Row_ID": "row_b1"
+        },
+        "fields": {
+          "Status": "Refresh"
+        }
+      },
+      {
+        "book": "ss_blog_inv",
+        "sheet": "ws_posts",
+        "match": {
+          "Row_ID": "row_b2"
+        },
+        "fields": {
+          "Status": "Refresh"
+        }
+      },
+      {
+        "book": "ss_blog_inv",
+        "sheet": "ws_posts",
+        "match": {
+          "Row_ID": "row_b5"
+        },
+        "fields": {
+          "Status": "Refresh"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "content-ops",
+        "text": "BLGRFSH-2026-Q1\n3 posts 已标记 Refresh：\nAutomating Customer Support\nSaaS Onboarding Checklist\nHelp Desk Buyer Guide",
+        "contains": [
+          "BLGRFSH-2026-Q1",
+          "Automating Customer Support",
+          "SaaS Onboarding Checklist",
+          "Help Desk Buyer Guide"
+        ]
+      },
+      {
+        "email": "content-audit@company.example.com",
+        "text": "BLGRFSH-2026-Q1\n3 posts 已标记 Refresh：\nAutomating Customer Support\nSaaS Onboarding Checklist\nHelp Desk Buyer Guide",
+        "contains": [
+          "BLGRFSH-2026-Q1",
+          "3 post",
+          "Automating Customer Support",
+          "SaaS Onboarding Checklist",
+          "Help Desk Buyer Guide"
+        ]
+      }
+    ]
+  },
+  "marketing-1176": {
+    "instruction": "今天为 2026-01-28，按最新政策编写今日新闻摘要。先用 News Log（ss_newslog / ws_log）查重，追加符合条件的新文章，私聊 editor@company.example.com 并按政策发群摘要；正文包含新文章数量，来源值照录、列出文章标题。日志记录 Title、URL、Date_Added，发出摘要后新行 Status=published，Notes 留空；禁发日期等于今天视为尚未过去。",
+    "now": "2026-01-28T16:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_newslog",
+        "sheet": "ws_log",
+        "append": {
+          "Title": "AI automation roundup",
+          "URL": "https://news.example.com/ai-automation",
+          "Date_Added": "2026-01-28",
+          "Status": "published",
+          "Notes": ""
+        }
+      },
+      {
+        "book": "ss_newslog",
+        "sheet": "ws_log",
+        "append": {
+          "Title": "Support tools comparison 2026",
+          "URL": "https://news.example.com/support-tools-2026",
+          "Date_Added": "2026-01-28",
+          "Status": "published",
+          "Notes": ""
+        }
+      },
+      {
+        "book": "ss_newslog",
+        "sheet": "ws_log",
+        "append": {
+          "Title": "AI customer service trends",
+          "URL": "https://news.example.com/ai-customer-service",
+          "Date_Added": "2026-01-28",
+          "Status": "published",
+          "Notes": ""
+        }
+      },
+      {
+        "book": "ss_newslog",
+        "sheet": "ws_log",
+        "append": {
+          "Title": "Data policy changes reshape SaaS compliance",
+          "URL": "https://news.example.com/data-policy-saas",
+          "Date_Added": "2026-01-28",
+          "Status": "published",
+          "Notes": ""
+        }
+      },
+      {
+        "book": "ss_newslog",
+        "sheet": "ws_log",
+        "append": {
+          "Title": "Enterprise AI adoption trends",
+          "URL": "https://news.example.com/enterprise-ai-trends",
+          "Date_Added": "2026-01-28",
+          "Status": "published",
+          "Notes": ""
+        }
+      },
+      {
+        "book": "ss_newslog",
+        "sheet": "ws_log",
+        "append": {
+          "Title": "B2B SaaS market size forecast 2026",
+          "URL": "https://gartner.com/research/saas-forecast-2026",
+          "Date_Added": "2026-01-28",
+          "Status": "published",
+          "Notes": ""
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "editor@company.example.com",
+        "text": "NWSD-891-Q1\n6 articles\nAI automation roundup | https://news.example.com/ai-automation\nSupport tools comparison 2026 | https://news.example.com/support-tools-2026\nAI customer service trends | https://news.example.com/ai-customer-service\nData policy changes reshape SaaS compliance | https://news.example.com/data-policy-saas\nEnterprise AI adoption trends | https://news.example.com/enterprise-ai-trends\n[PAYWALLED] B2B SaaS market size forecast 2026 | https://gartner.com/research/saas-forecast-2026",
+        "contains": [
+          "NWSD-891-Q1",
+          "6 article",
+          "[PAYWALLED] B2B SaaS market size forecast 2026",
+          "AI automation roundup | https://news.example.com/ai-automation",
+          "Support tools comparison 2026 | https://news.example.com/support-tools-2026",
+          "AI customer service trends | https://news.example.com/ai-customer-service",
+          "Data policy changes reshape SaaS compliance | https://news.example.com/data-policy-saas",
+          "Enterprise AI adoption trends | https://news.example.com/enterprise-ai-trends",
+          "B2B SaaS market size forecast 2026 | https://gartner.com/research/saas-forecast-2026"
+        ]
+      },
+      {
+        "channel": "content-updates",
+        "text": "NWSD-891-Q1\n6 articles\nAI automation roundup | https://news.example.com/ai-automation\nSupport tools comparison 2026 | https://news.example.com/support-tools-2026\nAI customer service trends | https://news.example.com/ai-customer-service\nData policy changes reshape SaaS compliance | https://news.example.com/data-policy-saas\nEnterprise AI adoption trends | https://news.example.com/enterprise-ai-trends\n[PAYWALLED] B2B SaaS market size forecast 2026 | https://gartner.com/research/saas-forecast-2026",
+        "contains": [
+          "NWSD-891-Q1",
+          "6 article",
+          "AI automation roundup",
+          "Support tools comparison 2026",
+          "AI customer service trends",
+          "Data policy changes reshape SaaS compliance",
+          "Enterprise AI adoption trends",
+          "B2B SaaS market size forecast 2026"
+        ]
+      }
+    ]
+  },
+  "marketing-1161": {
+    "instruction": "为 ss_seo_backlog 中的活跃落地页准备 SEO 简报，按最新关键词选择政策设置 Primary_Keyword 和 Status=Brief Ready，然后私聊 seo-lead@company.example.com 汇报选择。来源值照录，包含页面名称及批次数量。此批只填写选词与状态，Meta_Title 暂不编辑。",
+    "sheets": [
+      {
+        "book": "ss_seo_backlog",
+        "sheet": "ws_pages",
+        "match": {
+          "Row_ID": "row_lp1"
+        },
+        "fields": {
+          "Primary_Keyword": "ai helpdesk software",
+          "Status": "Brief Ready"
+        }
+      },
+      {
+        "book": "ss_seo_backlog",
+        "sheet": "ws_pages",
+        "match": {
+          "Row_ID": "row_lp2"
+        },
+        "fields": {
+          "Primary_Keyword": "process analytics tools",
+          "Status": "Brief Ready"
+        }
+      },
+      {
+        "book": "ss_seo_backlog",
+        "sheet": "ws_pages",
+        "match": {
+          "Row_ID": "row_lp5"
+        },
+        "fields": {
+          "Primary_Keyword": "teamwork platform",
+          "Status": "Brief Ready"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "seo-lead@company.example.com",
+        "text": "SEOBR-2026-W04\nSEOBRF-221-Q1 / SEO-RANK-20260127-Q1\n3 briefs\nAI Helpdesk | ai helpdesk software\nWorkflow Analytics | process analytics tools\nTeam Collaboration | teamwork platform",
+        "contains": [
+          "SEOBR-2026-W04",
+          "SEOBRF-221-Q1",
+          "SEO-RANK-20260127-Q1",
+          "3 brief",
+          "AI Helpdesk | ai helpdesk software",
+          "Workflow Analytics | process analytics tools",
+          "Team Collaboration | teamwork platform"
+        ]
+      }
+    ]
+  },
+  "marketing-1055": {
+    "instruction": "检查 ss_trends / ws_kw 的关键词趋势，把有价值的机会追加到 ss_seo_backlog / ws_queue，私聊 content@company.example.com 简报并遵守流程。一般机会定义为尚无排名、月增长率至少 50%、难度 low 或 medium；备注要求延后则暂不进入。data governance 因合规项目必须纳入；agentic workflows 有未解除商标争议，不得纳入。新行写 keyword、growth_rate（百分数文本）、priority（一般机会 high、强制项目 required）。来源值照录，消息包含相关数量。",
+    "sheets": [
+      {
+        "book": "ss_seo_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "AI automation tools",
+          "growth_rate": "140%",
+          "priority": "high"
+        }
+      },
+      {
+        "book": "ss_seo_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "workflow automation",
+          "growth_rate": "87.5%",
+          "priority": "high"
+        }
+      },
+      {
+        "book": "ss_seo_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "data governance",
+          "growth_rate": "5%",
+          "priority": "required"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "content@company.example.com",
+        "text": "SEO-KW-2026-0312\nAI automation tools | 5000 → 12000 | 140%\nworkflow automation | 8000 → 15000 | 87.5%\ndata governance | 4000 → 4200 | 5%",
+        "contains": [
+          "SEO-KW-2026-0312",
+          "AI automation tools | 5000 → 12000 | 140%",
+          "workflow automation | 8000 → 15000 | 87.5%",
+          "data governance | 4000 → 4200 | 5%"
+        ]
+      }
+    ]
+  },
+  "marketing-1217": {
+    "instruction": "今天为 2026-01-28。处理一月合作伙伴佣金，核对 ss_deals / ws_closed 的成交记录、ws_tiers 的费率和收款邮箱、ws_disputes 的争议状态，计算并私聊发送各伙伴对账单。未解决争议暂不计入本月应付，遵守备注；来源值照录。本次只出对账单，不修改源成交或争议记录，不执行实际付款；零金额成交不列入应付明细。",
+    "now": "2026-01-28T10:00:00Z",
+    "messages": [
+      {
+        "email": "finance@alpha.example.com",
+        "text": "PCOMM-338-Q1\nAlpha Partners January commission 12,750，佣金率 15%。\nD001 | 50000 | 7,500\nD002 | 25000 | 3,750\nD009 | 10000 | 1,500",
+        "contains": [
+          "PCOMM-338-Q1",
+          "Alpha Partners",
+          "commission 12,750",
+          "15%",
+          "D001 | 50000 | 7,500",
+          "D002 | 25000 | 3,750",
+          "D009 | 10000 | 1,500"
+        ]
+      },
+      {
+        "email": "billing@beta.example.com",
+        "text": "PCOMM-338-Q1\nBeta Solutions January commission 3,000，佣金率 10%。\nD004 | 30000 | 3,000",
+        "contains": [
+          "PCOMM-338-Q1",
+          "Beta Solutions",
+          "commission 3,000",
+          "10%",
+          "D004 | 30000 | 3,000"
+        ]
+      },
+      {
+        "email": "accounts@gamma.example.com",
+        "text": "PCOMM-338-Q1\nGamma Group January commission 18,000，佣金率 15%。\nD005 | 100000 | 15,000\nD011 | 20000 | 3,000",
+        "contains": [
+          "PCOMM-338-Q1",
+          "Gamma Group",
+          "commission 18,000",
+          "15%",
+          "D005 | 100000 | 15,000",
+          "D011 | 20000 | 3,000"
+        ]
+      },
+      {
+        "email": "pay@alphallc.example.com",
+        "text": "PCOMM-338-Q1\nAlpha Partnership LLC January commission 2,800，佣金率 8%。\nD008 | 35000 | 2,800",
+        "contains": [
+          "PCOMM-338-Q1",
+          "Alpha Partnership LLC",
+          "commission 2,800",
+          "8%",
+          "D008 | 35000 | 2,800"
+        ]
+      }
+    ]
+  },
+  "marketing-1063": {
+    "instruction": "社交赠品活动已结束。查看 ss_contest 的所有工作表及业务来信，核对报名、Followers（ws_followers）和历史获奖者；把合格者追加至 ss_finalists / ws_valid。一般要求为关注者，具体政策和例外以业务材料为准。保留源报名表；新行填写 username、entry_date（原报名日期）和 batch_reference。",
+    "sheets": [
+      {
+        "book": "ss_finalists",
+        "sheet": "ws_valid",
+        "append": {
+          "username": "@kaylee_chen",
+          "entry_date": "2026-01-22",
+          "batch_reference": "GVWY-441-Q1"
+        }
+      },
+      {
+        "book": "ss_finalists",
+        "sheet": "ws_valid",
+        "append": {
+          "username": "@tommy_neon",
+          "entry_date": "2026-01-24",
+          "batch_reference": "GVWY-441-Q1"
+        }
+      },
+      {
+        "book": "ss_finalists",
+        "sheet": "ws_valid",
+        "append": {
+          "username": "@emma_watts26",
+          "entry_date": "2026-01-26",
+          "batch_reference": "GVWY-441-Q1"
+        }
+      },
+      {
+        "book": "ss_finalists",
+        "sheet": "ws_valid",
+        "append": {
+          "username": "@nolan_west",
+          "entry_date": "2026-01-19",
+          "batch_reference": "GVWY-441-Q1"
+        }
+      },
+      {
+        "book": "ss_finalists",
+        "sheet": "ws_valid",
+        "append": {
+          "username": "@finn_avery",
+          "entry_date": "2026-01-20",
+          "batch_reference": "GVWY-441-Q1"
+        }
+      },
+      {
+        "book": "ss_finalists",
+        "sheet": "ws_valid",
+        "append": {
+          "username": "@mia_torres",
+          "entry_date": "2026-01-27",
+          "batch_reference": "GVWY-441-Q1"
+        }
+      }
+    ]
+  },
+  "marketing-1066": {
+    "instruction": "检查社区论坛 ss_forum / ws_questions，先读取最新优先级指南，再为支持团队筛选问题并按要求通知。消息包含问题编号及标题；本次只路由，不修改源问题状态。支持群通知按政策排序，每行采用“post_id | posted_date | author_email | question”便于核对。",
+    "messages": [
+      {
+        "channel": "support",
+        "text": "FORUM-617-TRIAGE\nQ006 | 2026-01-17 | admin@techcorp.example.com | Bulk import failing?\nQ004 | 2026-01-19 | user@startup.example.com | Integration help\nQ001 | 2026-01-20 | user@acme.example.com | How do I export data?",
+        "contains": [
+          "FORUM-617-TRIAGE",
+          "Q006 | 2026-01-17 | admin@techcorp.example.com | Bulk import failing?\nQ004 | 2026-01-19 | user@startup.example.com | Integration help\nQ001 | 2026-01-20 | user@acme.example.com | How do I export data?"
+        ]
+      },
+      {
+        "email": "legal@company.example.com",
+        "text": "Q008 | user@techcorp.example.com | Why was my account suspended?\nDO NOT ENGAGE，active legal dispute / Legal hold，请法务直接处理。",
+        "contains": [
+          "Q008",
+          "user@techcorp.example.com",
+          "Why was my account suspended?",
+          "legal"
+        ]
+      }
+    ]
+  },
+  "marketing-1083": {
+    "instruction": "从 ss_analytics / ws_posts 筛选高流量、高参与博客进行内容改编，核对历史及现行政策和特别要求，向 ss_queue / ws_tasks 追加任务，再在 content-ops 群汇总实际排入项目和浏览量。该批目标格式统一为 Video；priority 使用 High，每条 tracking_code 同时记录批次码和单项码。保留源文章和改编历史，不执行实际视频制作。",
+    "sheets": [
+      {
+        "book": "ss_queue",
+        "sheet": "ws_tasks",
+        "append": {
+          "source_post": "Complete CRM Buying Guide",
+          "new_format": "Video",
+          "priority": "High",
+          "tracking_code": "CREP-772-Q1 REPR-C001-Q1"
+        }
+      },
+      {
+        "book": "ss_queue",
+        "sheet": "ws_tasks",
+        "append": {
+          "source_post": "Industry News Roundup",
+          "new_format": "Video",
+          "priority": "High",
+          "tracking_code": "CREP-772-Q1 REPR-C004-Q1"
+        }
+      },
+      {
+        "book": "ss_queue",
+        "sheet": "ws_tasks",
+        "append": {
+          "source_post": "Pipeline Management Tips",
+          "new_format": "Video",
+          "priority": "High",
+          "tracking_code": "CREP-772-Q1 REPR-C007-Q1"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "content-ops",
+        "text": "CREP-772-Q1\n已排入 3 项，total views 20,900。\nComplete CRM Buying Guide | REPR-C001-Q1 | 12500\nIndustry News Roundup | REPR-C004-Q1 | 3200\nPipeline Management Tips | REPR-C007-Q1 | 5200",
+        "contains": [
+          "CREP-772-Q1",
+          "20,900",
+          "Complete CRM Buying Guide | REPR-C001-Q1 | 12500",
+          "Industry News Roundup | REPR-C004-Q1 | 3200",
+          "Pipeline Management Tips | REPR-C007-Q1 | 5200"
+        ]
+      }
+    ]
+  },
+  "marketing-1079": {
+    "instruction": "今天为 2026-02-03。检查 Creative Requests（ss_creative / ws_assets），先读取更新后的流程，再给设计团队发送逾期提醒或近期截止预警。消息包含素材名称，遵守指定日期格式和通知渠道。",
+    "now": "2026-02-03T09:00:00Z",
+    "messages": [
+      {
+        "channel": "design-team",
+        "text": "CREAT-227-Q1\n以下素材 overdue，请跟进：\nHero Banner | Spring Sale | Jan 25 | designer1@company.example.com\nEmail Template | Newsletter | Jan 29 | designer2@company.example.com\nLanding Page | Webinar | Jan 28 | designer3@company.example.com",
+        "contains": [
+          "CREAT-227-Q1",
+          "overdue",
+          "Hero Banner | Spring Sale | Jan 25",
+          "Email Template | Newsletter | Jan 29",
+          "Landing Page | Webinar | Jan 28"
+        ]
+      }
+    ]
   }
 }

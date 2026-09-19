@@ -1,0 +1,251 @@
+{
+  "now": "2026-02-09T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_maint": {
+      "title": "Maintenance Schedule",
+      "sheets": {
+        "ws_schedule": {
+          "title": "Schedule",
+          "values": [
+            [
+              "Service",
+              "Affected Org",
+              "Date",
+              "Start Time",
+              "End Time",
+              "Status",
+              "Classification"
+            ],
+            [
+              "Database Cluster",
+              "Acme Corp",
+              "2026-02-10",
+              "02:00",
+              "04:00",
+              "Scheduled",
+              "routine"
+            ],
+            [
+              "CDN Edge Nodes",
+              "TechFlow",
+              "2026-02-12",
+              "03:00",
+              "05:00",
+              "Scheduled",
+              "routine"
+            ],
+            [
+              "Auth Service",
+              "OldCorp",
+              "2026-01-15",
+              "01:00",
+              "02:00",
+              "Completed",
+              "routine"
+            ],
+            [
+              "API Gateway",
+              "MultiContact Corp",
+              "2026-02-15",
+              "23:00",
+              "01:00",
+              "Scheduled",
+              "emergency"
+            ],
+            [
+              "Email Service",
+              "Acme Corp",
+              "2026-02-08",
+              "04:00",
+              "05:00",
+              "Cancelled",
+              "routine"
+            ],
+            [
+              "Storage Cluster",
+              "Acme Solutions",
+              "2026-02-18",
+              "01:00",
+              "03:00",
+              "Scheduled",
+              "routine"
+            ],
+            [
+              "CDN Edge Nodes",
+              "TechFlow",
+              "2026-02-20",
+              "03:00",
+              "05:00",
+              "Postponed",
+              "routine"
+            ],
+            [
+              "Database Cluster",
+              "Acme Corp",
+              "2026-02-24",
+              "02:00",
+              "04:00",
+              "Scheduled",
+              "routine"
+            ]
+          ]
+        },
+        "ws_notification_prefs": {
+          "title": "Notification Preferences",
+          "values": [
+            ["Org Name", "Preference", "Emergency Contact"],
+            ["Acme Corp", "email+slack", "cto@acmecorp.com"],
+            ["TechFlow", "email-only", "vp-eng@techflow.io"],
+            ["MultiContact Corp", "email-only", "ciso@multicontact.com"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [
+    {
+      "calendar_id": "cal_primary",
+      "summary": "cal_primary",
+      "role": "owner"
+    }
+  ],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zendesk_org_101",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Acme Corp",
+          "notes": "contact: ops-team@acmecorp.com",
+          "domain_names": "[\"acmecorp.com\"]",
+          "tags": "[\"enterprise\",\"acme-ops\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_102",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "TechFlow",
+          "notes": "contact: infra@techflow.io",
+          "domain_names": "[\"techflow.io\"]",
+          "tags": "[\"startup\",\"techflow-eng\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_103",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "MultiContact Corp",
+          "notes": "contact: admin@multicontact.com, ops@multicontact.com",
+          "domain_names": "[\"multicontact.com\"]",
+          "tags": "[\"enterprise\",\"multicontact-ops\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_104",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "NearCorp",
+          "notes": "contact: hello@nearcorp.com",
+          "domain_names": "[\"nearcorp.com\"]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "admin@multicontact.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ciso@multicontact.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "cto@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "hello@nearcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "infra@techflow.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "ops-team@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "ops@multicontact.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "vp-eng@techflow.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ops",
+      "name": "support-ops",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_acme",
+      "name": "acme-ops",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_tf",
+      "name": "techflow-eng",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_mc",
+      "name": "multicontact-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

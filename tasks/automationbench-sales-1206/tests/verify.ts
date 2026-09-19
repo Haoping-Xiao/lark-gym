@@ -4,6 +4,8 @@ import { fileURLToPath } from 'node:url';
 type Fields = Record<string, string | number>;
 type RecordRow = { record_id: string; fields: Fields };
 type EventCheck = {
+  description?: string;
+  description_contains?: string[];
   vc_data?: {
     vc_type: string;
     meeting_settings?: { password?: string; join_meeting_permission?: string };
@@ -195,6 +197,10 @@ const eventChecks = (expected.events || []).map((check) => ({
         .map((a: { third_party_email: string }) => a.third_party_email)
         .sort();
       return (
+        (!check.description_contains ||
+          check.description_contains.every((part) =>
+            (event.description || '').includes(part),
+          )) &&
         event.calendar_id === check.calendar_id &&
         event.status !== 'cancelled' &&
         (!check.vc || event.vc_data?.vc_type === 'vc') &&
