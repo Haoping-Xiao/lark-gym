@@ -36,6 +36,7 @@ const expected: {
   create_contains?: Record<string, string[]>;
   creation_contains?: Record<string, Record<string, string[]>>;
   cells?: {
+    one_of?: (string | number)[];
     contains?: string[];
     spreadsheet_token?: string;
     sheet_id: string;
@@ -250,16 +251,23 @@ const sheetsFor = (
     : state.sheets;
 const cellChecks = (expected.cells || []).map((c) => ({
   ...c,
-  passed: c.contains
-    ? c.contains.every((part) =>
-        String(
-          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ?? '',
-        ).includes(part),
+  passed: c.one_of
+    ? c.one_of.some((value) =>
+        isDeepStrictEqual(
+          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+          value,
+        ),
       )
-    : isDeepStrictEqual(
-        sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-        c.value,
-      ),
+    : c.contains
+      ? c.contains.every((part) =>
+          String(
+            sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ?? '',
+          ).includes(part),
+        )
+      : isDeepStrictEqual(
+          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+          c.value,
+        ),
 }));
 for (const cell of expected.cells || []) {
   const before = sheetsFor(seed, cell)[cell.sheet_id].values;

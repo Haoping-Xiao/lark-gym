@@ -86,6 +86,32 @@ for (const task of (await readdir('tasks')).filter((n) =>
           Object.assign(backend.world, structuredClone(solved));
         }
 
+        const flexible = expected.cells?.find(
+          (c: { one_of?: unknown[] }) => c.one_of && c.one_of.length > 1,
+        );
+        if (flexible) {
+          const sheet =
+            backend.world.spreadsheets[flexible.spreadsheet_token].sheets[
+              flexible.sheet_id
+            ];
+          sheet.values[flexible.row][flexible.column] = flexible.one_of.find(
+            (v: unknown) => v !== flexible.value,
+          );
+          assert.equal(
+            await grade(),
+            '1',
+            'Another permitted business recommendation must pass',
+          );
+          sheet.values[flexible.row][flexible.column] =
+            'unsupported recommendation';
+          assert.equal(
+            await grade(),
+            '0',
+            'An unsupported recommendation must fail',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
+
         const beforeIds = new Set(
           seed.base.records.map((r: { record_id: string }) => r.record_id),
         );
