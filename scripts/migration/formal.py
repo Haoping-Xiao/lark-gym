@@ -23,7 +23,7 @@ for row in rows:
     if key not in recipes:continue
     recipe=recipes[key];src=row['info']['initial_state'];now=recipe.get('now',src.get('meta',{}).get('current_time','2026-02-24T09:00:00Z'))
     for app,payload in src.items():
-        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot'] or empty(payload),(key,'unmapped source app',app)
+        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp'] or empty(payload),(key,'unmapped source app',app)
     records=[]
     for user in src.get('slack',{}).get('users',[]):
         records.append({'record_id':'rec_user_'+user['id'],'fields':{'collection':'lookup_users',**{k:scalar(v) for k,v in user.items()}}})
@@ -53,6 +53,27 @@ for row in rows:
             flat={k:scalar(v) for k,v in item.items() if k not in ['id','properties']}
             assert not (set(flat)&set(properties)),(key,'hubspot property collision')
             records.append({'record_id':'rec_hubspot_'+str(item['id']),'fields':{'collection':'hubspot_'+collection,**flat,**{k:scalar(v) for k,v in properties.items()}}})
+    mailing=src.get('mailchimp',{})
+    mailingLists={a['id'] for a in mailing.get('audiences',[])}
+    subscribers=list(mailing.get('subscribers',[]))
+    for audience in mailing.get('audiences',[]):
+        records.append({'record_id':'rec_mailchimp_audiences_'+audience['id'],'fields':{'collection':'mailchimp_audiences',**{k:scalar(v) for k,v in audience.items() if k!='subscribers'}}})
+        for subscriber in audience.get('subscribers',[]):
+            assert subscriber.get('list_id',audience['id'])==audience['id'],(key,'mailchimp audience mismatch')
+            subscribers.append({**subscriber,'list_id':audience['id']})
+    subscriberIds=set()
+    for subscriber in subscribers:
+        assert subscriber['list_id'] in mailingLists,(key,'unknown mailing list')
+        identity=str(subscriber.get('id',subscriber['list_id']+':'+subscriber['email']))
+        assert identity not in subscriberIds,(key,'duplicate subscriber identity',identity)
+        subscriberIds.add(identity)
+        records.append({'record_id':'rec_mailchimp_subscribers_'+identity,'fields':{'collection':'mailchimp_subscribers',**{k:scalar(v) for k,v in subscriber.items()}}})
+    for collection,items in mailing.items():
+        if collection in ['audiences','subscribers']:continue
+        assert isinstance(items,list),(key,'unsupported mailchimp collection',collection)
+        for item in items:
+            assert isinstance(item,dict) and 'id' in item,(key,'missing mailchimp identity',collection)
+            records.append({'record_id':'rec_mailchimp_'+collection+'_'+str(item['id']),'fields':{'collection':'mailchimp_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     spreadsheets={}
     for originalBook in src.get('google_sheets',{}).get('spreadsheets',[]):
         book={**originalBook,'id':originalBook.get('id',originalBook.get('spreadsheet_id'))}
@@ -138,7 +159,8 @@ for row in rows:
     forbidden=[]
     for a in row['info']['assertions']:
         if a['type']=='gmail_message_sent_to_with_body_not_contains':
-            values=a['body_not_contains'];values=[values] if isinstance(values,str) else values
+            values=a.get('body_not_contains',a.get('body_contains'));assert values is not None,(key,'missing negative body constraint')
+            values=[values] if isinstance(values,str) else values
             for value in values:forbidden.append({'chat_id':destinations[a['to']],'contains':[value]})
         elif a['type'] in ['gmail_message_not_sent_to','gmail_message_not_sent_to_with_body_contains','gmail_message_not_sent','gmail_email_not_sent_to','gmail_message_not_sent_with_body']:
             addresses=a.get('to',[]);addresses=[addresses] if isinstance(addresses,str) else addresses
@@ -168,6 +190,7 @@ for row in rows:
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'
+    if 'mailchimp' in src:context+='\n邮件列表实体存放在 mailchimp_audiences / mailchimp_subscribers 等集合，以 list_id 关联，订阅状态直接写 status；归档写 archived，退订写 unsubscribed，保留记录用于审计。通过 Base 查询实际 record_id。\n'
     if 'hubspot' in src:context+='\nHubSpot 集合对应 hubspot_ 加原集合名，记录 ID 为 rec_hubspot_ 加原 ID；properties 内属性展开为同名台账字段。\n'
     if calendars:context+='\n日程使用飞书 calendar 命令，日历 ID：'+', '.join(c['calendar_id'] for c in calendars)+'。使用来源明确时区；未标时区按 UTC。\n'
     if spreadsheets:context+='\n飞书电子表格目录：\n'+'\n'.join(f"- {token}：{b['title']}；工作表 "+', '.join(f"{sid}（{w['title']}）" for sid,w in b['sheets'].items()) for token,b in spreadsheets.items())+'\n使用 sheets 业务命令读取表格。\n'
