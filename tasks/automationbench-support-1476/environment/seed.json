@@ -1,0 +1,446 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_migration": {
+      "title": "Migration Playbook",
+      "sheets": {
+        "ws_status_map": {
+          "title": "Status Map",
+          "values": [
+            ["HelpScout_Status", "Reamaze_Status"],
+            ["active", "unresolved"],
+            ["pending", "pending"]
+          ]
+        },
+        "ws_category_map": {
+          "title": "Category Map",
+          "values": [
+            ["HelpScout_Tag", "Reamaze_Category"],
+            ["billing", "billing"],
+            ["technical", "tech-support"],
+            ["default", "general"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_contacts_source_index_0",
+        "fields": {
+          "collection": "reamaze_contacts",
+          "email": "raj@devstudio.io",
+          "name": "Raj Mehta"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_contacts_ra_noise_ct_003",
+        "fields": {
+          "collection": "reamaze_contacts",
+          "id": "ra_noise_ct_003",
+          "email": "buyer3@eurolink.example.com",
+          "name": "Lukas Stein"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_contacts_ra_noise_ct_002",
+        "fields": {
+          "collection": "reamaze_contacts",
+          "id": "ra_noise_ct_002",
+          "email": "buyer2@dataplex.example.com",
+          "name": "Ava Morales"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs1",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Invoice correction needed",
+          "status": "active",
+          "customer_id": "mig_cust1",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-02-01T09:00:00Z",
+          "tags": "[\"billing\"]",
+          "threads": "[{\"id\":\"thr_1\",\"type\":\"customer\",\"body\":\"My last invoice was incorrect.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs2",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API rate limiting errors",
+          "status": "active",
+          "customer_id": "mig_cust2",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-02-02T11:00:00Z",
+          "tags": "[\"technical\"]",
+          "threads": "[{\"id\":\"thr_2\",\"type\":\"customer\",\"body\":\"Getting 429 errors on our API calls.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs3",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Account inquiry",
+          "status": "active",
+          "customer_id": "mig_cust3",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-02-03T14:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"thr_3\",\"type\":\"customer\",\"body\":\"I have some questions about my account.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs4",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Refund status update",
+          "status": "pending",
+          "customer_id": "mig_cust4",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-01-28T10:00:00Z",
+          "tags": "[\"billing\"]",
+          "threads": "[{\"id\":\"thr_4\",\"type\":\"customer\",\"body\":\"Still waiting on my refund.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs5",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "SSO integration broken",
+          "status": "pending",
+          "customer_id": "mig_cust5",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-01-30T16:00:00Z",
+          "tags": "[\"technical\"]",
+          "threads": "[{\"id\":\"thr_5\",\"type\":\"customer\",\"body\":\"SSO stopped working after the update.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs6",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Resolved payment issue",
+          "status": "closed",
+          "customer_id": "mig_cust1",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-01-15T10:00:00Z",
+          "tags": "[\"billing\"]",
+          "threads": "[{\"id\":\"thr_6\",\"type\":\"customer\",\"body\":\"Payment issue was resolved.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs7",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Buy cheap watches",
+          "status": "spam",
+          "customer_id": "mig_cust6",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-02-04T08:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"thr_7\",\"type\":\"customer\",\"body\":\"Click here for deals!\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_hs8",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Subscription change request",
+          "status": "active",
+          "customer_id": "mig_cust2",
+          "mailbox_id": "mb_main",
+          "created_at": "2026-02-05T10:00:00Z",
+          "tags": "[\"billing\"]",
+          "threads": "[{\"id\":\"thr_8\",\"type\":\"customer\",\"body\":\"I'd like to change my subscription tier.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_009",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Mailbox forwarding stopped",
+          "status": "closed",
+          "customer_email": "noise_user1@elkridge.example.com",
+          "tags": "[\"email\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Emails to support@company.com are no longer arriving in HelpScout.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_001",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Cannot reset two-factor auth",
+          "status": "closed",
+          "customer_email": "noise_user1@elkridge.example.com",
+          "tags": "[\"auth\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I lost my phone and can't get past 2FA.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_004",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Slow response times this week",
+          "status": "closed",
+          "customer_email": "noise_user4@summitpeak.example.com",
+          "tags": "[\"performance\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Page loads are taking 8-10 seconds since Tuesday.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_cust1",
+        "fields": {
+          "collection": "help_customers",
+          "email": "yuki@financeplus.com",
+          "first_name": "Yuki",
+          "last_name": "Tanaka"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_cust2",
+        "fields": {
+          "collection": "help_customers",
+          "email": "raj@devstudio.io",
+          "first_name": "Raj",
+          "last_name": "Mehta"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_cust3",
+        "fields": {
+          "collection": "help_customers",
+          "email": "maria@designhub.com",
+          "first_name": "Maria",
+          "last_name": "Gonzalez"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_cust4",
+        "fields": {
+          "collection": "help_customers",
+          "email": "sam@retailplus.com",
+          "first_name": "Sam",
+          "last_name": "Johnson"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_cust5",
+        "fields": {
+          "collection": "help_customers",
+          "email": "lily@cloudops.io",
+          "first_name": "Lily",
+          "last_name": "Chen"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mig_cust6",
+        "fields": {
+          "collection": "help_customers",
+          "email": "spam@junkmail.com",
+          "first_name": "Spam",
+          "last_name": "Bot"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_main",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Main Support"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "source_id",
+        "type": "text"
+      },
+      {
+        "name": "contact_email",
+        "type": "text"
+      },
+      {
+        "name": "category",
+        "type": "text"
+      },
+      {
+        "name": "source_threads",
+        "type": "text"
+      },
+      {
+        "name": "source_tags",
+        "type": "text"
+      },
+      {
+        "name": "source_mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "buyer2@dataplex.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "buyer3@eurolink.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "lily@cloudops.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "maria@designhub.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "noise_user1@elkridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "noise_user4@summitpeak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "raj@devstudio.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "sam@retailplus.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "spam@junkmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "support@company.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "yuki@financeplus.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_MIG",
+      "name": "migration-status",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

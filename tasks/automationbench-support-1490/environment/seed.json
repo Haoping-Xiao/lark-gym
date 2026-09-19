@@ -1,0 +1,549 @@
+{
+  "now": "2025-01-20T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_renewals": {
+      "title": "Contract Renewals",
+      "sheets": {
+        "ws_schedule": {
+          "title": "Renewal Schedule",
+          "values": [
+            ["Email", "Company", "Renewal Date", "Account Manager", "Status"],
+            [
+              "rc1@acme.com",
+              "Acme Corp",
+              "2025-02-05",
+              "am1@company.example.com",
+              ""
+            ],
+            [
+              "rc2@globex.com",
+              "Globex",
+              "2025-02-15",
+              "am2@company.example.com",
+              ""
+            ],
+            [
+              "rc3@initech.com",
+              "Initech",
+              "2025-03-01",
+              "am1@company.example.com",
+              ""
+            ],
+            [
+              "rc4@hooli.com",
+              "Hooli",
+              "2025-03-15",
+              "am2@company.example.com",
+              ""
+            ],
+            [
+              "rc5@piedpiper.com",
+              "Pied Piper",
+              "2025-04-10",
+              "am3@company.example.com",
+              ""
+            ],
+            [
+              "rc6@umbrella.com",
+              "Umbrella Corp",
+              "2025-04-15",
+              "am3@company.example.com",
+              ""
+            ],
+            [
+              "rc7@wayneent.com",
+              "Wayne Enterprises",
+              "2024-12-15",
+              "am1@company.example.com",
+              ""
+            ],
+            [
+              "rc8@starkinc.com",
+              "Stark Inc",
+              "2024-11-01",
+              "am2@company.example.com",
+              ""
+            ],
+            [
+              "rc9@oscorp.com",
+              "Oscorp",
+              "2025-02-10",
+              "am3@company.example.com",
+              ""
+            ],
+            [
+              "rc10@lexcorp.com",
+              "LexCorp",
+              "2025-03-20",
+              "am1@company.example.com",
+              ""
+            ],
+            [
+              "rc11@completed.com",
+              "Completed Co",
+              "2025-02-01",
+              "am1@company.example.com",
+              "Completed"
+            ],
+            [
+              "contact1@ironcladsy.example.com",
+              "Ironclad Systems",
+              "2026-01-15",
+              "Ironclad Systems",
+              ""
+            ],
+            [
+              "contact2@bluestarve.example.com",
+              "BlueStar Ventures",
+              "2026-02-03",
+              "BlueStar Ventures",
+              ""
+            ],
+            [
+              "contact3@cascadeana.example.com",
+              "Cascade Analytics",
+              "2026-02-18",
+              "Cascade Analytics",
+              ""
+            ],
+            [
+              "contact4@vertexcapi.example.com",
+              "Vertex Capital",
+              "2026-03-01",
+              "Vertex Capital",
+              ""
+            ],
+            [
+              "contact5@thornwoodp.example.com",
+              "Thornwood Partners",
+              "2026-03-07",
+              "Thornwood Partners",
+              ""
+            ],
+            [
+              "contact6@starlingfi.example.com",
+              "Starling Financial",
+              "2025-11-20",
+              "Starling Financial",
+              ""
+            ],
+            [
+              "contact7@redwoodtec.example.com",
+              "Redwood Technologies",
+              "2025-12-05",
+              "Redwood Technologies",
+              ""
+            ],
+            [
+              "contact8@eastgateso.example.com",
+              "Eastgate Solutions",
+              "2026-01-28",
+              "Eastgate Solutions",
+              ""
+            ],
+            [
+              "contact9@montclairi.example.com",
+              "Montclair Industries",
+              "2026-02-14",
+              "Montclair Industries",
+              ""
+            ],
+            [
+              "contact10@pacificrid.example.com",
+              "Pacific Ridge Corp",
+              "2026-03-03",
+              "Pacific Ridge Corp",
+              ""
+            ],
+            [
+              "contact11@summitgrou.example.com",
+              "Summit Group Holdings",
+              "2026-01-15",
+              "Summit Group Holdings",
+              ""
+            ],
+            [
+              "contact12@riverviewp.example.com",
+              "Riverview Partners",
+              "2026-02-03",
+              "Riverview Partners",
+              ""
+            ],
+            [
+              "contact13@northgatet.example.com",
+              "Northgate Technologies",
+              "2026-02-18",
+              "Northgate Technologies",
+              ""
+            ],
+            [
+              "contact14@silverston.example.com",
+              "Silverstone Group",
+              "2026-03-01",
+              "Silverstone Group",
+              ""
+            ],
+            [
+              "contact15@cloudbridg.example.com",
+              "CloudBridge Systems",
+              "2026-03-07",
+              "CloudBridge Systems",
+              ""
+            ]
+          ]
+        },
+        "ws_dnc": {
+          "title": "DNC List",
+          "values": [
+            ["Email", "Reason"],
+            ["rc5@piedpiper.com", "Requested no contact"],
+            ["rc6@umbrella.com", "Legal hold"]
+          ]
+        },
+        "ws_tiers": {
+          "title": "Urgency Tiers",
+          "values": [
+            ["Tier", "Days Min", "Days Max", "Tag", "Priority"],
+            ["Tier 1", "0", "30", "renewal-urgent", "4"],
+            ["Tier 2", "31", "60", "renewal-soon", "3"],
+            ["Tier 3", "61", "90", "renewal-upcoming", "2"]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "RENEWAL-BATCH-20250120"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r01",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r01",
+          "name": "Renewal Contact 1",
+          "email": "rc1@acme.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r02",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r02",
+          "name": "Renewal Contact 2",
+          "email": "rc2@globex.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r03",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r03",
+          "name": "Renewal Contact 3",
+          "email": "rc3@initech.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r04",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r04",
+          "name": "Renewal Contact 4",
+          "email": "rc4@hooli.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r05",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r05",
+          "name": "Renewal Contact 5",
+          "email": "rc5@piedpiper.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r06",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r06",
+          "name": "Renewal Contact 6",
+          "email": "rc6@umbrella.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r07",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r07",
+          "name": "Renewal Contact 7",
+          "email": "rc7@wayneent.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r08",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r08",
+          "name": "Renewal Contact 8",
+          "email": "rc8@starkinc.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r09",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r09",
+          "name": "Renewal Contact 9",
+          "email": "rc9@oscorp.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_r10",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_r10",
+          "name": "Renewal Contact 10",
+          "email": "rc10@lexcorp.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_007",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_007",
+          "name": "Andrei Sokolov",
+          "email": "asokolov@cobaltio.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_001",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_001",
+          "name": "Marcus Reeves",
+          "email": "mreeves@starpoint.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "renewal_date",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "am1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "am2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "am3@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "asokolov@cobaltio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "contact10@pacificrid.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "contact11@summitgrou.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "contact12@riverviewp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "contact13@northgatet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "contact14@silverston.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "contact15@cloudbridg.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "contact1@ironcladsy.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "contact2@bluestarve.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "contact3@cascadeana.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "contact4@vertexcapi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "contact5@thornwoodp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "contact6@starlingfi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "contact7@redwoodtec.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "contact8@eastgateso.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "contact9@montclairi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "mreeves@starpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "rc10@lexcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "rc11@completed.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "rc1@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "rc2@globex.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "rc3@initech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "rc4@hooli.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "rc5@piedpiper.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "rc6@umbrella.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "rc7@wayneent.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "rc8@starkinc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "rc9@oscorp.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

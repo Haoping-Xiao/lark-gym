@@ -1,0 +1,1350 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_signals": {
+      "title": "Signal Config",
+      "sheets": {
+        "ws_keywords": {
+          "title": "Keywords",
+          "values": [
+            ["Keyword", "Signal_Type"],
+            ["cancel", "churn_risk"],
+            ["churn", "churn_risk"],
+            ["leaving", "churn_risk"],
+            ["upgrade", "upsell"],
+            ["expand", "upsell"],
+            ["more seats", "upsell"],
+            ["competitor", "competitive_threat"],
+            ["alternative", "competitive_threat"],
+            ["switch", "competitive_threat"],
+            ["NZ-00202601", "Tier-Noise-1"],
+            ["NZ-00202602", "Tier-Noise-2"],
+            ["NZ-00202603", "Tier-Noise-3"],
+            ["NZ-00202604", "Tier-Noise-4"],
+            ["NZ-00202605", "Tier-Noise-5"],
+            ["NZ-00202606", "Tier-Noise-6"],
+            ["NZ-00202607", "Tier-Noise-7"],
+            ["NZ-00202608", "Tier-Noise-8"],
+            ["NZ-00202609", "Tier-Noise-9"],
+            ["NZ-00202610", "Tier-Noise-10"],
+            ["NZ-00202611", "Tier-Noise-11"],
+            ["NZ-00202612", "Tier-Noise-12"],
+            ["NZ-00202613", "Tier-Noise-13"],
+            ["NZ-00202614", "Tier-Noise-14"],
+            ["NZ-00202615", "Tier-Noise-15"]
+          ]
+        },
+        "ws_actions": {
+          "title": "Actions",
+          "values": [
+            [
+              "Signal_Type",
+              "SF_Task_Subject",
+              "SF_Task_Priority",
+              "Send_Email"
+            ],
+            ["churn_risk", "Retention call", "High", "no"],
+            ["upsell", "Expansion call", "Medium", "no"],
+            ["competitive_threat", "Competitive intel", "High", "yes"]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["report_id", "SIG-RPT-20260210"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c1",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c1",
+          "name": "Ava Martin",
+          "email": "ava@acmecorp.com",
+          "role": "user",
+          "company_ids": "[\"sig_co1\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c2",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c2",
+          "name": "Ben Torres",
+          "email": "ben@techstartup.io",
+          "role": "user",
+          "company_ids": "[\"sig_co2\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c3",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c3",
+          "name": "Clara Ng",
+          "email": "clara@bigenterprise.com",
+          "role": "user",
+          "company_ids": "[\"sig_co3\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c4",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c4",
+          "name": "Drew Park",
+          "email": "drew@noopp.com",
+          "role": "user",
+          "company_ids": "[\"sig_co4\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c5",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c5",
+          "name": "Elena Ruiz",
+          "email": "elena@midmarket.com",
+          "role": "user",
+          "company_ids": "[\"sig_co5\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c6",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c6",
+          "name": "Finn Walsh",
+          "email": "finn@smallbiz.com",
+          "role": "user",
+          "company_ids": "[\"sig_co6\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c7",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c7",
+          "name": "Grace Liu",
+          "email": "grace@acmecorp.com",
+          "role": "user",
+          "company_ids": "[\"sig_co1\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_sig_c8",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "sig_c8",
+          "name": "Hugo Bell",
+          "email": "hugo@midmarket.com",
+          "role": "user",
+          "company_ids": "[\"sig_co5\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_002",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_002",
+          "name": "Tara Jennings",
+          "email": "tjennings@prismdata.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_007",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_007",
+          "name": "Jordan Blake",
+          "email": "jblake@quartzlabs.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_sig_co1",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "sig_co1",
+          "name": "Acme Corp",
+          "plan": "enterprise",
+          "company_id": "sig_co1"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_sig_co2",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "sig_co2",
+          "name": "TechStartup",
+          "plan": "growth",
+          "company_id": "sig_co2"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_sig_co3",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "sig_co3",
+          "name": "BigEnterprise",
+          "plan": "enterprise",
+          "company_id": "sig_co3"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_sig_co4",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "sig_co4",
+          "name": "NoOpp Inc",
+          "plan": "starter",
+          "company_id": "sig_co4"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_sig_co5",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "sig_co5",
+          "name": "MidMarket LLC",
+          "plan": "growth",
+          "company_id": "sig_co5"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_sig_co6",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "sig_co6",
+          "name": "SmallBiz Co",
+          "plan": "starter",
+          "company_id": "sig_co6"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv1",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv1",
+          "contact_ids": "[\"sig_c1\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"We are considering canceling our subscription. The service doesn't meet our needs.\"}]",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv2",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv2",
+          "contact_ids": "[\"sig_c2\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"We'd like to upgrade to the enterprise plan and add more seats for our team.\"}]",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv3",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv3",
+          "contact_ids": "[\"sig_c3\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"We're evaluating a competitor alternative and might switch if things don't improve.\"}]",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv4",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv4",
+          "contact_ids": "[\"sig_c4\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"We're thinking about leaving your platform entirely.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv5",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv5",
+          "contact_ids": "[\"sig_c5\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"Can you help me set up the new API integration?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv6",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv6",
+          "contact_ids": "[\"sig_c6\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"When will the next release be available?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv7",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv7",
+          "contact_ids": "[\"sig_c8\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"If these issues continue we will churn and move to another vendor.\"}]",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv8",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv8",
+          "contact_ids": "[\"sig_c7\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"How do I export my usage report to CSV?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv9",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv9",
+          "contact_ids": "[\"sig_c1\"]",
+          "state": "closed",
+          "conversation_parts": "[{\"body\":\"We already cancelled our old plan.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_sig_conv10",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "sig_conv10",
+          "contact_ids": "[\"sig_c6\"]",
+          "state": "open",
+          "conversation_parts": "[{\"body\":\"We want to upgrade to a bigger plan with more seats.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_011",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_011",
+          "title": "Report scheduled export failed",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_003\"]",
+          "tags": "[\"reporting\"]",
+          "conversation_parts": "[{\"body\":\"The weekly scheduled report didn't arrive in my inbox on Monday.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_010",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_010",
+          "title": "Custom bot flow broken",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_002\"]",
+          "tags": "[\"bot\"]",
+          "conversation_parts": "[{\"body\":\"Our custom bot flow stopped routing to the right team after we added a new step.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_008",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_008",
+          "title": "Webhook payloads missing fields",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_008\"]",
+          "tags": "[\"api\",\"webhook\"]",
+          "conversation_parts": "[{\"body\":\"The conversation.updated webhook is missing the 'tags' field in the payload.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_sf_acc1",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Acme Corp",
+          "domain": "acmecorp.com"
+        }
+      },
+      {
+        "record_id": "rec_sf_acc2",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "TechStartup",
+          "domain": "techstartup.io"
+        }
+      },
+      {
+        "record_id": "rec_sf_acc3",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "BigEnterprise",
+          "domain": "bigenterprise.com"
+        }
+      },
+      {
+        "record_id": "rec_sf_acc5",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "MidMarket LLC",
+          "domain": "midmarket.com"
+        }
+      },
+      {
+        "record_id": "rec_sf_acc6",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "SmallBiz Co",
+          "domain": "smallbiz.com"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA008",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Eastgate Solutions",
+          "industry": "Business Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA039",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Maplecrest Systems",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA011",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Summit Group Holdings",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA025",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meadowbrook Tech",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA042",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Horizon Technologies",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA038",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sunridge Capital",
+          "industry": "Private Equity",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA013",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Northgate Technologies",
+          "industry": "IT Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA018",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Lakefront Ventures",
+          "industry": "Healthcare",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA019",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Westbrook Group",
+          "industry": "Energy",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA030",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Stonebridge Holdings",
+          "industry": "Financial Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA043",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meadowview Partners",
+          "industry": "Consulting",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA007",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Redwood Technologies",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA033",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Upland Systems",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA010",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Pacific Ridge Corp",
+          "industry": "Retail",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA009",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Montclair Industries",
+          "industry": "Manufacturing",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA034",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Wavecrest Analytics",
+          "industry": "Analytics",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA028",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Parkside Solutions",
+          "industry": "IT Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA035",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Zenith Platforms",
+          "industry": "SaaS",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA040",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Birchwood Analytics",
+          "industry": "Analytics",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA020",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Alpine Digital",
+          "industry": "Marketing",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA022",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Clearwater Systems",
+          "industry": "Cybersecurity",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA031",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sunstone Capital",
+          "industry": "Private Equity",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA041",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Crestwood Ventures",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA021",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Bayside Analytics",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA015",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "CloudBridge Systems",
+          "industry": "Technology",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA016",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Harbourview Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA004",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Vertex Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA014",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Silverstone Group",
+          "industry": "Automotive",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA024",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Highpoint Consulting",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA003",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Cascade Analytics",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA002",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "BlueStar Ventures",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA032",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Terrace Software",
+          "industry": "Software",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA045",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Aspen Digital",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA029",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverside Insurance",
+          "industry": "Insurance",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA005",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Thornwood Partners",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA006",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Starling Financial",
+          "industry": "Financial Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA044",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sterling Software",
+          "industry": "Software",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA036",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverstone Analytics",
+          "industry": "Analytics",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA017",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Ironridge Solutions",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA026",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Northstar Media",
+          "industry": "Media",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_sf_opp1",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Acme Renewal",
+          "account_id": "sf_acc1",
+          "stage": "Negotiation",
+          "owner_id": "sf_user1"
+        }
+      },
+      {
+        "record_id": "rec_sf_opp2",
+        "fields": {
+          "collection": "opportunities",
+          "name": "TechStartup Expansion",
+          "account_id": "sf_acc2",
+          "stage": "Proposal",
+          "owner_id": "sf_user2"
+        }
+      },
+      {
+        "record_id": "rec_sf_opp3",
+        "fields": {
+          "collection": "opportunities",
+          "name": "BigEnterprise Upsell",
+          "account_id": "sf_acc3",
+          "stage": "Discovery",
+          "owner_id": "sf_user3"
+        }
+      },
+      {
+        "record_id": "rec_sf_opp5",
+        "fields": {
+          "collection": "opportunities",
+          "name": "MidMarket Renewal",
+          "account_id": "sf_acc5",
+          "stage": "Negotiation",
+          "owner_id": "sf_user1"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO006",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Starling Financial - Platform License",
+          "stage_name": "Needs Analysis",
+          "close_date": "2026-06-06T00:00:00",
+          "amount": 75000.0,
+          "account_id": "001xx000099NA006",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO017",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ironridge Solutions - Platform License",
+          "stage_name": "Value Proposition",
+          "close_date": "2026-08-17T00:00:00",
+          "amount": 50000.0,
+          "account_id": "001xx000099NA017",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO018",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Lakefront Ventures - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-09-18T00:00:00",
+          "amount": 90000.0,
+          "account_id": "001xx000099NA018",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO004",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Vertex Capital - Platform License",
+          "stage_name": "Value Proposition",
+          "close_date": "2026-04-04T00:00:00",
+          "amount": 200000.0,
+          "account_id": "001xx000099NA004",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO002",
+        "fields": {
+          "collection": "opportunities",
+          "name": "BlueStar Ventures - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-02-02T00:00:00",
+          "amount": 120000.0,
+          "account_id": "001xx000099NA002",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO008",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Eastgate Solutions - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-08-08T00:00:00",
+          "amount": 55000.0,
+          "account_id": "001xx000099NA008",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO015",
+        "fields": {
+          "collection": "opportunities",
+          "name": "CloudBridge Systems - Platform License",
+          "stage_name": "Id. Decision Makers",
+          "close_date": "2026-06-15T00:00:00",
+          "amount": 320000.0,
+          "account_id": "001xx000099NA015",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO003",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Cascade Analytics - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-03-03T00:00:00",
+          "amount": 45000.0,
+          "account_id": "001xx000099NA003",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO007",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Redwood Technologies - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-07-07T00:00:00",
+          "amount": 95000.0,
+          "account_id": "001xx000099NA007",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO010",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Pacific Ridge Corp - Platform License",
+          "stage_name": "Perception Analysis",
+          "close_date": "2026-01-10T00:00:00",
+          "amount": 140000.0,
+          "account_id": "001xx000099NA010",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO001",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ironclad Systems - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-01-01T00:00:00",
+          "amount": 85000.0,
+          "account_id": "001xx000099NA001",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO013",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Northgate Technologies - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-04-13T00:00:00",
+          "amount": 113000.0,
+          "account_id": "001xx000099NA013",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO009",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Montclair Industries - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-09-09T00:00:00",
+          "amount": 25000.0,
+          "account_id": "001xx000099NA009",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO016",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Harbourview Capital - Platform License",
+          "stage_name": "Prospecting",
+          "close_date": "2026-07-16T00:00:00",
+          "amount": 70000.0,
+          "account_id": "001xx000099NA016",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO012",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Riverview Partners - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-03-12T00:00:00",
+          "amount": 180000.0,
+          "account_id": "001xx000099NA012",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_sf_user1",
+        "fields": {
+          "collection": "users",
+          "name": "Rep One",
+          "email": "rep1@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_sf_user2",
+        "fields": {
+          "collection": "users",
+          "name": "Rep Two",
+          "email": "rep2@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_sf_user3",
+        "fields": {
+          "collection": "users",
+          "name": "Rep Three",
+          "email": "rep3@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "plan",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "tier",
+        "type": "text"
+      },
+      {
+        "name": "parent_id",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "stage",
+        "type": "text"
+      },
+      {
+        "name": "owner_id",
+        "type": "text"
+      },
+      {
+        "name": "stage_name",
+        "type": "text"
+      },
+      {
+        "name": "close_date",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "what_id",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ava@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ben@techstartup.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "clara@bigenterprise.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "drew@noopp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "elena@midmarket.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "finn@smallbiz.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "grace@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "hugo@midmarket.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "jblake@quartzlabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "rep1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "rep2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "rep3@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "tjennings@prismdata.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_REV",
+      "name": "revenue-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

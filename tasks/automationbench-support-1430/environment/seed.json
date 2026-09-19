@@ -1,0 +1,226 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_sync_config": {
+      "title": "Sync Configuration",
+      "sheets": {
+        "ws_tag_mapping": {
+          "title": "Tag Mapping",
+          "values": [
+            ["zendesk_tag", "intercom_tag"],
+            ["enterprise", "enterprise-tier"],
+            ["priority", "priority-plan"],
+            ["churned", "at-risk"],
+            ["partner", "partner-tier"]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "Priority Sync",
+              "HighTouch Dynamics",
+              "Always Sync",
+              "High-touch accounts must always be synced regardless of tag mapping"
+            ],
+            [
+              "Hold Sync",
+              "PendingAcq Corp",
+              "Never Sync",
+              "Acquisition-pending companies must not be synced until deal closes"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_companies_ic_megacorp",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_megacorp",
+          "name": "MegaCorp Industries",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s1",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "MegaCorp Industries",
+          "domain_names": "[\"megacorp.com\"]",
+          "tags": "[\"enterprise\",\"priority\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s2",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "StartupXYZ",
+          "domain_names": "[\"startupxyz.io\"]",
+          "tags": "[\"startup\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s3",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "OldClient Ltd",
+          "domain_names": "[\"oldclient.co\"]",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s4",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "GrowthCo",
+          "domain_names": "[\"growthco.com\"]",
+          "tags": "[\"enterprise\",\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s5",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "NoTagsInc",
+          "domain_names": "[\"notags.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s6",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Acme Industries",
+          "domain_names": "[\"acme-industries.com\"]",
+          "tags": "[\"enterprise\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s7",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "NovaTech Solutions",
+          "domain_names": "[\"novatech.io\"]",
+          "tags": "[\"partner\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s8",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "BrightPath Co",
+          "domain_names": "[\"brightpath.co\"]",
+          "tags": "[\"trial\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s9",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Summit Partners",
+          "domain_names": "[\"summitpartners.com\"]",
+          "tags": "[\"priority\",\"partner\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s10",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Legacy Systems",
+          "domain_names": "[\"legacysystems.net\"]",
+          "tags": "[\"churned\",\"enterprise\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s11",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "HighTouch Dynamics",
+          "domain_names": "[\"hightouchdyn.com\"]",
+          "tags": "[\"startup\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s12",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "PendingAcq Corp",
+          "domain_names": "[\"pendingacq.com\"]",
+          "tags": "[\"enterprise\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s13",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "SilverLine Corp",
+          "domain_names": "[\"silverline.co\"]",
+          "tags": "[\"premium\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s14",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "FreshStart Labs",
+          "domain_names": "[\"freshstartlabs.com\"]",
+          "tags": "[\"enterprise\",\"trial\"]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_custops",
+      "name": "customer-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

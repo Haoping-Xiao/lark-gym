@@ -1,0 +1,434 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_merge_rules": {
+      "title": "Merge Config",
+      "sheets": {
+        "ws_rules": {
+          "title": "Similarity Rules",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "exact_subject_match",
+              "Tickets must have exactly the same subject to be considered duplicates"
+            ],
+            ["same_requester", "Tickets must have the same requester_id"]
+          ]
+        },
+        "ws_log": {
+          "title": "Merge Log",
+          "values": [["Original Ticket", "Duplicate Ticket", "Subject"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg01",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg01",
+          "subject": "Cannot access dashboard",
+          "description": "Dashboard gives 403.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_mg01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg02",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg02",
+          "subject": "Cannot access dashboard",
+          "description": "Still getting 403 on dashboard.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_mg01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg03",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg03",
+          "subject": "Billing overcharge",
+          "description": "Charged twice.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_mg02",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg04",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg04",
+          "subject": "Billing overcharge",
+          "description": "Double charge on my account.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_mg02",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg05",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg05",
+          "subject": "SSO login failure",
+          "description": "SSO broken.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_mg03",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg06",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg06",
+          "subject": "SSO login failure",
+          "description": "SSO still not working.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_mg03",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg07",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg07",
+          "subject": "Cannot access dashboard",
+          "description": "Dashboard down for me too.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_mg04",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg08",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg08",
+          "subject": "Billing overcharge",
+          "description": "I was also overcharged.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_mg05",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg09",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg09",
+          "subject": "Feature request: dark mode",
+          "description": "Want dark mode.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_mg01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg10",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg10",
+          "subject": "API rate limit help",
+          "description": "Hit rate limits.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_mg02",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg11",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg11",
+          "subject": "Webhook configuration",
+          "description": "Need webhook help.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_mg03",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_mg12",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_mg12",
+          "subject": "Export to CSV broken",
+          "description": "CSV export fails.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_mg04",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_003",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_003",
+          "subject": "Integration sync stopped",
+          "description": "Salesforce integration hasn't synced contacts since yesterday.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"integration\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_001",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_001",
+          "subject": "Password reset not working",
+          "description": "Clicking 'Forgot Password' sends email but the link is expired.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"auth\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_005",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_005",
+          "subject": "Email notifications delayed by 2 hours",
+          "description": "Ticket creation emails arrive 2+ hours after the ticket is created.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"email\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_mg01",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_mg01",
+          "name": "Merge User 1",
+          "email": "mg1@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_mg02",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_mg02",
+          "name": "Merge User 2",
+          "email": "mg2@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_mg03",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_mg03",
+          "name": "Merge User 3",
+          "email": "mg3@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_mg04",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_mg04",
+          "name": "Merge User 4",
+          "email": "mg4@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_mg05",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_mg05",
+          "name": "Merge User 5",
+          "email": "mg5@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_004",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_004",
+          "name": "Fiona Campbell",
+          "email": "fcampbell@oakmont.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_005",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_005",
+          "name": "Rohan Gupta",
+          "email": "rgupta@pinnacleco.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "fcampbell@oakmont.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "mg1@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "mg2@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "mg3@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "mg4@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "mg5@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "rgupta@pinnacleco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_MRG",
+      "name": "support-merges",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

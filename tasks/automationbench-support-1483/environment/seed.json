@@ -1,0 +1,620 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_merge": {
+      "title": "Org Merge Tracker",
+      "sheets": {
+        "ws_candidates": {
+          "title": "Merge Candidates",
+          "values": [
+            [
+              "Source Org ID",
+              "Source Org Name",
+              "Target Org ID",
+              "Target Org Name"
+            ],
+            ["org_s1", "AlphaSource Inc", "org_t1", "Alpha Corp"],
+            ["org_s2", "BetaSource LLC", "org_t2", "Beta Industries"],
+            ["org_s3", "GammaDup Ltd", "org_t3", "Gamma Solutions"],
+            ["org_s4", "DeltaDup Co", "org_t4", "Delta Global"],
+            ["org_s5", "EpsilonEmpty", "org_t3b", "Epsilon Target"],
+            ["org_s6", "ZetaSource", "org_t5", "Zeta Corp"]
+          ]
+        },
+        "ws_dnm": {
+          "title": "Do Not Merge",
+          "values": [
+            ["Source Org ID", "Target Org ID", "Reason"],
+            ["org_s3", "org_t3", "Separate billing entity"],
+            ["org_s4", "org_t4", "Legal dispute pending"]
+          ]
+        },
+        "ws_results": {
+          "title": "Merge Results",
+          "values": [
+            ["Source Org ID", "Target Org ID", "Tickets Transferred", "Status"]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "MERGE-OPS-20260210"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m01",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Sync issue alpha",
+          "description": "Data sync failing.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_m01",
+          "organization_id": "org_s1",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m02",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Billing alpha question",
+          "description": "Invoice query.",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "usr_m02",
+          "organization_id": "org_s1",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m03",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Login failure beta",
+          "description": "Login broken.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_m03",
+          "organization_id": "org_s2",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m04",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "API timeout gamma",
+          "description": "API is slow.",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "usr_m04",
+          "organization_id": "org_s3",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m05",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Dashboard error delta",
+          "description": "Dashboard crashes.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_m05",
+          "organization_id": "org_s4",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m06",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Export bug epsilon",
+          "description": "Export fails.",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "usr_m06",
+          "organization_id": "org_s6",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m07",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook failure epsilon",
+          "description": "Webhooks not firing.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_m07",
+          "organization_id": "org_s6",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m08",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "SSO config epsilon",
+          "description": "SSO setup help.",
+          "status": "solved",
+          "priority": "low",
+          "requester_id": "usr_m08",
+          "organization_id": "org_s6",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m09",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Existing target ticket 1",
+          "description": "Already in target.",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "usr_m09",
+          "organization_id": "org_t1",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_m10",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Existing target ticket 2",
+          "description": "Already in target.",
+          "status": "open",
+          "priority": "low",
+          "requester_id": "usr_m10",
+          "organization_id": "org_t2",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_010",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Mobile app shows wrong ticket count",
+          "description": "The mobile app badge shows 12 unread but there are only 3 open tickets.",
+          "status": "solved",
+          "priority": "low",
+          "tags": "[\"mobile\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_003",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook delivery failing with 502",
+          "description": "Our webhook endpoint returns 502 for about 30% of events since last night.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"webhook\",\"api\",\"weekend-watch\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_013",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Satisfaction survey link broken",
+          "description": "CSAT survey emails contain a broken link — returns 404.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"csat\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m01",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 1",
+          "email": "mu1@source1.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m02",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 2",
+          "email": "mu2@source1.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m03",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 3",
+          "email": "mu3@source2.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m04",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 4",
+          "email": "mu4@source3.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m05",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 5",
+          "email": "mu5@source4.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m06",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 6",
+          "email": "mu6@source6.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m07",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 7",
+          "email": "mu7@source6.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m08",
+        "fields": {
+          "collection": "support_users",
+          "name": "Merge User 8",
+          "email": "mu8@source6.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m09",
+        "fields": {
+          "collection": "support_users",
+          "name": "Target User 1",
+          "email": "tu1@target1.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_m10",
+        "fields": {
+          "collection": "support_users",
+          "name": "Target User 2",
+          "email": "tu2@target2.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_010",
+        "fields": {
+          "collection": "support_users",
+          "name": "Priya Deshmukh",
+          "email": "pdeshmukh@coralwave.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_006",
+        "fields": {
+          "collection": "support_users",
+          "name": "Imani Brooks",
+          "email": "ibrooks@solarhub.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s1",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "AlphaSource Inc",
+          "domain_names": "[\"source1.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_t1",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Alpha Corp",
+          "domain_names": "[\"target1.com\"]",
+          "tags": "[]",
+          "notes": "Primary account."
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s2",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "BetaSource LLC",
+          "domain_names": "[\"source2.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_t2",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Beta Industries",
+          "domain_names": "[\"target2.com\"]",
+          "tags": "[]",
+          "notes": "Main account."
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s3",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "GammaDup Ltd",
+          "domain_names": "[\"source3.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_t3",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Gamma Solutions",
+          "domain_names": "[\"target3.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s4",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "DeltaDup Co",
+          "domain_names": "[\"source4.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_t4",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Delta Global",
+          "domain_names": "[\"target4.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s5",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "EpsilonEmpty",
+          "domain_names": "[\"source5.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_t3b",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Epsilon Target",
+          "domain_names": "[\"target5.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_s6",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "ZetaSource",
+          "domain_names": "[\"source6.com\"]",
+          "tags": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_t5",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Zeta Corp",
+          "domain_names": "[\"target6.com\"]",
+          "tags": "[]",
+          "notes": "Zeta primary."
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "organization_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ibrooks@solarhub.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "mu1@source1.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "mu2@source1.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "mu3@source2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "mu4@source3.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "mu5@source4.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "mu6@source6.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "mu7@source6.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "mu8@source6.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "pdeshmukh@coralwave.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "tu1@target1.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "tu2@target2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_MERGES",
+      "name": "ops-merges",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

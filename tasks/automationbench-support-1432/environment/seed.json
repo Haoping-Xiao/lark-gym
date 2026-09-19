@@ -1,0 +1,458 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_migration_policy": {
+      "title": "Migration Policy",
+      "sheets": {
+        "ws_priority_rules": {
+          "title": "Priority Rules",
+          "values": [
+            ["Tag", "Freshdesk Priority"],
+            ["urgent", "4"],
+            ["high-priority", "3"],
+            ["default", "2"]
+          ]
+        },
+        "ws_exclusion_tags": {
+          "title": "Exclusion Tags",
+          "values": [
+            ["Tag", "Action"],
+            ["do-not-migrate", "Excluded"],
+            ["migrated-previously", "Excluded"],
+            ["archived-review", "Excluded"]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "Urgent Migrate",
+              "urgent-migrate",
+              "Always Migrate",
+              "Tickets tagged urgent-migrate must be migrated even if they have exclusion tags"
+            ],
+            [
+              "Legal Hold",
+              "legal-review",
+              "Never Migrate",
+              "Tickets under legal review must not be migrated until review is complete"
+            ]
+          ]
+        }
+      }
+    },
+    "ss_migration": {
+      "title": "Migration Tracker",
+      "sheets": {
+        "ws_migration": {
+          "title": "Migration Log",
+          "values": [
+            ["Gorgias ID", "Subject", "Customer Email", "Freshdesk Status"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_gorgias_tickets_gm_t1",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t1",
+          "subject": "Shipping delay for order #8001",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"shipping\"]",
+          "messages": "[{\"id\":\"gm_m1\",\"body_text\":\"My order 8001 has been delayed for 5 days. Can you check?\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"rita@example.com\",\"sender_name\":\"Rita Santos\"}]",
+          "customer": "{\"id\":\"gc_1\",\"email\":\"rita@example.com\",\"name\":\"Rita Santos\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t2",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t2",
+          "subject": "Wrong item received",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"returns\"]",
+          "messages": "[{\"id\":\"gm_m2\",\"body_text\":\"I received a blue jacket instead of black.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"sam@example.com\",\"sender_name\":\"Sam Rivera\"}]",
+          "customer": "{\"id\":\"gc_2\",\"email\":\"sam@example.com\",\"name\":\"Sam Rivera\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t3",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t3",
+          "subject": "Return label request",
+          "status": "closed",
+          "channel": "email",
+          "tags": "[\"returns\"]",
+          "messages": "[{\"id\":\"gm_m3\",\"body_text\":\"I need a return label for order #7550.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"tina@example.com\",\"sender_name\":\"Tina Park\"}]",
+          "customer": "{\"id\":\"gc_3\",\"email\":\"tina@example.com\",\"name\":\"Tina Park\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t4",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t4",
+          "subject": "Missing item from order",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"do-not-migrate\",\"returns\"]",
+          "messages": "[{\"id\":\"gm_m4\",\"body_text\":\"One item was missing from my order #7820.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"mike@example.com\",\"sender_name\":\"Mike Chen\"}]",
+          "customer": "{\"id\":\"gc_4\",\"email\":\"mike@example.com\",\"name\":\"Mike Chen\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t5",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t5",
+          "subject": "Warranty claim for broken product",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"urgent\"]",
+          "messages": "[{\"id\":\"gm_m5\",\"body_text\":\"My product broke within the warranty period. Please help.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"anna@example.com\",\"sender_name\":\"Anna Lee\"}]",
+          "customer": "{\"id\":\"gc_5\",\"email\":\"anna@example.com\",\"name\":\"Anna Lee\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t6",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t6",
+          "subject": "Discount code expired",
+          "status": "open",
+          "channel": "chat",
+          "tags": "[\"billing\"]",
+          "messages": "[{\"id\":\"gm_m6\",\"body_text\":\"The discount code SAVE20 expired before I could use it.\",\"channel\":\"chat\",\"sender_type\":\"customer\",\"sender_email\":\"jorge@example.com\",\"sender_name\":\"Jorge Vega\"}]",
+          "customer": "{\"id\":\"gc_6\",\"email\":\"jorge@example.com\",\"name\":\"Jorge Vega\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t7",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t7",
+          "subject": "Order tracking not updating",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"shipping\",\"high-priority\"]",
+          "messages": "[{\"id\":\"gm_m7\",\"body_text\":\"My tracking page hasn't changed in 4 days for order #8210.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"diana@example.com\",\"sender_name\":\"Diana Frost\"}]",
+          "customer": "{\"id\":\"gc_7\",\"email\":\"diana@example.com\",\"name\":\"Diana Frost\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t8",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t8",
+          "subject": "Duplicate charge on card",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"billing\",\"urgent\"]",
+          "messages": "[{\"id\":\"gm_m8\",\"body_text\":\"I was charged twice for order #8055. Please refund one.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"kevin@example.com\",\"sender_name\":\"Kevin Okafor\"}]",
+          "customer": "{\"id\":\"gc_8\",\"email\":\"kevin@example.com\",\"name\":\"Kevin Okafor\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t9",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t9",
+          "subject": "Size exchange request",
+          "status": "closed",
+          "channel": "email",
+          "tags": "[\"returns\"]",
+          "messages": "[{\"id\":\"gm_m9\",\"body_text\":\"I need to exchange a medium for a large.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"priya@example.com\",\"sender_name\":\"Priya Nair\"}]",
+          "customer": "{\"id\":\"gc_9\",\"email\":\"priya@example.com\",\"name\":\"Priya Nair\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t10",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t10",
+          "subject": "Gift card balance issue",
+          "status": "open",
+          "channel": "chat",
+          "tags": "[\"migrated-previously\"]",
+          "messages": "[{\"id\":\"gm_m10\",\"body_text\":\"My gift card shows $0 but I never used it.\",\"channel\":\"chat\",\"sender_type\":\"customer\",\"sender_email\":\"lena@example.com\",\"sender_name\":\"Lena Marsh\"}]",
+          "customer": "{\"id\":\"gc_10\",\"email\":\"lena@example.com\",\"name\":\"Lena Marsh\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t11",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t11",
+          "subject": "Product quality complaint",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"returns\"]",
+          "messages": "[{\"id\":\"gm_m11\",\"body_text\":\"The stitching on my bag came undone after one week.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"omar@example.com\",\"sender_name\":\"Omar Hussain\"}]",
+          "customer": "{\"id\":\"gc_11\",\"email\":\"omar@example.com\",\"name\":\"Omar Hussain\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t12",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t12",
+          "subject": "Bulk order inquiry",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"archived-review\"]",
+          "messages": "[{\"id\":\"gm_m12\",\"body_text\":\"We'd like to order 500 units of product X for our team.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"franco@example.com\",\"sender_name\":\"Franco Bianchi\"}]",
+          "customer": "{\"id\":\"gc_12\",\"email\":\"franco@example.com\",\"name\":\"Franco Bianchi\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t13",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t13",
+          "subject": "Critical payment failure",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"do-not-migrate\",\"urgent-migrate\"]",
+          "messages": "[{\"id\":\"gm_m13\",\"body_text\":\"Customer payment system is completely down.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"nora@example.com\",\"sender_name\":\"Nora Vasquez\"}]",
+          "customer": "{\"id\":\"gc_13\",\"email\":\"nora@example.com\",\"name\":\"Nora Vasquez\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gm_t14",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gm_t14",
+          "subject": "Shipping dispute under review",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"shipping\",\"legal-review\"]",
+          "messages": "[{\"id\":\"gm_m14\",\"body_text\":\"This shipping dispute is being reviewed by legal.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"paul@example.com\",\"sender_name\":\"Paul Erikson\"}]",
+          "customer": "{\"id\":\"gc_14\",\"email\":\"paul@example.com\",\"name\":\"Paul Erikson\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_008",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_008",
+          "subject": "Shipping to PO Box not available",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_008\",\"email\":\"shopper8@mailbox.example.com\",\"name\":\"Drew Nguyen\"}",
+          "messages": "[{\"body_text\":\"I can't enter a PO Box as my shipping address. Is this supported?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_002",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_002",
+          "subject": "Wrong size received",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_002\",\"email\":\"shopper2@mailbox.example.com\",\"name\":\"Casey Harper\"}",
+          "messages": "[{\"body_text\":\"I ordered a Medium but received a Large. Need an exchange.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_005",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_005",
+          "subject": "Subscription cancellation request",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_005\",\"email\":\"shopper5@mailbox.example.com\",\"name\":\"Taylor Reed\"}",
+          "messages": "[{\"body_text\":\"I'd like to cancel my monthly subscription effective immediately.\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "channel",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "requester_email",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "source_channel",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "sender_type",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "anna@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "diana@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "franco@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "jorge@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "kevin@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "lena@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "mike@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "nora@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "omar@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "paul@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "priya@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "rita@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "sam@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "shopper2@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "shopper5@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "shopper8@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "tina@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_sops",
+      "name": "support-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

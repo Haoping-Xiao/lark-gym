@@ -180,3 +180,53 @@ HR 全部100题已生成并通过逐题CLI验收，累计547/800；新增批次�
 - 1214仅有效最终visitor清单；1216四项未读vendor审核处理；1217争议行另询Legal而不解除hold；1219按最新重排创建Feb25晚间日历及after-hours通知；1221仅有Legal clearance者归档，保险证明不能解除法律hold；1222Feb5 blackout排除；1223按重批800不擅用950；1224缺Due者不可选，Scheduled不虚构具体日程。
 - 1231采购hold优先于4950额度条件，选4800无hold项；1232完成NDA来信写评论及host通知，不把提醒算签署；1234通用v3.2版本登记，不把hotfix当全员发布；1235Q1 Full Planned审计；1236Feb22停电只排期不执行；1237缺原card本体，公开新建目标状态记录；1244Finance校正ARR275000且CRM账号存在，缺账号的更大项不补造；1248冻结Jan29 04UTC，monitoring升级P1，primary电话号码IM替代SMS，历史Twilio只读台账保留，to_number负断言别名受检。
 - 1249最高风险Overdue设备配可用同认证检查员，真实飞书60分钟日历及attendee，检查台账Scheduled不改已完成；1251只Approved High Risk最高Urgency，45分钟视频日历与前日prep；1253租金并列时按最早到期明确规则，Commercial且Notice Period Met，签署台账Sent加实际私聊/两份抄送，非Signed；1255安全clearance政策排除更早Core Auth，Production/Critical/Ready最旧可用者，3小时视频日历和前中后三任务，只安排不执行DR。
+
+累计664题的运营适配补充：
+
+- 1262按到期日与clearance处理Alex Rivera，签署请求、HR/Legal抄送及manager ID私聊；1263排除hold/duplicate，Harassment230人由Lisa邮箱日历主持；1270治理政策排除ethics hold，3位成员实际日历/签署请求，密码非空，议程使用公开补定三项草案及逻辑URI；1271冻结14:15纳入最后来信，Basement未解除，EMG-2，2 remaining含选中事件；无号码SMS负断言覆盖全部电话会话，电话号码识别包含原prompt。
+- 1273补明确assigned owner资格及同金额停滞更久优先，BigCorp750000；1275实际SMS及call均替换IM，第二条CALL REQUEST不是已拨通；1276仅可处理1200000NDA，CPL阻断；1277真实创建项目群，源无PM飞书ID不伪造成员，PM作为日历attendee，补Target Start 10UTC。成员为空的任务反例改为加入非预期成员，避免把原本空集合再清空当失败测试。
+- 1280Engineering150、仅1eligible，COO改200不能解除EXEMPT，HRready可覆盖Under-Review；1281候选明确未读urgent/critical，共7候选1建单，ticket业务引用绑定源msg，另向补定engineering及billing地址执行政策转交；1282四人同步，Rachel使用更正地址，隐私冻结优先，不改源Synced；1283明确Jan29完整24小时，10邮件标读、7路由消息，group域名VIP、季节性和已解决不路由，所有消息先于已读状态。
+- 1284四contact三deal、145000及Hot1/Warm2/Cold1，保留源Qualified；1287源Contacts为空，公开按email upsert而非虚称更新已有记录，GDPR不动；1289projected=spent+daily*remaining，113.3/133.3暂停，102.5仅警示，三行日志。
+- 1296仅设计元数据无图像，导出改PNG Queued业务队列和逻辑目录，不声称生成文件，Canva元数据完整映射；1297补stale>=30，2个性化IM后记行业engagement，原EMAIL类型是业务分类；1299主要account缺失，公开补原公司映射基线，只有Alex确认换公司，写company/title保留旧account_id/email，不造新account。
+- 1302排除migration及renewal，0信号low，VIP强制high，两票、一封中风险资源建议、无虚构URL；1307failed重试是通知流程计数，不实际扣款，3人回写及日志，grace可继续、已换付款方式避免重复；1308三订阅按多标签规则，150/300/750原金额，agent IM承担原bot消息语义。
+
+累计703题（运营100题全部）通过本地逐项校验；664题整库680项测试、Go test/vet与oracle通过。新增适配：
+
+- 1313未给Date的Daily表公开作为昨日快照，仅Active计算ROAS；1315温度tag替换保留非温度tag、optout移除温度、legal hold不动，6日志；1317超过30日且VP以上、非hold者ABM邀请和AE任务，未声称已参加。
+- 1320原日期与星期冲突，明确Day/Hour为业务分组标签、日期仅窗口过滤，21日含Jan7全日；Top/Low允许重叠，只推荐不发布。1321三保险不合规签署请求，2m边界有效；1323姓名+部门+邮箱区分同名，3provisioning任务2拒绝通知，不实际授权。
+- 1324两条库存行而非件数，13600总值；1325仅按SKU补三处空Weight，未找到来源者留空；1326固定30/90日周期，Westfield/Eastgate任务；1327无排班打平规则补姓名字母序，按周5个真实日历/attendee。
+- 1328来源账户status缺失以sheet快照加最新email为准，三项flag；1329仅WaterServerB2/FI089，最新电话优先，非INS事件；1330按RequestID和剩余预算逐项选择，跳过买不起者后继续处理，3单11800，设备模板选含documents版本，不回写预算。
+- 1331两onboard任务/欢迎，已过start者只HR补录提示；1332同名James跨部门为两员工，四培训缺口ticket，明日过期不算已过期；1334严格>95才critical、等于95仍warning，3票6邮件；1335精确1.609344换算不先舍入，4车日历，最新里程覆盖。
+- 1337仅0<remaining<=2h，等于now不再未来，3告警；1338Offboarded公开定义无授权系统，4复核任务不实际撤权；1339今天至14日含边界，5badge保留原日期；1340课程Equivalent公开指向可替代完成项，冻结截止后，只Bob缺课。
+- 1341一差异一item，同PO数量/金额分开共3，partial只豁免数量；1346未来7日含Feb16，5批次分别phone/email及摘要；1347严格>30/90日，3检查日历不改Last Inspection；1348五条LAB任务due标准化、报告保留原日期，不改Pending Order。
+- 1351原Monday提示与周一至四数据矛盾，公开以Thursday累计、空小时0、FT36/PT20含等于；1352holiday按各部门Required，只Security完整排班，三部门缺人通知；1353MM/DD日期60日含边界，3renewal请求非完成续约；1361四New非NearMiss非hold事件，按Critical/Major/Minor不同通知。
+- 1369仅题内模拟化学审核；精确isolated只移除配对不豁免SDS，已issued/shipped才豁免SDS，7票、两不兼容地点告警，不提供实际操作指导。1374按姓名+部门路由4包，oversized改Loading Dock B，两pickup通知，不实际移动；1378公开按职位/人才行顺序首次匹配且不重复，含March职位，4placements；1380按邮箱及最近LMS补齐技能，两个剩余技能培训任务。
+- 1385严格>$250，4receipt条目及逐笔通知保留金额原格式；1386最新制裁优先，两International请求总77000，SHP810只在compliance报告单列阻断，不进已处理群摘要，不主张现实合规规则。
+- 1391原dock偏好未规定替代策略，补请求行顺序、先偏好再最小兼容空闲编号，不存在偏好亦可改选；5排期1拒绝1hold，所有通知含计数。1392邮件完成与保修检测重置时钟、仅Current tech，5工单分楼计数；1394按日历周年、inert指定地点7年优先，仅CYL007；1398next weekday补今天之后首工作日06–08UTC，3楼并行，fuel/firmware hold保留，不改检测完成状态。
+
+累计721题本地逐项验证通过，新增客服映射保持全部原实体与嵌套历史为JSON字段；Gorgias、Zoho Desk、Intercom、Freshdesk、Hiver、Re:amaze均映射对应Base集合。新增回复/内部备注用独立业务记录，未声称执行外部服务API。原负向回复/备注内容断言也编入评分器。
+
+- 1405按ticket+order记录7次成功查询、8个回复，ORD4521跨票两次；当前提问人决定VIP，missing order不前缀误匹配。1409精确完整Account Type，15备注4tasks3opportunities，churn review跳过。1412六次真实日历与双方attendee，四竞争者拒绝，来源未给时刻补Feb10小时slot；tiny/lead按照源负断言作为不回复范围，已预约与重复跳过；先建会再标记与回复。
+- 1413来源无时间字段，周报明确当前全量快照，7/4/4/15，三个mailbox计数分别关联，不按subject猜spam。1414域名匹配8、创建5、RISK3，新公司以external_id=zendesk:orgID回写引用而非预测随机ID，Sunset不动。1415六封草稿3低信心2无匹配5跳过，模板原文及urgent保留但不发送，关键词计不同值、同分按表序；beta override可低信心草稿。
+- 1418来源未给去重细节补完整目标subject去重，两源票复用现票并追加备注，7新票9源升级；客户只对需新票者创建。1419历史支出严格>10000升级，30/90日仅标题分层，中间默认We miss you，5触达；实际通知后才tag及日志。1423冻结Feb13 13UTC保留24h冷却，8票按会话而非subject去重，7新contact1复用，创建后标记。
+- 1425政策判定先查找/窗口/类别再fraud或repeat再阈值，5Draft、4Escalated、2NotFound、1Expired、1Denied；同order不同票不消重，草稿总3049.99、升级2100，未执行退款。1426缺会期补Feb10 09UTC起30分钟顺排四回访，真实attendee及原ticket备注；旧同姓历史不阻断。1427源now早于当日现存消息，冻结改12UTC；15行，9open4customer-blocked2closed，3未分配open中2超过24h，保密/测试标签全排除。
+- 1430全部非Hold同步，包括无映射tag者，13同步12新建1更新；只映射列出的tag不猜premium。1431缺省路由公开为daily仅active/pending未分配、escalations仅active精确tag；全量摘要7active3pending2closed1spam，候选与pending升级不进实时群。1432八迁移，urgent-migrate覆盖排除但不等于urgent优先级，legal优先，完整原描述及tags保留，内部备注不公开发送。
+- 1437源Pending/Information标签仍要求迁移，公开仅Excluded阻断，8迁移；源无tracking表补migration_log，状态只记Migrated不关闭原票。1438四公司风险、三HubSpot HIGH票一SF task，名称单复数区分，通知后写Yes，缺CSM不猜地址。1446六会话、四新contact一复用，以email去重但不合并不同会话；状态按category映射，忽略标题紧急诱饵，来源缺contact ID用保留email及稳定源序号映射。
+
+累计736题的客服补充适配：
+
+- 1447按category precedence而非keyword数量路由，department缺ID公开逻辑类名，六分类一unclassified，后者字段不改。1448只closed且有response计CSAT，4人4.5/3.0/3.5/4.0，一位小数文本，两flag，不给被评人或客户通知；无日期视配置周期快照。1450四客户按tier启动，缺default CSM公开共享onboarding地址；一真实kickoff、四实施ticket及介绍/CSM通知，安排完成日志不代表实施完成；通知先于日志。
+- 1451未舍入加权分分类，两位小数报告85.33/54.83/59.67/15.33/76.50，Ghost未知不归0，known分布2/2/1；两at-risk及一critical均建支持票，缺CSM补统一内部队列地址，只有critical客户关怀。1452仅配置Topic、active精确tag计数，退休优先，sso4/webhooks3两gap，Severity补高量High，稳定DOCS-topic引用。1456全部状态计分母，截断率66/20/100/0，Alpha认可，三辅导只manager草稿，不发邮件，leaderboard按closed数。
+- 1458以初始priority算SLA后升级，范围补80–<100、100–<200、>=200，2approaching1breached2critical；五内部note、三SUPPORT Bug、manager全部breach/VP仅critical。1463按日历月保修及历史approved计限额，2approved3denied、两cases三通知，未实际维修。1465白名单先于priority映射，4票1新contact3复用，创建后才标记synced，源无description不猜。
+- 1466四archive、三新contact一复用，完整description/created_at/notes保留、新票Closed、源只追加archived与内部note，稳定业务引用记日志。1468关联contact ID查deal，两critical才task+AE，两info群报，不联系客户。1469公开多轮评分：最后agent回复算前三项、全部agent历史检查tone；猜测/含糊回拨不算resolution，额外slang示例idk/man明确，十票评分、B均分1.33需辅导，D无benchmark只报告，不猜负责人。
+- 1472关键词表最早命中，一会话一类，3infra4billing3engineering2uncategorized；两即时IM一草稿、无类仅计数，日志沿用email_sent业务标签。1473name mismatch整org冻结仅质量报告，Alpha/Delta两enrichment；1475四open且有机会signal，按owner建task、仅competitive发信，原文写description，创建后标记，近义tag不冒充真实信号。
+
+support-1476 将迁移落为 Re:amaze 台账，保留完整原 threads/tags/创建时间/邮箱/来源 ID；先建立目标会话和内部迁移备注再关闭源会话，复用已有 Raj 联系人。1478 明确多模板按行顺序、工单自身组织优先；Auto_Send=false 只内部草稿，统计为 8 条模板处理、7 条公开回复、1 条内部草稿及 2 条人工审核，不把草稿算发送。1479 新增 HelpCrunch 通用实体映射；旧事件计基础分、近 7 天双倍，全部附加客户也参与计算，因此完整 seed 有 5 位 disengaged；首次高参与和降级才记事件，不把事件混为标签。
+
+support-1480 以题目 2 月 7 日覆盖源 meta 的 1 月 29 日；enterprise 客户的每个可桥接事件各创建工单，4 个新 account/contact、5 张工单，不只看最后一个事件。1481 增加真实 Base 记录删除及删除历史：先匿名化四张工单，再删三位用户，法律保留不动；日志按原题要求保留请求邮箱，运行审计与备份不宣称已删除。删除的批量失败为原子拒绝，v1/v3 读共享状态，每个 trial 独立，缺少实际删除的结果无法通过。1483 六组候选中四组完成、六张票转移，包含 solved 和零工单组织；来源保留归档标记、目标保留旧备注，两个禁合并组只记 Skipped。
+
+support-1488 只处理未标 weekend-watch 的 open high/urgent 四票，普通 on-call 全量简报，工程升级只列两张 urgent。1489 QR-01 没有限定 open，因此完整 seed 中额外两张 solved/high 且缺组织的附加票也违规；实际六张失败、七项问题，显式替换原只数主样本的 `4 failing` 断言。各规则在初态判断，避免刚追加审核标签掩盖原缺 tags。1490 以自然日 0..90 窗口、DNC/Completed 优先，六张续约票，三位经理按各自账户汇总，无客户直发。
+
+support-1492 已有任意 compliance 标签整票跳过，遵循源否定断言；仅字面关键词，Social Security 不扩展为 SSN，通知不复制敏感号码。1493 按 contact ID 聚合，pending 高优先级算 open、closed 不算 resolved，六条 journey，已有 HubSpot 仅更新阶段，少于两票/QA 完全排除。1494 同 requester+精确 subject 才合并，缺创建时间时公开规定最小 ID 为原票；三张重复票关闭，双向备注并保留重复描述。
+
+support-1495 本轮按初始组只升级一级，年龄严格大于阈值、priority 加一封顶四，hold 标签和独立 hold 表均优先。1502 源缺团队实体，分派用公开 Support Escalation 台账字段；五条升级三张产品 Bug，Monitor/not-negative 不写。1503 分类多命中按行序；公开补充同 area 至少两条有效请求才汇成 Story，六条记录、两张 Story，竞争者和已处理者不触达。

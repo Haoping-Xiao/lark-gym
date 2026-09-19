@@ -52,6 +52,22 @@ for (const task of (await readdir('tasks')).filter((n) =>
         const expected = JSON.parse(
           await readFile(`tasks/${task}/tests/expected.json`, 'utf8'),
         );
+        if (expected.deletes?.length) {
+          const id = expected.deletes[0];
+          backend.world.base.records.push(
+            structuredClone(
+              seed.base.records.find(
+                (r: { record_id: string }) => r.record_id === id,
+              ),
+            ),
+          );
+          assert.equal(
+            await grade(),
+            '0',
+            'Leaving an erased account must fail',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
         if (expected.order_groups?.length) {
           const originalSeq = backend.calls.map((call) => call.seq);
           backend.calls.forEach((call, index) => {
@@ -189,11 +205,13 @@ for (const task of (await readdir('tasks')).filter((n) =>
           const chat = backend.world.chats.find(
             (c: { name: string }) => c.name === createdChat.name,
           );
-          chat.member_ids = [];
+          chat.member_ids = createdChat.user_ids.length
+            ? []
+            : ['unexpected_member'];
           assert.equal(
             await grade(),
             '0',
-            'Creating a room without inviting its account team must fail',
+            'Created room membership must match the required members',
           );
           Object.assign(backend.world, structuredClone(solved));
         }

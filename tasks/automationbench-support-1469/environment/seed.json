@@ -1,0 +1,348 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_quality": {
+      "title": "Quality Audit",
+      "sheets": {
+        "ws_rubric": {
+          "title": "Rubric",
+          "values": [
+            ["Criterion", "Description", "Points"],
+            [
+              "includes_greeting",
+              "Response begins with a greeting (Hi, Hello, Hey)",
+              "1"
+            ],
+            [
+              "includes_resolution",
+              "Response provides a clear next step or resolution",
+              "1"
+            ],
+            ["response_length_min", "Response is at least 50 characters", "1"],
+            [
+              "professional_tone",
+              "No profanity or slang (damn, crap, freakin, sry, u, gonna)",
+              "1"
+            ]
+          ]
+        },
+        "ws_agent_benchmarks": {
+          "title": "Agent Benchmarks",
+          "values": [
+            ["Agent_Email", "Min_Quality_Score", "Team_Lead_Email"],
+            ["agent_a@company.example.com", "3", "lead1@company.example.com"],
+            ["agent_b@company.example.com", "3", "lead1@company.example.com"],
+            ["agent_c@company.example.com", "3", "lead2@company.example.com"]
+          ]
+        },
+        "ws_quality_log": {
+          "title": "Quality Log",
+          "values": [["Ticket_ID", "Agent_Email", "Score", "Details"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t1",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t1",
+          "subject": "Order status inquiry",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m1a\",\"body_text\":\"Where is my order?\",\"sender_type\":\"customer\"},{\"id\":\"qa_m1b\",\"body_text\":\"Hello! Thank you for reaching out. Your order #12345 shipped yesterday and should arrive by Friday. Let me know if you need anything else!\",\"sender_type\":\"agent\",\"sender_email\":\"agent_a@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t2",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t2",
+          "subject": "Refund request",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m2a\",\"body_text\":\"I want a refund for order #67890.\",\"sender_type\":\"customer\"},{\"id\":\"qa_m2b\",\"body_text\":\"Hi! I've processed your refund. It should appear in 3-5 business days. Is there anything else I can help with?\",\"sender_type\":\"agent\",\"sender_email\":\"agent_a@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t3",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t3",
+          "subject": "Product broken",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m3a\",\"body_text\":\"My product broke after one day!\",\"sender_type\":\"customer\"},{\"id\":\"qa_m3b\",\"body_text\":\"sry bout that. u can return it i guess\",\"sender_type\":\"agent\",\"sender_email\":\"agent_b@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t4",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t4",
+          "subject": "Shipping delay",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m4a\",\"body_text\":\"My package is late.\",\"sender_type\":\"customer\"},{\"id\":\"qa_m4b\",\"body_text\":\"ok\",\"sender_type\":\"agent\",\"sender_email\":\"agent_b@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t5",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t5",
+          "subject": "Return question",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m5a\",\"body_text\":\"How do I return this?\",\"sender_type\":\"customer\"},{\"id\":\"qa_m5b\",\"body_text\":\"Hi there! You can initiate a return from your account page. Go to Orders, select the item, and click Return. We'll email you a prepaid label. Happy to help further!\",\"sender_type\":\"agent\",\"sender_email\":\"agent_c@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t6",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t6",
+          "subject": "Warranty claim",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m6a\",\"body_text\":\"Is my product under warranty?\",\"sender_type\":\"customer\"},{\"id\":\"qa_m6b\",\"body_text\":\"Hello! Your product is covered under our 1-year warranty. Please send photos of the issue to warranty@company.example.com and we'll process your claim right away!\",\"sender_type\":\"agent\",\"sender_email\":\"agent_c@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t7",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t7",
+          "subject": "Discount code not working",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m7a\",\"body_text\":\"SAVE20 code doesn't work!\",\"sender_type\":\"customer\"},{\"id\":\"qa_m7b\",\"body_text\":\"This is freakin ridiculous, let me check on that crap for you.\",\"sender_type\":\"agent\",\"sender_email\":\"agent_b@company.example.com\"},{\"id\":\"qa_m7c\",\"body_text\":\"Hi! I apologize for the confusion. I've manually applied the SAVE20 discount to your cart. Please try checking out again!\",\"sender_type\":\"agent\",\"sender_email\":\"agent_b@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t8",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t8",
+          "subject": "Unanswered question",
+          "status": "open",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m8a\",\"body_text\":\"Hello? Anyone there?\",\"sender_type\":\"customer\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t9",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t9",
+          "subject": "Another unanswered",
+          "status": "open",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m9a\",\"body_text\":\"Need help with my account.\",\"sender_type\":\"customer\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t10",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t10",
+          "subject": "Size exchange",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m10a\",\"body_text\":\"Wrong size received.\",\"sender_type\":\"customer\"},{\"id\":\"qa_m10b\",\"body_text\":\"Hello! Sorry about the mix-up. I've initiated an exchange and you'll receive the correct size within 5-7 business days. Your return label is attached!\",\"sender_type\":\"agent\",\"sender_email\":\"agent_a@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t11",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t11",
+          "subject": "Missing accessory",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m11a\",\"body_text\":\"My order came without the charger.\",\"sender_type\":\"customer\"},{\"id\":\"qa_m11b\",\"body_text\":\"idk man just call back later\",\"sender_type\":\"agent\",\"sender_email\":\"agent_d@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_qa_t12",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "qa_t12",
+          "subject": "Subscription update",
+          "status": "closed",
+          "tags": "[]",
+          "messages": "[{\"id\":\"qa_m12a\",\"body_text\":\"I need help with my subscription.\",\"sender_type\":\"customer\"},{\"id\":\"qa_m12b\",\"body_text\":\"Hi, I have updated your subscription plan. You will see the change in your next billing cycle. Questions? Let me know.\",\"sender_type\":\"agent\",\"sender_email\":\"agent_a@company.example.com\"},{\"id\":\"qa_m12c\",\"body_text\":\"Thanks, that was helpful.\",\"sender_type\":\"customer\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_001",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_001",
+          "subject": "Where is my refund?",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_001\",\"email\":\"shopper1@mailbox.example.com\",\"name\":\"Riley Morgan\"}",
+          "messages": "[{\"body_text\":\"I returned my order 2 weeks ago and still no refund.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_003",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_003",
+          "subject": "Discount code not applying",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_003\",\"email\":\"shopper3@mailbox.example.com\",\"name\":\"Jamie Lin\"}",
+          "messages": "[{\"body_text\":\"The code SAVE20 isn't working at checkout.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_008",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_008",
+          "subject": "Shipping to PO Box not available",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_008\",\"email\":\"shopper8@mailbox.example.com\",\"name\":\"Drew Nguyen\"}",
+          "messages": "[{\"body_text\":\"I can't enter a PO Box as my shipping address. Is this supported?\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "agent_email",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "agent_a@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "agent_b@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "agent_c@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "agent_d@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "lead1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "lead2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "shopper1@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "shopper3@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "shopper8@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "warranty@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_QA",
+      "name": "quality-assurance",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

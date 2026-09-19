@@ -1,0 +1,462 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_archive": {
+      "title": "Archive Config",
+      "sheets": {
+        "ws_archive_rules": {
+          "title": "Archive Rules",
+          "values": [
+            ["Rule", "Value"],
+            ["archive_status_codes", "4,5"],
+            ["min_age_days", "7"],
+            ["exclude_tags", "test,draft"]
+          ]
+        },
+        "ws_field_translations": {
+          "title": "Field Translations",
+          "values": [
+            ["Freshdesk_Priority", "Zoho_Priority"],
+            ["4", "High"],
+            ["3", "Medium"],
+            ["2", "Low"],
+            ["1", "Low"]
+          ]
+        },
+        "ws_migration_log": {
+          "title": "Migration Log",
+          "values": [
+            ["Freshdesk_Ticket_ID", "Zoho_Ticket_ID", "Subject", "Status"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zd_c1",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zd_c1",
+          "first_name": "Amy",
+          "last_name": "Park",
+          "email": "amy@alphaco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_003",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_003",
+          "first_name": "Ren",
+          "last_name": "Sugimoto",
+          "email": "rsugimoto@eastwind.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_005",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_005",
+          "first_name": "Andre",
+          "last_name": "Williams",
+          "email": "awilliams@springdale.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t1",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t1",
+          "subject": "Login issue resolved",
+          "description": "User could not log in due to expired token.",
+          "status": 4,
+          "priority": 3,
+          "requester_id": "mig_c1",
+          "created_at": "2026-01-15T10:00:00Z",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t2",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t2",
+          "subject": "Billing correction done",
+          "description": "Applied credit for duplicate charge.",
+          "status": 4,
+          "priority": 2,
+          "requester_id": "mig_c2",
+          "created_at": "2026-01-20T10:00:00Z",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t3",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t3",
+          "subject": "API bug fixed",
+          "description": "Endpoint returned 500, now resolved.",
+          "status": 5,
+          "priority": 4,
+          "requester_id": "mig_c3",
+          "created_at": "2026-01-10T10:00:00Z",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t4",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t4",
+          "subject": "Quick fix applied",
+          "description": "Minor UI glitch fixed.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "mig_c1",
+          "created_at": "2026-02-05T10:00:00Z",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t5",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t5",
+          "subject": "Test ticket resolved",
+          "description": "Test only.",
+          "status": 5,
+          "priority": 2,
+          "requester_id": "mig_c2",
+          "created_at": "2026-01-05T10:00:00Z",
+          "tags": "[\"test\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t6",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t6",
+          "subject": "SSO setup completed",
+          "description": "SAML integration configured.",
+          "status": 4,
+          "priority": 2,
+          "requester_id": "mig_c4",
+          "created_at": "2026-01-18T10:00:00Z",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t7",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t7",
+          "subject": "New feature request",
+          "description": "Would like dark mode.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "mig_c1",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t8",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t8",
+          "subject": "Ongoing performance issue",
+          "description": "Dashboard still slow.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "mig_c3",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_mig_t9",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "mig_t9",
+          "subject": "Account question",
+          "description": "Need help with settings.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "mig_c4",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_010",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_010",
+          "subject": "Spam filter flagging legitimate tickets",
+          "description": "Three customer emails were wrongly moved to spam this week.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"spam\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_006",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_006",
+          "subject": "Dashboard widget showing stale data",
+          "description": "The 'Tickets This Week' widget hasn't updated since Monday.",
+          "status": 4,
+          "priority": 1,
+          "tags": "[\"dashboard\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_011",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_011",
+          "subject": "Report export timing out",
+          "description": "Exporting the monthly ticket report fails after 60 seconds.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"export\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_mig_c1",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "mig_c1",
+          "name": "Amy Park",
+          "email": "amy@alphaco.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_mig_c2",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "mig_c2",
+          "name": "Ben Lee",
+          "email": "ben@betaco.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_mig_c3",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "mig_c3",
+          "name": "Cora Kim",
+          "email": "cora@gammaco.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_mig_c4",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "mig_c4",
+          "name": "Dex Torres",
+          "email": "dex@deltaco.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_002",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_002",
+          "name": "Lucia Romero",
+          "email": "lromero@ridgeline.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_005",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_005",
+          "name": "Rohan Gupta",
+          "email": "rgupta@pinnacleco.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "requester_email",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      },
+      {
+        "name": "source_created_at",
+        "type": "text"
+      },
+      {
+        "name": "source_notes",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "amy@alphaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "awilliams@springdale.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ben@betaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "cora@gammaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dex@deltaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "lromero@ridgeline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "rgupta@pinnacleco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "rsugimoto@eastwind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_MIGT",
+      "name": "migration-tracker",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

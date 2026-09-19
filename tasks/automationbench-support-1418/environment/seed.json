@@ -1,0 +1,791 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_escalation_policy": {
+      "title": "Escalation Policy",
+      "sheets": {
+        "ws_criteria": {
+          "title": "Escalation Criteria",
+          "values": [
+            ["Rule Type", "Value", "Action", "Notes"],
+            [
+              "Qualifying Status",
+              "Escalated",
+              "Include",
+              "Primary escalation status"
+            ],
+            [
+              "Qualifying Status",
+              "Re-Opened",
+              "Include",
+              "Treat same as Escalated"
+            ],
+            [
+              "Classification Exclusion",
+              "do-not-escalate",
+              "Exclude",
+              "Skip regardless of status/priority"
+            ],
+            [
+              "Classification Exclusion",
+              "pending-review",
+              "Exclude",
+              "Awaiting manager approval"
+            ],
+            [
+              "SLA Override",
+              "fasttrack.io",
+              "Priority 3",
+              "Premium SLA - minimum priority High"
+            ],
+            [
+              "SLA Override",
+              "analytics.co",
+              "Priority 3",
+              "Premium SLA - minimum priority High"
+            ]
+          ]
+        },
+        "ws_priority_map": {
+          "title": "Priority Mapping",
+          "values": [
+            ["Zoho Priority", "Freshdesk Priority", "Freshdesk Label"],
+            ["High", "3", "High"],
+            ["Medium", "2", "Medium"],
+            ["Low", "1", "Low"]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "Always Escalate",
+              "enterprise-sla",
+              "Escalate ticket regardless of status. Match contact email domain containing this value.",
+              "Enterprise SLA customers have guaranteed L2 escalation rights"
+            ],
+            [
+              "Never Escalate",
+              "auto-resolved",
+              "Skip escalation even if ticket otherwise qualifies. Match by ticket tag.",
+              "Auto-resolved tickets do not need L2 attention"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_801",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_801",
+          "subject": "Data corruption in exports",
+          "description": "CSV exports contain corrupted UTF-8 characters.",
+          "status": "Escalated",
+          "priority": "High",
+          "contact_id": "zdc_901",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_802",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_802",
+          "subject": "Slow dashboard loading",
+          "description": "Dashboard takes 30+ seconds to load.",
+          "status": "Escalated",
+          "priority": "Medium",
+          "contact_id": "zdc_902",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_803",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_803",
+          "subject": "Simple billing question",
+          "description": "When is my next invoice?",
+          "status": "Open",
+          "priority": "Low",
+          "contact_id": "zdc_903",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_804",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_804",
+          "subject": "API rate limiting issue",
+          "description": "We keep hitting rate limits during peak hours.",
+          "status": "Escalated",
+          "priority": "High",
+          "contact_id": "zdc_904",
+          "classification": "do-not-escalate",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_805",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_805",
+          "subject": "Authentication tokens expiring",
+          "description": "Auth tokens expire too quickly.",
+          "status": "Re-Opened",
+          "priority": "High",
+          "contact_id": "zdc_905",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_806",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_806",
+          "subject": "Slow report generation",
+          "description": "Reports take too long to generate.",
+          "status": "Escalated",
+          "priority": "Low",
+          "contact_id": "zdc_906",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_807",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_807",
+          "subject": "Data corruption in exports",
+          "description": "Second report of the same export corruption issue.",
+          "status": "Escalated",
+          "priority": "Medium",
+          "contact_id": "zdc_907",
+          "comments": "[{\"content\":\"Customer confirmed the issue persists.\",\"is_public\":true}]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_808",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_808",
+          "subject": "Payment processing error",
+          "description": "Stripe webhook not triggering.",
+          "status": "Closed",
+          "priority": "High",
+          "contact_id": "zdc_908",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_809",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_809",
+          "subject": "SSL certificate warnings",
+          "description": "Browser shows cert mismatch on staging.",
+          "status": "Escalated",
+          "priority": "High",
+          "contact_id": "zdc_909",
+          "classification": "do-not-escalate",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_810",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_810",
+          "subject": "Mobile app crash on login",
+          "description": "App crashes after entering credentials.",
+          "status": "On Hold",
+          "priority": "Medium",
+          "contact_id": "zdc_910",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_811",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_811",
+          "subject": "Webhook delivery failures",
+          "description": "Webhooks timing out after 30 seconds.",
+          "status": "Escalated",
+          "priority": "Low",
+          "contact_id": "zdc_911",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_812",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_812",
+          "subject": "Search index corruption",
+          "description": "Full-text search returns stale results.",
+          "status": "Re-Opened",
+          "priority": "Medium",
+          "contact_id": "zdc_912",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_813",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_813",
+          "subject": "Email notification delays",
+          "description": "Transactional emails arriving 20+ minutes late.",
+          "status": "Escalated",
+          "priority": "High",
+          "contact_id": "zdc_913",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_814",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_814",
+          "subject": "Custom field validation bug",
+          "description": "Required custom fields accept blank values.",
+          "status": "Escalated",
+          "priority": "Medium",
+          "contact_id": "zdc_914",
+          "classification": "do-not-escalate",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_815",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_815",
+          "subject": "Dashboard permissions error",
+          "description": "Users cannot access dashboard after role change.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_915",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_816",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_816",
+          "subject": "Notification delivery failure",
+          "description": "Push notifications not being delivered.",
+          "status": "Escalated",
+          "priority": "High",
+          "contact_id": "zdc_916",
+          "tags": "[\"auto-resolved\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_007",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_007",
+          "subject": "Email channel creating duplicate tickets",
+          "description": "Same email thread creates 2 tickets when CC'd on reply.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_003",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_003",
+          "subject": "Assignment rule ignoring department filter",
+          "description": "Tickets in the 'Billing' department are assigned to Engineering.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_012",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_012",
+          "subject": "Custom view filter not saving",
+          "description": "Saving a custom ticket view with date filter reverts to defaults.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_901",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_901",
+          "first_name": "Jun",
+          "last_name": "Sato",
+          "email": "jun@datacompany.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_902",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_902",
+          "first_name": "Maria",
+          "last_name": "Lopez",
+          "email": "maria@analytics.co"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_903",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_903",
+          "first_name": "Simple",
+          "last_name": "User",
+          "email": "simple@billing.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_904",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_904",
+          "first_name": "Karl",
+          "last_name": "Berg",
+          "email": "karl@ratelimit.io"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_905",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_905",
+          "first_name": "Lisa",
+          "last_name": "Chen",
+          "email": "lisa@authtech.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_906",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_906",
+          "first_name": "Marco",
+          "last_name": "Ruiz",
+          "email": "marco@slowco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_907",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_907",
+          "first_name": "Jun",
+          "last_name": "Tanaka",
+          "email": "jun.tanaka@datacompany.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_908",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_908",
+          "first_name": "Priya",
+          "last_name": "Sharma",
+          "email": "priya@payments.co"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_909",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_909",
+          "first_name": "Henrik",
+          "last_name": "Larsen",
+          "email": "henrik@securenet.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_910",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_910",
+          "first_name": "Yuki",
+          "last_name": "Nakamura",
+          "email": "yuki@mobiledev.io"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_911",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_911",
+          "first_name": "Ravi",
+          "last_name": "Patel",
+          "email": "ravi@fasttrack.io"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_912",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_912",
+          "first_name": "Maria",
+          "last_name": "Garcia",
+          "email": "maria.garcia@searchcorp.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_913",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_913",
+          "first_name": "Tomoko",
+          "last_name": "Yamada",
+          "email": "tomoko@emailservices.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_914",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_914",
+          "first_name": "Lisa",
+          "last_name": "Wang",
+          "email": "lisa.wang@formbuilder.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_915",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_915",
+          "first_name": "Kenji",
+          "last_name": "Ito",
+          "email": "kenji@enterprise-sla.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_916",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_916",
+          "first_name": "Diana",
+          "last_name": "Kovalenko",
+          "email": "diana@resolvedtickets.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_002",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_002",
+          "first_name": "Marco",
+          "last_name": "Di Stefano",
+          "email": "mds@silveroak.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_004",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_004",
+          "first_name": "Claire",
+          "last_name": "Beaumont",
+          "email": "cbeaumont@ridgeway.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_existing_1",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_existing_1",
+          "subject": "L2 Escalation: Data corruption in exports",
+          "description": "Previously escalated export corruption ticket.",
+          "status": 2,
+          "priority": 3,
+          "tags": "[\"escalation\",\"l2\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_001",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_001",
+          "subject": "Password reset not working",
+          "description": "Clicking 'Forgot Password' sends email but the link is expired.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"auth\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_005",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_005",
+          "subject": "Email notifications delayed by 2 hours",
+          "description": "Ticket creation emails arrive 2+ hours after the ticket is created.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"email\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_008",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_008",
+          "subject": "Agent cannot be reassigned",
+          "description": "Trying to reassign a ticket to another agent gives a permission error.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"permissions\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_jun",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_jun",
+          "name": "Jun Sato",
+          "email": "jun@datacompany.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_006",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_006",
+          "name": "Tessa Kim",
+          "email": "tkim@hawthorne.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_003",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_003",
+          "name": "Damon Hsu",
+          "email": "dhsu@nimbuslabs.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "classification",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      },
+      {
+        "name": "requester_email",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "cbeaumont@ridgeway.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "dhsu@nimbuslabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "diana@resolvedtickets.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "henrik@securenet.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "jun.tanaka@datacompany.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "jun@datacompany.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "karl@ratelimit.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "kenji@enterprise-sla.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "lisa.wang@formbuilder.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "lisa@authtech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "marco@slowco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "maria.garcia@searchcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "maria@analytics.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "mds@silveroak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "priya@payments.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "ravi@fasttrack.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "simple@billing.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "tkim@hawthorne.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "tomoko@emailservices.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "yuki@mobiledev.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_esc",
+      "name": "support-escalations",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

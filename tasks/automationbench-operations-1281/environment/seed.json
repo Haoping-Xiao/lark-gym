@@ -1,0 +1,1089 @@
+{
+  "now": "2026-01-29T19:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_escalation_config": {
+      "title": "Escalation Configuration",
+      "sheets": {
+        "ws_escalation_rules": {
+          "title": "Escalation Rules",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Synthetic Monitoring Exclusion",
+              "Emails from monitoring or synthetic test domains (e.g., synthetic-test.example.com) are automated alerts and must not be escalated as customer tickets. Route these to the internal engineering team instead."
+            ],
+            [
+              "Self-Retraction Override",
+              "If an email body contains retraction language such as 'disregard', 'retraction', or 'resolved on our end', do not escalate regardless of subject urgency."
+            ],
+            [
+              "Cost Impact Requirement",
+              "When creating a ticket for a genuine escalation, the ticket description must include any cost impact mentioned by the customer."
+            ],
+            [
+              "Incident Bridge Cross-Reference",
+              "If there is an active incident bridge email in the inbox for the customer's domain, the ticket description must include the incident bridge number (e.g., INC-XXXX-XXXX). Check inbox for any internal incident bridge notifications related to the customer before creating the ticket."
+            ],
+            [
+              "Suspended Account Exclusion",
+              "If there is an internal email (from billing@company.example.com) indicating that a customer's account has been suspended, do not create a HubSpot ticket for that customer. Suspended account escalations must be routed to billing, not through the standard ticket process. Check inbox for account suspension notices before creating tickets."
+            ],
+            [
+              "Escalation Count Requirement",
+              "The Slack notification to #support-escalations must include the total number of customer emails reviewed and the number of qualifying escalations (e.g., 'Reviewed 5 emails, 1 qualified for escalation'). This helps the team understand the triage workload."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_002",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "s.chen@granitesupply.example.com",
+          "firstname": "Sandra",
+          "lastname": "Chen",
+          "jobtitle": "Operations Manager",
+          "company": "Granite Supply Co"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_007",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "v.lindgren@coastalfl.example.com",
+          "firstname": "Victor",
+          "lastname": "Lindgren",
+          "jobtitle": "Fleet Manager",
+          "company": "Coastal Fleet Services"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_003",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "d.kowalski@apexfacili.example.com",
+          "firstname": "Derek",
+          "lastname": "Kowalski",
+          "jobtitle": "Procurement Lead",
+          "company": "Apex Facilities Group"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_001",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "m.reeves@pinnaclelogi.example.com",
+          "firstname": "Martin",
+          "lastname": "Reeves",
+          "jobtitle": "Facilities Director",
+          "company": "Pinnacle Logistics"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_006",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "n.patel@harbourwar.example.com",
+          "firstname": "Nina",
+          "lastname": "Patel",
+          "jobtitle": "Warehouse Supervisor",
+          "company": "Harbor Warehousing"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_005",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "g.thompson@keystoneit.example.com",
+          "firstname": "Grant",
+          "lastname": "Thompson",
+          "jobtitle": "IT Operations Manager",
+          "company": "Keystone IT Services"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_003",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Apex Facilities Group",
+          "industry": "Real Estate",
+          "domain": "apexfacili.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_006",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Ridgeline Transport",
+          "industry": "Transportation",
+          "domain": "ridgelinetrans.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_005",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Beacon Safety Systems",
+          "industry": "Safety",
+          "domain": "beaconsafe.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_007",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Harbor Warehousing",
+          "industry": "Warehousing",
+          "domain": "harbourwar.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_004",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "TrueNorth Equipment",
+          "industry": "Industrial",
+          "domain": "truenortheq.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_002",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Granite Supply Co",
+          "industry": "Manufacturing",
+          "domain": "granitesupply.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_004",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "TrueNorth Equipment — Forklift Lease Renewal",
+          "amount": 92000,
+          "dealstage": "closedwon",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_001",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "Pinnacle Logistics — Annual HVAC Contract",
+          "amount": 48000,
+          "dealstage": "closedwon",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_005",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "Beacon Safety — Fire Suppression Upgrade",
+          "amount": 28000,
+          "dealstage": "presentationscheduled",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_003",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "Apex Facilities — Building Maintenance RFP",
+          "amount": 35000,
+          "dealstage": "qualifiedtobuy",
+          "pipeline": "default"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "firstname",
+        "type": "text"
+      },
+      {
+        "name": "lastname",
+        "type": "text"
+      },
+      {
+        "name": "jobtitle",
+        "type": "text"
+      },
+      {
+        "name": "company",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "dealname",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "dealstage",
+        "type": "text"
+      },
+      {
+        "name": "pipeline",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "admin@suspended-corp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "alerts@bms.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "alerts@cmms.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "all@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "amcbride@keystoneit.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "backups@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "billing@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "bob@techstart.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "calendar-noreply@meet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "cfo@globalfinance-vip.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "cto@enterprise-vip.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "cwhitfield@coastalfl.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "d.kowalski@apexfacili.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "dkowalski@apexfacili.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "dokafor@crestfield.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "ehs@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "energy@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "engineering@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "fleet@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "g.thompson@keystoneit.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "gpearson@northwind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "hrusso@prairieener.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "ijohansson@northwind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "incident-commander@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "it-ops@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "jane.doe@globex.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "john.smith@acme.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "m.reeves@pinnaclelogi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "monitor@synthetic-test.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "monitoring@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "mreeves@pinnaclelogi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "n.patel@harbourwar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "network@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_34",
+      "name": "ops-team@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_35",
+      "name": "ops@dataflow-inc.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_36",
+      "name": "phartley@vanguardse.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_37",
+      "name": "procurement@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_38",
+      "name": "s.chen@granitesupply.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_39",
+      "name": "sarah@megacorp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_40",
+      "name": "scheduling@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_41",
+      "name": "schen@granitesupply.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_42",
+      "name": "security@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_43",
+      "name": "service@elevatorplus.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_44",
+      "name": "shipping@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_45",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_46",
+      "name": "training@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_47",
+      "name": "v.lindgren@coastalfl.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_48",
+      "name": "vlindgren@harbourwar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_49",
+      "name": "ydawson@atlasproperty.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_CSUPESC",
+      "name": "support-escalations",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_CGENERAL",
+      "name": "general",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_cust_001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_001\\\", \\\"thread_id\\\": \\\"thr_cust_001\\\", \\\"from_\\\": \\\"john.smith@acme.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"URGENT: System down - production blocked\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T14:30:00Z\\\"}\\n消息 ID：msg_cust_001\\n来源：john.smith@acme.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T14:30:00Z\\n主题：URGENT: System down - production blocked\\nOur entire production line is blocked because your system is down. We need immediate assistance. This is costing us $50,000 per hour.\"}"
+      },
+      "create_time": "1769697000000"
+    },
+    {
+      "message_id": "om_msg_cust_002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_002\\\", \\\"thread_id\\\": \\\"thr_cust_002\\\", \\\"from_\\\": \\\"jane.doe@globex.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"Critical bug in reporting module\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-29T10:15:00Z\\\"}\\n消息 ID：msg_cust_002\\n来源：jane.doe@globex.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T10:15:00Z\\n主题：Critical bug in reporting module\\nFound a critical bug that's causing incorrect financial reports. Please fix ASAP.\"}"
+      },
+      "create_time": "1769681700000"
+    },
+    {
+      "message_id": "om_msg_cust_003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_003\\\", \\\"thread_id\\\": \\\"thr_cust_003\\\", \\\"from_\\\": \\\"bob@techstart.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"Question about billing\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T15:00:00Z\\\"}\\n消息 ID：msg_cust_003\\n来源：bob@techstart.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T15:00:00Z\\n主题：Question about billing\\nCan you explain the charges on my last invoice?\"}"
+      },
+      "create_time": "1769698800000"
+    },
+    {
+      "message_id": "om_msg_cust_004",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_004\\\", \\\"thread_id\\\": \\\"thr_cust_004\\\", \\\"from_\\\": \\\"sarah@megacorp.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"URGENT: Data sync failure in dashboard\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T16:00:00Z\\\"}\\n消息 ID：msg_cust_004\\n来源：sarah@megacorp.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T16:00:00Z\\n主题：URGENT: Data sync failure in dashboard\\nUPDATE: This has been resolved by our team - the sync issue was on our end due to a misconfigured API key. No action needed from your side. Closing this out, thanks!\"}"
+      },
+      "create_time": "1769702400000"
+    },
+    {
+      "message_id": "om_msg_cust_005",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_005\\\", \\\"thread_id\\\": \\\"thr_cust_005\\\", \\\"from_\\\": \\\"monitor@synthetic-test.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"URGENT: Critical service degradation detected\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T17:00:00Z\\\"}\\n消息 ID：msg_cust_005\\n来源：monitor@synthetic-test.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T17:00:00Z\\n主题：URGENT: Critical service degradation detected\\nALERT: Our monitoring system has detected critical degradation in the payment processing pipeline. Response times have increased by 800%. Immediate investigation required.\"}"
+      },
+      "create_time": "1769706000000"
+    },
+    {
+      "message_id": "om_msg_cust_006",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_006\\\", \\\"thread_id\\\": \\\"thr_cust_006\\\", \\\"from_\\\": \\\"cto@enterprise-vip.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"Critical: API rate limits causing integration failures\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T15:30:00Z\\\"}\\n消息 ID：msg_cust_006\\n来源：cto@enterprise-vip.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T15:30:00Z\\n主题：Critical: API rate limits causing integration failures\\nOur integration with your API has been failing due to rate limits since yesterday. RETRACTION: Disregard this email - our devops team increased the limits on their end and this is now working. Sorry for the noise.\"}"
+      },
+      "create_time": "1769700600000"
+    },
+    {
+      "message_id": "om_msg_cust_007",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_007\\\", \\\"thread_id\\\": \\\"thr_cust_007\\\", \\\"from_\\\": \\\"cfo@globalfinance-vip.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"URGENT: Critical payment processing failure - $200K/hour impact\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T18:00:00Z\\\"}\\n消息 ID：msg_cust_007\\n来源：cfo@globalfinance-vip.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T18:00:00Z\\n主题：URGENT: Critical payment processing failure - $200K/hour impact\\nThis is extremely urgent. Our payment processing pipeline has been completely down since 2pm today. Every hour of downtime costs us approximately $200,000 in lost transactions. We have 50+ merchants unable to process payments. Our engineering team has been working on this for the last 3 hours and finally identified the root cause - it was a misconfigured webhook endpoint on our side. The fix has been deployed and all payment processing has been restored as of 5:45pm. No further action needed from your team, but wanted to flag this for your records.\"}"
+      },
+      "create_time": "1769709600000"
+    },
+    {
+      "message_id": "om_msg_ops_001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_001\\\", \\\"thread_id\\\": \\\"thr_ops_001\\\", \\\"from_\\\": \\\"incident-commander@company.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"Active Incident Bridge: Acme account (INC-2026-0129)\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T13:00:00Z\\\"}\\n消息 ID：msg_ops_001\\n来源：incident-commander@company.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T13:00:00Z\\n主题：Active Incident Bridge: Acme account (INC-2026-0129)\\nFYI: We have an active incident bridge open for the Acme account (acme.example.com). Any new support tickets related to this account MUST reference the incident bridge number INC-2026-0129 in the ticket description. This ensures proper tracking and deduplication of efforts across teams.\"}"
+      },
+      "create_time": "1769691600000"
+    },
+    {
+      "message_id": "om_msg_cust_008",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_008\\\", \\\"thread_id\\\": \\\"thr_cust_008\\\", \\\"from_\\\": \\\"admin@suspended-corp.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"URGENT: Cannot access any features - complete outage\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T17:30:00Z\\\"}\\n消息 ID：msg_cust_008\\n来源：admin@suspended-corp.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T17:30:00Z\\n主题：URGENT: Cannot access any features - complete outage\\nWe are experiencing a complete outage across all features. None of our 200+ users can log in or access any functionality. This is severely impacting our operations and we need immediate help. This is NOT a billing issue - our systems were working fine yesterday.\"}"
+      },
+      "create_time": "1769707800000"
+    },
+    {
+      "message_id": "om_msg_ops_002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_002\\\", \\\"thread_id\\\": \\\"thr_ops_002\\\", \\\"from_\\\": \\\"billing@company.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"Account Suspension Notice: suspended-corp.example.com\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-28T09:00:00Z\\\"}\\n消息 ID：msg_ops_002\\n来源：billing@company.example.com\\n收件人：support@company.example.com\\n日期：2026-01-28T09:00:00Z\\n主题：Account Suspension Notice: suspended-corp.example.com\\nThe account for suspended-corp.example.com has been suspended effective 2026-01-28 due to non-payment (90+ days overdue). All support escalations for this account must be routed to the billing team, not through the standard HubSpot ticket process. Do not create tickets for suspended accounts.\"}"
+      },
+      "create_time": "1769590800000"
+    },
+    {
+      "message_id": "om_msg_cust_009",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_cust_009\\\", \\\"thread_id\\\": \\\"thr_cust_009\\\", \\\"from_\\\": \\\"ops@dataflow-inc.example.com\\\", \\\"to\\\": [\\\"support@company.example.com\\\"], \\\"subject\\\": \\\"URGENT: Data pipeline completely broken since morning\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T18:30:00Z\\\"}\\n消息 ID：msg_cust_009\\n来源：ops@dataflow-inc.example.com\\n收件人：support@company.example.com\\n日期：2026-01-29T18:30:00Z\\n主题：URGENT: Data pipeline completely broken since morning\\nOur data pipeline has been completely broken since this morning. All ETL jobs are failing with timeout errors. We have 15 downstream systems affected. Cost impact is approximately $25,000 per hour in delayed reporting. PLEASE HELP IMMEDIATELY.\\n\\n--- Follow-up (sent 30 min later) ---\\nUpdate: Our infra team found and fixed the issue - it was a DNS misconfiguration on our VPN gateway that was blocking connections to your API endpoints. Everything is flowing normally again. Sorry for the alarm, please disregard the escalation request above.\"}"
+      },
+      "create_time": "1769711400000"
+    },
+    {
+      "message_id": "om_msg_ops_015",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_015\\\", \\\"thread_id\\\": \\\"th_ops_015\\\", \\\"from_\\\": \\\"backups@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"Nightly Backup Report — March 2\\\", \\\"date\\\": \\\"2026-03-03T06:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_015\\n来源：backups@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-03T06:00:00Z\\n主题：Nightly Backup Report — March 2\\nAll backups completed successfully. Total data: 4.2 TB. Duration: 3h 17m. No errors.\"}"
+      },
+      "create_time": "1772517600000"
+    },
+    {
+      "message_id": "om_msg_ops_011",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_011\\\", \\\"thread_id\\\": \\\"th_ops_011\\\", \\\"from_\\\": \\\"it-ops@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"Server Room Temperature Alert\\\", \\\"date\\\": \\\"2026-02-28T17:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_011\\n来源：it-ops@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-02-28T17:00:00Z\\n主题：Server Room Temperature Alert\\nAlert: Server room B2 temperature reached 78°F at 3:42 AM. CRAC unit cycled and temp returned to 68°F by 3:55 AM.\"}"
+      },
+      "create_time": "1772298000000"
+    },
+    {
+      "message_id": "om_msg_ops_032",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_032\\\", \\\"thread_id\\\": \\\"th_ops_032\\\", \\\"from_\\\": \\\"scheduling@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Shift Swap Approved: March 7\\\", \\\"date\\\": \\\"2026-03-03T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_032\\n来源：scheduling@company.example.com\\n收件人：me\\n日期：2026-03-03T08:00:00Z\\n主题：Shift Swap Approved: March 7\\nShift swap approved: N. Patel (Day → Night) and V. Lindgren (Night → Day) for March 7.\"}"
+      },
+      "create_time": "1772524800000"
+    },
+    {
+      "message_id": "om_msg_ops_012",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_012\\\", \\\"thread_id\\\": \\\"th_ops_012\\\", \\\"from_\\\": \\\"monitoring@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"UPS Battery Test Results — February\\\", \\\"date\\\": \\\"2026-03-01T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_012\\n来源：monitoring@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-01T10:00:00Z\\n主题：UPS Battery Test Results — February\\nMonthly UPS battery test passed. All 4 units holding full charge. Next test scheduled March 28.\"}"
+      },
+      "create_time": "1772359200000"
+    },
+    {
+      "message_id": "om_msg_ops_040",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_040\\\", \\\"thread_id\\\": \\\"th_ops_040\\\", \\\"from_\\\": \\\"amcbride@keystoneit.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Conference room AV upgrade proposal\\\", \\\"date\\\": \\\"2026-03-03T08:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_040\\n来源：amcbride@keystoneit.example.com\\n收件人：me\\n日期：2026-03-03T08:30:00Z\\n主题：Conference room AV upgrade proposal\\nProposal to upgrade 6 conference rooms with dual 75-inch displays and wireless casting. Total: $42,000. ROI payback: 18 months.\"}"
+      },
+      "create_time": "1772526600000"
+    },
+    {
+      "message_id": "om_msg_ops_020",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_020\\\", \\\"thread_id\\\": \\\"th_ops_020\\\", \\\"from_\\\": \\\"energy@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Monthly Energy Report — February 2026\\\", \\\"date\\\": \\\"2026-03-01T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_020\\n来源：energy@company.example.com\\n收件人：me\\n日期：2026-03-01T10:00:00Z\\n主题：Monthly Energy Report — February 2026\\nFebruary energy consumption: 142,000 kWh (down 3% from Jan). Peak demand: 380 kW on Feb 14. Solar offset: 12%.\"}"
+      },
+      "create_time": "1772359200000"
+    },
+    {
+      "message_id": "om_msg_ops_018",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_018\\\", \\\"thread_id\\\": \\\"th_ops_018\\\", \\\"from_\\\": \\\"fleet@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Vehicle #F-207 maintenance due\\\", \\\"date\\\": \\\"2026-03-03T07:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_018\\n来源：fleet@company.example.com\\n收件人：me\\n日期：2026-03-03T07:30:00Z\\n主题：Vehicle #F-207 maintenance due\\nVehicle F-207 (2024 Ford Transit) is due for 30k mile service. Schedule with Fleet Auto by March 12.\"}"
+      },
+      "create_time": "1772523000000"
+    },
+    {
+      "message_id": "om_msg_ops_029",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_029\\\", \\\"thread_id\\\": \\\"th_ops_029\\\", \\\"from_\\\": \\\"alerts@cmms.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Work Order #WO-3847 Overdue\\\", \\\"date\\\": \\\"2026-03-02T14:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_029\\n来源：alerts@cmms.example.com\\n收件人：me\\n日期：2026-03-02T14:15:00Z\\n主题：Work Order #WO-3847 Overdue\\nWork Order #WO-3847 (Generator monthly test — Building D) is 2 days overdue. Assigned to: Ruben Vasquez.\"}"
+      },
+      "create_time": "1772460900000"
+    },
+    {
+      "message_id": "om_msg_ops_022",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_022\\\", \\\"thread_id\\\": \\\"th_ops_022\\\", \\\"from_\\\": \\\"dokafor@crestfield.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Compliance audit follow-up items\\\", \\\"date\\\": \\\"2026-03-02T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_022\\n来源：dokafor@crestfield.example.com\\n收件人：me\\n日期：2026-03-02T13:00:00Z\\n主题：Compliance audit follow-up items\\n3 items from last week's compliance audit need attention: chemical storage labeling, eyewash station testing, and forklift cert updates.\"}"
+      },
+      "create_time": "1772456400000"
+    },
+    {
+      "message_id": "om_msg_ops_007",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_007\\\", \\\"thread_id\\\": \\\"th_ops_007\\\", \\\"from_\\\": \\\"schen@granitesupply.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Quote for replacement HVAC filters\\\", \\\"date\\\": \\\"2026-03-02T11:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_007\\n来源：schen@granitesupply.example.com\\n收件人：me\\n日期：2026-03-02T11:30:00Z\\n主题：Quote for replacement HVAC filters\\nHi, attached is the quote for 200 MERV-13 filters. Unit price: $24.50. Bulk discount applied. Lead time: 5 business days.\"}"
+      },
+      "create_time": "1772451000000"
+    },
+    {
+      "message_id": "om_msg_ops_016",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_016\\\", \\\"thread_id\\\": \\\"th_ops_016\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all@company.example.com\\\"], \\\"subject\\\": \\\"New Employee Onboarding — Week of March 10\\\", \\\"date\\\": \\\"2026-02-27T11:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_016\\n来源：hr@company.example.com\\n收件人：all@company.example.com\\n日期：2026-02-27T11:00:00Z\\n主题：New Employee Onboarding — Week of March 10\\n3 new hires starting March 10. Please ensure workstations, badges, and parking passes are ready by March 7.\"}"
+      },
+      "create_time": "1772190000000"
+    },
+    {
+      "message_id": "om_msg_ops_027",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_027\\\", \\\"thread_id\\\": \\\"th_ops_027\\\", \\\"from_\\\": \\\"ijohansson@northwind.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Vendor scorecard Q1 results\\\", \\\"date\\\": \\\"2026-03-02T09:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_027\\n来源：ijohansson@northwind.example.com\\n收件人：me\\n日期：2026-03-02T09:30:00Z\\n主题：Vendor scorecard Q1 results\\nQ1 vendor scorecards posted. Top performers: Granite Supply (98/100), Summit Maintenance (95/100). 2 vendors flagged for late deliveries.\"}"
+      },
+      "create_time": "1772443800000"
+    },
+    {
+      "message_id": "om_msg_ops_039",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_039\\\", \\\"thread_id\\\": \\\"th_ops_039\\\", \\\"from_\\\": \\\"gpearson@northwind.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Shipping label printer offline — Dock 2\\\", \\\"date\\\": \\\"2026-03-01T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_039\\n来源：gpearson@northwind.example.com\\n收件人：me\\n日期：2026-03-01T12:00:00Z\\n主题：Shipping label printer offline — Dock 2\\nShipping label printer at Dock 2 went offline. IT dispatched. Workaround: using Dock 3 printer. ETA for repair: 2 hours.\"}"
+      },
+      "create_time": "1772366400000"
+    },
+    {
+      "message_id": "om_msg_ops_004",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_004\\\", \\\"thread_id\\\": \\\"th_ops_004\\\", \\\"from_\\\": \\\"security@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Monthly Access Audit — February 2026\\\", \\\"date\\\": \\\"2026-03-01T09:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_004\\n来源：security@company.example.com\\n收件人：me\\n日期：2026-03-01T09:15:00Z\\n主题：Monthly Access Audit — February 2026\\nFebruary access audit complete. 3 badges deactivated (terminations), 7 new badges issued. No anomalies detected.\"}"
+      },
+      "create_time": "1772356500000"
+    },
+    {
+      "message_id": "om_msg_ops_033",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_033\\\", \\\"thread_id\\\": \\\"th_ops_033\\\", \\\"from_\\\": \\\"training@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"Forklift Certification Renewal — March 20\\\", \\\"date\\\": \\\"2026-03-02T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_033\\n来源：training@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-02T12:00:00Z\\n主题：Forklift Certification Renewal — March 20\\nForklift certification renewal class on March 20, 8 AM - 12 PM, Warehouse Training Room. 6 spots remaining.\"}"
+      },
+      "create_time": "1772452800000"
+    },
+    {
+      "message_id": "om_msg_ops_021",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_021\\\", \\\"thread_id\\\": \\\"th_ops_021\\\", \\\"from_\\\": \\\"vlindgren@harbourwar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Racking system installation — Phase 2\\\", \\\"date\\\": \\\"2026-03-03T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_021\\n来源：vlindgren@harbourwar.example.com\\n收件人：me\\n日期：2026-03-03T09:00:00Z\\n主题：Racking system installation — Phase 2\\nPhase 2 racking installation scheduled for March 17-21. Please confirm aisle 12-14 will be cleared by March 14.\"}"
+      },
+      "create_time": "1772528400000"
+    },
+    {
+      "message_id": "om_msg_ops_025",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_025\\\", \\\"thread_id\\\": \\\"th_ops_025\\\", \\\"from_\\\": \\\"hrusso@prairieener.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Solar panel cleaning scheduled\\\", \\\"date\\\": \\\"2026-03-01T14:20:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_025\\n来源：hrusso@prairieener.example.com\\n收件人：me\\n日期：2026-03-01T14:20:00Z\\n主题：Solar panel cleaning scheduled\\nSolar panel cleaning crew scheduled for March 8, 6 AM - 12 PM. Roof access needed. Please notify security.\"}"
+      },
+      "create_time": "1772374800000"
+    },
+    {
+      "message_id": "om_msg_ops_028",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_028\\\", \\\"thread_id\\\": \\\"th_ops_028\\\", \\\"from_\\\": \\\"cwhitfield@coastalfl.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Fleet fuel consumption report — February\\\", \\\"date\\\": \\\"2026-03-01T11:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_028\\n来源：cwhitfield@coastalfl.example.com\\n收件人：me\\n日期：2026-03-01T11:45:00Z\\n主题：Fleet fuel consumption report — February\\nFebruary fleet fuel: 4,200 gallons. Average 14.2 MPG. Vehicle F-112 flagged for 22% above average consumption.\"}"
+      },
+      "create_time": "1772365500000"
+    },
+    {
+      "message_id": "om_msg_ops_036",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_036\\\", \\\"thread_id\\\": \\\"th_ops_036\\\", \\\"from_\\\": \\\"ydawson@atlasproperty.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Lease renewal — Building D, Suite 400\\\", \\\"date\\\": \\\"2026-03-01T15:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_036\\n来源：ydawson@atlasproperty.example.com\\n收件人：me\\n日期：2026-03-01T15:00:00Z\\n主题：Lease renewal — Building D, Suite 400\\nLease renewal for Suite 400 due April 30. Current rate: $32/sqft. Landlord proposing 4% increase. Suggest we counter at 2%.\"}"
+      },
+      "create_time": "1772377200000"
+    },
+    {
+      "message_id": "om_msg_ops_008",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_008\\\", \\\"thread_id\\\": \\\"th_ops_008\\\", \\\"from_\\\": \\\"service@elevatorplus.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Elevator Maintenance Confirmation — March 5\\\", \\\"date\\\": \\\"2026-03-01T16:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_008\\n来源：service@elevatorplus.example.com\\n收件人：me\\n日期：2026-03-01T16:00:00Z\\n主题：Elevator Maintenance Confirmation — March 5\\nConfirming elevator maintenance for Building A, elevators 1-3, March 5 from 6 AM to 10 AM. Please post out-of-service notices.\"}"
+      },
+      "create_time": "1772380800000"
+    },
+    {
+      "message_id": "om_msg_ops_005",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_005\\\", \\\"thread_id\\\": \\\"th_ops_005\\\", \\\"from_\\\": \\\"procurement@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Purchase Order Approval Required — PO-2026-0312\\\", \\\"date\\\": \\\"2026-02-28T07:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_005\\n来源：procurement@company.example.com\\n收件人：me\\n日期：2026-02-28T07:45:00Z\\n主题：Purchase Order Approval Required — PO-2026-0312\\nPO for janitorial supplies ($3,200) awaiting approval. Vendor: CleanRight Supply. Delivery: March 10.\"}"
+      },
+      "create_time": "1772264700000"
+    },
+    {
+      "message_id": "om_msg_ops_037",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_037\\\", \\\"thread_id\\\": \\\"th_ops_037\\\", \\\"from_\\\": \\\"phartley@vanguardse.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Security guard schedule — March\\\", \\\"date\\\": \\\"2026-03-02T10:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_037\\n来源：phartley@vanguardse.example.com\\n收件人：me\\n日期：2026-03-02T10:45:00Z\\n主题：Security guard schedule — March\\nMarch security schedule posted. Added overnight coverage for the warehouse expansion project (March 15-31).\"}"
+      },
+      "create_time": "1772448300000"
+    },
+    {
+      "message_id": "om_msg_ops_017",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_017\\\", \\\"thread_id\\\": \\\"th_ops_017\\\", \\\"from_\\\": \\\"ehs@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"OSHA Training Reminder — Due March 15\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_017\\n来源：ehs@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-01T08:00:00Z\\n主题：OSHA Training Reminder — Due March 15\\nReminder: Annual OSHA safety training must be completed by March 15. Log into LMS to access the module.\"}"
+      },
+      "create_time": "1772352000000"
+    },
+    {
+      "message_id": "om_msg_ops_019",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_019\\\", \\\"thread_id\\\": \\\"th_ops_019\\\", \\\"from_\\\": \\\"shipping@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Inbound Shipment — Tracking #TRK8847291\\\", \\\"date\\\": \\\"2026-02-28T15:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_019\\n来源：shipping@company.example.com\\n收件人：me\\n日期：2026-02-28T15:30:00Z\\n主题：Inbound Shipment — Tracking #TRK8847291\\nShipment from TrueNorth Equipment arriving March 5. 3 pallets. Please allocate dock space.\"}"
+      },
+      "create_time": "1772292600000"
+    },
+    {
+      "message_id": "om_msg_ops_009",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_009\\\", \\\"thread_id\\\": \\\"th_ops_009\\\", \\\"from_\\\": \\\"dkowalski@apexfacili.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Contractor badge renewal — 5 expiring\\\", \\\"date\\\": \\\"2026-03-03T09:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_009\\n来源：dkowalski@apexfacili.example.com\\n收件人：me\\n日期：2026-03-03T09:45:00Z\\n主题：Contractor badge renewal — 5 expiring\\n5 contractor badges expire this week. Please renew: M. Reeves, S. Chen, D. Kowalski, L. Morales, G. Thompson.\"}"
+      },
+      "create_time": "1772531100000"
+    },
+    {
+      "message_id": "om_msg_ops_034",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_034\\\", \\\"thread_id\\\": \\\"th_ops_034\\\", \\\"from_\\\": \\\"calendar-noreply@meet.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Meeting Confirmed: Weekly Ops Standup\\\", \\\"date\\\": \\\"2026-03-02T17:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_034\\n来源：calendar-noreply@meet.example.com\\n收件人：me\\n日期：2026-03-02T17:00:00Z\\n主题：Meeting Confirmed: Weekly Ops Standup\\nYour meeting 'Weekly Ops Standup' has been confirmed for Monday March 3 at 9:00 AM PST.\"}"
+      },
+      "create_time": "1772470800000"
+    },
+    {
+      "message_id": "om_msg_ops_006",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_006\\\", \\\"thread_id\\\": \\\"th_ops_006\\\", \\\"from_\\\": \\\"mreeves@pinnaclelogi.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Delivery Schedule Update\\\", \\\"date\\\": \\\"2026-03-02T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_006\\n来源：mreeves@pinnaclelogi.example.com\\n收件人：me\\n日期：2026-03-02T14:00:00Z\\n主题：Re: Delivery Schedule Update\\nConfirming the updated delivery schedule: Tuesday/Thursday 6 AM - 8 AM. Loading dock 3 reserved.\"}"
+      },
+      "create_time": "1772460000000"
+    },
+    {
+      "message_id": "om_msg_ops_013",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_013\\\", \\\"thread_id\\\": \\\"th_ops_013\\\", \\\"from_\\\": \\\"network@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"Network Switch Upgrade — Building A\\\", \\\"date\\\": \\\"2026-03-03T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_013\\n来源：network@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-03T14:00:00Z\\n主题：Network Switch Upgrade — Building A\\nNetwork switch upgrade in Building A completed Saturday. 48-port PoE switches installed on floors 2-4. No disruption reported.\"}"
+      },
+      "create_time": "1772546400000"
+    },
+    {
+      "message_id": "om_msg_ops_030",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_030\\\", \\\"thread_id\\\": \\\"th_ops_030\\\", \\\"from_\\\": \\\"alerts@bms.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Building Management Alert — Zone 3 Humidity\\\", \\\"date\\\": \\\"2026-03-03T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_030\\n来源：alerts@bms.example.com\\n收件人：me\\n日期：2026-03-03T07:00:00Z\\n主题：Building Management Alert — Zone 3 Humidity\\nHumidity in Zone 3 exceeded 65% at 11:23 AM. Dehumidifier activated. Current reading: 58%.\"}"
+      },
+      "create_time": "1772521200000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080012.000012\\\", \\\"user_id\\\": \\\"U_ops_12\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nParking lot B re-striping scheduled for this weekend. Please park in Lot C.\"}"
+      },
+      "create_time": "1741080012.000012"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080019.000019\\\", \\\"user_id\\\": \\\"U_ops_19\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nConference room 301 AV equipment upgraded. New wireless casting system is live.\"}"
+      },
+      "create_time": "1741080019.000019"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080017.000017\\\", \\\"user_id\\\": \\\"U_ops_17\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nThe roof leak in Building C has been patched. Monitoring for 48 hours before closing the ticket.\"}"
+      },
+      "create_time": "1741080017.000017"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080006.000006\\\", \\\"user_id\\\": \\\"U_ops_06\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nNew vendor onboarded: GreenField Environmental. Insurance certs verified.\"}"
+      },
+      "create_time": "1741080006.000006"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080014.000014\\\", \\\"user_id\\\": \\\"U_ops_14\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nHVAC filter replacement complete for Building A. Next round: Building C on March 10.\"}"
+      },
+      "create_time": "1741080014.000014"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080022.000022\\\", \\\"user_id\\\": \\\"U_ops_22\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nSafety shoe replacement vouchers available from EHS. See Lydia for details.\"}"
+      },
+      "create_time": "1741080022.000022"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080025.000025\\\", \\\"user_id\\\": \\\"U_ops_25\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nEmergency lighting test completed for all buildings. 2 bulbs replaced in Building D stairwell.\"}"
+      },
+      "create_time": "1741080025.000025"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080018.000018\\\", \\\"user_id\\\": \\\"U_ops_18\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nForklift F-04 battery replacement done. Back in service.\"}"
+      },
+      "create_time": "1741080018.000018"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080005.000005\\\", \\\"user_id\\\": \\\"U_ops_05\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nAnyone know if the badge printer in reception is fixed? Still showing paper jam.\"}"
+      },
+      "create_time": "1741080005.000005"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080024.000024\\\", \\\"user_id\\\": \\\"U_ops_24\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nThe recycling compactor is jammed again. Maintenance ticket submitted.\"}"
+      },
+      "create_time": "1741080024.000024"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080016.000016\\\", \\\"user_id\\\": \\\"U_ops_16\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nPest control visit scheduled for Thursday evening after business hours.\"}"
+      },
+      "create_time": "1741080016.000016"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080003.000003\\\", \\\"user_id\\\": \\\"U_ops_03\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nReminder: fire drill at 2 PM today. Please make sure all exits are clear.\"}"
+      },
+      "create_time": "1741080003.000003"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080023.000023\\\", \\\"user_id\\\": \\\"U_ops_23\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nCompressed gas cylinder audit completed. All tags current.\"}"
+      },
+      "create_time": "1741080023.000023"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080004.000004\\\", \\\"user_id\\\": \\\"U_ops_04\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nGenerator test completed ✅ All 3 units passed. Logs uploaded to CMMS.\"}"
+      },
+      "create_time": "1741080004.000004"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080010.000010\\\", \\\"user_id\\\": \\\"U_ops_10\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nFleet update: Vehicle F-207 in for service today. Using F-210 as backup.\"}"
+      },
+      "create_time": "1741080010.000010"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080007.000007\\\", \\\"user_id\\\": \\\"U_ops_07\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nPSA: Server room B2 maintenance window Saturday 2-6 AM. UPS bypass test included.\"}"
+      },
+      "create_time": "1741080007.000007"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080013.000013\\\", \\\"user_id\\\": \\\"U_ops_13\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nNew hire orientation: 3 new warehouse staff starting Monday. Badge photos at 8 AM.\"}"
+      },
+      "create_time": "1741080013.000013"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080011.000011\\\", \\\"user_id\\\": \\\"U_ops_11\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nChemical storage area inspection complete. One label faded — replaced on the spot.\"}"
+      },
+      "create_time": "1741080011.000011"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080008.000008\\\", \\\"user_id\\\": \\\"U_ops_08\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nElevator B back in service after maintenance. Thanks to the ElevatorPlus team for the quick turnaround.\"}"
+      },
+      "create_time": "1741080008.000008"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_CSUPESC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080021.000021\\\", \\\"user_id\\\": \\\"U_ops_21\\\", \\\"channel_id\\\": \\\"CSUPESC\\\"}\\nOOO: I'm out Thursday/Friday. Nina is covering warehouse ops.\"}"
+      },
+      "create_time": "1741080021.000021"
+    }
+  ]
+}

@@ -1,0 +1,551 @@
+{
+  "now": "2026-01-29T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_contractors": {
+      "title": "Contractors",
+      "sheets": {
+        "ws_active": {
+          "title": "Active",
+          "values": [
+            [
+              "Contractor Name",
+              "Email",
+              "End Date",
+              "Status",
+              "NDA Signed",
+              "Security Clearance",
+              "Department",
+              "Manager",
+              "Manager ID",
+              "Equipment List"
+            ],
+            [
+              "Alex Rivera",
+              "arivera@contractor.example.com",
+              "2026-01-30",
+              "Active",
+              "Yes",
+              "Standard",
+              "Engineering",
+              "Sarah Kim",
+              "U123SKM",
+              "Laptop, Monitor, Badge"
+            ],
+            [
+              "Beth Cooper",
+              "bcooper@contractor.example.com",
+              "2026-02-01",
+              "Active",
+              "Yes",
+              "Standard",
+              "Design",
+              "Tom Lee",
+              "U456TLE",
+              "Laptop, Drawing Tablet"
+            ],
+            [
+              "Chris Park",
+              "cpark@contractor.example.com",
+              "2026-02-15",
+              "Active",
+              "Yes",
+              "Standard",
+              "Marketing",
+              "Jane Doe",
+              "U789JDO",
+              "Laptop"
+            ],
+            [
+              "Alex Chen",
+              "achen@contractor.example.com",
+              "2026-01-30",
+              "Active",
+              "Yes",
+              "None",
+              "Engineering",
+              "Sarah Kim",
+              "U123SKM",
+              "Laptop"
+            ],
+            [
+              "Sarah Mitchell",
+              "smitchell@contractor.example.com",
+              "2026-01-28",
+              "On Hold",
+              "Yes",
+              "High",
+              "Finance",
+              "Bob Wilson",
+              "U999BWL",
+              "Laptop, Badge"
+            ],
+            [
+              "Alex Chang",
+              "achang@contractor.example.com",
+              "2026-01-29",
+              "Active",
+              "No",
+              "Standard",
+              "IT",
+              "Mike Jones",
+              "U888MJO",
+              "Laptop"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U123SKM",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U123SKM",
+          "name": "Sarah Kim"
+        }
+      },
+      {
+        "record_id": "rec_user_U999BWL",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U999BWL",
+          "name": "Bob Wilson"
+        }
+      },
+      {
+        "record_id": "rec_user_U888MJO",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U888MJO",
+          "name": "Mike Jones"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_tpl_exit_001",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "tpl_exit_001",
+          "name": "Contractor Exit Agreement",
+          "documents": "[{\"document_id\":\"doc_1\",\"name\":\"Contractor Exit Agreement\",\"order\":\"1\"}]"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_tpl_exit_002",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "tpl_exit_002",
+          "name": "Contractor Termination Agreement",
+          "documents": "[{\"document_id\":\"doc_1\",\"name\":\"Contractor Termination Agreement\",\"order\":\"1\"}]"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_tpl_exit_003",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "tpl_exit_003",
+          "name": "Contractor Exit Form",
+          "documents": "[{\"document_id\":\"doc_1\",\"name\":\"Contractor Exit Form\",\"order\":\"1\"}]"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_ds_ops_tmpl_003",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "ds_ops_tmpl_003",
+          "template_id": "ds_ops_tmpl_003",
+          "name": "NDA — Contractor",
+          "description": "Non-disclosure agreement for on-site contractors.",
+          "is_active": "true",
+          "email_subject": "Please sign: NDA — Contractor"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_ds_ops_tmpl_008",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "ds_ops_tmpl_008",
+          "template_id": "ds_ops_tmpl_008",
+          "name": "Waste Disposal Agreement",
+          "description": "Agreement for waste disposal and recycling services.",
+          "is_active": "true",
+          "email_subject": "Please sign: Waste Disposal Agreement"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_ds_ops_tmpl_001",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "ds_ops_tmpl_001",
+          "template_id": "ds_ops_tmpl_001",
+          "name": "Vendor Maintenance Services Agreement",
+          "description": "Standard vendor maintenance services agreement for facility contractors.",
+          "is_active": "true",
+          "email_subject": "Please sign: Vendor Maintenance Services Agreement"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_ds_ops_tmpl_007",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "ds_ops_tmpl_007",
+          "template_id": "ds_ops_tmpl_007",
+          "name": "Hazmat Handling Authorization",
+          "description": "Authorization for hazardous material handling and storage.",
+          "is_active": "true",
+          "email_subject": "Please sign: Hazmat Handling Authorization"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_ds_ops_tmpl_004",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "ds_ops_tmpl_004",
+          "template_id": "ds_ops_tmpl_004",
+          "name": "Safety Acknowledgment Form",
+          "description": "Employee safety policy acknowledgment.",
+          "is_active": "true",
+          "email_subject": "Please sign: Safety Acknowledgment Form"
+        }
+      },
+      {
+        "record_id": "rec_docusign_templates_ds_ops_tmpl_002",
+        "fields": {
+          "collection": "docusign_templates",
+          "id": "ds_ops_tmpl_002",
+          "template_id": "ds_ops_tmpl_002",
+          "name": "Equipment Lease Agreement",
+          "description": "Lease agreement for heavy equipment and machinery.",
+          "is_active": "true",
+          "email_subject": "Please sign: Equipment Lease Agreement"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "documents",
+        "type": "text"
+      },
+      {
+        "name": "template_id",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "is_active",
+        "type": "text"
+      },
+      {
+        "name": "email_subject",
+        "type": "text"
+      },
+      {
+        "name": "template_name",
+        "type": "text"
+      },
+      {
+        "name": "signer_email",
+        "type": "text"
+      },
+      {
+        "name": "cc_emails",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "board",
+        "type": "text"
+      },
+      {
+        "name": "list",
+        "type": "text"
+      },
+      {
+        "name": "parent_page",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U123SKM",
+      "name": "U123SKM | Sarah Kim",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_user_U999BWL",
+      "name": "U999BWL | Bob Wilson",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_user_U888MJO",
+      "name": "U888MJO | Mike Jones",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "achang@contractor.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "achen@contractor.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "arivera@contractor.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "bcooper@contractor.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "cpark@contractor.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "legal@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "smitchell@contractor.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_CHROPS",
+      "name": "hr-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080007.000007\\\", \\\"user_id\\\": \\\"U_ops_07\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nPSA: Server room B2 maintenance window Saturday 2-6 AM. UPS bypass test included.\"}"
+      },
+      "create_time": "1741080007.000007"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080011.000011\\\", \\\"user_id\\\": \\\"U_ops_11\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nChemical storage area inspection complete. One label faded — replaced on the spot.\"}"
+      },
+      "create_time": "1741080011.000011"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080025.000025\\\", \\\"user_id\\\": \\\"U_ops_25\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nEmergency lighting test completed for all buildings. 2 bulbs replaced in Building D stairwell.\"}"
+      },
+      "create_time": "1741080025.000025"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080013.000013\\\", \\\"user_id\\\": \\\"U_ops_13\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nNew hire orientation: 3 new warehouse staff starting Monday. Badge photos at 8 AM.\"}"
+      },
+      "create_time": "1741080013.000013"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080001.000001\\\", \\\"user_id\\\": \\\"U_ops_01\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nGood morning ops team. Facilities checklist for today is posted in #facilities-daily.\"}"
+      },
+      "create_time": "1741080001.000001"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080015.000015\\\", \\\"user_id\\\": \\\"U_ops_15\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nWeekly ops metrics: Work orders closed: 47. Average resolution time: 6.2 hours. Great work everyone!\"}"
+      },
+      "create_time": "1741080015.000015"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080022.000022\\\", \\\"user_id\\\": \\\"U_ops_22\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nSafety shoe replacement vouchers available from EHS. See Lydia for details.\"}"
+      },
+      "create_time": "1741080022.000022"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080023.000023\\\", \\\"user_id\\\": \\\"U_ops_23\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nCompressed gas cylinder audit completed. All tags current.\"}"
+      },
+      "create_time": "1741080023.000023"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080005.000005\\\", \\\"user_id\\\": \\\"U_ops_05\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nAnyone know if the badge printer in reception is fixed? Still showing paper jam.\"}"
+      },
+      "create_time": "1741080005.000005"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080014.000014\\\", \\\"user_id\\\": \\\"U_ops_14\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nHVAC filter replacement complete for Building A. Next round: Building C on March 10.\"}"
+      },
+      "create_time": "1741080014.000014"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080008.000008\\\", \\\"user_id\\\": \\\"U_ops_08\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nElevator B back in service after maintenance. Thanks to the ElevatorPlus team for the quick turnaround.\"}"
+      },
+      "create_time": "1741080008.000008"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080006.000006\\\", \\\"user_id\\\": \\\"U_ops_06\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nNew vendor onboarded: GreenField Environmental. Insurance certs verified.\"}"
+      },
+      "create_time": "1741080006.000006"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080009.000009\\\", \\\"user_id\\\": \\\"U_ops_09\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nInventory cycle count results posted. 3 discrepancies being investigated.\"}"
+      },
+      "create_time": "1741080009.000009"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080010.000010\\\", \\\"user_id\\\": \\\"U_ops_10\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nFleet update: Vehicle F-207 in for service today. Using F-210 as backup.\"}"
+      },
+      "create_time": "1741080010.000010"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080019.000019\\\", \\\"user_id\\\": \\\"U_ops_19\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nConference room 301 AV equipment upgraded. New wireless casting system is live.\"}"
+      },
+      "create_time": "1741080019.000019"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080020.000020\\\", \\\"user_id\\\": \\\"U_ops_20\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nVendor scorecard review meeting at 3 PM. Please review the Q1 reports beforehand.\"}"
+      },
+      "create_time": "1741080020.000020"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080012.000012\\\", \\\"user_id\\\": \\\"U_ops_12\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nParking lot B re-striping scheduled for this weekend. Please park in Lot C.\"}"
+      },
+      "create_time": "1741080012.000012"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080018.000018\\\", \\\"user_id\\\": \\\"U_ops_18\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nForklift F-04 battery replacement done. Back in service.\"}"
+      },
+      "create_time": "1741080018.000018"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080024.000024\\\", \\\"user_id\\\": \\\"U_ops_24\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nThe recycling compactor is jammed again. Maintenance ticket submitted.\"}"
+      },
+      "create_time": "1741080024.000024"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_CHROPS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080021.000021\\\", \\\"user_id\\\": \\\"U_ops_21\\\", \\\"channel_id\\\": \\\"CHROPS\\\"}\\nOOO: I'm out Thursday/Friday. Nina is covering warehouse ops.\"}"
+      },
+      "create_time": "1741080021.000021"
+    }
+  ]
+}

@@ -1,0 +1,557 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_mailroom": {
+      "title": "Mailroom",
+      "sheets": {
+        "ws_packages": {
+          "title": "Incoming Packages",
+          "values": [
+            [
+              "Tracking Number",
+              "Recipient Name",
+              "Department",
+              "Package Type",
+              "Received Date",
+              "Notes"
+            ],
+            [
+              "TRK-90001",
+              "Alex Rivera",
+              "Engineering",
+              "Hazardous",
+              "2026-02-09",
+              ""
+            ],
+            [
+              "TRK-90002",
+              "Alex Rivera",
+              "Marketing",
+              "Standard",
+              "2026-02-09",
+              ""
+            ],
+            [
+              "TRK-90003",
+              "Jordan Lee",
+              "Finance",
+              "Refrigerated",
+              "2026-02-09",
+              "customs hold - pending clearance"
+            ],
+            ["TRK-90004", "Casey Brown", "Sales", "Standard", "2026-02-09", ""],
+            [
+              "TRK-90005",
+              "Morgan Smith",
+              "Engineering",
+              "Refrigerated",
+              "2026-02-09",
+              ""
+            ],
+            [
+              "TRK-90006",
+              "Jordan Lee",
+              "Finance",
+              "Hazardous",
+              "2026-02-09",
+              "RETURNED TO SENDER - refused by recipient"
+            ],
+            [
+              "TRK-90007",
+              "Casey Brown",
+              "Sales",
+              "Hazardous",
+              "2026-02-09",
+              "oversized - requires forklift"
+            ],
+            ["TRK-90008", "Sam Patel", "HR", "Refrigerated", "2026-02-09", ""]
+          ]
+        },
+        "ws_mailroom_policy": {
+          "title": "Mailroom Policies",
+          "values": [
+            ["Policy", "Rule", "Effective Date"],
+            [
+              "Customs Hold",
+              "Packages with 'customs hold' in Notes must not be routed or notified until the hold is lifted. Do not send SMS or include in routing summaries.",
+              "2025-08-15"
+            ],
+            [
+              "Returned Packages",
+              "Any package with 'RETURNED TO SENDER' in Notes has already been processed for return. Do not route, notify, or include in any summaries.",
+              "2025-09-01"
+            ],
+            [
+              "Oversized Package Handling",
+              "Packages with 'oversized' in Notes must be routed to 'Loading Dock B' instead of the employee's floor. SMS notification should still be sent if the package type requires it, but must reference 'Loading Dock B' as the pickup location.",
+              "2025-10-01"
+            ],
+            [
+              "On Leave Hold",
+              "Packages for employees with Status 'On Leave' in the employee directory must be held until their return. Do not send SMS or include in routing summaries. These are NOT the same as terminated employees (which are skipped entirely).",
+              "2025-11-01"
+            ]
+          ]
+        },
+        "ws_employees": {
+          "title": "Employee Directory",
+          "values": [
+            ["Name", "Department", "Floor", "Phone", "Status"],
+            ["Alex Rivera", "Engineering", "3", "+15551234001", "Active"],
+            ["Alex Rivera", "Marketing", "5", "+15551234002", "Active"],
+            ["Jordan Lee", "Finance", "7", "+15551234003", "Active"],
+            ["Casey Brown", "Sales", "2", "+15551234004", "Active"],
+            ["Morgan Smith", "Engineering", "3", "+15551234005", "Terminated"],
+            ["Sam Patel", "HR", "4", "+15551234006", "On Leave"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_006",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_006",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000006",
+          "body": "Water pressure drop detected — Building A, Floor 2. Maintenance notified.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-02-28T14:22:00Z",
+          "date_updated": "2026-02-28T14:22:03Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_002",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_002",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000002",
+          "body": "Reminder: Your shift starts in 1 hour. Dock 3, 6:00 AM.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-03T05:00:00Z",
+          "date_updated": "2026-03-03T05:00:04Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_008",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_008",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000008",
+          "body": "Fire panel zone 4 clear. False alarm triggered by dust in smoke detector. Reset complete.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-01T09:15:00Z",
+          "date_updated": "2026-03-01T09:15:04Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_005",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_005",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000005",
+          "body": "SECURITY: After-hours access logged at Warehouse B, 11:47 PM. Badge: V. Lindgren.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-02T23:47:00Z",
+          "date_updated": "2026-03-02T23:47:04Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_003",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_003",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000003",
+          "body": "Generator auto-start triggered. Power outage detected at 2:15 AM. Systems on backup.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-01T02:15:00Z",
+          "date_updated": "2026-03-01T02:15:03Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_010",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_010",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15552000010",
+          "to_number": "+15551000001",
+          "body": "Pest control completed. All clear in food storage areas. Report signed.",
+          "status": "delivered",
+          "direction": "inbound",
+          "date_created": "2026-02-27T18:00:00Z",
+          "date_updated": "2026-02-27T18:00:02Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_007",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_007",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15552000007",
+          "to_number": "+15551000001",
+          "body": "Delivery truck arrived early. ETA was 8 AM, here at 6:30. Need dock assignment.",
+          "status": "delivered",
+          "direction": "inbound",
+          "date_created": "2026-03-03T06:30:00Z",
+          "date_updated": "2026-03-03T06:30:02Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_001",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_001",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000001",
+          "body": "ALERT: HVAC fault detected Building C Zone 2. Temp rising. Maintenance dispatched.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-02T03:42:00Z",
+          "date_updated": "2026-03-02T03:42:05Z"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "sid",
+        "type": "text"
+      },
+      {
+        "name": "account_sid",
+        "type": "text"
+      },
+      {
+        "name": "from_number",
+        "type": "text"
+      },
+      {
+        "name": "to_number",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "direction",
+        "type": "text"
+      },
+      {
+        "name": "date_created",
+        "type": "text"
+      },
+      {
+        "name": "date_updated",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_phone_0",
+      "name": "+15551000001",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_1",
+      "name": "+15551234001",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_2",
+      "name": "+15551234002",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_3",
+      "name": "+15551234003",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_4",
+      "name": "+15551234004",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_5",
+      "name": "+15551234005",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_6",
+      "name": "+15551234006",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_7",
+      "name": "+15552000001",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_8",
+      "name": "+15552000002",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_9",
+      "name": "+15552000003",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_10",
+      "name": "+15552000005",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_11",
+      "name": "+15552000006",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_12",
+      "name": "+15552000007",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_13",
+      "name": "+15552000008",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_14",
+      "name": "+15552000010",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_mail",
+      "name": "mailroom",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_general",
+      "name": "general",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080001.000001\\\", \\\"user_id\\\": \\\"U_ops_01\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nGood morning ops team. Facilities checklist for today is posted in #facilities-daily.\"}"
+      },
+      "create_time": "1741080001.000001"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080021.000021\\\", \\\"user_id\\\": \\\"U_ops_21\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nOOO: I'm out Thursday/Friday. Nina is covering warehouse ops.\"}"
+      },
+      "create_time": "1741080021.000021"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080014.000014\\\", \\\"user_id\\\": \\\"U_ops_14\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nHVAC filter replacement complete for Building A. Next round: Building C on March 10.\"}"
+      },
+      "create_time": "1741080014.000014"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080019.000019\\\", \\\"user_id\\\": \\\"U_ops_19\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nConference room 301 AV equipment upgraded. New wireless casting system is live.\"}"
+      },
+      "create_time": "1741080019.000019"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080017.000017\\\", \\\"user_id\\\": \\\"U_ops_17\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nThe roof leak in Building C has been patched. Monitoring for 48 hours before closing the ticket.\"}"
+      },
+      "create_time": "1741080017.000017"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080002.000002\\\", \\\"user_id\\\": \\\"U_ops_02\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nLoading dock 3 cleared and ready for the 7 AM shipment. Dock 1 still blocked by the pallet wrapping machine.\"}"
+      },
+      "create_time": "1741080002.000002"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080009.000009\\\", \\\"user_id\\\": \\\"U_ops_09\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nInventory cycle count results posted. 3 discrepancies being investigated.\"}"
+      },
+      "create_time": "1741080009.000009"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080007.000007\\\", \\\"user_id\\\": \\\"U_ops_07\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nPSA: Server room B2 maintenance window Saturday 2-6 AM. UPS bypass test included.\"}"
+      },
+      "create_time": "1741080007.000007"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080022.000022\\\", \\\"user_id\\\": \\\"U_ops_22\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nSafety shoe replacement vouchers available from EHS. See Lydia for details.\"}"
+      },
+      "create_time": "1741080022.000022"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080004.000004\\\", \\\"user_id\\\": \\\"U_ops_04\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nGenerator test completed ✅ All 3 units passed. Logs uploaded to CMMS.\"}"
+      },
+      "create_time": "1741080004.000004"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080013.000013\\\", \\\"user_id\\\": \\\"U_ops_13\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nNew hire orientation: 3 new warehouse staff starting Monday. Badge photos at 8 AM.\"}"
+      },
+      "create_time": "1741080013.000013"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080010.000010\\\", \\\"user_id\\\": \\\"U_ops_10\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nFleet update: Vehicle F-207 in for service today. Using F-210 as backup.\"}"
+      },
+      "create_time": "1741080010.000010"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080008.000008\\\", \\\"user_id\\\": \\\"U_ops_08\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nElevator B back in service after maintenance. Thanks to the ElevatorPlus team for the quick turnaround.\"}"
+      },
+      "create_time": "1741080008.000008"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080015.000015\\\", \\\"user_id\\\": \\\"U_ops_15\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nWeekly ops metrics: Work orders closed: 47. Average resolution time: 6.2 hours. Great work everyone!\"}"
+      },
+      "create_time": "1741080015.000015"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080011.000011\\\", \\\"user_id\\\": \\\"U_ops_11\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nChemical storage area inspection complete. One label faded — replaced on the spot.\"}"
+      },
+      "create_time": "1741080011.000011"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080018.000018\\\", \\\"user_id\\\": \\\"U_ops_18\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nForklift F-04 battery replacement done. Back in service.\"}"
+      },
+      "create_time": "1741080018.000018"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080003.000003\\\", \\\"user_id\\\": \\\"U_ops_03\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nReminder: fire drill at 2 PM today. Please make sure all exits are clear.\"}"
+      },
+      "create_time": "1741080003.000003"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080025.000025\\\", \\\"user_id\\\": \\\"U_ops_25\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nEmergency lighting test completed for all buildings. 2 bulbs replaced in Building D stairwell.\"}"
+      },
+      "create_time": "1741080025.000025"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080012.000012\\\", \\\"user_id\\\": \\\"U_ops_12\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nParking lot B re-striping scheduled for this weekend. Please park in Lot C.\"}"
+      },
+      "create_time": "1741080012.000012"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_C_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080006.000006\\\", \\\"user_id\\\": \\\"U_ops_06\\\", \\\"channel_id\\\": \\\"C_mail\\\"}\\nNew vendor onboarded: GreenField Environmental. Insurance certs verified.\"}"
+      },
+      "create_time": "1741080006.000006"
+    }
+  ]
+}

@@ -1,0 +1,963 @@
+{
+  "now": "2026-02-09T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_demo_policy": {
+      "title": "Demo Scheduling Policy",
+      "sheets": {
+        "ws_qualification": {
+          "title": "Qualification Criteria",
+          "values": [
+            ["Criterion", "Details", "Notes"],
+            [
+              "Conversation tagging",
+              "Only conversations tagged 'demo-request' are in scope",
+              "Other inquiry tags are handled by a different workflow"
+            ],
+            [
+              "Active conversations only",
+              "Conversation must be in an open state",
+              "Closed/snoozed conversations should not be processed"
+            ],
+            [
+              "No repeat scheduling",
+              "Contacts who already have a 'demo-scheduled' tag should be skipped",
+              "Also applies to duplicate requests from the same person in different threads"
+            ],
+            [
+              "Competitor domains",
+              "nexagen.io, veloxlabs.co, shadowtech.net",
+              "Respond to let them know we cannot accommodate the request"
+            ],
+            [
+              "Org size threshold",
+              "Minimum 5 employees at the company",
+              "Applies to the associated company record"
+            ],
+            [
+              "Contact classification",
+              "Must be a registered user, not a lead",
+              "Leads without a company association are out of scope"
+            ],
+            [
+              "Decline response",
+              "Reply with 'unable to schedule a demo' for disqualified requests",
+              "Applies to competitor domains, never-schedule overrides, and other excluded contacts"
+            ]
+          ]
+        },
+        "ws_scheduling": {
+          "title": "Demo Formats",
+          "values": [
+            ["Account Tier", "Session Length", "Event Naming", "Invitees"],
+            [
+              "enterprise",
+              "60",
+              "Product Demo - {company_name}",
+              "contact_email, sales@company.example.com"
+            ],
+            [
+              "professional",
+              "45",
+              "Product Demo - {company_name}",
+              "contact_email, sales@company.example.com"
+            ],
+            [
+              "starter",
+              "30",
+              "Product Demo - {company_name}",
+              "contact_email, sales@company.example.com"
+            ]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Exceptions",
+          "values": [
+            ["Type", "Domain", "Disposition", "Context"],
+            [
+              "strategic_account",
+              "meridianventures.com",
+              "Always Schedule",
+              "Key account relationship"
+            ],
+            [
+              "competitor",
+              "oriondynamics.io",
+              "Never Schedule",
+              "Competitive intelligence risk"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [
+    {
+      "calendar_id": "cal_demos",
+      "summary": "cal_demos",
+      "role": "owner"
+    }
+  ],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_601",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_601",
+          "title": "Interested in a full platform demo",
+          "state": "open",
+          "contact_ids": "[\"ic_c601\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We're evaluating tools for our team and would love a deep dive.\",\"author_type\":\"user\",\"author_id\":\"ic_c601\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_602",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_602",
+          "title": "Demo for growth team",
+          "state": "open",
+          "contact_ids": "[\"ic_c602\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"Our growth team wants to see the analytics features in action.\",\"author_type\":\"user\",\"author_id\":\"ic_c602\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_603",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_603",
+          "title": "Walkthrough request",
+          "state": "open",
+          "contact_ids": "[\"ic_c603\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"Hi, can I see a walkthrough of the product?\",\"author_type\":\"user\",\"author_id\":\"ic_c603\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_604",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_604",
+          "title": "Checking out your product",
+          "state": "open",
+          "contact_ids": "[\"ic_c604\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We want to evaluate your product against our current solution.\",\"author_type\":\"user\",\"author_id\":\"ic_c604\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_605",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_605",
+          "title": "Another look at the product",
+          "state": "open",
+          "contact_ids": "[\"ic_c605\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"I'd love to get a demo session set up with your team.\",\"author_type\":\"user\",\"author_id\":\"ic_c605\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_606",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_606",
+          "title": "Demo follow-up",
+          "state": "closed",
+          "contact_ids": "[\"ic_c606\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We'd love to schedule a demo when you get a chance.\",\"author_type\":\"user\",\"author_id\":\"ic_c606\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_607",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_607",
+          "title": "Question about demos",
+          "state": "open",
+          "contact_ids": "[\"ic_c607\"]",
+          "tags": "[\"demo-inquiry\"]",
+          "conversation_parts": "[{\"body\":\"What does a typical demo cover? Just curious before I commit.\",\"author_type\":\"user\",\"author_id\":\"ic_c607\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_608",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_608",
+          "title": "Want to see the product",
+          "state": "open",
+          "contact_ids": "[\"ic_c608\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"I'd love to see what you offer for small teams.\",\"author_type\":\"user\",\"author_id\":\"ic_c608\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_609",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_609",
+          "title": "Planning ahead",
+          "state": "snoozed",
+          "contact_ids": "[\"ic_c609\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We're planning to evaluate tools next quarter, can we set up a demo?\",\"author_type\":\"user\",\"author_id\":\"ic_c609\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_610",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_610",
+          "title": "Show me what you've got",
+          "state": "open",
+          "contact_ids": "[\"ic_c610\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"Hey, I'd like to see a demo of your platform.\",\"author_type\":\"user\",\"author_id\":\"ic_c610\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_611",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_611",
+          "title": "Following up on demo request",
+          "state": "open",
+          "contact_ids": "[\"ic_c601\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"Just following up on my earlier request, haven't heard back.\",\"author_type\":\"user\",\"author_id\":\"ic_c601\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_612",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_612",
+          "title": "Invoice discrepancy",
+          "state": "open",
+          "contact_ids": "[\"ic_c612\"]",
+          "tags": "[\"billing\"]",
+          "conversation_parts": "[{\"body\":\"There's an error on our latest invoice, can you help?\",\"author_type\":\"user\",\"author_id\":\"ic_c612\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_613",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_613",
+          "title": "Product comparison demo",
+          "state": "open",
+          "contact_ids": "[\"ic_c613\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We'd like to compare your features with what we currently use.\",\"author_type\":\"user\",\"author_id\":\"ic_c613\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_614",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_614",
+          "title": "Demo for engineering leads",
+          "state": "open",
+          "contact_ids": "[\"ic_c614\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"Our engineering leads want to evaluate your CI/CD integrations.\",\"author_type\":\"user\",\"author_id\":\"ic_c614\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_615",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_615",
+          "title": "Partnership demo request",
+          "state": "open",
+          "contact_ids": "[\"ic_c615\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We'd like to see the enterprise features in detail.\",\"author_type\":\"user\",\"author_id\":\"ic_c615\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_616",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_616",
+          "title": "Full evaluation demo",
+          "state": "open",
+          "contact_ids": "[\"ic_c616\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We would like a full evaluation of your enterprise offering.\",\"author_type\":\"user\",\"author_id\":\"ic_c616\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_617",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_617",
+          "title": "Quick demo before purchase",
+          "state": "open",
+          "contact_ids": "[\"ic_c617\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We are a small team considering your platform.\",\"author_type\":\"user\",\"author_id\":\"ic_c617\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_618",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_618",
+          "title": "Technical demo requested",
+          "state": "open",
+          "contact_ids": "[\"ic_c618\"]",
+          "tags": "[\"demo-request\"]",
+          "conversation_parts": "[{\"body\":\"We'd love a deep technical walkthrough.\",\"author_type\":\"user\",\"author_id\":\"ic_c618\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_619",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_619",
+          "title": "Please schedule a demo",
+          "state": "open",
+          "contact_ids": "[\"ic_c619\"]",
+          "tags": "[\"demo-requested\"]",
+          "conversation_parts": "[{\"body\":\"Would love to see what your platform can do.\",\"author_type\":\"user\",\"author_id\":\"ic_c619\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_008",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_008",
+          "title": "Webhook payloads missing fields",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_008\"]",
+          "tags": "[\"api\",\"webhook\"]",
+          "conversation_parts": "[{\"body\":\"The conversation.updated webhook is missing the 'tags' field in the payload.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_001",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_001",
+          "title": "Need help with API integration",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_001\"]",
+          "tags": "[\"api\"]",
+          "conversation_parts": "[{\"body\":\"I'm trying to integrate your API with our backend and getting auth errors.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_005",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_005",
+          "title": "Data export taking too long",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_005\"]",
+          "tags": "[\"export\"]",
+          "conversation_parts": "[{\"body\":\"I requested a data export 3 hours ago and it's still processing.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c601",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c601",
+          "name": "Mark Torres",
+          "email": "mark@cloudnine.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co601\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c602",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c602",
+          "name": "Sophie Chen",
+          "email": "sophie@growthmetrics.io",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co602\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c603",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c603",
+          "name": "Raj Patel",
+          "email": "raj@brightpath.co",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co603\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c604",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c604",
+          "name": "Eve Nakamura",
+          "email": "eve@nexagen.io",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co604\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c605",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c605",
+          "name": "Frank Dubois",
+          "email": "frank@pinnacleworks.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co605\"]",
+          "tags": "[\"demo-scheduled\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c606",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c606",
+          "name": "Laura Kim",
+          "email": "laura@halcyondigital.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co606\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c607",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c607",
+          "name": "David Reeves",
+          "email": "david@redwoodanalytics.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co607\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c608",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c608",
+          "name": "Nina Ortiz",
+          "email": "nina@embercraft.dev",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co608\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c609",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c609",
+          "name": "Tom Wallace",
+          "email": "tom@cobaltgroup.org",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co609\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c610",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c610",
+          "name": "Pat Morgan",
+          "email": "anon@gmail.com",
+          "contact_type": "lead",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c612",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c612",
+          "name": "Bill Hardy",
+          "email": "bill@somewhere.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co612\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c613",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c613",
+          "name": "Yuki Tanaka",
+          "email": "yuki@veloxlabs.co",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co613\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c614",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c614",
+          "name": "Carlos Mendes",
+          "email": "carlos@devforge.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co614\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c615",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c615",
+          "name": "Lena Strauss",
+          "email": "lena@meridianventures.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co615\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c616",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c616",
+          "name": "Jake Frost",
+          "email": "jake@oriondynamics.io",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co616\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c617",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c617",
+          "name": "Helen Park",
+          "email": "helen@auroratech.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co617\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c618",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c618",
+          "name": "Marcus Webb",
+          "email": "marcus@shadowtech.net",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co618\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c619",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c619",
+          "name": "Priya Sharma",
+          "email": "priya@peakventures.com",
+          "contact_type": "user",
+          "company_ids": "[\"ic_co619\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_003",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_003",
+          "name": "Liam O'Brien",
+          "email": "lobrien@frostbyte.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_007",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_007",
+          "name": "Jordan Blake",
+          "email": "jblake@quartzlabs.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co601",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co601",
+          "name": "CloudNine Solutions",
+          "plan": "enterprise",
+          "size": 200
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co602",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co602",
+          "name": "GrowthMetrics",
+          "plan": "professional",
+          "size": 45
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co603",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co603",
+          "name": "BrightPath",
+          "plan": "starter",
+          "size": 12
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co604",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co604",
+          "name": "Nexagen Systems",
+          "plan": "professional",
+          "size": 80
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co605",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co605",
+          "name": "Pinnacle Works",
+          "plan": "professional",
+          "size": 30
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co606",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co606",
+          "name": "Halcyon Digital",
+          "plan": "starter",
+          "size": 20
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co607",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co607",
+          "name": "Redwood Analytics",
+          "plan": "starter",
+          "size": 15
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co608",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co608",
+          "name": "Ember Craft",
+          "plan": "starter",
+          "size": 3
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co609",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co609",
+          "name": "Cobalt Group",
+          "plan": "professional",
+          "size": 50
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co612",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co612",
+          "name": "Cascade Solutions",
+          "plan": "starter",
+          "size": 10
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co613",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co613",
+          "name": "Velox Labs",
+          "plan": "enterprise",
+          "size": 150
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co614",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co614",
+          "name": "DevForge",
+          "plan": "professional",
+          "size": 60
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co615",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co615",
+          "name": "Meridian Ventures",
+          "plan": "enterprise",
+          "size": 300
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co616",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co616",
+          "name": "Orion Dynamics",
+          "plan": "professional",
+          "size": 100
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co617",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co617",
+          "name": "Aurora Tech",
+          "plan": "starter",
+          "size": 5
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co618",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co618",
+          "name": "ShadowTech",
+          "plan": "enterprise",
+          "size": 250
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ic_co619",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ic_co619",
+          "name": "Peak Ventures",
+          "plan": "professional",
+          "size": 40
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "plan",
+        "type": "text"
+      },
+      {
+        "name": "size",
+        "type": "number"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "anon@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bill@somewhere.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carlos@devforge.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "david@redwoodanalytics.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eve@nexagen.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "frank@pinnacleworks.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "helen@auroratech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "jake@oriondynamics.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "jblake@quartzlabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "laura@halcyondigital.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "lena@meridianventures.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "lobrien@frostbyte.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "marcus@shadowtech.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "mark@cloudnine.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "nina@embercraft.dev",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "priya@peakventures.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "raj@brightpath.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "sales@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "sophie@growthmetrics.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "tom@cobaltgroup.org",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "yuki@veloxlabs.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_SALESOPS",
+      "name": "sales-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

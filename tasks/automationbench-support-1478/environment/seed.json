@@ -1,0 +1,522 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_templates": {
+      "title": "Response Templates",
+      "sheets": {
+        "ws_templates": {
+          "title": "Templates",
+          "values": [
+            [
+              "Template_ID",
+              "Category",
+              "Subject_Keywords",
+              "Response_Body",
+              "Auto_Send",
+              "Group_ID"
+            ],
+            [
+              "tmpl_billing",
+              "billing",
+              "payment,invoice,charge,billing",
+              "Thank you for contacting us about your billing concern. We are reviewing your account and will respond within 24 hours.",
+              "true",
+              "grp_billing"
+            ],
+            [
+              "tmpl_technical",
+              "technical",
+              "crash,error,bug,500",
+              "We have received your technical support request and our engineering team is investigating. We will provide an update shortly.",
+              "true",
+              "grp_technical"
+            ],
+            [
+              "tmpl_faq",
+              "faq",
+              "how to,reset,password,setup",
+              "Here are some helpful resources to address your question. Please check our help center at help.example.com for step-by-step guides.",
+              "false",
+              "grp_billing"
+            ],
+            [
+              "tmpl_default",
+              "default",
+              "",
+              "Thank you for reaching out. Your request has been received and a support agent will follow up shortly.",
+              "true",
+              ""
+            ]
+          ]
+        },
+        "ws_conditions": {
+          "title": "Human Review Conditions",
+          "values": [
+            ["Condition_Type", "Value"],
+            ["priority", "urgent"],
+            ["org_tag", "enterprise"],
+            ["subject_contains", "legal"],
+            ["subject_contains", "compliance"]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "AR-BATCH-20260210"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t1",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Payment failed on checkout",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u1",
+          "organization_id": "ar_org1",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t2",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Invoice amount incorrect",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u2",
+          "organization_id": "ar_org2",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t3",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Charge appearing twice on my billing statement",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u3",
+          "organization_id": "ar_org2",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t4",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "App crashes when uploading files",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u4",
+          "organization_id": "ar_org1",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t5",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "500 error on API endpoint",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u5",
+          "organization_id": "ar_org2",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t6",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "How to reset my password",
+          "status": "new",
+          "priority": "low",
+          "requester_id": "ar_u1",
+          "organization_id": "ar_org1",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t7",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Payment processing broken",
+          "status": "new",
+          "priority": "urgent",
+          "requester_id": "ar_u2",
+          "organization_id": "ar_org1",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t8",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Invoice discrepancy",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u3",
+          "organization_id": "ar_org3",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t9",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "General product question",
+          "status": "new",
+          "priority": "low",
+          "requester_id": "ar_u4",
+          "organization_id": "ar_org1",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_t10",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Payment error causing app crash",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "ar_u5",
+          "organization_id": "ar_org2",
+          "tags": "[]",
+          "comments": "[]",
+          "group_id": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_010",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Mobile app shows wrong ticket count",
+          "description": "The mobile app badge shows 12 unread but there are only 3 open tickets.",
+          "status": "solved",
+          "priority": "low",
+          "tags": "[\"mobile\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_012",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Custom field not showing in reports",
+          "description": "The 'Contract Tier' custom field doesn't appear in the reporting dashboard.",
+          "status": "solved",
+          "priority": "low",
+          "tags": "[\"reporting\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_003",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook delivery failing with 502",
+          "description": "Our webhook endpoint returns 502 for about 30% of events since last night.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"webhook\",\"api\",\"weekend-watch\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_u1",
+        "fields": {
+          "collection": "support_users",
+          "name": "Alex Rivera",
+          "email": "alex@standardco.com",
+          "role": "end-user",
+          "organization_id": "ar_org1"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_u2",
+        "fields": {
+          "collection": "support_users",
+          "name": "Beth Chang",
+          "email": "beth@standardco.com",
+          "role": "end-user",
+          "organization_id": "ar_org1"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_u3",
+        "fields": {
+          "collection": "support_users",
+          "name": "Carlos Ruiz",
+          "email": "carlos@midtier.com",
+          "role": "end-user",
+          "organization_id": "ar_org2"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_u4",
+        "fields": {
+          "collection": "support_users",
+          "name": "Diana Park",
+          "email": "diana@standardco.com",
+          "role": "end-user",
+          "organization_id": "ar_org1"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_u5",
+        "fields": {
+          "collection": "support_users",
+          "name": "Eric Osei",
+          "email": "eric@midtier.com",
+          "role": "end-user",
+          "organization_id": "ar_org2"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_003",
+        "fields": {
+          "collection": "support_users",
+          "name": "Mateo Aguilar",
+          "email": "maguilar@vanguardio.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_001",
+        "fields": {
+          "collection": "support_users",
+          "name": "Jamie Thornton",
+          "email": "jthorn@neogrid.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_org1",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "StandardCo",
+          "domain_names": "[\"standardco.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_org2",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "MidTier Inc",
+          "domain_names": "[\"midtier.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_ar_org3",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "EnterprisePlus",
+          "domain_names": "[\"enterpriseplus.com\"]",
+          "tags": "[\"enterprise\"]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_grp_billing",
+        "fields": {
+          "collection": "support_groups",
+          "name": "Billing Team"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_grp_technical",
+        "fields": {
+          "collection": "support_groups",
+          "name": "Technical Team"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_grp_review",
+        "fields": {
+          "collection": "support_groups",
+          "name": "Human Review"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "organization_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "group_id",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      },
+      {
+        "name": "template_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alex@standardco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "beth@standardco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carlos@midtier.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "diana@standardco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eric@midtier.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "jthorn@neogrid.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "maguilar@vanguardio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_AR",
+      "name": "auto-response",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

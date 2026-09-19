@@ -1,0 +1,597 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_migration_rules": {
+      "title": "Migration Rules",
+      "sheets": {
+        "ws_exclusion_tags": {
+          "title": "Exclusion Tags",
+          "values": [
+            ["Tag", "Action"],
+            ["migration-excluded", "Excluded"],
+            ["do-not-migrate", "Excluded"],
+            ["migration-review", "Pending"],
+            ["excluded-from-report", "Information"]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "Critical Path",
+              "critical-path",
+              "Always Migrate",
+              "Critical path tickets must be migrated even if they have exclusion tags"
+            ],
+            [
+              "Staging Data",
+              "@staging.test.com",
+              "Never Migrate",
+              "Staging test data must never be migrated to production systems"
+            ]
+          ]
+        },
+        "ws_category_mapping": {
+          "title": "Category Mapping",
+          "values": [
+            ["Freshdesk Priority", "Re:amaze Category"],
+            ["4", "urgent"],
+            ["3", "urgent"],
+            ["2", "general"],
+            ["1", "general"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm1",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm1",
+          "subject": "Widget integration failing",
+          "description": "Our widget stopped loading after the last deploy.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "frc_1",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm2",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm2",
+          "subject": "Need API documentation",
+          "description": "Where can we find the REST API docs?",
+          "status": 3,
+          "priority": 1,
+          "requester_id": "frc_2",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm3",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm3",
+          "subject": "Old billing issue",
+          "description": "Resolved billing discrepancy from Q1.",
+          "status": 4,
+          "priority": 2,
+          "requester_id": "frc_3",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm4",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm4",
+          "subject": "Security audit request",
+          "description": "Requesting a full security audit.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "frc_4",
+          "company_id": "",
+          "tags": "[\"migration-excluded\"]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm5",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm5",
+          "subject": "Data compliance review",
+          "description": "GDPR compliance review needed urgently.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "frc_5",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm6",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm6",
+          "subject": "Custom report builder",
+          "description": "Need help building custom analytics reports.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "frc_6",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm7",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm7",
+          "subject": "Login page redesign",
+          "description": "Suggestions for the new login page layout.",
+          "status": 3,
+          "priority": 1,
+          "requester_id": "frc_7",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm8",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm8",
+          "subject": "Performance optimization",
+          "description": "Dashboard loads slowly for large datasets.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "frc_8",
+          "company_id": "",
+          "tags": "[\"migration-review\"]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm9",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm9",
+          "subject": "Database backup failure",
+          "description": "Nightly backup job failed last Tuesday.",
+          "status": 5,
+          "priority": 4,
+          "requester_id": "frc_9",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm10",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm10",
+          "subject": "Email template updates",
+          "description": "Update transactional email templates.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "frc_10",
+          "company_id": "",
+          "tags": "[\"do-not-migrate\"]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm11",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm11",
+          "subject": "Webhook configuration",
+          "description": "Need webhooks set up for order events.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "frc_11",
+          "company_id": "",
+          "tags": "[\"excluded-from-report\"]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm12",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm12",
+          "subject": "Critical integration failure",
+          "description": "Integration with payment processor is broken.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "frc_12",
+          "company_id": "",
+          "tags": "[\"do-not-migrate\",\"critical-path\"]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_rm13",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_rm13",
+          "subject": "Staging environment cleanup",
+          "description": "Clean up staging test data.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "frc_13",
+          "company_id": "",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_004",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_004",
+          "subject": "Cannot upload attachments over 5MB",
+          "description": "Large file uploads fail with a generic error message.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"upload\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_010",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_010",
+          "subject": "Spam filter flagging legitimate tickets",
+          "description": "Three customer emails were wrongly moved to spam this week.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"spam\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_012",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_012",
+          "subject": "Custom ticket field missing from form",
+          "description": "The 'Product Line' dropdown no longer appears on the ticket form.",
+          "status": 4,
+          "priority": 1,
+          "tags": "[\"customization\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_1",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_1",
+          "name": "Alex Turner",
+          "email": "alex@webdev.io",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_2",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_2",
+          "name": "Beth Cooper",
+          "email": "beth@startup.co",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_3",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_3",
+          "name": "Carl Davis",
+          "email": "carl@oldclient.com",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_4",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_4",
+          "name": "Diana Prince",
+          "email": "diana@secure.com",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_5",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_5",
+          "name": "Eva Martin",
+          "email": "eva@compliance.io",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_6",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_6",
+          "name": "Frank Olsen",
+          "email": "frank@agency.net",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_7",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_7",
+          "name": "Gina Park",
+          "email": "gina@designco.com",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_8",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_8",
+          "name": "Hal Nguyen",
+          "email": "hal@techcorp.io",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_9",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_9",
+          "name": "Irene Walsh",
+          "email": "irene@dataops.com",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_10",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_10",
+          "name": "Jake Moreno",
+          "email": "jake@commsuite.io",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_11",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_11",
+          "name": "Kate Lin",
+          "email": "kate@devshop.io",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_12",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_12",
+          "name": "Mira Jensen",
+          "email": "mira@payops.com",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_frc_13",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "frc_13",
+          "name": "Test Runner",
+          "email": "runner@staging.test.com",
+          "company_id": ""
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_007",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_007",
+          "name": "Andrei Sokolov",
+          "email": "asokolov@cobaltio.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_003",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_003",
+          "name": "Damon Hsu",
+          "email": "dhsu@nimbuslabs.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "contact_email",
+        "type": "text"
+      },
+      {
+        "name": "category",
+        "type": "text"
+      },
+      {
+        "name": "source_ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "target_external_id",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alex@webdev.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "asokolov@cobaltio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "beth@startup.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "carl@oldclient.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dhsu@nimbuslabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "diana@secure.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "eva@compliance.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "frank@agency.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "gina@designco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "hal@techcorp.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "irene@dataops.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "jake@commsuite.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "kate@devshop.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "mira@payops.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "runner@staging.test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "support-migration@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

@@ -33,7 +33,7 @@ for row in rows:
             assert isinstance(payload.get('mock_responses',{}),dict),(key,'invalid model fixtures')
             assert set(payload.get('mock_responses',{})) <= {m['id'] for m in src.get('gmail',{}).get('messages',[])},(key,'unbound model fixture')
             continue # Upstream tool test fixtures are not agent-visible business data.
-        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable','docusign','calendly','google_drive','zoom','twilio','asana','trello','monday','jira','basecamp3','confluence','notion','pipefy','clickup','wrike'] or empty(payload),(key,'unmapped source app',app)
+        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','gorgias','zoho_desk','intercom','freshdesk','hiver','reamaze','helpcrunch','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable','docusign','calendly','google_drive','zoom','twilio','canva','asana','trello','monday','jira','basecamp3','confluence','notion','pipefy','clickup','wrike'] or empty(payload),(key,'unmapped source app',app)
     records=[]
     for app in ['asana','trello','monday','jira','basecamp3','confluence','notion','pipefy','clickup','wrike','google_drive']:
         data=src.get(app,{})
@@ -64,7 +64,7 @@ for row in rows:
             for item in table.get('records',[]):
                 assert not set(item['fields'])&{'collection','source_base_id','source_table_id','source_record_id','source_metadata'},(key,'airtable field collision')
                 records.append({'record_id':'rec_airtable_'+base['id']+'_'+table['id']+'_'+item['id'],'fields':{'collection':'airtable_records','source_base_id':base['id'],'source_table_id':table['id'],'source_record_id':item['id'],'source_metadata':scalar({k:v for k,v in item.items() if k!='fields'}),**{k:scalar(v) for k,v in item['fields'].items()}}})
-    for app in ['docusign','calendly','google_drive','zoom','twilio']:
+    for app in ['docusign','calendly','google_drive','zoom','twilio','canva','gorgias','zoho_desk','intercom','freshdesk','hiver','reamaze','helpcrunch']:
         for collection,items in src.get(app,{}).items():
             if collection=='actions' and (app=='google_drive' or empty(items)):continue
             assert isinstance(items,list),(key,'unsupported scheduling collection',app,collection)
@@ -190,7 +190,7 @@ for row in rows:
         messages.append({'message_id':'om_'+m['id'],'chat_id':'oc_mail','msg_type':'text','body':{'content':json.dumps({'text':text},ensure_ascii=False)},'create_time':millis(m.get('date'))})
     emails=sorted(set(re.findall(r'[A-Za-z0-9_.+%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',json.dumps(src)+' '+json.dumps(row['prompt'])+' '+recipe['instruction'])))
     destinations={address:'oc_email_'+str(i) for i,address in enumerate(emails)}
-    phones=sorted(set(re.findall(r'\+[1-9][0-9]{7,14}',json.dumps(src))))
+    phones=sorted(set(re.findall(r'\+[1-9][0-9]{7,14}',json.dumps(src)+' '+json.dumps(row['prompt'])+' '+recipe['instruction'])))
     phoneDestinations={phone:'oc_phone_'+str(i) for i,phone in enumerate(phones)}
     chats.extend({'chat_id':cid,'name':phone,'chat_mode':'p2p'} for phone,cid in phoneDestinations.items())
     chats.extend({'chat_id':cid,'name':address,'chat_mode':'p2p'} for address,cid in destinations.items())
@@ -220,6 +220,9 @@ for row in rows:
             updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
         commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--record-id',record['record_id'],'--json',json.dumps({**u['fields'],**u.get('oracle_fields',{})},ensure_ascii=False)])
     for fields in recipe.get('creates',[]):commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
+    for rid in recipe.get('deletes',[]):
+        assert any(r['record_id']=='rec_'+rid for r in records),(key,'unknown delete',rid)
+        commands.append(['base','+record-delete','--base-token','base_crm','--table-id','tbl_crm','--record-id','rec_'+rid,'--yes'])
     cellChecks=[]
     appendRows={}
     for operation in recipe.get('sheets',[]):
@@ -285,9 +288,10 @@ for row in rows:
                 forbidden.append({'chat_id':userDestinations[uid],'contains':[tokens] if isinstance(tokens,str) else tokens})
         elif a['type']=='twilio_sms_not_sent':
             phone=a.get('to',a.get('to_number'))
-            assert phone in phoneDestinations,(key,'missing source phone',phone)
+            assert phone is None or phone in phoneDestinations,(key,'missing source phone',phone)
             tokens=a.get('body_contains',[])
-            forbidden.append({'chat_id':phoneDestinations[phone],'contains':[tokens] if isinstance(tokens,str) else tokens})
+            cids=[phoneDestinations[phone]] if phone is not None else list(phoneDestinations.values())
+            forbidden.extend({'chat_id':cid,'contains':[tokens] if isinstance(tokens,str) else tokens} for cid in cids)
         elif a['type'] in ['slack_message_not_exists','slack_message_not_in_channel']:
             scope=a.get('channel_name',a.get('channel',a.get('channel_id')))
             cids=[c['chat_id'] for c in chats if c['name']==scope or c['chat_id']=='oc_'+str(scope)] if scope else [c['chat_id'] for c in chats if c.get('chat_mode')!='p2p' and c['chat_id']!='oc_mail']
@@ -312,6 +316,10 @@ for row in rows:
             eq={'collection':'notes',**{k:a[k] for k in ['parent_id','title'] if k in a}}
             forbiddenRecords.append({'equals':eq,'contains':{'body':a['body_contains']} if 'body_contains' in a else {}})
     socialNegative={
+        'freshdesk_ticket_not_has_note':('freshdesk_notes','body',{'ticket_id':'ticket_id'}),
+        'gorgias_ticket_not_has_message':('gorgias_replies','body',{'ticket_id':'ticket_id'}),
+        'intercom_conversation_not_has_reply':('intercom_replies','body',{'conversation_id':'conversation_id'}),
+        'zoho_desk_ticket_not_has_comment':('zoho_desk_comments','content',{'ticket_id':'ticket_id'}),
         'linkedin_post_not_exists':('linkedin_posts','text',{}),
         'linkedin_company_post_not_exists':('linkedin_posts','text',{'company_id':'company_id'}),
         'buffer_post_not_exists':('buffer_posts','text',{'channel_id':'channel_id'}),
@@ -335,7 +343,7 @@ for row in rows:
     shutil.copytree(ROOT/'tasks/automationbench-simple-3001',target,dirs_exist_ok=True)
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
+    write('tests/expected.json',{'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'

@@ -1,0 +1,742 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_journey": {
+      "title": "Customer Journey",
+      "sheets": {
+        "ws_rules": {
+          "title": "Lifecycle Rules",
+          "values": [
+            ["Min Open Rate", "Max Open Rate", "Lifecycle Stage", "Notes"],
+            [
+              "0.0",
+              "0.25",
+              "healthy",
+              "Contacts with fewer than 2 total tickets are excluded from journey map"
+            ],
+            [
+              "0.26",
+              "0.75",
+              "at-risk",
+              "Contacts with email domain 'internal-test.com' are QA accounts - exclude from journey map entirely"
+            ],
+            ["0.76", "1.0", "critical", ""]
+          ]
+        },
+        "ws_map": {
+          "title": "Journey Map",
+          "values": [
+            [
+              "Email",
+              "Total Tickets",
+              "Open Tickets",
+              "Resolved Tickets",
+              "Open Rate",
+              "Lifecycle Stage"
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Journey Configuration",
+          "values": [
+            ["Setting", "Value"],
+            ["Open Ticket Status Code", "2"],
+            ["Resolved Ticket Status Code", "4"],
+            ["Open Rate Formula", "open_tickets / total_tickets"],
+            [
+              "HubSpot Sync - Existing Contact",
+              "Update lifecyclestage property to match computed stage"
+            ],
+            [
+              "HubSpot Sync - New Contact",
+              "Create new contact with email and lifecyclestage property"
+            ],
+            [
+              "Aggregate By",
+              "Freshdesk contact (requester_id). One journey map row per unique contact."
+            ],
+            [
+              "Pending Ticket Rule",
+              "Pending (status 3) counts as open only if priority >= 3"
+            ]
+          ]
+        },
+        "ws_vp_testimonial_overrides": {
+          "title": "VP Testimonial Overrides",
+          "values": [
+            ["Customer Email", "VP Email", "Custom Subject", "Notes"],
+            [
+              "nina@cloudpeak.io",
+              "vp.success@company.example.com",
+              "Personal thanks from our VP",
+              "Nina is a key reference customer. VP wants to personally thank her."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j01",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j01",
+          "subject": "Login issue",
+          "description": "Can't log in.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_j01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j02",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j02",
+          "subject": "Export bug",
+          "description": "Export fails.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_j01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j03",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j03",
+          "subject": "Old billing question",
+          "description": "Resolved billing.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j04",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j04",
+          "subject": "Resolved API question",
+          "description": "API help.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j02",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j05",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j05",
+          "subject": "Resolved onboarding",
+          "description": "Onboarding done.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j02",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j06",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j06",
+          "subject": "SSO broken",
+          "description": "SSO down.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_j03",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j07",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j07",
+          "subject": "Data loss",
+          "description": "Data missing.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_j03",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j08",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j08",
+          "subject": "Dashboard crash",
+          "description": "Dashboard crashes.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_j03",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j09",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j09",
+          "subject": "Webhook issue",
+          "description": "Webhooks slow.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_j04",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j10",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j10",
+          "subject": "Old webhook fix",
+          "description": "Fixed.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j04",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j11",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j11",
+          "subject": "Quick question resolved",
+          "description": "All good.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j05",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j12",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j12",
+          "subject": "Integration help",
+          "description": "Need help.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_j06",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j13",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j13",
+          "subject": "Old integration fixed",
+          "description": "Done.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j06",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j14",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j14",
+          "subject": "Urgent account lockout",
+          "description": "Locked out.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_j07",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j15",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j15",
+          "subject": "Billing resolved",
+          "description": "Billing fixed.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j08",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j16",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j16",
+          "subject": "Slow page loads",
+          "description": "Pages loading slowly.",
+          "status": 3,
+          "priority": 3,
+          "requester_id": "fc_j01",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j17",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j17",
+          "subject": "Setup question",
+          "description": "How to set up.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_j01b",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j18",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j18",
+          "subject": "Archived request alpha",
+          "description": "Old archived request.",
+          "status": 5,
+          "priority": 2,
+          "requester_id": "fc_j09",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j19",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j19",
+          "subject": "Archived request beta",
+          "description": "Another archived.",
+          "status": 5,
+          "priority": 1,
+          "requester_id": "fc_j09",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j20",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j20",
+          "subject": "Load test failure",
+          "description": "Load test broke.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_j10",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j21",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j21",
+          "subject": "Stress test timeout",
+          "description": "Stress test timed out.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_j10",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_j22",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_j22",
+          "subject": "Benchmark completed",
+          "description": "Bench done.",
+          "status": 4,
+          "priority": 1,
+          "requester_id": "fc_j10",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_004",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_004",
+          "subject": "Cannot upload attachments over 5MB",
+          "description": "Large file uploads fail with a generic error message.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"upload\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_012",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_012",
+          "subject": "Custom ticket field missing from form",
+          "description": "The 'Product Line' dropdown no longer appears on the ticket form.",
+          "status": 4,
+          "priority": 1,
+          "tags": "[\"customization\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_007",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_007",
+          "subject": "Canned response formatting broken",
+          "description": "Canned responses lose formatting when applied to rich-text tickets.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"formatting\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j01",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j01",
+          "name": "Journey User 1",
+          "email": "ju1@alpha.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j02",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j02",
+          "name": "Journey User 2",
+          "email": "ju2@beta.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j03",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j03",
+          "name": "Journey User 3",
+          "email": "ju3@gamma.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j04",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j04",
+          "name": "Journey User 4",
+          "email": "ju4@delta.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j05",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j05",
+          "name": "Journey User 5",
+          "email": "ju5@epsilon.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j06",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j06",
+          "name": "Journey User 6",
+          "email": "ju6@zeta.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j07",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j07",
+          "name": "Journey User 7",
+          "email": "ju7@eta.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j08",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j08",
+          "name": "Journey User 8",
+          "email": "ju8@theta.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j01b",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j01b",
+          "name": "Journey User 1B",
+          "email": "ju1b@alpha.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j09",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j09",
+          "name": "Journey User 9",
+          "email": "ju9@iota.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_j10",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_j10",
+          "name": "QA Bot",
+          "email": "qabot@internal-test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_003",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_003",
+          "name": "Damon Hsu",
+          "email": "dhsu@nimbuslabs.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_001",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_001",
+          "name": "Marcus Reeves",
+          "email": "mreeves@starpoint.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_j02",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "ju2@beta.com",
+          "firstname": "Journey",
+          "lastname": "User2",
+          "lifecyclestage": "customer"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_j05",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "ju5@epsilon.com",
+          "firstname": "Journey",
+          "lastname": "User5",
+          "lifecyclestage": "customer"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "firstname",
+        "type": "text"
+      },
+      {
+        "name": "lastname",
+        "type": "text"
+      },
+      {
+        "name": "lifecyclestage",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "dhsu@nimbuslabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ju1@alpha.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ju1b@alpha.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "ju2@beta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "ju3@gamma.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "ju4@delta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "ju5@epsilon.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "ju6@zeta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "ju7@eta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "ju8@theta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "ju9@iota.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "mreeves@starpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "nina@cloudpeak.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "qabot@internal-test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "vp.success@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_CS",
+      "name": "customer-success",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

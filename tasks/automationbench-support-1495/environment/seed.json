@@ -1,0 +1,636 @@
+{
+  "now": "2025-01-20T12:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_escalation": {
+      "title": "Escalation Config",
+      "sheets": {
+        "ws_tiers": {
+          "title": "Tier Config",
+          "values": [
+            [
+              "Source Tier",
+              "Source Group",
+              "Hours Threshold",
+              "Target Group",
+              "Target Tier",
+              "Manager Email"
+            ],
+            [
+              "Tier 1",
+              "grp_t1",
+              "24",
+              "grp_t2",
+              "Tier 2",
+              "t2-manager@company.example.com"
+            ],
+            [
+              "Tier 2",
+              "grp_t2",
+              "48",
+              "grp_t3",
+              "Tier 3",
+              "t3-manager@company.example.com"
+            ]
+          ]
+        },
+        "ws_holds": {
+          "title": "Escalation Holds",
+          "values": [
+            ["Ticket ID", "Notes"],
+            [
+              "fd_e11",
+              "SUSPENDED per customer request — awaiting vendor patch. Do not escalate."
+            ],
+            [
+              "fd_e12",
+              "ON HOLD — pending legal review of data handling. Do not escalate until cleared."
+            ],
+            [
+              "fd_e13",
+              "DO NOT ESCALATE — VIP account managed directly by account manager."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e01",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e01",
+          "subject": "Login failure T1",
+          "description": "Login broken.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_e01",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T06:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e02",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e02",
+          "subject": "API errors T1",
+          "description": "API broken.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_e02",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T00:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e03",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e03",
+          "subject": "Dashboard crash T1",
+          "description": "Dashboard down.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_e03",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T08:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e04",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e04",
+          "subject": "Export issue T1",
+          "description": "Export broken.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_e04",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e05",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e05",
+          "subject": "Critical data loss T2",
+          "description": "Data missing.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_e05",
+          "group_id": "grp_t2",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-18T00:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e06",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e06",
+          "subject": "Security incident T2",
+          "description": "Security concern.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_e06",
+          "group_id": "grp_t2",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-18T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e07",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e07",
+          "subject": "Billing question T1",
+          "description": "Billing help.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_e07",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-20T00:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e08",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e08",
+          "subject": "Integration help T2",
+          "description": "Integration issue.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_e08",
+          "group_id": "grp_t2",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T16:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e09",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e09",
+          "subject": "Customer hold ticket T1",
+          "description": "On hold.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_e09",
+          "group_id": "grp_t1",
+          "tags": "[\"escalation-hold\"]",
+          "notes": "[]",
+          "created_at": "2025-01-19T06:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e10",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e10",
+          "subject": "Resolved old ticket T1",
+          "description": "Resolved.",
+          "status": 4,
+          "priority": 2,
+          "requester_id": "fc_e10",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T11:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e11",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e11",
+          "subject": "Payment processing timeout T1",
+          "description": "Payment gateway times out intermittently.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_e11",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-19T04:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e12",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e12",
+          "subject": "Database migration failure T2",
+          "description": "Migration script fails on large tables.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_e12",
+          "group_id": "grp_t2",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-18T05:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_e13",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_e13",
+          "subject": "SSO configuration issue T1",
+          "description": "SSO login redirects to wrong page.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_e13",
+          "group_id": "grp_t1",
+          "tags": "[]",
+          "notes": "[]",
+          "created_at": "2025-01-18T20:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_007",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_007",
+          "subject": "Canned response formatting broken",
+          "description": "Canned responses lose formatting when applied to rich-text tickets.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"formatting\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_011",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_011",
+          "subject": "Report export timing out",
+          "description": "Exporting the monthly ticket report fails after 60 seconds.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"export\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_009",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_009",
+          "subject": "SLA timer paused but still counting",
+          "description": "Ticket was set to 'Pending' but the SLA timer keeps running.",
+          "status": 5,
+          "priority": 3,
+          "tags": "[\"sla\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e01",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e01",
+          "name": "Esc User 1",
+          "email": "eu1@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e02",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e02",
+          "name": "Esc User 2",
+          "email": "eu2@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e03",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e03",
+          "name": "Esc User 3",
+          "email": "eu3@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e04",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e04",
+          "name": "Esc User 4",
+          "email": "eu4@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e05",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e05",
+          "name": "Esc User 5",
+          "email": "eu5@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e06",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e06",
+          "name": "Esc User 6",
+          "email": "eu6@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e07",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e07",
+          "name": "Esc User 7",
+          "email": "eu7@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e08",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e08",
+          "name": "Esc User 8",
+          "email": "eu8@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e09",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e09",
+          "name": "Esc User 9",
+          "email": "eu9@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e10",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e10",
+          "name": "Esc User 10",
+          "email": "eu10@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e11",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e11",
+          "name": "Esc User 11",
+          "email": "eu11@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e12",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e12",
+          "name": "Esc User 12",
+          "email": "eu12@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_e13",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_e13",
+          "name": "Esc User 13",
+          "email": "eu13@test.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_004",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_004",
+          "name": "Fiona Campbell",
+          "email": "fcampbell@oakmont.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_002",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_002",
+          "name": "Lucia Romero",
+          "email": "lromero@ridgeline.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "group_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "eu10@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "eu11@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "eu12@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "eu13@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eu1@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "eu2@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "eu3@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "eu4@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "eu5@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "eu6@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "eu7@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "eu8@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "eu9@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "fcampbell@oakmont.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "lromero@ridgeline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "t2-manager@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "t3-manager@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ESC",
+      "name": "support-escalations",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

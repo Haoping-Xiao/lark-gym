@@ -1,0 +1,438 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_categories": {
+      "title": "Categories",
+      "sheets": {
+        "ws_keyword_rules": {
+          "title": "Keyword Rules",
+          "values": [
+            ["Keyword", "Category"],
+            ["payment", "billing"],
+            ["invoice", "billing"],
+            ["charge", "billing"],
+            ["crash", "technical"],
+            ["error", "technical"],
+            ["bug", "technical"],
+            ["setup", "onboarding"],
+            ["config", "onboarding"],
+            ["install", "onboarding"]
+          ]
+        },
+        "ws_department_routing": {
+          "title": "Department Routing",
+          "values": [
+            ["Category", "Department_Lead", "Priority_Override", "Precedence"],
+            ["technical", "tech-lead@company.example.com", "High", "1"],
+            ["billing", "billing-lead@company.example.com", "Medium", "2"],
+            ["onboarding", "onboarding-lead@company.example.com", "Low", "3"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t1",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t1",
+          "subject": "Payment failed",
+          "description": "My payment keeps failing when I try to upgrade.",
+          "status": "Open",
+          "priority": "Medium",
+          "classification": "",
+          "contact_id": "cat_c1",
+          "comments": "[]",
+          "department": ""
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t2",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t2",
+          "subject": "App crashes on startup",
+          "description": "The app crashes immediately with a fatal error.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "",
+          "contact_id": "cat_c2",
+          "comments": "[]",
+          "department": ""
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t3",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t3",
+          "subject": "How to set up SSO",
+          "description": "Need help with initial SSO config and setup.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "",
+          "contact_id": "cat_c3",
+          "comments": "[]",
+          "department": ""
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t4",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t4",
+          "subject": "Invoice payment error",
+          "description": "Getting an error on my invoice page, payment won't go through.",
+          "status": "Open",
+          "priority": "Medium",
+          "classification": "",
+          "contact_id": "cat_c4",
+          "comments": "[]",
+          "department": ""
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t5",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t5",
+          "subject": "General question",
+          "description": "What are your office hours and support availability?",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "",
+          "contact_id": "cat_c5",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t6",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t6",
+          "subject": "Bug in API endpoint",
+          "description": "The /users endpoint returns a 500 error consistently.",
+          "status": "Open",
+          "priority": "High",
+          "classification": "",
+          "contact_id": "cat_c1",
+          "comments": "[]",
+          "department": ""
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t7",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t7",
+          "subject": "Install wizard broken",
+          "description": "The install wizard crashes with a bug during config step.",
+          "status": "Open",
+          "priority": "Medium",
+          "classification": "",
+          "contact_id": "cat_c2",
+          "comments": "[]",
+          "department": ""
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t8",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t8",
+          "subject": "Old payment issue",
+          "description": "Payment failed last month.",
+          "status": "Closed",
+          "priority": "High",
+          "classification": "",
+          "contact_id": "cat_c3",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_cat_t9",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "cat_t9",
+          "subject": "Closed bug report",
+          "description": "Bug was fixed.",
+          "status": "Closed",
+          "priority": "Medium",
+          "classification": "",
+          "contact_id": "cat_c4",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_002",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_002",
+          "subject": "Report scheduler sending duplicates",
+          "description": "The weekly report is being emailed twice every Monday.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_007",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_007",
+          "subject": "Email channel creating duplicate tickets",
+          "description": "Same email thread creates 2 tickets when CC'd on reply.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_012",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_012",
+          "subject": "Custom view filter not saving",
+          "description": "Saving a custom ticket view with date filter reverts to defaults.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_cat_c1",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "cat_c1",
+          "first_name": "Ana",
+          "last_name": "Lopez",
+          "email": "ana@techco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_cat_c2",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "cat_c2",
+          "first_name": "Ben",
+          "last_name": "Kim",
+          "email": "ben@startco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_cat_c3",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "cat_c3",
+          "first_name": "Cary",
+          "last_name": "Wu",
+          "email": "cary@bigcorp.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_cat_c4",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "cat_c4",
+          "first_name": "Dee",
+          "last_name": "Patel",
+          "email": "dee@newco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_cat_c5",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "cat_c5",
+          "first_name": "Eli",
+          "last_name": "Chen",
+          "email": "eli@smallco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_002",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_002",
+          "first_name": "Marco",
+          "last_name": "Di Stefano",
+          "email": "mds@silveroak.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_005",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_005",
+          "first_name": "Andre",
+          "last_name": "Williams",
+          "email": "awilliams@springdale.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "classification",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "department",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "is_public",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ana@techco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "awilliams@springdale.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ben@startco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "billing-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "cary@bigcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "dee@newco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "eli@smallco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "mds@silveroak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "onboarding-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "tech-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_SOPS",
+      "name": "support-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

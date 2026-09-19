@@ -1,0 +1,597 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_deal_alerts": {
+      "title": "Deal Alerts",
+      "sheets": {
+        "ws_deal_thresholds": {
+          "title": "Deal Thresholds",
+          "values": [
+            ["Alert_Level", "Condition"],
+            ["critical", "deal closing within 30 days AND amount > 10000"],
+            ["info", "active deal any amount"]
+          ]
+        },
+        "ws_notification_rules": {
+          "title": "Notification Rules",
+          "values": [
+            ["Alert_Level", "Salesforce_Task", "Email_AE", "Slack_Alert"],
+            ["critical", "yes", "yes", "yes"],
+            ["info", "no", "no", "yes"]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["alert_batch_id", "DEAL-ALERT-0207"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv1",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Production outage affecting workflows",
+          "status": "active",
+          "customer_id": "da_cust1",
+          "customer_email": "alice@bigdeal.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-05T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr1\",\"type\":\"customer\",\"body\":\"Our production environment is down.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv2",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API rate limiting concerns",
+          "status": "active",
+          "customer_id": "da_cust2",
+          "customer_email": "bob@closingsoon.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-06T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr2\",\"type\":\"customer\",\"body\":\"We keep hitting rate limits.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv3",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Billing question",
+          "status": "active",
+          "customer_id": "da_cust3",
+          "customer_email": "carol@activedeal.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-04T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr3\",\"type\":\"customer\",\"body\":\"Can you explain this invoice?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv4",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Feature request for dashboards",
+          "status": "active",
+          "customer_id": "da_cust4",
+          "customer_email": "dan@activedeal2.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-03T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr4\",\"type\":\"customer\",\"body\":\"Would love to see better analytics.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv5",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Performance degradation",
+          "status": "active",
+          "customer_id": "da_cust5",
+          "customer_email": "eve@nodeal.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-06T14:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr5\",\"type\":\"customer\",\"body\":\"Dashboard loading slowly.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv6",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "General inquiry",
+          "status": "active",
+          "customer_id": "da_cust6",
+          "customer_email": "frank@nodeal2.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-02T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr6\",\"type\":\"customer\",\"body\":\"What are your office hours?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv7",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Login trouble",
+          "status": "active",
+          "customer_id": "da_cust7",
+          "customer_email": "grace@nodeal3.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-01T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr7\",\"type\":\"customer\",\"body\":\"Can't log in.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_conv8",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Old resolved issue",
+          "status": "active",
+          "customer_id": "da_cust8",
+          "customer_email": "hank@closedwon.com",
+          "mailbox_id": "da_mb1",
+          "created_at": "2026-02-05T10:00:00Z",
+          "tags": "[]",
+          "threads": "[{\"id\":\"da_thr8\",\"type\":\"customer\",\"body\":\"Follow-up on closed deal.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_003",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook signatures not matching",
+          "status": "closed",
+          "customer_email": "noise_user3@tidewaterio.example.com",
+          "tags": "[\"api\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our server can't verify the webhook HMAC signature.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_005",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Duplicate customer profiles",
+          "status": "closed",
+          "customer_email": "noise_user5@ironbark.example.com",
+          "tags": "[\"data\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"We have three separate profiles for the same customer.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_004",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Slow response times this week",
+          "status": "closed",
+          "customer_email": "noise_user4@summitpeak.example.com",
+          "tags": "[\"performance\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Page loads are taking 8-10 seconds since Tuesday.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust1",
+        "fields": {
+          "collection": "help_customers",
+          "email": "alice@bigdeal.com",
+          "first_name": "Alice",
+          "last_name": "Martin"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust2",
+        "fields": {
+          "collection": "help_customers",
+          "email": "bob@closingsoon.com",
+          "first_name": "Bob",
+          "last_name": "Nguyen"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust3",
+        "fields": {
+          "collection": "help_customers",
+          "email": "carol@activedeal.com",
+          "first_name": "Carol",
+          "last_name": "Kim"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust4",
+        "fields": {
+          "collection": "help_customers",
+          "email": "dan@activedeal2.com",
+          "first_name": "Dan",
+          "last_name": "Torres"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust5",
+        "fields": {
+          "collection": "help_customers",
+          "email": "eve@nodeal.com",
+          "first_name": "Eve",
+          "last_name": "Patel"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust6",
+        "fields": {
+          "collection": "help_customers",
+          "email": "frank@nodeal2.com",
+          "first_name": "Frank",
+          "last_name": "Lee"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust7",
+        "fields": {
+          "collection": "help_customers",
+          "email": "grace@nodeal3.com",
+          "first_name": "Grace",
+          "last_name": "Wu"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_cust8",
+        "fields": {
+          "collection": "help_customers",
+          "email": "hank@closedwon.com",
+          "first_name": "Hank",
+          "last_name": "Davis"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_da_mb1",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Support"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_c1",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "alice@bigdeal.com",
+          "firstname": "Alice",
+          "lastname": "Martin",
+          "hs_lead_status": "IN_PROGRESS"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_c2",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "bob@closingsoon.com",
+          "firstname": "Bob",
+          "lastname": "Nguyen",
+          "hs_lead_status": "IN_PROGRESS"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_c3",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "carol@activedeal.com",
+          "firstname": "Carol",
+          "lastname": "Kim",
+          "hs_lead_status": "IN_PROGRESS"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_c4",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "dan@activedeal2.com",
+          "firstname": "Dan",
+          "lastname": "Torres",
+          "hs_lead_status": "IN_PROGRESS"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_c8",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "hank@closedwon.com",
+          "firstname": "Hank",
+          "lastname": "Davis",
+          "hs_lead_status": "CLOSED"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_deal_1",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "BigDeal Enterprise",
+          "amount": 50000,
+          "dealstage": "contractsent",
+          "closedate": "2026-02-20",
+          "hubspot_owner_id": "ae1@company.example.com",
+          "associated_contact_ids": "[\"hs_c1\"]"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_deal_2",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "ClosingSoon Pro",
+          "amount": 25000,
+          "dealstage": "qualifiedtobuy",
+          "closedate": "2026-02-15",
+          "hubspot_owner_id": "ae2@company.example.com",
+          "associated_contact_ids": "[\"hs_c2\"]"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_deal_3",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "ActiveDeal Starter",
+          "amount": 5000,
+          "dealstage": "appointmentscheduled",
+          "closedate": "2026-04-01",
+          "hubspot_owner_id": "ae1@company.example.com",
+          "associated_contact_ids": "[\"hs_c3\"]"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_deal_4",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "ActiveDeal2 Growth",
+          "amount": 8000,
+          "dealstage": "presentationscheduled",
+          "closedate": "2026-05-01",
+          "hubspot_owner_id": "ae2@company.example.com",
+          "associated_contact_ids": "[\"hs_c4\"]"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_deal_5",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "ClosedWon Deal",
+          "amount": 30000,
+          "dealstage": "closedwon",
+          "closedate": "2026-01-15",
+          "hubspot_owner_id": "ae1@company.example.com",
+          "associated_contact_ids": "[\"hs_c8\"]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "firstname",
+        "type": "text"
+      },
+      {
+        "name": "lastname",
+        "type": "text"
+      },
+      {
+        "name": "hs_lead_status",
+        "type": "text"
+      },
+      {
+        "name": "dealname",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "dealstage",
+        "type": "text"
+      },
+      {
+        "name": "closedate",
+        "type": "text"
+      },
+      {
+        "name": "hubspot_owner_id",
+        "type": "text"
+      },
+      {
+        "name": "associated_contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "deal_id",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "owner_email",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ae1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ae2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "alice@bigdeal.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "bob@closingsoon.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "carol@activedeal.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "dan@activedeal2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "eve@nodeal.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "frank@nodeal2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "grace@nodeal3.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "hank@closedwon.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "noise_user3@tidewaterio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "noise_user4@summitpeak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "noise_user5@ironbark.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_SS",
+      "name": "sales-support",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GEN",
+      "name": "general",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

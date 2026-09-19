@@ -1,0 +1,716 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_faq_templates": {
+      "title": "FAQ Templates & Rules",
+      "sheets": {
+        "ws_categories": {
+          "title": "Categories",
+          "values": [
+            [
+              "Category",
+              "Keywords",
+              "Min Keyword Matches",
+              "Exclusion Tags",
+              "Skip If Has Notes",
+              "Skip If Status"
+            ],
+            [
+              "Password Reset",
+              "password, reset, forgot",
+              "2",
+              "do-not-auto-reply",
+              "yes",
+              "5"
+            ],
+            [
+              "SSO Setup",
+              "SSO, SAML, Okta, single sign-on",
+              "2",
+              "do-not-auto-reply",
+              "yes",
+              "5"
+            ],
+            [
+              "API Rate Limits",
+              "rate limit, throttle, API, 429",
+              "2",
+              "do-not-auto-reply",
+              "yes",
+              "5"
+            ],
+            [
+              "Billing",
+              "billing, invoice, payment, charge",
+              "2",
+              "do-not-auto-reply",
+              "yes",
+              "5"
+            ],
+            [
+              "Data Export",
+              "export, CSV, download, data",
+              "2",
+              "do-not-auto-reply",
+              "yes",
+              "5"
+            ]
+          ]
+        },
+        "ws_templates": {
+          "title": "Templates",
+          "values": [
+            ["Category", "Template", "Urgent Note (Priority 3+)"],
+            [
+              "Password Reset",
+              "To reset your password, go to Settings > Security > Reset Password. You will receive a confirmation email within 5 minutes.",
+              "URGENT: This is a high-priority request. Our team is standing by if the self-service reset does not work."
+            ],
+            [
+              "SSO Setup",
+              "To configure SSO: Go to Admin > Authentication > SSO. Select your identity provider and follow the setup wizard. Full documentation: docs.example.com/sso",
+              "URGENT: We are prioritizing your SSO setup. A specialist will follow up within 1 hour."
+            ],
+            [
+              "API Rate Limits",
+              "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.",
+              "URGENT: We see you are hitting rate limits frequently. Our engineering team has been notified to review your account limits."
+            ],
+            [
+              "Billing",
+              "You can view and manage your invoices at Settings > Billing > Invoice History. For payment issues, ensure your payment method is up to date under Payment Methods.",
+              "URGENT: We understand billing issues are time-sensitive. Our billing team has been alerted and will reach out within 30 minutes."
+            ],
+            [
+              "Data Export",
+              "To export your data: Go to Settings > Data Management > Export. Select CSV format and the date range you need. Large exports may take up to 15 minutes.",
+              "URGENT: We are fast-tracking your data export request. A support engineer will assist you directly."
+            ]
+          ]
+        },
+        "ws_tracking": {
+          "title": "Tracking",
+          "values": [["Ticket ID", "Category", "Requester Email", "Action"]]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "Always Draft",
+              "beta-program",
+              "Force draft even if below confidence threshold. Match requester email domain containing this value.",
+              "Beta program participants need immediate FAQ responses for feedback purposes"
+            ],
+            [
+              "Never Draft",
+              "internal-only",
+              "Skip ticket entirely (no draft, no note, no tracking). Match by ticket tag.",
+              "Internal tickets are handled through a separate workflow"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_freshdesk_tickets_fd_501",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_501",
+          "subject": "How to reset password",
+          "description": "I forgot my password and need to reset it",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_601",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_506",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_506",
+          "subject": "SSO SAML configuration issue",
+          "description": "Can't configure SAML for our SSO provider",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_606",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_508",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_508",
+          "subject": "API rate limit throttle error",
+          "description": "Getting 429 errors from your API",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_608",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_511",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_511",
+          "subject": "Billing invoice payment overdue",
+          "description": "My last invoice shows payment overdue",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_611",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_514",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_514",
+          "subject": "Data export CSV download help",
+          "description": "How do I export my data as CSV?",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_614",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_505",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_505",
+          "subject": "Password manager integration",
+          "description": "How to integrate password manager with our app?",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_605",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_509",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_509",
+          "subject": "Slow API response times",
+          "description": "API calls are taking 10+ seconds",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_609",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_507",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_507",
+          "subject": "Reset my billing address",
+          "description": "I need to change my billing address on file",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_607",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_503",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_503",
+          "subject": "Custom report builder question",
+          "description": "How do I build a custom report?",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_603",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_504",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_504",
+          "subject": "Account suspended unexpectedly",
+          "description": "My account was suspended without warning",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_604",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_502",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_502",
+          "subject": "SSO configuration help",
+          "description": "Need help setting up SSO",
+          "status": 5,
+          "priority": 2,
+          "requester_id": "fc_602",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_510",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_510",
+          "subject": "Webhook delivery delays",
+          "description": "Webhooks are arriving late",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_610",
+          "tags": "[\"do-not-auto-reply\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_512",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_512",
+          "subject": "Password reset not working",
+          "description": "Tried resetting password but link expired",
+          "status": 5,
+          "priority": 1,
+          "requester_id": "fc_612",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_513",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_513",
+          "subject": "Invoice formatting question",
+          "description": "Can you change the invoice format?",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_613",
+          "tags": "[]",
+          "notes": "[{\"id\":\"note_901\",\"body\":\"Agent already responded to this ticket via phone.\",\"private\":true}]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_515",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_515",
+          "subject": "Slow API endpoints",
+          "description": "Some API endpoints are slow",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_615",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_516",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_516",
+          "subject": "Password reset flow broken",
+          "description": "The password reset email flow is broken",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_616",
+          "tags": "[\"internal-only\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_009",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_009",
+          "subject": "SLA timer paused but still counting",
+          "description": "Ticket was set to 'Pending' but the SLA timer keeps running.",
+          "status": 5,
+          "priority": 3,
+          "tags": "[\"sla\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_011",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_011",
+          "subject": "Report export timing out",
+          "description": "Exporting the monthly ticket report fails after 60 seconds.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"export\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_007",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_007",
+          "subject": "Canned response formatting broken",
+          "description": "Canned responses lose formatting when applied to rich-text tickets.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"formatting\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_601",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_601",
+          "name": "Alice Martin",
+          "email": "alice@acmecorp.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_602",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_602",
+          "name": "Bob Chen",
+          "email": "bob@widgets.io"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_603",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_603",
+          "name": "Carol Davis",
+          "email": "carol@example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_604",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_604",
+          "name": "Dan Wilson",
+          "email": "dan@startup.co"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_605",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_605",
+          "name": "Eve Thompson",
+          "email": "eve@techfirm.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_606",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_606",
+          "name": "Frank Lopez",
+          "email": "frank@enterprise.net"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_607",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_607",
+          "name": "Grace Kim",
+          "email": "grace@retail.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_608",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_608",
+          "name": "Hank Patel",
+          "email": "hank@devshop.io"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_609",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_609",
+          "name": "Ivy Nguyen",
+          "email": "ivy@dataflow.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_610",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_610",
+          "name": "Jack Rivera",
+          "email": "jack@webops.net"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_611",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_611",
+          "name": "Karen White",
+          "email": "karen@finance.org"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_612",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_612",
+          "name": "Leo Brown",
+          "email": "leo@acmecorp.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_613",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_613",
+          "name": "Mia Zhang",
+          "email": "mia@consulting.co"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_614",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_614",
+          "name": "Noah Scott",
+          "email": "noah@analytics.io"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_615",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_615",
+          "name": "Oscar Diaz",
+          "email": "oscar@beta-program.dev"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_616",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_616",
+          "name": "Paula Frost",
+          "email": "paula@internal-tools.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_006",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_006",
+          "name": "Tessa Kim",
+          "email": "tkim@hawthorne.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_008",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_008",
+          "name": "Nina Alvarez",
+          "email": "nalvarez@crescentbay.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob@widgets.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dan@startup.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eve@techfirm.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "frank@enterprise.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "grace@retail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "hank@devshop.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "ivy@dataflow.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "jack@webops.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "karen@finance.org",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "leo@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "mia@consulting.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "nalvarez@crescentbay.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "noah@analytics.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "oscar@beta-program.dev",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "paula@internal-tools.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "tkim@hawthorne.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_auto",
+      "name": "support-automation",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

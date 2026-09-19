@@ -1,0 +1,565 @@
+{
+  "now": "2026-01-29T15:10:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_prod_incidents": {
+      "title": "Production Incidents",
+      "sheets": {
+        "ws_active": {
+          "title": "Active",
+          "values": [
+            [
+              "Title",
+              "Environment",
+              "Severity",
+              "Status",
+              "Detected",
+              "On-Call",
+              "On-Call Phone",
+              "Notes"
+            ],
+            [
+              "Payment Processing Down",
+              "Production",
+              "SEV1",
+              "Triggered",
+              "2026-01-29T15:00:00Z",
+              "Sarah Kim",
+              "+15551234567",
+              ""
+            ],
+            [
+              "Database Replication Lag",
+              "Production",
+              "SEV1",
+              "Triggered",
+              "2026-01-29T15:05:00Z",
+              "Mike Torres",
+              "+15559876543",
+              "RETRACTED - false alarm from monitoring glitch"
+            ],
+            [
+              "Auth Service Latency",
+              "Staging",
+              "SEV1",
+              "Triggered",
+              "2026-01-29T14:50:00Z",
+              "James Lee",
+              "+15555551234",
+              ""
+            ],
+            [
+              "CDN Cache Invalidation Failure",
+              "Production",
+              "SEV2",
+              "Triggered",
+              "2026-01-29T14:45:00Z",
+              "Sarah Kim",
+              "+15551234567",
+              ""
+            ],
+            [
+              "Payment Gateway Timeout",
+              "Production",
+              "SEV1",
+              "Acknowledged",
+              "2026-01-29T14:30:00Z",
+              "Sarah Kim",
+              "+15551234567",
+              "duplicate of Payment Processing Down - same root cause"
+            ]
+          ]
+        },
+        "ws_incident_policy": {
+          "title": "Incident Policy",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Retracted Incident Exclusion",
+              "Incidents with 'RETRACTED' in Notes were false alarms and must not trigger incident response."
+            ],
+            [
+              "Duplicate Incident Exclusion",
+              "Incidents marked 'duplicate' in Notes share a root cause with another incident and must not trigger separate response."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_jira_jira_inc",
+        "fields": {
+          "collection": "jira_project",
+          "source_action_id": "jira_inc",
+          "searchByParameter": "Incidents",
+          "project": "INC"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_005",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_005",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000005",
+          "body": "SECURITY: After-hours access logged at Warehouse B, 11:47 PM. Badge: V. Lindgren.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-02T23:47:00Z",
+          "date_updated": "2026-03-02T23:47:04Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_003",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_003",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000003",
+          "body": "Generator auto-start triggered. Power outage detected at 2:15 AM. Systems on backup.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-01T02:15:00Z",
+          "date_updated": "2026-03-01T02:15:03Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_004",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_004",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15552000004",
+          "to_number": "+15551000001",
+          "body": "Confirming: forklift inspection done for units F-01 through F-06. All passed.",
+          "status": "delivered",
+          "direction": "inbound",
+          "date_created": "2026-03-02T10:30:00Z",
+          "date_updated": "2026-03-02T10:30:02Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_008",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_008",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000008",
+          "body": "Fire panel zone 4 clear. False alarm triggered by dust in smoke detector. Reset complete.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-01T09:15:00Z",
+          "date_updated": "2026-03-01T09:15:04Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_009",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_009",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000009",
+          "body": "Elevator B out of service for maintenance. Expected completion: 10 AM.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-03T06:00:00Z",
+          "date_updated": "2026-03-03T06:00:03Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_006",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_006",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000006",
+          "body": "Water pressure drop detected — Building A, Floor 2. Maintenance notified.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-02-28T14:22:00Z",
+          "date_updated": "2026-02-28T14:22:03Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_001",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_001",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15551000001",
+          "to_number": "+15552000001",
+          "body": "ALERT: HVAC fault detected Building C Zone 2. Temp rising. Maintenance dispatched.",
+          "status": "delivered",
+          "direction": "outbound-api",
+          "date_created": "2026-03-02T03:42:00Z",
+          "date_updated": "2026-03-02T03:42:05Z"
+        }
+      },
+      {
+        "record_id": "rec_twilio_sms_messages_SMops_noise_007",
+        "fields": {
+          "collection": "twilio_sms_messages",
+          "sid": "SMops_noise_007",
+          "account_sid": "ACops_noise_main",
+          "from_number": "+15552000007",
+          "to_number": "+15551000001",
+          "body": "Delivery truck arrived early. ETA was 8 AM, here at 6:30. Need dock assignment.",
+          "status": "delivered",
+          "direction": "inbound",
+          "date_created": "2026-03-03T06:30:00Z",
+          "date_updated": "2026-03-03T06:30:02Z"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "source_action_id",
+        "type": "text"
+      },
+      {
+        "name": "searchByParameter",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "sid",
+        "type": "text"
+      },
+      {
+        "name": "account_sid",
+        "type": "text"
+      },
+      {
+        "name": "from_number",
+        "type": "text"
+      },
+      {
+        "name": "to_number",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "direction",
+        "type": "text"
+      },
+      {
+        "name": "date_created",
+        "type": "text"
+      },
+      {
+        "name": "date_updated",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "severity",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "parent_page",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_phone_0",
+      "name": "+15551000001",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_1",
+      "name": "+15551234567",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_2",
+      "name": "+15552000001",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_3",
+      "name": "+15552000003",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_4",
+      "name": "+15552000004",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_5",
+      "name": "+15552000005",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_6",
+      "name": "+15552000006",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_7",
+      "name": "+15552000007",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_8",
+      "name": "+15552000008",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_9",
+      "name": "+15552000009",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_10",
+      "name": "+15555551234",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_11",
+      "name": "+15559876543",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_CINC",
+      "name": "incidents",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_CENG",
+      "name": "engineering-all",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080021.000021\\\", \\\"user_id\\\": \\\"U_ops_21\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nOOO: I'm out Thursday/Friday. Nina is covering warehouse ops.\"}"
+      },
+      "create_time": "1741080021.000021"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080024.000024\\\", \\\"user_id\\\": \\\"U_ops_24\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nThe recycling compactor is jammed again. Maintenance ticket submitted.\"}"
+      },
+      "create_time": "1741080024.000024"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080022.000022\\\", \\\"user_id\\\": \\\"U_ops_22\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nSafety shoe replacement vouchers available from EHS. See Lydia for details.\"}"
+      },
+      "create_time": "1741080022.000022"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080020.000020\\\", \\\"user_id\\\": \\\"U_ops_20\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nVendor scorecard review meeting at 3 PM. Please review the Q1 reports beforehand.\"}"
+      },
+      "create_time": "1741080020.000020"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080009.000009\\\", \\\"user_id\\\": \\\"U_ops_09\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nInventory cycle count results posted. 3 discrepancies being investigated.\"}"
+      },
+      "create_time": "1741080009.000009"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080023.000023\\\", \\\"user_id\\\": \\\"U_ops_23\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nCompressed gas cylinder audit completed. All tags current.\"}"
+      },
+      "create_time": "1741080023.000023"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080011.000011\\\", \\\"user_id\\\": \\\"U_ops_11\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nChemical storage area inspection complete. One label faded — replaced on the spot.\"}"
+      },
+      "create_time": "1741080011.000011"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080018.000018\\\", \\\"user_id\\\": \\\"U_ops_18\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nForklift F-04 battery replacement done. Back in service.\"}"
+      },
+      "create_time": "1741080018.000018"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080017.000017\\\", \\\"user_id\\\": \\\"U_ops_17\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nThe roof leak in Building C has been patched. Monitoring for 48 hours before closing the ticket.\"}"
+      },
+      "create_time": "1741080017.000017"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080003.000003\\\", \\\"user_id\\\": \\\"U_ops_03\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nReminder: fire drill at 2 PM today. Please make sure all exits are clear.\"}"
+      },
+      "create_time": "1741080003.000003"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080014.000014\\\", \\\"user_id\\\": \\\"U_ops_14\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nHVAC filter replacement complete for Building A. Next round: Building C on March 10.\"}"
+      },
+      "create_time": "1741080014.000014"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080006.000006\\\", \\\"user_id\\\": \\\"U_ops_06\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nNew vendor onboarded: GreenField Environmental. Insurance certs verified.\"}"
+      },
+      "create_time": "1741080006.000006"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080008.000008\\\", \\\"user_id\\\": \\\"U_ops_08\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nElevator B back in service after maintenance. Thanks to the ElevatorPlus team for the quick turnaround.\"}"
+      },
+      "create_time": "1741080008.000008"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080005.000005\\\", \\\"user_id\\\": \\\"U_ops_05\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nAnyone know if the badge printer in reception is fixed? Still showing paper jam.\"}"
+      },
+      "create_time": "1741080005.000005"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080025.000025\\\", \\\"user_id\\\": \\\"U_ops_25\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nEmergency lighting test completed for all buildings. 2 bulbs replaced in Building D stairwell.\"}"
+      },
+      "create_time": "1741080025.000025"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080001.000001\\\", \\\"user_id\\\": \\\"U_ops_01\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nGood morning ops team. Facilities checklist for today is posted in #facilities-daily.\"}"
+      },
+      "create_time": "1741080001.000001"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080012.000012\\\", \\\"user_id\\\": \\\"U_ops_12\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nParking lot B re-striping scheduled for this weekend. Please park in Lot C.\"}"
+      },
+      "create_time": "1741080012.000012"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080002.000002\\\", \\\"user_id\\\": \\\"U_ops_02\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nLoading dock 3 cleared and ready for the 7 AM shipment. Dock 1 still blocked by the pallet wrapping machine.\"}"
+      },
+      "create_time": "1741080002.000002"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080004.000004\\\", \\\"user_id\\\": \\\"U_ops_04\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nGenerator test completed ✅ All 3 units passed. Logs uploaded to CMMS.\"}"
+      },
+      "create_time": "1741080004.000004"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_CINC",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080010.000010\\\", \\\"user_id\\\": \\\"U_ops_10\\\", \\\"channel_id\\\": \\\"CINC\\\"}\\nFleet update: Vehicle F-207 in for service today. Using F-210 as backup.\"}"
+      },
+      "create_time": "1741080010.000010"
+    }
+  ]
+}

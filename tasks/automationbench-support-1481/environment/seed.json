@@ -1,0 +1,359 @@
+{
+  "now": "2026-02-14T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_gdpr": {
+      "title": "GDPR Processing",
+      "sheets": {
+        "ws_requests": {
+          "title": "Erasure Requests",
+          "values": [
+            ["Request ID", "Email", "Requested Date", "Status"],
+            ["GDPR-001", "anna.schmidt@privacyco.de", "2025-01-10", "Pending"],
+            ["GDPR-002", "luca.b@techfirm.it", "2025-01-11", "Pending"],
+            ["GDPR-003", "marie.dupont@frenchcorp.fr", "2025-01-12", "Pending"],
+            ["GDPR-004", "yuki@tokyotech.jp", "2025-01-12", "Pending"],
+            [
+              "GDPR-005",
+              "nonexistent@ghostdomain.com",
+              "2025-01-15",
+              "Pending"
+            ],
+            ["GDPR-006", "nobody@nowhere.org", "2025-01-16", "Pending"]
+          ]
+        },
+        "ws_legal_hold": {
+          "title": "Legal Hold",
+          "values": [
+            ["Email", "Hold Reason", "Case Reference"],
+            ["yuki@tokyotech.jp", "Pending litigation", "CASE-2025-044"]
+          ]
+        },
+        "ws_compliance_log": {
+          "title": "Compliance Log",
+          "values": [["Request ID", "Email", "Action", "Date"]]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "GDPR-BATCH-20260214"],
+            ["Anonymization_Subject_Prefix", "[GDPR Purged]"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_601",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Cannot reset password",
+          "description": "I cannot reset my password since last week.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_701",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_602",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Billing overcharge June",
+          "description": "I was overcharged on my June invoice.",
+          "status": "solved",
+          "priority": "normal",
+          "requester_id": "usr_701",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_603",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Export feature broken",
+          "description": "CSV export is not working.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_702",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_604",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Login issues on mobile",
+          "description": "Cannot log in on iOS app.",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "usr_703",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_605",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "API rate limit concern",
+          "description": "Hitting rate limits during peak hours.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_704",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_001",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "SSO login loop after Chrome update",
+          "description": "Users are stuck in an SSO redirect loop after updating Chrome to v124.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"sso\",\"browser\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_007",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "SLA breach notification not sent",
+          "description": "A high-priority ticket breached SLA but no Slack alert was triggered.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"sla\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_003",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook delivery failing with 502",
+          "description": "Our webhook endpoint returns 502 for about 30% of events since last night.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"webhook\",\"api\",\"weekend-watch\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_701",
+        "fields": {
+          "collection": "support_users",
+          "name": "Anna Schmidt",
+          "email": "anna.schmidt@privacyco.de",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_702",
+        "fields": {
+          "collection": "support_users",
+          "name": "Luca Bianchi",
+          "email": "luca.b@techfirm.it",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_703",
+        "fields": {
+          "collection": "support_users",
+          "name": "Marie Dupont",
+          "email": "marie.dupont@frenchcorp.fr",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_704",
+        "fields": {
+          "collection": "support_users",
+          "name": "Yuki Tanaka",
+          "email": "yuki@tokyotech.jp",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_005",
+        "fields": {
+          "collection": "support_users",
+          "name": "Trevor Sato",
+          "email": "tsato@bluepeak.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_002",
+        "fields": {
+          "collection": "support_users",
+          "name": "Dana Whitfield",
+          "email": "dwhit@crestline.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_801",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "PrivacyCo",
+          "domain_names": "[\"privacyco.de\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_802",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "TechFirm",
+          "domain_names": "[\"techfirm.it\"]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "anna.schmidt@privacyco.de",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "dwhit@crestline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "luca.b@techfirm.it",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "marie.dupont@frenchcorp.fr",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "nobody@nowhere.org",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "nonexistent@ghostdomain.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "tsato@bluepeak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "yuki@tokyotech.jp",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_PRIV",
+      "name": "privacy-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

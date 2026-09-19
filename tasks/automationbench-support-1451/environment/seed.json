@@ -1,0 +1,361 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_health": {
+      "title": "Health Scoring",
+      "sheets": {
+        "ws_usage_data": {
+          "title": "Usage Data",
+          "values": [
+            [
+              "Company",
+              "Logins_30d",
+              "Feature_Adoption_Pct",
+              "Support_Tickets_30d",
+              "NPS_Score"
+            ],
+            ["WidgetWorks", "120", "85", "2", "9"],
+            ["DataFlow", "60", "55", "5", "6"],
+            ["CloudPeak", "90", "70", "1", "2"],
+            ["QuickStart", "5", "10", "12", "3"],
+            ["EdgeCase", "100", "75", "2", "8"]
+          ]
+        },
+        "ws_scoring_model": {
+          "title": "Scoring Model",
+          "values": [
+            ["Metric", "Weight_Pct", "Max_Value", "Inverse"],
+            ["Logins_30d", "25", "150", "false"],
+            ["Feature_Adoption_Pct", "30", "100", "false"],
+            ["Support_Tickets_30d", "20", "15", "true"],
+            ["NPS_Score", "25", "10", "false"],
+            ["", "", "", ""],
+            ["threshold_healthy", "75", "", ""],
+            ["threshold_at_risk", "50", "", ""],
+            ["threshold_critical", "0", "", ""]
+          ]
+        },
+        "ws_scoring_config": {
+          "title": "Scoring Config",
+          "values": [
+            ["Key", "Value"],
+            ["batch_tracking_code", "HEALTH-BATCH-0207"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_health_c1",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "health_c1",
+          "name": "Alice Reyes",
+          "email": "alice@widgetworks.com",
+          "role": "user",
+          "company_ids": "[\"health_co1\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_health_c2",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "health_c2",
+          "name": "Ben Carter",
+          "email": "ben@dataflow.io",
+          "role": "user",
+          "company_ids": "[\"health_co2\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_health_c3",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "health_c3",
+          "name": "Carol Ng",
+          "email": "carol@cloudpeak.com",
+          "role": "user",
+          "company_ids": "[\"health_co3\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_health_c4",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "health_c4",
+          "name": "Dan Olsen",
+          "email": "dan@quickstart.co",
+          "role": "user",
+          "company_ids": "[\"health_co4\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_health_c5",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "health_c5",
+          "name": "Eve Tanaka",
+          "email": "eve@ghostcorp.com",
+          "role": "user",
+          "company_ids": "[\"health_co5\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_health_c6",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "health_c6",
+          "name": "Frank Diaz",
+          "email": "frank@edgecase.io",
+          "role": "user",
+          "company_ids": "[\"health_co6\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_006",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_006",
+          "name": "Celine Dubois",
+          "email": "cdubois@apexsys.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_010",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_010",
+          "name": "Sophie Watts",
+          "email": "swatts@nebulaco.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_health_co1",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "health_co1",
+          "name": "WidgetWorks",
+          "plan": "enterprise",
+          "company_id": "health_co1"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_health_co2",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "health_co2",
+          "name": "DataFlow",
+          "plan": "growth",
+          "company_id": "health_co2"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_health_co3",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "health_co3",
+          "name": "CloudPeak",
+          "plan": "enterprise",
+          "company_id": "health_co3"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_health_co4",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "health_co4",
+          "name": "QuickStart",
+          "plan": "starter",
+          "company_id": "health_co4"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_health_co5",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "health_co5",
+          "name": "GhostCorp",
+          "plan": "growth",
+          "company_id": "health_co5"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_health_co6",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "health_co6",
+          "name": "EdgeCase",
+          "plan": "enterprise",
+          "company_id": "health_co6"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "plan",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "contact_email",
+        "type": "text"
+      },
+      {
+        "name": "health_score",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@widgetworks.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ben@dataflow.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol@cloudpeak.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "cdubois@apexsys.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "csm-team@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "dan@quickstart.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "eve@ghostcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "frank@edgecase.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "swatts@nebulaco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_HEALTH",
+      "name": "customer-health",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

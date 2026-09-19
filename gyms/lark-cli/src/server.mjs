@@ -1,3 +1,4 @@
+import { deleteRecords } from './base-records.ts';
 import { chatMembers, createChat } from './chat-members.ts';
 import http from 'node:http';
 import { isDeepStrictEqual } from 'node:util';
@@ -319,6 +320,8 @@ export async function startMock(seed, options = {}) {
     };
     if (method === 'POST' && p === baseV3 + '/records')
       return createRecord(body);
+    if (method === 'POST' && p === baseV3 + '/records/batch_delete')
+      return deleteRecords(world.base, body.record_id_list, fail);
     if (method === 'POST' && p === baseV3 + '/records/batch_create') {
       requireValue(
         Array.isArray(body.create_records) &&
@@ -521,6 +524,10 @@ export async function startMock(seed, options = {}) {
       );
       if (!r) fail(404, 1254043, 'Record not found');
       if (method === 'GET') return { record: clone(r) };
+      if (method === 'DELETE') {
+        deleteRecords(world.base, [r.record_id], fail);
+        return { record_id: r.record_id, deleted: true };
+      }
       if (method === 'PUT') {
         requireValue(validFields(body.fields), 'Unknown field or invalid text');
         Object.assign(r.fields, body.fields);
@@ -657,6 +664,15 @@ export async function startMock(seed, options = {}) {
       ['message', before.messages, world.messages, 'message_id'],
       ['chat', before.chats, world.chats, 'chat_id'],
     ]) {
+      for (const item of oldItems) {
+        if (!newItems.some((x) => x[key] === item[key]))
+          mutations.push({
+            kind,
+            id: item[key],
+            before: clone(item),
+            after: null,
+          });
+      }
       for (const item of newItems) {
         const previous = oldItems.find((x) => x[key] === item[key]);
         if (!isDeepStrictEqual(previous, item))
