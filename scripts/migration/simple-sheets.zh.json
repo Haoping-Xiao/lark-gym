@@ -1,0 +1,161 @@
+{
+  "3086": {
+    "instruction": "请在飞书电子表格 Sales Leads（ss_leads / ws_leads）追加一条线索：Name=Carla Mendes，Company=Horizon Biotech，Email=carla.mendes@horizonbiotech.example.com，Phone=555-0142，Source=LinkedIn，Status=New。",
+    "append": {
+      "Name": "Carla Mendes",
+      "Company": "Horizon Biotech",
+      "Email": "carla.mendes@horizonbiotech.example.com",
+      "Phone": "555-0142",
+      "Source": "LinkedIn",
+      "Status": "New"
+    }
+  },
+  "3087": {
+    "instruction": "Kwame Asante 发来客户咨询消息。请找到消息，在飞书电子表格 Contact Log（ss_contacts / ws_log）新增一行，记录 Name、Email、Subject 和 Date；Date 使用 YYYY-MM-DD 格式。",
+    "append": {
+      "Name": "Kwame Asante",
+      "Email": "kwame.asante@boldventures.example.com",
+      "Subject": "Inquiry about enterprise integration options",
+      "Date": "2026-02-23"
+    }
+  },
+  "3088": {
+    "instruction": "请在飞书电子表格 Sales Leads（ss_leads / ws_leads）找到 Marcus Webb，将其 Status 从 Contacted 更新为 Qualified。",
+    "updates": [
+      {
+        "match": {
+          "Name": "Marcus Webb"
+        },
+        "fields": {
+          "Status": "Qualified"
+        }
+      }
+    ]
+  },
+  "3089": {
+    "instruction": "请在飞书电子表格 Project Tracker（ss_projects / ws_tasks）追加任务：Task=Implement SSO integration，Owner=Mike Chen，Due Date=2026-03-14，Status=In Progress。",
+    "append": {
+      "Task": "Implement SSO integration",
+      "Owner": "Mike Chen",
+      "Due Date": "2026-03-14",
+      "Status": "In Progress"
+    }
+  },
+  "3090": {
+    "instruction": "请在飞书电子表格 Closed Deals（ss_deals / ws_deals）记录成交：Client=Pinnacle Healthcare，Deal Value=$185,000，Close Date=2026-02-23，Sales Rep=Sarah Jones，Contract Length=2 years，Plan=Enterprise。",
+    "append": {
+      "Client": "Pinnacle Healthcare",
+      "Deal Value": "$185,000",
+      "Close Date": "2026-02-23",
+      "Sales Rep": "Sarah Jones",
+      "Contract Length": "2 years",
+      "Plan": "Enterprise"
+    }
+  },
+  "3093": {
+    "instruction": "请在飞书电子表格 Budget Tracker（ss_budget / ws_expenses）追加费用：Category=Software，Description=Annual Figma license renewal，Amount=$1,200，Date=2026-02-23，Approved By=Lisa Tran。",
+    "append": {
+      "Category": "Software",
+      "Description": "Annual Figma license renewal",
+      "Amount": "$1,200",
+      "Date": "2026-02-23",
+      "Approved By": "Lisa Tran"
+    }
+  },
+  "3094": {
+    "instruction": "请在飞书电子表格 Status Report（ss_status / ws_report）中，将 API Gateway Upgrade 的 Status 改为 Completed，将 Mobile App Redesign 的 Status 改为 In Progress。",
+    "updates": [
+      {
+        "match": {
+          "Project": "API Gateway Upgrade"
+        },
+        "fields": {
+          "Status": "Completed"
+        }
+      },
+      {
+        "match": {
+          "Project": "Mobile App Redesign"
+        },
+        "fields": {
+          "Status": "In Progress"
+        }
+      }
+    ]
+  },
+  "3095": {
+    "instruction": "Ingrid Svensson 发来支持请求。请找到消息，在飞书电子表格 Support Log（ss_support / ws_tickets）记录 Name、Email、Subject、Date，并将 Priority 设为 Medium。Date 使用 YYYY-MM-DD 格式。",
+    "append": {
+      "Name": "Ingrid Svensson",
+      "Email": "ingrid.svensson@nordicfreight.example.com",
+      "Subject": "Unable to export reports in CSV format",
+      "Date": "2026-02-23",
+      "Priority": "Medium"
+    }
+  },
+  "3096": {
+    "instruction": "请在飞书电子表格 Attendees（ss_webinar / ws_attendees）追加报名：Name=Tariq Hassan，Email=tariq.hassan@vanguardsystems.example.com，Company=Vanguard Systems，Webinar=Scaling with AI，Date=2026-03-12。",
+    "append": {
+      "Name": "Tariq Hassan",
+      "Email": "tariq.hassan@vanguardsystems.example.com",
+      "Company": "Vanguard Systems",
+      "Webinar": "Scaling with AI",
+      "Date": "2026-03-12"
+    }
+  },
+  "3097": {
+    "instruction": "请在飞书电子表格 Activity Log（ss_activity / ws_log）记录一次已完成的销售电话：Date=2026-02-23，Type=Discovery Call，Contact=Vanessa Brooks，Company=Redwood Analytics，Outcome=Positive；Notes 记录讨论了数据流水线需求、客户对 Enterprise 套餐感兴趣、已约定 3 月 1 日跟进演示。Notes 请使用原文：Discussed data pipeline needs; interested in Enterprise plan; follow-up demo scheduled for March 1st.",
+    "append": {
+      "Date": "2026-02-23",
+      "Type": "Discovery Call",
+      "Contact": "Vanessa Brooks",
+      "Company": "Redwood Analytics",
+      "Notes": "Discussed data pipeline needs; interested in Enterprise plan; follow-up demo scheduled for March 1st.",
+      "Outcome": "Positive"
+    }
+  },
+  "3098": {
+    "instruction": "Mike Chen 发来项目进展消息。请找到消息，根据内容更新飞书电子表格 Project Status（ss_project_status / ws_projects）中对应项目的 Status；保留其他已有字段。",
+    "updates": [
+      {
+        "match": {
+          "Project": "SSO Integration"
+        },
+        "fields": {
+          "Status": "Completed"
+        }
+      }
+    ]
+  },
+  "3099": {
+    "instruction": "请在飞书电子表格 Vendor List（ss_vendors / ws_vendors）追加供应商：Vendor=CloudForge Solutions，Contact=Dmitri Volkov，Email=dmitri.volkov@cloudforge.example.com，Service=Cloud Infrastructure，Contract Start=2026-03-01，Annual Cost=$48,000。",
+    "append": {
+      "Vendor": "CloudForge Solutions",
+      "Contact": "Dmitri Volkov",
+      "Email": "dmitri.volkov@cloudforge.example.com",
+      "Service": "Cloud Infrastructure",
+      "Contract Start": "2026-03-01",
+      "Annual Cost": "$48,000"
+    }
+  },
+  "3100": {
+    "instruction": "请在飞书电子表格 Content Calendar（ss_content / ws_calendar）新增下周博文：Title=10 Ways AI Is Transforming Customer Onboarding，Author=Olivia Park，Publish Date=2026-03-02，Status=Draft，Category=AI & Automation。",
+    "append": {
+      "Title": "10 Ways AI Is Transforming Customer Onboarding",
+      "Author": "Olivia Park",
+      "Publish Date": "2026-03-02",
+      "Status": "Draft",
+      "Category": "AI & Automation"
+    }
+  },
+  "3091": {
+    "instruction": "请读取飞书电子表格 Outreach Tracker（ss_outreach / ws_pending），找到第一位 Status 为 Pending 的联系人。根据表中的 Name 和 Email 找到对应飞书会话，发送 BrightPath 自动化平台介绍，标题为 Introducing BrightPath - Workflow Automation。只联系这一位。",
+    "text": "Introducing BrightPath - Workflow Automation\nNina，你好！BrightPath 自动化平台可以帮助团队连接办公流程，减少重复操作。期待与你交流。",
+    "contains": ["Introducing BrightPath - Workflow Automation", "BrightPath"]
+  },
+  "3092": {
+    "instruction": "请读取飞书电子表格 Client Assignments（ss_assignments / ws_clients），找到 Orion Enterprises 对应的客户经理，再找到其飞书私聊会话，告知 Orion Enterprises 要求本周安排一次合同评审会议。",
+    "text": "Sarah，Orion Enterprises要求本周安排一次合同评审会议，请协调时间。",
+    "contains": ["Orion Enterprises", "本周", "合同"]
+  }
+}

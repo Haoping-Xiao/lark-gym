@@ -45,21 +45,27 @@ export async function startMock(seed, options = {}) {
     if (write && c.role === 'reader') fail(403, 99991672, 'Permission denied');
     return c;
   }
+  const eventTime = (time) =>
+    time?.timestamp !== undefined
+      ? Number(time.timestamp)
+      : /^\d{4}-\d{2}-\d{2}$/.test(time?.date || '')
+        ? Date.parse(time.date + 'T00:00:00Z') / 1000
+        : NaN;
   function checkEvent(e) {
     requireValue(
       typeof e.summary === 'string' && e.summary.length > 0,
       'summary required',
     );
-    const a = Number(e.start_time?.timestamp),
-      b = Number(e.end_time?.timestamp);
+    const a = eventTime(e.start_time),
+      b = eventTime(e.end_time);
     requireValue(
       Number.isFinite(a) && Number.isFinite(b) && b > a,
       'start_time/end_time require epoch seconds with end > start',
     );
   }
-  function values(range) {
+  function values(range, sheets = world.sheets) {
     const [id, cells] = range.split('!'),
-      sheet = world.sheets[id];
+      sheet = sheets[id];
     if (!sheet) fail(404, 1310002, 'Sheet not found');
     if (!cells) return { range, values: clone(sheet.values) };
     const match = /^([A-Z]+)(\d+)?(?::([A-Z]+)(\d+)?)?$/.exec(cells);
@@ -86,25 +92,36 @@ export async function startMock(seed, options = {}) {
   function route(method, u, body) {
     const p = decodeURIComponent(u.pathname),
       q = u.searchParams;
+    const spreadsheetId =
+      /^\/open-apis\/(?:sheets|sheet_ai)\/v[23]\/spreadsheets\/([^/]+)/.exec(
+        p,
+      )?.[1];
+    const book = world.spreadsheets?.[spreadsheetId];
+    const sheets = book?.sheets ?? world.sheets;
+    const spreadsheetToken = book ? spreadsheetId : world.spreadsheet_token;
+    const spreadsheetTitle = book?.title ?? world.spreadsheet_title;
     if (method === 'GET' && p === '/open-apis/authen/v1/user_info')
-      return { open_id: 'ou_eval', name: 'Evaluation User' };
+      return {
+        open_id: 'ou_eval',
+        name: 'Evaluation User',
+        email: 'agent@company.example.com',
+      };
     if (
       method === 'GET' &&
-      p === `/open-apis/sheets/v3/spreadsheets/${world.spreadsheet_token}`
+      p === `/open-apis/sheets/v3/spreadsheets/${spreadsheetToken}`
     )
       return {
         spreadsheet: {
-          spreadsheet_token: world.spreadsheet_token,
-          title: 'Maintenance Plan',
+          spreadsheet_token: spreadsheetToken,
+          title: spreadsheetTitle || 'Maintenance Plan',
         },
       };
     if (
       method === 'GET' &&
-      p ===
-        `/open-apis/sheets/v3/spreadsheets/${world.spreadsheet_token}/sheets/query`
+      p === `/open-apis/sheets/v3/spreadsheets/${spreadsheetToken}/sheets/query`
     )
       return {
-        sheets: Object.entries(world.sheets).map(([sheet_id, s], index) => ({
+        sheets: Object.entries(sheets).map(([sheet_id, s], index) => ({
           sheet_id,
           title: s.title,
           index,
@@ -117,7 +134,7 @@ export async function startMock(seed, options = {}) {
     if (
       method === 'POST' &&
       p ===
-        `/open-apis/sheet_ai/v2/spreadsheets/${world.spreadsheet_token}/tools/invoke_read`
+        `/open-apis/sheet_ai/v2/spreadsheets/${spreadsheetToken}/tools/invoke_read`
     ) {
       let input;
       try {
@@ -129,7 +146,7 @@ export async function startMock(seed, options = {}) {
       if (body.tool_name === 'get_workbook_structure')
         output = {
           revision: 1,
-          sheets: Object.entries(world.sheets).map(([sheet_id, s], index) => ({
+          sheets: Object.entries(sheets).map(([sheet_id, s], index) => ({
             sheet_id,
             title: s.title,
             name: s.title,
@@ -145,10 +162,10 @@ export async function startMock(seed, options = {}) {
       ) {
         const sid =
           input.sheet_id ||
-          Object.keys(world.sheets).find(
-            (id) => world.sheets[id].title === input.sheet_name,
+          Object.keys(sheets).find(
+            (id) => sheets[id].title === input.sheet_name,
           );
-        requireValue(sid && world.sheets[sid], 'Unknown sheet');
+        requireValue(sid && sheets[sid], 'Unknown sheet');
         const ranges = input.ranges || [input.range];
         requireValue(
           Array.isArray(ranges) && ranges.every((x) => typeof x === 'string'),
@@ -157,7 +174,7 @@ export async function startMock(seed, options = {}) {
         output = {
           sheet_id: sid,
           ranges: ranges.map((range) => {
-            const v = values(`${sid}!${range}`);
+            const v = values(`${sid}!${range}`, sheets);
             return {
               range,
               values: v.values,
@@ -177,27 +194,140 @@ export async function startMock(seed, options = {}) {
       } else fail(501, 990001, `ENV_UNSUPPORTED: sheet tool ${body.tool_name}`);
       return { output: JSON.stringify(output) };
     }
+    if (
+      method === 'POST' &&
+      p ===
+        `/open-apis/sheet_ai/v2/spreadsheets/${spreadsheetToken}/tools/invoke_write`
+    ) {
+      let input;
+      try {
+        input = JSON.parse(body.input);
+      } catch {
+        fail(400, 99992402, 'Invalid tool input');
+      }
+      if (body.tool_name !== 'set_cell_range')
+        fail(501, 990001, `ENV_UNSUPPORTED: sheet tool ${body.tool_name}`);
+      if (
+        Object.keys(input).some(
+          (key) =>
+            !['excel_id', 'sheet_id', 'sheet_name', 'range', 'cells'].includes(
+              key,
+            ),
+        )
+      )
+        fail(501, 990001, 'ENV_UNSUPPORTED: sheet write options');
+      const sid =
+        input.sheet_id ||
+        Object.keys(sheets).find((id) => sheets[id].title === input.sheet_name);
+      const sheet = sheets[sid];
+      requireValue(sheet, 'Unknown sheet');
+      const match = /^([A-Z]+)([1-9][0-9]*)(?::([A-Z]+)([1-9][0-9]*))?$/.exec(
+        input.range || '',
+      );
+      requireValue(match, 'Finite A1 range required');
+      const col = (letters) =>
+        [...letters].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) - 1;
+      const left = col(match[1]),
+        top = Number(match[2]) - 1;
+      const right = col(match[3] || match[1]),
+        bottom = Number(match[4] || match[2]) - 1;
+      requireValue(
+        left <= right && top <= bottom && bottom < 100000 && right < 1000,
+        'Invalid write range',
+      );
+      requireValue(
+        Array.isArray(input.cells) &&
+          input.cells.length === bottom - top + 1 &&
+          input.cells.every(
+            (row) => Array.isArray(row) && row.length === right - left + 1,
+          ),
+        'Cell matrix must match range',
+      );
+      for (const row of input.cells)
+        for (const cell of row) {
+          if (!cell || Object.keys(cell).some((key) => key !== 'value'))
+            fail(
+              501,
+              990001,
+              'ENV_UNSUPPORTED: only cell values are supported',
+            );
+          requireValue(
+            ['string', 'number', 'boolean'].includes(typeof cell.value),
+            'Invalid cell value',
+          );
+        }
+      for (let y = top; y <= bottom; y++) {
+        while (sheet.values.length <= y) sheet.values.push([]);
+        for (let x = left; x <= right; x++) {
+          while (sheet.values[y].length <= x) sheet.values[y].push('');
+          sheet.values[y][x] = input.cells[y - top][x - left].value;
+        }
+      }
+      return {
+        output: JSON.stringify({
+          sheet_id: sid,
+          range: input.range,
+          updated_cells: input.cells.length * input.cells[0].length,
+        }),
+      };
+    }
     const baseV3 = `/open-apis/base/v3/bases/${world.base.app_token}/tables/${world.base.table_id}`;
-    const fields = [
-      {
-        field_id: 'fld_system',
-        field_name: 'System',
-        name: 'System',
-        type: 'text',
-      },
-      {
-        field_id: 'fld_log',
-        field_name: 'Maintenance log',
-        name: 'Maintenance log',
-        type: 'text',
-      },
+    const fieldNames = [
+      ...new Set(world.base.records.flatMap((r) => Object.keys(r.fields))),
     ];
+    const fields = (
+      world.base.fields ||
+      fieldNames.map((name) => ({
+        name,
+        type: world.base.records.some((r) => typeof r.fields[name] === 'number')
+          ? 'number'
+          : 'text',
+      }))
+    ).map((field, index) => ({
+      field_id: `fld_${index}`,
+      field_name: field.name,
+      ...field,
+    }));
+    const validFields = (updates) =>
+      updates &&
+      typeof updates === 'object' &&
+      !Array.isArray(updates) &&
+      Object.entries(updates).every(([key, value]) => {
+        const field = fields.find((f) => f.name === key);
+        return (
+          field &&
+          typeof value === (field.type === 'number' ? 'number' : 'string')
+        );
+      });
     const matrix = (records) => ({
       fields: fields.map((f) => f.name),
       record_id_list: records.map((r) => r.record_id),
       data: records.map((r) => fields.map((f) => r.fields[f.name])),
       has_more: false,
     });
+    const createRecord = (data) => {
+      requireValue(validFields(data), 'Invalid field map');
+      let id = 1;
+      while (
+        world.base.records.some((r) => r.record_id === `rec_created_${id}`)
+      )
+        id++;
+      const record = { record_id: `rec_created_${id}`, fields: clone(data) };
+      world.base.records.push(record);
+      return clone(record);
+    };
+    if (method === 'POST' && p === baseV3 + '/records')
+      return createRecord(body);
+    if (method === 'POST' && p === baseV3 + '/records/batch_create') {
+      requireValue(
+        Array.isArray(body.create_records) &&
+          body.create_records.length > 0 &&
+          body.create_records.length <= 200,
+        'create_records requires 1 to 200 records',
+      );
+      const records = body.create_records.map(createRecord);
+      return { records, record_id_list: records.map((r) => r.record_id) };
+    }
     if (method === 'GET' && p === baseV3 + '/fields')
       return { fields, field_list: fields, items: fields, has_more: false };
     if (method === 'GET' && p === baseV3 + '/records')
@@ -213,14 +343,7 @@ export async function startMock(seed, options = {}) {
         (r) => r.record_id === p.split('/').at(-1),
       );
       if (!r) fail(404, 1254043, 'Record not found');
-      requireValue(
-        Object.keys(body).every(
-          (k) =>
-            ['System', 'Maintenance log'].includes(k) &&
-            typeof body[k] === 'string',
-        ),
-        'Invalid field map',
-      );
+      requireValue(validFields(body), 'Invalid field map');
       Object.assign(r.fields, body);
       return clone(r);
     }
@@ -232,30 +355,23 @@ export async function startMock(seed, options = {}) {
       for (const [id, updates] of Object.entries(body.update_records)) {
         const r = world.base.records.find((r) => r.record_id === id);
         if (!r) fail(404, 1254043, 'Record not found');
-        requireValue(
-          Object.keys(updates).every(
-            (k) =>
-              ['System', 'Maintenance log'].includes(k) &&
-              typeof updates[k] === 'string',
-          ),
-          'Invalid field map',
-        );
+        requireValue(validFields(updates), 'Invalid field map');
         Object.assign(r.fields, updates);
       }
       return {};
     }
-    const valPrefix = `/open-apis/sheets/v2/spreadsheets/${world.spreadsheet_token}/`;
+    const valPrefix = `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/`;
     if (method === 'GET' && p.startsWith(valPrefix + 'values/'))
       return {
-        spreadsheetToken: world.spreadsheet_token,
+        spreadsheetToken: spreadsheetToken,
         revision: 1,
-        valueRange: values(p.slice((valPrefix + 'values/').length)),
+        valueRange: values(p.slice((valPrefix + 'values/').length), sheets),
       };
     if (method === 'GET' && p === valPrefix + 'values_batch_get') {
       const ranges = q.getAll('ranges').flatMap((x) => x.split(','));
       requireValue(ranges.length, 'ranges required');
       return {
-        spreadsheetToken: world.spreadsheet_token,
+        spreadsheetToken: spreadsheetToken,
         revision: 1,
         valueRanges: ranges.map(values),
       };
@@ -269,6 +385,58 @@ export async function startMock(seed, options = {}) {
           ),
         ),
       };
+    const attendeePath = p.match(
+      /^\/open-apis\/calendar\/v4\/calendars\/([^/]+)\/events\/([^/]+)\/attendees(?:\/(batch_delete))?$/,
+    );
+    if (attendeePath) {
+      const [, cid, eid, action] = attendeePath;
+      calendar(cid, method !== 'GET');
+      const event = world.events.find(
+        (e) => e.calendar_id === cid && e.event_id === eid,
+      );
+      if (!event) fail(404, 191002, 'Event not found');
+      if (method === 'GET' && !action) return page(event.attendees || [], q);
+      if (method === 'POST' && !action) {
+        requireValue(
+          Array.isArray(body.attendees) && body.attendees.length <= 1000,
+          'attendees required',
+        );
+        const added = [];
+        for (const a of body.attendees) {
+          if (a.type !== 'third_party')
+            fail(501, 990001, 'ENV_UNSUPPORTED: attendee type');
+          requireValue(
+            typeof a.third_party_email === 'string' &&
+              a.third_party_email.includes('@'),
+            'attendee email required',
+          );
+          event.attendees ||= [];
+          const existing = event.attendees.find(
+            (item) => item.third_party_email === a.third_party_email,
+          );
+          if (existing) {
+            added.push(clone(existing));
+            continue;
+          }
+          const attendee = {
+            ...clone(a),
+            attendee_id: `att_${event.attendees.length + 1}`,
+            rsvp_status: 'needs_action',
+          };
+          event.attendees.push(attendee);
+          added.push(clone(attendee));
+        }
+        return { attendees: added };
+      }
+      if (method === 'POST' && action === 'batch_delete') {
+        requireValue(Array.isArray(body.attendee_ids), 'attendee_ids required');
+        event.attendees = (event.attendees || []).filter(
+          (a) => !body.attendee_ids.includes(a.attendee_id),
+        );
+        return {};
+      }
+      fail(501, 990001, 'ENV_UNSUPPORTED: attendee operation');
+    }
     let m = p.match(
       /^\/open-apis\/calendar\/v4\/calendars\/([^/]+)(?:\/events(?:\/([^/]+))?)?$/,
     );
@@ -292,21 +460,25 @@ export async function startMock(seed, options = {}) {
           b = Number(q.get('end_time') || 'Infinity');
         return page(
           es.filter(
-            (e) =>
-              Number(e.end_time.timestamp) > a &&
-              Number(e.start_time.timestamp) < b,
+            (e) => eventTime(e.end_time) > a && eventTime(e.start_time) < b,
           ),
           q,
         );
       }
       if (method === 'POST' && !eid) {
         checkEvent(body);
+        while (
+          world.events.some((event) => event.event_id === `evt_${nextEvent}`)
+        )
+          nextEvent++;
         const event = {
           ...clone(body),
           event_id: `evt_${nextEvent++}`,
           calendar_id: cid,
           status: 'confirmed',
         };
+        if (event.vc_data?.vc_type === 'vc')
+          event.vc_data.meeting_url = `https://meeting.example.invalid/${event.event_id}`;
         world.events.push(event);
         return { event: clone(event) };
       }
@@ -339,10 +511,7 @@ export async function startMock(seed, options = {}) {
       };
     if (method === 'GET' && p === base + '/fields')
       return {
-        items: [
-          { field_name: 'System', type: 1 },
-          { field_name: 'Maintenance log', type: 1 },
-        ],
+        items: fields.map((f) => ({ ...f, type: f.type === 'number' ? 2 : 1 })),
         has_more: false,
       };
     if (p.startsWith(base + '/records/')) {
@@ -352,18 +521,36 @@ export async function startMock(seed, options = {}) {
       if (!r) fail(404, 1254043, 'Record not found');
       if (method === 'GET') return { record: clone(r) };
       if (method === 'PUT') {
-        requireValue(
-          body.fields &&
-            Object.keys(body.fields).every(
-              (k) =>
-                ['System', 'Maintenance log'].includes(k) &&
-                typeof body.fields[k] === 'string',
-            ),
-          'Unknown field or invalid text',
-        );
+        requireValue(validFields(body.fields), 'Unknown field or invalid text');
         Object.assign(r.fields, body.fields);
         return { record: clone(r) };
       }
+    }
+    if (
+      method === 'POST' &&
+      p === '/open-apis/im/v1/messages/reactions/batch_query'
+    ) {
+      requireValue(
+        Array.isArray(body.queries) && body.queries.length <= 20,
+        'queries must contain up to 20 messages',
+      );
+      const messages = body.queries.map((query) => {
+        const message = world.messages.find(
+          (m) => m.message_id === query.message_id,
+        );
+        if (!message) fail(404, 230001, 'Message not found');
+        return message;
+      });
+      return {
+        success_msg_reaction_counts: messages.map((m) => ({
+          message_id: m.message_id,
+          reaction_count: m.reaction_count || [],
+        })),
+        success_msg_reaction_details: messages.map((m) => ({
+          message_id: m.message_id,
+          message_reaction_items: m.message_reaction_items || [],
+        })),
+      };
     }
     if (method === 'GET' && p === '/open-apis/im/v1/chats')
       return page(world.chats, q);
@@ -458,6 +645,32 @@ export async function startMock(seed, options = {}) {
           });
       }
     }
+    for (const id of new Set([
+      ...Object.keys(before.sheets),
+      ...Object.keys(world.sheets),
+    ])) {
+      if (!isDeepStrictEqual(before.sheets[id], world.sheets[id]))
+        mutations.push({
+          kind: 'sheet',
+          id,
+          before: clone(before.sheets[id]),
+          after: clone(world.sheets[id]),
+        });
+    }
+    for (const token of new Set([
+      ...Object.keys(before.spreadsheets || {}),
+      ...Object.keys(world.spreadsheets || {}),
+    ])) {
+      const oldBook = before.spreadsheets?.[token],
+        newBook = world.spreadsheets?.[token];
+      if (!isDeepStrictEqual(oldBook, newBook))
+        mutations.push({
+          kind: 'spreadsheet',
+          id: token,
+          before: clone(oldBook),
+          after: clone(newBook),
+        });
+    }
     calls.push({
       seq: calls.length + 1,
       method: req.method,
@@ -472,7 +685,9 @@ export async function startMock(seed, options = {}) {
     res.writeHead(status, { 'content-type': 'application/json' });
     res.end(JSON.stringify(response));
   });
-  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  await new Promise((resolve) =>
+    server.listen(options.port ?? 0, options.host ?? '127.0.0.1', resolve),
+  );
   return {
     url: `http://127.0.0.1:${server.address().port}`,
     world,

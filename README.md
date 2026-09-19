@@ -6,7 +6,7 @@ Turn office agent failures into stateful environments for evaluation and reinfor
 
 把真实办公 badcase 转化为可复现、可验证的环境，用于评测与 RL 训练。
 
-通过真实 lark-cli，在有状态的飞书 Mock 中运行和评测 Agent。当前包含一个跨 Sheets、Calendar、Base、IM 的维护通知 case。
+通过真实 lark-cli，在有状态的飞书 Mock 中运行和评测 Agent。当前包含一个跨 Sheets、Calendar、Base、IM 的维护通知 case，以及正在迁移的 AutomationBench 中文飞书任务。全量迁移目标为 600 道正式公开题和 200 道 simple 题，尚未全部完成。
 
 ```text
 tasks/maintenance-notice/   Harbor task：任务、seed、工具说明、参考解、评分器
@@ -16,6 +16,14 @@ scripts/                   CLI 构建、Harbor 打包与容器测试
 src/                       保留的本地 SDK 运行器及 Codex hook 接入
 tests/                     OfficeGym 自身回归测试
 ```
+
+## AutomationBench 迁移
+
+迁移使用上游固定版本 `4a8e1061254004d9dac807054eed33fad7d1ff14`，逐题状态见 `scripts/migration/automationbench.json`。200 道 simple 已通过本地 CLI 参考解及反例检查，600 道正式题仍在迁移；新任务容器尚未验收。任务以领域和原始 ID 联合标识，避免不同领域 ID 重复。原 SaaS 工作流适配为飞书业务，结果不等同于官方 AutomationBench 分数。
+
+新任务直接使用 Harbor 目录格式：先运行 `bash scripts/build-images.sh` 构建公共镜像，再使用 `harbor run --path tasks/<任务目录> --agent oracle`。每题的 Compose 连接独立 agent/Mock；评分通过后端采集的状态文件在独立容器中执行。本机尚未做这些新任务的完整 Harbor/容器验证。
+
+本地确定性检查：`npx tsx --test tests/migration.test.ts`，覆盖真实 Mock CLI 参考解、空操作失败及误改拒绝。上游邮件在客户资料任务中改为飞书消息通知，CRM 记录改为多维表格台账；原数据字面值保留，instruction 用中文，额外增加无关数据保护。许可见 `LICENSES/AutomationBench.txt`。具体语义调整见 [迁移说明](scripts/migration/README.md)。
 
 ## 本地运行
 

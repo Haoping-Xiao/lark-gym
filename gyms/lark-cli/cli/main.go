@@ -47,8 +47,8 @@ func main() {
 		os.Exit(2)
 	}
 	u, err := url.Parse(os.Getenv("FEISHU_MOCK_URL"))
-	if err != nil || u == nil || u.Scheme != "http" || u.Hostname() != "127.0.0.1" || u.Port() == "" || u.User != nil || u.RawQuery != "" || u.Path != "" {
-		fmt.Fprintln(os.Stderr, "FEISHU_MOCK_URL must be http://127.0.0.1:<port>; this binary never uses production credentials")
+	if err != nil || u == nil || u.Scheme != "http" || (u.Hostname() != "127.0.0.1" && u.Hostname() != "mock") || u.Port() == "" || u.User != nil || u.RawQuery != "" || u.Path != "" {
+		fmt.Fprintln(os.Stderr, "FEISHU_MOCK_URL must be http://127.0.0.1:<port> or http://mock:<port>; this binary never uses production credentials")
 		os.Exit(2)
 	}
 	credential.Register(mockCredentials{})

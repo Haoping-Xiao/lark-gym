@@ -1,0 +1,11 @@
+# Harbor 0.23.0; run from the repository root after scripts/build-images.sh.
+job_name: automationbench-oracle
+jobs_dir: runs/harbor
+n_concurrent_trials: 2
+agents:
+  - name: oracle
+environment:
+  type: docker
+datasets:
+  - path: tasks
+    task_names: ['automationbench-*']

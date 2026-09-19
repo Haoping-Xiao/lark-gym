@@ -1,0 +1,49 @@
+import { execFileSync } from 'node:child_process';
+const commands: string[][] = [
+  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'sheets',
+    '+cells-get',
+    '--spreadsheet-token',
+    'ss_csat',
+    '--sheet-id',
+    'sheet1',
+    '--range',
+    'A1:D1',
+  ],
+  [
+    'sheets',
+    '+cells-set',
+    '--spreadsheet-token',
+    'ss_csat',
+    '--sheet-id',
+    'sheet1',
+    '--range',
+    'A2',
+    '--cells',
+    '[[{"value": "Ben Ortiz"}]]',
+  ],
+  [
+    'sheets',
+    '+cells-set',
+    '--spreadsheet-token',
+    'ss_csat',
+    '--sheet-id',
+    'sheet1',
+    '--range',
+    'B2',
+    '--cells',
+    '[[{"value": 4}]]',
+  ],
+  ['im', '+chat-list', '--types=p2p,group'],
+  [
+    'im',
+    '+messages-send',
+    '--chat-id',
+    'oc_CSUP01',
+    '--text',
+    'Ben Ortiz 的满意度为 4/10，低于 7，请跟进。',
+  ],
+];
+for (const args of commands)
+  execFileSync(process.env.LARK_CLI || 'lark-cli', args, { stdio: 'inherit' });

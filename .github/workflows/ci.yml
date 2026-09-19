@@ -33,3 +33,22 @@ jobs:
         with:
           node-version: '24'
       - run: bash scripts/test-harbor-container.sh
+  native-harbor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
+      - run: bash scripts/build-images.sh
+      - run: harbor run --config experiments/eval/oracle.yaml
+      - run: python scripts/check-harbor-results.py runs/harbor/automationbench-oracle 1
+      - run: harbor run --config experiments/eval/nop.yaml
+      - run: python scripts/check-harbor-results.py runs/harbor/automationbench-nop 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-harbor-results
+          path: runs/harbor/

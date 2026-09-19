@@ -7,6 +7,8 @@ const { values } = parseArgs({
     seed: { type: 'string' },
     state: { type: 'string' },
     ready: { type: 'string' },
+    host: { type: 'string', default: '127.0.0.1' },
+    port: { type: 'string', default: '0' },
   },
 });
 if (!values.seed || !values.state || !values.ready)
@@ -17,7 +19,11 @@ const persist = (world, calls) => {
   writeFileSync(values.state + '.tmp', JSON.stringify({ seed, world, calls }));
   renameSync(values.state + '.tmp', values.state);
 };
-const backend = await startMock(seed, { onSnapshot: persist });
+const backend = await startMock(seed, {
+  onSnapshot: persist,
+  host: values.host,
+  port: Number(values.port),
+});
 persist(backend.world, backend.calls);
 writeFileSync(values.ready, backend.url);
 for (const signal of ['SIGINT', 'SIGTERM'])
