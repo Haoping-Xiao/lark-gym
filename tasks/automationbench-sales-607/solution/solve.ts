@@ -12,7 +12,7 @@ const commands: string[][] = [
     '--record-id',
     'rec_006xx000004QTM1',
     '--json',
-    '{"stage_name": "Closed Won", "description": "deal-wins"}',
+    '{"stage_name": "Closed Won", "description": "\\n已通知 deal-wins 群。"}',
   ],
   [
     'im',

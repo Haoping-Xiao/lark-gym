@@ -28,10 +28,11 @@ type Check = {
 };
 const expected: {
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
-  forbidden_messages?: { chat_id: string; contains: string[] }[];
+  forbidden_messages?: { chat_id?: string; contains: string[] }[];
   updates: Check[];
   events?: EventCheck[];
   create_contains?: Record<string, string[]>;
+  creation_contains?: Record<string, Record<string, string[]>>;
   cells?: {
     contains?: string[];
     spreadsheet_token?: string;
@@ -76,16 +77,18 @@ const created: RecordRow[] = world.base.records.filter(
   (r: RecordRow) => !originalIds.has(r.record_id),
 );
 const consumed = new Set<string>();
-const creationChecks = expected.creates.map((fields) => {
+const creationChecks = expected.creates.map((fields, index) => {
+  const contains = {
+    ...expected.create_contains,
+    ...expected.creation_contains?.[String(index)],
+  };
   const match = created.find(
     (r) =>
       !consumed.has(r.record_id) &&
       Object.entries(fields).every(([key, value]) =>
-        expected.create_contains?.[key]
+        contains[key]
           ? typeof r.fields[key] === 'string' &&
-            expected.create_contains[key].every((part) =>
-              String(r.fields[key]).includes(part),
-            )
+            contains[key].every((part) => String(r.fields[key]).includes(part))
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
@@ -114,32 +117,36 @@ const originalMessages = new Set(
 const sent = world.messages.filter(
   (m: { message_id: string }) => !originalMessages.has(m.message_id),
 );
-const messageChecks = (expected.messages || []).map((check) => ({
-  ...check,
-  passed: sent.some((m: { chat_id: string; body: { content: string } }) => {
-    if (m.chat_id !== check.chat_id) return false;
-    let text: string;
-    try {
-      text = JSON.parse(m.body.content).text;
-    } catch {
-      return false;
-    }
-    return (
-      typeof text === 'string' &&
-      check.contains.every((part) =>
-        text
-          .replace(/\s/g, '')
-          .toLowerCase()
-          .includes(part.replace(/\s/g, '').toLowerCase()),
-      )
-    );
-  }),
-}));
+const consumedMessages = new Set<string>();
+const messageChecks = (expected.messages || []).map((check) => {
+  const match = sent.find(
+    (m: { message_id: string; chat_id: string; body: { content: string } }) => {
+      if (consumedMessages.has(m.message_id) || m.chat_id !== check.chat_id)
+        return false;
+      try {
+        const text = JSON.parse(m.body.content).text;
+        return (
+          typeof text === 'string' &&
+          check.contains.every((part) =>
+            text
+              .replace(/\s/g, '')
+              .toLowerCase()
+              .includes(part.replace(/\s/g, '').toLowerCase()),
+          )
+        );
+      } catch {
+        return false;
+      }
+    },
+  );
+  if (match) consumedMessages.add(match.message_id);
+  return { ...check, passed: Boolean(match) };
+});
 const forbiddenMessageChecks = (expected.forbidden_messages || []).map(
   (check) => ({
     ...check,
     passed: !sent.some((m: { chat_id: string; body: { content: string } }) => {
-      if (m.chat_id !== check.chat_id) return false;
+      if (check.chat_id && m.chat_id !== check.chat_id) return false;
       try {
         const text = JSON.parse(m.body.content).text;
         return (

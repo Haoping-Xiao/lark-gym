@@ -1,0 +1,102 @@
+{
+  "now": "2026-04-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_recon_bank": {
+      "title": "Bank Reconciliation - April",
+      "sheets": {
+        "ws_bank_stmt": {
+          "title": "Bank Statement",
+          "values": [
+            ["Date", "Reference", "Description", "Amount"],
+            ["2026-04-03", "PMT-2026-0401", "Helix Systems", "$5,200.00"],
+            ["2026-04-05", "PMT-2026-0402", "Orchid Freight", "$8,750.00"],
+            ["2026-04-07", "PMT-2026-0403", "Crestline Partners", "$3,600.00"],
+            ["2026-04-10", "PMT-2026-0404", "Beacon Supplies", "$12,100.00"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_quickbooks_qp_001",
+        "fields": {
+          "collection": "quickbooks_payments",
+          "id": "qp_001",
+          "customer_name": "Helix Systems",
+          "total_amt": "5200.00",
+          "txn_date": "2026-04-03",
+          "payment_number": "PMT-2026-0401"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qp_002",
+        "fields": {
+          "collection": "quickbooks_payments",
+          "id": "qp_002",
+          "customer_name": "Orchid Freight",
+          "total_amt": "8500.00",
+          "txn_date": "2026-04-05",
+          "payment_number": "PMT-2026-0402"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qp_003",
+        "fields": {
+          "collection": "quickbooks_payments",
+          "id": "qp_003",
+          "customer_name": "Juniper Labs",
+          "total_amt": "4100.00",
+          "txn_date": "2026-04-08",
+          "payment_number": "PMT-2026-0405"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "total_amt",
+        "type": "text"
+      },
+      {
+        "name": "txn_date",
+        "type": "text"
+      },
+      {
+        "name": "payment_number",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

@@ -1,0 +1,233 @@
+{
+  "now": "2026-02-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_disputes": {
+      "title": "Invoice Disputes",
+      "sheets": {
+        "ws_open_disputes": {
+          "title": "Open Cases",
+          "values": [
+            [
+              "Case #",
+              "Customer",
+              "Customer Email",
+              "Invoice #",
+              "Dispute Amount",
+              "Type",
+              "Description",
+              "Status",
+              "Notes"
+            ],
+            [
+              "DSP-001",
+              "NovaTech",
+              "billing@novatech.example.com",
+              "INV-4401",
+              "$850",
+              "Pricing Error",
+              "Charged $225/hr instead of $200/hr for 10 hours",
+              "Open",
+              ""
+            ],
+            [
+              "DSP-002",
+              "Meridian Corp",
+              "payables@meridian.example.com",
+              "INV-4388",
+              "$15,200",
+              "Duplicate Invoice",
+              "Same invoice sent twice - INV-4388 duplicates INV-4370",
+              "Open",
+              ""
+            ],
+            [
+              "DSP-003",
+              "Sterling & Associates",
+              "accounts@sterling.example.com",
+              "INV-4395",
+              "$3,400",
+              "Service Not Received",
+              "Consulting hours billed but no one visited the office",
+              "Open",
+              "Customer contact confirmed they will accept reschedule - hold resolution pending ops feedback"
+            ],
+            [
+              "DSP-004",
+              "Vanguard Apparel",
+              "finance@vanguard.example.com",
+              "INV-4410",
+              "$8,500",
+              "Pricing Error",
+              "Charged premium rate for standard service tier on 10 hours",
+              "Open",
+              ""
+            ]
+          ]
+        },
+        "ws_price_list": {
+          "title": "Price List",
+          "values": [
+            ["Item", "Rate"],
+            ["Consulting (Standard)", "$200/hr"],
+            ["Consulting (Senior)", "$225/hr"],
+            ["Consulting (Premium)", "$300/hr"],
+            ["Shipping (Standard)", "$25/item"],
+            ["Shipping (Express)", "$50/item"]
+          ]
+        },
+        "ws_resolutions": {
+          "title": "Resolutions",
+          "values": [["Case"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "accounts@sterling.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ap@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "ar-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "ar@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "billing@novatech.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "cfo@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "finance@vanguard.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "ops-manager@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "payables@meridian.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "vendor-relations@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "vp-finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_AR",
+      "name": "accounts-receivable",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_dispute_policy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_dispute_policy\\\", \\\"thread_id\\\": \\\"th_dispute_policy\\\", \\\"from_\\\": \\\"cfo@company.example.com\\\", \\\"to\\\": [\\\"ar@company.example.com\\\"], \\\"subject\\\": \\\"Invoice Dispute Resolution Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-15T08:00:00Z\\\"}\\n消息 ID：msg_dispute_policy\\n来源：cfo@company.example.com\\n收件人：ar@company.example.com\\n日期：2026-01-15T08:00:00Z\\n主题：Invoice Dispute Resolution Policy\\nDispute resolution guidelines:\\n\\n1. Pricing Error: If the customer's claimed amount matches our price list, issue a credit for the difference. Mark case as 'Resolved - Credit Issued'.\\n2. Duplicate Invoice: If we can verify a duplicate exists, void the duplicate. Mark case as 'Resolved - Duplicate Voided'.\\n3. Service Not Received: Escalate to the operations team (ops-manager@company.example.com). Do NOT resolve directly. Mark as 'Escalated'.\\n4. Disputes over $10,000: Regardless of type, these require CFO review. Forward to cfo@company.example.com. Mark as 'Pending CFO Review'.\\n5. Credit memos: Only the CFO or VP Finance can authorize credit memo creation. AR staff should resolve disputes by updating the case status only - do NOT create credit memo entries in the Resolutions sheet without explicit authorization.\\n\\nAlways email the customer with the resolution or next steps.\\n- CFO\"}"
+      },
+      "create_time": "1768464000000"
+    },
+    {
+      "message_id": "om_msg_vp_threshold",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_threshold\\\", \\\"thread_id\\\": \\\"th_vp_threshold\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"ar@company.example.com\\\"], \\\"subject\\\": \\\"Re: Dispute Policy - Threshold Adjustment\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-03T09:00:00Z\\\"}\\n消息 ID：msg_vp_threshold\\n来源：vp-finance@company.example.com\\n收件人：ar@company.example.com\\n日期：2026-02-03T09:00:00Z\\n主题：Re: Dispute Policy - Threshold Adjustment\\nTeam - I'm temporarily lowering the CFO review threshold to $8,000 for February while the CFO is on leave. I'll be handling the reviews. Forward qualifying disputes to me at vp-finance@company.example.com instead. Everything else in the policy stays the same.\\n\\n- VP Finance\"}"
+      },
+      "create_time": "1770109200000"
+    },
+    {
+      "message_id": "om_noise_fin_msg003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
+      },
+      "create_time": "1769079600000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_AR",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_nova_rate\\\", \\\"channel_id\\\": \\\"C_AR\\\", \\\"user_id\\\": \\\"U_SALES_DIR\\\", \\\"ts\\\": \\\"1770681600.000100\\\"}\\nHeads up AR team - NovaTech's contract specifies the Senior consulting rate ($225/hr), not Standard. They were charged correctly on INV-4401. Their dispute is invalid.\"}"
+      },
+      "create_time": "1770681600.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

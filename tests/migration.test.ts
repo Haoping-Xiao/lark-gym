@@ -49,6 +49,43 @@ for (const task of (await readdir('tasks')).filter((n) =>
             JSON.stringify(backend.calls.filter((c) => c.status !== 200)),
         );
         const solved = structuredClone(backend.world);
+        const expected = JSON.parse(
+          await readFile(`tasks/${task}/tests/expected.json`, 'utf8'),
+        );
+        const forbidden = expected.forbidden_messages?.find(
+          (check: { chat_id?: string; contains: string[] }) =>
+            check.contains.length > 0 &&
+            backend.world.messages.some(
+              (m: { message_id: string; chat_id: string }) =>
+                (!check.chat_id || m.chat_id === check.chat_id) &&
+                !seed.messages.some(
+                  (old: { message_id: string }) =>
+                    old.message_id === m.message_id,
+                ),
+            ),
+        );
+        if (forbidden) {
+          const message = backend.world.messages.find(
+            (m: { message_id: string; chat_id: string }) =>
+              (!forbidden.chat_id || m.chat_id === forbidden.chat_id) &&
+              !seed.messages.some(
+                (old: { message_id: string }) =>
+                  old.message_id === m.message_id,
+              ),
+          );
+          const content = JSON.parse(message.body.content);
+          message.body.content = JSON.stringify({
+            ...content,
+            text: content.text + ' ' + forbidden.contains.join(' '),
+          });
+          assert.equal(
+            await grade(),
+            '0',
+            'Forbidden content must fail even when required content remains',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
+
         const beforeIds = new Set(
           seed.base.records.map((r: { record_id: string }) => r.record_id),
         );

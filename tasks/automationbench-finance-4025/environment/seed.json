@@ -1,0 +1,88 @@
+{
+  "now": "2026-02-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_bills_payable": {
+      "title": "Bills Payable",
+      "sheets": {
+        "ws_aging_policy": {
+          "title": "Aging Policy",
+          "values": [
+            ["Bucket", "Range"],
+            ["Current", "0-30 days past due"],
+            ["31-60", "31-60 days past due"],
+            ["61-90", "61-90 days past due"],
+            ["Over 90", "91+ days past due"],
+            [
+              "Alert Threshold",
+              "90+ day balances trigger Slack alert to AP channel"
+            ]
+          ]
+        },
+        "ws_unpaid": {
+          "title": "Unpaid Bills",
+          "values": [
+            ["Vendor", "Bill #", "Amount", "Due Date", "Status"],
+            ["Acme Supplies", "BL-001", "$2,400", "2026-02-01", "Unpaid"],
+            ["CloudHost Pro", "BL-002", "$9,600", "2026-01-10", "Unpaid"],
+            ["Metro Supply", "BL-003", "$1,800", "2025-12-05", "Unpaid"],
+            ["TechWare Inc", "BL-004", "$5,500", "2025-11-01", "Unpaid"],
+            ["Global Logistics", "BL-005", "$3,200", "2026-02-10", "Unpaid"],
+            ["Pinnacle Consulting", "BL-006", "$7,100", "2025-10-20", "Unpaid"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "cfo@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_AP",
+      "name": "accounts-payable",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f001\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_SARAH\\\", \\\"ts\\\": \\\"1706100000.000100\\\"}\\nReminder: month-end close starts next Monday. Please have all journal entries submitted by Thursday.\"}"
+      },
+      "create_time": "1706100000.000100"
+    }
+  ]
+}
