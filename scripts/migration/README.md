@@ -113,3 +113,16 @@ marketing-1055 补明确机会筛选阈值及队列优先级，保留原用户�
 容器验证记录：提交7424ddc36f75642fe42ab498b0819086d2039cb7的326题已通过GitHub run 35465615502；下载11份产物核对326个唯一任务，参考解reward=1、空操作reward=0，共652次独立Harbor trial。此证据仅属于该提交，不自动覆盖后续新增或修改任务。
 
 - hr-5044 LinkedIn仅离线快照，不声称重新访问或核验履历；内部转岗简报只用内部材料。源无finalist标记，明确将仍Confirmed外部候选人作为本批背调申请范围；源无日历实例，撤回只改Schedule状态。5046 Jira改为it_tickets，保留项目、优先级与获准系统，工单不等于实际开通权限。5048 保留原Airtable来源身份，仅成功培训更新认证。
+
+- hr-5043/5061/5079 的DocuSign模板完整保留在来源台账，签署流程改成signature_requests记录和私聊请求，发送后才回写原状态列；Sent不等于Signed。5047/5080 短信改为以源电话号码命名的飞书私聊，保持原同意条件，没有实际Twilio发送。5047 保留EST原文，不修正源时区。
+- hr-5032/5049 删除目录/撤销离职行改为清空全部单元格并保留物理行号。5049 只给未过离职日的有效待安排者发链接，不制造Calendly预约；诉讼沟通交Legal，HR Director收确认离职名单，自行关闭人事记录仍被禁止。
+- hr-5053 源缺BambooHR员工实体，登记当前生效的employee_records，未来晋升不提前执行。5054 仅建合规任务，不提交监管材料。5057 Drive目录改为document_folders逻辑台账并保留源parent，不声称提供Drive访问控制；首日时间/地点缺失明确待确认。5058 必需私聊全部发出后才标Processed，禁止公开纪律细节。
+- hr-5060 按源Days Open及门槛判断风险并计算每申请成本。5062 补明确周窗口，源缺Monday实体，状态登记pip_status_updates，不宣称评审已完成。5063 源缺Trello实体，transfer_cards记录处理结果，批准调动不提前修改实际部门。
+- hr-5065 固定09:30包含最后提问，用source_message_id关联群回复而非原生线程；未知LASIK政策只转交。5066 Legal收到条件背调信息后才开始入职登记；导师只收邮箱账号批准请求，未获批不向IT申请，按有效日期与备用导师执行。5067 Tabled不转成执行任务。5069 只标重复并通知涉及的招聘者，不合并删除。
+- hr-5070 未到离职日者登记Departing和Scheduled撤权，Processed仅表示准备事项完成，不能提前断访问。5072 尊重临时可选出勤，不公布个人缺席。5074 源无差绩效阈值和调拨算法，明确已激活CPH>5000以及最高CPH渠道预算20%转最低付费CPH渠道的建议规则，预算不直接改。5075 缺医疗clearance仅交HR；其他员工的账号动作模拟记账，未来回岗Scheduled，会议补定10:00-11:00 UTC。
+- hr-5078 禁运重组不通知；5081 只交最终奖金、不改工资；5083 最新招聘冻结覆盖旧批准，只报告暂停。5085 明确以员工plan更正来信为本题有效材料，登记福利台账和同步来源；不办理1099。5086 Recruitee改candidate_tags，逐候选人结果留痕，未经批准薪资/日期不改。5087 合格调动只批准并交HRIS Admin，不执行人事后端写入。5088 最新Session A也已过去，标Awaiting Makeup并只报名未来课程，不伪造历史报名或完成。
+- hr-5089 协议模板和数值周数进入模拟签署请求，诉讼/竞业作废交Legal。5090 SECREVIEW台账含经理路由，保留Access Level，不直接撤权。5091 休学只写learning_deferrals，区别于课程assignment，不代填完成。5092 保密继任规划写内部台账，保留TBD职位；原position readiness沿用，不声称重新评估候选人或生产ACL。
+- hr-5093 Trello comment映射card_comments，岗位准备清单为题内补充，已有场地不重订。5094 源EST按固定UTC-05换算，不猜EDT，Zoom注册改为视频日历+attendees。5095 明确shift时区与Calendar同为UTC，冲突选请求之后最早合法时段；旧请求只重确认。Slack用户私聊使用源user ID会话，与邮件地址私聊分别保留。
+- hr-5096 分类转交保留原文，拒绝额外Legal CC和代办写入，异常外部存款请求交Security。5098 Calendly改每经理一条office_hours配置与逻辑引用，不伪造可用预约URL；明确Priya兼任Product和Engineering，缺Platform团队地址交David代转。5099 页面正文保持来源省略号，权限/删除分别请求负责人，源数据不删。
+- hr-5101 当前薪资不提前覆盖，生效日前用Scheduled调整记录，Processed指HR处理完成。5102 仅Enrolled的有效过期计划标Lapsed。5103 最新试用期排除与全职条件同时适用。5104 保留Recorded Amount历史，新增正确金额与差额方向；Resolved指核查完成，不表示实际发薪。
+- hr-5105 周年按整月名单计算，未来当月周年也纳入，不给executives额外抄送。5106 按自然日分级，邮件CC改独立私聊，IT只收到暂停请求。5107 远程设备缺家庭地址标Home address required，不声称已发货。5108 工作日只计周一至周五；标准提前日已过但尚未离职者补定当日15:00 UTC，经理空缺由HR Director协调，补充三项问卷，不给外部vendor名单。

@@ -29,7 +29,7 @@ for row in rows:
         assert index.isdigit() and 0<=int(index)<len(row['info']['assertions']) and isinstance(reason,str) and reason.strip(),(key,'invalid explicit assertion override',index)
     assertions=[a for i,a in enumerate(row['info']['assertions']) if str(i) not in overrides]
     for app,payload in src.items():
-        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable'] or empty(payload),(key,'unmapped source app',app)
+        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable','docusign','calendly','google_drive'] or empty(payload),(key,'unmapped source app',app)
     records=[]
     if recipe.get('mail_state'):
         for item in src.get('gmail',{}).get('messages',[]):
@@ -50,6 +50,14 @@ for row in rows:
             for item in table.get('records',[]):
                 assert not set(item['fields'])&{'collection','source_base_id','source_table_id','source_record_id','source_metadata'},(key,'airtable field collision')
                 records.append({'record_id':'rec_airtable_'+base['id']+'_'+table['id']+'_'+item['id'],'fields':{'collection':'airtable_records','source_base_id':base['id'],'source_table_id':table['id'],'source_record_id':item['id'],'source_metadata':scalar({k:v for k,v in item.items() if k!='fields'}),**{k:scalar(v) for k,v in item['fields'].items()}}})
+    for app in ['docusign','calendly','google_drive']:
+        for collection,items in src.get(app,{}).items():
+            if collection=='actions' and empty(items):continue
+            assert isinstance(items,list),(key,'unsupported scheduling collection',app,collection)
+            for index,item in enumerate(items):
+                assert isinstance(item,dict),(key,'invalid scheduling record',app,collection)
+                identity=str(item.get('id',item.get('template_id',item.get('uri','source_index_'+str(index)))))
+                records.append({'record_id':'rec_'+app+'_'+collection+'_'+identity,'fields':{'collection':app+'_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     for collection,items in src.get('salesforce',{}).items():
         for item in items:
             records.append({'record_id':'rec_'+str(item['id']),'fields':{'collection':collection,**{k:scalar(v) for k,v in item.items() if k!='id'}}})
@@ -154,6 +162,8 @@ for row in rows:
         attendees=[{'attendee_id':'at_'+str(i),'type':'third_party','third_party_email':a if isinstance(a,str) else a['email']} for i,a in enumerate(event.get('attendees',[]))]
         events.append({'event_id':event['id'],'calendar_id':cid,'summary':event.get('summary',''),'description':event.get('description','')+'\n原始元数据：'+json.dumps(event,ensure_ascii=False),'start_time':calendar_time(event['start__dateTime']),'end_time':calendar_time(event['end__dateTime']),'status':event.get('status','confirmed'),'attendees':attendees,**({'location':{'name':event['location']}} if event.get('location') else {})})
     chats=[{'chat_id':'oc_mail','name':'业务来信','chat_mode':'group'}];messages=[]
+    userDestinations={u['id']:'oc_user_'+u['id'] for u in src.get('slack',{}).get('users',[])}
+    chats.extend({'chat_id':userDestinations[u['id']],'name':u['id']+' | '+u.get('real_name',u.get('name',u['id'])),'chat_mode':'p2p'} for u in src.get('slack',{}).get('users',[]))
     for profileIndex,profile in enumerate(src.get('linkedin',{}).get('profiles',[])):
         profileUrl=profile.get('public_profile_url',profile.get('profile_url'))
         if profileUrl:
@@ -164,6 +174,9 @@ for row in rows:
         messages.append({'message_id':'om_'+m['id'],'chat_id':'oc_mail','msg_type':'text','body':{'content':json.dumps({'text':text},ensure_ascii=False)},'create_time':millis(m.get('date'))})
     emails=sorted(set(re.findall(r'[A-Za-z0-9_.+%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',json.dumps(src)+' '+json.dumps(row['prompt'])+' '+recipe['instruction'])))
     destinations={address:'oc_email_'+str(i) for i,address in enumerate(emails)}
+    phones=sorted(set(re.findall(r'\+[1-9][0-9]{7,14}',json.dumps(src))))
+    phoneDestinations={phone:'oc_phone_'+str(i) for i,phone in enumerate(phones)}
+    chats.extend({'chat_id':cid,'name':phone,'chat_mode':'p2p'} for phone,cid in phoneDestinations.items())
     chats.extend({'chat_id':cid,'name':address,'chat_mode':'p2p'} for address,cid in destinations.items())
     for c in src.get('slack',{}).get('channels',[]):chats.append({'chat_id':'oc_'+c['id'],'name':c['name'],'chat_mode':'group'})
     for i,m in enumerate(src.get('slack',{}).get('messages',[])):
@@ -207,7 +220,7 @@ for row in rows:
         if event.get('attendees'):commands.append(['calendar','event.attendees','create','--calendar-id',cid,'--event-id',eid,'--data',json.dumps({'attendees':[{'type':'third_party','third_party_email':a} for a in event['attendees']]})])
     messageChecks=[]
     for m in recipe.get('messages',[]):
-        cid=destinations[m['email']] if m.get('email') else next(c['chat_id'] for c in chats if c['name']==m['channel'])
+        cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else next(c['chat_id'] for c in chats if c['name']==m['channel'])
         messageChecks.append({'chat_id':cid,'contains':m['contains']})
         commands.append(['im','+messages-send','--chat-id',cid,'--text',m['text']])
     if 'command_order' in recipe:
@@ -236,6 +249,15 @@ for row in rows:
                 if address in destinations:forbidden.append({'chat_id':destinations[address],'contains':parts})
             if not addresses:
                 for cid in destinations.values():forbidden.append({'chat_id':cid,'contains':parts})
+        elif a['type']=='slack_dm_not_sent_to':
+            uid=a.get('recipient_id',a.get('user_id'))
+            if uid in userDestinations:
+                tokens=a.get('text_contains',[])
+                forbidden.append({'chat_id':userDestinations[uid],'contains':[tokens] if isinstance(tokens,str) else tokens})
+        elif a['type']=='twilio_sms_not_sent':
+            assert a['to'] in phoneDestinations,(key,'missing source phone',a['to'])
+            tokens=a.get('body_contains',[])
+            forbidden.append({'chat_id':phoneDestinations[a['to']],'contains':[tokens] if isinstance(tokens,str) else tokens})
         elif a['type'] in ['slack_message_not_exists','slack_message_not_in_channel']:
             scope=a.get('channel_name',a.get('channel',a.get('channel_id')))
             cids=[next(c['chat_id'] for c in chats if c['name']==scope or c['chat_id']=='oc_'+str(scope))] if scope else [c['chat_id'] for c in chats if c.get('chat_mode')!='p2p' and c['chat_id']!='oc_mail']

@@ -1,0 +1,109 @@
+{
+  "now": "2026-03-20T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_policy_ack": {
+      "title": "Policy Acknowledgment Tracker",
+      "sheets": {
+        "ws_status": {
+          "title": "Status",
+          "values": [
+            ["Employee", "Email", "Signed", "On Leave"],
+            ["Alice Park", "alice.park@company.example.com", "No", "No"],
+            ["Bob Chen", "bob.chen@company.example.com", "Yes", "No"],
+            ["Carol Diaz", "carol.diaz@company.example.com", "No", "Yes"],
+            ["Dave Kim", "dave.kim@company.example.com", "No", "No"],
+            ["Eve Liu", "eve.liu@company.example.com", "No", "No"]
+          ]
+        },
+        "ws_ack_status": {
+          "title": "Acknowledgment Status Convention",
+          "values": [
+            ["Outcome", "Tracker Value"],
+            ["DocuSign acknowledgment dispatched", "Sent"],
+            [
+              "Unsigned employee currently on leave; dispatch deferred",
+              "Deferred"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_docusign_templates_tmpl_policy_ack",
+        "fields": {
+          "collection": "docusign_templates",
+          "template_id": "tmpl_policy_ack",
+          "name": "Policy Acknowledgment Form"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "template_id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "employee",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice.park@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob.chen@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol.diaz@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dave.kim@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eve.liu@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

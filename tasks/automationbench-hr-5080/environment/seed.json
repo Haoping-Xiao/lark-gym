@@ -1,0 +1,106 @@
+{
+  "now": "2026-03-20T16:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_emergency": {
+      "title": "Employee Emergency Contacts",
+      "sheets": {
+        "ws_phones": {
+          "title": "Phone Directory",
+          "values": [
+            ["Employee", "Phone", "Office", "SMS Opt-In"],
+            ["Alice Park", "+15125550201", "Austin", "Yes"],
+            ["Bob Chen", "+15125550202", "Remote", "Yes"],
+            ["Sarah Nakamura", "+15125550203", "Austin", "Yes"],
+            ["Carol Diaz", "+14155550204", "San Francisco", "Yes"],
+            ["Alicia Fernandez", "+15125550205", "Austin", "No"]
+          ]
+        },
+        "ws_office_contacts": {
+          "title": "Office Contacts",
+          "values": [
+            ["Office", "Facilities Email", "Office Manager"],
+            ["Austin", "facilities@company.example.com", "Janet Mills"],
+            ["San Francisco", "sf-facilities@company.example.com", "Tom Brady"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_phone_0",
+      "name": "+14155550204",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_1",
+      "name": "+15125550201",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_2",
+      "name": "+15125550202",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_3",
+      "name": "+15125550203",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_phone_4",
+      "name": "+15125550205",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "facilities@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "sf-facilities@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ANNOUNCE",
+      "name": "company-announcements",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_ANNOUNCE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_sm002\\\", \\\"channel_id\\\": \\\"C_ANNOUNCE\\\", \\\"user_id\\\": \\\"U_NOISE2\\\", \\\"ts\\\": \\\"2026-03-02T14:00:00Z\\\"}\\nDoes anyone know the wifi password for the visitor conference room?\"}"
+      },
+      "create_time": "2026-03-02T14:00:00Z"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_ANNOUNCE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_sm001\\\", \\\"channel_id\\\": \\\"C_ANNOUNCE\\\", \\\"user_id\\\": \\\"U_NOISE1\\\", \\\"ts\\\": \\\"2026-03-01T10:00:00Z\\\"}\\nReminder: parking lot B is closed for repaving this week. Use lot C.\"}"
+      },
+      "create_time": "2026-03-01T10:00:00Z"
+    }
+  ]
+}
