@@ -18,13 +18,18 @@ def millis(value):
 def calendar_time(value):
     return {'date':value} if re.fullmatch(r'\d{4}-\d{2}-\d{2}',value) else {'timestamp':str(int(int(millis(value))/1000))}
 recipes=json.loads(Path(__file__).with_name('formal.zh.json').read_text())
+selected=set(sys.argv[2:])
+assert not selected-set(recipes),('unknown task keys',selected-set(recipes))
 for row in rows:
     key=f"{row['domain']}-{row['example_id']}"
-    if key not in recipes:continue
+    if key not in recipes or (selected and key not in selected):continue
     recipe=recipes[key];src=row['info']['initial_state'];now=recipe.get('now',src.get('meta',{}).get('current_time','2026-02-24T09:00:00Z'))
     for app,payload in src.items():
-        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp'] or empty(payload),(key,'unmapped source app',app)
+        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram'] or empty(payload),(key,'unmapped source app',app)
     records=[]
+    if recipe.get('mail_state'):
+        for item in src.get('gmail',{}).get('messages',[]):
+            records.append({'record_id':'rec_mail_'+str(item['id']),'fields':{'collection':'mail_messages',**{k:scalar(v) for k,v in item.items()}}})
     for user in src.get('slack',{}).get('users',[]):
         records.append({'record_id':'rec_user_'+user['id'],'fields':{'collection':'lookup_users',**{k:scalar(v) for k,v in user.items()}}})
     for collection,items in src.get('salesforce',{}).items():
@@ -53,6 +58,28 @@ for row in rows:
             flat={k:scalar(v) for k,v in item.items() if k not in ['id','properties']}
             assert not (set(flat)&set(properties)),(key,'hubspot property collision')
             records.append({'record_id':'rec_hubspot_'+str(item['id']),'fields':{'collection':'hubspot_'+collection,**flat,**{k:scalar(v) for k,v in properties.items()}}})
+    for collection,items in src.get('google_ads',{}).items():
+        assert isinstance(items,list),(key,'unsupported advertising collection',collection)
+        for item in items:
+            assert isinstance(item,dict) and 'id' in item,(key,'advertising record missing identity',collection)
+            records.append({'record_id':'rec_google_ads_'+collection+'_'+str(item['id']),'fields':{'collection':'google_ads_'+collection,**{k:scalar(v) for k,v in item.items()}}})
+    for collection,items in src.get('buffer',{}).items():
+        assert isinstance(items,list),(key,'unsupported scheduling collection',collection)
+        for item in items:
+            assert isinstance(item,dict) and 'id' in item,(key,'scheduling record missing identity',collection)
+            records.append({'record_id':'rec_buffer_'+collection+'_'+str(item['id']),'fields':{'collection':'buffer_'+collection,**{k:scalar(v) for k,v in item.items()}}})
+    for app in ['twitter','linkedin','facebook_pages','instagram']:
+        for collection,items in src.get(app,{}).items():
+            if collection in ['authenticated_user_id','authenticated_username']:
+                assert isinstance(items,str),(key,'invalid social identity',app,collection)
+                records.append({'record_id':'rec_'+app+'_'+collection,'fields':{'collection':app+'_identity','key':collection,'value':items}})
+                continue
+            if collection=='current_user_profile':items=[items] if items else []
+            assert isinstance(items,list),(key,'unsupported social collection',app,collection)
+            for index,item in enumerate(items):
+                assert isinstance(item,dict),(key,'invalid social record',app,collection)
+                identity=str(item.get('id','source_index_'+str(index)))
+                records.append({'record_id':'rec_'+app+'_'+collection+'_'+identity,'fields':{'collection':app+'_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     mailing=src.get('mailchimp',{})
     mailingLists={a['id'] for a in mailing.get('audiences',[])}
     subscribers=list(mailing.get('subscribers',[]))
@@ -84,6 +111,11 @@ for row in rows:
             w={**originalWorksheet,'id':originalWorksheet.get('id',originalWorksheet.get('worksheet_id'))}
             w['rows']=w.get('rows',[])+[r for r in sourceSheets.get('rows',[]) if r.get('spreadsheet_id')==book['id'] and r.get('worksheet_id')==w['id']]
             rs=[r.get('cells',{k:v for k,v in r.items() if k!='row_id'}) for r in w.get('rows',[])]
+            for original,cells in zip(w.get('rows',[]),rs):
+                sourceId=original.get('row_id')
+                if sourceId is not None and not str(sourceId).isdigit() and str(sourceId) not in map(str,cells.values()):
+                    assert 'source_row_id' not in cells,(key,'row identity field collision')
+                    cells['source_row_id']=str(sourceId)
             extraHeaders=[k for operation in recipe.get('sheets',[]) if operation['book']==book['id'] and operation['sheet']==w['id'] for k in operation.get('append',operation.get('fields',{}))]
             headers=list(dict.fromkeys([*w.get('headers',[]),*(k for r in rs for k in r),*extraHeaders]))
             matrix=[headers]
@@ -104,6 +136,9 @@ for row in rows:
         attendees=[{'attendee_id':'at_'+str(i),'type':'third_party','third_party_email':a if isinstance(a,str) else a['email']} for i,a in enumerate(event.get('attendees',[]))]
         events.append({'event_id':event['id'],'calendar_id':cid,'summary':event.get('summary',''),'description':event.get('description','')+'\n原始元数据：'+json.dumps(event,ensure_ascii=False),'start_time':calendar_time(event['start__dateTime']),'end_time':calendar_time(event['end__dateTime']),'status':event.get('status','confirmed'),'attendees':attendees,**({'location':{'name':event['location']}} if event.get('location') else {})})
     chats=[{'chat_id':'oc_mail','name':'业务来信','chat_mode':'group'}];messages=[]
+    for profile in src.get('linkedin',{}).get('profiles',[]):
+        if profile.get('public_profile_url'):
+            chats.append({'chat_id':'oc_linkedin_'+profile['id'],'name':profile['public_profile_url'],'chat_mode':'p2p'})
     for originalMessage in src.get('gmail',{}).get('messages',[]):
         m={**originalMessage,'from_':originalMessage.get('from_',originalMessage.get('from','未标注')),'body_plain':originalMessage.get('body_plain',originalMessage.get('body',''))}
         text=f"原始消息元数据：{json.dumps({k:v for k,v in m.items() if k!='body_plain'},ensure_ascii=False)}\n消息 ID：{m['id']}\n来源：{m['from_']}\n收件人：{', '.join(m.get('to',[]))}\n日期：{m.get('date','未标注')}\n主题：{m.get('subject','')}\n{m.get('body_plain','')}"
@@ -156,6 +191,17 @@ for row in rows:
         cid=destinations[m['email']] if m.get('email') else next(c['chat_id'] for c in chats if c['name']==m['channel'])
         messageChecks.append({'chat_id':cid,'contains':m['contains']})
         commands.append(['im','+messages-send','--chat-id',cid,'--text',m['text']])
+    if 'command_order' in recipe:
+        order=recipe['command_order']
+        assert sorted(order)==list(range(len(commands))),(key,'invalid command permutation',len(commands),order)
+        commands=[commands[i] for i in order]
+    orderGroups=[]
+    for group in recipe.get('order_groups',[]):
+        g=dict(group)
+        if 'emails' in g:g['ids']=[destinations[e] for e in g.pop('emails')]
+        if 'channel' in g:
+            channel=g.pop('channel');g['ids']=[next(c['chat_id'] for c in chats if c['name']==channel)]
+        orderGroups.append(g)
     forbidden=[]
     for a in row['info']['assertions']:
         if a['type']=='gmail_message_sent_to_with_body_not_contains':
@@ -179,6 +225,21 @@ for row in rows:
         if a['type']=='salesforce_note_not_exists':
             eq={'collection':'notes',**{k:a[k] for k in ['parent_id','title'] if k in a}}
             forbiddenRecords.append({'equals':eq,'contains':{'body':a['body_contains']} if 'body_contains' in a else {}})
+    socialNegative={
+        'linkedin_post_not_exists':('linkedin_posts','text',{}),
+        'linkedin_company_post_not_exists':('linkedin_posts','text',{'company_id':'company_id'}),
+        'buffer_post_not_exists':('buffer_posts','text',{'channel_id':'channel_id'}),
+        'facebook_page_post_not_exists':('facebook_pages_posts','message',{'page_id':'page_id'}),
+        'facebook_page_photo_not_exists':('facebook_pages_photos','message',{'page_id':'page_id'}),
+        'instagram_media_not_exists':('instagram_media','caption',{}),
+        'twitter_reply_not_exists':('twitter_tweets','text',{'in_reply_to_tweet_id':'in_reply_to_tweet_id'}),
+        'twitter_tweet_not_liked':('twitter_likes','text',{'tweet_id':'tweet_id'})}
+    for a in row['info']['assertions']:
+        if a['type'] not in socialNegative:continue
+        collection,field,ids=socialNegative[a['type']]
+        parts=a.get(field+'_contains',a.get('text_contains',None))
+        assert parts is None or isinstance(parts,str),(key,'unsupported social negative text')
+        forbiddenRecords.append({'equals':{'collection':collection,**{target:a[source] for source,target in ids.items() if source in a}},'contains':{field:parts} if parts else {}})
     fields={k:'number' if isinstance(v,(int,float)) else 'text' for r in records for k,v in r['fields'].items()}
     for r in recipe.get('creates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r.items()})
     seed={'now':now,'spreadsheet_token':'ss_unused','sheets':{},'spreadsheets':spreadsheets,'calendars':calendars,'events':events,'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records,'fields':[{'name':k,'type':v} for k,v in fields.items()]},'chats':chats,'messages':messages}
@@ -186,7 +247,7 @@ for row in rows:
     shutil.copytree(ROOT/'tasks/automationbench-simple-3001',target,dirs_exist_ok=True)
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
+    write('tests/expected.json',{'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'
@@ -198,4 +259,4 @@ for row in rows:
     toml=(target/'task.toml').read_text().replace('automationbench-simple-3001','automationbench-'+key).replace('source_domain = "simple"',f'source_domain = "{row["domain"]}"').replace('source_id = 3001',f'source_id = {row["example_id"]}').replace('scored_domain = false','scored_domain = true').replace('"simple",',f'"{row["domain"]}",')
     toml=re.sub(r'source_task = ".*"',f'source_task = "{row["info"]["task_name"]}"',toml)
     (target/'task.toml').write_text(toml)
-print('Generated',len(recipes),'formal task packages')
+print('Generated',len(selected or recipes),'formal task packages')

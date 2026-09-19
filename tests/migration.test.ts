@@ -52,6 +52,21 @@ for (const task of (await readdir('tasks')).filter((n) =>
         const expected = JSON.parse(
           await readFile(`tasks/${task}/tests/expected.json`, 'utf8'),
         );
+        if (expected.order_groups?.length) {
+          const originalSeq = backend.calls.map((call) => call.seq);
+          backend.calls.forEach((call, index) => {
+            call.seq = backend.calls.length - index;
+          });
+          assert.equal(
+            await grade(),
+            '0',
+            'correct final state with reversed SOP stages must fail',
+          );
+          backend.calls.forEach((call, index) => {
+            call.seq = originalSeq[index];
+          });
+          assert.equal(await grade(), '1');
+        }
         const forbidden = expected.forbidden_messages?.find(
           (check: { chat_id?: string; contains: string[] }) =>
             check.contains.length > 0 &&
@@ -82,6 +97,49 @@ for (const task of (await readdir('tasks')).filter((n) =>
             await grade(),
             '0',
             'Forbidden content must fail even when required content remains',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
+
+        const recordBan = expected.forbidden_records?.find(
+          (check: {
+            equals: Record<string, unknown>;
+            contains: Record<string, string>;
+          }) =>
+            Object.keys(check.contains).length > 0 &&
+            backend.world.base.records.some(
+              (record: {
+                record_id: string;
+                fields: Record<string, unknown>;
+              }) =>
+                !seed.base.records.some(
+                  (old: { record_id: string }) =>
+                    old.record_id === record.record_id,
+                ) &&
+                Object.entries(check.equals).every(
+                  ([field, value]) => record.fields[field] === value,
+                ),
+            ),
+        );
+        if (recordBan) {
+          const record = backend.world.base.records.find(
+            (record: { record_id: string; fields: Record<string, unknown> }) =>
+              !seed.base.records.some(
+                (old: { record_id: string }) =>
+                  old.record_id === record.record_id,
+              ) &&
+              Object.entries(recordBan.equals).every(
+                ([field, value]) => record.fields[field] === value,
+              ),
+          );
+          for (const [field, text] of Object.entries(recordBan.contains)) {
+            record.fields[field] =
+              String(record.fields[field] ?? '') + ' ' + text;
+          }
+          assert.equal(
+            await grade(),
+            '0',
+            'Forbidden publication content must fail even with all required facts',
           );
           Object.assign(backend.world, structuredClone(solved));
         }
