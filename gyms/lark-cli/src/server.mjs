@@ -1,3 +1,4 @@
+import { chatMembers } from './chat-members.ts';
 import http from 'node:http';
 import { isDeepStrictEqual } from 'node:util';
 
@@ -552,6 +553,19 @@ export async function startMock(seed, options = {}) {
         })),
       };
     }
+    const membershipPath = p.match(
+      /^\/open-apis\/im\/v1\/chats\/([^/]+)\/members$/,
+    );
+    if (membershipPath)
+      return chatMembers(
+        world,
+        method,
+        decodeURIComponent(membershipPath[1]),
+        q,
+        body,
+        fail,
+        page,
+      );
     if (method === 'GET' && p === '/open-apis/im/v1/chats')
       return page(world.chats, q);
     if (method === 'POST' && p === '/open-apis/im/v1/messages') {
@@ -633,6 +647,7 @@ export async function startMock(seed, options = {}) {
       ['event', before.events, world.events, 'event_id'],
       ['record', before.base.records, world.base.records, 'record_id'],
       ['message', before.messages, world.messages, 'message_id'],
+      ['chat', before.chats, world.chats, 'chat_id'],
     ]) {
       for (const item of newItems) {
         const previous = oldItems.find((x) => x[key] === item[key]);

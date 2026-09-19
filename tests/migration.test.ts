@@ -170,6 +170,21 @@ for (const task of (await readdir('tasks')).filter((n) =>
           Object.assign(backend.world, structuredClone(solved));
         }
 
+        for (const membership of expected.memberships || []) {
+          const chat = backend.world.chats.find(
+            (c: { chat_id: string }) => c.chat_id === membership.chat_id,
+          );
+          chat.member_ids = chat.member_ids.filter(
+            (id: string) => id !== membership.user_ids[0],
+          );
+          assert.equal(
+            await grade(),
+            '0',
+            'A welcome message without required membership must fail',
+          );
+          Object.assign(backend.world, structuredClone(solved));
+        }
+
         const beforeIds = new Set(
           seed.base.records.map((r: { record_id: string }) => r.record_id),
         );

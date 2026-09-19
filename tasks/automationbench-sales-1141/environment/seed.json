@@ -1,0 +1,2384 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_routing_policy": {
+      "title": "Email Routing Policy",
+      "sheets": {
+        "ws_routing_001": {
+          "title": "Routing Rules",
+          "values": [
+            ["Sentiment", "Action", "Details"],
+            [
+              "Negative/Urgent",
+              "Forward to escalation email",
+              "Send to manager@company.example.com with [ESCALATION] subject prefix. Include original email content."
+            ],
+            [
+              "Positive",
+              "Label email",
+              "Apply label 'happy-customer' (label ID: lbl_happy)"
+            ],
+            [
+              "Neutral",
+              "Label email",
+              "Apply label 'standard-inquiry' (label ID: lbl_standard)"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_mail_msg_angry",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_angry",
+          "from_": "angry@customer.example.com",
+          "to": "[\"sales@company.example.com\"]",
+          "subject": "Unacceptable service!",
+          "body_plain": "I've been waiting 3 weeks for a response! This is completely unacceptable. I want to speak to a manager immediately!",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_happy",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_happy",
+          "from_": "happy@customer.example.com",
+          "to": "[\"sales@company.example.com\"]",
+          "subject": "Great experience!",
+          "body_plain": "Just wanted to say thanks for the amazing support. Your team went above and beyond!",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_neutral",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_neutral",
+          "from_": "neutral@customer.example.com",
+          "to": "[\"sales@company.example.com\"]",
+          "subject": "Quick question",
+          "body_plain": "Can you send me the product specifications document?",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_sarcastic",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_sarcastic",
+          "from_": "frustrated@customer.example.com",
+          "to": "[\"sales@company.example.com\"]",
+          "subject": "Wonderful experience with your support team",
+          "body_plain": "Oh, what a delightful experience! I only had to wait 5 days for a response, and when it finally arrived, it completely ignored my actual question. Truly world-class support. I'm sure my renewal decision will be very easy at this rate.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_already_read",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_already_read",
+          "from_": "prior_complaint@customer.example.com",
+          "to": "[\"sales@company.example.com\"]",
+          "subject": "Terrible response time",
+          "body_plain": "Your team took forever to respond and the answer was wrong. Very disappointed.",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_misleading",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_misleading",
+          "from_": "surprised@customer.example.com",
+          "to": "[\"sales@company.example.com\"]",
+          "subject": "I can't believe what happened",
+          "body_plain": "I can't believe how quickly your team resolved my issue! I was expecting days but it took only 20 minutes. Incredible work, seriously impressed.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_00_00",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_00_00",
+          "thread_id": "th_same_sender_00_00",
+          "from_": "angry@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Quick question on something unrelated",
+          "body_plain": "Hi, I had a quick question about something separate from our current project. Do you have 10 minutes for a call this week?",
+          "date": "2026-02-03T14:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_00_01",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_00_01",
+          "thread_id": "th_same_sender_00_01",
+          "from_": "angry@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Out of Office: Back next week",
+          "body_plain": "Thank you for your email. I am currently out of the office and will return Monday. For urgent matters, please contact my manager.",
+          "date": "2026-02-02T18:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_00_02",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_00_02",
+          "thread_id": "th_same_sender_00_02",
+          "from_": "angry@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Thanks for the referral",
+          "body_plain": "Just a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.",
+          "date": "2026-02-27T16:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_01_00",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_01_00",
+          "thread_id": "th_same_sender_01_00",
+          "from_": "happy@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Holiday schedule",
+          "body_plain": "Just a heads up that our office will be closed March 14. We'll be back to normal operations on March 17. Happy to connect before then if needed.",
+          "date": "2026-02-22T16:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_01_01",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_01_01",
+          "thread_id": "th_same_sender_01_01",
+          "from_": "happy@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Updated contact information",
+          "body_plain": "Just a quick note — I've updated my direct line. My new number is +1-555-210-7890. Email remains the same.",
+          "date": "2026-02-26T13:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_01_02",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_01_02",
+          "thread_id": "th_same_sender_01_02",
+          "from_": "happy@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Out of Office: Back next week",
+          "body_plain": "Thank you for your email. I am currently out of the office and will return Monday. For urgent matters, please contact my manager.",
+          "date": "2026-02-10T15:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_02_00",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_02_00",
+          "thread_id": "th_same_sender_02_00",
+          "from_": "neutral@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Office move update",
+          "body_plain": "We're moving to a new office on March 20. Our address will change — I'll send the new details closer to the date. Everything else stays the same.",
+          "date": "2026-02-21T13:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_02_01",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_02_01",
+          "thread_id": "th_same_sender_02_01",
+          "from_": "neutral@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Networking event next week",
+          "body_plain": "I'll be at the networking event on March 15. Are you planning to attend? Would be great to connect in person!",
+          "date": "2026-02-21T14:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_02_02",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_02_02",
+          "thread_id": "th_same_sender_02_02",
+          "from_": "neutral@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Thanks for the referral",
+          "body_plain": "Just a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.",
+          "date": "2026-02-04T11:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_03_00",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_03_00",
+          "thread_id": "th_same_sender_03_00",
+          "from_": "frustrated@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Thanks for the referral",
+          "body_plain": "Just a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.",
+          "date": "2026-02-24T12:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_03_01",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_03_01",
+          "thread_id": "th_same_sender_03_01",
+          "from_": "frustrated@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Out of Office: Back next week",
+          "body_plain": "Thank you for your email. I am currently out of the office and will return Monday. For urgent matters, please contact my manager.",
+          "date": "2026-02-17T10:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_03_02",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_03_02",
+          "thread_id": "th_same_sender_03_02",
+          "from_": "frustrated@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "FYI: Interesting article",
+          "body_plain": "Thought you might find this interesting — saw an article on enterprise software trends that reminded me of our conversation. Happy to discuss.",
+          "date": "2026-02-09T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_04_00",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_04_00",
+          "thread_id": "th_same_sender_04_00",
+          "from_": "prior_complaint@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Invoice question",
+          "body_plain": "Thanks for clearing that up. Our finance team will process the invoice this week. No further action needed from your side.",
+          "date": "2026-02-20T09:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_04_01",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_04_01",
+          "thread_id": "th_same_sender_04_01",
+          "from_": "prior_complaint@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Thanks for the referral",
+          "body_plain": "Just a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.",
+          "date": "2026-02-01T07:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_04_02",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_04_02",
+          "thread_id": "th_same_sender_04_02",
+          "from_": "prior_complaint@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Holiday schedule",
+          "body_plain": "Just a heads up that our office will be closed March 14. We'll be back to normal operations on March 17. Happy to connect before then if needed.",
+          "date": "2026-02-09T12:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_05_00",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_05_00",
+          "thread_id": "th_same_sender_05_00",
+          "from_": "surprised@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Checking in",
+          "body_plain": "Hi, just wanted to check in and see how things are going on your end. Nothing urgent — hope all is well!",
+          "date": "2026-02-17T13:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_same_sender_05_01",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_same_sender_05_01",
+          "thread_id": "th_same_sender_05_01",
+          "from_": "surprised@customer.example.com",
+          "to": "[\"me\"]",
+          "subject": "Updated contact information",
+          "body_plain": "Just a quick note — I've updated my direct line. My new number is +1-555-210-7890. Email remains the same.",
+          "date": "2026-02-22T10:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_003",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_003",
+          "thread_id": "th_noise_003",
+          "from_": "updates@crmnews.example.com",
+          "to": "[\"me\"]",
+          "subject": "CRM Platform Release Notes — v4.2.1",
+          "body_plain": "New features: bulk record update, enhanced duplicate detection, improved mobile search.",
+          "date": "2026-03-01T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_009",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_009",
+          "thread_id": "th_noise_009",
+          "from_": "rcrane@rapidscale.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Proposal follow-up",
+          "body_plain": "Hi, thanks for the proposal. We are reviewing with the procurement team and will get back to you by end of week.",
+          "date": "2026-03-03T09:45:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_008",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_008",
+          "thread_id": "th_noise_008",
+          "from_": "noreply@zoom.example.com",
+          "to": "[\"me\"]",
+          "subject": "Zoom Meeting Invitation: Q1 Pipeline Review",
+          "body_plain": "You have been invited to Q1 Pipeline Review on March 7 at 9:00 AM. Join Zoom Meeting: https://zoom.example.com/j/98765",
+          "date": "2026-03-01T16:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_043",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_043",
+          "thread_id": "th_noise_043",
+          "from_": "training@noiseco.example.com",
+          "to": "[\"sales@noiseco.example.com\"]",
+          "subject": "New training: Advanced Negotiation Tactics",
+          "body_plain": "A new optional training module 'Advanced Negotiation Tactics' is available in LMS. Complete by March 31 for CPD credits.",
+          "date": "2026-02-27T10:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_047",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_047",
+          "thread_id": "th_noise_047",
+          "from_": "gmoreau@templar.example.com",
+          "to": "[\"me\"]",
+          "subject": "Checking on contract status",
+          "body_plain": "Hi, just checking in on the contract we discussed. Our procurement team is asking for an update. Any ETA on the finalized terms?",
+          "date": "2026-03-03T10:45:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_026",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_026",
+          "thread_id": "th_noise_026",
+          "from_": "adesai@redwood.example.com",
+          "to": "[\"me\"]",
+          "subject": "Integration question before we sign",
+          "body_plain": "Before we finalize the contract, we have a technical question about the Salesforce integration. Can we set up a 20-minute call?",
+          "date": "2026-03-03T11:00:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_004",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_004",
+          "thread_id": "th_noise_004",
+          "from_": "newsletter@revenueops.example.com",
+          "to": "[\"me\"]",
+          "subject": "RevOps Monthly: February Wrap-Up",
+          "body_plain": "February highlights: 3 deals closed above $100k, average deal cycle reduced to 47 days.",
+          "date": "2026-03-01T09:15:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_036",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_036",
+          "thread_id": "th_noise_036",
+          "from_": "tbrooks@eastgate.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Q1 Review Meeting agenda",
+          "body_plain": "Confirmed. I'll join at 10 AM. Can we add a 10-minute segment on the competitive landscape?",
+          "date": "2026-03-02T17:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_037",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_037",
+          "thread_id": "th_noise_037",
+          "from_": "lsimmons@pacific.example.com",
+          "to": "[\"me\"]",
+          "subject": "Updated SOW attached",
+          "body_plain": "Hi, our legal team made a few minor edits to the SOW. Changes are tracked. Please review and let us know if you're okay to proceed.",
+          "date": "2026-03-03T09:00:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_050",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_050",
+          "thread_id": "th_noise_050",
+          "from_": "ilarsson@nordicsoft.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Proposal — a few questions",
+          "body_plain": "Thank you for the proposal. We have 3 questions: (1) Can the contract be annual? (2) What's the onboarding timeline? (3) Do you have EU data centers?",
+          "date": "2026-03-03T08:30:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_023",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_023",
+          "thread_id": "th_noise_023",
+          "from_": "dpark@cascade.example.com",
+          "to": "[\"me\"]",
+          "subject": "Following up on demo request",
+          "body_plain": "Hi, I wanted to follow up on the demo we scheduled. Looking forward to seeing the product in action. Please confirm the Zoom link.",
+          "date": "2026-03-03T10:15:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_002",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_002",
+          "thread_id": "th_noise_002",
+          "from_": "news@salesbriefing.example.com",
+          "to": "[\"me\"]",
+          "subject": "Sales Briefing: Q1 Market Trends",
+          "body_plain": "This week in sales: pipeline velocity up 12% YoY across mid-market segments. Read more...",
+          "date": "2026-03-02T06:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_049",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_049",
+          "thread_id": "th_noise_049",
+          "from_": "bcalloway@indigotech.example.com",
+          "to": "[\"me\"]",
+          "subject": "Expansion: adding 20 seats",
+          "body_plain": "We've had a great first 6 months. We'd like to expand from 30 to 50 seats. Who should I talk to about pricing for the expansion?",
+          "date": "2026-03-01T12:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_024",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_024",
+          "thread_id": "th_noise_024",
+          "from_": "msullivan@thornwood.example.com",
+          "to": "[\"me\"]",
+          "subject": "Question about enterprise pricing",
+          "body_plain": "Could you send over the enterprise pricing sheet? Our CFO wants to review before we proceed with the evaluation.",
+          "date": "2026-03-02T15:45:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_019",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_019",
+          "thread_id": "th_noise_019",
+          "from_": "support@saasplatform.example.com",
+          "to": "[\"me\"]",
+          "subject": "Support ticket #TKT-8842 resolved",
+          "body_plain": "Your ticket #TKT-8842 regarding API rate limit errors has been resolved. The fix has been deployed to production.",
+          "date": "2026-02-28T15:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_038",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_038",
+          "thread_id": "th_noise_038",
+          "from_": "mreed@summit.example.com",
+          "to": "[\"me\"]",
+          "subject": "Reference call: happy to help",
+          "body_plain": "Of course, happy to be a reference for your prospective customer. Schedule a call with me anytime next week.",
+          "date": "2026-03-02T13:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_012",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_012",
+          "thread_id": "th_noise_012",
+          "from_": "hr@noiseco.example.com",
+          "to": "[\"all@noiseco.example.com\"]",
+          "subject": "Reminder: Benefits enrollment closes March 15",
+          "body_plain": "Please complete your benefits enrollment before March 15. Log in to the HR portal to review your options.",
+          "date": "2026-03-01T10:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_041",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_041",
+          "thread_id": "th_noise_041",
+          "from_": "hr@noiseco.example.com",
+          "to": "[\"me\"]",
+          "subject": "Performance review window opens March 10",
+          "body_plain": "The Q1 performance review window opens March 10. Please complete your self-assessment by March 20.",
+          "date": "2026-03-03T09:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_033",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_033",
+          "thread_id": "th_noise_033",
+          "from_": "promo@salestools.example.com",
+          "to": "[\"me\"]",
+          "subject": "Limited Offer: 40% off annual plan",
+          "body_plain": "Upgrade to our Professional plan and save 40% for the next 48 hours. This offer expires March 5.",
+          "date": "2026-03-02T12:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_007",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_007",
+          "thread_id": "th_noise_007",
+          "from_": "scheduling@calendly.example.com",
+          "to": "[\"me\"]",
+          "subject": "New Event: Discovery Call with Ironclad Systems",
+          "body_plain": "Alex Vance (alex.vance@ironclad.example.com) scheduled a 30-minute Discovery Call on March 6 at 2:00 PM.",
+          "date": "2026-03-02T11:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_005",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_005",
+          "thread_id": "th_noise_005",
+          "from_": "digest@b2bsales.example.com",
+          "to": "[\"me\"]",
+          "subject": "B2B Sales Digest: Best Practices for Q2 Planning",
+          "body_plain": "5 strategies for accelerating Q2 pipeline: 1. Revisit stalled deals. 2. Identify expansion accounts...",
+          "date": "2026-02-28T07:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_039",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_039",
+          "thread_id": "th_noise_039",
+          "from_": "afoster@riverview.example.com",
+          "to": "[\"me\"]",
+          "subject": "Legal has questions about data residency",
+          "body_plain": "Our legal team has a few questions about data residency and GDPR compliance before we sign. Can we schedule a technical call?",
+          "date": "2026-03-01T15:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_020",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_020",
+          "thread_id": "th_noise_020",
+          "from_": "events@salesconf.example.com",
+          "to": "[\"me\"]",
+          "subject": "SalesConf 2026: Early Bird Registration Now Open",
+          "body_plain": "Join 5,000+ sales professionals at SalesConf 2026 in Las Vegas, June 10-12. Early bird pricing ends March 31.",
+          "date": "2026-02-25T10:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_006",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_006",
+          "thread_id": "th_noise_006",
+          "from_": "calendar-noreply@meet.example.com",
+          "to": "[\"me\"]",
+          "subject": "Meeting Confirmed: Weekly Team Sync",
+          "body_plain": "Your meeting 'Weekly Team Sync' has been confirmed for Tuesday March 5 at 10:00 AM PST.",
+          "date": "2026-03-02T14:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_027",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_027",
+          "thread_id": "th_noise_027",
+          "from_": "bortega@eastgate.example.com",
+          "to": "[\"me\"]",
+          "subject": "Budget approved — ready to proceed",
+          "body_plain": "Good news: budget has been approved by our finance team. Please send the MSA and we'll get legal review started.",
+          "date": "2026-03-02T09:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_032",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_032",
+          "thread_id": "th_noise_032",
+          "from_": "noreply@crm.example.com",
+          "to": "[\"me\"]",
+          "subject": "Task Due Today: Follow up with Cascade Analytics",
+          "body_plain": "You have a task due today: Follow up with Cascade Analytics re: Q2 expansion proposal. Owner: You.",
+          "date": "2026-03-03T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_028",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_028",
+          "thread_id": "th_noise_028",
+          "from_": "nhoffman@montclair.example.com",
+          "to": "[\"me\"]",
+          "subject": "Checking in — proposal status",
+          "body_plain": "Just checking in on the proposal we sent over last week. Have you had a chance to review? Happy to jump on a call.",
+          "date": "2026-03-01T11:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_017",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_017",
+          "thread_id": "th_noise_017",
+          "from_": "billing@cloudtools.example.com",
+          "to": "[\"me\"]",
+          "subject": "Invoice #INV-20260228 — $2,400.00",
+          "body_plain": "Invoice for CloudTools Pro subscription — February 2026. Amount: $2,400.00. Due date: March 15.",
+          "date": "2026-03-01T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_001",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_001",
+          "thread_id": "th_noise_001",
+          "from_": "digest@techinsider.example.com",
+          "to": "[\"me\"]",
+          "subject": "Tech Insider Weekly — March 3 Issue",
+          "body_plain": "Your weekly roundup of enterprise tech news. Top story: AI adoption in B2B sales reaches 67%.",
+          "date": "2026-03-03T07:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_016",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_016",
+          "thread_id": "th_noise_016",
+          "from_": "vendor@softwaresupplier.example.com",
+          "to": "[\"me\"]",
+          "subject": "Your software license renewal is due",
+          "body_plain": "Your annual license for SalesPro Enterprise is due for renewal on April 1. Click here to review your renewal quote.",
+          "date": "2026-02-27T11:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_046",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_046",
+          "thread_id": "th_noise_046",
+          "from_": "jhutchins@vantagepoint.example.com",
+          "to": "[\"me\"]",
+          "subject": "Forwarding: RFP for CRM platform",
+          "body_plain": "Jerome here from VantagePoint Systems. I'm forwarding our RFP for a CRM platform. We're evaluating 3 vendors. Deadline to respond: March 20.",
+          "date": "2026-03-01T13:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_018",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_018",
+          "thread_id": "th_noise_018",
+          "from_": "noreply@linkedin.example.com",
+          "to": "[\"me\"]",
+          "subject": "You have 5 new connection requests",
+          "body_plain": "5 people want to connect with you on LinkedIn. Review and respond to your pending requests.",
+          "date": "2026-03-03T07:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_034",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_034",
+          "thread_id": "th_noise_034",
+          "from_": "webinar@gotowebinar.example.com",
+          "to": "[\"me\"]",
+          "subject": "Webinar: Winning Enterprise Deals in 2026",
+          "body_plain": "Join us March 12 for a live webinar on enterprise sales strategies. Register now to secure your spot.",
+          "date": "2026-03-01T10:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_021",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_021",
+          "thread_id": "th_noise_021",
+          "from_": "nvance@ironclad.example.com",
+          "to": "[\"me\"]",
+          "subject": "Out of Office: Back March 10",
+          "body_plain": "Thank you for your email. I am out of office March 3-7 and will respond upon my return March 10. For urgent matters contact my colleague.",
+          "date": "2026-03-03T09:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_010",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_010",
+          "thread_id": "th_noise_010",
+          "from_": "fgarza@brightontech.example.com",
+          "to": "[\"me\"]",
+          "subject": "Can we reschedule our call?",
+          "body_plain": "Hi, something came up on my end. Could we move our Thursday call to Friday afternoon? Same agenda.",
+          "date": "2026-03-03T08:20:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_048",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_048",
+          "thread_id": "th_noise_048",
+          "from_": "tstein@zenithpro.example.com",
+          "to": "[\"me\"]",
+          "subject": "Introduction from Michael (mutual contact)",
+          "body_plain": "Hi, Michael suggested I reach out. We're a 50-person SaaS company looking to scale our sales ops. Would love to connect.",
+          "date": "2026-03-02T14:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_035",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_035",
+          "thread_id": "th_noise_035",
+          "from_": "reports@marketdata.example.com",
+          "to": "[\"me\"]",
+          "subject": "Your Market Intelligence Report Is Ready",
+          "body_plain": "Your requested market report on the Enterprise SaaS vertical is now available. Click to download (36 pages).",
+          "date": "2026-02-28T14:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_040",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_040",
+          "thread_id": "th_noise_040",
+          "from_": "dhamilton@northgate.example.com",
+          "to": "[\"me\"]",
+          "subject": "Pilot results — very positive",
+          "body_plain": "We completed the 30-day pilot and the results exceeded our expectations. Our team is very excited. Looking forward to the expansion discussion.",
+          "date": "2026-03-02T10:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_042",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_042",
+          "thread_id": "th_noise_042",
+          "from_": "payroll@noiseco.example.com",
+          "to": "[\"me\"]",
+          "subject": "Your February commission statement is available",
+          "body_plain": "Your February commission statement is now available in the payroll portal. Total commission: $8,240.00.",
+          "date": "2026-03-01T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_025",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_025",
+          "thread_id": "th_noise_025",
+          "from_": "kwalsh@starling.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Security questionnaire",
+          "body_plain": "Attached is our completed security questionnaire. Please let us know if you need any clarification on sections 3 and 7.",
+          "date": "2026-03-01T14:20:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_014",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_014",
+          "thread_id": "th_noise_014",
+          "from_": "ops@noiseco.example.com",
+          "to": "[\"sales@noiseco.example.com\"]",
+          "subject": "Updated: Q1 Sales Leaderboard",
+          "body_plain": "Attached is the updated Q1 leaderboard through week 9. Top performers: Jordan Marsh (142%), Riley Griffith (138%), Alex Vance (127%).",
+          "date": "2026-03-02T16:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_029",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_029",
+          "thread_id": "th_noise_029",
+          "from_": "noreply@crm.example.com",
+          "to": "[\"me\"]",
+          "subject": "Deal Stage Change: Ironclad Systems → Proposal",
+          "body_plain": "The opportunity 'Ironclad Systems - Platform License' has moved from Qualification to Proposal. Updated by: Alex Vance.",
+          "date": "2026-03-02T14:15:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_044",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_044",
+          "thread_id": "th_noise_044",
+          "from_": "info@titaniumsys.example.com",
+          "to": "[\"sales@noiseco.example.com\"]",
+          "subject": "Inquiry about enterprise plan",
+          "body_plain": "Hi, we are a 200-person manufacturing company looking for a CRM solution. Could you send pricing info for your enterprise plan?",
+          "date": "2026-03-03T11:30:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_031",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_031",
+          "thread_id": "th_noise_031",
+          "from_": "noreply@docusign.example.com",
+          "to": "[\"me\"]",
+          "subject": "Envelope Completed: Thornwood Partners NDA",
+          "body_plain": "The envelope 'Thornwood Partners - Mutual NDA' has been completed by all parties. Download the signed document.",
+          "date": "2026-03-01T16:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_noise_022",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_noise_022",
+          "thread_id": "th_noise_022",
+          "from_": "jtorres@bluestar.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Partnership discussion — OOO",
+          "body_plain": "I am currently attending an offsite through Thursday. I will follow up on our partnership discussion when I return. — Carmen Valdez",
+          "date": "2026-03-02T13:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_labels_INBOX",
+        "fields": {
+          "collection": "mail_labels",
+          "id": "INBOX",
+          "name": "INBOX"
+        }
+      },
+      {
+        "record_id": "rec_mail_labels_lbl_happy",
+        "fields": {
+          "collection": "mail_labels",
+          "id": "lbl_happy",
+          "name": "happy-customer"
+        }
+      },
+      {
+        "record_id": "rec_mail_labels_lbl_standard",
+        "fields": {
+          "collection": "mail_labels",
+          "id": "lbl_standard",
+          "name": "standard-inquiry"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "from_",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "body_plain",
+        "type": "text"
+      },
+      {
+        "name": "label_ids",
+        "type": "text"
+      },
+      {
+        "name": "is_read",
+        "type": "text"
+      },
+      {
+        "name": "thread_id",
+        "type": "text"
+      },
+      {
+        "name": "date",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "adesai@redwood.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "afoster@riverview.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "alex.vance@ironclad.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "all@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "angry@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "bcalloway@indigotech.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "billing@cloudtools.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "bortega@eastgate.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "calendar-noreply@meet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "dhamilton@northgate.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "digest@b2bsales.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "digest@techinsider.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "dpark@cascade.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "events@salesconf.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "fgarza@brightontech.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "frustrated@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "gmoreau@templar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "happy@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "hr@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "ilarsson@nordicsoft.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "info@titaniumsys.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "jhutchins@vantagepoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "jtorres@bluestar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "kwalsh@starling.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "lsimmons@pacific.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "manager@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "mreed@summit.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "msullivan@thornwood.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "neutral@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "news@salesbriefing.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "newsletter@revenueops.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "nhoffman@montclair.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "noreply@crm.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "noreply@docusign.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_34",
+      "name": "noreply@linkedin.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_35",
+      "name": "noreply@zoom.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_36",
+      "name": "nvance@ironclad.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_37",
+      "name": "ops@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_38",
+      "name": "payroll@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_39",
+      "name": "prior_complaint@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_40",
+      "name": "promo@salestools.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_41",
+      "name": "rcrane@rapidscale.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_42",
+      "name": "reports@marketdata.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_43",
+      "name": "sales@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_44",
+      "name": "sales@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_45",
+      "name": "scheduling@calendly.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_46",
+      "name": "support@saasplatform.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_47",
+      "name": "surprised@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_48",
+      "name": "tbrooks@eastgate.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_49",
+      "name": "training@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_50",
+      "name": "tstein@zenithpro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_51",
+      "name": "updates@crmnews.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_52",
+      "name": "vendor@softwaresupplier.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_53",
+      "name": "webinar@gotowebinar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ROUTE",
+      "name": "email-routing",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_angry",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_angry\\\", \\\"from_\\\": \\\"angry@customer.example.com\\\", \\\"to\\\": [\\\"sales@company.example.com\\\"], \\\"subject\\\": \\\"Unacceptable service!\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_angry\\n来源：angry@customer.example.com\\n收件人：sales@company.example.com\\n日期：未标注\\n主题：Unacceptable service!\\nI've been waiting 3 weeks for a response! This is completely unacceptable. I want to speak to a manager immediately!\"}"
+      },
+      "create_time": "0"
+    },
+    {
+      "message_id": "om_msg_happy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_happy\\\", \\\"from_\\\": \\\"happy@customer.example.com\\\", \\\"to\\\": [\\\"sales@company.example.com\\\"], \\\"subject\\\": \\\"Great experience!\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_happy\\n来源：happy@customer.example.com\\n收件人：sales@company.example.com\\n日期：未标注\\n主题：Great experience!\\nJust wanted to say thanks for the amazing support. Your team went above and beyond!\"}"
+      },
+      "create_time": "0"
+    },
+    {
+      "message_id": "om_msg_neutral",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_neutral\\\", \\\"from_\\\": \\\"neutral@customer.example.com\\\", \\\"to\\\": [\\\"sales@company.example.com\\\"], \\\"subject\\\": \\\"Quick question\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_neutral\\n来源：neutral@customer.example.com\\n收件人：sales@company.example.com\\n日期：未标注\\n主题：Quick question\\nCan you send me the product specifications document?\"}"
+      },
+      "create_time": "0"
+    },
+    {
+      "message_id": "om_msg_sarcastic",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_sarcastic\\\", \\\"from_\\\": \\\"frustrated@customer.example.com\\\", \\\"to\\\": [\\\"sales@company.example.com\\\"], \\\"subject\\\": \\\"Wonderful experience with your support team\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_sarcastic\\n来源：frustrated@customer.example.com\\n收件人：sales@company.example.com\\n日期：未标注\\n主题：Wonderful experience with your support team\\nOh, what a delightful experience! I only had to wait 5 days for a response, and when it finally arrived, it completely ignored my actual question. Truly world-class support. I'm sure my renewal decision will be very easy at this rate.\"}"
+      },
+      "create_time": "0"
+    },
+    {
+      "message_id": "om_msg_already_read",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_already_read\\\", \\\"from_\\\": \\\"prior_complaint@customer.example.com\\\", \\\"to\\\": [\\\"sales@company.example.com\\\"], \\\"subject\\\": \\\"Terrible response time\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_already_read\\n来源：prior_complaint@customer.example.com\\n收件人：sales@company.example.com\\n日期：未标注\\n主题：Terrible response time\\nYour team took forever to respond and the answer was wrong. Very disappointed.\"}"
+      },
+      "create_time": "0"
+    },
+    {
+      "message_id": "om_msg_misleading",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_misleading\\\", \\\"from_\\\": \\\"surprised@customer.example.com\\\", \\\"to\\\": [\\\"sales@company.example.com\\\"], \\\"subject\\\": \\\"I can't believe what happened\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_misleading\\n来源：surprised@customer.example.com\\n收件人：sales@company.example.com\\n日期：未标注\\n主题：I can't believe what happened\\nI can't believe how quickly your team resolved my issue! I was expecting days but it took only 20 minutes. Incredible work, seriously impressed.\"}"
+      },
+      "create_time": "0"
+    },
+    {
+      "message_id": "om_msg_same_sender_00_00",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_00_00\\\", \\\"thread_id\\\": \\\"th_same_sender_00_00\\\", \\\"from_\\\": \\\"angry@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Quick question on something unrelated\\\", \\\"date\\\": \\\"2026-02-03T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_00_00\\n来源：angry@customer.example.com\\n收件人：me\\n日期：2026-02-03T14:00:00Z\\n主题：Quick question on something unrelated\\nHi, I had a quick question about something separate from our current project. Do you have 10 minutes for a call this week?\"}"
+      },
+      "create_time": "1770127200000"
+    },
+    {
+      "message_id": "om_msg_same_sender_00_01",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_00_01\\\", \\\"thread_id\\\": \\\"th_same_sender_00_01\\\", \\\"from_\\\": \\\"angry@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Out of Office: Back next week\\\", \\\"date\\\": \\\"2026-02-02T18:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_00_01\\n来源：angry@customer.example.com\\n收件人：me\\n日期：2026-02-02T18:00:00Z\\n主题：Out of Office: Back next week\\nThank you for your email. I am currently out of the office and will return Monday. For urgent matters, please contact my manager.\"}"
+      },
+      "create_time": "1770055200000"
+    },
+    {
+      "message_id": "om_msg_same_sender_00_02",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_00_02\\\", \\\"thread_id\\\": \\\"th_same_sender_00_02\\\", \\\"from_\\\": \\\"angry@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Thanks for the referral\\\", \\\"date\\\": \\\"2026-02-27T16:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_00_02\\n来源：angry@customer.example.com\\n收件人：me\\n日期：2026-02-27T16:00:00Z\\n主题：Thanks for the referral\\nJust a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.\"}"
+      },
+      "create_time": "1772208000000"
+    },
+    {
+      "message_id": "om_msg_same_sender_01_00",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_01_00\\\", \\\"thread_id\\\": \\\"th_same_sender_01_00\\\", \\\"from_\\\": \\\"happy@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Holiday schedule\\\", \\\"date\\\": \\\"2026-02-22T16:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_01_00\\n来源：happy@customer.example.com\\n收件人：me\\n日期：2026-02-22T16:00:00Z\\n主题：Holiday schedule\\nJust a heads up that our office will be closed March 14. We'll be back to normal operations on March 17. Happy to connect before then if needed.\"}"
+      },
+      "create_time": "1771776000000"
+    },
+    {
+      "message_id": "om_msg_same_sender_01_01",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_01_01\\\", \\\"thread_id\\\": \\\"th_same_sender_01_01\\\", \\\"from_\\\": \\\"happy@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Updated contact information\\\", \\\"date\\\": \\\"2026-02-26T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_01_01\\n来源：happy@customer.example.com\\n收件人：me\\n日期：2026-02-26T13:00:00Z\\n主题：Updated contact information\\nJust a quick note — I've updated my direct line. My new number is +1-555-210-7890. Email remains the same.\"}"
+      },
+      "create_time": "1772110800000"
+    },
+    {
+      "message_id": "om_msg_same_sender_01_02",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_01_02\\\", \\\"thread_id\\\": \\\"th_same_sender_01_02\\\", \\\"from_\\\": \\\"happy@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Out of Office: Back next week\\\", \\\"date\\\": \\\"2026-02-10T15:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_01_02\\n来源：happy@customer.example.com\\n收件人：me\\n日期：2026-02-10T15:00:00Z\\n主题：Out of Office: Back next week\\nThank you for your email. I am currently out of the office and will return Monday. For urgent matters, please contact my manager.\"}"
+      },
+      "create_time": "1770735600000"
+    },
+    {
+      "message_id": "om_msg_same_sender_02_00",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_02_00\\\", \\\"thread_id\\\": \\\"th_same_sender_02_00\\\", \\\"from_\\\": \\\"neutral@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Office move update\\\", \\\"date\\\": \\\"2026-02-21T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_02_00\\n来源：neutral@customer.example.com\\n收件人：me\\n日期：2026-02-21T13:00:00Z\\n主题：Office move update\\nWe're moving to a new office on March 20. Our address will change — I'll send the new details closer to the date. Everything else stays the same.\"}"
+      },
+      "create_time": "1771678800000"
+    },
+    {
+      "message_id": "om_msg_same_sender_02_01",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_02_01\\\", \\\"thread_id\\\": \\\"th_same_sender_02_01\\\", \\\"from_\\\": \\\"neutral@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Networking event next week\\\", \\\"date\\\": \\\"2026-02-21T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_02_01\\n来源：neutral@customer.example.com\\n收件人：me\\n日期：2026-02-21T14:00:00Z\\n主题：Re: Networking event next week\\nI'll be at the networking event on March 15. Are you planning to attend? Would be great to connect in person!\"}"
+      },
+      "create_time": "1771682400000"
+    },
+    {
+      "message_id": "om_msg_same_sender_02_02",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_02_02\\\", \\\"thread_id\\\": \\\"th_same_sender_02_02\\\", \\\"from_\\\": \\\"neutral@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Thanks for the referral\\\", \\\"date\\\": \\\"2026-02-04T11:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_02_02\\n来源：neutral@customer.example.com\\n收件人：me\\n日期：2026-02-04T11:00:00Z\\n主题：Thanks for the referral\\nJust a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.\"}"
+      },
+      "create_time": "1770202800000"
+    },
+    {
+      "message_id": "om_msg_same_sender_03_00",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_03_00\\\", \\\"thread_id\\\": \\\"th_same_sender_03_00\\\", \\\"from_\\\": \\\"frustrated@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Thanks for the referral\\\", \\\"date\\\": \\\"2026-02-24T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_03_00\\n来源：frustrated@customer.example.com\\n收件人：me\\n日期：2026-02-24T12:00:00Z\\n主题：Thanks for the referral\\nJust a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.\"}"
+      },
+      "create_time": "1771934400000"
+    },
+    {
+      "message_id": "om_msg_same_sender_03_01",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_03_01\\\", \\\"thread_id\\\": \\\"th_same_sender_03_01\\\", \\\"from_\\\": \\\"frustrated@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Out of Office: Back next week\\\", \\\"date\\\": \\\"2026-02-17T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_03_01\\n来源：frustrated@customer.example.com\\n收件人：me\\n日期：2026-02-17T10:00:00Z\\n主题：Out of Office: Back next week\\nThank you for your email. I am currently out of the office and will return Monday. For urgent matters, please contact my manager.\"}"
+      },
+      "create_time": "1771322400000"
+    },
+    {
+      "message_id": "om_msg_same_sender_03_02",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_03_02\\\", \\\"thread_id\\\": \\\"th_same_sender_03_02\\\", \\\"from_\\\": \\\"frustrated@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"FYI: Interesting article\\\", \\\"date\\\": \\\"2026-02-09T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_03_02\\n来源：frustrated@customer.example.com\\n收件人：me\\n日期：2026-02-09T08:00:00Z\\n主题：FYI: Interesting article\\nThought you might find this interesting — saw an article on enterprise software trends that reminded me of our conversation. Happy to discuss.\"}"
+      },
+      "create_time": "1770624000000"
+    },
+    {
+      "message_id": "om_msg_same_sender_04_00",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_04_00\\\", \\\"thread_id\\\": \\\"th_same_sender_04_00\\\", \\\"from_\\\": \\\"prior_complaint@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Invoice question\\\", \\\"date\\\": \\\"2026-02-20T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_04_00\\n来源：prior_complaint@customer.example.com\\n收件人：me\\n日期：2026-02-20T09:00:00Z\\n主题：Re: Invoice question\\nThanks for clearing that up. Our finance team will process the invoice this week. No further action needed from your side.\"}"
+      },
+      "create_time": "1771578000000"
+    },
+    {
+      "message_id": "om_msg_same_sender_04_01",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_04_01\\\", \\\"thread_id\\\": \\\"th_same_sender_04_01\\\", \\\"from_\\\": \\\"prior_complaint@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Thanks for the referral\\\", \\\"date\\\": \\\"2026-02-01T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_04_01\\n来源：prior_complaint@customer.example.com\\n收件人：me\\n日期：2026-02-01T07:00:00Z\\n主题：Thanks for the referral\\nJust a quick note to say thank you for the referral. We had a great intro call and are moving forward. Really appreciate the connection.\"}"
+      },
+      "create_time": "1769929200000"
+    },
+    {
+      "message_id": "om_msg_same_sender_04_02",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_04_02\\\", \\\"thread_id\\\": \\\"th_same_sender_04_02\\\", \\\"from_\\\": \\\"prior_complaint@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Holiday schedule\\\", \\\"date\\\": \\\"2026-02-09T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_04_02\\n来源：prior_complaint@customer.example.com\\n收件人：me\\n日期：2026-02-09T12:00:00Z\\n主题：Holiday schedule\\nJust a heads up that our office will be closed March 14. We'll be back to normal operations on March 17. Happy to connect before then if needed.\"}"
+      },
+      "create_time": "1770638400000"
+    },
+    {
+      "message_id": "om_msg_same_sender_05_00",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_05_00\\\", \\\"thread_id\\\": \\\"th_same_sender_05_00\\\", \\\"from_\\\": \\\"surprised@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Checking in\\\", \\\"date\\\": \\\"2026-02-17T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_05_00\\n来源：surprised@customer.example.com\\n收件人：me\\n日期：2026-02-17T13:00:00Z\\n主题：Checking in\\nHi, just wanted to check in and see how things are going on your end. Nothing urgent — hope all is well!\"}"
+      },
+      "create_time": "1771333200000"
+    },
+    {
+      "message_id": "om_msg_same_sender_05_01",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_same_sender_05_01\\\", \\\"thread_id\\\": \\\"th_same_sender_05_01\\\", \\\"from_\\\": \\\"surprised@customer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Updated contact information\\\", \\\"date\\\": \\\"2026-02-22T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_same_sender_05_01\\n来源：surprised@customer.example.com\\n收件人：me\\n日期：2026-02-22T10:00:00Z\\n主题：Updated contact information\\nJust a quick note — I've updated my direct line. My new number is +1-555-210-7890. Email remains the same.\"}"
+      },
+      "create_time": "1771754400000"
+    },
+    {
+      "message_id": "om_msg_noise_003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_003\\\", \\\"thread_id\\\": \\\"th_noise_003\\\", \\\"from_\\\": \\\"updates@crmnews.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"CRM Platform Release Notes — v4.2.1\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_003\\n来源：updates@crmnews.example.com\\n收件人：me\\n日期：2026-03-01T08:00:00Z\\n主题：CRM Platform Release Notes — v4.2.1\\nNew features: bulk record update, enhanced duplicate detection, improved mobile search.\"}"
+      },
+      "create_time": "1772352000000"
+    },
+    {
+      "message_id": "om_msg_noise_009",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_009\\\", \\\"thread_id\\\": \\\"th_noise_009\\\", \\\"from_\\\": \\\"rcrane@rapidscale.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Proposal follow-up\\\", \\\"date\\\": \\\"2026-03-03T09:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_009\\n来源：rcrane@rapidscale.example.com\\n收件人：me\\n日期：2026-03-03T09:45:00Z\\n主题：Re: Proposal follow-up\\nHi, thanks for the proposal. We are reviewing with the procurement team and will get back to you by end of week.\"}"
+      },
+      "create_time": "1772531100000"
+    },
+    {
+      "message_id": "om_msg_noise_008",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_008\\\", \\\"thread_id\\\": \\\"th_noise_008\\\", \\\"from_\\\": \\\"noreply@zoom.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Zoom Meeting Invitation: Q1 Pipeline Review\\\", \\\"date\\\": \\\"2026-03-01T16:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_008\\n来源：noreply@zoom.example.com\\n收件人：me\\n日期：2026-03-01T16:00:00Z\\n主题：Zoom Meeting Invitation: Q1 Pipeline Review\\nYou have been invited to Q1 Pipeline Review on March 7 at 9:00 AM. Join Zoom Meeting: https://zoom.example.com/j/98765\"}"
+      },
+      "create_time": "1772380800000"
+    },
+    {
+      "message_id": "om_msg_noise_043",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_043\\\", \\\"thread_id\\\": \\\"th_noise_043\\\", \\\"from_\\\": \\\"training@noiseco.example.com\\\", \\\"to\\\": [\\\"sales@noiseco.example.com\\\"], \\\"subject\\\": \\\"New training: Advanced Negotiation Tactics\\\", \\\"date\\\": \\\"2026-02-27T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_043\\n来源：training@noiseco.example.com\\n收件人：sales@noiseco.example.com\\n日期：2026-02-27T10:00:00Z\\n主题：New training: Advanced Negotiation Tactics\\nA new optional training module 'Advanced Negotiation Tactics' is available in LMS. Complete by March 31 for CPD credits.\"}"
+      },
+      "create_time": "1772186400000"
+    },
+    {
+      "message_id": "om_msg_noise_047",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_047\\\", \\\"thread_id\\\": \\\"th_noise_047\\\", \\\"from_\\\": \\\"gmoreau@templar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Checking on contract status\\\", \\\"date\\\": \\\"2026-03-03T10:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_047\\n来源：gmoreau@templar.example.com\\n收件人：me\\n日期：2026-03-03T10:45:00Z\\n主题：Checking on contract status\\nHi, just checking in on the contract we discussed. Our procurement team is asking for an update. Any ETA on the finalized terms?\"}"
+      },
+      "create_time": "1772534700000"
+    },
+    {
+      "message_id": "om_msg_noise_026",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_026\\\", \\\"thread_id\\\": \\\"th_noise_026\\\", \\\"from_\\\": \\\"adesai@redwood.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Integration question before we sign\\\", \\\"date\\\": \\\"2026-03-03T11:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_026\\n来源：adesai@redwood.example.com\\n收件人：me\\n日期：2026-03-03T11:00:00Z\\n主题：Integration question before we sign\\nBefore we finalize the contract, we have a technical question about the Salesforce integration. Can we set up a 20-minute call?\"}"
+      },
+      "create_time": "1772535600000"
+    },
+    {
+      "message_id": "om_msg_noise_004",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_004\\\", \\\"thread_id\\\": \\\"th_noise_004\\\", \\\"from_\\\": \\\"newsletter@revenueops.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"RevOps Monthly: February Wrap-Up\\\", \\\"date\\\": \\\"2026-03-01T09:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_004\\n来源：newsletter@revenueops.example.com\\n收件人：me\\n日期：2026-03-01T09:15:00Z\\n主题：RevOps Monthly: February Wrap-Up\\nFebruary highlights: 3 deals closed above $100k, average deal cycle reduced to 47 days.\"}"
+      },
+      "create_time": "1772356500000"
+    },
+    {
+      "message_id": "om_msg_noise_036",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_036\\\", \\\"thread_id\\\": \\\"th_noise_036\\\", \\\"from_\\\": \\\"tbrooks@eastgate.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Q1 Review Meeting agenda\\\", \\\"date\\\": \\\"2026-03-02T17:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_036\\n来源：tbrooks@eastgate.example.com\\n收件人：me\\n日期：2026-03-02T17:00:00Z\\n主题：Re: Q1 Review Meeting agenda\\nConfirmed. I'll join at 10 AM. Can we add a 10-minute segment on the competitive landscape?\"}"
+      },
+      "create_time": "1772470800000"
+    },
+    {
+      "message_id": "om_msg_noise_037",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_037\\\", \\\"thread_id\\\": \\\"th_noise_037\\\", \\\"from_\\\": \\\"lsimmons@pacific.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Updated SOW attached\\\", \\\"date\\\": \\\"2026-03-03T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_037\\n来源：lsimmons@pacific.example.com\\n收件人：me\\n日期：2026-03-03T09:00:00Z\\n主题：Updated SOW attached\\nHi, our legal team made a few minor edits to the SOW. Changes are tracked. Please review and let us know if you're okay to proceed.\"}"
+      },
+      "create_time": "1772528400000"
+    },
+    {
+      "message_id": "om_msg_noise_050",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_050\\\", \\\"thread_id\\\": \\\"th_noise_050\\\", \\\"from_\\\": \\\"ilarsson@nordicsoft.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Proposal — a few questions\\\", \\\"date\\\": \\\"2026-03-03T08:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_050\\n来源：ilarsson@nordicsoft.example.com\\n收件人：me\\n日期：2026-03-03T08:30:00Z\\n主题：Re: Proposal — a few questions\\nThank you for the proposal. We have 3 questions: (1) Can the contract be annual? (2) What's the onboarding timeline? (3) Do you have EU data centers?\"}"
+      },
+      "create_time": "1772526600000"
+    },
+    {
+      "message_id": "om_msg_noise_023",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_023\\\", \\\"thread_id\\\": \\\"th_noise_023\\\", \\\"from_\\\": \\\"dpark@cascade.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Following up on demo request\\\", \\\"date\\\": \\\"2026-03-03T10:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_023\\n来源：dpark@cascade.example.com\\n收件人：me\\n日期：2026-03-03T10:15:00Z\\n主题：Following up on demo request\\nHi, I wanted to follow up on the demo we scheduled. Looking forward to seeing the product in action. Please confirm the Zoom link.\"}"
+      },
+      "create_time": "1772532900000"
+    },
+    {
+      "message_id": "om_msg_noise_002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_002\\\", \\\"thread_id\\\": \\\"th_noise_002\\\", \\\"from_\\\": \\\"news@salesbriefing.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Sales Briefing: Q1 Market Trends\\\", \\\"date\\\": \\\"2026-03-02T06:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_002\\n来源：news@salesbriefing.example.com\\n收件人：me\\n日期：2026-03-02T06:30:00Z\\n主题：Sales Briefing: Q1 Market Trends\\nThis week in sales: pipeline velocity up 12% YoY across mid-market segments. Read more...\"}"
+      },
+      "create_time": "1772433000000"
+    },
+    {
+      "message_id": "om_msg_noise_049",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_049\\\", \\\"thread_id\\\": \\\"th_noise_049\\\", \\\"from_\\\": \\\"bcalloway@indigotech.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Expansion: adding 20 seats\\\", \\\"date\\\": \\\"2026-03-01T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_049\\n来源：bcalloway@indigotech.example.com\\n收件人：me\\n日期：2026-03-01T12:00:00Z\\n主题：Expansion: adding 20 seats\\nWe've had a great first 6 months. We'd like to expand from 30 to 50 seats. Who should I talk to about pricing for the expansion?\"}"
+      },
+      "create_time": "1772366400000"
+    },
+    {
+      "message_id": "om_msg_noise_024",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_024\\\", \\\"thread_id\\\": \\\"th_noise_024\\\", \\\"from_\\\": \\\"msullivan@thornwood.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Question about enterprise pricing\\\", \\\"date\\\": \\\"2026-03-02T15:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_024\\n来源：msullivan@thornwood.example.com\\n收件人：me\\n日期：2026-03-02T15:45:00Z\\n主题：Question about enterprise pricing\\nCould you send over the enterprise pricing sheet? Our CFO wants to review before we proceed with the evaluation.\"}"
+      },
+      "create_time": "1772466300000"
+    },
+    {
+      "message_id": "om_msg_noise_019",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_019\\\", \\\"thread_id\\\": \\\"th_noise_019\\\", \\\"from_\\\": \\\"support@saasplatform.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Support ticket #TKT-8842 resolved\\\", \\\"date\\\": \\\"2026-02-28T15:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_019\\n来源：support@saasplatform.example.com\\n收件人：me\\n日期：2026-02-28T15:30:00Z\\n主题：Support ticket #TKT-8842 resolved\\nYour ticket #TKT-8842 regarding API rate limit errors has been resolved. The fix has been deployed to production.\"}"
+      },
+      "create_time": "1772292600000"
+    },
+    {
+      "message_id": "om_msg_noise_038",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_038\\\", \\\"thread_id\\\": \\\"th_noise_038\\\", \\\"from_\\\": \\\"mreed@summit.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Reference call: happy to help\\\", \\\"date\\\": \\\"2026-03-02T13:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_038\\n来源：mreed@summit.example.com\\n收件人：me\\n日期：2026-03-02T13:30:00Z\\n主题：Reference call: happy to help\\nOf course, happy to be a reference for your prospective customer. Schedule a call with me anytime next week.\"}"
+      },
+      "create_time": "1772458200000"
+    },
+    {
+      "message_id": "om_msg_noise_012",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_012\\\", \\\"thread_id\\\": \\\"th_noise_012\\\", \\\"from_\\\": \\\"hr@noiseco.example.com\\\", \\\"to\\\": [\\\"all@noiseco.example.com\\\"], \\\"subject\\\": \\\"Reminder: Benefits enrollment closes March 15\\\", \\\"date\\\": \\\"2026-03-01T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_012\\n来源：hr@noiseco.example.com\\n收件人：all@noiseco.example.com\\n日期：2026-03-01T10:00:00Z\\n主题：Reminder: Benefits enrollment closes March 15\\nPlease complete your benefits enrollment before March 15. Log in to the HR portal to review your options.\"}"
+      },
+      "create_time": "1772359200000"
+    },
+    {
+      "message_id": "om_msg_noise_041",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_041\\\", \\\"thread_id\\\": \\\"th_noise_041\\\", \\\"from_\\\": \\\"hr@noiseco.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Performance review window opens March 10\\\", \\\"date\\\": \\\"2026-03-03T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_041\\n来源：hr@noiseco.example.com\\n收件人：me\\n日期：2026-03-03T09:00:00Z\\n主题：Performance review window opens March 10\\nThe Q1 performance review window opens March 10. Please complete your self-assessment by March 20.\"}"
+      },
+      "create_time": "1772528400000"
+    },
+    {
+      "message_id": "om_msg_noise_033",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_033\\\", \\\"thread_id\\\": \\\"th_noise_033\\\", \\\"from_\\\": \\\"promo@salestools.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Limited Offer: 40% off annual plan\\\", \\\"date\\\": \\\"2026-03-02T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_033\\n来源：promo@salestools.example.com\\n收件人：me\\n日期：2026-03-02T12:00:00Z\\n主题：Limited Offer: 40% off annual plan\\nUpgrade to our Professional plan and save 40% for the next 48 hours. This offer expires March 5.\"}"
+      },
+      "create_time": "1772452800000"
+    },
+    {
+      "message_id": "om_msg_noise_007",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_007\\\", \\\"thread_id\\\": \\\"th_noise_007\\\", \\\"from_\\\": \\\"scheduling@calendly.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"New Event: Discovery Call with Ironclad Systems\\\", \\\"date\\\": \\\"2026-03-02T11:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_007\\n来源：scheduling@calendly.example.com\\n收件人：me\\n日期：2026-03-02T11:30:00Z\\n主题：New Event: Discovery Call with Ironclad Systems\\nAlex Vance (alex.vance@ironclad.example.com) scheduled a 30-minute Discovery Call on March 6 at 2:00 PM.\"}"
+      },
+      "create_time": "1772451000000"
+    },
+    {
+      "message_id": "om_msg_noise_005",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_005\\\", \\\"thread_id\\\": \\\"th_noise_005\\\", \\\"from_\\\": \\\"digest@b2bsales.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"B2B Sales Digest: Best Practices for Q2 Planning\\\", \\\"date\\\": \\\"2026-02-28T07:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_005\\n来源：digest@b2bsales.example.com\\n收件人：me\\n日期：2026-02-28T07:45:00Z\\n主题：B2B Sales Digest: Best Practices for Q2 Planning\\n5 strategies for accelerating Q2 pipeline: 1. Revisit stalled deals. 2. Identify expansion accounts...\"}"
+      },
+      "create_time": "1772264700000"
+    },
+    {
+      "message_id": "om_msg_noise_039",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_039\\\", \\\"thread_id\\\": \\\"th_noise_039\\\", \\\"from_\\\": \\\"afoster@riverview.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Legal has questions about data residency\\\", \\\"date\\\": \\\"2026-03-01T15:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_039\\n来源：afoster@riverview.example.com\\n收件人：me\\n日期：2026-03-01T15:00:00Z\\n主题：Legal has questions about data residency\\nOur legal team has a few questions about data residency and GDPR compliance before we sign. Can we schedule a technical call?\"}"
+      },
+      "create_time": "1772377200000"
+    },
+    {
+      "message_id": "om_msg_noise_020",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_020\\\", \\\"thread_id\\\": \\\"th_noise_020\\\", \\\"from_\\\": \\\"events@salesconf.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"SalesConf 2026: Early Bird Registration Now Open\\\", \\\"date\\\": \\\"2026-02-25T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_020\\n来源：events@salesconf.example.com\\n收件人：me\\n日期：2026-02-25T10:00:00Z\\n主题：SalesConf 2026: Early Bird Registration Now Open\\nJoin 5,000+ sales professionals at SalesConf 2026 in Las Vegas, June 10-12. Early bird pricing ends March 31.\"}"
+      },
+      "create_time": "1772013600000"
+    },
+    {
+      "message_id": "om_msg_noise_006",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_006\\\", \\\"thread_id\\\": \\\"th_noise_006\\\", \\\"from_\\\": \\\"calendar-noreply@meet.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Meeting Confirmed: Weekly Team Sync\\\", \\\"date\\\": \\\"2026-03-02T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_006\\n来源：calendar-noreply@meet.example.com\\n收件人：me\\n日期：2026-03-02T14:00:00Z\\n主题：Meeting Confirmed: Weekly Team Sync\\nYour meeting 'Weekly Team Sync' has been confirmed for Tuesday March 5 at 10:00 AM PST.\"}"
+      },
+      "create_time": "1772460000000"
+    },
+    {
+      "message_id": "om_msg_noise_027",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_027\\\", \\\"thread_id\\\": \\\"th_noise_027\\\", \\\"from_\\\": \\\"bortega@eastgate.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Budget approved — ready to proceed\\\", \\\"date\\\": \\\"2026-03-02T09:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_027\\n来源：bortega@eastgate.example.com\\n收件人：me\\n日期：2026-03-02T09:30:00Z\\n主题：Budget approved — ready to proceed\\nGood news: budget has been approved by our finance team. Please send the MSA and we'll get legal review started.\"}"
+      },
+      "create_time": "1772443800000"
+    },
+    {
+      "message_id": "om_msg_noise_032",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_032\\\", \\\"thread_id\\\": \\\"th_noise_032\\\", \\\"from_\\\": \\\"noreply@crm.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Task Due Today: Follow up with Cascade Analytics\\\", \\\"date\\\": \\\"2026-03-03T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_032\\n来源：noreply@crm.example.com\\n收件人：me\\n日期：2026-03-03T08:00:00Z\\n主题：Task Due Today: Follow up with Cascade Analytics\\nYou have a task due today: Follow up with Cascade Analytics re: Q2 expansion proposal. Owner: You.\"}"
+      },
+      "create_time": "1772524800000"
+    },
+    {
+      "message_id": "om_msg_noise_028",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_028\\\", \\\"thread_id\\\": \\\"th_noise_028\\\", \\\"from_\\\": \\\"nhoffman@montclair.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Checking in — proposal status\\\", \\\"date\\\": \\\"2026-03-01T11:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_028\\n来源：nhoffman@montclair.example.com\\n收件人：me\\n日期：2026-03-01T11:45:00Z\\n主题：Checking in — proposal status\\nJust checking in on the proposal we sent over last week. Have you had a chance to review? Happy to jump on a call.\"}"
+      },
+      "create_time": "1772365500000"
+    },
+    {
+      "message_id": "om_msg_noise_017",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_017\\\", \\\"thread_id\\\": \\\"th_noise_017\\\", \\\"from_\\\": \\\"billing@cloudtools.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Invoice #INV-20260228 — $2,400.00\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_017\\n来源：billing@cloudtools.example.com\\n收件人：me\\n日期：2026-03-01T08:00:00Z\\n主题：Invoice #INV-20260228 — $2,400.00\\nInvoice for CloudTools Pro subscription — February 2026. Amount: $2,400.00. Due date: March 15.\"}"
+      },
+      "create_time": "1772352000000"
+    },
+    {
+      "message_id": "om_msg_noise_001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_001\\\", \\\"thread_id\\\": \\\"th_noise_001\\\", \\\"from_\\\": \\\"digest@techinsider.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Tech Insider Weekly — March 3 Issue\\\", \\\"date\\\": \\\"2026-03-03T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_001\\n来源：digest@techinsider.example.com\\n收件人：me\\n日期：2026-03-03T07:00:00Z\\n主题：Tech Insider Weekly — March 3 Issue\\nYour weekly roundup of enterprise tech news. Top story: AI adoption in B2B sales reaches 67%.\"}"
+      },
+      "create_time": "1772521200000"
+    },
+    {
+      "message_id": "om_msg_noise_016",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_016\\\", \\\"thread_id\\\": \\\"th_noise_016\\\", \\\"from_\\\": \\\"vendor@softwaresupplier.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your software license renewal is due\\\", \\\"date\\\": \\\"2026-02-27T11:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_016\\n来源：vendor@softwaresupplier.example.com\\n收件人：me\\n日期：2026-02-27T11:00:00Z\\n主题：Your software license renewal is due\\nYour annual license for SalesPro Enterprise is due for renewal on April 1. Click here to review your renewal quote.\"}"
+      },
+      "create_time": "1772190000000"
+    },
+    {
+      "message_id": "om_msg_noise_046",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_046\\\", \\\"thread_id\\\": \\\"th_noise_046\\\", \\\"from_\\\": \\\"jhutchins@vantagepoint.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Forwarding: RFP for CRM platform\\\", \\\"date\\\": \\\"2026-03-01T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_046\\n来源：jhutchins@vantagepoint.example.com\\n收件人：me\\n日期：2026-03-01T13:00:00Z\\n主题：Forwarding: RFP for CRM platform\\nJerome here from VantagePoint Systems. I'm forwarding our RFP for a CRM platform. We're evaluating 3 vendors. Deadline to respond: March 20.\"}"
+      },
+      "create_time": "1772370000000"
+    },
+    {
+      "message_id": "om_msg_noise_018",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_018\\\", \\\"thread_id\\\": \\\"th_noise_018\\\", \\\"from_\\\": \\\"noreply@linkedin.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"You have 5 new connection requests\\\", \\\"date\\\": \\\"2026-03-03T07:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_018\\n来源：noreply@linkedin.example.com\\n收件人：me\\n日期：2026-03-03T07:30:00Z\\n主题：You have 5 new connection requests\\n5 people want to connect with you on LinkedIn. Review and respond to your pending requests.\"}"
+      },
+      "create_time": "1772523000000"
+    },
+    {
+      "message_id": "om_msg_noise_034",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_034\\\", \\\"thread_id\\\": \\\"th_noise_034\\\", \\\"from_\\\": \\\"webinar@gotowebinar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Webinar: Winning Enterprise Deals in 2026\\\", \\\"date\\\": \\\"2026-03-01T10:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_034\\n来源：webinar@gotowebinar.example.com\\n收件人：me\\n日期：2026-03-01T10:30:00Z\\n主题：Webinar: Winning Enterprise Deals in 2026\\nJoin us March 12 for a live webinar on enterprise sales strategies. Register now to secure your spot.\"}"
+      },
+      "create_time": "1772361000000"
+    },
+    {
+      "message_id": "om_msg_noise_021",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_021\\\", \\\"thread_id\\\": \\\"th_noise_021\\\", \\\"from_\\\": \\\"nvance@ironclad.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Out of Office: Back March 10\\\", \\\"date\\\": \\\"2026-03-03T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_021\\n来源：nvance@ironclad.example.com\\n收件人：me\\n日期：2026-03-03T09:00:00Z\\n主题：Out of Office: Back March 10\\nThank you for your email. I am out of office March 3-7 and will respond upon my return March 10. For urgent matters contact my colleague.\"}"
+      },
+      "create_time": "1772528400000"
+    },
+    {
+      "message_id": "om_msg_noise_010",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_010\\\", \\\"thread_id\\\": \\\"th_noise_010\\\", \\\"from_\\\": \\\"fgarza@brightontech.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Can we reschedule our call?\\\", \\\"date\\\": \\\"2026-03-03T08:20:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_010\\n来源：fgarza@brightontech.example.com\\n收件人：me\\n日期：2026-03-03T08:20:00Z\\n主题：Can we reschedule our call?\\nHi, something came up on my end. Could we move our Thursday call to Friday afternoon? Same agenda.\"}"
+      },
+      "create_time": "1772526000000"
+    },
+    {
+      "message_id": "om_msg_noise_048",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_048\\\", \\\"thread_id\\\": \\\"th_noise_048\\\", \\\"from_\\\": \\\"tstein@zenithpro.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Introduction from Michael (mutual contact)\\\", \\\"date\\\": \\\"2026-03-02T14:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_048\\n来源：tstein@zenithpro.example.com\\n收件人：me\\n日期：2026-03-02T14:30:00Z\\n主题：Introduction from Michael (mutual contact)\\nHi, Michael suggested I reach out. We're a 50-person SaaS company looking to scale our sales ops. Would love to connect.\"}"
+      },
+      "create_time": "1772461800000"
+    },
+    {
+      "message_id": "om_msg_noise_035",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_035\\\", \\\"thread_id\\\": \\\"th_noise_035\\\", \\\"from_\\\": \\\"reports@marketdata.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your Market Intelligence Report Is Ready\\\", \\\"date\\\": \\\"2026-02-28T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_035\\n来源：reports@marketdata.example.com\\n收件人：me\\n日期：2026-02-28T14:00:00Z\\n主题：Your Market Intelligence Report Is Ready\\nYour requested market report on the Enterprise SaaS vertical is now available. Click to download (36 pages).\"}"
+      },
+      "create_time": "1772287200000"
+    },
+    {
+      "message_id": "om_msg_noise_040",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_040\\\", \\\"thread_id\\\": \\\"th_noise_040\\\", \\\"from_\\\": \\\"dhamilton@northgate.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Pilot results — very positive\\\", \\\"date\\\": \\\"2026-03-02T10:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_040\\n来源：dhamilton@northgate.example.com\\n收件人：me\\n日期：2026-03-02T10:45:00Z\\n主题：Pilot results — very positive\\nWe completed the 30-day pilot and the results exceeded our expectations. Our team is very excited. Looking forward to the expansion discussion.\"}"
+      },
+      "create_time": "1772448300000"
+    },
+    {
+      "message_id": "om_msg_noise_042",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_042\\\", \\\"thread_id\\\": \\\"th_noise_042\\\", \\\"from_\\\": \\\"payroll@noiseco.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your February commission statement is available\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_042\\n来源：payroll@noiseco.example.com\\n收件人：me\\n日期：2026-03-01T08:00:00Z\\n主题：Your February commission statement is available\\nYour February commission statement is now available in the payroll portal. Total commission: $8,240.00.\"}"
+      },
+      "create_time": "1772352000000"
+    },
+    {
+      "message_id": "om_msg_noise_025",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_025\\\", \\\"thread_id\\\": \\\"th_noise_025\\\", \\\"from_\\\": \\\"kwalsh@starling.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Security questionnaire\\\", \\\"date\\\": \\\"2026-03-01T14:20:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_025\\n来源：kwalsh@starling.example.com\\n收件人：me\\n日期：2026-03-01T14:20:00Z\\n主题：Re: Security questionnaire\\nAttached is our completed security questionnaire. Please let us know if you need any clarification on sections 3 and 7.\"}"
+      },
+      "create_time": "1772374800000"
+    },
+    {
+      "message_id": "om_msg_noise_014",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_014\\\", \\\"thread_id\\\": \\\"th_noise_014\\\", \\\"from_\\\": \\\"ops@noiseco.example.com\\\", \\\"to\\\": [\\\"sales@noiseco.example.com\\\"], \\\"subject\\\": \\\"Updated: Q1 Sales Leaderboard\\\", \\\"date\\\": \\\"2026-03-02T16:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_014\\n来源：ops@noiseco.example.com\\n收件人：sales@noiseco.example.com\\n日期：2026-03-02T16:30:00Z\\n主题：Updated: Q1 Sales Leaderboard\\nAttached is the updated Q1 leaderboard through week 9. Top performers: Jordan Marsh (142%), Riley Griffith (138%), Alex Vance (127%).\"}"
+      },
+      "create_time": "1772469000000"
+    },
+    {
+      "message_id": "om_msg_noise_029",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_029\\\", \\\"thread_id\\\": \\\"th_noise_029\\\", \\\"from_\\\": \\\"noreply@crm.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Deal Stage Change: Ironclad Systems → Proposal\\\", \\\"date\\\": \\\"2026-03-02T14:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_029\\n来源：noreply@crm.example.com\\n收件人：me\\n日期：2026-03-02T14:15:00Z\\n主题：Deal Stage Change: Ironclad Systems → Proposal\\nThe opportunity 'Ironclad Systems - Platform License' has moved from Qualification to Proposal. Updated by: Alex Vance.\"}"
+      },
+      "create_time": "1772460900000"
+    },
+    {
+      "message_id": "om_msg_noise_044",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_044\\\", \\\"thread_id\\\": \\\"th_noise_044\\\", \\\"from_\\\": \\\"info@titaniumsys.example.com\\\", \\\"to\\\": [\\\"sales@noiseco.example.com\\\"], \\\"subject\\\": \\\"Inquiry about enterprise plan\\\", \\\"date\\\": \\\"2026-03-03T11:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_044\\n来源：info@titaniumsys.example.com\\n收件人：sales@noiseco.example.com\\n日期：2026-03-03T11:30:00Z\\n主题：Inquiry about enterprise plan\\nHi, we are a 200-person manufacturing company looking for a CRM solution. Could you send pricing info for your enterprise plan?\"}"
+      },
+      "create_time": "1772537400000"
+    },
+    {
+      "message_id": "om_msg_noise_031",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_031\\\", \\\"thread_id\\\": \\\"th_noise_031\\\", \\\"from_\\\": \\\"noreply@docusign.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Envelope Completed: Thornwood Partners NDA\\\", \\\"date\\\": \\\"2026-03-01T16:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_031\\n来源：noreply@docusign.example.com\\n收件人：me\\n日期：2026-03-01T16:45:00Z\\n主题：Envelope Completed: Thornwood Partners NDA\\nThe envelope 'Thornwood Partners - Mutual NDA' has been completed by all parties. Download the signed document.\"}"
+      },
+      "create_time": "1772383500000"
+    },
+    {
+      "message_id": "om_msg_noise_022",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_022\\\", \\\"thread_id\\\": \\\"th_noise_022\\\", \\\"from_\\\": \\\"jtorres@bluestar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Partnership discussion — OOO\\\", \\\"date\\\": \\\"2026-03-02T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_022\\n来源：jtorres@bluestar.example.com\\n收件人：me\\n日期：2026-03-02T13:00:00Z\\n主题：Re: Partnership discussion — OOO\\nI am currently attending an offsite through Thursday. I will follow up on our partnership discussion when I return. — Carmen Valdez\"}"
+      },
+      "create_time": "1772456400000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_routing_rules\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\", \\\"user_id\\\": \\\"U_ADMIN\\\", \\\"ts\\\": \\\"1706000000.000001\\\"}\\nEmail Routing Rules:\\n- Negative/urgent: forward to manager@company.example.com with [ESCALATION] subject prefix\\n- Positive: label as 'happy-customer'\\n- Neutral: label as 'standard-inquiry'\"}"
+      },
+      "create_time": "1706000000.000001"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990040.000040\\\", \\\"user_id\\\": \\\"U_noise_40\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nNew pricing deck is live — v3.2. All previous versions deprecated, please update your decks.\"}"
+      },
+      "create_time": "1740990040.000040"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990029.000029\\\", \\\"user_id\\\": \\\"U_noise_29\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nWavecrest Analytics on boarding call went great. Happy customer — ask for referral?\"}"
+      },
+      "create_time": "1740990029.000029"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990036.000036\\\", \\\"user_id\\\": \\\"U_noise_36\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nOceanfront Labs pilot complete — 9/10 satisfaction. Moving to full deployment next month 🎉\"}"
+      },
+      "create_time": "1740990036.000036"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990011.000011\\\", \\\"user_id\\\": \\\"U_noise_11\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nWho owns the Silverstone Group account? Need to coordinate on renewal timing.\"}"
+      },
+      "create_time": "1740990011.000011"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990007.000007\\\", \\\"user_id\\\": \\\"U_noise_07\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nPSA: CRM maintenance Saturday 2-4am. Save your work Friday night.\"}"
+      },
+      "create_time": "1740990007.000007"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990018.000018\\\", \\\"user_id\\\": \\\"U_noise_18\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nFoxridge Capital: verbal yes from the CFO. Contract coming this week!\"}"
+      },
+      "create_time": "1740990018.000018"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990005.000005\\\", \\\"user_id\\\": \\\"U_noise_05\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nAnyone have a good champion letter template for manufacturing accounts?\"}"
+      },
+      "create_time": "1740990005.000005"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990019.000019\\\", \\\"user_id\\\": \\\"U_noise_19\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nHighpoint Consulting wants a custom integration quote. Looping in Solutions team.\"}"
+      },
+      "create_time": "1740990019.000019"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990028.000028\\\", \\\"user_id\\\": \\\"U_noise_28\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nUpland Systems ghosted for 3 weeks. Sent breakup email. Sometimes that works 😅\"}"
+      },
+      "create_time": "1740990028.000028"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990027.000027\\\", \\\"user_id\\\": \\\"U_noise_27\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nTerrace Software asked for implementation timeline — sending over SOW template today\"}"
+      },
+      "create_time": "1740990027.000027"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990034.000034\\\", \\\"user_id\\\": \\\"U_noise_34\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nReminder: all deals >$50k need second-level approval. Submit in Salesforce before EOD.\"}"
+      },
+      "create_time": "1740990034.000034"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990032.000032\\\", \\\"user_id\\\": \\\"U_noise_32\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nCan someone share the latest competitive battle card? Need it before my Northgate call.\"}"
+      },
+      "create_time": "1740990032.000032"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990043.000043\\\", \\\"user_id\\\": \\\"U_noise_43\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nStonebridge Holdings asked for a multi-year price lock. Escalating to pricing committee.\"}"
+      },
+      "create_time": "1740990043.000043"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990026.000026\\\", \\\"user_id\\\": \\\"U_noise_26\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nSunstone Capital: new CFO coming in. Scheduling intro call for next week.\"}"
+      },
+      "create_time": "1740990026.000026"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990024.000024\\\", \\\"user_id\\\": \\\"U_noise_24\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nRiverside Insurance just posted a LinkedIn job for a 'Platform Manager' — good upsell signal!\"}"
+      },
+      "create_time": "1740990024.000024"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990046.000046\\\", \\\"user_id\\\": \\\"U_noise_46\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nBig W: Bayside Analytics just signed! $85k ARR, 18-month deal. Congrats team! 🥳\"}"
+      },
+      "create_time": "1740990046.000046"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990008.000008\\\", \\\"user_id\\\": \\\"U_noise_08\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nCascade Analytics came back from procurement — they're asking for net-60 terms\"}"
+      },
+      "create_time": "1740990008.000008"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990021.000021\\\", \\\"user_id\\\": \\\"U_noise_21\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nOOO: I'm out Thursday-Friday. Northstar Media is covered by Jordan if anything urgent comes up.\"}"
+      },
+      "create_time": "1740990021.000021"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990001.000001\\\", \\\"user_id\\\": \\\"U_noise_01\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nMorning all! Big week ahead — let's close Q1 strong 💪\"}"
+      },
+      "create_time": "1740990001.000001"
+    },
+    {
+      "message_id": "om_slack_20",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990023.000023\\\", \\\"user_id\\\": \\\"U_noise_23\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nParkside Solutions: renewal conversation starting. They want a multi-year discount.\"}"
+      },
+      "create_time": "1740990023.000023"
+    },
+    {
+      "message_id": "om_slack_21",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990035.000035\\\", \\\"user_id\\\": \\\"U_noise_35\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nFoxridge Capital — legal pushed back on the liability cap. Anyone dealt with this before?\"}"
+      },
+      "create_time": "1740990035.000035"
+    },
+    {
+      "message_id": "om_slack_22",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990020.000020\\\", \\\"user_id\\\": \\\"U_noise_20\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nMeadowbrook Tech delayed decision to Q2 — board didn't approve new software spend this quarter\"}"
+      },
+      "create_time": "1740990020.000020"
+    },
+    {
+      "message_id": "om_slack_23",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990016.000016\\\", \\\"user_id\\\": \\\"U_noise_16\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nBayside Analytics is evaluating us vs. Competitor X. Request for a third reference call.\"}"
+      },
+      "create_time": "1740990016.000016"
+    },
+    {
+      "message_id": "om_slack_24",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990014.000014\\\", \\\"user_id\\\": \\\"U_noise_14\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nGood news: Alpine Digital signed! 2-year deal, $110k ARR. Nicely done Kevin!\"}"
+      },
+      "create_time": "1740990014.000014"
+    },
+    {
+      "message_id": "om_slack_25",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990042.000042\\\", \\\"user_id\\\": \\\"U_noise_42\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nTerrace Software close call Friday! Getting the MSA signed before Q1 ends.\"}"
+      },
+      "create_time": "1740990042.000042"
+    },
+    {
+      "message_id": "om_slack_26",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990045.000045\\\", \\\"user_id\\\": \\\"U_noise_45\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nIronridge is back! After 6 weeks dark they replied to the breakup email. Scheduling a call.\"}"
+      },
+      "create_time": "1740990045.000045"
+    },
+    {
+      "message_id": "om_slack_27",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990031.000031\\\", \\\"user_id\\\": \\\"U_noise_31\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nJust got off a call with Harbourview — they want to move to contract this week. Need legal ASAP.\"}"
+      },
+      "create_time": "1740990031.000031"
+    },
+    {
+      "message_id": "om_slack_28",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990048.000048\\\", \\\"user_id\\\": \\\"U_noise_48\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nMeadowbrook Tech rescheduled again — Q2 for sure. Marking as delayed in CRM.\"}"
+      },
+      "create_time": "1740990048.000048"
+    },
+    {
+      "message_id": "om_slack_29",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990017.000017\\\", \\\"user_id\\\": \\\"U_noise_17\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nClearwater Systems legal is asking about SOC 2 Type II — grabbing report from InfoSec\"}"
+      },
+      "create_time": "1740990017.000017"
+    },
+    {
+      "message_id": "om_slack_30",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990009.000009\\\", \\\"user_id\\\": \\\"U_noise_09\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nNew competitive intel doc posted in #competitive. Ironridge is offering 20% discount to steal accounts.\"}"
+      },
+      "create_time": "1740990009.000009"
+    },
+    {
+      "message_id": "om_slack_31",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990012.000012\\\", \\\"user_id\\\": \\\"U_noise_12\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nCloudBridge Systems is requesting a technical deep-dive on security architecture. Need an SE for March 8\"}"
+      },
+      "create_time": "1740990012.000012"
+    },
+    {
+      "message_id": "om_slack_32",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990049.000049\\\", \\\"user_id\\\": \\\"U_noise_49\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nWeek 10 starts Monday. Let's sprint to close! Who needs backup on any deals?\"}"
+      },
+      "create_time": "1740990049.000049"
+    },
+    {
+      "message_id": "om_slack_33",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990002.000002\\\", \\\"user_id\\\": \\\"U_noise_02\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nJust wrapped the Ironclad demo. Really engaged team, feels like a solid Proposal push.\"}"
+      },
+      "create_time": "1740990002.000002"
+    },
+    {
+      "message_id": "om_slack_34",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990047.000047\\\", \\\"user_id\\\": \\\"U_noise_47\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nCloudBridge legal has questions about data residency. Looping in our DPO for a joint call.\"}"
+      },
+      "create_time": "1740990047.000047"
+    },
+    {
+      "message_id": "om_slack_35",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990004.000004\\\", \\\"user_id\\\": \\\"U_noise_04\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nCongrats to Megan on closing Thornwood Partners! 🎉 $95k ARR\"}"
+      },
+      "create_time": "1740990004.000004"
+    },
+    {
+      "message_id": "om_slack_36",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990044.000044\\\", \\\"user_id\\\": \\\"U_noise_44\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nOOO Wed-Thu for QBR prep. All my accounts covered — ping me if urgent.\"}"
+      },
+      "create_time": "1740990044.000044"
+    },
+    {
+      "message_id": "om_slack_37",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990015.000015\\\", \\\"user_id\\\": \\\"U_noise_15\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nWeek 9 leaderboard just posted. Three of us are over 130% — great work everyone!\"}"
+      },
+      "create_time": "1740990015.000015"
+    },
+    {
+      "message_id": "om_slack_38",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990039.000039\\\", \\\"user_id\\\": \\\"U_noise_39\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nQ1 close plan: 5 deals in final stage, $620k at risk. Let's align on blockers today.\"}"
+      },
+      "create_time": "1740990039.000039"
+    },
+    {
+      "message_id": "om_slack_39",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990013.000013\\\", \\\"user_id\\\": \\\"U_noise_13\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nHarbourview Capital: champion just left the company 😬 Need to re-map the account\"}"
+      },
+      "create_time": "1740990013.000013"
+    },
+    {
+      "message_id": "om_slack_40",
+      "chat_id": "oc_C_ROUTE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990033.000033\\\", \\\"user_id\\\": \\\"U_noise_33\\\", \\\"channel_id\\\": \\\"C_ROUTE\\\"}\\nSunstone Capital agreed to a 2-year deal at 8% discount. Checking with VP before countersigning.\"}"
+      },
+      "create_time": "1740990033.000033"
+    }
+  ]
+}

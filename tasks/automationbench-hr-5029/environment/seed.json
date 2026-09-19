@@ -1,0 +1,143 @@
+{
+  "now": "2026-03-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_onboard_slack": {
+      "title": "Onboarding Setup",
+      "sheets": {
+        "ws_new_hires_week": {
+          "title": "This Week's Hires",
+          "values": [
+            ["Name", "Slack User ID", "Department", "Start Date"],
+            ["Sarah Nakamura", "U_SARAH", "Engineering", "2026-03-10"],
+            ["Marcus Lindgren", "U_MARCUS", "Analytics", "2026-03-11"]
+          ]
+        },
+        "ws_channel_guide": {
+          "title": "Channel Assignment Guide",
+          "values": [
+            ["Channel Type", "Rule"],
+            [
+              "Department",
+              "Add to #dept-{department_name} (lowercase, hyphenated)"
+            ],
+            [
+              "Standard Onboarding",
+              "All new hires join: #new-hires, #company-announcements, #random"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_SARAH",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_SARAH",
+          "name": "sarah.nakamura",
+          "real_name": "Sarah Nakamura"
+        }
+      },
+      {
+        "record_id": "rec_user_U_MARCUS",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_MARCUS",
+          "name": "marcus.lindgren",
+          "real_name": "Marcus Lindgren"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "real_name",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group",
+      "member_ids": [],
+      "can_manage_members": true
+    },
+    {
+      "chat_id": "oc_user_U_SARAH",
+      "name": "U_SARAH | Sarah Nakamura",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_user_U_MARCUS",
+      "name": "U_MARCUS | Marcus Lindgren",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_NEWHIRES",
+      "name": "new-hires",
+      "chat_mode": "group",
+      "member_ids": [],
+      "can_manage_members": true
+    },
+    {
+      "chat_id": "oc_C_ANNOUNCE",
+      "name": "company-announcements",
+      "chat_mode": "group",
+      "member_ids": [],
+      "can_manage_members": true
+    },
+    {
+      "chat_id": "oc_C_RANDOM",
+      "name": "random",
+      "chat_mode": "group",
+      "member_ids": [],
+      "can_manage_members": true
+    },
+    {
+      "chat_id": "oc_C_ENG",
+      "name": "dept-engineering",
+      "chat_mode": "group",
+      "member_ids": [],
+      "can_manage_members": true
+    },
+    {
+      "chat_id": "oc_C_ANALYTICS",
+      "name": "dept-analytics",
+      "chat_mode": "group",
+      "member_ids": [],
+      "can_manage_members": true
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_ENG",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_sm002\\\", \\\"channel_id\\\": \\\"C_ENG\\\", \\\"user_id\\\": \\\"U_NOISE2\\\", \\\"ts\\\": \\\"2026-03-02T14:00:00Z\\\"}\\nDoes anyone know the wifi password for the visitor conference room?\"}"
+      },
+      "create_time": "2026-03-02T14:00:00Z"
+    }
+  ]
+}
