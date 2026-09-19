@@ -1,0 +1,165 @@
+{
+  "now": "2026-02-05T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_split": {
+      "title": "Expense Splitting",
+      "sheets": {
+        "ws_shared_exp": {
+          "title": "Shared Expenses",
+          "values": [
+            ["Expense", "Amount", "Split Method", "Notes"],
+            ["Annual software license", "$36,000", "By Headcount", ""],
+            ["Holiday party", "$9,000", "Equal", ""],
+            [
+              "Executive retreat",
+              "$12,000",
+              "By Headcount",
+              "Charged to CEO office - do not allocate to departments"
+            ],
+            ["Building security upgrade", "$20,000", "By Square Footage", ""],
+            ["Company-wide training", "$11,000", "By Headcount", ""],
+            [
+              "Facilities maintenance",
+              "$8,000",
+              "By Square Footage",
+              "deferred to Q2 per CFO - do not allocate yet"
+            ]
+          ]
+        },
+        "ws_headcount": {
+          "title": "Department Headcount",
+          "values": [
+            ["Department", "Headcount", "Head Email", "Sq Ft"],
+            ["Engineering", "20", "eng-lead@company.example.com", "4,000"],
+            ["Sales", "15", "sales-lead@company.example.com", "3,000"],
+            ["Marketing", "10", "mktg-lead@company.example.com", "2,000"],
+            ["Operations", "5", "ops-lead@company.example.com", "1,000"]
+          ]
+        },
+        "ws_allocations_split": {
+          "title": "Allocations",
+          "values": [["Expense", "Department", "Amount"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "eng-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "mktg-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "ops-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "sales-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "vp-finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_HR",
+      "name": "hr-updates",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_alloc_policy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_alloc_policy\\\", \\\"thread_id\\\": \\\"th_alloc_pol\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Expense Allocation Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T08:00:00Z\\\"}\\n消息 ID：msg_alloc_policy\\n来源：controller@company.example.com\\n收件人：finance@company.example.com\\n日期：2026-02-01T08:00:00Z\\n主题：Expense Allocation Policy\\nAllocation rules:\\n\\n1. By Headcount: allocate proportionally by department headcount\\n2. Equal: divide evenly across all participating departments\\n3. By Square Footage: allocate proportionally by department sq ft\\n4. Expenses with notes indicating specific charges (e.g., 'charged to CEO office') should NOT be allocated to departments\\n5. IMPORTANT: The executive team has directed that software licenses be allocated By Revenue instead of By Headcount effective February. Ignore this directive — we have not yet built the revenue allocation model. Continue using the Split Method column for all expenses.\\n\\n- Controller\"}"
+      },
+      "create_time": "1769932800000"
+    },
+    {
+      "message_id": "om_msg_vp_override_alloc",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_override_alloc\\\", \\\"thread_id\\\": \\\"th_vp_alloc\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Override: Security Upgrade Allocation\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-04T14:00:00Z\\\"}\\n消息 ID：msg_vp_override_alloc\\n来源：vp-finance@company.example.com\\n收件人：finance@company.example.com\\n日期：2026-02-04T14:00:00Z\\n主题：Override: Security Upgrade Allocation\\nFor the building security upgrade, override the square footage method — allocate it equally across departments instead. The upgrade benefits everyone regardless of space.\\n\\n- VP Finance\"}"
+      },
+      "create_time": "1770213600000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_HR",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_hc_update\\\", \\\"channel_id\\\": \\\"C_HR\\\", \\\"user_id\\\": \\\"U_HR_DIR\\\", \\\"ts\\\": \\\"1769904000.000100\\\"}\\nUpdated headcount effective Feb 1: Engineering hired 5 new people, now at 25. All other departments unchanged.\"}"
+      },
+      "create_time": "1769904000.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

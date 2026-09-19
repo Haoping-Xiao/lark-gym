@@ -1,0 +1,259 @@
+{
+  "now": "2026-02-01T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_ic": {
+      "title": "IC Transfer Schedule",
+      "sheets": {
+        "ws_feb_ic": {
+          "title": "February 2026",
+          "values": [
+            [
+              "Ref",
+              "From",
+              "To",
+              "Amount",
+              "Description",
+              "Contact",
+              "Status",
+              "Notes",
+              "FX Rate"
+            ],
+            [
+              "IC-2026-020",
+              "HQ",
+              "West Division",
+              "$45,000",
+              "Shared IT allocation",
+              "westfin@company.example.com",
+              "Approved",
+              "",
+              ""
+            ],
+            [
+              "IC-2026-021",
+              "HQ",
+              "East Division",
+              "$38,000",
+              "Marketing shared services",
+              "eastfin@company.example.com",
+              "Approved",
+              "Pending final headcount confirmation from East HR",
+              ""
+            ],
+            [
+              "IC-2026-022",
+              "HQ",
+              "South Division",
+              "$22,500",
+              "HR shared services",
+              "southfin@company.example.com",
+              "On Hold",
+              "",
+              ""
+            ],
+            [
+              "IC-2026-023",
+              "HQ",
+              "Europe Division",
+              "€28,000",
+              "Regional support services",
+              "europefin@company.example.com",
+              "Approved",
+              "",
+              "1.08"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "ref",
+        "type": "text"
+      },
+      {
+        "name": "from_entity",
+        "type": "text"
+      },
+      {
+        "name": "to_entity",
+        "type": "text"
+      },
+      {
+        "name": "currency",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "fx_rate",
+        "type": "number"
+      },
+      {
+        "name": "usd_amount",
+        "type": "number"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "accounting@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "eastfin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "europefin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "southfin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "treasury@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "vp-finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "westfin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ACCT",
+      "name": "accounting",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_ic_proc",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ic_proc\\\", \\\"thread_id\\\": \\\"th_ic_proc\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"IC Transfer Procedures\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-28T08:00:00Z\\\"}\\n消息 ID：msg_ic_proc\\n来源：controller@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-01-28T08:00:00Z\\n主题：IC Transfer Procedures\\nIntercompany transfer rules:\\n\\n1. Only process transfers with Status = 'Approved'\\n2. Transfers marked 'On Hold' must be skipped\\n3. Notify the receiving entity's finance contact listed in the schedule\\n4. Include the transfer amount, description, and reference number in the notification\\n5. Update Status to 'Processed' after sending notification\\n6. FX rates are set by Treasury and must NOT be modified during transfer processing. Rate changes require Treasury approval.\\n- Controller\"}"
+      },
+      "create_time": "1769587200000"
+    },
+    {
+      "message_id": "om_msg_vp_release",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_release\\\", \\\"thread_id\\\": \\\"th_vp_release\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"IC Hold Release - South Division\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-31T14:00:00Z\\\"}\\n消息 ID：msg_vp_release\\n来源：vp-finance@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-01-31T14:00:00Z\\n主题：IC Hold Release - South Division\\nThe HR shared services allocation for South Division (IC-2026-022) has been approved. Please release the hold and process it with the February batch. This overrides the previous hold.\\n\\n- VP Finance\"}"
+      },
+      "create_time": "1769868000000"
+    },
+    {
+      "message_id": "om_msg_treasury_spot",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_treasury_spot\\\", \\\"thread_id\\\": \\\"th_treasury_spot\\\", \\\"from_\\\": \\\"treasury@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"Approved February EUR spot rate\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T08:30:00Z\\\"}\\n消息 ID：msg_treasury_spot\\n来源：treasury@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-02-01T08:30:00Z\\n主题：Approved February EUR spot rate\\nTreasury approval for the February intercompany batch: set the Euro-denominated transfer's FX rate to 1.05. This approval supersedes the schedule's 1.08 rate for this batch.\"}"
+      },
+      "create_time": "1769934600000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_ACCT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_east_corr\\\", \\\"channel_id\\\": \\\"C_ACCT\\\", \\\"user_id\\\": \\\"U_CONTROLLER\\\", \\\"ts\\\": \\\"1769904000.000100\\\"}\\nCorrection: East Division IC-2026-021 marketing allocation should be $35,000 not $38,000. The budget was revised downward after the schedule was published. Use the corrected figure.\"}"
+      },
+      "create_time": "1769904000.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

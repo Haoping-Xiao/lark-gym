@@ -29,7 +29,7 @@ for row in rows:
         assert index.isdigit() and 0<=int(index)<len(row['info']['assertions']) and isinstance(reason,str) and reason.strip(),(key,'invalid explicit assertion override',index)
     assertions=[a for i,a in enumerate(row['info']['assertions']) if str(i) not in overrides]
     for app,payload in src.items():
-        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram'] or empty(payload),(key,'unmapped source app',app)
+        assert app in ['meta','salesforce','google_sheets','gmail','slack','zendesk','helpscout','quickbooks','xero','wave','google_calendar','hubspot','mailchimp','google_ads','buffer','twitter','linkedin','facebook_pages','instagram','airtable'] or empty(payload),(key,'unmapped source app',app)
     records=[]
     if recipe.get('mail_state'):
         for item in src.get('gmail',{}).get('messages',[]):
@@ -41,6 +41,15 @@ for row in rows:
             for item in src.get('gmail',{}).get(collection,[]):
                 assert isinstance(item,dict) and 'id' in item,(key,'invalid mail metadata',collection)
                 records.append({'record_id':'rec_mail_'+collection+'_'+str(item['id']),'fields':{'collection':'mail_'+collection,**{k:scalar(v) for k,v in item.items()}}})
+    airtable=src.get('airtable',{})
+    assert not any(not empty(v) for k,v in airtable.items() if k!='bases'),(key,'unsupported flat airtable data')
+    for base in airtable.get('bases',[]):
+        records.append({'record_id':'rec_airtable_base_'+base['id'],'fields':{'collection':'airtable_bases',**{k:scalar(v) for k,v in base.items() if k!='tables'}}})
+        for table in base.get('tables',[]):
+            records.append({'record_id':'rec_airtable_table_'+base['id']+'_'+table['id'],'fields':{'collection':'airtable_tables','source_base_id':base['id'],**{k:scalar(v) for k,v in table.items() if k!='records'}}})
+            for item in table.get('records',[]):
+                assert not set(item['fields'])&{'collection','source_base_id','source_table_id','source_record_id','source_metadata'},(key,'airtable field collision')
+                records.append({'record_id':'rec_airtable_'+base['id']+'_'+table['id']+'_'+item['id'],'fields':{'collection':'airtable_records','source_base_id':base['id'],'source_table_id':table['id'],'source_record_id':item['id'],'source_metadata':scalar({k:v for k,v in item.items() if k!='fields'}),**{k:scalar(v) for k,v in item['fields'].items()}}})
     for collection,items in src.get('salesforce',{}).items():
         for item in items:
             records.append({'record_id':'rec_'+str(item['id']),'fields':{'collection':collection,**{k:scalar(v) for k,v in item.items() if k!='id'}}})
@@ -56,7 +65,7 @@ for row in rows:
         for collection,items in src.get(app,{}).items():
             assert isinstance(items,list),(key,'unsupported finance collection',app,collection)
             for item in items:
-                identity=next((item[k] for k in ['id','credit_note_id','invoice_id','purchase_order_id','contact_id'] if k in item),None)
+                identity=next((item[k] for k in ['id','credit_note_id','invoice_id','purchase_order_id','quote_id','bank_transaction_id','contact_id'] if k in item),None)
                 assert identity is not None,(key,app,collection,'missing identity')
                 records.append({'record_id':'rec_'+app+'_'+str(identity),'fields':{'collection':app+'_'+collection,**{k:scalar(v) for k,v in item.items()}}})
     for collection,items in src.get('hubspot',{}).items():
@@ -145,10 +154,10 @@ for row in rows:
         attendees=[{'attendee_id':'at_'+str(i),'type':'third_party','third_party_email':a if isinstance(a,str) else a['email']} for i,a in enumerate(event.get('attendees',[]))]
         events.append({'event_id':event['id'],'calendar_id':cid,'summary':event.get('summary',''),'description':event.get('description','')+'\n原始元数据：'+json.dumps(event,ensure_ascii=False),'start_time':calendar_time(event['start__dateTime']),'end_time':calendar_time(event['end__dateTime']),'status':event.get('status','confirmed'),'attendees':attendees,**({'location':{'name':event['location']}} if event.get('location') else {})})
     chats=[{'chat_id':'oc_mail','name':'业务来信','chat_mode':'group'}];messages=[]
-    for profile in src.get('linkedin',{}).get('profiles',[]):
+    for profileIndex,profile in enumerate(src.get('linkedin',{}).get('profiles',[])):
         profileUrl=profile.get('public_profile_url',profile.get('profile_url'))
         if profileUrl:
-            chats.append({'chat_id':'oc_linkedin_'+profile['id'],'name':profileUrl,'chat_mode':'p2p'})
+            chats.append({'chat_id':'oc_linkedin_'+str(profile.get('id','source_index_'+str(profileIndex))),'name':profileUrl,'chat_mode':'p2p'})
     for originalMessage in src.get('gmail',{}).get('messages',[]):
         m={**originalMessage,'from_':originalMessage.get('from_',originalMessage.get('from','未标注')),'body_plain':originalMessage.get('body_plain',originalMessage.get('body',''))}
         text=f"原始消息元数据：{json.dumps({k:v for k,v in m.items() if k!='body_plain'},ensure_ascii=False)}\n消息 ID：{m['id']}\n来源：{m['from_']}\n收件人：{', '.join(m.get('to',[]))}\n日期：{m.get('date','未标注')}\n主题：{m.get('subject','')}\n{m.get('body_plain','')}"
@@ -232,6 +241,9 @@ for row in rows:
             cids=[next(c['chat_id'] for c in chats if c['name']==scope or c['chat_id']=='oc_'+str(scope))] if scope else [c['chat_id'] for c in chats if c.get('chat_mode')!='p2p' and c['chat_id']!='oc_mail']
             tokens=a.get('text_contains',[])
             for cid in cids:forbidden.append({'chat_id':cid,'contains':[tokens] if isinstance(tokens,str) else tokens})
+    for email,tokens in recipe.get('forbidden_message_contents',{}).items():
+        assert isinstance(tokens,list) and all(isinstance(t,str) and t for t in tokens),(key,'invalid forbidden content')
+        forbidden.extend({'chat_id':destinations[email],'contains':[token]} for token in tokens)
     forbiddenRecords=[]
     for a in assertions:
         if a['type']=='gmail_draft_body_not_contains':

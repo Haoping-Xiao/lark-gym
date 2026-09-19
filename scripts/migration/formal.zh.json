@@ -11274,5 +11274,2880 @@
         ]
       }
     ]
+  },
+  "finance-4074": {
+    "instruction": "准备 January Trial Balance 的月结分录，按 Monthly Closing Procedures 先结转所有非零收入/费用，再将 Income Summary 净额结转 Retained Earnings。非损益科目及零余额不参与。保存 journal_entries 飞书台账，period=2026-01、debit_account、credit_account、amount数值、status=Prepared；本轮是备审分录，不改试算平衡原表。给 controller@company.example.com 发私聊，逐行 Debit 科目 | Credit 科目 | $金额，并列 Revenue total、Expense total、Net income。",
+    "creates": [
+      {
+        "collection": "journal_entries",
+        "period": "2026-01",
+        "debit_account": "Revenue - SaaS",
+        "credit_account": "Income Summary",
+        "amount": 185000,
+        "status": "Prepared"
+      },
+      {
+        "collection": "journal_entries",
+        "period": "2026-01",
+        "debit_account": "Revenue - Consulting",
+        "credit_account": "Income Summary",
+        "amount": 92000,
+        "status": "Prepared"
+      },
+      {
+        "collection": "journal_entries",
+        "period": "2026-01",
+        "debit_account": "Income Summary",
+        "credit_account": "Salaries Expense",
+        "amount": 210000,
+        "status": "Prepared"
+      },
+      {
+        "collection": "journal_entries",
+        "period": "2026-01",
+        "debit_account": "Income Summary",
+        "credit_account": "Rent Expense",
+        "amount": 15000,
+        "status": "Prepared"
+      },
+      {
+        "collection": "journal_entries",
+        "period": "2026-01",
+        "debit_account": "Income Summary",
+        "credit_account": "Utilities Expense",
+        "amount": 4500,
+        "status": "Prepared"
+      },
+      {
+        "collection": "journal_entries",
+        "period": "2026-01",
+        "debit_account": "Income Summary",
+        "credit_account": "Retained Earnings",
+        "amount": 47500,
+        "status": "Prepared"
+      }
+    ],
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "Debit Revenue - SaaS | Credit Income Summary | $185,000\nDebit Revenue - Consulting | Credit Income Summary | $92,000\nDebit Income Summary | Credit Salaries Expense | $210,000\nDebit Income Summary | Credit Rent Expense | $15,000\nDebit Income Summary | Credit Utilities Expense | $4,500\nDebit Income Summary | Credit Retained Earnings | $47,500\nRevenue total | $277,000\nExpense total | $229,500\nNet income | $47,500",
+        "contains": [
+          "Debit Revenue - SaaS | Credit Income Summary | $185,000",
+          "Debit Revenue - Consulting | Credit Income Summary | $92,000",
+          "Debit Income Summary | Credit Salaries Expense | $210,000",
+          "Debit Income Summary | Credit Rent Expense | $15,000",
+          "Debit Income Summary | Credit Utilities Expense | $4,500",
+          "Debit Income Summary | Credit Retained Earnings | $47,500",
+          "Revenue total | $277,000",
+          "Expense total | $229,500",
+          "Net income | $47,500"
+        ]
+      }
+    ]
+  },
+  "finance-4075": {
+    "instruction": "核对 Vendor Statements Received 与 Our AP Balances，按供应商精确关联；备注要求排除者不参与，相同余额不向供应商发通知。逐不一致供应商发飞书私聊请求核对，Vendor | Statement 原余额 | AP 原余额 | Difference 有符号差额（Statement-AP）。给 controller@company.example.com 汇总同一异常列表；不改账或推断未提供的发票原因。",
+    "messages": [
+      {
+        "email": "ar@acme.example.com",
+        "text": "Acme Supplies | Statement $6,200 | AP $4,200 | Difference +$2,000",
+        "contains": [
+          "Acme Supplies | Statement $6,200 | AP $4,200 | Difference +$2,000"
+        ]
+      },
+      {
+        "email": "ar@metro.example.com",
+        "text": "Metro Supply | Statement $1,800 | AP $2,580 | Difference -$780",
+        "contains": [
+          "Metro Supply | Statement $1,800 | AP $2,580 | Difference -$780"
+        ]
+      },
+      {
+        "email": "controller@company.example.com",
+        "text": "Acme Supplies | Statement $6,200 | AP $4,200 | Difference +$2,000\nMetro Supply | Statement $1,800 | AP $2,580 | Difference -$780",
+        "contains": [
+          "Acme Supplies | Statement $6,200 | AP $4,200 | Difference +$2,000",
+          "Metro Supply | Statement $1,800 | AP $2,580 | Difference -$780"
+        ]
+      }
+    ]
+  },
+  "finance-4076": {
+    "instruction": "今天是 2026-02-15。读取最新 Invoice Void Procedures、例外来信与 billing 群更正，按更新时间采用当前账龄窗口，部分收款及仍在催收/法务暂停者不作废。作废合格 quickbooks_invoices：voided=true（字符串）、total_amt/balance=0（字符串），void_memo 记录窗口、无收款及催收状态依据；保留原 note 和其他字段。逐分配销售发飞书私聊，billing 群汇总原客户、发票号、原金额及结果。只影响模拟账务。 void_memo 用 Over 210 days; no payments; 后加 no active collection case 或 outside counsel case dismissed 描述对应依据。",
+    "now": "2026-02-15T09:00:00Z",
+    "updates": [
+      {
+        "id": "quickbooks_qi_601",
+        "fields": {
+          "voided": "true",
+          "total_amt": "0",
+          "balance": "0",
+          "void_memo": "Over 210 days; no payments; no active collection case"
+        }
+      },
+      {
+        "id": "quickbooks_qi_602",
+        "fields": {
+          "voided": "true",
+          "total_amt": "0",
+          "balance": "0",
+          "void_memo": "Over 210 days; no payments; outside counsel case dismissed"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "alice@company.example.com",
+        "text": "OldClient Corp | INV-OLD-001 | Original 8500 ($8,500) | Voided",
+        "contains": [
+          "OldClient Corp | INV-OLD-001 | Original 8500 ($8,500) | Voided"
+        ]
+      },
+      {
+        "email": "bob@company.example.com",
+        "text": "DeadLead Inc | INV-OLD-002 | Original 3200 ($3,200) | Voided",
+        "contains": [
+          "DeadLead Inc | INV-OLD-002 | Original 3200 ($3,200) | Voided"
+        ]
+      },
+      {
+        "channel": "billing",
+        "text": "OldClient Corp | INV-OLD-001 | Original 8500 ($8,500) | Voided\nDeadLead Inc | INV-OLD-002 | Original 3200 ($3,200) | Voided",
+        "contains": [
+          "OldClient Corp | INV-OLD-001 | Original 8500 ($8,500) | Voided",
+          "DeadLead Inc | INV-OLD-002 | Original 3200 ($3,200) | Voided"
+        ]
+      }
+    ]
+  },
+  "finance-4081": {
+    "instruction": "今天是 2026-02-15。按照 Credit Limit Review Policy 评审客户；新客户不改不报告。推荐值四舍五入到最近1000，审批前不直接更改 Current Limit，在 Customer Credit 新增 Recommended Limit，Status 使用 Increase recommended、Decrease recommended、Immediate review。只需立即复核但无额度调整规则者推荐值保持原限额。向 credit-committee@company.example.com 发飞书私聊，关联客户、原额度、推荐额度或触发复核的余额与结论。",
+    "now": "2026-02-15T09:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_credit_review",
+        "sheet": "ws_customer_credit",
+        "match": {
+          "Customer": "NovaTech"
+        },
+        "fields": {
+          "Recommended Limit": "$31,000",
+          "Status": "Increase recommended"
+        }
+      },
+      {
+        "book": "ss_credit_review",
+        "sheet": "ws_customer_credit",
+        "match": {
+          "Customer": "Meridian Corp"
+        },
+        "fields": {
+          "Recommended Limit": "$50,000",
+          "Status": "Immediate review"
+        }
+      },
+      {
+        "book": "ss_credit_review",
+        "sheet": "ws_customer_credit",
+        "match": {
+          "Customer": "Vanguard Apparel"
+        },
+        "fields": {
+          "Recommended Limit": "$15,000",
+          "Status": "Decrease recommended"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "credit-committee@company.example.com",
+        "text": "NovaTech | Current $25,000 | Recommended $31,000 | Increase recommended\nMeridian Corp | Current $50,000 | Balance $47,500 | Immediate review\nVanguard Apparel | Current $20,000 | Recommended $15,000 | Decrease recommended",
+        "contains": [
+          "NovaTech | Current $25,000 | Recommended $31,000 | Increase recommended",
+          "Meridian Corp | Current $50,000 | Balance $47,500 | Immediate review",
+          "Vanguard Apparel | Current $20,000 | Recommended $15,000 | Decrease recommended"
+        ]
+      }
+    ]
+  },
+  "finance-4082": {
+    "instruction": "今天是 2026-02-10。按 Early Payment Discount Policy 检查有效折扣窗口、年化收益和现金约束，争议项不参与报告或付款建议。按可取折扣的年化收益降序累计占用净付款现金，付款后必须严格大于100000，收益至少15%。向 treasury@company.example.com 发飞书私聊，逐候选 Vendor | 原Bill Amount | Discount $X | Annualized 百分比（两位小数） | Pay early/Wait，再列 Cash after recommended payments；只建议，不改账或付款。",
+    "now": "2026-02-10T09:00:00Z",
+    "messages": [
+      {
+        "email": "treasury@company.example.com",
+        "text": "Acme Supplies | $15,000 | Discount $300 | Annualized 36.50% | Pay early\nTechServe | $8,000 | Discount $80 | Annualized 12.17% | Wait\nCloudHost Pro | $22,000 | Discount $330 | Annualized 10.95% | Wait\nCash after recommended payments | $170,300",
+        "contains": [
+          "Acme Supplies | $15,000 | Discount $300 | Annualized 36.50% | Pay early",
+          "TechServe | $8,000 | Discount $80 | Annualized 12.17% | Wait",
+          "CloudHost Pro | $22,000 | Discount $330 | Annualized 10.95% | Wait",
+          "Cash after recommended payments | $170,300"
+        ]
+      }
+    ]
+  },
+  "finance-4083": {
+    "instruction": "今天是 2026-02-01，按 Recurring JE Posting Procedures 登记二月有效的 Active 分录。journal_entries 飞书台账保存 entry、period=2026-02、debit_account、credit_account、amount数值、status=Posted。需反转者同时创建 journal_reversals 队列，entry、due_date=下月1日、对调的debit_account/credit_account、amount、status=Scheduled；这是未来反转计划，不声称今天已经反转。向 controller@company.example.com 发私聊，逐行 Entry | Debit 科目 | Credit 科目 | 原Amount，报告 Total debits/Total credits，并列反转日期。",
+    "now": "2026-02-01T10:00:00Z",
+    "creates": [
+      {
+        "collection": "journal_entries",
+        "entry": "Depreciation",
+        "period": "2026-02",
+        "debit_account": "Depreciation Expense",
+        "credit_account": "Accumulated Depreciation",
+        "amount": 4500,
+        "status": "Posted"
+      },
+      {
+        "collection": "journal_entries",
+        "entry": "Prepaid Insurance",
+        "period": "2026-02",
+        "debit_account": "Insurance Expense",
+        "credit_account": "Prepaid Insurance",
+        "amount": 2000,
+        "status": "Posted"
+      },
+      {
+        "collection": "journal_entries",
+        "entry": "Revenue Deferral",
+        "period": "2026-02",
+        "debit_account": "Revenue",
+        "credit_account": "Deferred Revenue",
+        "amount": 8000,
+        "status": "Posted"
+      },
+      {
+        "collection": "journal_reversals",
+        "entry": "Revenue Deferral",
+        "due_date": "2026-03-01",
+        "debit_account": "Deferred Revenue",
+        "credit_account": "Revenue",
+        "amount": 8000,
+        "status": "Scheduled"
+      }
+    ],
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "Depreciation | Debit Depreciation Expense | Credit Accumulated Depreciation | $4,500\nPrepaid Insurance | Debit Insurance Expense | Credit Prepaid Insurance | $2,000\nRevenue Deferral | Debit Revenue | Credit Deferred Revenue | $8,000\nTotal debits | $14,500\nTotal credits | $14,500\nRevenue Deferral | Reversal scheduled 2026-03-01",
+        "contains": [
+          "Depreciation | Debit Depreciation Expense | Credit Accumulated Depreciation | $4,500",
+          "Prepaid Insurance | Debit Insurance Expense | Credit Prepaid Insurance | $2,000",
+          "Revenue Deferral | Debit Revenue | Credit Deferred Revenue | $8,000",
+          "Total debits | $14,500",
+          "Total credits | $14,500",
+          "Revenue Deferral | Reversal scheduled 2026-03-01"
+        ]
+      }
+    ]
+  },
+  "finance-4085": {
+    "instruction": "今天是 2026-02-10。按 Quote Conversion Rules 及当前豁免把有效 ACCEPTED 报价转为 xero_invoices 飞书记录。接受后的报价价格不改，过期和非接受报价不转、不通知。新发票字段 quote_id、quote_number、contact_id、contact_name、total（数值）、due_date=今天后30天、status=AUTHORISED；需重新报价者本轮只保留待处理，不创建未经签署新价格。向每个成功客户飞书私聊确认名称、报价号、Invoice total 美元千位逗号、Due日期；保留源报价。",
+    "now": "2026-02-10T09:00:00Z",
+    "creates": [
+      {
+        "collection": "xero_invoices",
+        "quote_id": "xq_001",
+        "quote_number": "QU-101",
+        "contact_id": "xc_501",
+        "contact_name": "Alpine Solutions",
+        "total": 12600,
+        "due_date": "2026-03-12",
+        "status": "AUTHORISED"
+      },
+      {
+        "collection": "xero_invoices",
+        "quote_id": "xq_004",
+        "quote_number": "QU-104",
+        "contact_id": "xc_505",
+        "contact_name": "Alpine Solutions Group",
+        "total": 7875,
+        "due_date": "2026-03-12",
+        "status": "AUTHORISED"
+      },
+      {
+        "collection": "xero_invoices",
+        "quote_id": "xq_006",
+        "quote_number": "QU-106",
+        "contact_id": "xc_504",
+        "contact_name": "Meridian Corp",
+        "total": 18000,
+        "due_date": "2026-03-12",
+        "status": "AUTHORISED"
+      }
+    ],
+    "messages": [
+      {
+        "email": "billing@alpine.example.com",
+        "text": "Alpine Solutions | QU-101 | Invoice total $12,600 | Due 2026-03-12",
+        "contains": [
+          "Alpine Solutions | QU-101 | Invoice total $12,600 | Due 2026-03-12"
+        ]
+      },
+      {
+        "email": "ar@alpinegroup.example.com",
+        "text": "Alpine Solutions Group | QU-104 | Invoice total $7,875 | Due 2026-03-12",
+        "contains": [
+          "Alpine Solutions Group | QU-104 | Invoice total $7,875 | Due 2026-03-12"
+        ]
+      },
+      {
+        "email": "invoices@meridian.example.com",
+        "text": "Meridian Corp | QU-106 | Invoice total $18,000 | Due 2026-03-12",
+        "contains": [
+          "Meridian Corp | QU-106 | Invoice total $18,000 | Due 2026-03-12"
+        ]
+      }
+    ]
+  },
+  "finance-4086": {
+    "instruction": "按 Vendor Category Mapping 的描述子串匹配给 Uncategorized 交易更新 Category，已有其他字段不动。无映射者不猜测、不改行，在给 bookkeeper@company.example.com 的飞书私聊中列 No mapping, unchanged。报告逐行 Description | 原Amount | Category 或未匹配说明，覆盖全部本轮交易。",
+    "sheets": [
+      {
+        "book": "ss_bank_cat",
+        "sheet": "ws_uncategorized",
+        "match": {
+          "Description": "AMZN MKTP US*2R4X"
+        },
+        "fields": {
+          "Category": "Office Supplies"
+        }
+      },
+      {
+        "book": "ss_bank_cat",
+        "sheet": "ws_uncategorized",
+        "match": {
+          "Description": "UBER TRIP FEB04"
+        },
+        "fields": {
+          "Category": "Travel"
+        }
+      },
+      {
+        "book": "ss_bank_cat",
+        "sheet": "ws_uncategorized",
+        "match": {
+          "Description": "ADOBE CREATIVE CLD"
+        },
+        "fields": {
+          "Category": "Software"
+        }
+      },
+      {
+        "book": "ss_bank_cat",
+        "sheet": "ws_uncategorized",
+        "match": {
+          "Description": "STARBUCKS #12345"
+        },
+        "fields": {
+          "Category": "Meals"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "bookkeeper@company.example.com",
+        "text": "AMZN MKTP US*2R4X | $127.50 | Office Supplies\nUBER TRIP FEB04 | $34.80 | Travel\nADOBE CREATIVE CLD | $599.88 | Software\nSTARBUCKS #12345 | $18.50 | Meals\nCHECK #1042 | $2,500.00 | No mapping, unchanged",
+        "contains": [
+          "AMZN MKTP US*2R4X | $127.50 | Office Supplies",
+          "UBER TRIP FEB04 | $34.80 | Travel",
+          "ADOBE CREATIVE CLD | $599.88 | Software",
+          "STARBUCKS #12345 | $18.50 | Meals",
+          "CHECK #1042 | $2,500.00 | No mapping, unchanged"
+        ]
+      }
+    ]
+  },
+  "finance-4087": {
+    "instruction": "依 Quarterly Tax Estimation Procedures 和 tax-updates 最新说明计算 Q1 2026 估计税款。本题把Q1应税收入乘4作为全年估计，应用联邦率及按月份混合的州率，扣年度credits后除4，减同税年已付款；不同税年付款不能抵扣。中间计算不舍入，最后四舍五入整数美元。分别给 tax@company.example.com 和 controller@company.example.com 发飞书私聊，列Q1收入、可扣支出、应税收入、年化收入、税率公式、年度credits、本年已付款与 Q1 estimated payment。只报估计，不申报或付款。 报告标签使用 Q1 revenue、Q1 deductible expenses、Q1 taxable income、Annualized taxable income、Federal rate、Blended state rate、Annual credits、2026 prior payments。",
+    "messages": [
+      {
+        "email": "tax@company.example.com",
+        "text": "Q1 revenue | $1,440,000\nQ1 deductible expenses | $1,015,000\nQ1 taxable income | $425,000\nAnnualized taxable income | $1,700,000\nFederal rate | 21%\nBlended state rate | (5% * 2 + 4.5%) / 3\nAnnual credits | $16,000\n2026 prior payments | $0\nQ1 estimated payment | $105,792",
+        "contains": [
+          "Q1 revenue | $1,440,000",
+          "Q1 deductible expenses | $1,015,000",
+          "Q1 taxable income | $425,000",
+          "Annualized taxable income | $1,700,000",
+          "Federal rate | 21%",
+          "Blended state rate | (5% * 2 + 4.5%) / 3",
+          "Annual credits | $16,000",
+          "2026 prior payments | $0",
+          "Q1 estimated payment | $105,792"
+        ]
+      },
+      {
+        "email": "controller@company.example.com",
+        "text": "Q1 revenue | $1,440,000\nQ1 deductible expenses | $1,015,000\nQ1 taxable income | $425,000\nAnnualized taxable income | $1,700,000\nFederal rate | 21%\nBlended state rate | (5% * 2 + 4.5%) / 3\nAnnual credits | $16,000\n2026 prior payments | $0\nQ1 estimated payment | $105,792",
+        "contains": [
+          "Q1 revenue | $1,440,000",
+          "Q1 deductible expenses | $1,015,000",
+          "Q1 taxable income | $425,000",
+          "Annualized taxable income | $1,700,000",
+          "Federal rate | 21%",
+          "Blended state rate | (5% * 2 + 4.5%) / 3",
+          "Annual credits | $16,000",
+          "2026 prior payments | $0",
+          "Q1 estimated payment | $105,792"
+        ]
+      }
+    ]
+  },
+  "finance-4088": {
+    "instruction": "核对 HQ Books 与 Division Books 的双向公司间余额：HQ receivable 对 Division payable，HQ payable 对 Division receivable。只给 controller@company.example.com 发不一致方向的飞书私聊详情，关联 Entity、双方原余额和有符号差额（HQ-division），不因净额相等忽略方向差异，不改源账。",
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "West Division | HQ receivable $35,000 | Division payable $32,000 | Difference +$3,000\nSouth Division | HQ receivable $20,000 | Division payable $22,500 | Difference -$2,500",
+        "contains": [
+          "West Division | HQ receivable $35,000 | Division payable $32,000 | Difference +$3,000",
+          "South Division | HQ receivable $20,000 | Division payable $22,500 | Difference -$2,500"
+        ]
+      }
+    ]
+  },
+  "finance-4089": {
+    "instruction": "今天是 2026-02-15。按 Requirements 检查 Active 供应商保险有效期及最低保障，Inactive 完全跳过。30日内到期和已过期者逐人发飞书私聊要求更新证书；过期者 Status=Non-Compliant，并在新增 Payment Hold 列写 Yes。向 vendor-management 群及 compliance@company.example.com 分别报告所有本轮Active供应商 Vendor | Expiry | Coverage | Compliant/Expiring within 30 days/Non-Compliant，冻结付款者补 Payment Hold Yes。其他源行不动。",
+    "now": "2026-02-15T09:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_vendor_insurance",
+        "sheet": "ws_certs",
+        "match": {
+          "Vendor": "Metro Supply"
+        },
+        "fields": {
+          "Status": "Non-Compliant",
+          "Payment Hold": "Yes"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "compliance@acme.example.com",
+        "text": "Acme Supplies | 2026-03-01 | $2,000,000 | Expiring within 30 days | 请更新保险证书",
+        "contains": [
+          "Acme Supplies | 2026-03-01 | $2,000,000 | Expiring within 30 days",
+          "更新保险证书"
+        ]
+      },
+      {
+        "email": "ops@metro.example.com",
+        "text": "Metro Supply | 2026-01-31 | $1,000,000 | Non-Compliant | Payment Hold Yes | 请提供有效保险证书",
+        "contains": [
+          "Metro Supply | 2026-01-31 | $1,000,000 | Non-Compliant | Payment Hold Yes",
+          "有效保险证书"
+        ]
+      },
+      {
+        "channel": "vendor-management",
+        "text": "Acme Supplies | 2026-03-01 | $2,000,000 | Expiring within 30 days\nTechServe | 2026-05-15 | $5,000,000 | Compliant\nMetro Supply | 2026-01-31 | $1,000,000 | Non-Compliant | Payment Hold Yes\nCloudHost Pro | 2026-08-20 | $3,000,000 | Compliant",
+        "contains": [
+          "Acme Supplies | 2026-03-01 | $2,000,000 | Expiring within 30 days",
+          "TechServe | 2026-05-15 | $5,000,000 | Compliant",
+          "Metro Supply | 2026-01-31 | $1,000,000 | Non-Compliant | Payment Hold Yes",
+          "CloudHost Pro | 2026-08-20 | $3,000,000 | Compliant"
+        ]
+      },
+      {
+        "email": "compliance@company.example.com",
+        "text": "Acme Supplies | 2026-03-01 | $2,000,000 | Expiring within 30 days\nTechServe | 2026-05-15 | $5,000,000 | Compliant\nMetro Supply | 2026-01-31 | $1,000,000 | Non-Compliant | Payment Hold Yes\nCloudHost Pro | 2026-08-20 | $3,000,000 | Compliant",
+        "contains": [
+          "Acme Supplies | 2026-03-01 | $2,000,000 | Expiring within 30 days",
+          "TechServe | 2026-05-15 | $5,000,000 | Compliant",
+          "Metro Supply | 2026-01-31 | $1,000,000 | Non-Compliant | Payment Hold Yes",
+          "CloudHost Pro | 2026-08-20 | $3,000,000 | Compliant"
+        ]
+      }
+    ]
+  },
+  "finance-4090": {
+    "instruction": "使用 Open Foreign Currency Invoices 和 Current Rates 计算未实现汇兑损益。该表汇率为每单位外币的美元数，以外币金额×当前率得到美元估值，和 USD at Booking 比较，资产增值为Gain、减少为Loss。给 controller@company.example.com 发飞书私聊，逐行 Invoice | Customer | Currency Foreign Amount | Booking $值 | Current $值 | Gain/Loss $值，附 Net unrealized gain/loss。只报未实现影响，不登记实收或修改汇率。",
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "INV-FX-001 | EuroLogic | EUR 50,000 | Booking $54,000 | Current $55,000 | Gain $1,000\nINV-FX-002 | Tokyo Tech | JPY 5,000,000 | Booking $34,000 | Current $32,500 | Loss $1,500\nINV-FX-003 | British Design | GBP 20,000 | Booking $25,000 | Current $25,600 | Gain $600\nNet unrealized gain | $100",
+        "contains": [
+          "INV-FX-001 | EuroLogic | EUR 50,000 | Booking $54,000 | Current $55,000 | Gain $1,000",
+          "INV-FX-002 | Tokyo Tech | JPY 5,000,000 | Booking $34,000 | Current $32,500 | Loss $1,500",
+          "INV-FX-003 | British Design | GBP 20,000 | Booking $25,000 | Current $25,600 | Gain $600",
+          "Net unrealized gain | $100"
+        ]
+      }
+    ]
+  },
+  "finance-4091": {
+    "instruction": "按 CapEx Approval Policy 处理 Pending。缺Business Case者原样且不通知；有商业论证者检查档位审批、IT签核和预算。通过Status=Approved；审批不足保持Pending并告知缺项；预算不足Status=Rejected并说明原因。逐有商业论证的请求者发飞书私聊，包含Request ID、Item、原Amount和结果。审批不是付款，不扣减Budget Remaining。",
+    "sheets": [
+      {
+        "book": "ss_capex",
+        "sheet": "ws_pending_capex",
+        "match": {
+          "Request ID": "CX-001"
+        },
+        "fields": {
+          "Status": "Approved"
+        }
+      },
+      {
+        "book": "ss_capex",
+        "sheet": "ws_pending_capex",
+        "match": {
+          "Request ID": "CX-003"
+        },
+        "fields": {
+          "Status": "Rejected"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "alice@company.example.com",
+        "text": "CX-001 | New server rack | $8,500 | Approved",
+        "contains": ["CX-001 | New server rack | $8,500 | Approved"]
+      },
+      {
+        "email": "bob@company.example.com",
+        "text": "CX-002 | Office furniture | $25,000 | Pending | 缺 VP Finance approval",
+        "contains": [
+          "CX-002 | Office furniture | $25,000 | Pending",
+          "VP Finance approval"
+        ]
+      },
+      {
+        "email": "carol@company.example.com",
+        "text": "CX-003 | Delivery truck | $65,000 | Rejected | Budget Remaining $30,000 不足",
+        "contains": [
+          "CX-003 | Delivery truck | $65,000 | Rejected",
+          "Budget Remaining $30,000"
+        ]
+      }
+    ]
+  },
+  "finance-4092": {
+    "instruction": "按 Expense Allocation Policy、最新明确例外和 hr-updates 更新人数分摊 Shared Expenses。仍按本轮有效 Split Method 规则执行，特定费用的更新例外优先，明确不分摊/延期项完全排除。每费用每部门记录一行到 Allocations：Expense、Department、Amount（两位小数千位逗号，不带美元符号），按费用源顺序及部门源顺序追加。逐部门给 Head Email 发飞书私聊，Expense | $分项金额，最后 Total | $合计；每分项先四舍五入到分，再相加部门合计，不回写源人数表。",
+    "sheets": [
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Annual software license",
+          "Department": "Engineering",
+          "Amount": "16,363.64"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Annual software license",
+          "Department": "Sales",
+          "Amount": "9,818.18"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Annual software license",
+          "Department": "Marketing",
+          "Amount": "6,545.45"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Annual software license",
+          "Department": "Operations",
+          "Amount": "3,272.73"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Holiday party",
+          "Department": "Engineering",
+          "Amount": "2,250.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Holiday party",
+          "Department": "Sales",
+          "Amount": "2,250.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Holiday party",
+          "Department": "Marketing",
+          "Amount": "2,250.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Holiday party",
+          "Department": "Operations",
+          "Amount": "2,250.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Building security upgrade",
+          "Department": "Engineering",
+          "Amount": "5,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Building security upgrade",
+          "Department": "Sales",
+          "Amount": "5,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Building security upgrade",
+          "Department": "Marketing",
+          "Amount": "5,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Building security upgrade",
+          "Department": "Operations",
+          "Amount": "5,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Company-wide training",
+          "Department": "Engineering",
+          "Amount": "5,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Company-wide training",
+          "Department": "Sales",
+          "Amount": "3,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Company-wide training",
+          "Department": "Marketing",
+          "Amount": "2,000.00"
+        }
+      },
+      {
+        "book": "ss_split",
+        "sheet": "ws_allocations_split",
+        "append": {
+          "Expense": "Company-wide training",
+          "Department": "Operations",
+          "Amount": "1,000.00"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "eng-lead@company.example.com",
+        "text": "Engineering\nAnnual software license | $16,363.64\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $5,000.00\nTotal | $28,613.64",
+        "contains": [
+          "Engineering",
+          "Annual software license | $16,363.64",
+          "Holiday party | $2,250.00",
+          "Building security upgrade | $5,000.00",
+          "Company-wide training | $5,000.00",
+          "Total | $28,613.64"
+        ]
+      },
+      {
+        "email": "sales-lead@company.example.com",
+        "text": "Sales\nAnnual software license | $9,818.18\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $3,000.00\nTotal | $20,068.18",
+        "contains": [
+          "Sales",
+          "Annual software license | $9,818.18",
+          "Holiday party | $2,250.00",
+          "Building security upgrade | $5,000.00",
+          "Company-wide training | $3,000.00",
+          "Total | $20,068.18"
+        ]
+      },
+      {
+        "email": "mktg-lead@company.example.com",
+        "text": "Marketing\nAnnual software license | $6,545.45\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $2,000.00\nTotal | $15,795.45",
+        "contains": [
+          "Marketing",
+          "Annual software license | $6,545.45",
+          "Holiday party | $2,250.00",
+          "Building security upgrade | $5,000.00",
+          "Company-wide training | $2,000.00",
+          "Total | $15,795.45"
+        ]
+      },
+      {
+        "email": "ops-lead@company.example.com",
+        "text": "Operations\nAnnual software license | $3,272.73\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $1,000.00\nTotal | $11,522.73",
+        "contains": [
+          "Operations",
+          "Annual software license | $3,272.73",
+          "Holiday party | $2,250.00",
+          "Building security upgrade | $5,000.00",
+          "Company-wide training | $1,000.00",
+          "Total | $11,522.73"
+        ]
+      }
+    ]
+  },
+  "finance-4093": {
+    "instruction": "今天是 2026-02-12，按 Deposit Procedures 清理 quickbooks_payments。超过30日者保留未存、列调查；其余以今天为deposit_date，按支付方式分别创建 quickbooks_deposits（payment_method、deposit_date、payment_ids JSON数组、amount数值、memo），memo包括可用payment_number，缺少时用payment id作为来源引用，不编造支票号。同时给已存付款写 deposited=true（字符串）。向 controller@company.example.com 发飞书私聊报告按方式合计、Grand total及旧付款调查项。本轮是模拟存款记账。",
+    "now": "2026-02-12T09:00:00Z",
+    "creates": [
+      {
+        "collection": "quickbooks_deposits",
+        "payment_method": "Check",
+        "deposit_date": "2026-02-12",
+        "payment_ids": "[\"qp_201\"]",
+        "amount": 5200,
+        "memo": "CHK-8801"
+      },
+      {
+        "collection": "quickbooks_deposits",
+        "payment_method": "Credit Card",
+        "deposit_date": "2026-02-12",
+        "payment_ids": "[\"qp_202\",\"qp_204\"]",
+        "amount": 13350,
+        "memo": "qp_202; qp_204"
+      }
+    ],
+    "updates": [
+      {
+        "id": "quickbooks_qp_201",
+        "fields": {
+          "deposited": "true"
+        }
+      },
+      {
+        "id": "quickbooks_qp_202",
+        "fields": {
+          "deposited": "true"
+        }
+      },
+      {
+        "id": "quickbooks_qp_204",
+        "fields": {
+          "deposited": "true"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "Check | $5,200 | CHK-8801\nCredit Card | $13,350 | qp_202; qp_204\nGrand total | $18,550\nInvestigate | Vanguard Apparel | CHK-8765 | 3100 | 2026-01-05 | 未存入",
+        "contains": [
+          "Check | $5,200 | CHK-8801",
+          "Credit Card | $13,350 | qp_202; qp_204",
+          "Grand total | $18,550",
+          "Investigate | Vanguard Apparel | CHK-8765 | 3100 | 2026-01-05 | 未存入"
+        ]
+      }
+    ]
+  },
+  "finance-4094": {
+    "instruction": "按 Reporting Policy 处理财务比率评审。禁发期间只能在内部 ratio_workpapers 飞书台账准备底稿，不能在私聊或群里披露任何数值、契约分析或计算结果；可向 cfo@company.example.com 仅说明 embargo 阻止分发。本题财务原表 Current Assets 仍含需扣除的40000过时库存，先从Current Assets和Inventory同时扣除再计算；比率保留四位小数字符串，Net Profit Margin保留百分比四位。底稿字段 ratio、value、target_status=Meets/Below/Above/Unknown、covenant_status=Pass/Fail/Not applicable/Insufficient data。缺债务偿付材料的DSCR不猜测，value为空。只准备底稿，不变更贷款或通知群。",
+    "creates": [
+      {
+        "collection": "ratio_workpapers",
+        "ratio": "Current Ratio",
+        "value": "1.5577",
+        "target_status": "Meets",
+        "covenant_status": "Fail"
+      },
+      {
+        "collection": "ratio_workpapers",
+        "ratio": "Quick Ratio",
+        "value": "1.2885",
+        "target_status": "Meets",
+        "covenant_status": "Not applicable"
+      },
+      {
+        "collection": "ratio_workpapers",
+        "ratio": "Debt-to-Equity",
+        "value": "0.3333",
+        "target_status": "Meets",
+        "covenant_status": "Pass"
+      },
+      {
+        "collection": "ratio_workpapers",
+        "ratio": "Net Profit Margin",
+        "value": "18.3824%",
+        "target_status": "Meets",
+        "covenant_status": "Not applicable"
+      },
+      {
+        "collection": "ratio_workpapers",
+        "ratio": "DSCR",
+        "value": "",
+        "target_status": "Unknown",
+        "covenant_status": "Insufficient data"
+      }
+    ],
+    "messages": [
+      {
+        "email": "cfo@company.example.com",
+        "text": "由于 embargo，报告暂不分发；请待审计解禁后再安排发布。",
+        "contains": ["embargo", "暂不分发"]
+      }
+    ],
+    "forbidden_message_contents": {
+      "cfo@company.example.com": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "covenant",
+        "契约"
+      ]
+    }
+  },
+  "finance-4096": {
+    "instruction": "今天是 2026-02-10。按 Cash Sweep Policy、当周目标例外及 treasury 群余额更正执行日终模拟归集。只在 Operating/Money Market 之间调拨，不能执行未获 Investment Committee 批准的其他投资。更新余额表到调拨后余额，并在 cash_transfers 飞书台账保存 from_account、to_account、amount数值、date。给 treasury@company.example.com 私聊及 treasury 群报告更正后的前额、后额和划转额，其他账户不改不列。",
+    "now": "2026-02-10T16:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_cash_sweep",
+        "sheet": "ws_balances",
+        "match": {
+          "Account": "Operating"
+        },
+        "fields": {
+          "Balance": "$150,000"
+        }
+      },
+      {
+        "book": "ss_cash_sweep",
+        "sheet": "ws_balances",
+        "match": {
+          "Account": "Money Market"
+        },
+        "fields": {
+          "Balance": "$510,000"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "cash_transfers",
+        "from_account": "Operating",
+        "to_account": "Money Market",
+        "amount": 260000,
+        "date": "2026-02-10"
+      }
+    ],
+    "messages": [
+      {
+        "email": "treasury@company.example.com",
+        "text": "Operating | corrected $410,000 | after $150,000\nMoney Market | before $250,000 | after $510,000\nSweep | Operating -> Money Market | $260,000\n仅执行政策允许的两账户模拟划转，其他投资须另走审批",
+        "contains": [
+          "Operating | corrected $410,000 | after $150,000",
+          "Money Market | before $250,000 | after $510,000",
+          "Sweep | Operating -> Money Market | $260,000"
+        ]
+      },
+      {
+        "channel": "treasury",
+        "text": "Operating | corrected $410,000 | after $150,000\nMoney Market | before $250,000 | after $510,000\nSweep | Operating -> Money Market | $260,000\n仅执行政策允许的两账户模拟划转，其他投资须另走审批",
+        "contains": [
+          "Operating | corrected $410,000 | after $150,000",
+          "Money Market | before $250,000 | after $510,000",
+          "Sweep | Operating -> Money Market | $260,000"
+        ]
+      }
+    ]
+  },
+  "finance-4097": {
+    "instruction": "按 Payment Fraud Detection Rules 与最新明确豁免扫描 Recent Payments。外部自证不是内部豁免，普通审批或已确认合法仍需按规则标记。银行变更只有日期、无时刻时，将次日付款标为潜在24小时风险待核实，不断言精确时差。所有命中行 Flag=Suspicious，Notes 保持原样；给 fraud-team@company.example.com 和 finance-alerts 群分别汇总 Payment ID | Vendor | 原Amount | 原因。原因标签用 3+ payments same day、Unapproved vendor、round amount over $10,000、Outside business hours、Recent bank change; exact time needs review，可补确认/审批背景。不向供应商发通知，不撤销付款。",
+    "sheets": [
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-001"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-002"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-003"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-004"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-005"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-006"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-007"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      },
+      {
+        "book": "ss_fraud_scan",
+        "sheet": "ws_recent_payments",
+        "match": {
+          "Payment ID": "PF-008"
+        },
+        "fields": {
+          "Flag": "Suspicious"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "fraud-team@company.example.com",
+        "text": "PF-001 | Acme Supplies | $4,200.50 | 3+ payments same day\nPF-002 | NewVendor XYZ | $15,000.00 | Unapproved vendor; round amount over $10,000\nPF-003 | Metro Supply | $780.00 | Outside business hours; automated batch verified\nPF-004 | TechServe | $20,000.00 | Recent bank change; exact time needs review\nPF-005 | Acme Supplies | $3,100.00 | 3+ payments same day\nPF-006 | Acme Supplies | $1,850.00 | 3+ payments same day\nPF-007 | TechServe | $50,000.00 | Recent bank change; exact time needs review\nPF-008 | DataStream Inc | $8,500.00 | Outside business hours; approval does not waive screening",
+        "contains": [
+          "PF-001 | Acme Supplies | $4,200.50 | 3+ payments same day",
+          "PF-002 | NewVendor XYZ | $15,000.00 | Unapproved vendor; round amount over $10,000",
+          "PF-003 | Metro Supply | $780.00 | Outside business hours; automated batch verified",
+          "PF-004 | TechServe | $20,000.00 | Recent bank change; exact time needs review",
+          "PF-005 | Acme Supplies | $3,100.00 | 3+ payments same day",
+          "PF-006 | Acme Supplies | $1,850.00 | 3+ payments same day",
+          "PF-007 | TechServe | $50,000.00 | Recent bank change; exact time needs review",
+          "PF-008 | DataStream Inc | $8,500.00 | Outside business hours; approval does not waive screening"
+        ]
+      },
+      {
+        "channel": "finance-alerts",
+        "text": "PF-001 | Acme Supplies | $4,200.50 | 3+ payments same day\nPF-002 | NewVendor XYZ | $15,000.00 | Unapproved vendor; round amount over $10,000\nPF-003 | Metro Supply | $780.00 | Outside business hours; automated batch verified\nPF-004 | TechServe | $20,000.00 | Recent bank change; exact time needs review\nPF-005 | Acme Supplies | $3,100.00 | 3+ payments same day\nPF-006 | Acme Supplies | $1,850.00 | 3+ payments same day\nPF-007 | TechServe | $50,000.00 | Recent bank change; exact time needs review\nPF-008 | DataStream Inc | $8,500.00 | Outside business hours; approval does not waive screening",
+        "contains": [
+          "PF-001 | Acme Supplies | $4,200.50 | 3+ payments same day",
+          "PF-002 | NewVendor XYZ | $15,000.00 | Unapproved vendor; round amount over $10,000",
+          "PF-003 | Metro Supply | $780.00 | Outside business hours; automated batch verified",
+          "PF-004 | TechServe | $20,000.00 | Recent bank change; exact time needs review",
+          "PF-005 | Acme Supplies | $3,100.00 | 3+ payments same day",
+          "PF-006 | Acme Supplies | $1,850.00 | 3+ payments same day",
+          "PF-007 | TechServe | $50,000.00 | Recent bank change; exact time needs review",
+          "PF-008 | DataStream Inc | $8,500.00 | Outside business hours; approval does not waive screening"
+        ]
+      }
+    ]
+  },
+  "finance-4098": {
+    "instruction": "今天是 2026-02-01。根据 Deferred Revenue Recognition Rules 和最新合同状态确认本月收入，暂停/修改待签约及被撤回里程碑不确认；未获CFO书面审批和合同更新不能加速。只确认二月单月，不补记历史月份。合格合同新增 journal_entries（contract、period=2026-02、debit_account=Deferred Revenue、credit_account=Revenue、amount数值），更新 Schedule 的 Recognized to Date；方法变更合同同时更新 Type=Milestone、Milestone 和 Milestone Value。给 controller@company.example.com 发私聊，只列本轮确认合同及金额，并汇总 Total recognized。",
+    "now": "2026-02-01T10:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_defrev",
+        "sheet": "ws_defrev_sched",
+        "match": {
+          "Contract": "NovaTech SaaS"
+        },
+        "fields": {
+          "Recognized to Date": "$10,000"
+        }
+      },
+      {
+        "book": "ss_defrev",
+        "sheet": "ws_defrev_sched",
+        "match": {
+          "Contract": "Sterling Hybrid"
+        },
+        "fields": {
+          "Recognized to Date": "$35,000"
+        }
+      },
+      {
+        "book": "ss_defrev",
+        "sheet": "ws_defrev_sched",
+        "match": {
+          "Contract": "Alpine Cloud"
+        },
+        "fields": {
+          "Recognized to Date": "$40,000",
+          "Type": "Milestone",
+          "Milestone": "Phase 1 Complete",
+          "Milestone Value": "$25,000"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "journal_entries",
+        "contract": "NovaTech SaaS",
+        "period": "2026-02",
+        "debit_account": "Deferred Revenue",
+        "credit_account": "Revenue",
+        "amount": 10000
+      },
+      {
+        "collection": "journal_entries",
+        "contract": "Sterling Hybrid",
+        "period": "2026-02",
+        "debit_account": "Deferred Revenue",
+        "credit_account": "Revenue",
+        "amount": 5000
+      },
+      {
+        "collection": "journal_entries",
+        "contract": "Alpine Cloud",
+        "period": "2026-02",
+        "debit_account": "Deferred Revenue",
+        "credit_account": "Revenue",
+        "amount": 25000
+      }
+    ],
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "NovaTech SaaS | Debit Deferred Revenue | Credit Revenue | $10,000\nSterling Hybrid | Debit Deferred Revenue | Credit Revenue | $5,000\nAlpine Cloud | Debit Deferred Revenue | Credit Revenue | $25,000\nTotal recognized | $40,000",
+        "contains": [
+          "NovaTech SaaS | Debit Deferred Revenue | Credit Revenue | $10,000",
+          "Sterling Hybrid | Debit Deferred Revenue | Credit Revenue | $5,000",
+          "Alpine Cloud | Debit Deferred Revenue | Credit Revenue | $25,000",
+          "Total recognized | $40,000"
+        ]
+      }
+    ]
+  },
+  "finance-4100": {
+    "instruction": "今天是 2026-01-05。按 Year-End Rollover Procedures 核对清单和最新数额纠正，准备2026期初包；不得修改Q3收入或做未经审批的跨期调整。先在原Trial Balance落实明确更正，再算净收益和拟结转Retained Earnings。若资产负债不平，仅保存待核对草案，不强凑平衡或正式结转：opening_balances保存非损益Account、type、amount数值、date=2026-01-01、status=Draft；结转分录在journal_entries保存period=2025、debit_account=Income Summary、credit_account=Retained Earnings、amount、status=Prepared。给CFO和controller分别私聊全部核对结果与差额，在finance-alerts同步状态。 收件地址为 cfo@company.example.com、controller@company.example.com；汇总使用 Closing checklist、Revenue、Operating Expenses、Tax Expense、Net income、Proposed Retained Earnings、Assets、Liabilities + Equity、Difference、Opening balances 标签。",
+    "now": "2026-01-05T09:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_yr_rollover",
+        "sheet": "ws_year_end_tb",
+        "match": {
+          "Account": "Accounts Receivable"
+        },
+        "fields": {
+          "Balance": "$195,000"
+        }
+      },
+      {
+        "book": "ss_yr_rollover",
+        "sheet": "ws_year_end_tb",
+        "match": {
+          "Account": "Operating Expenses"
+        },
+        "fields": {
+          "Balance": "$1,975,000"
+        }
+      },
+      {
+        "book": "ss_yr_rollover",
+        "sheet": "ws_year_end_tb",
+        "match": {
+          "Account": "Tax Expense"
+        },
+        "fields": {
+          "Balance": "$275,000"
+        }
+      }
+    ],
+    "creates": [
+      {
+        "collection": "journal_entries",
+        "period": "2025",
+        "debit_account": "Income Summary",
+        "credit_account": "Retained Earnings",
+        "amount": 150000,
+        "status": "Prepared"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Cash",
+        "type": "Asset",
+        "amount": 320000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Accounts Receivable",
+        "type": "Asset",
+        "amount": 195000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Fixed Assets",
+        "type": "Asset",
+        "amount": 500000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Accounts Payable",
+        "type": "Liability",
+        "amount": 150000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Long-Term Debt",
+        "type": "Liability",
+        "amount": 200000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Retained Earnings",
+        "type": "Equity",
+        "amount": 550000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      },
+      {
+        "collection": "opening_balances",
+        "account": "Common Stock",
+        "type": "Equity",
+        "amount": 100000,
+        "date": "2026-01-01",
+        "status": "Draft"
+      }
+    ],
+    "messages": [
+      {
+        "email": "cfo@company.example.com",
+        "text": "Closing checklist | 6 Complete\nRevenue | $2,400,000\nOperating Expenses | $1,975,000\nTax Expense | $275,000\nNet income | $150,000\nProposed Retained Earnings | $550,000\nAssets | $1,015,000\nLiabilities + Equity | $1,000,000\nDifference | $15,000 | Unbalanced\nOpening balances | Draft, pending reconciliation",
+        "contains": [
+          "Closing checklist | 6 Complete",
+          "Revenue | $2,400,000",
+          "Operating Expenses | $1,975,000",
+          "Tax Expense | $275,000",
+          "Net income | $150,000",
+          "Proposed Retained Earnings | $550,000",
+          "Assets | $1,015,000",
+          "Liabilities + Equity | $1,000,000",
+          "Difference | $15,000 | Unbalanced",
+          "Opening balances | Draft, pending reconciliation"
+        ]
+      },
+      {
+        "email": "controller@company.example.com",
+        "text": "Closing checklist | 6 Complete\nRevenue | $2,400,000\nOperating Expenses | $1,975,000\nTax Expense | $275,000\nNet income | $150,000\nProposed Retained Earnings | $550,000\nAssets | $1,015,000\nLiabilities + Equity | $1,000,000\nDifference | $15,000 | Unbalanced\nOpening balances | Draft, pending reconciliation",
+        "contains": [
+          "Closing checklist | 6 Complete",
+          "Revenue | $2,400,000",
+          "Operating Expenses | $1,975,000",
+          "Tax Expense | $275,000",
+          "Net income | $150,000",
+          "Proposed Retained Earnings | $550,000",
+          "Assets | $1,015,000",
+          "Liabilities + Equity | $1,000,000",
+          "Difference | $15,000 | Unbalanced",
+          "Opening balances | Draft, pending reconciliation"
+        ]
+      },
+      {
+        "channel": "finance-alerts",
+        "text": "Year-end rollover | Closing checklist 6 Complete | Unbalanced $15,000 | Draft, pending reconciliation",
+        "contains": [
+          "Year-end rollover",
+          "6 Complete",
+          "Unbalanced $15,000",
+          "Draft, pending reconciliation"
+        ]
+      }
+    ]
+  },
+  "finance-4026": {
+    "instruction": "按照 Expense Approval Guidelines 处理 Expense Requests 的Pending项，数据已映射到 airtable_records 飞书台账，保留原base/table/record身份。Approved项更新Status；不合规项Rejected并新增Reason；须VP审批的高额设备写Status=On Hold、Reason说明而不是Rejected。餐费按明确人数分摊。逐提交者发飞书私聊告知姓名、原金额、状态和理由，不能只通知不更新记录。",
+    "updates": [
+      {
+        "id": "airtable_appEXP001_tblEXP001_recEXP001",
+        "fields": {
+          "Status": "Approved"
+        }
+      },
+      {
+        "id": "airtable_appEXP001_tblEXP001_recEXP002",
+        "fields": {
+          "Status": "Approved"
+        }
+      },
+      {
+        "id": "airtable_appEXP001_tblEXP001_recEXP003",
+        "fields": {
+          "Status": "Approved"
+        }
+      },
+      {
+        "id": "airtable_appEXP001_tblEXP001_recEXP004",
+        "fields": {
+          "Status": "On Hold",
+          "Reason": "Equipment over $2,000 requires VP approval"
+        }
+      },
+      {
+        "id": "airtable_appEXP001_tblEXP001_recEXP005",
+        "fields": {
+          "Status": "Rejected",
+          "Reason": "Missing receipt"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "alice@company.example.com",
+        "text": "Alice Park | 350 | Approved | Software under $500 with receipt",
+        "contains": [
+          "Alice Park",
+          "350",
+          "Approved",
+          "Software under $500 with receipt"
+        ]
+      },
+      {
+        "email": "bob@company.example.com",
+        "text": "Bob Chen | 1200 | Approved | Travel pre-authorized with receipt",
+        "contains": [
+          "Bob Chen",
+          "1200",
+          "Approved",
+          "Travel pre-authorized with receipt"
+        ]
+      },
+      {
+        "email": "carol@company.example.com",
+        "text": "Carol Diaz | 180 | Approved | Meals $60 per person within limit",
+        "contains": [
+          "Carol Diaz",
+          "180",
+          "Approved",
+          "Meals $60 per person within limit"
+        ]
+      },
+      {
+        "email": "dave@company.example.com",
+        "text": "Dave Kim | 3500 | On Hold | Equipment over $2,000 requires VP approval",
+        "contains": [
+          "Dave Kim",
+          "3500",
+          "On Hold",
+          "Equipment over $2,000 requires VP approval"
+        ]
+      },
+      {
+        "email": "eve@company.example.com",
+        "text": "Eve Liu | 450 | Rejected | Missing receipt",
+        "contains": ["Eve Liu", "450", "Rejected", "Missing receipt"]
+      }
+    ]
+  },
+  "finance-4028": {
+    "instruction": "今天是 2026-02-10，本轮处理周明确为滚动7天2026-02-04至02-10（含端点），按收件日筛选真正的供应商发票。源只有邮件文本、没有附件或Drive文件，因此在 invoice_archive 飞书台账保存 invoice_number、file_name（YYYY-MM_VendorName_InvoiceNumber，保留Vendor空格）、source_message_id、content原邮件正文，不伪造PDF。向 Registry 按收件日、同日source id排序追加原有 Invoice/Vendor/Amount，加 Date Filed、Invoice #、Drive Link；Invoice和Invoice #同源号，Amount保留美元原文，Drive Link用officegym://invoice/InvoiceNumber作为台账逻辑引用。向ap-lead@company.example.com私聊按上月格式报告 Invoices filed: N, Total amount: $X 与逐发票 Vendor | Invoice | Amount | 发票日期。",
+    "now": "2026-02-10T09:00:00Z",
+    "creates": [
+      {
+        "collection": "invoice_archive",
+        "invoice_number": "ACM-2026-0088",
+        "file_name": "2026-02_Acme Supplies_ACM-2026-0088",
+        "source_message_id": "msg_vinv_001",
+        "content": "Invoice ACM-2026-0088 from Acme Supplies, dated 2026-02-05, amount $3,400. February materials."
+      },
+      {
+        "collection": "invoice_archive",
+        "invoice_number": "BI-5501",
+        "file_name": "2026-02_Bright Ideas Studio_BI-5501",
+        "source_message_id": "msg_vinv_003",
+        "content": "Invoice BI-5501, Bright Ideas Studio, dated 2026-02-06, $2,750. Creative services."
+      },
+      {
+        "collection": "invoice_archive",
+        "invoice_number": "TS-22104",
+        "file_name": "2026-02_TechServe Solutions_TS-22104",
+        "source_message_id": "msg_vinv_002",
+        "content": "Invoice TS-22104, TechServe Solutions, dated 2026-02-07, $11,200. February managed services."
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_inv_registry",
+        "sheet": "ws_registry",
+        "append": {
+          "Invoice": "ACM-2026-0088",
+          "Vendor": "Acme Supplies",
+          "Amount": "$3,400",
+          "Date Filed": "2026-02-10",
+          "Invoice #": "ACM-2026-0088",
+          "Drive Link": "officegym://invoice/ACM-2026-0088"
+        }
+      },
+      {
+        "book": "ss_inv_registry",
+        "sheet": "ws_registry",
+        "append": {
+          "Invoice": "BI-5501",
+          "Vendor": "Bright Ideas Studio",
+          "Amount": "$2,750",
+          "Date Filed": "2026-02-10",
+          "Invoice #": "BI-5501",
+          "Drive Link": "officegym://invoice/BI-5501"
+        }
+      },
+      {
+        "book": "ss_inv_registry",
+        "sheet": "ws_registry",
+        "append": {
+          "Invoice": "TS-22104",
+          "Vendor": "TechServe Solutions",
+          "Amount": "$11,200",
+          "Date Filed": "2026-02-10",
+          "Invoice #": "TS-22104",
+          "Drive Link": "officegym://invoice/TS-22104"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "ap-lead@company.example.com",
+        "text": "Invoices filed: 3, Total amount: $17,350.00\nAcme Supplies | ACM-2026-0088 | $3,400 | 2026-02-05\nBright Ideas Studio | BI-5501 | $2,750 | 2026-02-06\nTechServe Solutions | TS-22104 | $11,200 | 2026-02-07",
+        "contains": [
+          "Invoices filed: 3, Total amount: $17,350.00",
+          "Acme Supplies | ACM-2026-0088 | $3,400 | 2026-02-05",
+          "Bright Ideas Studio | BI-5501 | $2,750 | 2026-02-06",
+          "TechServe Solutions | TS-22104 | $11,200 | 2026-02-07"
+        ]
+      }
+    ]
+  },
+  "finance-4032": {
+    "instruction": "今天是 2026-02-01，按 IC Transfer Procedures 与最新明确批准/纠正处理二月公司间划转。Treasury 对本批次汇率批准有效；本题将 Controller 的最终金额更正视为本批次该金额已确定，不再沿用旧的待人数确认备注。先在 ic_transfers 飞书台账记录 ref、from_entity、to_entity、currency、amount数值、fx_rate数值、usd_amount数值、description；再向接收方Contact发私聊，含原描述、Ref、原币金额与统一 Transfers total: $X；通知后才把来源Status设Processed，同时回写获批金额/汇率更正。只是模拟记账。",
+    "now": "2026-02-01T10:00:00Z",
+    "creates": [
+      {
+        "collection": "ic_transfers",
+        "ref": "IC-2026-020",
+        "from_entity": "HQ",
+        "to_entity": "West Division",
+        "currency": "USD",
+        "amount": 45000,
+        "fx_rate": 1,
+        "usd_amount": 45000,
+        "description": "Shared IT allocation"
+      },
+      {
+        "collection": "ic_transfers",
+        "ref": "IC-2026-021",
+        "from_entity": "HQ",
+        "to_entity": "East Division",
+        "currency": "USD",
+        "amount": 35000,
+        "fx_rate": 1,
+        "usd_amount": 35000,
+        "description": "Marketing shared services"
+      },
+      {
+        "collection": "ic_transfers",
+        "ref": "IC-2026-022",
+        "from_entity": "HQ",
+        "to_entity": "South Division",
+        "currency": "USD",
+        "amount": 22500,
+        "fx_rate": 1,
+        "usd_amount": 22500,
+        "description": "HR shared services"
+      },
+      {
+        "collection": "ic_transfers",
+        "ref": "IC-2026-023",
+        "from_entity": "HQ",
+        "to_entity": "Europe Division",
+        "currency": "EUR",
+        "amount": 28000,
+        "fx_rate": 1.05,
+        "usd_amount": 29400,
+        "description": "Regional support services"
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_ic",
+        "sheet": "ws_feb_ic",
+        "match": {
+          "Ref": "IC-2026-020"
+        },
+        "fields": {
+          "Status": "Processed"
+        }
+      },
+      {
+        "book": "ss_ic",
+        "sheet": "ws_feb_ic",
+        "match": {
+          "Ref": "IC-2026-021"
+        },
+        "fields": {
+          "Amount": "$35,000",
+          "Status": "Processed"
+        }
+      },
+      {
+        "book": "ss_ic",
+        "sheet": "ws_feb_ic",
+        "match": {
+          "Ref": "IC-2026-022"
+        },
+        "fields": {
+          "Status": "Processed"
+        }
+      },
+      {
+        "book": "ss_ic",
+        "sheet": "ws_feb_ic",
+        "match": {
+          "Ref": "IC-2026-023"
+        },
+        "fields": {
+          "FX Rate": "1.05",
+          "Status": "Processed"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "westfin@company.example.com",
+        "text": "West Division | IC-2026-020 | Shared IT allocation | $45,000 | USD $45,000 | Transfers total: $131,900",
+        "contains": [
+          "West Division",
+          "IC-2026-020",
+          "Shared IT allocation",
+          "$45,000",
+          "USD $45,000",
+          "Transfers total: $131,900"
+        ]
+      },
+      {
+        "email": "eastfin@company.example.com",
+        "text": "East Division | IC-2026-021 | Marketing shared services | $35,000 | USD $35,000 | Transfers total: $131,900",
+        "contains": [
+          "East Division",
+          "IC-2026-021",
+          "Marketing shared services",
+          "$35,000",
+          "USD $35,000",
+          "Transfers total: $131,900"
+        ]
+      },
+      {
+        "email": "southfin@company.example.com",
+        "text": "South Division | IC-2026-022 | HR shared services | $22,500 | USD $22,500 | Transfers total: $131,900",
+        "contains": [
+          "South Division",
+          "IC-2026-022",
+          "HR shared services",
+          "$22,500",
+          "USD $22,500",
+          "Transfers total: $131,900"
+        ]
+      },
+      {
+        "email": "europefin@company.example.com",
+        "text": "Europe Division | IC-2026-023 | Regional support services | €28,000 | USD $29,400 | Transfers total: $131,900",
+        "contains": [
+          "Europe Division",
+          "IC-2026-023",
+          "Regional support services",
+          "€28,000",
+          "USD $29,400",
+          "Transfers total: $131,900"
+        ]
+      }
+    ],
+    "command_order": [0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 6, 7, 8, 9, 10, 11],
+    "order_groups": [
+      {
+        "kind": "record",
+        "collection": "ic_transfers"
+      },
+      {
+        "kind": "message",
+        "emails": [
+          "westfin@company.example.com",
+          "eastfin@company.example.com",
+          "southfin@company.example.com",
+          "europefin@company.example.com"
+        ]
+      },
+      {
+        "kind": "spreadsheet",
+        "ids": ["ss_ic"]
+      }
+    ]
+  },
+  "finance-4033": {
+    "instruction": "今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者私聊确认项目和最终金额，包含估价号、客户全名和千位逗号美元金额。",
+    "now": "2026-02-10T09:00:00Z",
+    "creates": [
+      {
+        "collection": "quickbooks_invoices",
+        "estimate_id": "qe_001",
+        "estimate_number": "EST-1001",
+        "customer_id": "qc_101",
+        "customer_name": "Bright Ideas Studio",
+        "total_amt": 21000,
+        "status": "Issued"
+      }
+    ],
+    "messages": [
+      {
+        "email": "billing@brightideas.example.com",
+        "text": "Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | $21,000",
+        "contains": [
+          "Bright Ideas Studio",
+          "EST-1001",
+          "项目已确认",
+          "发票已开具",
+          "21,000"
+        ]
+      }
+    ]
+  },
+  "finance-4036": {
+    "instruction": "今天是2026-02-15，按当前 Bank Reconciliation Policy 和授权更新核对银行Statement与xero_bank_transactions台账，以reference及收支方向匹配，应用本月金额容差与已确认存款更正。只更新Statement的Status；不改原金额、源Xero交易、已Reconciled及pending reversal项。将未匹配项设Investigate并私聊controller@company.example.com，包含Reference、原金额、未匹配原因。",
+    "now": "2026-02-15T10:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_bank_recon",
+        "sheet": "ws_stmt",
+        "match": {
+          "Reference": "DD-8801"
+        },
+        "fields": {
+          "Status": "Reconciled"
+        }
+      },
+      {
+        "book": "ss_bank_recon",
+        "sheet": "ws_stmt",
+        "match": {
+          "Reference": "DEP-4401"
+        },
+        "fields": {
+          "Status": "Reconciled"
+        }
+      },
+      {
+        "book": "ss_bank_recon",
+        "sheet": "ws_stmt",
+        "match": {
+          "Reference": "TRF-9901"
+        },
+        "fields": {
+          "Status": "Investigate"
+        }
+      },
+      {
+        "book": "ss_bank_recon",
+        "sheet": "ws_stmt",
+        "match": {
+          "Reference": "DD-8802"
+        },
+        "fields": {
+          "Status": "Reconciled"
+        }
+      },
+      {
+        "book": "ss_bank_recon",
+        "sheet": "ws_stmt",
+        "match": {
+          "Reference": "DD-8803"
+        },
+        "fields": {
+          "Status": "Reconciled"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "controller@company.example.com",
+        "text": "TRF-9901 | -$3,750 | Investigate：没有对应Xero reference，需核查",
+        "contains": ["TRF-9901", "3,750", "Investigate"]
+      }
+    ]
+  },
+  "finance-4041": {
+    "instruction": "今天2026-02-12，按 Refund Policy - Updated 2026 处理退款，每个Pending请求视为今天收到，以今天距Invoice Date判定天数。合格退款写 quickbooks_refunds 台账，字段case、invoice_number、customer_id、customer_name、amount数值、status=Processed，并将表Status写Refunded，新增Refund Amount美元千位逗号。超期只Offer credit memo，不实际退款或创建credit memo，Status写Credit memo offered；等待审批者来源行不改。每个客户私聊通知case、发票、原金额、处理结果及退款金额或待办原因。",
+    "now": "2026-02-12T09:00:00Z",
+    "creates": [
+      {
+        "collection": "quickbooks_refunds",
+        "case": "REF-101",
+        "invoice_number": "INV-8801",
+        "customer_id": "qc_301",
+        "customer_name": "NovaTech",
+        "amount": 2400,
+        "status": "Processed"
+      },
+      {
+        "collection": "quickbooks_refunds",
+        "case": "REF-102",
+        "invoice_number": "INV-8710",
+        "customer_id": "qc_302",
+        "customer_name": "Meridian Corp",
+        "amount": 4250,
+        "status": "Processed"
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_refunds",
+        "sheet": "ws_pending_ref",
+        "match": {
+          "Case": "REF-101"
+        },
+        "fields": {
+          "Status": "Refunded",
+          "Refund Amount": "$2,400"
+        }
+      },
+      {
+        "book": "ss_refunds",
+        "sheet": "ws_pending_ref",
+        "match": {
+          "Case": "REF-102"
+        },
+        "fields": {
+          "Status": "Refunded",
+          "Refund Amount": "$4,250"
+        }
+      },
+      {
+        "book": "ss_refunds",
+        "sheet": "ws_pending_ref",
+        "match": {
+          "Case": "REF-103"
+        },
+        "fields": {
+          "Status": "Credit memo offered"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "billing@novatech.example.com",
+        "text": "REF-101 | INV-8801 | $2,400 | Refunded | $2,400",
+        "contains": ["REF-101", "INV-8801", "$2,400", "Refunded", "$2,400"]
+      },
+      {
+        "email": "payables@meridian.example.com",
+        "text": "REF-102 | INV-8710 | $8,500 | Refunded | $4,250",
+        "contains": ["REF-102", "INV-8710", "$8,500", "Refunded", "$4,250"]
+      },
+      {
+        "email": "finance@vanguard.example.com",
+        "text": "REF-103 | INV-8650 | $3,200 | 超过60天，不退款，Offer credit memo",
+        "contains": [
+          "REF-103",
+          "INV-8650",
+          "$3,200",
+          "超过60天，不退款，Offer credit memo"
+        ]
+      },
+      {
+        "email": "accounts@sterling.example.com",
+        "text": "REF-104 | INV-8790 | $6,200 | 等待manager approval，尚未退款",
+        "contains": [
+          "REF-104",
+          "INV-8790",
+          "$6,200",
+          "等待manager approval，尚未退款"
+        ]
+      }
+    ]
+  },
+  "finance-4042": {
+    "instruction": "今天2026-02-15，依据Invoice Sending Rules及客户暂缓请求，发送尚未送达且可发送的Xero发票。在飞书私聊向客户发送完整发票号、客户名称、原total、amount_due；CC CFO改为给cfo@company.example.com发同内容私聊。随后将已发送发票sent_to_contact设true，向billing群汇总真正发送的发票及金额，不把未发送发票混进汇总。原始账单记录中布尔值采用JSON文本true/false。",
+    "now": "2026-02-15T10:00:00Z",
+    "updates": [
+      {
+        "id": "xero_xi_102",
+        "fields": {
+          "sent_to_contact": "true"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "ap@baxter.example.com",
+        "text": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票",
+        "contains": ["Baxter Industries", "INV-6002", "32000"]
+      },
+      {
+        "email": "cfo@company.example.com",
+        "text": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票",
+        "contains": ["Baxter Industries", "INV-6002", "32000"]
+      },
+      {
+        "channel": "billing",
+        "text": "已发送1张：Baxter Industries | INV-6002 | total 32000 | amount_due 32000",
+        "contains": ["INV-6002", "32000"]
+      }
+    ]
+  },
+  "finance-4044": {
+    "instruction": "按Three-Way Match Tolerance Policy核对Invoice Batch、Purchase Orders、Receiving Reports，只更新发票表Status。边界按含等号处理；源规则未定义价格差额超过5%的处置，本题补充为Price Variance - Hold，不擅自批准。数量差异优先Quantity Discrepancy - Hold。向ap-lead@company.example.com飞书私聊汇总全部非批准项，列Vendor Invoice、PO #、原发票金额、PO金额、三方数量和状态。",
+    "sheets": [
+      {
+        "book": "ss_3way",
+        "sheet": "ws_invoices_match",
+        "match": {
+          "Vendor Invoice": "VI-001"
+        },
+        "fields": {
+          "Status": "Approved for Payment"
+        }
+      },
+      {
+        "book": "ss_3way",
+        "sheet": "ws_invoices_match",
+        "match": {
+          "Vendor Invoice": "VI-002"
+        },
+        "fields": {
+          "Status": "Price Variance - Hold"
+        }
+      },
+      {
+        "book": "ss_3way",
+        "sheet": "ws_invoices_match",
+        "match": {
+          "Vendor Invoice": "VI-003"
+        },
+        "fields": {
+          "Status": "Quantity Discrepancy - Hold"
+        }
+      },
+      {
+        "book": "ss_3way",
+        "sheet": "ws_invoices_match",
+        "match": {
+          "Vendor Invoice": "VI-004"
+        },
+        "fields": {
+          "Status": "Approved for Payment"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "ap-lead@company.example.com",
+        "text": "VI-002 | PO-5502 | Invoice $3,750.00 | PO $3,500.00 | PO/Received/Invoice Qty 50/50/50 | Price Variance - Hold\nVI-003 | PO-5503 | Invoice $8,200.00 | PO $9,600.00 | PO/Received/Invoice Qty 30/25/25 | Quantity Discrepancy - Hold",
+        "contains": [
+          "VI-002",
+          "PO-5502",
+          "$3,750.00",
+          "$3,500.00",
+          "50/50/50",
+          "Price Variance - Hold",
+          "VI-003",
+          "PO-5503",
+          "$8,200.00",
+          "$9,600.00",
+          "30/25/25",
+          "Quantity Discrepancy - Hold"
+        ]
+      }
+    ]
+  },
+  "finance-4048": {
+    "instruction": "今天2026-02-12。依Vendor Credit Application Policy与授权时效更新处理供应商credit，并核对Notes。最旧bill按Due Date排序；本轮不能改采购独占的Vendor Info评级，虽然原请求提出了评级更新。写credit_applications台账credit_number、bill_number、vendor、amount数值；Open Credits新增Remaining Credit，成功项Status=Applied，待确认项Status=Needs Verification且不改Amount；Open Bills新增Remaining Balance，不覆盖原Amount，有应用但未结清写Partially Paid。每个成功供应商只发一条私聊列credit、bill、原额度、应用金额和全批总计Total credits applied: $X。",
+    "now": "2026-02-12T10:00:00Z",
+    "creates": [
+      {
+        "collection": "credit_applications",
+        "credit_number": "VC-101",
+        "bill_number": "BL-201",
+        "vendor": "Acme Supplies",
+        "amount": 1500
+      },
+      {
+        "collection": "credit_applications",
+        "credit_number": "VC-102",
+        "bill_number": "BL-204",
+        "vendor": "Metro Supply",
+        "amount": 800
+      },
+      {
+        "collection": "credit_applications",
+        "credit_number": "VC-103",
+        "bill_number": "BL-203",
+        "vendor": "TechServe Solutions",
+        "amount": 3200
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_credits",
+        "match": {
+          "Credit #": "VC-101"
+        },
+        "fields": {
+          "Status": "Applied",
+          "Remaining Credit": "$0"
+        }
+      },
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_open_bills",
+        "match": {
+          "Bill #": "BL-201"
+        },
+        "fields": {
+          "Status": "Partially Paid",
+          "Remaining Balance": "$900"
+        }
+      },
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_credits",
+        "match": {
+          "Credit #": "VC-102"
+        },
+        "fields": {
+          "Status": "Applied",
+          "Remaining Credit": "$0"
+        }
+      },
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_open_bills",
+        "match": {
+          "Bill #": "BL-204"
+        },
+        "fields": {
+          "Status": "Partially Paid",
+          "Remaining Balance": "$400"
+        }
+      },
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_credits",
+        "match": {
+          "Credit #": "VC-103"
+        },
+        "fields": {
+          "Status": "Applied",
+          "Remaining Credit": "$0"
+        }
+      },
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_open_bills",
+        "match": {
+          "Bill #": "BL-203"
+        },
+        "fields": {
+          "Status": "Partially Paid",
+          "Remaining Balance": "$2,300"
+        }
+      },
+      {
+        "book": "ss_vendor_credits",
+        "sheet": "ws_credits",
+        "match": {
+          "Credit #": "VC-104"
+        },
+        "fields": {
+          "Status": "Needs Verification"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "ar@acme.example.com",
+        "text": "VC-101 | BL-201 | Acme Supplies | $1,500 | Total credits applied: $5,500",
+        "contains": [
+          "VC-101",
+          "BL-201",
+          "Acme Supplies",
+          "$1,500",
+          "Total credits applied: $5,500"
+        ]
+      },
+      {
+        "email": "billing@metro.example.com",
+        "text": "VC-102 | BL-204 | Metro Supply | $800 | Total credits applied: $5,500",
+        "contains": [
+          "VC-102",
+          "BL-204",
+          "Metro Supply",
+          "$800",
+          "Total credits applied: $5,500"
+        ]
+      },
+      {
+        "email": "finance@techserve.example.com",
+        "text": "VC-103 | BL-203 | TechServe Solutions | $3,200 | Total credits applied: $5,500",
+        "contains": [
+          "VC-103",
+          "BL-203",
+          "TechServe Solutions",
+          "$3,200",
+          "Total credits applied: $5,500"
+        ]
+      }
+    ]
+  },
+  "finance-4051": {
+    "instruction": "今天2026-02-05，核对一月Card Statement与Submitted Expenses，以持卡人、日期、金额匹配；Notes个人误报即使金额吻合也不能对账成功。新增Card Statement的Status：干净匹配Matched，未提交Unmatched，误报Submitted in error；保留源费用。私聊缺凭证的持卡人索取凭证，并向controller@company.example.com发送仅异常汇总，列Merchant、原金额、Card、异常原因；不能把正常匹配项写入汇总。",
+    "now": "2026-02-05T09:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_cc_recon",
+        "sheet": "ws_statement",
+        "match": {
+          "Merchant": "Delta Airlines"
+        },
+        "fields": {
+          "Status": "Matched"
+        }
+      },
+      {
+        "book": "ss_cc_recon",
+        "sheet": "ws_statement",
+        "match": {
+          "Merchant": "Marriott Hotels"
+        },
+        "fields": {
+          "Status": "Matched"
+        }
+      },
+      {
+        "book": "ss_cc_recon",
+        "sheet": "ws_statement",
+        "match": {
+          "Merchant": "AWS"
+        },
+        "fields": {
+          "Status": "Matched"
+        }
+      },
+      {
+        "book": "ss_cc_recon",
+        "sheet": "ws_statement",
+        "match": {
+          "Merchant": "Office Depot"
+        },
+        "fields": {
+          "Status": "Unmatched"
+        }
+      },
+      {
+        "book": "ss_cc_recon",
+        "sheet": "ws_statement",
+        "match": {
+          "Merchant": "Capital Grille"
+        },
+        "fields": {
+          "Status": "Submitted in error"
+        }
+      },
+      {
+        "book": "ss_cc_recon",
+        "sheet": "ws_statement",
+        "match": {
+          "Merchant": "Unknown Charge"
+        },
+        "fields": {
+          "Status": "Unmatched"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "bob@company.example.com",
+        "text": "Office Depot | $156.00 | Bob-8832 | 未提交费用且缺少凭证，请补交",
+        "contains": ["Office Depot", "$156.00", "Bob-8832", "凭证"]
+      },
+      {
+        "email": "alice@company.example.com",
+        "text": "Unknown Charge | $42.00 | Alice-4521 | 未提交费用且缺少凭证，请核实并补交",
+        "contains": ["Unknown Charge", "$42.00", "Alice-4521", "凭证"]
+      },
+      {
+        "email": "controller@company.example.com",
+        "text": "Office Depot | $156.00 | Bob-8832 | Unmatched，缺少提交与凭证\nUnknown Charge | $42.00 | Alice-4521 | Unmatched，缺少提交与凭证\nCapital Grille | $75.00 | Alice-4521 | personal expense - submitted in error, do not reconcile",
+        "contains": [
+          "Office Depot",
+          "$156.00",
+          "Bob-8832",
+          "Unknown Charge",
+          "$42.00",
+          "Alice-4521",
+          "Capital Grille",
+          "$75.00",
+          "submitted in error"
+        ]
+      }
+    ],
+    "forbidden_message_contents": {
+      "controller@company.example.com": [
+        "Delta Airlines",
+        "Marriott Hotels",
+        "AWS",
+        "$842.00",
+        "$489.00",
+        "$3,247.00"
+      ]
+    }
+  },
+  "finance-4079": {
+    "instruction": "今天2026-02-15，按Escrow Release Procedures检查全部Pending托管释放。合格释放写escrow_disbursements台账escrow_id、amount数值、depositor、beneficiary、status=Released；模拟记账不做真实支付。更新来源Status Released/Held；争议优先Held并私聊legal@company.example.com。按用户要求对每笔的存款方和受益方都私聊告知Escrow ID、原金额、状态及原因（不仅成功笔），不发公共群。",
+    "now": "2026-02-15T09:00:00Z",
+    "creates": [
+      {
+        "collection": "escrow_disbursements",
+        "escrow_id": "ESC-001",
+        "amount": 50000,
+        "depositor": "NovaTech",
+        "beneficiary": "Acme Supplies",
+        "status": "Released"
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_escrow",
+        "sheet": "ws_pending_escrow",
+        "match": {
+          "Escrow ID": "ESC-001"
+        },
+        "fields": {
+          "Status": "Released"
+        }
+      },
+      {
+        "book": "ss_escrow",
+        "sheet": "ws_pending_escrow",
+        "match": {
+          "Escrow ID": "ESC-002"
+        },
+        "fields": {
+          "Status": "Held"
+        }
+      },
+      {
+        "book": "ss_escrow",
+        "sheet": "ws_pending_escrow",
+        "match": {
+          "Escrow ID": "ESC-003"
+        },
+        "fields": {
+          "Status": "Held"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "cfo@novatech.example.com",
+        "text": "ESC-001 | $50,000 | Released | Delivery Met, Inspection Met",
+        "contains": [
+          "ESC-001",
+          "$50,000",
+          "Released",
+          "Delivery Met, Inspection Met"
+        ]
+      },
+      {
+        "email": "ar@acme.example.com",
+        "text": "ESC-001 | $50,000 | Released | Delivery Met, Inspection Met",
+        "contains": [
+          "ESC-001",
+          "$50,000",
+          "Released",
+          "Delivery Met, Inspection Met"
+        ]
+      },
+      {
+        "email": "finance@meridian.example.com",
+        "text": "ESC-002 | $25,000 | Held | Inspection Pending",
+        "contains": ["ESC-002", "$25,000", "Held", "Inspection Pending"]
+      },
+      {
+        "email": "billing@techserve.example.com",
+        "text": "ESC-002 | $25,000 | Held | Inspection Pending",
+        "contains": ["ESC-002", "$25,000", "Held", "Inspection Pending"]
+      },
+      {
+        "email": "ap@vanguard.example.com",
+        "text": "ESC-003 | $15,000 | Held | Vanguard disputes quality",
+        "contains": ["ESC-003", "$15,000", "Held", "Vanguard disputes quality"]
+      },
+      {
+        "email": "ar@metro.example.com",
+        "text": "ESC-003 | $15,000 | Held | Vanguard disputes quality",
+        "contains": ["ESC-003", "$15,000", "Held", "Vanguard disputes quality"]
+      },
+      {
+        "email": "legal@company.example.com",
+        "text": "ESC-003 | $15,000 | Held | Vanguard disputes quality",
+        "contains": ["ESC-003", "$15,000", "Held", "Vanguard disputes quality"]
+      }
+    ]
+  },
+  "hr-5009": {
+    "instruction": "今天2026-03-20，阅读全部新职位来信与tracker，按保密和外发权限处理。普通新职位按邮件时间向Open Roles追加完整Title/Department/Location/Level/Headcount/Status=Open/Hiring Manager/Date Added；按Department Hiring Managers私聊对应经理，另给Talent Marketing一条汇总申请外发，不自行发布。机密职位不进普通tracker，仅私聊发件人和指定executive recruiter协调；重复职位不新增不通知。",
+    "now": "2026-03-20T09:00:00Z",
+    "sheets": [
+      {
+        "book": "ss_jobboard",
+        "sheet": "ws_openings",
+        "append": {
+          "Title": "Senior DevOps Engineer",
+          "Department": "Engineering",
+          "Location": "Austin (hybrid)",
+          "Level": "Senior (IC4)",
+          "Headcount": "1",
+          "Status": "Open",
+          "Hiring Manager": "David Okonkwo",
+          "Date Added": "2026-03-20"
+        }
+      },
+      {
+        "book": "ss_jobboard",
+        "sheet": "ws_openings",
+        "append": {
+          "Title": "Data Platform Engineer",
+          "Department": "Analytics",
+          "Location": "Remote",
+          "Level": "Mid (IC3)",
+          "Headcount": "2",
+          "Status": "Open",
+          "Hiring Manager": "Priya Sharma",
+          "Date Added": "2026-03-20"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "david.okonkwo@company.example.com",
+        "text": "Senior DevOps Engineer | Engineering | Austin (hybrid) | Senior (IC4) | Headcount 1 | David Okonkwo",
+        "contains": [
+          "Senior DevOps Engineer",
+          "Engineering",
+          "Austin (hybrid)",
+          "Senior (IC4)",
+          "Headcount 1",
+          "David Okonkwo"
+        ]
+      },
+      {
+        "email": "priya.sharma@company.example.com",
+        "text": "Data Platform Engineer | Analytics | Remote | Mid (IC3) | Headcount 2 | Priya Sharma",
+        "contains": [
+          "Data Platform Engineer",
+          "Analytics",
+          "Remote",
+          "Mid (IC3)",
+          "Headcount 2",
+          "Priya Sharma"
+        ]
+      },
+      {
+        "email": "talent-marketing@company.example.com",
+        "text": "请依权限安排外部招聘发布：\nSenior DevOps Engineer | Engineering | Austin (hybrid) | Senior (IC4) | Headcount 1 | David Okonkwo | Data Platform Engineer | Analytics | Remote | Mid (IC3) | Headcount 2 | Priya Sharma",
+        "contains": [
+          "Senior DevOps Engineer",
+          "Engineering",
+          "Austin (hybrid)",
+          "Senior (IC4)",
+          "Headcount 1",
+          "David Okonkwo",
+          "Data Platform Engineer",
+          "Analytics",
+          "Remote",
+          "Mid (IC3)",
+          "Headcount 2",
+          "Priya Sharma"
+        ]
+      },
+      {
+        "email": "lisa.wang@company.example.com",
+        "text": "保密协调：VP Product | Product | San Francisco | VP | 仅限指定人员处理",
+        "contains": ["VP Product", "San Francisco", "保密"]
+      },
+      {
+        "email": "exec-search@company.example.com",
+        "text": "保密协调：VP Product | Product | San Francisco | VP | 仅限指定人员处理",
+        "contains": ["VP Product", "San Francisco", "保密"]
+      }
+    ]
+  },
+  "hr-5028": {
+    "instruction": "为已批准候选人准备offer letter供经理审阅。核对薪酬band与最新正式例外，只保存mail_drafts台账，不发送；字段to、subject=Offer draft: Candidate、body、status=draft。body包含候选人全名、Role、Level、原Salary、Start Date、Reporting to及Manager。没有授权例外且超band时包含exceeds band maximum及该level上限；遵从有效例外，不向候选人发offer。",
+    "creates": [
+      {
+        "collection": "mail_drafts",
+        "to": "david.okonkwo@company.example.com",
+        "subject": "Offer draft: Elena Vasquez",
+        "body": "Elena Vasquez | Senior Backend Engineer | IC3 | $155,000 | 2026-04-14 | Reporting to David Okonkwo",
+        "status": "draft"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "david.okonkwo@company.example.com",
+        "subject": "Offer draft: Kevin S. Chen",
+        "body": "Kevin S. Chen | Senior Backend Engineer | IC3 | $148,000 | 2026-04-21 | Reporting to David Okonkwo",
+        "status": "draft"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "priya.sharma@company.example.com",
+        "subject": "Offer draft: Nadia Petrova",
+        "body": "Nadia Petrova | Staff Data Scientist | IC4 | $220,000 | 2026-05-05 | Reporting to Priya Sharma",
+        "status": "draft"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "lisa.wang@company.example.com",
+        "subject": "Offer draft: Liam O'Brien",
+        "body": "Liam O'Brien | Sales Engineer | IC3 | $165,000 | 2026-04-28 | Reporting to Lisa Wang | exceeds band maximum $160,000",
+        "status": "draft"
+      }
+    ],
+    "creation_contains": {
+      "0": {
+        "body": [
+          "Elena Vasquez",
+          "Senior Backend Engineer",
+          "IC3",
+          "$155,000",
+          "2026-04-14",
+          "Reporting to David Okonkwo"
+        ]
+      },
+      "1": {
+        "body": [
+          "Kevin S. Chen",
+          "Senior Backend Engineer",
+          "IC3",
+          "$148,000",
+          "2026-04-21",
+          "Reporting to David Okonkwo"
+        ]
+      },
+      "2": {
+        "body": [
+          "Nadia Petrova",
+          "Staff Data Scientist",
+          "IC4",
+          "$220,000",
+          "2026-05-05",
+          "Reporting to Priya Sharma"
+        ]
+      },
+      "3": {
+        "body": [
+          "Liam O'Brien",
+          "Sales Engineer",
+          "IC3",
+          "$165,000",
+          "2026-04-28",
+          "Reporting to Lisa Wang",
+          "exceeds band maximum $160,000"
+        ]
+      }
+    }
+  },
+  "hr-5031": {
+    "instruction": "今天2026-03-15，按Visa Renewal Policy与Immigration Filing Authorization核查。源未给通知窗口，本题明确到期日距今天180个自然日内纳入；已提交续签仍跟踪到期。未获允许不能提交petitions、不能改Renewal Filed。依政策私聊员工/经理或移民律师，员工通知含全名、Visa Type、原Expiration与剩余days；律师合并一条，只列应交律师的案件与Renewal Filed。无需公共群通知。",
+    "now": "2026-03-15T09:00:00Z",
+    "messages": [
+      {
+        "email": "kevin.s.chen@company.example.com",
+        "text": "Kevin S. Chen | H-1B | 2026-07-15 | 122 days",
+        "contains": ["Kevin S. Chen", "H-1B", "2026-07-15", "122 days"]
+      },
+      {
+        "email": "raj.patel@company.example.com",
+        "text": "Raj Patel | L-1A | 2026-05-01 | 47 days",
+        "contains": ["Raj Patel", "L-1A", "2026-05-01", "47 days"]
+      },
+      {
+        "email": "yuki.tanaka@company.example.com",
+        "text": "Yuki Tanaka | O-1 | 2026-08-31 | 169 days",
+        "contains": ["Yuki Tanaka", "O-1", "2026-08-31", "169 days"]
+      },
+      {
+        "email": "david.okonkwo@company.example.com",
+        "text": "Kevin S. Chen | H-1B | 2026-07-15 | 122 days | I-140 Pending，由独立green card counsel处理",
+        "contains": ["Kevin S. Chen", "2026-07-15", "I-140 Pending"]
+      },
+      {
+        "email": "immigration@lawfirm.example.com",
+        "text": "Raj Patel | L-1A | 2026-05-01 | Renewal Filed Yes\nYuki Tanaka | O-1 | 2026-08-31 | Renewal Filed No\nPriya Patel (spouse of Raj) | L-2 | 2026-05-01 | Renewal Filed No",
+        "contains": [
+          "Raj Patel",
+          "L-1A",
+          "2026-05-01",
+          "Renewal Filed Yes",
+          "Yuki Tanaka",
+          "O-1",
+          "2026-08-31",
+          "Priya Patel (spouse of Raj)",
+          "L-2",
+          "Renewal Filed No"
+        ]
+      }
+    ]
+  },
+  "hr-5034": {
+    "instruction": "今天2026-03-24，为Meridian Technologies准备并发送当前合格候选人submittal。最新撤回/可用时间优先；在Candidate Pipeline回写撤回Status=Withdrawn及变更Availability（用原更正日期YYYY-MM-DD和2 weeks notice）。每候选人向客户唯一联系人发一条飞书私聊，首行Subject:按客户格式，随后四段Candidate Summary、Relevant Experience、Availability、Salary Expectations；资料缺更多经历时只用已知Role与年限。Account Manager另收全部包的合并私聊处理portal，不自行访问或写入portal。",
+    "now": "2026-03-24T09:00:00Z",
+    "assertion_overrides": {
+      "4": "源对所有发往Rachel消息禁止Available Immediately，与Marcus未被更正的原availability矛盾；仅Yuki必须使用更正后的可用日期，Marcus保留原值。"
+    },
+    "sheets": [
+      {
+        "book": "ss_submittals",
+        "sheet": "ws_candidates",
+        "match": {
+          "Candidate": "Derek Chang"
+        },
+        "fields": {
+          "Status": "Withdrawn"
+        }
+      },
+      {
+        "book": "ss_submittals",
+        "sheet": "ws_candidates",
+        "match": {
+          "Candidate": "Yuki Tanaka"
+        },
+        "fields": {
+          "Availability": "2026-04-07 (2 weeks notice)"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "rachel.nguyen@meridiantech.example.com",
+        "text": "Subject: Submittal: Elena Vasquez - 12yr - $180K-$200K\nCandidate Summary: Elena Vasquez | Senior Cloud Architect\nRelevant Experience: 12 years\nAvailability: 2 weeks notice\nSalary Expectations: $180K-$200K",
+        "contains": [
+          "Subject: Submittal: Elena Vasquez - 12yr - $180K-$200K",
+          "Candidate Summary: Elena Vasquez | Senior Cloud Architect",
+          "Relevant Experience: 12 years",
+          "Availability: 2 weeks notice",
+          "Salary Expectations: $180K-$200K"
+        ]
+      },
+      {
+        "email": "rachel.nguyen@meridiantech.example.com",
+        "text": "Subject: Candidate Submittal: Yuki Tanaka - DevOps Engineer\nCandidate Summary: Yuki Tanaka | DevOps Engineer\nRelevant Experience: 5 years\nAvailability: 2026-04-07 (2 weeks notice)\nSalary Expectations: $130K-$145K",
+        "contains": [
+          "Subject: Candidate Submittal: Yuki Tanaka - DevOps Engineer",
+          "Candidate Summary: Yuki Tanaka | DevOps Engineer",
+          "Relevant Experience: 5 years",
+          "Availability: 2026-04-07 (2 weeks notice)",
+          "Salary Expectations: $130K-$145K"
+        ]
+      },
+      {
+        "email": "rachel.nguyen@meridiantech.example.com",
+        "text": "Subject: Submittal: Marcus Lindgren - 8yr - $165K-$180K\nCandidate Summary: Marcus Lindgren | Senior Data Engineer\nRelevant Experience: 8 years\nAvailability: Available Immediately\nSalary Expectations: $165K-$180K",
+        "contains": [
+          "Subject: Submittal: Marcus Lindgren - 8yr - $165K-$180K",
+          "Candidate Summary: Marcus Lindgren | Senior Data Engineer",
+          "Relevant Experience: 8 years",
+          "Availability: Available Immediately",
+          "Salary Expectations: $165K-$180K"
+        ]
+      },
+      {
+        "email": "account-mgr@company.example.com",
+        "text": "请按权限完成portal submission：\nSubject: Submittal: Elena Vasquez - 12yr - $180K-$200K\nCandidate Summary: Elena Vasquez | Senior Cloud Architect\nRelevant Experience: 12 years\nAvailability: 2 weeks notice\nSalary Expectations: $180K-$200K\nSubject: Candidate Submittal: Yuki Tanaka - DevOps Engineer\nCandidate Summary: Yuki Tanaka | DevOps Engineer\nRelevant Experience: 5 years\nAvailability: 2026-04-07 (2 weeks notice)\nSalary Expectations: $130K-$145K\nSubject: Submittal: Marcus Lindgren - 8yr - $165K-$180K\nCandidate Summary: Marcus Lindgren | Senior Data Engineer\nRelevant Experience: 8 years\nAvailability: Available Immediately\nSalary Expectations: $165K-$180K",
+        "contains": [
+          "Subject: Submittal: Elena Vasquez - 12yr - $180K-$200K",
+          "Candidate Summary: Elena Vasquez | Senior Cloud Architect",
+          "Relevant Experience: 12 years",
+          "Availability: 2 weeks notice",
+          "Salary Expectations: $180K-$200K",
+          "Subject: Candidate Submittal: Yuki Tanaka - DevOps Engineer",
+          "Candidate Summary: Yuki Tanaka | DevOps Engineer",
+          "Relevant Experience: 5 years",
+          "Availability: 2026-04-07 (2 weeks notice)",
+          "Salary Expectations: $130K-$145K",
+          "Subject: Submittal: Marcus Lindgren - 8yr - $165K-$180K",
+          "Candidate Summary: Marcus Lindgren | Senior Data Engineer",
+          "Relevant Experience: 8 years",
+          "Availability: Available Immediately",
+          "Salary Expectations: $165K-$180K"
+        ]
+      }
+    ]
+  },
+  "hr-5039": {
+    "instruction": "今天2026-03-15，按薪酬保密与提交权限准备经理审阅包；使用最新绩效，不广播、不直接交committee、不改薪资。每位有合格员工的经理一条私聊，逐人列Employee | Salary | Level | Tenure X years | Performance及已知特殊备注。Tenure按实际天数/365四舍五入两位计算。VP People另收全部包供其提交；没有调薪幅度依据时说明调整建议待经理审阅，不编造数值，不必回写源绩效。",
+    "now": "2026-03-15T09:00:00Z",
+    "messages": [
+      {
+        "email": "lisa.wang@company.example.com",
+        "text": "Alice Park | $155,000 | IC3 | Tenure 2.75 years | Exceeds | pending equity refresh\nDave Kim | $72,000 | IC1 | Tenure 0.37 years | Meets\n调整建议待经理审阅",
+        "contains": [
+          "Alice Park",
+          "$155,000",
+          "IC3",
+          "Tenure 2.75 years",
+          "Exceeds",
+          "pending equity refresh",
+          "Dave Kim",
+          "$72,000",
+          "IC1",
+          "Tenure 0.37 years",
+          "Meets",
+          "待经理审阅"
+        ]
+      },
+      {
+        "email": "carlos.reyes@company.example.com",
+        "text": "Carol Diaz | $108,000 | IC3 | Tenure 0.53 years | Exceeds Expectations\n调整建议待经理审阅",
+        "contains": [
+          "Carol Diaz",
+          "$108,000",
+          "IC3",
+          "Tenure 0.53 years",
+          "Exceeds Expectations",
+          "待经理审阅"
+        ]
+      },
+      {
+        "email": "vp-people@company.example.com",
+        "text": "供您审核并提交：\nAlice Park | $155,000 | IC3 | Tenure 2.75 years | Exceeds | pending equity refresh | Dave Kim | $72,000 | IC1 | Tenure 0.37 years | Meets | Carol Diaz | $108,000 | IC3 | Tenure 0.53 years | Exceeds Expectations\n调整建议待经理审阅",
+        "contains": [
+          "Alice Park",
+          "$155,000",
+          "IC3",
+          "Tenure 2.75 years",
+          "Exceeds",
+          "pending equity refresh",
+          "Dave Kim",
+          "$72,000",
+          "IC1",
+          "Tenure 0.37 years",
+          "Meets",
+          "Carol Diaz",
+          "$108,000",
+          "IC3",
+          "Tenure 0.53 years",
+          "Exceeds Expectations",
+          "待经理审阅"
+        ]
+      }
+    ]
+  },
+  "hr-5042": {
+    "instruction": "按March Hires与Eligibility为下一批全职新员工建立入职条目，尊重Notes更正。Monday入职项目改为 onboarding_items 飞书台账，每人一条，字段name为员工全名、department、start_date、status=Not Started；不为contractor或延期人员创建，不改来源表，不发通知。",
+    "creates": [
+      {
+        "collection": "onboarding_items",
+        "name": "Alicia Fernandez",
+        "department": "Engineering",
+        "start_date": "2026-03-24",
+        "status": "Not Started"
+      },
+      {
+        "collection": "onboarding_items",
+        "name": "Tyrone Washington",
+        "department": "Sales",
+        "start_date": "2026-03-25",
+        "status": "Not Started"
+      }
+    ]
+  },
+  "hr-5044": {
+    "instruction": "按本周Interview Schedule、申请来信及panel偏好准备面试包。LinkedIn只提供离线姓名和URL快照，不能声称已验证履历；外部候选人交叉核对该快照和申请，内部转岗只用内部摘要。撤回者不准备、不通知，来源Status改Cancelled；源无日历实例不伪造取消会议。每个有效候选人在interview_dossiers台账保存candidate、role、interview_date、body；将同份brief分别私聊给各panel成员，保留履历数字、经验、偏好问题。源未标finalist，本题仅将仍Confirmed外部候选人作为本批finalist，给bgcheck-coord@company.example.com一条姓名/Role申请，不自行背调。body不得编造资料未给出的竞争项目，需说明未提供。",
+    "creates": [
+      {
+        "collection": "interview_dossiers",
+        "candidate": "Elena Vasquez",
+        "role": "Senior Cloud Architect",
+        "interview_date": "2026-03-26",
+        "body": "Elena Vasquez | Senior Cloud Architect | 2026-03-26 | 12 years | Principal Engineer | Nimbus Systems | team of 8 | 350+ services | Kubernetes | AWS Solutions Architect Pro | GCP Professional | https://linkedin.com/in/elena-vasquez | architecture decision-making"
+      },
+      {
+        "collection": "interview_dossiers",
+        "candidate": "Liam O'Brien",
+        "role": "Sales Engineer",
+        "interview_date": "2026-03-27",
+        "body": "Liam O'Brien | Sales Engineer | 2026-03-27 | 6 years | CloudStack Inc. | SaaS Solutions Corp. | technical demos | POC delivery | $4.2M | https://linkedin.com/in/liam-obrien | 竞争项目详情未提供"
+      },
+      {
+        "collection": "interview_dossiers",
+        "candidate": "Bob Chen",
+        "role": "Platform Architect (Internal Transfer)",
+        "interview_date": "2026-03-27",
+        "body": "Bob Chen | Platform Architect (Internal Transfer) | 2026-03-27 | 3 consecutive review cycles | distributed systems | mentoring | API gateway | Q3 2025 | 仅内部绩效资料"
+      }
+    ],
+    "sheets": [
+      {
+        "book": "ss_interview_prep",
+        "sheet": "ws_schedule",
+        "match": {
+          "Candidate": "Priya Kapoor"
+        },
+        "fields": {
+          "Status": "Cancelled"
+        }
+      }
+    ],
+    "messages": [
+      {
+        "email": "david.okonkwo@company.example.com",
+        "text": "Elena Vasquez | Senior Cloud Architect | 2026-03-26 | 12 years | Principal Engineer | Nimbus Systems | team of 8 | 350+ services | Kubernetes | AWS Solutions Architect Pro | GCP Professional | https://linkedin.com/in/elena-vasquez | architecture decision-making",
+        "contains": [
+          "Elena Vasquez",
+          "Senior Cloud Architect",
+          "2026-03-26",
+          "12 years",
+          "Principal Engineer",
+          "Nimbus Systems",
+          "team of 8",
+          "350+ services",
+          "Kubernetes",
+          "AWS Solutions Architect Pro",
+          "GCP Professional",
+          "https://linkedin.com/in/elena-vasquez",
+          "architecture decision-making"
+        ]
+      },
+      {
+        "email": "lisa.wang@company.example.com",
+        "text": "Elena Vasquez | Senior Cloud Architect | 2026-03-26 | 12 years | Principal Engineer | Nimbus Systems | team of 8 | 350+ services | Kubernetes | AWS Solutions Architect Pro | GCP Professional | https://linkedin.com/in/elena-vasquez | architecture decision-making",
+        "contains": [
+          "Elena Vasquez",
+          "Senior Cloud Architect",
+          "2026-03-26",
+          "12 years",
+          "Principal Engineer",
+          "Nimbus Systems",
+          "team of 8",
+          "350+ services",
+          "Kubernetes",
+          "AWS Solutions Architect Pro",
+          "GCP Professional",
+          "https://linkedin.com/in/elena-vasquez",
+          "architecture decision-making"
+        ]
+      },
+      {
+        "email": "kenji.watanabe@company.example.com",
+        "text": "Liam O'Brien | Sales Engineer | 2026-03-27 | 6 years | CloudStack Inc. | SaaS Solutions Corp. | technical demos | POC delivery | $4.2M | https://linkedin.com/in/liam-obrien | 竞争项目详情未提供",
+        "contains": [
+          "Liam O'Brien",
+          "Sales Engineer",
+          "2026-03-27",
+          "6 years",
+          "CloudStack Inc.",
+          "SaaS Solutions Corp.",
+          "technical demos",
+          "POC delivery",
+          "$4.2M",
+          "https://linkedin.com/in/liam-obrien",
+          "竞争项目详情未提供"
+        ]
+      },
+      {
+        "email": "carlos.reyes@company.example.com",
+        "text": "Liam O'Brien | Sales Engineer | 2026-03-27 | 6 years | CloudStack Inc. | SaaS Solutions Corp. | technical demos | POC delivery | $4.2M | https://linkedin.com/in/liam-obrien | 竞争项目详情未提供",
+        "contains": [
+          "Liam O'Brien",
+          "Sales Engineer",
+          "2026-03-27",
+          "6 years",
+          "CloudStack Inc.",
+          "SaaS Solutions Corp.",
+          "technical demos",
+          "POC delivery",
+          "$4.2M",
+          "https://linkedin.com/in/liam-obrien",
+          "竞争项目详情未提供"
+        ]
+      },
+      {
+        "email": "priya.sharma@company.example.com",
+        "text": "Bob Chen | Platform Architect (Internal Transfer) | 2026-03-27 | 3 consecutive review cycles | distributed systems | mentoring | API gateway | Q3 2025 | 仅内部绩效资料",
+        "contains": [
+          "Bob Chen",
+          "Platform Architect (Internal Transfer)",
+          "2026-03-27",
+          "3 consecutive review cycles",
+          "distributed systems",
+          "mentoring",
+          "API gateway",
+          "Q3 2025",
+          "仅内部绩效资料"
+        ]
+      },
+      {
+        "email": "lisa.wang@company.example.com",
+        "text": "Bob Chen | Platform Architect (Internal Transfer) | 2026-03-27 | 3 consecutive review cycles | distributed systems | mentoring | API gateway | Q3 2025 | 仅内部绩效资料",
+        "contains": [
+          "Bob Chen",
+          "Platform Architect (Internal Transfer)",
+          "2026-03-27",
+          "3 consecutive review cycles",
+          "distributed systems",
+          "mentoring",
+          "API gateway",
+          "Q3 2025",
+          "仅内部绩效资料"
+        ]
+      },
+      {
+        "email": "bgcheck-coord@company.example.com",
+        "text": "请按授权启动本批外部finalist背调：Elena Vasquez | Senior Cloud Architect；Liam O'Brien | Sales Engineer",
+        "contains": [
+          "Elena Vasquez",
+          "Senior Cloud Architect",
+          "Liam O'Brien",
+          "Sales Engineer"
+        ]
+      }
+    ],
+    "creation_contains": {
+      "0": {
+        "body": [
+          "Elena Vasquez",
+          "Senior Cloud Architect",
+          "2026-03-26",
+          "12 years",
+          "Principal Engineer",
+          "Nimbus Systems",
+          "team of 8",
+          "350+ services",
+          "Kubernetes",
+          "AWS Solutions Architect Pro",
+          "GCP Professional",
+          "https://linkedin.com/in/elena-vasquez",
+          "architecture decision-making"
+        ]
+      },
+      "1": {
+        "body": [
+          "Liam O'Brien",
+          "Sales Engineer",
+          "2026-03-27",
+          "6 years",
+          "CloudStack Inc.",
+          "SaaS Solutions Corp.",
+          "technical demos",
+          "POC delivery",
+          "$4.2M",
+          "https://linkedin.com/in/liam-obrien",
+          "竞争项目详情未提供"
+        ]
+      },
+      "2": {
+        "body": [
+          "Bob Chen",
+          "Platform Architect (Internal Transfer)",
+          "2026-03-27",
+          "3 consecutive review cycles",
+          "distributed systems",
+          "mentoring",
+          "API gateway",
+          "Q3 2025",
+          "仅内部绩效资料"
+        ]
+      }
+    }
+  },
+  "hr-5046": {
+    "instruction": "按IT Onboarding清单、Notes及最新IT政策建立账号配置工单。Jira改为it_tickets飞书台账，字段summary=员工全名、project、priority、description；description列Department、Role、Start Date与获准系统、配置方式。尊重root特殊审批权限，普通onboarding仅允许IAM Console；返聘只reactivate existing accounts，contractor限定权限。只创建工单，不实际开通账号，也不自行开安全审批单。",
+    "creates": [
+      {
+        "collection": "it_tickets",
+        "summary": "Alicia Fernandez",
+        "project": "IT-ONBOARD",
+        "priority": "High",
+        "description": "Engineering | Frontend Developer | 2026-03-24 | Google Workspace | Slack | 1Password | Zoom | GitHub Enterprise | AWS Console (IAM user) | Figma"
+      },
+      {
+        "collection": "it_tickets",
+        "summary": "Tyrone Washington",
+        "project": "IT-ONBOARD",
+        "priority": "Medium",
+        "description": "Sales | Account Executive | 2026-03-25 | Google Workspace | Slack | 1Password | Zoom | Salesforce | HubSpot | Gong"
+      },
+      {
+        "collection": "it_tickets",
+        "summary": "Mei-Ling Chow",
+        "project": "IT-VENDOR",
+        "priority": "Low",
+        "description": "Design | Product Designer | 2026-03-24 | Google Workspace (read-only) | Slack (guest) | Zoom | Figma Enterprise | Abstract | Maze | limited access only"
+      },
+      {
+        "collection": "it_tickets",
+        "summary": "Greg Foster",
+        "project": "IT-ONBOARD",
+        "priority": "Medium",
+        "description": "Sales | Sales Manager | 2026-03-24 | reactivate existing accounts only | Google Workspace | Slack | 1Password | Zoom | Salesforce | HubSpot"
+      }
+    ],
+    "creation_contains": {
+      "0": {
+        "description": [
+          "Engineering",
+          "Frontend Developer",
+          "2026-03-24",
+          "Google Workspace",
+          "Slack",
+          "1Password",
+          "Zoom",
+          "GitHub Enterprise",
+          "AWS Console (IAM user)",
+          "Figma"
+        ]
+      },
+      "1": {
+        "description": [
+          "Sales",
+          "Account Executive",
+          "2026-03-25",
+          "Google Workspace",
+          "Slack",
+          "1Password",
+          "Zoom",
+          "Salesforce",
+          "HubSpot",
+          "Gong"
+        ]
+      },
+      "2": {
+        "description": [
+          "Design",
+          "Product Designer",
+          "2026-03-24",
+          "Google Workspace (read-only)",
+          "Slack (guest)",
+          "Zoom",
+          "Figma Enterprise",
+          "Abstract",
+          "Maze",
+          "limited access only"
+        ]
+      },
+      "3": {
+        "description": [
+          "Sales",
+          "Sales Manager",
+          "2026-03-24",
+          "reactivate existing accounts only",
+          "Google Workspace",
+          "Slack",
+          "1Password",
+          "Zoom",
+          "Salesforce",
+          "HubSpot"
+        ]
+      }
+    }
+  },
+  "hr-5048": {
+    "instruction": "读取Training Completions与Skills Matrix Configuration，以Employee ID匹配airtable_records中的技能记录。仅成功培训回写Certification、Certificate ID、Certification Status=Certified；课程到认证的名称按配置映射，不改失败者、来源培训或发通知。",
+    "updates": [
+      {
+        "id": "airtable_app_skills_matrix_tbl_skills_matrix_rec_skill_alice",
+        "fields": {
+          "Certification": "AWS",
+          "Certificate ID": "AWS-SA-2026-4412",
+          "Certification Status": "Certified"
+        }
+      },
+      {
+        "id": "airtable_app_skills_matrix_tbl_skills_matrix_rec_skill_carol",
+        "fields": {
+          "Certification": "GA4",
+          "Certificate ID": "GA4-2026-887",
+          "Certification Status": "Certified"
+        }
+      }
+    ]
   }
 }
