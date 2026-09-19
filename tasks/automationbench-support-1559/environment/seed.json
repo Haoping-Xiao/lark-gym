@@ -1,0 +1,767 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_coaching": {
+      "title": "Agent Coaching",
+      "sheets": {
+        "ws_roster": {
+          "title": "Agent Roster",
+          "values": [
+            [
+              "Agent ID",
+              "Agent Name",
+              "Manager Email",
+              "Tenure Days",
+              "Status",
+              "Notes"
+            ],
+            [
+              "hu_fiona",
+              "Fiona Drake",
+              "mgr_east@company.example.com",
+              "365",
+              "active",
+              ""
+            ],
+            [
+              "hu_greg",
+              "Greg Stone",
+              "mgr_east@company.example.com",
+              "240",
+              "active",
+              ""
+            ],
+            [
+              "hu_hannah",
+              "Hannah Li",
+              "mgr_west@company.example.com",
+              "45",
+              "new",
+              ""
+            ],
+            [
+              "hu_ivan",
+              "Ivan Torres",
+              "mgr_west@company.example.com",
+              "180",
+              "active",
+              ""
+            ],
+            [
+              "hu_jess",
+              "Jess Kim",
+              "mgr_west@company.example.com",
+              "150",
+              "active",
+              "coaching-exempt per manager request Q1-2026"
+            ],
+            [
+              "hu_kyle",
+              "Kyle Nash",
+              "mgr_east@company.example.com",
+              "200",
+              "active",
+              "coaching-exempt per union agreement CBA-2025"
+            ]
+          ]
+        },
+        "ws_recommendations": {
+          "title": "Coaching Recommendations",
+          "values": [["Agent Name", "Resolution Rate", "Total Conversations"]]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["Resolution_Rate_Threshold", "50"],
+            ["New_Agent_Tenure_Days", "90"],
+            ["Min_Conversations", "3"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hiver_conversations_hv_c01",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c01",
+          "subject": "Integration help",
+          "status": "open",
+          "assignee_id": "hu_fiona",
+          "customer_email": "c1@acme.com",
+          "customer_name": "C1",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c02",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c02",
+          "subject": "Bug in reports",
+          "status": "open",
+          "assignee_id": "hu_fiona",
+          "customer_email": "c2@acme.com",
+          "customer_name": "C2",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c03",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c03",
+          "subject": "Setup question",
+          "status": "pending",
+          "assignee_id": "hu_fiona",
+          "customer_email": "c3@betaco.com",
+          "customer_name": "C3",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c04",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c04",
+          "subject": "Access request",
+          "status": "open",
+          "assignee_id": "hu_fiona",
+          "customer_email": "c4@betaco.com",
+          "customer_name": "C4",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c05",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c05",
+          "subject": "Resolved password issue",
+          "status": "closed",
+          "assignee_id": "hu_fiona",
+          "customer_email": "c5@gammatech.com",
+          "customer_name": "C5",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c06",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c06",
+          "subject": "Webhook error",
+          "status": "open",
+          "assignee_id": "hu_fiona",
+          "customer_email": "c6@gammatech.com",
+          "customer_name": "C6",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c07",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c07",
+          "subject": "Onboarding complete",
+          "status": "closed",
+          "assignee_id": "hu_greg",
+          "customer_email": "c7@deltaco.com",
+          "customer_name": "C7",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c08",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c08",
+          "subject": "API key rotation done",
+          "status": "closed",
+          "assignee_id": "hu_greg",
+          "customer_email": "c8@deltaco.com",
+          "customer_name": "C8",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c09",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c09",
+          "subject": "Dashboard fix deployed",
+          "status": "closed",
+          "assignee_id": "hu_greg",
+          "customer_email": "c9@epsiloncorp.com",
+          "customer_name": "C9",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c10",
+          "subject": "Pending feature request",
+          "status": "pending",
+          "assignee_id": "hu_greg",
+          "customer_email": "c10@epsiloncorp.com",
+          "customer_name": "C10",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c11",
+          "subject": "Active billing issue",
+          "status": "open",
+          "assignee_id": "hu_greg",
+          "customer_email": "c11@zetacorp.com",
+          "customer_name": "C11",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c12",
+          "subject": "Training ticket 1",
+          "status": "open",
+          "assignee_id": "hu_hannah",
+          "customer_email": "c12@zetacorp.com",
+          "customer_name": "C12",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c13",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c13",
+          "subject": "Training ticket 2",
+          "status": "open",
+          "assignee_id": "hu_hannah",
+          "customer_email": "c13@etacorp.com",
+          "customer_name": "C13",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c14",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c14",
+          "subject": "Training ticket 3",
+          "status": "pending",
+          "assignee_id": "hu_hannah",
+          "customer_email": "c14@etacorp.com",
+          "customer_name": "C14",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c15",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c15",
+          "subject": "Training ticket 4",
+          "status": "open",
+          "assignee_id": "hu_hannah",
+          "customer_email": "c15@thetacorp.com",
+          "customer_name": "C15",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c16",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c16",
+          "subject": "Quick question",
+          "status": "open",
+          "assignee_id": "hu_ivan",
+          "customer_email": "c16@thetacorp.com",
+          "customer_name": "C16",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c17",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c17",
+          "subject": "Follow up needed",
+          "status": "pending",
+          "assignee_id": "hu_ivan",
+          "customer_email": "c17@iotacorp.com",
+          "customer_name": "C17",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c18",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c18",
+          "subject": "Complex migration",
+          "status": "open",
+          "assignee_id": "hu_jess",
+          "customer_email": "c18@iotacorp.com",
+          "customer_name": "C18",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c19",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c19",
+          "subject": "Stale API issue",
+          "status": "open",
+          "assignee_id": "hu_jess",
+          "customer_email": "c19@kappacorp.com",
+          "customer_name": "C19",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c20",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c20",
+          "subject": "Resolved simple request",
+          "status": "closed",
+          "assignee_id": "hu_jess",
+          "customer_email": "c20@kappacorp.com",
+          "customer_name": "C20",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c21",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c21",
+          "subject": "Ongoing escalation",
+          "status": "open",
+          "assignee_id": "hu_jess",
+          "customer_email": "c21@lambdacorp.com",
+          "customer_name": "C21",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c22",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c22",
+          "subject": "Webhook timeout issue",
+          "status": "open",
+          "assignee_id": "hu_kyle",
+          "customer_email": "c22@lambdacorp.com",
+          "customer_name": "C22",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c23",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c23",
+          "subject": "Config drift detected",
+          "status": "open",
+          "assignee_id": "hu_kyle",
+          "customer_email": "c23@mucorp.com",
+          "customer_name": "C23",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c24",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c24",
+          "subject": "Resolved auth error",
+          "status": "closed",
+          "assignee_id": "hu_kyle",
+          "customer_email": "c24@mucorp.com",
+          "customer_name": "C24",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c25",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c25",
+          "subject": "SSL cert renewal",
+          "status": "pending",
+          "assignee_id": "hu_kyle",
+          "customer_email": "c25@nucorp.com",
+          "customer_name": "C25",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_c26",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_c26",
+          "subject": "Rate limit complaint",
+          "status": "open",
+          "assignee_id": "hu_kyle",
+          "customer_email": "c26@nucorp.com",
+          "customer_name": "C26",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_008",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_008",
+          "subject": "Building access card request",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_006",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_006",
+          "subject": "Travel reimbursement approval",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_009",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_009",
+          "subject": "Parking permit application",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_fiona",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_fiona",
+          "name": "Fiona Drake",
+          "email": "fiona@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_greg",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_greg",
+          "name": "Greg Stone",
+          "email": "greg@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_hannah",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_hannah",
+          "name": "Hannah Li",
+          "email": "hannah@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_ivan",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_ivan",
+          "name": "Ivan Torres",
+          "email": "ivan@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_jess",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_jess",
+          "name": "Jess Kim",
+          "email": "jess@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_kyle",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_kyle",
+          "name": "Kyle Nash",
+          "email": "kyle@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_001",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_001",
+          "name": "Sam Cartwright",
+          "email": "scartwright@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_hm_support",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "hm_support",
+          "name": "Support Inbox",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "c10@epsiloncorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "c11@zetacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "c12@zetacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "c13@etacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "c14@etacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "c15@thetacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "c16@thetacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "c17@iotacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "c18@iotacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "c19@kappacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "c1@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "c20@kappacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "c21@lambdacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "c22@lambdacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "c23@mucorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "c24@mucorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "c25@nucorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "c26@nucorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "c2@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "c3@betaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "c4@betaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "c5@gammatech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "c6@gammatech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "c7@deltaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "c8@deltaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "c9@epsiloncorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "fiona@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "greg@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "hannah@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "ivan@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "jess@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "kyle@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "mgr_east@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "mgr_west@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_34",
+      "name": "scartwright@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_35",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

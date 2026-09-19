@@ -1,0 +1,1030 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_customer360": {
+      "title": "Customer 360",
+      "sheets": {
+        "ws_profiles": {
+          "title": "Unified Profiles",
+          "values": [
+            [
+              "Customer Email",
+              "Customer Name",
+              "Intercom Conversations",
+              "Zoho Tickets",
+              "Platforms",
+              "Critical Issues"
+            ]
+          ]
+        },
+        "ws_rules": {
+          "title": "Profile Rules",
+          "values": [
+            ["Rule", "Condition", "Action"],
+            [
+              "Match By Email",
+              "Same email address across Intercom and Zoho Desk",
+              "Merge into single profile. Mark as 'Both Platforms'."
+            ],
+            [
+              "Critical Issue",
+              "Customer has any open High priority Zoho ticket or open Intercom conversation with 'urgent' in title",
+              "Flag profile with critical issues count."
+            ],
+            [
+              "Exclude Test",
+              "Email domain is 'internal.test'",
+              "Exclude from profiles entirely."
+            ],
+            [
+              "Strict Email Match",
+              "Email addresses must match exactly including domain. Similar domains (e.g. acme-corp.com vs acmecorp.com) are DIFFERENT customers.",
+              "Create separate profiles. Do NOT merge or combine."
+            ],
+            [
+              "Closed Status Exclusion",
+              "Intercom conversations with state 'closed' or Zoho tickets with status 'Closed'",
+              "Do NOT count toward Critical Issues. Only open/active items count as critical."
+            ],
+            [
+              "Domain Alias",
+              "@globalwidgets.com and @gw-corp.com are the same company (post-acquisition alias)",
+              "Merge into single profile under the @globalwidgets.com email. Combine all conversations/tickets from both domains."
+            ],
+            [
+              "Company Name Match",
+              "Companies with similar but different names (e.g. 'RiverTech' vs 'RiverTech Solutions') are DIFFERENT companies",
+              "Do NOT merge. Treat as separate customers even if names are similar."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t1",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t1",
+          "subject": "Server downtime report",
+          "description": "Production server down.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_01",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t2",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t2",
+          "subject": "API rate limit exceeded",
+          "description": "Need higher limits.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_02",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t3",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t3",
+          "subject": "Invoice correction needed",
+          "description": "Wrong amount charged.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_03",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t4",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t4",
+          "subject": "Compliance audit docs",
+          "description": "Need SOC2 report.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_04",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t5",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t5",
+          "subject": "Integration bug",
+          "description": "Webhook not triggering.",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zdc_01",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t6",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t6",
+          "subject": "Account suspension appeal",
+          "description": "Account suspended.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_05",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t7",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t7",
+          "subject": "Data export request",
+          "description": "Export all customer data.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_06",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t8",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t8",
+          "subject": "Feature feedback",
+          "description": "Dashboard improvements.",
+          "status": "Open",
+          "priority": "Low",
+          "contact_id": "zdc_07",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t9",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t9",
+          "subject": "Setup assistance request",
+          "description": "Need help configuring the system.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_09",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t10",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t10",
+          "subject": "Usage analytics question",
+          "description": "How to access usage reports?",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_10",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t11",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t11",
+          "subject": "Test case for QA pipeline",
+          "description": "Automated test ticket.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_11",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t12",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t12",
+          "subject": "Bulk data export quota",
+          "description": "Need increased export quota for quarterly reports.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_12",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t13",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t13",
+          "subject": "Webhook retry configuration",
+          "description": "Webhooks failing silently.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_13",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_t14",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_t14",
+          "subject": "User permissions audit",
+          "description": "Need full permissions review.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_14",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_001",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_001",
+          "subject": "Portal login returns blank page",
+          "description": "Customer portal shows a white screen after login.",
+          "status": "Closed",
+          "priority": "High",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_011",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_011",
+          "subject": "Happiness rating widget misaligned",
+          "description": "The CSAT widget overlaps the reply button on mobile.",
+          "status": "Closed",
+          "priority": "Low",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_009",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_009",
+          "subject": "Webhook for ticket closure not firing",
+          "description": "The close-ticket webhook hasn't triggered in 3 days.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_01",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_01",
+          "email": "sarah@acmecorp.com",
+          "first_name": "Sarah",
+          "last_name": "Kim"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_02",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_02",
+          "email": "tom@techstart.io",
+          "first_name": "Tom",
+          "last_name": "Chen"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_03",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_03",
+          "email": "leo@bigretail.com",
+          "first_name": "Leo",
+          "last_name": "Garcia"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_04",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_04",
+          "email": "nina@enterprise.net",
+          "first_name": "Nina",
+          "last_name": "Lopez"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_05",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_05",
+          "email": "jake@mediaco.com",
+          "first_name": "Jake",
+          "last_name": "Wilson"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_06",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_06",
+          "email": "hank@dataworks.com",
+          "first_name": "Hank",
+          "last_name": "Moore"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_07",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_07",
+          "email": "iris@solodev.io",
+          "first_name": "Iris",
+          "last_name": "Nguyen"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_08",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_08",
+          "email": "bot@internal.test",
+          "first_name": "Test",
+          "last_name": "Bot"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_09",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_09",
+          "email": "sarah@acme-corp.com",
+          "first_name": "Sarah",
+          "last_name": "Kim"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_10",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_10",
+          "email": "dan@clientplus.com",
+          "first_name": "Dan",
+          "last_name": "Reed"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_11",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_11",
+          "email": "qa@internal.test",
+          "first_name": "QA",
+          "last_name": "Agent"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_12",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_12",
+          "email": "priya@globalwidgets.com",
+          "first_name": "Priya",
+          "last_name": "Sharma"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_13",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_13",
+          "email": "marcus@rivertech.com",
+          "first_name": "Marcus",
+          "last_name": "Rivera"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_14",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_14",
+          "email": "lisa@rivertechsolutions.com",
+          "first_name": "Lisa",
+          "last_name": "Chang"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_005",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_005",
+          "first_name": "Andre",
+          "last_name": "Williams",
+          "email": "awilliams@springdale.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_001",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_001",
+          "first_name": "Hannah",
+          "last_name": "Park",
+          "email": "hpark@riverbend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c1",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c1",
+          "title": "Need enterprise pricing",
+          "state": "open",
+          "contact_ids": "[\"ic_01\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c2",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c2",
+          "title": "API integration help",
+          "state": "open",
+          "contact_ids": "[\"ic_02\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c3",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c3",
+          "title": "Onboarding schedule",
+          "state": "closed",
+          "contact_ids": "[\"ic_03\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c4",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c4",
+          "title": "Billing dispute urgent",
+          "state": "open",
+          "contact_ids": "[\"ic_04\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c5",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c5",
+          "title": "Feature request: SSO",
+          "state": "open",
+          "contact_ids": "[\"ic_05\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c6",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c6",
+          "title": "Data migration help",
+          "state": "open",
+          "contact_ids": "[\"ic_01\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c7",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c7",
+          "title": "Account downgrade",
+          "state": "open",
+          "contact_ids": "[\"ic_06\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c8",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c8",
+          "title": "Performance issues",
+          "state": "open",
+          "contact_ids": "[\"ic_07\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c9",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c9",
+          "title": "Need help with setup",
+          "state": "open",
+          "contact_ids": "[\"ic_09\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c10",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c10",
+          "title": "Urgent login fix needed",
+          "state": "closed",
+          "contact_ids": "[\"ic_10\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c11",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c11",
+          "title": "QA environment issue",
+          "state": "open",
+          "contact_ids": "[\"ic_11\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c12",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c12",
+          "title": "License renewal discussion",
+          "state": "open",
+          "contact_ids": "[\"ic_12\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c13",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c13",
+          "title": "Webhook configuration help",
+          "state": "open",
+          "contact_ids": "[\"ic_13\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_c14",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_c14",
+          "title": "Dashboard access request",
+          "state": "open",
+          "contact_ids": "[\"ic_14\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_008",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_008",
+          "title": "Webhook payloads missing fields",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_008\"]",
+          "tags": "[\"api\",\"webhook\"]",
+          "conversation_parts": "[{\"body\":\"The conversation.updated webhook is missing the 'tags' field in the payload.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_007",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_007",
+          "title": "Billing discrepancy last month",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_007\"]",
+          "tags": "[\"billing\"]",
+          "conversation_parts": "[{\"body\":\"We were charged for 50 seats but only have 35 active users.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_006",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_006",
+          "title": "SSO configuration help",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_006\"]",
+          "tags": "[\"sso\"]",
+          "conversation_parts": "[{\"body\":\"We need help setting up SAML SSO with Okta. Documentation is unclear.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_01",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_01",
+          "name": "Sarah Kim",
+          "email": "sarah@acmecorp.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_02",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_02",
+          "name": "Tom Chen",
+          "email": "tom@techstart.io",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_03",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_03",
+          "name": "Maya Patel",
+          "email": "maya@newclient.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_04",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_04",
+          "name": "Leo Garcia",
+          "email": "leo@bigretail.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_05",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_05",
+          "name": "Ava Brown",
+          "email": "ava@startup.co",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_06",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_06",
+          "name": "Jake Wilson",
+          "email": "jake@mediaco.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_07",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_07",
+          "name": "Nina Lopez",
+          "email": "nina@enterprise.net",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_08",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_08",
+          "name": "Test Bot",
+          "email": "bot@internal.test",
+          "contact_type": "lead",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_09",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_09",
+          "name": "Sarah Kim",
+          "email": "sarah@acme-corp.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_10",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_10",
+          "name": "Dan Reed",
+          "email": "dan@clientplus.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_11",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_11",
+          "name": "QA Agent",
+          "email": "qa@internal.test",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_12",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_12",
+          "name": "Priya Sharma",
+          "email": "priya@gw-corp.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_13",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_13",
+          "name": "Marcus Rivera",
+          "email": "marcus@rivertech.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_14",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_14",
+          "name": "Lisa Chang",
+          "email": "lisa@rivertechsolutions.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_007",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_007",
+          "name": "Jordan Blake",
+          "email": "jblake@quartzlabs.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_010",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_010",
+          "name": "Sophie Watts",
+          "email": "swatts@nebulaco.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ava@startup.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "awilliams@springdale.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "bot@internal.test",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dan@clientplus.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "hank@dataworks.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "hpark@riverbend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "iris@solodev.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "jake@mediaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "jblake@quartzlabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "leo@bigretail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "lisa@rivertechsolutions.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "marcus@rivertech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "maya@newclient.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "nina@enterprise.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "priya@globalwidgets.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "priya@gw-corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "qa@internal.test",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "sarah@acme-corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "sarah@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "swatts@nebulaco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "tom@techstart.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_acct",
+      "name": "account-management",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

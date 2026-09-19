@@ -1,0 +1,813 @@
+{
+  "now": "2026-02-09T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_products": {
+      "title": "Product & Warranty Records",
+      "sheets": {
+        "ws_purchases": {
+          "title": "Purchase Records",
+          "values": [
+            [
+              "Order ID",
+              "Customer Email",
+              "Product",
+              "Purchase Date",
+              "Warranty Months",
+              "Notes"
+            ],
+            [
+              "ORD-2001",
+              "anna@customerone.com",
+              "PRD-100",
+              "2025-08-15",
+              "12",
+              ""
+            ],
+            [
+              "ORD-2002",
+              "ben@customertwo.net",
+              "PRD-200",
+              "2024-06-01",
+              "12",
+              ""
+            ],
+            [
+              "ORD-2003",
+              "carla@customerthree.io",
+              "PRD-300",
+              "2025-11-20",
+              "24",
+              ""
+            ],
+            [
+              "ORD-2004",
+              "darren@customerfour.com",
+              "PRD-100",
+              "2025-09-01",
+              "12",
+              ""
+            ],
+            [
+              "ORD-2005",
+              "elena@customerfive.com",
+              "PRD-400",
+              "2025-12-01",
+              "6",
+              "RECALLED - product batch defective, warranty voided per manufacturer"
+            ],
+            [
+              "ORD-2006",
+              "faisal@customersix.net",
+              "PRD-200",
+              "2025-10-15",
+              "12",
+              ""
+            ],
+            [
+              "ORD-2008",
+              "hugo@customereight.io",
+              "PRD-300",
+              "2024-01-05",
+              "24",
+              ""
+            ],
+            [
+              "ORD-2009",
+              "iris@customernine.com",
+              "PRD-400",
+              "2025-11-01",
+              "6",
+              ""
+            ],
+            [
+              "ORD-2010",
+              "anna.bd@customerone.com",
+              "PRD-200",
+              "2025-03-10",
+              "12",
+              ""
+            ],
+            [
+              "ORD-2011",
+              "jack@customerten.com",
+              "PRD-300",
+              "2025-08-20",
+              "24",
+              ""
+            ],
+            [
+              "NZ-00202601",
+              "Ironclad Systems",
+              "Noise Value 1",
+              "2026-01-15",
+              "15000",
+              "Renewal discussion in progress"
+            ],
+            [
+              "NZ-00202602",
+              "BlueStar Ventures",
+              "Noise Value 2",
+              "2026-02-03",
+              "25000",
+              "Awaiting legal review"
+            ],
+            [
+              "NZ-00202603",
+              "Cascade Analytics",
+              "Noise Value 3",
+              "2026-02-18",
+              "48000",
+              "Champion engaged"
+            ],
+            [
+              "NZ-00202604",
+              "Vertex Capital",
+              "Noise Value 4",
+              "2026-03-01",
+              "72000",
+              "Budget approved for Q2"
+            ],
+            [
+              "NZ-00202605",
+              "Thornwood Partners",
+              "Noise Value 5",
+              "2026-03-07",
+              "113000",
+              "Technical evaluation phase"
+            ],
+            [
+              "NZ-00202606",
+              "Starling Financial",
+              "Noise Value 6",
+              "2025-11-20",
+              "35000",
+              "Negotiating terms"
+            ],
+            [
+              "NZ-00202607",
+              "Redwood Technologies",
+              "Noise Value 7",
+              "2025-12-05",
+              "88000",
+              "Renewal discussion in progress"
+            ],
+            [
+              "NZ-00202608",
+              "Eastgate Solutions",
+              "Noise Value 8",
+              "2026-01-28",
+              "19000",
+              "Awaiting legal review"
+            ],
+            [
+              "NZ-00202609",
+              "Montclair Industries",
+              "Noise Value 9",
+              "2026-02-14",
+              "54000",
+              "Champion engaged"
+            ],
+            [
+              "NZ-00202610",
+              "Pacific Ridge Corp",
+              "Noise Value 10",
+              "2026-03-03",
+              "93000",
+              "Budget approved for Q2"
+            ],
+            [
+              "NZ-00202611",
+              "Summit Group Holdings",
+              "Noise Value 11",
+              "2026-01-15",
+              "15000",
+              "Technical evaluation phase"
+            ],
+            [
+              "NZ-00202612",
+              "Riverview Partners",
+              "Noise Value 12",
+              "2026-02-03",
+              "25000",
+              "Negotiating terms"
+            ],
+            [
+              "NZ-00202613",
+              "Northgate Technologies",
+              "Noise Value 13",
+              "2026-02-18",
+              "48000",
+              "Renewal discussion in progress"
+            ],
+            [
+              "NZ-00202614",
+              "Silverstone Group",
+              "Noise Value 14",
+              "2026-03-01",
+              "72000",
+              "Awaiting legal review"
+            ],
+            [
+              "NZ-00202615",
+              "CloudBridge Systems",
+              "Noise Value 15",
+              "2026-03-07",
+              "113000",
+              "Champion engaged"
+            ]
+          ]
+        },
+        "ws_claims": {
+          "title": "Claim History",
+          "values": [
+            ["Order ID", "Claim Date", "Status", "Product"],
+            ["ORD-2004", "2025-12-10", "Approved", "PRD-100"]
+          ]
+        },
+        "ws_decisions": {
+          "title": "Decisions Log",
+          "values": [["Ticket ID", "Order ID", "Product", "Decision", "Reason"]]
+        },
+        "ws_policy": {
+          "title": "Warranty Policy Rules",
+          "values": [
+            ["Rule", "Condition", "Outcome", "Tag", "Note Keyword"],
+            [
+              "Valid Warranty",
+              "Purchase Date + Warranty Months > today AND no prior approved claim in ws_claims",
+              "Approved",
+              "warranty-approved",
+              "approved"
+            ],
+            [
+              "Expired Warranty",
+              "Purchase Date + Warranty Months <= today",
+              "Denied",
+              "warranty-denied",
+              "expired"
+            ],
+            [
+              "Prior Claim Exists",
+              "Order ID has a prior Approved claim in ws_claims (max 1 claim per product)",
+              "Denied",
+              "warranty-denied",
+              "prior claim"
+            ],
+            [
+              "No Purchase Record",
+              "Order ID not found in ws_purchases",
+              "Denied",
+              "warranty-denied",
+              "no purchase record"
+            ],
+            [
+              "Eligibility Filter",
+              "Only process tickets tagged warranty-claim with open status (status=2). Skip resolved/closed tickets.",
+              "Skip",
+              "",
+              ""
+            ],
+            [
+              "Extended Warranty Late Filing",
+              "Products with Warranty Months > 12 AND defect first appeared > 30 days before today (check ticket description for defect date) require manager approval instead of auto-approve",
+              "Pending Manager Approval",
+              "warranty-pending-approval",
+              "pending manager approval"
+            ],
+            [
+              "Warranty Status Override",
+              "Do NOT rely on ws_warranty_status labels. Always calculate warranty expiry from Purchase Date + Warranty Months in ws_purchases.",
+              "N/A",
+              "",
+              ""
+            ],
+            [
+              "Recalled Product",
+              "If ws_purchases Notes column indicates the product is RECALLED, warranty is voided regardless of dates",
+              "Denied",
+              "warranty-denied",
+              "recalled"
+            ]
+          ]
+        },
+        "ws_warranty_status": {
+          "title": "Warranty Status (Quick Reference)",
+          "values": [
+            ["Order ID", "Product", "Warranty Status"],
+            ["ORD-2001", "PRD-100", "Active"],
+            ["ORD-2002", "PRD-200", "Expired"],
+            ["ORD-2010", "PRD-200", "Active"],
+            ["ORD-2008", "PRD-300", "Active"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_501",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_501",
+          "subject": "Warranty claim: PRD-100 screen defect",
+          "description": "Screen has dead pixels after 5 months of use. Order ORD-2001.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_501",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_502",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_502",
+          "subject": "Warranty claim: PRD-200 battery failure",
+          "description": "Battery won't hold charge anymore. Order ORD-2002.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_502",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_503",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_503",
+          "subject": "Warranty claim: PRD-300 keyboard malfunction",
+          "description": "Several keys stopped working. Order ORD-2003.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_503",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_504",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_504",
+          "subject": "Warranty claim: PRD-100 charging port broken",
+          "description": "USB-C port is loose and won't charge. Order ORD-2004.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_504",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_505",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_505",
+          "subject": "Warranty claim: PRD-400 speaker crackling",
+          "description": "Left speaker making crackling sounds. Order ORD-2005.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_505",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_506",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_506",
+          "subject": "Warranty claim: PRD-200 hinge cracked",
+          "description": "Hinge cracked during normal use. Order ORD-2006.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_506",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_507",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_507",
+          "subject": "Warranty claim: PRD-500 touchpad unresponsive",
+          "description": "Touchpad doesn't respond to input. Order ORD-9999.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_507",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_508",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_508",
+          "subject": "General question about PRD-300 features",
+          "description": "What color options are available for PRD-300?",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_501",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_509",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_509",
+          "subject": "Warranty claim: PRD-300 fan noise excessive",
+          "description": "Fan makes loud grinding noise. Order ORD-2008.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_508",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_510",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_510",
+          "subject": "Warranty claim: PRD-400 screen scratch",
+          "description": "Deep scratch on screen. Order ORD-2009.",
+          "status": 4,
+          "priority": 2,
+          "requester_id": "fc_509",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_511",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_511",
+          "subject": "Warranty claim: PRD-200 screen flickering",
+          "description": "Screen flickers intermittently. Order ORD-2010.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_510",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_512",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_512",
+          "subject": "Warranty claim: PRD-300 motherboard failure",
+          "description": "Motherboard died. Defect first noticed 2025-12-01. Order ORD-2011.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_511",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_w513",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_w513",
+          "subject": "Warranty claim: PRD-600 overheating issue",
+          "description": "Device overheats during normal use. Order ORD-3001.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_501",
+          "tags": "[\"warranty-claim\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_010",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_010",
+          "subject": "Spam filter flagging legitimate tickets",
+          "description": "Three customer emails were wrongly moved to spam this week.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"spam\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_002",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_002",
+          "subject": "Invoice amount incorrect",
+          "description": "February invoice shows $1,200 instead of the contracted $900.",
+          "status": 5,
+          "priority": 3,
+          "tags": "[\"billing\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_003",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_003",
+          "subject": "Integration sync stopped",
+          "description": "Salesforce integration hasn't synced contacts since yesterday.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"integration\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_501",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_501",
+          "name": "Anna Bergstrom",
+          "email": "anna@customerone.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_502",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_502",
+          "name": "Ben Okafor",
+          "email": "ben@customertwo.net"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_503",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_503",
+          "name": "Carla Diaz",
+          "email": "carla@customerthree.io"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_504",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_504",
+          "name": "Darren Yee",
+          "email": "darren@customerfour.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_505",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_505",
+          "name": "Elena Vasquez",
+          "email": "elena@customerfive.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_506",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_506",
+          "name": "Faisal Rahman",
+          "email": "faisal@customersix.net"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_507",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_507",
+          "name": "Gina Thornton",
+          "email": "gina@customerseven.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_508",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_508",
+          "name": "Hugo Lindgren",
+          "email": "hugo@customereight.io"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_509",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_509",
+          "name": "Iris Nakamura",
+          "email": "iris@customernine.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_510",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_510",
+          "name": "Anna Bergstrom-Diaz",
+          "email": "anna.bd@customerone.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_511",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_511",
+          "name": "Jack Whitfield",
+          "email": "jack@customerten.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_003",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_003",
+          "name": "Damon Hsu",
+          "email": "dhsu@nimbuslabs.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_001",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_001",
+          "name": "Marcus Reeves",
+          "email": "mreeves@starpoint.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "anna.bd@customerone.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "anna@customerone.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ben@customertwo.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "carla@customerthree.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "darren@customerfour.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "dhsu@nimbuslabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "elena@customerfive.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "faisal@customersix.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "gina@customerseven.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "hugo@customereight.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "iris@customernine.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "jack@customerten.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "mreeves@starpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_WO",
+      "name": "warranty-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

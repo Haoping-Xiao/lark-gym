@@ -1,0 +1,722 @@
+{
+  "now": "2026-02-09T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_accounts": {
+      "title": "Account Details",
+      "sheets": {
+        "ws_details": {
+          "title": "Details",
+          "values": [
+            [
+              "Account_ID",
+              "Account_Name",
+              "Onboarding_Date",
+              "Plan",
+              "CSM_Email"
+            ],
+            [
+              "jrn_acc1",
+              "NovaTech",
+              "2025-06-15",
+              "Growth",
+              "csm-anna@company.example.com"
+            ],
+            [
+              "jrn_acc2",
+              "CrestLine",
+              "2025-09-01",
+              "Enterprise",
+              "csm-ben@company.example.com"
+            ],
+            [
+              "jrn_acc3",
+              "MeridianCo",
+              "2025-10-10",
+              "Growth",
+              "csm-anna@company.example.com"
+            ],
+            [
+              "jrn_acc4",
+              "FreshStart",
+              "2026-02-01",
+              "Starter",
+              "csm-ben@company.example.com"
+            ],
+            [
+              "jrn_acc5",
+              "SunsetPeak",
+              "2025-01-15",
+              "Enterprise",
+              "csm-anna@company.example.com"
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Trend_Labels", "Improving, Stable, Worsening"],
+            ["Health_Labels", "Healthy, At Risk, Critical"]
+          ]
+        },
+        "ws_journey": {
+          "title": "Journey Reports",
+          "values": [
+            ["Account_Name", "Total_Tickets", "Trend", "Health", "Notes"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t1",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t1",
+          "subject": "Critical outage in prod",
+          "description": "All services down.",
+          "status": "Closed",
+          "priority": "High",
+          "classification": "Incident",
+          "account_id": "jrn_acc1",
+          "contact_id": "jrn_c1",
+          "created_at": "2025-11-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t2",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t2",
+          "subject": "Recurring API failures",
+          "description": "API returns 500 intermittently.",
+          "status": "Closed",
+          "priority": "High",
+          "classification": "Incident",
+          "account_id": "jrn_acc1",
+          "contact_id": "jrn_c1",
+          "created_at": "2025-12-05T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t3",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t3",
+          "subject": "Minor UI alignment issue",
+          "description": "Button misaligned on settings page.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "Bug",
+          "account_id": "jrn_acc1",
+          "contact_id": "jrn_c1",
+          "created_at": "2026-02-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t4",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t4",
+          "subject": "Feature request: dark mode",
+          "description": "Would love dark mode option.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "Feature Request",
+          "account_id": "jrn_acc1",
+          "contact_id": "jrn_c1",
+          "created_at": "2026-02-05T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t5",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t5",
+          "subject": "Small display bug",
+          "description": "Chart labels overlap.",
+          "status": "Closed",
+          "priority": "Low",
+          "classification": "Bug",
+          "account_id": "jrn_acc2",
+          "contact_id": "jrn_c2",
+          "created_at": "2025-11-15T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t6",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t6",
+          "subject": "Report data incorrect",
+          "description": "Monthly report shows wrong totals.",
+          "status": "Open",
+          "priority": "Medium",
+          "classification": "Bug",
+          "account_id": "jrn_acc2",
+          "contact_id": "jrn_c2",
+          "created_at": "2026-01-10T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t7",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t7",
+          "subject": "Data loss in export",
+          "description": "Export missing half the records.",
+          "status": "Open",
+          "priority": "High",
+          "classification": "Incident",
+          "account_id": "jrn_acc2",
+          "contact_id": "jrn_c2",
+          "created_at": "2026-01-25T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t8",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t8",
+          "subject": "Complete service outage",
+          "description": "Cannot access platform at all.",
+          "status": "Open",
+          "priority": "High",
+          "classification": "Incident",
+          "account_id": "jrn_acc2",
+          "contact_id": "jrn_c2",
+          "created_at": "2026-02-03T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t9",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t9",
+          "subject": "How to configure webhooks",
+          "description": "Need setup instructions.",
+          "status": "Closed",
+          "priority": "Low",
+          "classification": "Question",
+          "account_id": "jrn_acc3",
+          "contact_id": "jrn_c3",
+          "created_at": "2025-12-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t10",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t10",
+          "subject": "API documentation question",
+          "description": "Unclear param description.",
+          "status": "Closed",
+          "priority": "Low",
+          "classification": "Question",
+          "account_id": "jrn_acc3",
+          "contact_id": "jrn_c3",
+          "created_at": "2026-01-05T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t11",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t11",
+          "subject": "Custom field help",
+          "description": "How to add custom field to contacts.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "Question",
+          "account_id": "jrn_acc3",
+          "contact_id": "jrn_c3",
+          "created_at": "2026-02-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t12",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t12",
+          "subject": "Getting started help",
+          "description": "Need walkthrough of initial setup.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "Onboarding",
+          "account_id": "jrn_acc4",
+          "contact_id": "jrn_c4",
+          "created_at": "2026-02-06T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t13",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t13",
+          "subject": "Billing dispute",
+          "description": "Overcharged for 3 months.",
+          "status": "Closed",
+          "priority": "High",
+          "classification": "Billing",
+          "account_id": "jrn_acc5",
+          "contact_id": "jrn_c5",
+          "created_at": "2025-08-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t14",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t14",
+          "subject": "Cancel account request",
+          "description": "Please cancel our subscription.",
+          "status": "Closed",
+          "priority": "Medium",
+          "classification": "Account",
+          "account_id": "jrn_acc5",
+          "contact_id": "jrn_c5",
+          "created_at": "2025-08-15T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t15",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t15",
+          "subject": "Data export before leaving",
+          "description": "Need full data export before account closes.",
+          "status": "Closed",
+          "priority": "Medium",
+          "classification": "Account",
+          "account_id": "jrn_acc5",
+          "contact_id": "jrn_c5",
+          "created_at": "2025-09-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t16",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t16",
+          "subject": "General inquiry",
+          "description": "What plans do you offer?",
+          "status": "Closed",
+          "priority": "Low",
+          "classification": "Question",
+          "contact_id": "jrn_c6",
+          "created_at": "2026-01-20T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t17",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t17",
+          "subject": "Spam ticket",
+          "description": "Buy cheap watches online!",
+          "status": "Closed",
+          "priority": "Low",
+          "classification": "Spam",
+          "contact_id": "jrn_c7",
+          "created_at": "2026-02-01T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t18",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t18",
+          "subject": "Performance degradation",
+          "description": "Dashboard loading slowly for CrestLine.",
+          "status": "Open",
+          "priority": "Medium",
+          "classification": "Performance",
+          "account_id": "jrn_acc2",
+          "contact_id": "jrn_c2",
+          "created_at": "2026-02-07T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t19",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t19",
+          "subject": "Webhook setup question",
+          "description": "Need help configuring event hooks.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "Question",
+          "account_id": "jrn_acc3",
+          "contact_id": "jrn_c3",
+          "created_at": "2026-02-06T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_jrn_t20",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "jrn_t20",
+          "subject": "Upgrade inquiry",
+          "description": "Considering enterprise plan.",
+          "status": "Open",
+          "priority": "Low",
+          "classification": "Account",
+          "account_id": "jrn_acc1",
+          "contact_id": "jrn_c1",
+          "created_at": "2026-02-08T10:00:00Z",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_002",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_002",
+          "subject": "Report scheduler sending duplicates",
+          "description": "The weekly report is being emailed twice every Monday.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_003",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_003",
+          "subject": "Assignment rule ignoring department filter",
+          "description": "Tickets in the 'Billing' department are assigned to Engineering.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_010",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_010",
+          "subject": "Knowledge base article version conflict",
+          "description": "Two agents edited the same KB article and changes were lost.",
+          "status": "Closed",
+          "priority": "Low",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c1",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c1",
+          "first_name": "Yuki",
+          "last_name": "Tanabe",
+          "email": "yuki@novatech.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c2",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c2",
+          "first_name": "Marco",
+          "last_name": "Rivera",
+          "email": "marco@crestline.io"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c3",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c3",
+          "first_name": "Aisha",
+          "last_name": "Okafor",
+          "email": "aisha@meridianco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c4",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c4",
+          "first_name": "Leo",
+          "last_name": "Fischer",
+          "email": "leo@freshstart.dev"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c5",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c5",
+          "first_name": "Dana",
+          "last_name": "Petrov",
+          "email": "dana@sunsetpeak.co"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c6",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c6",
+          "first_name": "Pat",
+          "last_name": "Quinn",
+          "email": "pat@random.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_jrn_c7",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "jrn_c7",
+          "first_name": "Spam",
+          "last_name": "Bot",
+          "email": "spam@fake.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_001",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_001",
+          "first_name": "Hannah",
+          "last_name": "Park",
+          "email": "hpark@riverbend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_002",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_002",
+          "first_name": "Marco",
+          "last_name": "Di Stefano",
+          "email": "mds@silveroak.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_jrn_acc1",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "jrn_acc1",
+          "account_name": "NovaTech"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_jrn_acc2",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "jrn_acc2",
+          "account_name": "CrestLine"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_jrn_acc3",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "jrn_acc3",
+          "account_name": "MeridianCo"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_jrn_acc4",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "jrn_acc4",
+          "account_name": "FreshStart"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_jrn_acc5",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "jrn_acc5",
+          "account_name": "SunsetPeak"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "classification",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "aisha@meridianco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "csm-anna@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "csm-ben@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dana@sunsetpeak.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "hpark@riverbend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "leo@freshstart.dev",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "marco@crestline.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "mds@silveroak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "pat@random.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "spam@fake.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "yuki@novatech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_INS",
+      "name": "account-insights",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

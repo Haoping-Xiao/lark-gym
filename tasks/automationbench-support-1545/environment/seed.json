@@ -1,0 +1,443 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_usage": {
+      "title": "Usage Thresholds",
+      "sheets": {
+        "ws_thresholds": {
+          "title": "Thresholds",
+          "values": [
+            ["Customer Type", "Low Max", "Normal Max", "Description", "Notes"],
+            [
+              "standard",
+              "2",
+              "4",
+              "Standard: <=2 low, 3-4 normal, 5+ high",
+              "Customers from 'OldCo' domain are exempt from email alerts and Salesforce task creation per exec override. Tag still applies."
+            ],
+            [
+              "trial",
+              "0",
+              "1",
+              "Trial: 0 low, 1 normal, 2+ high",
+              "Customers with company name containing 'Beta' are in a partner program -- classify using standard thresholds even if tagged trial"
+            ]
+          ]
+        },
+        "ws_alert_rules": {
+          "title": "Alert Rules",
+          "values": [
+            ["Rule", "Condition", "Action", "Notes"],
+            [
+              "Event window",
+              "Count feature_use events only",
+              "Look back 14 days from today",
+              "Only feature_use, not login or other"
+            ],
+            [
+              "Trial detection",
+              "Customer has trial tag",
+              "Use trial thresholds from ws_thresholds",
+              "All others use standard thresholds"
+            ],
+            [
+              "Onboarding policy",
+              "See ws_onboarding_policy worksheet",
+              "Apply onboarding exclusion rules from separate sheet",
+              "Moved to dedicated worksheet for clarity"
+            ],
+            [
+              "Tag assignment",
+              "Each non-excluded customer",
+              "Tag as low-usage, normal-usage, or high-usage",
+              "Based on feature_use count vs thresholds"
+            ],
+            [
+              "Low usage alert",
+              "Customer classified as low-usage",
+              "Send email + create Salesforce task",
+              "SF task subject must contain customer name"
+            ],
+            [
+              "No alert for non-low",
+              "normal-usage or high-usage",
+              "Tag only, no email, no SF task",
+              "Only low-usage triggers alerts"
+            ]
+          ]
+        },
+        "ws_onboarding_policy": {
+          "title": "Onboarding Policy",
+          "values": [
+            ["Policy", "Condition", "Action", "Notes"],
+            [
+              "Recently onboarded",
+              "Earliest event of ANY type within 7 days",
+              "Exclude entirely: no tag, no email, no SF task",
+              "Protects new customers from premature alerts"
+            ],
+            [
+              "Stale trial override",
+              "Customer tagged 'trial' but earliest event >90 days ago",
+              "Use standard thresholds instead of trial thresholds",
+              "Long-inactive trials should not get lenient trial thresholds"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u01",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u01",
+          "email": "active@powerco.com",
+          "name": "Maya Chen",
+          "company": "PowerCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-04T09:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-03T11:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-02T16:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-01T10:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-15T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u02",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u02",
+          "email": "low@quietco.com",
+          "name": "Sam Patel",
+          "company": "QuietCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-05T10:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-10T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u03",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u03",
+          "email": "trial@newco.com",
+          "name": "Lena Kim",
+          "company": "NewCo",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-20T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u04",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u04",
+          "email": "triallow@trialco.com",
+          "name": "Omar Hassan",
+          "company": "TrialCo",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-01-18T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u05",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u05",
+          "email": "normal@midco.com",
+          "name": "Rita Johansson",
+          "company": "MidCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-06T09:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-04T14:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-02T11:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-12T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u06",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u06",
+          "email": "newbie@freshco.com",
+          "name": "Taro Suzuki",
+          "company": "FreshCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-02-04T08:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-05T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u07",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u07",
+          "email": "dormant@oldco.com",
+          "name": "Wei Zhang",
+          "company": "OldCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-01-05T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u08",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u08",
+          "email": "moderate@medco.com",
+          "name": "Priya Sharma",
+          "company": "MedCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-03T14:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-30T09:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-28T11:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-08T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u09",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u09",
+          "email": "trialnorm@trynew.com",
+          "name": "Luis Garcia",
+          "company": "TryNew Inc",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-05T09:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-15T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u10",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u10",
+          "email": "brand_new@juststarted.com",
+          "name": "Nora Eriksson",
+          "company": "JustStarted",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-02-02T08:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-03T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u11",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u11",
+          "email": "stale_trial@legacyco.com",
+          "name": "Jordan Lee",
+          "company": "LegacyCo",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2025-10-15T08:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-04T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u12",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u12",
+          "email": "partner@betaworks.io",
+          "name": "Kai Nakamura",
+          "company": "BetaWorks",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-05T10:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2026-01-10T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u13",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u13",
+          "email": "veteran@historyco.com",
+          "name": "Amara Osei",
+          "company": "HistoryCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-20T10:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-18T14:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-15T09:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-12T11:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-01-10T16:00:00Z\",\"data\":{}},{\"event_name\":\"login\",\"created_at\":\"2025-12-01T08:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_u14",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_u14",
+          "email": "weekold@newstart.com",
+          "name": "Ines Ferreira",
+          "company": "NewStart Ltd",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-01-31T08:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-03T10:00:00Z\",\"data\":{}},{\"event_name\":\"feature_use\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_004",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_004",
+          "email": "user4@baypoint.example.com",
+          "name": "Elena Novak",
+          "tags": "[\"webinar-attended\"]",
+          "company": "Baypoint Tech",
+          "events": "[{\"event_name\":\"signup\",\"created_at\":\"2026-03-02T11:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_003",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_003",
+          "email": "user3@sunridge.example.com",
+          "name": "Tariq Osman",
+          "tags": "[]",
+          "company": "Sunridge Partners",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-27T14:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_002",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_002",
+          "email": "user2@ironwood.example.com",
+          "name": "Sienna Walsh",
+          "tags": "[\"newsletter\"]",
+          "company": "Ironwood Analytics",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-03-01T09:00:00Z\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "company",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "events",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "source_customer_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "active@powerco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "brand_new@juststarted.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "dormant@oldco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "low@quietco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "moderate@medco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "newbie@freshco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "normal@midco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "partner@betaworks.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "stale_trial@legacyco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "trial@newco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "triallow@trialco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "trialnorm@trynew.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "user2@ironwood.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "user3@sunridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "user4@baypoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "veteran@historyco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "weekold@newstart.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

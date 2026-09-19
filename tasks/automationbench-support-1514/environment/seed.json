@@ -1,0 +1,237 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_health": {
+      "title": "Customer Health",
+      "sheets": {
+        "ws_activity": {
+          "title": "Activity Data",
+          "values": [
+            ["Email", "Ticket Count", "Last Interaction"],
+            ["anna@acme.com", "7", "2026-02-05"],
+            ["ben@techfirm.io", "3", "2026-02-01"],
+            ["cora@startup.com", "12", "2026-02-06"],
+            ["dana@orphan.io", "4", "2026-02-04"],
+            ["anna.bell@acme.com", "9", "2026-02-03"]
+          ]
+        },
+        "ws_rules": {
+          "title": "Health Rules",
+          "values": [
+            ["Condition", "Label", "Action"],
+            ["Ticket Count >= 5", "at-risk", "Create SF task"]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "HLTH-SYNC-7X2Q"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_sf_h1",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Anna",
+          "last_name": "Bell",
+          "email": "anna@acme.com",
+          "support_ticket_count": "",
+          "support_last_interaction": ""
+        }
+      },
+      {
+        "record_id": "rec_sf_h2",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ben",
+          "last_name": "Cruz",
+          "email": "ben@techfirm.io",
+          "support_ticket_count": "",
+          "support_last_interaction": ""
+        }
+      },
+      {
+        "record_id": "rec_sf_h3",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Cora",
+          "last_name": "Davis",
+          "email": "cora@startup.com",
+          "support_ticket_count": "",
+          "support_last_interaction": ""
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_h1",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Anna",
+          "last_name": "Bell",
+          "email": "anna@acme.com",
+          "organization": "Acme"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_h2",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Ben",
+          "last_name": "Cruz",
+          "email": "ben@techfirm.io",
+          "organization": "TechFirm"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_h3",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Cora",
+          "last_name": "Davis",
+          "email": "cora@startup.com",
+          "organization": "StartupCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_h4",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Dana",
+          "last_name": "Fox",
+          "email": "dana@orphan.io",
+          "organization": "OrphanCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_h5",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Anna",
+          "last_name": "Bell",
+          "email": "anna.bell@acme.com",
+          "organization": "Acme"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "support_ticket_count",
+        "type": "number"
+      },
+      {
+        "name": "support_last_interaction",
+        "type": "text"
+      },
+      {
+        "name": "organization",
+        "type": "text"
+      },
+      {
+        "name": "batch_reference",
+        "type": "text"
+      },
+      {
+        "name": "source_customer_id",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "ticket_count",
+        "type": "number"
+      },
+      {
+        "name": "last_interaction",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "who_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "anna.bell@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "anna@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ben@techfirm.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "cora@startup.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dana@orphan.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_SYNC",
+      "name": "support-sync",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GEN",
+      "name": "general",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

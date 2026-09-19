@@ -1,0 +1,508 @@
+{
+  "now": "2026-02-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_risk": {
+      "title": "Risk Scoring",
+      "sheets": {
+        "ws_weights": {
+          "title": "Scoring Weights",
+          "values": [
+            ["Metric", "Weight"],
+            ["ticket_weight", "2"],
+            ["severity_weight", "5"],
+            ["unresolved_weight", "3"],
+            ["threshold", "20"],
+            ["new_account_months", "3"],
+            ["SF_Task_Subject_Format", "Risk review: {account_name}"]
+          ]
+        },
+        "ws_results": {
+          "title": "Risk Results",
+          "values": [
+            [
+              "Account ID",
+              "Account Name",
+              "Ticket Count",
+              "High Priority Count",
+              "Unresolved Count",
+              "Risk Score"
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "RSK-20250115-Q7M2"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_01",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_01",
+          "subject": "Server outage",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zrkc_01",
+          "account_id": "zra_a",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_02",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_02",
+          "subject": "Data loss incident",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zrkc_01",
+          "account_id": "zra_a",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_03",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_03",
+          "subject": "API failures",
+          "status": "Closed",
+          "priority": "High",
+          "contact_id": "zrkc_01",
+          "account_id": "zra_a",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_04",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_04",
+          "subject": "Slow dashboard",
+          "status": "Closed",
+          "priority": "Medium",
+          "contact_id": "zrkc_01",
+          "account_id": "zra_a",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_05",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_05",
+          "subject": "Export bug",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zrkc_01",
+          "account_id": "zra_a",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_06",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_06",
+          "subject": "Payment failure",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zrkc_02",
+          "account_id": "zra_b",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_07",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_07",
+          "subject": "Login errors",
+          "status": "Closed",
+          "priority": "High",
+          "contact_id": "zrkc_02",
+          "account_id": "zra_b",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_08",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_08",
+          "subject": "Feature question",
+          "status": "Closed",
+          "priority": "Medium",
+          "contact_id": "zrkc_02",
+          "account_id": "zra_b",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_09",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_09",
+          "subject": "Minor UI issue",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zrkc_02",
+          "account_id": "zra_b",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_10",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_10",
+          "subject": "General question",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zrkc_03",
+          "account_id": "zra_c",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_11",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_11",
+          "subject": "Documentation feedback",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zrkc_03",
+          "account_id": "zra_c",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_12",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_12",
+          "subject": "Setup problems",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zrkc_04",
+          "account_id": "zra_d",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_13",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_13",
+          "subject": "Config errors",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zrkc_04",
+          "account_id": "zra_d",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_14",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_14",
+          "subject": "Welcome question",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zrkc_04",
+          "account_id": "zra_d",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zrk_15",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zrk_15",
+          "subject": "Password help",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zrkc_05",
+          "account_id": "zra_e",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_006",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_006",
+          "subject": "SLA policy not applying to new department",
+          "description": "Tickets in the new 'Partnerships' dept have no SLA policy.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_009",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_009",
+          "subject": "Webhook for ticket closure not firing",
+          "description": "The close-ticket webhook hasn't triggered in 3 days.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_008",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_008",
+          "subject": "Time tracking entries disappearing",
+          "description": "Logged time entries vanish after ticket status changes.",
+          "status": "Closed",
+          "priority": "High",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zrkc_01",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zrkc_01",
+          "first_name": "Alice",
+          "last_name": "Adams",
+          "email": "alice@accounta.com",
+          "account_id": "zra_a"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zrkc_02",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zrkc_02",
+          "first_name": "Bob",
+          "last_name": "Brown",
+          "email": "bob@accountb.com",
+          "account_id": "zra_b"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zrkc_03",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zrkc_03",
+          "first_name": "Carol",
+          "last_name": "Cole",
+          "email": "carol@accountc.com",
+          "account_id": "zra_c"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zrkc_04",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zrkc_04",
+          "first_name": "Dan",
+          "last_name": "Davis",
+          "email": "dan@accountd.com",
+          "account_id": "zra_d"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zrkc_05",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zrkc_05",
+          "first_name": "Eva",
+          "last_name": "Ellis",
+          "email": "eva@accounte.com",
+          "account_id": "zra_e"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_007",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_007",
+          "first_name": "Nolan",
+          "last_name": "Murphy",
+          "email": "nmurphy@westfield.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_001",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_001",
+          "first_name": "Hannah",
+          "last_name": "Park",
+          "email": "hpark@riverbend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_zra_a",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "zra_a",
+          "account_name": "Account Alpha",
+          "created_at": "2024-03-15T00:00:00"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_zra_b",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "zra_b",
+          "account_name": "Account Beta",
+          "created_at": "2024-05-01T00:00:00"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_zra_c",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "zra_c",
+          "account_name": "Account Charlie",
+          "created_at": "2024-06-01T00:00:00"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_zra_d",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "zra_d",
+          "account_name": "Account Delta",
+          "created_at": "2026-01-15T00:00:00"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_zra_e",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "zra_e",
+          "account_name": "Account Echo",
+          "created_at": "2024-04-01T00:00:00"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "source_account_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@accounta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob@accountb.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol@accountc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dan@accountd.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eva@accounte.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "hpark@riverbend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "nmurphy@westfield.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

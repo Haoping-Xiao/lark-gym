@@ -1,0 +1,436 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_handoff": {
+      "title": "Handoff Policy",
+      "sheets": {
+        "ws_routing": {
+          "title": "Routing Rules",
+          "values": [
+            [
+              "Tag",
+              "Target Mailbox",
+              "Mailbox ID",
+              "Escalation Email",
+              "Reply Template"
+            ],
+            ["billing", "Billing", "mb_billing", "", ""],
+            ["technical", "Technical Support", "mb_technical", "", ""],
+            ["enterprise", "Enterprise Support", "mb_enterprise", "", ""],
+            [
+              "_unmatched",
+              "N/A - Escalate",
+              "",
+              "escalations@support.com",
+              "We need more information to route your request to the right team. Could you provide additional details?"
+            ]
+          ]
+        },
+        "ws_holds": {
+          "title": "Handoff Holds",
+          "values": [
+            ["Conversation ID", "Notes"],
+            [
+              "hs_h11",
+              "DO NOT process — account under billing dispute investigation. Routing frozen until resolved."
+            ],
+            [
+              "hs_h12",
+              "SUSPENDED per compliance review #CR-8812. No routing until cleared."
+            ],
+            [
+              "hs_h13",
+              "FROZEN — account flagged for fraud review. Do not route until investigation completes."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpscout_hs_h01",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Refund request for double charge",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "alice@acme.com",
+          "tags": "[\"handoff-requested\",\"billing\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I was charged twice. Need a refund.\",\"author_email\":\"alice@acme.com\"},{\"thread_type\":\"note\",\"body\":\"Customer needs billing team. Requesting handoff.\",\"author_email\":\"agent1@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h02",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API integration failing",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "bob@techfirm.io",
+          "tags": "[\"handoff-requested\",\"technical\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"API integration returning 500 errors.\",\"author_email\":\"bob@techfirm.io\"},{\"thread_type\":\"note\",\"body\":\"Needs engineering. Requesting handoff to technical.\",\"author_email\":\"agent2@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h03",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Invoice adjustment needed",
+          "status": "active",
+          "mailbox_id": "mb_billing",
+          "customer_email": "carol@enterprise.com",
+          "tags": "[\"handoff-requested\",\"billing\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Need invoice adjusted.\",\"author_email\":\"carol@enterprise.com\"},{\"thread_type\":\"note\",\"body\":\"Needs billing handoff.\",\"author_email\":\"agent3@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h04",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Custom SLA terms needed",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "dave@bigcorp.com",
+          "tags": "[\"handoff-requested\",\"enterprise\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Need custom SLA terms for our enterprise contract.\",\"author_email\":\"dave@bigcorp.com\"},{\"thread_type\":\"note\",\"body\":\"Enterprise client needs dedicated support.\",\"author_email\":\"agent1@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h05",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook debugging help",
+          "status": "active",
+          "mailbox_id": "mb_technical",
+          "customer_email": "eva@devshop.com",
+          "tags": "[\"handoff-requested\",\"technical\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Webhooks failing. Need technical help.\",\"author_email\":\"eva@devshop.com\"},{\"thread_type\":\"note\",\"body\":\"Needs technical routing per customer request.\",\"author_email\":\"agent2@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h06",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Potential data breach concern",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "frank@securecorp.com",
+          "tags": "[\"handoff-requested\",\"security\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Unauthorized access attempts on our account.\",\"author_email\":\"frank@securecorp.com\"},{\"thread_type\":\"note\",\"body\":\"Security concern. Needs immediate attention.\",\"author_email\":\"agent3@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h07",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "GDPR data export request",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "greta@eucompany.de",
+          "tags": "[\"handoff-requested\",\"compliance\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Under GDPR Article 20, requesting full data export.\",\"author_email\":\"greta@eucompany.de\"},{\"thread_type\":\"note\",\"body\":\"GDPR request. Need legal/compliance team.\",\"author_email\":\"agent1@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h08",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Account issue",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "unknown@temp.com",
+          "tags": "[\"handoff-requested\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Something is wrong with my account.\",\"author_email\":\"unknown@temp.com\"},{\"thread_type\":\"note\",\"body\":\"Customer didn't specify issue type.\",\"author_email\":\"agent2@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h09",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Payment method update failing",
+          "status": "active",
+          "mailbox_id": "mb_technical",
+          "customer_email": "iris@retailco.com",
+          "tags": "[\"handoff-requested\",\"billing\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Credit card update form keeps erroring.\",\"author_email\":\"iris@retailco.com\"},{\"thread_type\":\"note\",\"body\":\"Billing issue, not technical.\",\"author_email\":\"agent3@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h10",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Need help",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "james@vaguerequest.com",
+          "tags": "[\"handoff-requested\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Can someone help me?\",\"author_email\":\"james@vaguerequest.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h11",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Billing cycle confusion",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "karl@holdco.com",
+          "tags": "[\"handoff-requested\",\"billing\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I do not understand my billing cycle.\",\"author_email\":\"karl@holdco.com\"},{\"thread_type\":\"note\",\"body\":\"Customer asking about billing.\",\"author_email\":\"agent1@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h12",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "SDK crashes on init",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "lena@suspendco.com",
+          "tags": "[\"handoff-requested\",\"technical\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"The SDK crashes every time we initialize it.\",\"author_email\":\"lena@suspendco.com\"},{\"thread_type\":\"note\",\"body\":\"Needs technical team.\",\"author_email\":\"agent2@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_h13",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Dedicated account manager request",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "mike@frozenacct.com",
+          "tags": "[\"handoff-requested\",\"enterprise\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"We need a dedicated account manager.\",\"author_email\":\"mike@frozenacct.com\"},{\"thread_type\":\"note\",\"body\":\"Enterprise request from frozen account.\",\"author_email\":\"agent3@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_004",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Slow response times this week",
+          "status": "closed",
+          "customer_email": "noise_user4@summitpeak.example.com",
+          "tags": "[\"performance\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Page loads are taking 8-10 seconds since Tuesday.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_002",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Import CSV failing silently",
+          "status": "closed",
+          "customer_email": "noise_user2@cedarpoint.example.com",
+          "tags": "[\"import\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Uploading a 10k-row CSV just spins and nothing imports.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_003",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook signatures not matching",
+          "status": "closed",
+          "customer_email": "noise_user3@tidewaterio.example.com",
+          "tags": "[\"api\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our server can't verify the webhook HMAC signature.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_general",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "General Support"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_billing",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Billing"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_technical",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Technical Support"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_enterprise",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Enterprise Support"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "thread_type",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "agent1@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "agent2@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "agent3@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "alice@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "bob@techfirm.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "carol@enterprise.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "dave@bigcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "escalations@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "eva@devshop.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "frank@securecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "greta@eucompany.de",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "iris@retailco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "james@vaguerequest.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "karl@holdco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "lena@suspendco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "mike@frozenacct.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "noise_user2@cedarpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "noise_user3@tidewaterio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "noise_user4@summitpeak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "unknown@temp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_HAND",
+      "name": "support-handoffs",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

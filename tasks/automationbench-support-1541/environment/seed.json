@@ -1,0 +1,530 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_tenant": {
+      "title": "Tenant Mapping",
+      "sheets": {
+        "ws_mapping": {
+          "title": "Tenant Mapping",
+          "values": [
+            [
+              "Contact ID",
+              "Contact Email",
+              "Tenant Account ID",
+              "Tenant Account Name"
+            ],
+            ["zc_701", "alice@tenantA.com", "za_801", "Tenant A Corp"],
+            ["zc_702", "bob@tenantB.com", "za_802", "Tenant B Inc"],
+            ["zc_703", "carla@tenantA.com", "za_801", "Tenant A Corp"],
+            ["zc_704", "derek@tenantC.com", "za_803", "Tenant C LLC"],
+            ["zc_705", "elena@tenantB.com", "za_802", "Tenant B Inc"],
+            ["zc_706", "felix@tenantD.com", "za_804", "Tenant D Group"],
+            ["zc_707", "grace@tenantC.com", "za_803", "Tenant C LLC"]
+          ]
+        },
+        "ws_shared": {
+          "title": "Shared Service Accounts",
+          "values": [
+            ["Account ID", "Account Name", "Service Type"],
+            ["za_806", "Shared Logging Service", "Logging"],
+            ["za_807", "Shared Monitoring Service", "Monitoring"]
+          ]
+        },
+        "ws_violations": {
+          "title": "Isolation Violations",
+          "values": [
+            [
+              "Ticket ID",
+              "Subject",
+              "Contact ID",
+              "Expected Account",
+              "Actual Account",
+              "Status"
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "MTI-20250115-V8FJ"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_601",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_601",
+          "subject": "Login issues with SSO",
+          "description": "Cannot authenticate via SSO portal.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zc_701",
+          "account_id": "za_801"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_602",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_602",
+          "subject": "Dashboard loading slow",
+          "description": "Dashboard takes 30 seconds to render.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zc_702",
+          "account_id": "za_802"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_603",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_603",
+          "subject": "Data export failing",
+          "description": "CSV export returns empty file.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zc_703",
+          "account_id": "za_801"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_604",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_604",
+          "subject": "API key rotation request",
+          "description": "Need to rotate production API keys.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zc_704",
+          "account_id": "za_803"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_605",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_605",
+          "subject": "Billing discrepancy Q1",
+          "description": "Invoice does not match contract terms.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zc_705",
+          "account_id": "za_805"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_606",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_606",
+          "subject": "Shared logging service access",
+          "description": "Need access to centralized logging.",
+          "status": "Open",
+          "priority": "Low",
+          "contact_id": "zc_701",
+          "account_id": "za_806"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_607",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_607",
+          "subject": "Compliance report needed",
+          "description": "Requesting SOC2 compliance report.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zc_706",
+          "account_id": "za_804"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_608",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_608",
+          "subject": "Shared monitoring alerts",
+          "description": "Configure alerts in shared monitoring.",
+          "status": "Open",
+          "priority": "Low",
+          "contact_id": "zc_702",
+          "account_id": "za_807"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_609",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_609",
+          "subject": "User provisioning error",
+          "description": "New user cannot be added to workspace.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zc_707",
+          "account_id": "za_802"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_610",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_610",
+          "subject": "Integration webhook failing",
+          "description": "Webhooks to external endpoint timing out.",
+          "status": "Closed",
+          "priority": "Medium",
+          "contact_id": "zc_703",
+          "account_id": "za_803"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_611",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_611",
+          "subject": "Performance tuning request",
+          "description": "Query optimization needed.",
+          "status": "Open",
+          "priority": "Low",
+          "contact_id": "zc_704",
+          "account_id": "za_803"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_612",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_612",
+          "subject": "Audit log access request",
+          "description": "Need read access to audit logs.",
+          "status": "Open",
+          "priority": "Low",
+          "contact_id": "zc_706",
+          "account_id": "za_806"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_006",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_006",
+          "subject": "SLA policy not applying to new department",
+          "description": "Tickets in the new 'Partnerships' dept have no SLA policy.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_010",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_010",
+          "subject": "Knowledge base article version conflict",
+          "description": "Two agents edited the same KB article and changes were lost.",
+          "status": "Closed",
+          "priority": "Low",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_012",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_012",
+          "subject": "Custom view filter not saving",
+          "description": "Saving a custom ticket view with date filter reverts to defaults.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_701",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_701",
+          "first_name": "Alice",
+          "last_name": "Morgan",
+          "email": "alice@tenantA.com",
+          "account_id": "za_801"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_702",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_702",
+          "first_name": "Bob",
+          "last_name": "Chen",
+          "email": "bob@tenantB.com",
+          "account_id": "za_802"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_703",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_703",
+          "first_name": "Carla",
+          "last_name": "Davis",
+          "email": "carla@tenantA.com",
+          "account_id": "za_801"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_704",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_704",
+          "first_name": "Derek",
+          "last_name": "Kim",
+          "email": "derek@tenantC.com",
+          "account_id": "za_803"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_705",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_705",
+          "first_name": "Elena",
+          "last_name": "Petrov",
+          "email": "elena@tenantB.com",
+          "account_id": "za_802"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_706",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_706",
+          "first_name": "Felix",
+          "last_name": "Nguyen",
+          "email": "felix@tenantD.com",
+          "account_id": "za_804"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zc_707",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zc_707",
+          "first_name": "Grace",
+          "last_name": "Wilson",
+          "email": "grace@tenantC.com",
+          "account_id": "za_803"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_005",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_005",
+          "first_name": "Andre",
+          "last_name": "Williams",
+          "email": "awilliams@springdale.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_003",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_003",
+          "first_name": "Ren",
+          "last_name": "Sugimoto",
+          "email": "rsugimoto@eastwind.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_801",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_801",
+          "account_name": "Tenant A Corp"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_802",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_802",
+          "account_name": "Tenant B Inc"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_803",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_803",
+          "account_name": "Tenant C LLC"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_804",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_804",
+          "account_name": "Tenant D Group"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_805",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_805",
+          "account_name": "Tenant E Partners"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_806",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_806",
+          "account_name": "Shared Logging Service"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_807",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_807",
+          "account_name": "Shared Monitoring Service"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "name": "is_public",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@tenantA.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "awilliams@springdale.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "bob@tenantB.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "carla@tenantA.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "derek@tenantC.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "elena@tenantB.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "felix@tenantD.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "grace@tenantC.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "rsugimoto@eastwind.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

@@ -1,0 +1,517 @@
+{
+  "now": "2026-01-29T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_reactivation": {
+      "title": "Reactivation Campaign",
+      "sheets": {
+        "ws_activity": {
+          "title": "Activity History",
+          "values": [
+            ["Email", "Last Active Date", "Status"],
+            ["ava@dormant1.com", "2025-08-15", "Inactive"],
+            ["brian@dormant2.com", "2025-07-01", "Inactive"],
+            ["carla@dncflag.com", "2025-06-20", "Inactive"],
+            ["dion@recentlycontacted.com", "2025-09-10", "Inactive"],
+            ["elena@stillactive.com", "2026-02-01", "Active"],
+            ["frankie@dormant3.com", "2025-05-12", "Inactive"],
+            ["gina@dncflag2.com", "2025-04-30", "Inactive"],
+            ["hector@recentoutreach.com", "2025-10-01", "Inactive"],
+            ["ivy@activeuser.com", "2026-01-28", "Active"],
+            ["jake@dormant4.com", "2025-06-01", "Inactive"],
+            ["kira@toorecentdorm.com", "2026-01-05", "Inactive"],
+            ["leo@toorecentdorm2.com", "2026-01-10", "Inactive"],
+            ["maya@dncanddormant.com", "2025-03-15", "Inactive"],
+            ["noah@toorecentdorm3.com", "2026-01-20", "Inactive"],
+            ["olivia@toorecentdorm4.com", "2025-12-28", "Inactive"],
+            ["pedro@partnerexempt.io", "2025-07-20", "Inactive"],
+            ["contact1@ironcladsy.example.com", "Vance", "Inactive"],
+            ["contact2@bluestarve.example.com", "Torres", "Archived"],
+            ["contact3@cascadeana.example.com", "Park", "Void"],
+            ["contact4@vertexcapi.example.com", "Sullivan", "Cancelled"],
+            ["contact5@thornwoodp.example.com", "Walsh", "Superseded"],
+            ["contact6@starlingfi.example.com", "Nair", "Deactivated"],
+            ["contact7@redwoodtec.example.com", "Ortega", "Inactive"],
+            ["contact8@eastgateso.example.com", "Hoffman", "Archived"],
+            ["contact9@montclairi.example.com", "Brooks", "Void"],
+            ["contact10@pacificrid.example.com", "Simmons", "Cancelled"],
+            ["contact11@summitgrou.example.com", "Vance", "Superseded"],
+            ["contact12@riverviewp.example.com", "Torres", "Deactivated"],
+            ["contact13@northgatet.example.com", "Park", "Inactive"],
+            ["contact14@silverston.example.com", "Sullivan", "Archived"],
+            ["contact15@cloudbridg.example.com", "Walsh", "Void"]
+          ]
+        },
+        "ws_dnc": {
+          "title": "Do Not Contact",
+          "values": [
+            ["Email", "Reason"],
+            ["carla@dncflag.com", "Legal hold"],
+            ["gina@dncflag2.com", "Unsubscribed"],
+            ["maya@dncanddormant.com", "GDPR request"],
+            [
+              "pedro@partnerexempt.io",
+              "Partner program - exempt from reactivation campaigns"
+            ]
+          ]
+        },
+        "ws_recent_outreach": {
+          "title": "Recent Outreach",
+          "values": [
+            ["Email", "Last Outreach Date", "Campaign"],
+            ["dion@recentlycontacted.com", "2026-01-25", "Q4 Win-back"],
+            ["hector@recentoutreach.com", "2026-02-01", "Feature announcement"]
+          ]
+        },
+        "ws_active_subs": {
+          "title": "Active Subscribers",
+          "values": [
+            ["Email", "Plan", "Renewal Date"],
+            ["elena@stillactive.com", "Pro", "2026-06-01"],
+            ["ivy@activeuser.com", "Enterprise", "2026-09-15"]
+          ]
+        },
+        "ws_spend_history": {
+          "title": "Spend History",
+          "values": [
+            ["Email", "Total Spend", "Tier"],
+            ["ava@dormant1.com", "$12,500", "Gold"],
+            ["brian@dormant2.com", "$3,200", "Silver"],
+            ["carla@dncflag.com", "$8,000", "Gold"],
+            ["frankie@dormant3.com", "$950", "Bronze"],
+            ["jake@dormant4.com", "$22,000", "Platinum"],
+            ["maya@dncanddormant.com", "$15,000", "Gold"]
+          ]
+        },
+        "ws_outreach_log": {
+          "title": "Outreach Log",
+          "values": [["Email", "Name", "Tier", "Date Sent", "Campaign"]]
+        },
+        "ws_config": {
+          "title": "Campaign Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "REACT-Q1-20260214"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_contacts_ic_d01",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d01",
+          "name": "Ava Mitchell",
+          "email": "ava@dormant1.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d02",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d02",
+          "name": "Brian Nash",
+          "email": "brian@dormant2.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d03",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d03",
+          "name": "Carla Vega",
+          "email": "carla@dncflag.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d04",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d04",
+          "name": "Dion Brooks",
+          "email": "dion@recentlycontacted.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d05",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d05",
+          "name": "Elena Rossi",
+          "email": "elena@stillactive.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d06",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d06",
+          "name": "Frankie Lee",
+          "email": "frankie@dormant3.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d07",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d07",
+          "name": "Gina Park",
+          "email": "gina@dncflag2.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d08",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d08",
+          "name": "Hector Diaz",
+          "email": "hector@recentoutreach.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d09",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d09",
+          "name": "Ivy Chang",
+          "email": "ivy@activeuser.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d10",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d10",
+          "name": "Jake Olsen",
+          "email": "jake@dormant4.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d11",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d11",
+          "name": "Kira Sato",
+          "email": "kira@toorecentdorm.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d12",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d12",
+          "name": "Leo Martins",
+          "email": "leo@toorecentdorm2.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d13",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d13",
+          "name": "Maya Jensen",
+          "email": "maya@dncanddormant.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d14",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d14",
+          "name": "Noah Grant",
+          "email": "noah@toorecentdorm3.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d15",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d15",
+          "name": "Olivia Stone",
+          "email": "olivia@toorecentdorm4.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d16",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d16",
+          "name": "Pedro Reyes",
+          "email": "pedro@partnerexempt.io",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_003",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_003",
+          "name": "Liam O'Brien",
+          "email": "lobrien@frostbyte.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_007",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_007",
+          "name": "Jordan Blake",
+          "email": "jblake@quartzlabs.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ava@dormant1.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "brian@dormant2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carla@dncflag.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "contact10@pacificrid.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "contact11@summitgrou.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "contact12@riverviewp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "contact13@northgatet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "contact14@silverston.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "contact15@cloudbridg.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "contact1@ironcladsy.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "contact2@bluestarve.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "contact3@cascadeana.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "contact4@vertexcapi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "contact5@thornwoodp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "contact6@starlingfi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "contact7@redwoodtec.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "contact8@eastgateso.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "contact9@montclairi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "dion@recentlycontacted.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "elena@stillactive.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "frankie@dormant3.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "gina@dncflag2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "hector@recentoutreach.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "ivy@activeuser.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "jake@dormant4.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "jblake@quartzlabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "kira@toorecentdorm.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "leo@toorecentdorm2.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "lobrien@frostbyte.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "maya@dncanddormant.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "noah@toorecentdorm3.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "olivia@toorecentdorm4.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "pedro@partnerexempt.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_REACT",
+      "name": "reactivation-campaign",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

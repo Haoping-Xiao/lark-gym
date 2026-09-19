@@ -1,0 +1,734 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_customers": {
+      "title": "Customer Tiers",
+      "sheets": {
+        "ws_tiers": {
+          "title": "Tiers",
+          "values": [
+            ["Company", "Tier", "Account Manager", "SLA Hours", "Notes"],
+            ["MegaCorp", "Enterprise", "Alice Johnson", "4", ""],
+            ["StartupLab", "Standard", "", "24", ""],
+            ["GlobalEnt", "Enterprise", "Bob Smith", "4", ""],
+            ["PremiumCorp", "Premium", "Carol Davis", "8", ""],
+            ["BasicInc", "Standard", "", "24", ""],
+            [
+              "NexaGen Solutions",
+              "Enterprise",
+              "Alice Johnson",
+              "4",
+              "HOLD - pending contract renegotiation, do not route tickets until resolved"
+            ],
+            [
+              "BrightEdge Analytics",
+              "Premium",
+              "Carol Davis",
+              "8",
+              "SUSPENDED - payment dispute under review, do not process support requests"
+            ]
+          ]
+        },
+        "ws_queue_config": {
+          "title": "Queue Routing Config",
+          "values": [
+            ["Rule", "Condition", "Queue_Group_ID", "Notes"],
+            [
+              "Enterprise + api",
+              "Tier=Enterprise AND tags contain api",
+              "grp_senior_api",
+              "Enterprise always senior"
+            ],
+            [
+              "Enterprise + billing",
+              "Tier=Enterprise AND tags contain billing",
+              "grp_senior_billing",
+              "Enterprise always senior"
+            ],
+            [
+              "Enterprise + integration",
+              "Tier=Enterprise AND tags contain integration",
+              "grp_senior_integrations",
+              "Enterprise always senior"
+            ],
+            [
+              "Enterprise + other",
+              "Tier=Enterprise AND no specific area",
+              "grp_senior_general",
+              "Enterprise always senior"
+            ],
+            [
+              "Premium complex + api",
+              "Tier=Premium AND complex AND api tag",
+              "grp_senior_api",
+              "Complex=priority>=3 or large data"
+            ],
+            [
+              "Premium complex + billing",
+              "Tier=Premium AND complex AND billing tag",
+              "grp_senior_billing",
+              "Complex=priority>=3 or large data"
+            ],
+            [
+              "Premium complex + integration",
+              "Tier=Premium AND complex AND integration tag",
+              "grp_senior_integrations",
+              "Complex=multi-system or large records"
+            ],
+            [
+              "Premium complex + other",
+              "Tier=Premium AND complex AND no specific area",
+              "grp_senior_general",
+              "Complex fallback"
+            ],
+            [
+              "Premium simple + api",
+              "Tier=Premium AND NOT complex AND api tag",
+              "grp_api",
+              "Simple Premium=regular queue"
+            ],
+            [
+              "Non-senior billing",
+              "(Premium simple OR Standard) AND billing tag",
+              "grp_billing",
+              "Regular billing queue"
+            ],
+            [
+              "General fallback",
+              "Standard or simple Premium with no specific area",
+              "grp_general",
+              "General fallback"
+            ],
+            [
+              "Unknown tier",
+              "Customer not found in tiers",
+              "grp_general",
+              "Default for unknown"
+            ],
+            ["Skip assigned", "group_id already set", "N/A", "Do not re-route"],
+            [
+              "Skip closed",
+              "status != 2 (open)",
+              "N/A",
+              "Only route open tickets"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_601",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_601",
+          "subject": "API gateway returning 502 errors",
+          "description": "Our API calls fail with 502 bad gateway since this morning. Affecting production.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_601",
+          "group_id": "null",
+          "tags": "[\"api\",\"production\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_602",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_602",
+          "subject": "Question about upgrade pricing",
+          "description": "What's the price difference between pro and enterprise plans?",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_602",
+          "group_id": "null",
+          "tags": "[\"billing\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_603",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_603",
+          "subject": "Salesforce integration data mismatch",
+          "description": "Contacts synced from Salesforce are missing phone numbers and the custom field mapping is broken across 3 objects.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_603",
+          "group_id": "null",
+          "tags": "[\"integration\",\"salesforce\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_604",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_604",
+          "subject": "Need password reset for team member",
+          "description": "Please reset the password for user john.doe@premiumcorp.com.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_604",
+          "group_id": "null",
+          "tags": "[\"account\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_605",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_605",
+          "subject": "Missing records after bulk import",
+          "description": "We imported 50,000 records but only 38,000 appear. 12,000 records are missing with no error log. This affects our quarterly reporting.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_601",
+          "group_id": "null",
+          "tags": "[\"data\",\"import\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_606",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_606",
+          "subject": "How to create custom reports",
+          "description": "Can you show me how to build custom reports in the analytics module?",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_605",
+          "group_id": "null",
+          "tags": "[\"reporting\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_607",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_607",
+          "subject": "API rate limit increase request",
+          "description": "We need our API rate limit increased from 100 to 500 requests per minute.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_606",
+          "group_id": "null",
+          "tags": "[\"api\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_608",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_608",
+          "subject": "Login page not loading",
+          "description": "The login page shows a blank white screen.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_607",
+          "group_id": "null",
+          "tags": "[\"login\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_609",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_609",
+          "subject": "Disputing invoice charges for unused seats",
+          "description": "We were charged for 50 seats but only use 30. The 20 unused seats were deactivated in December. Need credit for January and February.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_603",
+          "group_id": "null",
+          "tags": "[\"billing\",\"dispute\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_610",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_610",
+          "subject": "Follow-up on previous ticket",
+          "description": "Checking status of my earlier request.",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "fc_602",
+          "group_id": "grp_general",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_611",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_611",
+          "subject": "HubSpot sync breaks after field mapping change",
+          "description": "Changed a custom field mapping and now all historical data is corrupted. 3 months of deal data affected across 200+ records.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_604",
+          "group_id": "null",
+          "tags": "[\"integration\",\"hubspot\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_612",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_612",
+          "subject": "Old resolved issue",
+          "description": "This was already fixed.",
+          "status": 5,
+          "priority": 1,
+          "requester_id": "fc_605",
+          "group_id": "null",
+          "tags": "[]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_613",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_613",
+          "subject": "SSO integration failing for SAML provider",
+          "description": "SAML assertions are rejected when our IdP sends signed responses. Need integration support urgently.",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "fc_608",
+          "group_id": "null",
+          "tags": "[\"integration\",\"sso\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_614",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_614",
+          "subject": "Bulk export API returns truncated results",
+          "description": "Our nightly data export only pulls 5000 of 12000 records. API pagination seems broken.",
+          "status": 2,
+          "priority": 4,
+          "requester_id": "fc_609",
+          "group_id": "null",
+          "tags": "[\"api\",\"data\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_615",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_615",
+          "subject": "Billing discrepancy on annual renewal",
+          "description": "We see a charge mismatch on the renewal invoice vs. our contract terms.",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "fc_610",
+          "group_id": "null",
+          "tags": "[\"billing\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_008",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_008",
+          "subject": "Agent cannot be reassigned",
+          "description": "Trying to reassign a ticket to another agent gives a permission error.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"permissions\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_012",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_012",
+          "subject": "Custom ticket field missing from form",
+          "description": "The 'Product Line' dropdown no longer appears on the ticket form.",
+          "status": 4,
+          "priority": 1,
+          "tags": "[\"customization\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_009",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_009",
+          "subject": "SLA timer paused but still counting",
+          "description": "Ticket was set to 'Pending' but the SLA timer keeps running.",
+          "status": 5,
+          "priority": 3,
+          "tags": "[\"sla\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_601",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_601",
+          "name": "Patricia Wells",
+          "email": "patricia@megacorp.com",
+          "company_id": "co_mega"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_602",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_602",
+          "name": "Ryan Brooks",
+          "email": "ryan@startuplab.io",
+          "company_id": "co_startup"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_603",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_603",
+          "name": "Sandra Huang",
+          "email": "sandra@globalent.com",
+          "company_id": "co_global"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_604",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_604",
+          "name": "Tyler Morrison",
+          "email": "tyler@premiumcorp.com",
+          "company_id": "co_premium"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_605",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_605",
+          "name": "Uma Krishnan",
+          "email": "uma@basicinc.com",
+          "company_id": "co_basic"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_606",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_606",
+          "name": "Victor Tan",
+          "email": "victor@premiumcorp.com",
+          "company_id": "co_premium"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_607",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_607",
+          "name": "Wendy Zhao",
+          "email": "wendy@unknownco.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_608",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_608",
+          "name": "Derek Yamamoto",
+          "email": "derek@nexagen.io",
+          "company_id": "co_nexagen"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_609",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_609",
+          "name": "Lisa Fontaine",
+          "email": "lisa@brightedge.com",
+          "company_id": "co_brightedge"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_610",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_610",
+          "name": "Marcus Olsen",
+          "email": "marcus@nexagen.io",
+          "company_id": "co_nexagen"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_001",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_001",
+          "name": "Marcus Reeves",
+          "email": "mreeves@starpoint.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_002",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_002",
+          "name": "Lucia Romero",
+          "email": "lromero@ridgeline.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_mega",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_mega",
+          "name": "MegaCorp"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_startup",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_startup",
+          "name": "StartupLab"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_global",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_global",
+          "name": "GlobalEnt"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_premium",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_premium",
+          "name": "PremiumCorp"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_basic",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_basic",
+          "name": "BasicInc"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_nexagen",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_nexagen",
+          "name": "NexaGen Solutions"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_companies_co_brightedge",
+        "fields": {
+          "collection": "freshdesk_companies",
+          "id": "co_brightedge",
+          "name": "BrightEdge Analytics"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "group_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "derek@nexagen.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "john.doe@premiumcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "lisa@brightedge.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "lromero@ridgeline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "marcus@nexagen.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "mreeves@starpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "patricia@megacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "ryan@startuplab.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "sandra@globalent.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "tyler@premiumcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "uma@basicinc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "victor@premiumcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "wendy@unknownco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_SR",
+      "name": "support-routing",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

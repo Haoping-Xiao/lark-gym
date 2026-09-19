@@ -1,0 +1,697 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_sync": {
+      "title": "Sync Configuration",
+      "sheets": {
+        "ws_tracker": {
+          "title": "Sync Tracker",
+          "values": [
+            [
+              "Re:amaze ID",
+              "Intercom ID",
+              "Subject",
+              "Last Synced Status",
+              "Sync Status",
+              "Notes"
+            ],
+            ["ra_01", "ic_s01", "Login issues", "open", "synced", ""],
+            ["ra_06", "ic_s06", "Billing dispute", "resolved", "synced", ""]
+          ]
+        },
+        "ws_priority": {
+          "title": "Conflict Priority",
+          "values": [
+            ["Rule", "Condition", "Action"],
+            [
+              "New Conversation",
+              "Conversation exists in one platform but not in tracker",
+              "Create counterpart in other platform. Add to tracker."
+            ],
+            [
+              "Status Change",
+              "Tracked conversation has different status than last sync",
+              "Log status change. Add note to both platform conversations."
+            ],
+            [
+              "Skip Resolved/Closed",
+              "Conversation is resolved or closed",
+              "Skip sync entirely. Do not create counterpart."
+            ],
+            [
+              "Exclude Test",
+              "Contact email domain is 'test.internal'",
+              "Exclude from sync entirely."
+            ],
+            [
+              "Exclude Staging",
+              "Contact email domain is 'staging.internal'",
+              "Exclude from sync entirely."
+            ],
+            [
+              "Pause Tag",
+              "Conversation has 'paused-sync' tag",
+              "Skip sync until tag is removed. Do not create counterpart."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_conversations_ic_s01",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s01",
+          "title": "Login issues",
+          "state": "open",
+          "contact_ids": "[\"icc_01\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s02",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s02",
+          "title": "Mobile app crashing",
+          "state": "open",
+          "contact_ids": "[\"icc_02\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s03",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s03",
+          "title": "Data export request",
+          "state": "open",
+          "contact_ids": "[\"icc_03\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s04",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s04",
+          "title": "Integration with Slack",
+          "state": "open",
+          "contact_ids": "[\"icc_04\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s05",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s05",
+          "title": "Resolved account issue",
+          "state": "closed",
+          "contact_ids": "[\"icc_05\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s06",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s06",
+          "title": "Billing dispute",
+          "state": "open",
+          "contact_ids": "[\"icc_06\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s07",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s07",
+          "title": "Automated test",
+          "state": "open",
+          "contact_ids": "[\"icc_07\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s08",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s08",
+          "title": "Custom report builder",
+          "state": "open",
+          "contact_ids": "[\"icc_08\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_s09",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_s09",
+          "title": "Load testing results review",
+          "state": "open",
+          "contact_ids": "[\"icc_09\"]",
+          "tags": "[]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_001",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_001",
+          "title": "Need help with API integration",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_001\"]",
+          "tags": "[\"api\"]",
+          "conversation_parts": "[{\"body\":\"I'm trying to integrate your API with our backend and getting auth errors.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_006",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_006",
+          "title": "SSO configuration help",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_006\"]",
+          "tags": "[\"sso\"]",
+          "conversation_parts": "[{\"body\":\"We need help setting up SAML SSO with Okta. Documentation is unclear.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_009",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_009",
+          "title": "Team inbox not loading on mobile",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_001\"]",
+          "tags": "[\"mobile\"]",
+          "conversation_parts": "[{\"body\":\"The team inbox shows a blank screen on the iOS app since the latest update.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_01",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_01",
+          "name": "User One",
+          "email": "user1@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_02",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_02",
+          "name": "User Two",
+          "email": "user9@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_03",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_03",
+          "name": "User Three",
+          "email": "user10@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_04",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_04",
+          "name": "User Four",
+          "email": "user11@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_05",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_05",
+          "name": "User Five",
+          "email": "user12@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_06",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_06",
+          "name": "User Six",
+          "email": "user6@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_07",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_07",
+          "name": "Test Bot",
+          "email": "bot@test.internal",
+          "contact_type": "lead",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_08",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_08",
+          "name": "User Eight",
+          "email": "user13@client.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_icc_09",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "icc_09",
+          "name": "Staging Admin",
+          "email": "admin@staging.internal",
+          "contact_type": "lead",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_003",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_003",
+          "name": "Liam O'Brien",
+          "email": "lobrien@frostbyte.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_007",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_007",
+          "name": "Jordan Blake",
+          "email": "jblake@quartzlabs.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_01",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_01",
+          "subject": "Login issues",
+          "status": "unresolved",
+          "contact_email": "user1@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_02",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_02",
+          "subject": "API documentation outdated",
+          "status": "unresolved",
+          "contact_email": "user2@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_03",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_03",
+          "subject": "Webhook configuration help",
+          "status": "unresolved",
+          "contact_email": "user3@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_04",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_04",
+          "subject": "Feature request: dark mode",
+          "status": "unresolved",
+          "contact_email": "user4@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_05",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_05",
+          "subject": "Old ticket closed",
+          "status": "resolved",
+          "contact_email": "user5@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_06",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_06",
+          "subject": "Billing dispute",
+          "status": "unresolved",
+          "contact_email": "user6@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_07",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_07",
+          "subject": "Test conversation",
+          "status": "unresolved",
+          "contact_email": "bot@test.internal",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_08",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_08",
+          "subject": "SSO setup assistance",
+          "status": "unresolved",
+          "contact_email": "user8@client.com",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_09",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_09",
+          "subject": "Performance optimization request",
+          "status": "unresolved",
+          "contact_email": "admin@staging.internal",
+          "messages": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_10",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_10",
+          "subject": "Dashboard customization help",
+          "status": "unresolved",
+          "contact_email": "user14@client.com",
+          "messages": "[]",
+          "tags": "[\"paused-sync\"]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_conv_noise_009",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_conv_noise_009",
+          "subject": "Slow loading dashboard",
+          "status": "resolved",
+          "category": "performance",
+          "contact_email": "buyer1@cloudsmith.example.com",
+          "messages": "[{\"body\":\"The analytics dashboard takes 15+ seconds to load.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_conv_noise_007",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_conv_noise_007",
+          "subject": "Email notification preferences",
+          "status": "resolved",
+          "category": "settings",
+          "contact_email": "buyer7@pinegrove.example.com",
+          "messages": "[{\"body\":\"How do I turn off the daily digest email?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_reamaze_conversations_ra_conv_noise_010",
+        "fields": {
+          "collection": "reamaze_conversations",
+          "id": "ra_conv_noise_010",
+          "subject": "Webhook delivery delays",
+          "status": "resolved",
+          "category": "api",
+          "contact_email": "buyer2@dataplex.example.com",
+          "messages": "[{\"body\":\"Webhooks are arriving 5-10 minutes after the triggering event.\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "contact_email",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "category",
+        "type": "text"
+      },
+      {
+        "name": "external_key",
+        "type": "text"
+      },
+      {
+        "name": "contact_name",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "author_type",
+        "type": "text"
+      },
+      {
+        "name": "internal",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "admin@staging.internal",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bot@test.internal",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "buyer1@cloudsmith.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "buyer2@dataplex.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "buyer7@pinegrove.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "jblake@quartzlabs.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "lobrien@frostbyte.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "user10@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "user11@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "user12@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "user13@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "user14@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "user1@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "user2@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "user3@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "user4@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "user5@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "user6@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "user8@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "user9@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_psync",
+      "name": "platform-sync",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

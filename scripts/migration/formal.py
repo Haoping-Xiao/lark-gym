@@ -37,7 +37,7 @@ for row in rows:
     records=[]
     for app in ['asana','trello','monday','jira','basecamp3','confluence','notion','pipefy','clickup','wrike','google_drive']:
         data=src.get(app,{})
-        assert app=='google_drive' or not any(not empty(v) for k,v in data.items() if k!='actions'),(key,'unsupported project source collection',app)
+        assert app in ['google_drive','jira'] or not any(not empty(v) for k,v in data.items() if k!='actions'),(key,'unsupported project source collection',app)
         for action,items in data.get('actions',{}).items():
             assert action.startswith(('find','get','search','list')) or action in ['board_list','project','folder','organization_card'],(key,'non-lookup source action',app,action)
             for source_index,item in enumerate(items):
@@ -64,9 +64,9 @@ for row in rows:
             for item in table.get('records',[]):
                 assert not set(item['fields'])&{'collection','source_base_id','source_table_id','source_record_id','source_metadata'},(key,'airtable field collision')
                 records.append({'record_id':'rec_airtable_'+base['id']+'_'+table['id']+'_'+item['id'],'fields':{'collection':'airtable_records','source_base_id':base['id'],'source_table_id':table['id'],'source_record_id':item['id'],'source_metadata':scalar({k:v for k,v in item.items() if k!='fields'}),**{k:scalar(v) for k,v in item['fields'].items()}}})
-    for app in ['docusign','calendly','google_drive','zoom','twilio','canva','gorgias','zoho_desk','intercom','freshdesk','hiver','reamaze','helpcrunch']:
+    for app in ['docusign','calendly','google_drive','zoom','twilio','canva','gorgias','zoho_desk','intercom','freshdesk','hiver','reamaze','helpcrunch','jira']:
         for collection,items in src.get(app,{}).items():
-            if collection=='actions' and (app=='google_drive' or empty(items)):continue
+            if collection=='actions' and (app in ['google_drive','jira'] or empty(items)):continue
             assert isinstance(items,list),(key,'unsupported scheduling collection',app,collection)
             for index,item in enumerate(items):
                 assert isinstance(item,dict),(key,'invalid scheduling record',app,collection)
@@ -334,6 +334,9 @@ for row in rows:
         parts=a.get(field+'_contains',a.get('text_contains',a.get('content_contains',None)))
         assert parts is None or isinstance(parts,str),(key,'unsupported social negative text')
         forbiddenRecords.append({'equals':{'collection':collection,**{target:a[source] for source,target in ids.items() if source in a}},'contains':{field:parts} if parts else {}})
+    for record in records:
+        for field in recipe.get('text_fields',[]):
+            if field in record['fields']:record['fields'][field]=str(record['fields'][field])
     fields={k:'number' if isinstance(v,(int,float)) else 'text' for r in records for k,v in r['fields'].items()}
     for r in recipe.get('creates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r.items()})
     for r in recipe.get('updates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r['fields'].items()})

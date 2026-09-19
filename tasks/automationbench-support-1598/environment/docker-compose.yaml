@@ -1,0 +1,26 @@
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FEISHU_MOCK_URL: http://mock:8080
+    depends_on:
+      mock:
+        condition: service_healthy
+  mock:
+    build:
+      context: .
+      dockerfile: mock.Dockerfile
+    expose: ['8080']
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "require('node:fs').accessSync('/var/lib/feishu-mock/endpoint')",
+        ]
+      interval: 1s
+      timeout: 5s
+      retries: 30

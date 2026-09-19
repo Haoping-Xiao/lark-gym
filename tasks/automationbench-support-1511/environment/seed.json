@@ -1,0 +1,415 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_merge": {
+      "title": "Customer Merges",
+      "sheets": {
+        "ws_pairs": {
+          "title": "Merge Pairs",
+          "values": [
+            ["Primary Email", "Secondary Email"],
+            ["j.smith@company.example.com", "j.smith.old@company.example.com"],
+            ["a.jones@company.example.com", "a.jones.personal@gmail.com"],
+            ["m.lee@startup.io", "m.lee.old@startup.io"],
+            ["k.chen@work.com", "k.chang@work.com"],
+            ["t.wilson@bigcorp.com", "t.wilson.old@bigcorp.com"],
+            ["r.patel@newmail.com", "r.patel@oldmail.com"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpscout_hs_mg01",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Login help",
+          "status": "active",
+          "customer_email": "j.smith.old@company.example.com",
+          "customer_id": "hc_m2",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Help with login.\",\"created_by\":\"j.smith.old@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_mg02",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Billing issue",
+          "status": "active",
+          "customer_email": "a.jones.personal@gmail.com",
+          "customer_id": "hc_m4",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Billing question.\",\"created_by\":\"a.jones.personal@gmail.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_mg03",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API question",
+          "status": "active",
+          "customer_email": "m.lee.old@startup.io",
+          "customer_id": "hc_m6",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"API rate limit.\",\"created_by\":\"m.lee.old@startup.io\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_mg04",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Export help",
+          "status": "active",
+          "customer_email": "k.chen@work.com",
+          "customer_id": "hc_m7",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Export failing.\",\"created_by\":\"k.chen@work.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_mg05",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "SSO setup",
+          "status": "active",
+          "customer_email": "j.smith@company.example.com",
+          "customer_id": "hc_m1",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Need SSO.\",\"created_by\":\"j.smith@company.example.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_mg06",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Dashboard help",
+          "status": "active",
+          "customer_email": "t.wilson.old@bigcorp.com",
+          "customer_id": "hc_m10",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Dashboard slow.\",\"created_by\":\"t.wilson.old@bigcorp.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_mg07",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Mobile issue",
+          "status": "active",
+          "customer_email": "r.patel@oldmail.com",
+          "customer_id": "hc_m12",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Mobile broken.\",\"created_by\":\"r.patel@oldmail.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_003",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook signatures not matching",
+          "status": "closed",
+          "customer_email": "noise_user3@tidewaterio.example.com",
+          "tags": "[\"api\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our server can't verify the webhook HMAC signature.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_007",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "CSAT survey response not recorded",
+          "status": "closed",
+          "customer_email": "noise_user7@oakhaven.example.com",
+          "tags": "[\"csat\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Customer says they submitted CSAT but we see no response.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_001",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Cannot reset two-factor auth",
+          "status": "closed",
+          "customer_email": "noise_user1@elkridge.example.com",
+          "tags": "[\"auth\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I lost my phone and can't get past 2FA.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m1",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "John",
+          "last_name": "Smith",
+          "email": "j.smith@company.example.com",
+          "organization": "CompanyCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m2",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "John",
+          "last_name": "Smith",
+          "email": "j.smith.old@company.example.com",
+          "organization": "CompanyCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m3",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Amy",
+          "last_name": "Jones",
+          "email": "a.jones@company.example.com",
+          "organization": "CompanyCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m4",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Amy",
+          "last_name": "Jones",
+          "email": "a.jones.personal@gmail.com",
+          "organization": "CompanyCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m5",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Ming",
+          "last_name": "Lee",
+          "email": "m.lee@startup.io",
+          "organization": "StartupIO"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m6",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Ming",
+          "last_name": "Lee",
+          "email": "m.lee.old@startup.io",
+          "organization": "StartupIO"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m7",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Kevin",
+          "last_name": "Chen",
+          "email": "k.chen@work.com",
+          "organization": "WorkCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m8",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Karen",
+          "last_name": "Chang",
+          "email": "k.chang@work.com",
+          "organization": "WorkCo"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m9",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Tom",
+          "last_name": "Wilson",
+          "email": "t.wilson@bigcorp.com",
+          "organization": "BigCorp"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m10",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Tom",
+          "last_name": "Wilson",
+          "email": "t.wilson.old@bigcorp.com",
+          "organization": "BigCorp"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m11",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Raj",
+          "last_name": "Patel",
+          "email": "r.patel@newmail.com",
+          "organization": "TechFirm"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hc_m12",
+        "fields": {
+          "collection": "help_customers",
+          "first_name": "Ravi",
+          "last_name": "Patil",
+          "email": "r.patel@oldmail.com",
+          "organization": "TechFirm"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "organization",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "a.jones.personal@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "a.jones@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "j.smith.old@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "j.smith@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "k.chang@work.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "k.chen@work.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "m.lee.old@startup.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "m.lee@startup.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "noise_user1@elkridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "noise_user3@tidewaterio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "noise_user7@oakhaven.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "r.patel@newmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "r.patel@oldmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "t.wilson.old@bigcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "t.wilson@bigcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_DQ",
+      "name": "data-quality",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

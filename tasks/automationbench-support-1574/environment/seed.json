@@ -1,0 +1,367 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_kb": {
+      "title": "KB Tracker",
+      "sheets": {
+        "ws_findings": {
+          "title": "KB Findings",
+          "values": [["Conversation ID", "Type", "Topic", "Action"]]
+        },
+        "ws_config": {
+          "title": "Review Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "KB-REV-20260214"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpscout_hs_kb01",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "How to set up SAML SSO with Okta",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "user1@customer.com",
+          "tags": "[\"question\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"How do I configure SAML SSO with Okta? I couldn't find any documentation.\",\"author_email\":\"user1@customer.com\"},{\"thread_type\":\"reply\",\"body\":\"Great question! Here's a step-by-step guide since we don't have this documented yet:\\n\\n1. Go to Okta Admin > Applications > Add Application\\n2. Select 'SAML 2.0' as the sign-on method\\n3. Set the Single Sign-On URL to https://app.example.com/sso/callback\\n4. Set the Audience URI to https://app.example.com\\n5. Under Attribute Statements, add: email -> user.email, name -> user.displayName\\n6. Download the metadata XML\\n7. In our app, go to Settings > Security > SSO and upload the metadata\\n\\nWe should really add this to our docs.\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb02",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API v2 docs show wrong endpoint",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "dev@partner.io",
+          "tags": "[\"bug-report\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"The docs at docs.example.com/api/v2/users say to use POST /api/v2/users/create but that endpoint returns 404. The actual endpoint is POST /api/v2/users.\",\"author_email\":\"dev@partner.io\"},{\"thread_type\":\"reply\",\"body\":\"You're absolutely right - the documentation is outdated. The correct endpoint is POST /api/v2/users. We changed this in v2.3 but the docs weren't updated.\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb03",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook deliveries failing intermittently",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "ops@techfirm.com",
+          "tags": "[\"technical\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our webhooks are failing about 30% of the time. How do we debug this?\",\"author_email\":\"ops@techfirm.com\"},{\"thread_type\":\"reply\",\"body\":\"Here's a comprehensive troubleshooting guide for webhook failures:\\n\\n1. Check the webhook delivery log at Settings > Webhooks > Delivery Log\\n2. Look for HTTP status codes - 4xx means your endpoint rejected it, 5xx means your server had an error\\n3. Common causes: Timeout (must respond within 30s), SSL issues, Payload size over 256KB\\n4. To test: Use our webhook tester at Settings > Webhooks > Test Delivery\\n5. Enable retry mode: Settings > Webhooks > Advanced > Enable Auto-Retry\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb04",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Where to find API key",
+          "status": "closed",
+          "mailbox_id": "mb_general",
+          "customer_email": "user4@startup.com",
+          "tags": "[\"question\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Where do I find my API key?\",\"author_email\":\"user4@startup.com\"},{\"thread_type\":\"reply\",\"body\":\"Settings > API > Keys. Docs: docs.example.com/api/authentication\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb05",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Rate limit docs are incorrect",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "dev2@bigcorp.com",
+          "tags": "[\"technical\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Your rate limit documentation says 100 requests per minute, but we're throttled at 60. The docs say one thing but the actual behavior is different.\",\"author_email\":\"dev2@bigcorp.com\"},{\"thread_type\":\"reply\",\"body\":\"The docs are outdated. We lowered the default to 60/min in January. Documentation hasn't been updated yet.\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb06",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "My account got locked",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "user6@company.example.com",
+          "tags": "[\"account\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"My account is locked.\",\"author_email\":\"user6@company.example.com\"},{\"thread_type\":\"reply\",\"body\":\"Unlocked. You had 5 failed attempts.\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb07",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Wrong timezone on my reports",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "user7@agency.net",
+          "tags": "[\"bug-report\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Reports showing PST instead of EST.\",\"author_email\":\"user7@agency.net\"},{\"thread_type\":\"reply\",\"body\":\"Corrected your timezone to EST.\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb08",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "[Internal] Deployment rollback procedure",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "internal@support.com",
+          "tags": "[\"internal\"]",
+          "threads": "[{\"thread_type\":\"note\",\"body\":\"Team - here's the rollback procedure for internal reference.\",\"author_email\":\"lead@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb09",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "[Internal] Updated escalation matrix",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "internal@support.com",
+          "tags": "[\"internal\"]",
+          "threads": "[{\"thread_type\":\"note\",\"body\":\"Updated escalation matrix.\",\"author_email\":\"manager@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb10",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "How to create custom fields for contacts",
+          "status": "active",
+          "mailbox_id": "mb_general",
+          "customer_email": "admin@growthco.com",
+          "tags": "[\"question\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I need custom fields for contacts. Couldn't find instructions in docs.\",\"author_email\":\"admin@growthco.com\"},{\"thread_type\":\"reply\",\"body\":\"Here's how to set up custom fields:\\n\\n1. Navigate to Settings > Data Model > Custom Fields\\n2. Click 'Add Custom Field'\\n3. Choose field type (Text, Number, Date, Dropdown)\\n4. Set name and optional description\\n5. Under 'Visibility', choose which roles can see/edit\\n6. For dropdowns, add options in 'Values'\\n7. Click Save\\n\\nNeeds Admin permissions. This should be in our docs.\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb11",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "How to reset password",
+          "status": "closed",
+          "mailbox_id": "mb_general",
+          "customer_email": "user11@client.com",
+          "tags": "[\"question\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"How do I reset my password?\",\"author_email\":\"user11@client.com\"},{\"thread_type\":\"reply\",\"body\":\"Click 'Forgot Password'. Full docs: docs.example.com/password-reset\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_kb12",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Old question about webhooks",
+          "status": "closed",
+          "mailbox_id": "mb_general",
+          "customer_email": "old@user.com",
+          "tags": "[\"question\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"How do webhooks work?\",\"author_email\":\"old@user.com\"},{\"thread_type\":\"reply\",\"body\":\"Docs: docs.example.com/webhooks\",\"author_email\":\"agent@support.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_008",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Saved reply variables not populating",
+          "status": "closed",
+          "customer_email": "noise_user8@brighton.example.com",
+          "tags": "[\"templates\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"The {{customer.name}} variable renders as blank in replies.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_003",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook signatures not matching",
+          "status": "closed",
+          "customer_email": "noise_user3@tidewaterio.example.com",
+          "tags": "[\"api\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our server can't verify the webhook HMAC signature.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_004",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Slow response times this week",
+          "status": "closed",
+          "customer_email": "noise_user4@summitpeak.example.com",
+          "tags": "[\"performance\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Page loads are taking 8-10 seconds since Tuesday.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_general",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "General Support"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "source_conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "admin@growthco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "agent@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "dev2@bigcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dev@partner.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "internal@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "lead@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "manager@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "noise_user3@tidewaterio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "noise_user4@summitpeak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "noise_user8@brighton.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "old@user.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "ops@techfirm.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "user11@client.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "user1@customer.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "user4@startup.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "user6@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "user7@agency.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_DOCS",
+      "name": "docs-team",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

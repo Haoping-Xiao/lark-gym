@@ -1,0 +1,797 @@
+{
+  "now": "2026-02-13T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_inventory": {
+      "title": "Product Inventory",
+      "sheets": {
+        "ws_products": {
+          "title": "Products",
+          "values": [
+            ["Product Name", "SKU", "Status", "Restock ETA", "Price", "Notes"],
+            ["Alpine Pro Jacket", "APJ-200", "In Stock", "", "$189", ""],
+            [
+              "Summit Hiking Boots",
+              "SHB-300",
+              "Out of Stock",
+              "2026-03-15",
+              "$245",
+              ""
+            ],
+            [
+              "Trailblazer Tent",
+              "TBT-400",
+              "Backordered",
+              "2026-02-28",
+              "$399",
+              ""
+            ],
+            ["Canyon Daypack", "CDP-500", "Discontinued", "", "$79", ""],
+            [
+              "Glacier Sleeping Bag",
+              "GSB-600",
+              "Pre-Order",
+              "2026-04-01",
+              "$329",
+              ""
+            ],
+            ["Basecamp Water Bottle", "BCW-700", "In Stock", "", "$34", ""],
+            [
+              "Ridgeline Fleece",
+              "RGF-800",
+              "Out of Stock",
+              "2026-03-01",
+              "$129",
+              ""
+            ],
+            [
+              "Expedition Compass",
+              "EXC-900",
+              "Limited Stock (2 remaining)",
+              "",
+              "$45",
+              ""
+            ],
+            ["Vertex Trekking Poles", "VTP-1000", "In Stock", "", "$89", ""],
+            ["Pioneer Headlamp", "DISC-PHL-110", "In Stock", "", "$29", ""],
+            [
+              "Summit Pro Harness",
+              "SPH-1200",
+              "Backordered",
+              "2026-04-15",
+              "$275",
+              ""
+            ],
+            [
+              "Horizon Binoculars",
+              "HBN-1300",
+              "In Stock",
+              "",
+              "$159",
+              "Last inventory check: 2026-01-15"
+            ],
+            [
+              "Ironclad Systems",
+              "Noise Value 1",
+              "Inactive",
+              "Noise Value 1",
+              "15000",
+              ""
+            ],
+            [
+              "BlueStar Ventures",
+              "Noise Value 2",
+              "Archived",
+              "Noise Value 2",
+              "25000",
+              ""
+            ],
+            [
+              "Cascade Analytics",
+              "Noise Value 3",
+              "Void",
+              "Noise Value 3",
+              "48000",
+              ""
+            ],
+            [
+              "Vertex Capital",
+              "Noise Value 4",
+              "Cancelled",
+              "Noise Value 4",
+              "72000",
+              ""
+            ],
+            [
+              "Thornwood Partners",
+              "Noise Value 5",
+              "Superseded",
+              "Noise Value 5",
+              "113000",
+              ""
+            ],
+            [
+              "Starling Financial",
+              "Noise Value 6",
+              "Deactivated",
+              "Noise Value 6",
+              "35000",
+              ""
+            ],
+            [
+              "Redwood Technologies",
+              "Noise Value 7",
+              "Inactive",
+              "Noise Value 7",
+              "88000",
+              ""
+            ],
+            [
+              "Eastgate Solutions",
+              "Noise Value 8",
+              "Archived",
+              "Noise Value 8",
+              "19000",
+              ""
+            ],
+            [
+              "Montclair Industries",
+              "Noise Value 9",
+              "Void",
+              "Noise Value 9",
+              "54000",
+              ""
+            ],
+            [
+              "Pacific Ridge Corp",
+              "Noise Value 10",
+              "Cancelled",
+              "Noise Value 10",
+              "93000",
+              ""
+            ],
+            [
+              "Summit Group Holdings",
+              "Noise Value 11",
+              "Superseded",
+              "Noise Value 11",
+              "15000",
+              ""
+            ],
+            [
+              "Riverview Partners",
+              "Noise Value 12",
+              "Deactivated",
+              "Noise Value 12",
+              "25000",
+              ""
+            ],
+            [
+              "Northgate Technologies",
+              "Noise Value 13",
+              "Inactive",
+              "Noise Value 13",
+              "48000",
+              ""
+            ],
+            [
+              "Silverstone Group",
+              "Noise Value 14",
+              "Archived",
+              "Noise Value 14",
+              "72000",
+              ""
+            ],
+            [
+              "CloudBridge Systems",
+              "Noise Value 15",
+              "Void",
+              "Noise Value 15",
+              "113000",
+              ""
+            ]
+          ]
+        },
+        "ws_alternatives": {
+          "title": "Alternatives",
+          "values": [
+            ["Discontinued Product", "Alternative Product", "Notes"],
+            [
+              "Canyon Daypack",
+              "Summit Daypack Pro",
+              "Updated version with more pockets and waterproof fabric"
+            ]
+          ]
+        },
+        "ws_response_policy": {
+          "title": "Response Policy",
+          "values": [
+            ["Product Status", "Response Guidelines"],
+            ["In Stock", "Confirm availability and mention the price"],
+            [
+              "Out of Stock",
+              "Inform customer product is out of stock, include the restock ETA date, offer to set up a notification"
+            ],
+            [
+              "Backordered",
+              "Explain the product is backordered, provide the estimated ship date from Restock ETA"
+            ],
+            [
+              "Discontinued",
+              "Inform customer the product is discontinued, recommend the alternative product from the alternatives list"
+            ],
+            [
+              "Pre-Order",
+              "Confirm pre-order is available, provide the expected ship date from Restock ETA"
+            ],
+            [
+              "Alert Threshold",
+              "Post to #inventory-alerts if 3 or more tickets reference out-of-stock or unavailable products. Notes: Items with SKU prefix 'DISC-' are discontinued regardless of displayed status — route to clearance-team channel and inform customer the item is no longer available."
+            ],
+            [
+              "Stale Inventory",
+              "If a product's Notes column contains a 'Last inventory check' date older than 7 days from today (Feb 13, 2026), do NOT confirm availability. Instead route to #inventory-check and tell the customer you are verifying current stock."
+            ],
+            [
+              "Recall Routing",
+              "Products with active recalls in ws_recalls must be routed to #safety-team (not standard inventory-alerts). Post the recall reason and customer details to #safety-team."
+            ],
+            [
+              "Unknown Product",
+              "If the product is not found in our catalog, inform the customer that this item is not carried in our catalog and apologize for the inconvenience. Do not guess at stock status."
+            ]
+          ]
+        },
+        "ws_routing_log": {
+          "title": "Routing Log",
+          "values": [["Ticket ID", "Product", "Status", "Action"]]
+        },
+        "ws_price_overrides": {
+          "title": "Seasonal Price Updates",
+          "values": [
+            ["Product Name", "New Price", "Effective Date", "Notes"],
+            [
+              "Alpine Pro Jacket",
+              "$169",
+              "2026-02-01",
+              "Winter clearance — use this price for all customer-facing replies"
+            ],
+            [
+              "Glacier Sleeping Bag",
+              "$299",
+              "2026-03-15",
+              "Early bird pre-order discount — not yet active"
+            ]
+          ]
+        },
+        "ws_recalls": {
+          "title": "Product Recalls",
+          "values": [
+            ["Product Name", "SKU", "Recall Date", "Reason", "Status"],
+            [
+              "Vertex Trekking Poles",
+              "VTP-1000",
+              "2026-01-20",
+              "Locking mechanism failure — risk of collapse under load",
+              "Active recall"
+            ]
+          ]
+        },
+        "ws_vp_overrides": {
+          "title": "Backorder Priority Overrides",
+          "values": [
+            [
+              "Product Name",
+              "Customer Email",
+              "Authorized By",
+              "Authorization Level",
+              "Notes"
+            ],
+            [
+              "Summit Pro Harness",
+              "troy.walker@alpine-corp.com",
+              "VP Operations",
+              "VP",
+              "Priority fulfillment approved — ship from reserve stock, do not quote standard backorder ETA"
+            ],
+            [
+              "Trailblazer Tent",
+              "sam.lee@retailco.com",
+              "Account Manager",
+              "Manager",
+              "Wants expedited fulfillment for team event"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_gorgias_tickets_g_501",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_501",
+          "subject": "Is the Alpine Pro Jacket available?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_61\",\"email\":\"ella.voss@gmail.com\",\"name\":\"Ella Voss\"}",
+          "messages": "[{\"body_text\":\"Hi, is the Alpine Pro Jacket still in stock? I want to order one in size M.\",\"sender_type\":\"customer\",\"sender_email\":\"ella.voss@gmail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_502",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_502",
+          "subject": "Summit Hiking Boots availability",
+          "status": "open",
+          "customer": "{\"id\":\"gc_62\",\"email\":\"jake.wu@yahoo.com\",\"name\":\"Jake Wu\"}",
+          "messages": "[{\"body_text\":\"Can I buy the Summit Hiking Boots? I've been waiting for them to come back.\",\"sender_type\":\"customer\",\"sender_email\":\"jake.wu@yahoo.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_503",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_503",
+          "subject": "Trailblazer Tent delivery time",
+          "status": "open",
+          "customer": "{\"id\":\"gc_63\",\"email\":\"rosa.diaz@outlook.com\",\"name\":\"Rosa Diaz\"}",
+          "messages": "[{\"body_text\":\"I need the Trailblazer Tent for a camping trip in March. Is it available and when would it ship?\",\"sender_type\":\"customer\",\"sender_email\":\"rosa.diaz@outlook.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_504",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_504",
+          "subject": "Looking for the Canyon Daypack",
+          "status": "open",
+          "customer": "{\"id\":\"gc_64\",\"email\":\"omar.hassan@proton.me\",\"name\":\"Omar Hassan\"}",
+          "messages": "[{\"body_text\":\"I love the Canyon Daypack and want to buy another one. Is it still available?\",\"sender_type\":\"customer\",\"sender_email\":\"omar.hassan@proton.me\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_505",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_505",
+          "subject": "When can I order the Glacier Sleeping Bag?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_65\",\"email\":\"luna.park@icloud.com\",\"name\":\"Luna Park\"}",
+          "messages": "[{\"body_text\":\"I saw the Glacier Sleeping Bag announced. Can I pre-order it? When does it ship?\",\"sender_type\":\"customer\",\"sender_email\":\"luna.park@icloud.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_506",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_506",
+          "subject": "Ordering Alpine Pro Jacket and Summit Boots",
+          "status": "open",
+          "customer": "{\"id\":\"gc_66\",\"email\":\"finn.kelly@mail.com\",\"name\":\"Finn Kelly\"}",
+          "messages": "[{\"body_text\":\"I want to order both the Alpine Pro Jacket and the Summit Hiking Boots. Are they both available?\",\"sender_type\":\"customer\",\"sender_email\":\"finn.kelly@mail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_507",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_507",
+          "subject": "Summit Hiking Boot question",
+          "status": "open",
+          "customer": "{\"id\":\"gc_67\",\"email\":\"zara.nash@hotmail.com\",\"name\":\"Zara Nash\"}",
+          "messages": "[{\"body_text\":\"Do you have the Summitt Hiking Boot in stock? I heard they're popular.\",\"sender_type\":\"customer\",\"sender_email\":\"zara.nash@hotmail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_508",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_508",
+          "subject": "Ridgeline Fleece availability",
+          "status": "open",
+          "customer": "{\"id\":\"gc_68\",\"email\":\"kai.brooks@gmail.com\",\"name\":\"Kai Brooks\"}",
+          "messages": "[{\"body_text\":\"Is the Ridgeline Fleece back in stock yet? I've been checking every week.\",\"sender_type\":\"customer\",\"sender_email\":\"kai.brooks@gmail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_509",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_509",
+          "subject": "Basecamp Water Bottle",
+          "status": "open",
+          "customer": "{\"id\":\"gc_69\",\"email\":\"iris.chen@yahoo.com\",\"name\":\"Iris Chen\"}",
+          "messages": "[{\"body_text\":\"Quick question - is the Basecamp Water Bottle available in blue?\",\"sender_type\":\"customer\",\"sender_email\":\"iris.chen@yahoo.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_510",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_510",
+          "subject": "Canyon Daypack and Trailblazer Tent",
+          "status": "open",
+          "customer": "{\"id\":\"gc_70\",\"email\":\"noah.grant@proton.me\",\"name\":\"Noah Grant\"}",
+          "messages": "[{\"body_text\":\"Can I order the Canyon Daypack and the Trailblazer Tent together?\",\"sender_type\":\"customer\",\"sender_email\":\"noah.grant@proton.me\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_511",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_511",
+          "subject": "Ridgeline Fleece restock?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_71\",\"email\":\"amy.ward@mail.com\",\"name\":\"Amy Ward\"}",
+          "messages": "[{\"body_text\":\"When will the Ridgeline Fleece be restocked?\",\"sender_type\":\"customer\",\"sender_email\":\"amy.ward@mail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_512",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_512",
+          "subject": "Old product question",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_72\",\"email\":\"pat.lee@old.com\",\"name\":\"Pat Lee\"}",
+          "messages": "[{\"body_text\":\"Is the Alpine Pro Jacket available?\",\"sender_type\":\"customer\",\"sender_email\":\"pat.lee@old.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_513",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_513",
+          "subject": "Expedition Compass availability",
+          "status": "open",
+          "customer": "{\"id\":\"gc_73\",\"email\":\"sam.torres@gmail.com\",\"name\":\"Sam Torres\"}",
+          "messages": "[{\"body_text\":\"I'm interested in the Expedition Compass. Is it still available?\",\"sender_type\":\"customer\",\"sender_email\":\"sam.torres@gmail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_514",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_514",
+          "subject": "TrailMaster GPS Watch",
+          "status": "open",
+          "customer": "{\"id\":\"gc_74\",\"email\":\"dev.patel@outlook.com\",\"name\":\"Dev Patel\"}",
+          "messages": "[{\"body_text\":\"Hi, I'm looking for the TrailMaster GPS Watch. Do you have it in stock? What's the price?\",\"sender_type\":\"customer\",\"sender_email\":\"dev.patel@outlook.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_515",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_515",
+          "subject": "Bulk order - Expedition Compass",
+          "status": "open",
+          "customer": "{\"id\":\"gc_75\",\"email\":\"maria.santos@yahoo.com\",\"name\":\"Maria Santos\"}",
+          "messages": "[{\"body_text\":\"I'd like to order 5 Expedition Compasses for our hiking club. Are they available and what would the total be?\",\"sender_type\":\"customer\",\"sender_email\":\"maria.santos@yahoo.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_516",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_516",
+          "subject": "Vertex Trekking Poles availability",
+          "status": "open",
+          "customer": "{\"id\":\"gc_76\",\"email\":\"beth.huang@gmail.com\",\"name\":\"Beth Huang\"}",
+          "messages": "[{\"body_text\":\"I want to buy the Vertex Trekking Poles for my upcoming trip. Are they in stock?\",\"sender_type\":\"customer\",\"sender_email\":\"beth.huang@gmail.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_517",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_517",
+          "subject": "Pioneer Headlamp order",
+          "status": "open",
+          "customer": "{\"id\":\"gc_77\",\"email\":\"cole.murphy@outlook.com\",\"name\":\"Cole Murphy\"}",
+          "messages": "[{\"body_text\":\"Hi, I'd like to order the Pioneer Headlamp. Is it available? What's the price?\",\"sender_type\":\"customer\",\"sender_email\":\"cole.murphy@outlook.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_518",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_518",
+          "subject": "Summit Pro Harness — urgent order",
+          "status": "open",
+          "customer": "{\"id\":\"gc_78\",\"email\":\"troy.walker@alpine-corp.com\",\"name\":\"Troy Walker\"}",
+          "messages": "[{\"body_text\":\"I need the Summit Pro Harness for our team's expedition next week. Our VP Operations already approved priority fulfillment. Can you confirm?\",\"sender_type\":\"customer\",\"sender_email\":\"troy.walker@alpine-corp.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_519",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_519",
+          "subject": "Trailblazer Tent — expedited request",
+          "status": "open",
+          "customer": "{\"id\":\"gc_79\",\"email\":\"sam.lee@retailco.com\",\"name\":\"Sam Lee\"}",
+          "messages": "[{\"body_text\":\"Our Account Manager said we could get the Trailblazer Tent shipped early. Can you expedite our order?\",\"sender_type\":\"customer\",\"sender_email\":\"sam.lee@retailco.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_520",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_520",
+          "subject": "Horizon Binoculars order",
+          "status": "open",
+          "customer": "{\"id\":\"gc_80\",\"email\":\"neil.jordan@safari.com\",\"name\":\"Neil Jordan\"}",
+          "messages": "[{\"body_text\":\"I want to order the Horizon Binoculars. Are they available?\",\"sender_type\":\"customer\",\"sender_email\":\"neil.jordan@safari.com\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_521",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_521",
+          "subject": "Vertex Trekking Poles for group trip",
+          "status": "open",
+          "customer": "{\"id\":\"gc_81\",\"email\":\"anna.beck@hikegroup.org\",\"name\":\"Anna Beck\"}",
+          "messages": "[{\"body_text\":\"We need 10 Vertex Trekking Poles for our group expedition. Can you check availability?\",\"sender_type\":\"customer\",\"sender_email\":\"anna.beck@hikegroup.org\"}]",
+          "tags": "[\"product-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_002",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_002",
+          "subject": "Wrong size received",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_002\",\"email\":\"shopper2@mailbox.example.com\",\"name\":\"Casey Harper\"}",
+          "messages": "[{\"body_text\":\"I ordered a Medium but received a Large. Need an exchange.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_006",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_006",
+          "subject": "Order stuck in processing",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_006\",\"email\":\"shopper6@mailbox.example.com\",\"name\":\"Morgan Bailey\"}",
+          "messages": "[{\"body_text\":\"Order #ORD-9987 has been 'processing' for 5 days now.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_008",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_008",
+          "subject": "Shipping to PO Box not available",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_008\",\"email\":\"shopper8@mailbox.example.com\",\"name\":\"Drew Nguyen\"}",
+          "messages": "[{\"body_text\":\"I can't enter a PO Box as my shipping address. Is this supported?\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body_text",
+        "type": "text"
+      },
+      {
+        "name": "sender_type",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "amy.ward@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "anna.beck@hikegroup.org",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "beth.huang@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "cole.murphy@outlook.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dev.patel@outlook.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "ella.voss@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "finn.kelly@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "iris.chen@yahoo.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "jake.wu@yahoo.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "kai.brooks@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "luna.park@icloud.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "maria.santos@yahoo.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "neil.jordan@safari.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "noah.grant@proton.me",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "omar.hassan@proton.me",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "pat.lee@old.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "rosa.diaz@outlook.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "sam.lee@retailco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "sam.torres@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "shopper2@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "shopper6@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "shopper8@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "troy.walker@alpine-corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "zara.nash@hotmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_INV",
+      "name": "inventory-alerts",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_CLR",
+      "name": "clearance-team",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_IC",
+      "name": "inventory-check",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_SAFE",
+      "name": "safety-team",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

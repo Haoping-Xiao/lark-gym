@@ -1,0 +1,574 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_patterns": {
+      "title": "Escalation Patterns",
+      "sheets": {
+        "ws_definitions": {
+          "title": "Pattern Definitions",
+          "values": [
+            [
+              "Pattern Name",
+              "Matching Tag",
+              "Description",
+              "Jira Priority",
+              "Notes"
+            ],
+            [
+              "auth-failure",
+              "auth-issue",
+              "Authentication and login failures",
+              "High",
+              "Escalations within the same team do not count as cross-team escalation patterns. If from_team and to_team are the same agent team, exclude from pattern count. Also exclude conversations tagged 'vendor-test' as these are integration testing tickets."
+            ],
+            [
+              "data-loss",
+              "data-issue",
+              "Data loss or corruption incidents",
+              "Critical",
+              "Escalations within the same team do not count as cross-team escalation patterns. If from_team and to_team are the same agent team, exclude from pattern count."
+            ],
+            [
+              "perf-degradation",
+              "performance",
+              "Performance degradation reports",
+              "Medium",
+              "Exclude conversations tagged 'load-test' from pattern counts - scheduled load tests are expected."
+            ],
+            [
+              "billing-error",
+              "billing-error",
+              "Billing and payment errors",
+              "High",
+              ""
+            ]
+          ]
+        },
+        "ws_thresholds": {
+          "title": "Escalation Thresholds",
+          "values": [
+            ["Setting", "Value", "Description"],
+            [
+              "Jira Creation Threshold",
+              "3",
+              "Create a Jira ticket only when a pattern has 3 or more qualifying escalated conversations."
+            ],
+            [
+              "Slack Exact Counts",
+              "true",
+              "Slack summary must include the exact count of qualifying conversations per pattern in the format 'pattern-name: N conversations'."
+            ]
+          ]
+        },
+        "ws_analytics": {
+          "title": "Pattern Analytics",
+          "values": [["Conversation ID", "Subject", "Matched Pattern"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hiver_conversations_hv_e01",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e01",
+          "subject": "SSO login broken after update",
+          "status": "open",
+          "tags": "[\"escalated\",\"auth-issue\"]",
+          "customer_email": "c1@acme.com",
+          "customer_name": "Client 1",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e02",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e02",
+          "subject": "MFA not sending codes",
+          "status": "open",
+          "tags": "[\"escalated\",\"auth-issue\"]",
+          "customer_email": "c2@betaco.com",
+          "customer_name": "Client 2",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e03",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e03",
+          "subject": "SAML assertion error on login",
+          "status": "pending",
+          "tags": "[\"escalated\",\"auth-issue\"]",
+          "customer_email": "c3@gammatech.com",
+          "customer_name": "Client 3",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e04",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e04",
+          "subject": "Missing records after sync",
+          "status": "open",
+          "tags": "[\"escalated\",\"data-issue\"]",
+          "customer_email": "c4@deltaco.com",
+          "customer_name": "Client 4",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e05",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e05",
+          "subject": "Data corruption in exports",
+          "status": "open",
+          "tags": "[\"escalated\",\"data-issue\"]",
+          "customer_email": "c5@epsiloncorp.com",
+          "customer_name": "Client 5",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e06",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e06",
+          "subject": "Deleted records not in trash",
+          "status": "pending",
+          "tags": "[\"escalated\",\"data-issue\"]",
+          "customer_email": "c6@zetacorp.com",
+          "customer_name": "Client 6",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e07",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e07",
+          "subject": "Dashboard extremely slow",
+          "status": "open",
+          "tags": "[\"escalated\",\"performance\"]",
+          "customer_email": "c7@etacorp.com",
+          "customer_name": "Client 7",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e08",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e08",
+          "subject": "API timeout on large queries",
+          "status": "open",
+          "tags": "[\"escalated\",\"performance\"]",
+          "customer_email": "c8@thetacorp.com",
+          "customer_name": "Client 8",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e09",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e09",
+          "subject": "General question about billing",
+          "status": "open",
+          "tags": "[\"billing\"]",
+          "customer_email": "c9@iotacorp.com",
+          "customer_name": "Client 9",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e10",
+          "subject": "Auth issue but not escalated",
+          "status": "open",
+          "tags": "[\"auth-issue\"]",
+          "customer_email": "c10@kappacorp.com",
+          "customer_name": "Client 10",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e11",
+          "subject": "Intermittent data sync failures",
+          "status": "closed",
+          "tags": "[\"escalated\",\"data-issue\"]",
+          "customer_email": "c11@lambdacorp.com",
+          "customer_name": "Client 11",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e12",
+          "subject": "Escalated general complaint",
+          "status": "open",
+          "tags": "[\"escalated\",\"general\"]",
+          "customer_email": "c12@mucorp.com",
+          "customer_name": "Client 12",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e13",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e13",
+          "subject": "Page loads slowly sometimes",
+          "status": "open",
+          "tags": "[\"performance\"]",
+          "customer_email": "c13@nucorp.com",
+          "customer_name": "Client 13",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e14",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e14",
+          "subject": "Password reset loop after SSO config",
+          "status": "open",
+          "tags": "[\"escalated\",\"auth-issue\",\"same-team-reassign\"]",
+          "customer_email": "c14@omegacorp.com",
+          "customer_name": "Client 14",
+          "assignee_id": "hu_a1",
+          "from_team": "hu_a1",
+          "to_team": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e15",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e15",
+          "subject": "Sync job deleting records internally",
+          "status": "open",
+          "tags": "[\"escalated\",\"data-issue\",\"same-team-reassign\"]",
+          "customer_email": "c15@sigmacorp.com",
+          "customer_name": "Client 15",
+          "assignee_id": "hu_a2",
+          "from_team": "hu_a2",
+          "to_team": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e16",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e16",
+          "subject": "SSO test failure from vendor integration",
+          "status": "open",
+          "tags": "[\"escalated\",\"auth-issue\",\"vendor-test\"]",
+          "customer_email": "c16@rhocorp.com",
+          "customer_name": "Client 16",
+          "assignee_id": "hu_a1"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_e17",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_e17",
+          "subject": "API throttled during scheduled load test",
+          "status": "open",
+          "tags": "[\"escalated\",\"performance\",\"load-test\"]",
+          "customer_email": "c17@taocorp.com",
+          "customer_name": "Client 17",
+          "assignee_id": "hu_a2"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_003",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_003",
+          "subject": "IT equipment return process",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_001",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_001",
+          "subject": "Vendor payment query",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_006",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_006",
+          "subject": "Travel reimbursement approval",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_a1",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_a1",
+          "name": "Agent Alpha",
+          "email": "alpha@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_a2",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_a2",
+          "name": "Agent Beta",
+          "email": "beta@support.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_003",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_003",
+          "name": "Robin Hartley",
+          "email": "rhartley@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_hm_support",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "hm_support",
+          "name": "Support Inbox",
+          "email": "support@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_jira_projects_source_index_0",
+        "fields": {
+          "collection": "jira_projects",
+          "key": "SUP",
+          "name": "Support Issues"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "from_team",
+        "type": "text"
+      },
+      {
+        "name": "to_team",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "key",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alpha@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "beta@support.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "c10@kappacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "c11@lambdacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "c12@mucorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "c13@nucorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "c14@omegacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "c15@sigmacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "c16@rhocorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "c17@taocorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "c1@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "c2@betaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "c3@gammatech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "c4@deltaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "c5@epsiloncorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "c6@zetacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "c7@etacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "c8@thetacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "c9@iotacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "rhartley@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_OPS",
+      "name": "support-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

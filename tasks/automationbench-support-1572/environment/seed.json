@@ -1,0 +1,452 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_quality": {
+      "title": "Quality Tracker",
+      "sheets": {
+        "ws_scores": {
+          "title": "Quality Scores",
+          "values": [["Conversation ID", "Agent", "Quality Rating", "Notes"]]
+        },
+        "ws_config": {
+          "title": "Audit Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "QA-BATCH-W06-2026"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_conversations_conv_q01",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q01",
+          "title": "Cannot export CSV reports",
+          "state": "open",
+          "contact_ids": "[\"ic_q01\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"I can't export any CSV reports from the dashboard. The button does nothing.\",\"author_type\":\"user\",\"author_id\":\"ic_q01\"},{\"body\":\"Hi there! Thanks for reaching out. I've looked into the CSV export issue and found that it's related to a browser caching problem. Here's how to fix it:\\n\\n1. Clear your browser cache (Settings > Privacy > Clear browsing data)\\n2. Disable any ad blockers temporarily\\n3. Try the export again using Chrome or Firefox\\n\\nIf that doesn't work, I've also filed an internal ticket to investigate further. Is there anything else I can help you with?\",\"author_type\":\"admin\",\"author_id\":\"agent_sarah\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q02",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q02",
+          "title": "API key not working",
+          "state": "open",
+          "contact_ids": "[\"ic_q02\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"My API key stopped working yesterday. I've been using it for months without issues.\",\"author_type\":\"user\",\"author_id\":\"ic_q02\"},{\"body\":\"regenerate it\",\"author_type\":\"admin\",\"author_id\":\"agent_tom\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q03",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q03",
+          "title": "Billing discrepancy",
+          "state": "open",
+          "contact_ids": "[\"ic_q03\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"I was charged twice for my subscription this month. Can you look into this?\",\"author_type\":\"user\",\"author_id\":\"ic_q03\"},{\"body\":\"I checked your billing history and confirmed the duplicate charge. A refund of $49.99 has been initiated and should appear in 3-5 business days. The issue was caused by a payment processor timeout that triggered a retry.\",\"author_type\":\"admin\",\"author_id\":\"agent_sarah\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q04",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q04",
+          "title": "Data import failing",
+          "state": "open",
+          "contact_ids": "[\"ic_q04\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"We've been trying to import our customer data for two days and it keeps failing at row 5000.\",\"author_type\":\"user\",\"author_id\":\"ic_q04\"},{\"body\":\"Hello! I completely understand how frustrating that must be, especially after two days of trying. I've investigated and found the issue — row 5000 in your file has a special character in the email field that our parser can't handle.\\n\\nHere's what I recommend:\\n1. Open your CSV and check row 5000 for any special characters (like é or ü) in the email column\\n2. Replace them with standard ASCII characters\\n3. Save and re-upload\\n\\nAlternatively, I can run the import on our end with a special flag that handles unicode characters. Would you like me to do that instead? I've also flagged this to our engineering team so we can support these characters natively in the next release.\",\"author_type\":\"admin\",\"author_id\":\"agent_maya\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q05",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q05",
+          "title": "Dashboard loading slowly",
+          "state": "open",
+          "contact_ids": "[\"ic_q05\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Our dashboard has been extremely slow for the past week. It takes 30+ seconds to load any page.\",\"author_type\":\"user\",\"author_id\":\"ic_q05\"},{\"body\":\"try a different browser\",\"author_type\":\"admin\",\"author_id\":\"agent_tom\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q06",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q06",
+          "title": "SSO configuration help",
+          "state": "open",
+          "contact_ids": "[\"ic_q06\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"We're trying to set up SSO with Azure AD but getting SAML assertion errors.\",\"author_type\":\"user\",\"author_id\":\"ic_q06\"},{\"body\":\"Hi! I'd be happy to help with your SSO setup. SAML assertion errors usually occur when there's a mismatch in the Entity ID or ACS URL. Can you share your Azure AD SAML configuration screenshot so I can compare it with our expected values?\",\"author_type\":\"admin\",\"author_id\":\"agent_maya\"},{\"body\":\"Here's the screenshot showing our Azure AD SAML config.\",\"author_type\":\"user\",\"author_id\":\"ic_q06\"},{\"body\":\"looks wrong. fix the url\",\"author_type\":\"admin\",\"author_id\":\"agent_maya\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q07",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q07",
+          "title": "Feature request: dark mode",
+          "state": "open",
+          "contact_ids": "[\"ic_q07\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Please add dark mode to the app. My eyes hurt.\",\"author_type\":\"user\",\"author_id\":\"ic_q07\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q08",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q08",
+          "title": "Internal escalation",
+          "state": "open",
+          "contact_ids": "[\"ic_q08\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"This customer keeps calling about the same issue.\",\"author_type\":\"user\",\"author_id\":\"ic_q08\"},{\"body\":\"Internal note: Escalated to Tier 2 engineering. Ticket JIRA-4521 created.\",\"author_type\":\"admin\",\"author_id\":\"agent_sarah\",\"part_type\":\"note\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q09",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q09",
+          "title": "Webhook not firing",
+          "state": "open",
+          "contact_ids": "[\"ic_q09\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Our webhooks stopped firing for the events endpoint. We rely on this for our order processing pipeline.\",\"author_type\":\"user\",\"author_id\":\"ic_q09\"},{\"body\":\"Hi! Thanks for reporting this — I understand webhooks are critical for your order pipeline. I've checked our webhook delivery logs and found that your endpoint at api.yoursite.com/webhooks has been returning 503 errors since February 6th.\\n\\nThis means the issue is on the receiving end, not our delivery. Here's what to check:\\n1. Verify your webhook endpoint is up and responding to POST requests\\n2. Check your server logs for any recent deployments or config changes around Feb 6\\n3. Test by sending a curl POST to your endpoint manually\\n\\nI've also enabled retry mode on your account so pending events will be re-delivered once your endpoint is back. Let me know if you need any help debugging!\",\"author_type\":\"admin\",\"author_id\":\"agent_sarah\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_q10",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_q10",
+          "title": "Old resolved issue",
+          "state": "closed",
+          "contact_ids": "[\"ic_q10\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Issue with login.\",\"author_type\":\"user\",\"author_id\":\"ic_q10\"},{\"body\":\"fixed.\",\"author_type\":\"admin\",\"author_id\":\"agent_tom\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_011",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_011",
+          "title": "Report scheduled export failed",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_003\"]",
+          "tags": "[\"reporting\"]",
+          "conversation_parts": "[{\"body\":\"The weekly scheduled report didn't arrive in my inbox on Monday.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_012",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_012",
+          "title": "Need GDPR data deletion",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_004\"]",
+          "tags": "[\"gdpr\"]",
+          "conversation_parts": "[{\"body\":\"A customer has requested full data deletion under GDPR. How do we process this?\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_005",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_005",
+          "title": "Data export taking too long",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_005\"]",
+          "tags": "[\"export\"]",
+          "conversation_parts": "[{\"body\":\"I requested a data export 3 hours ago and it's still processing.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q01",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q01",
+          "name": "User One",
+          "email": "user1@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q02",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q02",
+          "name": "User Two",
+          "email": "user2@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q03",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q03",
+          "name": "User Three",
+          "email": "user3@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q04",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q04",
+          "name": "User Four",
+          "email": "user4@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q05",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q05",
+          "name": "User Five",
+          "email": "user5@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q06",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q06",
+          "name": "User Six",
+          "email": "user6@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q07",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q07",
+          "name": "User Seven",
+          "email": "user7@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q08",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q08",
+          "name": "User Eight",
+          "email": "user8@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q09",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q09",
+          "name": "User Nine",
+          "email": "user9@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_q10",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_q10",
+          "name": "User Ten",
+          "email": "user10@company.example.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_003",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_003",
+          "name": "Liam O'Brien",
+          "email": "lobrien@frostbyte.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_004",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_004",
+          "name": "Aisha Rahman",
+          "email": "arahman@luminex.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "author_type",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "arahman@luminex.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "lobrien@frostbyte.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "user10@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "user1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "user2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "user3@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "user4@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "user5@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "user6@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "user7@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "user8@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "user9@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_QUAL",
+      "name": "quality-review",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}
