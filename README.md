@@ -4,7 +4,7 @@
 
 通过真实 lark-cli，在独立、有状态的飞书 Mock 中评测办公 Agent。任务采用 Harbor 原生格式，包含中文要求、初始业务数据、CLI 参考解和独立评分器。
 
-目前包含 **800 道 AutomationBench 改写任务**（600 道正式题、200 道 simple 辅助题），以及一个维护通知示例。800 道任务均已通过本地 CLI 参考解和反例检查；当前版本的全量 Harbor 容器验收仍在进行。本项目是飞书业务改写，不是官方 AutomationBench 分数复现。
+目前包含 **800 道 AutomationBench 改写任务**（600 道正式题、200 道 simple 辅助题），以及一个维护通知示例。800 道任务均已通过本地 CLI 参考解和反例检查，以及原生 Harbor 容器验收（800 次参考解得 1 分、800 次空操作得 0 分）。维护通知示例也通过了独立容器验证。本项目是飞书业务改写，不是官方 AutomationBench 分数复现。
 
 ```text
 tasks/<name>/
@@ -70,4 +70,4 @@ CLI 固定版本 `0493db0cd1a10d6dd8a2295128bec3e319c7fbb0`，构建时下载上
 
 Mock 实现任务需要的共享业务状态和部分权限规则；尚未与真实飞书租户做差分验证，也不模拟完整 OAuth、线上通知送达或全部接口。未知端点返回 501。只使用本地合成凭据，不向生产系统写入。
 
-历史版本已有原生 Harbor oracle/nop 容器通过记录；逐题 `container_verified` 只代表明确记录的相同版本证据，不能用历史成功替代当前版本验收。最终运行产物位于 Harbor jobs 目录和 CI artifacts。
+验证版本为 `e4c2848c1c7cfd676d95f28839a9f539693e645a`：[完整 CI 与产物](https://github.com/Haoping-Xiao/officegym/actions/runs/35478351128)。本地 813 项测试、Go 测试和 vet 通过；全部 25 组容器产物已下载复核，任务集合恰好覆盖 800 题。第 12 组首次因 Docker 构建器异常中断，同一提交重跑通过，其余组首次通过。逐题 `container_verified` 对应此验证版本，详细证据记录在 `scripts/migration/automationbench.json`；后续业务代码修改需要重新验证。
