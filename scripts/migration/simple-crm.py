@@ -181,7 +181,7 @@ for row in rows:
     (target/'task.toml').write_text(f'''schema_version = "1.4"
 artifacts = [{{ source = "/var/lib/feishu-mock/state.json", service = "mock" }}]
 [task]
-name = "officegym/{slug}"
+name = "lark-gym/{slug}"
 version = "0.1.0"
 authors = []
 [metadata]
@@ -203,8 +203,8 @@ cpus = 2
 memory_mb = 2048
 storage_mb = 10240
 ''')
-    (target/'environment/Dockerfile').write_text('FROM officegym-cli:0.2.0\nWORKDIR /workspace\n')
-    (target/'environment/mock.Dockerfile').write_text('FROM officegym-mock:0.2.0\nCOPY seed.json /opt/mock/seed.json\n')
+    (target/'environment/Dockerfile').write_text('FROM lark-gym-cli:0.2.0\nWORKDIR /workspace\n')
+    (target/'environment/mock.Dockerfile').write_text('FROM lark-gym-mock:0.2.0\nCOPY seed.json /opt/mock/seed.json\n')
     (target/'environment/docker-compose.yaml').write_text('''services:
   main:
     build:

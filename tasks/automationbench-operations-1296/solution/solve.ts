@@ -28,7 +28,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_CDESIGN',
     '--text',
-    '2 designs queued | Q1 Banner | Social Template | PNG | officegym://drive/folders/fld_q1_assets',
+    '2 designs queued | Q1 Banner | Social Template | PNG | lark-gym://drive/folders/fld_q1_assets',
   ],
 ];
 for (const args of commands)

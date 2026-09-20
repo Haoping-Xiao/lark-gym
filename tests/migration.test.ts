@@ -14,7 +14,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
     `${task}: no-op fails, CLI oracle passes, collateral edits fail`,
     { timeout: 30000 },
     async () => {
-      const dir = await mkdtemp(join(tmpdir(), 'officegym-migration-'));
+      const dir = await mkdtemp(join(tmpdir(), 'lark-gym-migration-'));
       const seed = JSON.parse(
         await readFile(`tasks/${task}/environment/seed.json`, 'utf8'),
       );
