@@ -1,3 +1,6 @@
+import { fail } from '../../errors.ts';
+import { page } from '../../pagination.ts';
+
 type Chat = {
   chat_id: string;
   chat_mode?: string;
@@ -8,7 +11,6 @@ type World = {
   chats: Chat[];
   base: { records: { fields: Record<string, string | number> }[] };
 };
-type Fail = (status: number, code: number, message: string) => never;
 // This fixture models user_id memberships and explicit caller management rights.
 export function chatMembers(
   world: World,
@@ -16,8 +18,6 @@ export function chatMembers(
   chatId: string,
   query: URLSearchParams,
   body: { id_list?: unknown },
-  fail: Fail,
-  page: (items: unknown[], query: URLSearchParams) => unknown,
 ) {
   const chat = world.chats.find((c) => c.chat_id === chatId);
   if (!chat) return fail(404, 232001, 'Chat not found');
@@ -75,7 +75,6 @@ export function createChat(
   world: World & { chat_creation_allowed?: boolean },
   query: URLSearchParams,
   body: Record<string, unknown>,
-  fail: Fail,
 ) {
   if (!world.chat_creation_allowed)
     return fail(403, 99991672, 'Chat creation not permitted');

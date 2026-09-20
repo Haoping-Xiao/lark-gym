@@ -1,9 +1,7 @@
+import { fail } from '../../errors.ts';
+
 type Row = { record_id: string; fields: Record<string, unknown> };
-export function deleteRecords(
-  base: { records: Row[] },
-  ids: unknown,
-  fail: (status: number, code: number, message: string) => never,
-) {
+export function deleteRecords(base: { records: Row[] }, ids: unknown) {
   if (
     !Array.isArray(ids) ||
     !ids.length ||

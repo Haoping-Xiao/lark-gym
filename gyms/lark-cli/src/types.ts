@@ -27,6 +27,7 @@ export interface World {
     fields?: { name: string; type: string }[];
   };
   chats: (ApiObject & { chat_id: string; name: string })[];
+  chat_creation_allowed?: boolean;
   messages: (ApiObject & { message_id: string; chat_id: string })[];
 }
 export interface ApiCall {
