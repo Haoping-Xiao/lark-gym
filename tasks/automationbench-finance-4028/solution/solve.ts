@@ -102,7 +102,7 @@ const commands: string[][] = [
     '--range',
     'F2',
     '--cells',
-    '[[{"value": "officegym://invoice/ACM-2026-0088"}]]',
+    '[[{"value": "lark-gym://invoice/ACM-2026-0088"}]]',
   ],
   [
     'sheets',
@@ -174,7 +174,7 @@ const commands: string[][] = [
     '--range',
     'F3',
     '--cells',
-    '[[{"value": "officegym://invoice/BI-5501"}]]',
+    '[[{"value": "lark-gym://invoice/BI-5501"}]]',
   ],
   [
     'sheets',
@@ -246,7 +246,7 @@ const commands: string[][] = [
     '--range',
     'F4',
     '--cells',
-    '[[{"value": "officegym://invoice/TS-22104"}]]',
+    '[[{"value": "lark-gym://invoice/TS-22104"}]]',
   ],
   [
     'im',

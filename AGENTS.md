@@ -1,4 +1,4 @@
-# OfficeGym development rules
+# LarkGym development rules
 
 ## Task format and ownership
 

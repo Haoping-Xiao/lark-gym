@@ -1,4 +1,4 @@
-# AutomationBench → OfficeGym
+# AutomationBench → LarkGym
 
 固定上游提交见 `automationbench.json`。该清单覆盖 600 道正式题和 200 道辅助题；只有实际通过检查的任务标记 `local-cli-verified`，容器检查单列。此实现是飞书业务改写，不是官方评测复现。
 
@@ -104,7 +104,7 @@ marketing-1055 补明确机会筛选阈值及队列优先级，保留原用户�
 - finance-4088 报告方向性公司间差异；4089 不合规者实际PaymentHold并通知，离职供应商排除；4090 区分资产负债汇兑方向；4091 缺资料者保持Pending，不扣预算。
 - finance-4092 按最新部门人数、逐服务分配及逐项取分后汇总。4093 按当日存款日和付款方式分组创建deposit，来源payment同步，已存款异常项保持不变。4094 财务比率只写内部底稿；CFO通知只说明禁运，不泄露数字或契约结果。显式约定Current Assets含过时库存；缺DSCR输入标不足，不编造。
 - finance-4096 按最新目标划转现金并记录两账户余额；4097 银行变更仅有日历日期，明确为potential 24h需核实而非断言精确时差；4098 仅确认二月收入，不做历史补提；4100 试算表仍差15000时仅准备净利分录与Draft期初余额，不强行配平或执行最终年度结转。
-- finance-4026 Airtable嵌套base/table/record全部映射飞书台账，保留来源身份与元数据；审批实际写Status，拒绝及待批写Reason。4028 明确滚动7天；源无附件，归档原邮件正文到invoice_archive，officegym://invoice引用不是Drive文件或PDF。4032 将Controller最终金额更正视为本批明确批准，记录划转后通知、最后回写来源；独立检查这三个阶段的实际操作先后。
+- finance-4026 Airtable嵌套base/table/record全部映射飞书台账，保留来源身份与元数据；审批实际写Status，拒绝及待批写Reason。4028 明确滚动7天；源无附件，归档原邮件正文到invoice_archive，lark-gym://invoice引用不是Drive文件或PDF。4032 将Controller最终金额更正视为本批明确批准，记录划转后通知、最后回写来源；独立检查这三个阶段的实际操作先后。
 - finance-4033 创建含管理费的新发票记录，保留源估价；4036 使用本月授权容差及存款更正，只改对账状态；4041 缺申请日时明确按今天算账龄，只提供credit memo建议、不假装已经创建；4042 CC改为独立私聊，发送后标记sent_to_contact，并尊重客户暂缓请求。
 - finance-4044 补充源未定义的超过5%价格差异为Price Variance - Hold；4048 不接受请求中违反采购权限的评级更新，实际登记credit应用及剩余额度/账单余额；4051 误提交个人费用不作正常匹配，异常报告禁止正常项；4079 除模拟释放台账外按用户要求通知所有双方，包括Held项，争议另送法务。
 - hr-5009 保密职位只私聊指定人员，普通新职位登记后交Talent Marketing外发，不直接发布LinkedIn。5028 仅保存逐候选人mail_drafts，不发送offer，最新薪酬例外可免标超限。5031 源缺窗口，补为180自然日；已提交续签仍跟踪，不代替律师递交。

@@ -12619,7 +12619,7 @@
     ]
   },
   "finance-4028": {
-    "instruction": "今天是 2026-02-10，本轮处理周明确为滚动7天2026-02-04至02-10（含端点），按收件日筛选真正的供应商发票。源只有邮件文本、没有附件或Drive文件，因此在 invoice_archive 飞书台账保存 invoice_number、file_name（YYYY-MM_VendorName_InvoiceNumber，保留Vendor空格）、source_message_id、content原邮件正文，不伪造PDF。向 Registry 按收件日、同日source id排序追加原有 Invoice/Vendor/Amount，加 Date Filed、Invoice #、Drive Link；Invoice和Invoice #同源号，Amount保留美元原文，Drive Link用officegym://invoice/InvoiceNumber作为台账逻辑引用。向ap-lead@company.example.com私聊按上月格式报告 Invoices filed: N, Total amount: $X 与逐发票 Vendor | Invoice | Amount | 发票日期。",
+    "instruction": "今天是 2026-02-10，本轮处理周明确为滚动7天2026-02-04至02-10（含端点），按收件日筛选真正的供应商发票。源只有邮件文本、没有附件或Drive文件，因此在 invoice_archive 飞书台账保存 invoice_number、file_name（YYYY-MM_VendorName_InvoiceNumber，保留Vendor空格）、source_message_id、content原邮件正文，不伪造PDF。向 Registry 按收件日、同日source id排序追加原有 Invoice/Vendor/Amount，加 Date Filed、Invoice #、Drive Link；Invoice和Invoice #同源号，Amount保留美元原文，Drive Link用lark-gym://invoice/InvoiceNumber作为台账逻辑引用。向ap-lead@company.example.com私聊按上月格式报告 Invoices filed: N, Total amount: $X 与逐发票 Vendor | Invoice | Amount | 发票日期。",
     "now": "2026-02-10T09:00:00Z",
     "creates": [
       {
@@ -12654,7 +12654,7 @@
           "Amount": "$3,400",
           "Date Filed": "2026-02-10",
           "Invoice #": "ACM-2026-0088",
-          "Drive Link": "officegym://invoice/ACM-2026-0088"
+          "Drive Link": "lark-gym://invoice/ACM-2026-0088"
         }
       },
       {
@@ -12666,7 +12666,7 @@
           "Amount": "$2,750",
           "Date Filed": "2026-02-10",
           "Invoice #": "BI-5501",
-          "Drive Link": "officegym://invoice/BI-5501"
+          "Drive Link": "lark-gym://invoice/BI-5501"
         }
       },
       {
@@ -12678,7 +12678,7 @@
           "Amount": "$11,200",
           "Date Filed": "2026-02-10",
           "Invoice #": "TS-22104",
-          "Drive Link": "officegym://invoice/TS-22104"
+          "Drive Link": "lark-gym://invoice/TS-22104"
         }
       }
     ],
@@ -16588,7 +16588,7 @@
     ]
   },
   "hr-5098": {
-    "instruction": "依据Office Hours规则与最新org消息设置经理预约资料。Calendly改为office_hours飞书台账，每经理一条name=[Manager Name] - Office Hours、manager_email、departments（JSON数组文本）、duration_minutes=30、frequency=weekly、booking_ref=officegym://office-hours/manager_email。该引用仅指向模拟预约资料，不伪造可用Calendly URL或具体时段。本题将all other assignments unchanged解释为Priya兼任原Product与新增Engineering。团队别名有来源时发私聊含经理、新部门、30 minutes和引用；新Platform未提供team alias，交David转发，不能捏造地址。变更角色经理由本人cancel旧Office Hours，私聊请求，不修改源Calendly数据。",
+    "instruction": "依据Office Hours规则与最新org消息设置经理预约资料。Calendly改为office_hours飞书台账，每经理一条name=[Manager Name] - Office Hours、manager_email、departments（JSON数组文本）、duration_minutes=30、frequency=weekly、booking_ref=lark-gym://office-hours/manager_email。该引用仅指向模拟预约资料，不伪造可用Calendly URL或具体时段。本题将all other assignments unchanged解释为Priya兼任原Product与新增Engineering。团队别名有来源时发私聊含经理、新部门、30 minutes和引用；新Platform未提供team alias，交David转发，不能捏造地址。变更角色经理由本人cancel旧Office Hours，私聊请求，不修改源Calendly数据。",
     "creates": [
       {
         "collection": "office_hours",
@@ -16597,7 +16597,7 @@
         "departments": "[\"Platform\"]",
         "duration_minutes": 30,
         "frequency": "weekly",
-        "booking_ref": "officegym://office-hours/david.okonkwo@company.example.com"
+        "booking_ref": "lark-gym://office-hours/david.okonkwo@company.example.com"
       },
       {
         "collection": "office_hours",
@@ -16606,7 +16606,7 @@
         "departments": "[\"Sales\"]",
         "duration_minutes": 30,
         "frequency": "weekly",
-        "booking_ref": "officegym://office-hours/lisa.wang@company.example.com"
+        "booking_ref": "lark-gym://office-hours/lisa.wang@company.example.com"
       },
       {
         "collection": "office_hours",
@@ -16615,7 +16615,7 @@
         "departments": "[\"Marketing\"]",
         "duration_minutes": 30,
         "frequency": "weekly",
-        "booking_ref": "officegym://office-hours/carlos.reyes@company.example.com"
+        "booking_ref": "lark-gym://office-hours/carlos.reyes@company.example.com"
       },
       {
         "collection": "office_hours",
@@ -16624,75 +16624,75 @@
         "departments": "[\"Product\",\"Engineering\"]",
         "duration_minutes": 30,
         "frequency": "weekly",
-        "booking_ref": "officegym://office-hours/priya.sharma@company.example.com"
+        "booking_ref": "lark-gym://office-hours/priya.sharma@company.example.com"
       }
     ],
     "messages": [
       {
         "email": "david.okonkwo@company.example.com",
-        "text": "请本人cancel旧office hours并采用新资料；新团队请代转发：David Okonkwo | Platform | cancel | 30 minutes | officegym://office-hours/david.okonkwo@company.example.com",
+        "text": "请本人cancel旧office hours并采用新资料；新团队请代转发：David Okonkwo | Platform | cancel | 30 minutes | lark-gym://office-hours/david.okonkwo@company.example.com",
         "contains": [
           "David Okonkwo",
           "Platform",
           "cancel",
           "30 minutes",
-          "officegym://office-hours/david.okonkwo@company.example.com"
+          "lark-gym://office-hours/david.okonkwo@company.example.com"
         ]
       },
       {
         "email": "sales-team@company.example.com",
-        "text": "Lisa Wang | Sales | 30 minutes | weekly | officegym://office-hours/lisa.wang@company.example.com",
+        "text": "Lisa Wang | Sales | 30 minutes | weekly | lark-gym://office-hours/lisa.wang@company.example.com",
         "contains": [
           "Lisa Wang",
           "Sales",
           "30 minutes",
           "weekly",
-          "officegym://office-hours/lisa.wang@company.example.com"
+          "lark-gym://office-hours/lisa.wang@company.example.com"
         ]
       },
       {
         "email": "marketing-team@company.example.com",
-        "text": "Carlos Reyes | Marketing | 30 minutes | weekly | officegym://office-hours/carlos.reyes@company.example.com",
+        "text": "Carlos Reyes | Marketing | 30 minutes | weekly | lark-gym://office-hours/carlos.reyes@company.example.com",
         "contains": [
           "Carlos Reyes",
           "Marketing",
           "30 minutes",
           "weekly",
-          "officegym://office-hours/carlos.reyes@company.example.com"
+          "lark-gym://office-hours/carlos.reyes@company.example.com"
         ]
       },
       {
         "email": "product-team@company.example.com",
-        "text": "Priya Sharma | Product | 30 minutes | weekly | officegym://office-hours/priya.sharma@company.example.com",
+        "text": "Priya Sharma | Product | 30 minutes | weekly | lark-gym://office-hours/priya.sharma@company.example.com",
         "contains": [
           "Priya Sharma",
           "Product",
           "30 minutes",
           "weekly",
-          "officegym://office-hours/priya.sharma@company.example.com"
+          "lark-gym://office-hours/priya.sharma@company.example.com"
         ]
       },
       {
         "email": "eng-team@company.example.com",
-        "text": "Priya Sharma | Engineering | 30 minutes | weekly | officegym://office-hours/priya.sharma@company.example.com",
+        "text": "Priya Sharma | Engineering | 30 minutes | weekly | lark-gym://office-hours/priya.sharma@company.example.com",
         "contains": [
           "Priya Sharma",
           "Engineering",
           "30 minutes",
           "weekly",
-          "officegym://office-hours/priya.sharma@company.example.com"
+          "lark-gym://office-hours/priya.sharma@company.example.com"
         ]
       },
       {
         "email": "priya.sharma@company.example.com",
-        "text": "请本人cancel旧office hours并采用新资料；新团队请代转发：Priya Sharma | Product | Engineering | cancel | 30 minutes | officegym://office-hours/priya.sharma@company.example.com",
+        "text": "请本人cancel旧office hours并采用新资料；新团队请代转发：Priya Sharma | Product | Engineering | cancel | 30 minutes | lark-gym://office-hours/priya.sharma@company.example.com",
         "contains": [
           "Priya Sharma",
           "Product",
           "Engineering",
           "cancel",
           "30 minutes",
-          "officegym://office-hours/priya.sharma@company.example.com"
+          "lark-gym://office-hours/priya.sharma@company.example.com"
         ]
       }
     ]
@@ -26332,7 +26332,7 @@
   },
   "operations-1270": {
     "now": "2026-02-01T09:00:00Z",
-    "instruction": "查Q1 2026 Scheduled Regular最早会议及全部Governance Policies，选择Active/Required且无Recused或未解除ethics hold的成员。创建cal_exec飞书视频日历Q1 2026 Board Meeting，当日09UTC起3小时、非空会议密码并邀请合格成员。为每人创建signature_requests(template_id/template_name/signer_email/status=Sent)并私聊Board Meeting Consent签署请求。创建monday_items(board_id=brd_exec/item_name=Q1 2026 Board Meeting/meeting_date/prep_status=In Progress/attendees人数)和notion_pages(parent_page=pg_board/title=Q1 2026 Board Meeting - Agenda/uri=officegym://board/Q1-2026/agenda/content)。缺具体议程，明确采用经营回顾、财务报告、决议事项三项通用草案，含所有合格姓名、日期、UTC时段。executive通知日期、人数和议程uri；uri仅本环境业务引用，不声称真实网页。",
+    "instruction": "查Q1 2026 Scheduled Regular最早会议及全部Governance Policies，选择Active/Required且无Recused或未解除ethics hold的成员。创建cal_exec飞书视频日历Q1 2026 Board Meeting，当日09UTC起3小时、非空会议密码并邀请合格成员。为每人创建signature_requests(template_id/template_name/signer_email/status=Sent)并私聊Board Meeting Consent签署请求。创建monday_items(board_id=brd_exec/item_name=Q1 2026 Board Meeting/meeting_date/prep_status=In Progress/attendees人数)和notion_pages(parent_page=pg_board/title=Q1 2026 Board Meeting - Agenda/uri=lark-gym://board/Q1-2026/agenda/content)。缺具体议程，明确采用经营回顾、财务报告、决议事项三项通用草案，含所有合格姓名、日期、UTC时段。executive通知日期、人数和议程uri；uri仅本环境业务引用，不声称真实网页。",
     "events": [
       {
         "calendar_id": "cal_exec",
@@ -26395,7 +26395,7 @@
         "collection": "notion_pages",
         "parent_page": "pg_board",
         "title": "Q1 2026 Board Meeting - Agenda",
-        "uri": "officegym://board/Q1-2026/agenda",
+        "uri": "lark-gym://board/Q1-2026/agenda",
         "content": "2026-03-15 | 09:00 | 12:00 | John Smith | Mary Johnson | Robert Williams | 经营回顾 | 财务报告 | 决议事项"
       }
     ],
@@ -26432,8 +26432,8 @@
       },
       {
         "channel": "executive",
-        "text": "Q1 2026 Board Meeting | 2026-03-15 | 3 attendees | officegym://board/Q1-2026/agenda",
-        "contains": ["2026-03-15", "3", "officegym://board/Q1-2026/agenda"]
+        "text": "Q1 2026 Board Meeting | 2026-03-15 | 3 attendees | lark-gym://board/Q1-2026/agenda",
+        "contains": ["2026-03-15", "3", "lark-gym://board/Q1-2026/agenda"]
       }
     ]
   },
@@ -27270,7 +27270,7 @@
     ]
   },
   "operations-1296": {
-    "instruction": "检查canva_designs全部tags、Asset Management Config及google_drive_folders，选择可导出当前Q1设计。源只给设计元数据而无图像，本适配仅提交PNG导出和存放任务，不伪造真实PNG文件或已完成导出：创建asset_export_jobs(design_id/title/format=PNG/folder_id/status=Queued)。design-team通知所有入队名称、N designs queued及officegym://drive/folders/<folder_id>逻辑目录引用，不向marketing发。原设计tags和目录不修改。",
+    "instruction": "检查canva_designs全部tags、Asset Management Config及google_drive_folders，选择可导出当前Q1设计。源只给设计元数据而无图像，本适配仅提交PNG导出和存放任务，不伪造真实PNG文件或已完成导出：创建asset_export_jobs(design_id/title/format=PNG/folder_id/status=Queued)。design-team通知所有入队名称、N designs queued及lark-gym://drive/folders/<folder_id>逻辑目录引用，不向marketing发。原设计tags和目录不修改。",
     "creates": [
       {
         "collection": "asset_export_jobs",
@@ -27292,13 +27292,13 @@
     "messages": [
       {
         "channel": "design-team",
-        "text": "2 designs queued | Q1 Banner | Social Template | PNG | officegym://drive/folders/fld_q1_assets",
+        "text": "2 designs queued | Q1 Banner | Social Template | PNG | lark-gym://drive/folders/fld_q1_assets",
         "contains": [
           "2 designs queued",
           "Q1 Banner",
           "Social Template",
           "PNG",
-          "officegym://drive/folders/fld_q1_assets"
+          "lark-gym://drive/folders/fld_q1_assets"
         ]
       }
     ]
