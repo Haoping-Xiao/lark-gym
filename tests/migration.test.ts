@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { startMock } from '../gyms/lark-cli/src/server.mjs';
+import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 for (const task of (await readdir('tasks')).filter((n) =>
   n.startsWith('automationbench-'),
@@ -104,6 +104,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
                   old.message_id === m.message_id,
               ),
           );
+          assert.ok(message);
           const content = JSON.parse(message.body.content);
           message.body.content = JSON.stringify({
             ...content,
@@ -148,6 +149,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
                 ([field, value]) => record.fields[field] === value,
               ),
           );
+          assert.ok(record);
           for (const [field, text] of Object.entries(recordBan.contains)) {
             record.fields[field] =
               String(record.fields[field] ?? '') + ' ' + text;
@@ -165,7 +167,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
         );
         if (flexible) {
           const sheet =
-            backend.world.spreadsheets[flexible.spreadsheet_token].sheets[
+            backend.world.spreadsheets![flexible.spreadsheet_token].sheets[
               flexible.sheet_id
             ];
           sheet.values[flexible.row][flexible.column] = flexible.one_of.find(
@@ -192,6 +194,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
           const event = backend.world.events.find(
             (e: { summary: string }) => e.summary === vcEvent.summary,
           );
+          assert.ok(event);
           delete event.vc_data;
           assert.equal(
             await grade(),
@@ -205,6 +208,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
           const chat = backend.world.chats.find(
             (c: { name: string }) => c.name === createdChat.name,
           );
+          assert.ok(chat);
           chat.member_ids = createdChat.user_ids.length
             ? []
             : ['unexpected_member'];
@@ -220,6 +224,7 @@ for (const task of (await readdir('tasks')).filter((n) =>
           const chat = backend.world.chats.find(
             (c: { chat_id: string }) => c.chat_id === membership.chat_id,
           );
+          assert.ok(chat);
           chat.member_ids = chat.member_ids.filter(
             (id: string) => id !== membership.user_ids[0],
           );

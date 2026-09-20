@@ -1,5 +1,6 @@
+import type { CliInvoker } from '../../../gyms/lark-cli/src/types.ts';
 // Reference solution using normal CLI commands only; never exposed to solver.
-export async function oracle(cli) {
+export async function oracle(cli: CliInvoker) {
   await cli([
     'sheets',
     '+workbook-info',

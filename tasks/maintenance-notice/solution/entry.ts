@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { oracle } from './oracle.mjs';
+import { oracle } from './oracle.ts';
 await oracle((args) =>
   promisify(execFile)('lark-cli', args, { timeout: 30000 }),
 );

@@ -1,7 +1,12 @@
+import type {
+  World,
+  ApiCall,
+  Verdict,
+} from '../../../gyms/lark-cli/src/types.ts';
 import { isDeepStrictEqual as equal } from 'node:util';
 // Independent fixed contract for this case; never ask the solving model to grade.
-/** @returns {import("../../../src/core/contracts.js").Verdict} */
-export function verify(seed, world, calls) {
+
+export function verify(seed: World, world: World, calls: ApiCall[]): Verdict {
   const start = '2026-02-22T02:00:00Z',
     end = '2026-02-22T04:00:00Z';
   const events = world.events.filter(
@@ -15,12 +20,12 @@ export function verify(seed, world, calls) {
       Number(e.start_time.timestamp) === Date.parse(start) / 1000 &&
       Number(e.end_time.timestamp) === Date.parse(end) / 1000,
   );
-  const completeText = (s) =>
+  const completeText = (s: unknown) =>
     typeof s === 'string' &&
     ['Data Closet', start, end].every((x) => s.includes(x));
   const record = world.base.records.find((r) => r.record_id === 'rec_200');
   const firstWrite = calls.findIndex((c) => c.changed);
-  const flatten = (v) =>
+  const flatten = (v: unknown): string =>
     typeof v === 'string'
       ? (() => {
           try {
@@ -39,10 +44,12 @@ export function verify(seed, world, calls) {
     .join('\n');
   const policyRead = seed.sheets.ws_maint_policy.values
     .slice(1)
-    .every((row) => row.every((s) => prior.includes(s)));
+    .every((row) => row.every((s) => prior.includes(String(s))));
   const planRead = seed.sheets.ws_plan.values
     .slice(1)
-    .every((row) => row.filter(Boolean).every((s) => prior.includes(s)));
+    .every((row) =>
+      row.filter(Boolean).every((s) => prior.includes(String(s))),
+    );
   const initialUnchanged = seed.events.every((e) =>
     equal(
       e,

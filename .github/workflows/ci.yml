@@ -19,20 +19,26 @@ jobs:
       - run: npm run build:cli
       - run: npm run check
       - run: npm run oracle
+  # CI runs deterministic checks only; model runs require explicit authorization.
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
+      - run: bash scripts/build-images.sh
+      - run: harbor run --path tasks/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
+      - run: python scripts/check-harbor-results.py runs/harbor/maintenance-oracle 1 maintenance-notice
+      - run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
+      - run: python scripts/check-harbor-results.py runs/harbor/maintenance-nop 0 maintenance-notice
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: oracle-results
-          path: runs/
-  # CI runs deterministic checks only. Real Codex smoke runs require an authorized login.
-  container:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-      - run: bash scripts/test-harbor-container.sh
+          name: maintenance-harbor-results
+          path: runs/harbor/
   harbor_plan:
     runs-on: ubuntu-latest
     outputs:
@@ -57,7 +63,7 @@ jobs:
     needs: harbor_plan
     strategy:
       fail-fast: false
-      max-parallel: 4
+      max-parallel: 8
       matrix:
         shard: ${{ fromJSON(needs.harbor_plan.outputs.shards) }}
     runs-on: ubuntu-latest

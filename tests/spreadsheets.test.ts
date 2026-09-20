@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { resolve } from 'node:path';
-import { startMock } from '../gyms/lark-cli/src/server.mjs';
+import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 test('Two spreadsheet tokens with identical sheet IDs remain isolated and record writes', async () => {
   const seed = JSON.parse(
@@ -45,6 +45,20 @@ test('Two spreadsheet tokens with identical sheet IDs remain isolated and record
       ]);
     assert.match(await read('book_a'), /Alpha/);
     assert.match(await read('book_b'), /Beta/);
+    const response = await fetch(
+      backend.url +
+        '/open-apis/sheets/v2/spreadsheets/book_b/values_batch_get?ranges=sheet1!A1:A1&ranges=sheet1!A2:A2',
+      { headers: { authorization: 'Bearer local-evaluation-only' } },
+    );
+    assert.equal(response.status, 200);
+    const batch = (await response.json()) as {
+      data: { valueRanges: { values: string[][] }[] };
+    };
+    assert.deepEqual(
+      batch.data.valueRanges.map((range) => range.values),
+      [[['Value']], [['Beta']]],
+    );
+
     await cli([
       'sheets',
       '+cells-set',
@@ -60,7 +74,7 @@ test('Two spreadsheet tokens with identical sheet IDs remain isolated and record
     assert.match(await read('book_a'), /Updated/);
     assert.match(await read('book_b'), /Beta/);
     assert.equal(
-      backend.world.spreadsheets.book_b.sheets.sheet1.values[1][0],
+      backend.world.spreadsheets!.book_b.sheets.sheet1.values[1][0],
       'Beta',
     );
     assert.ok(

@@ -1,30 +1,40 @@
+import type {
+  ApiObject,
+  BaseRecord,
+  World,
+  ApiCall,
+  MockOptions,
+  Sheet,
+} from './types.ts';
 import { deleteRecords } from './base-records.ts';
 import { chatMembers, createChat } from './chat-members.ts';
 import http from 'node:http';
 import { isDeepStrictEqual } from 'node:util';
 
 class ApiError extends Error {
-  constructor(status, code, message) {
+  status: number;
+  code: number;
+  constructor(status: number, code: number, message: string) {
     super(message);
     this.status = status;
     this.code = code;
   }
 }
-const fail = (status, code, message) => {
+function fail(status: number, code: number, message: string): never {
   throw new ApiError(status, code, message);
-};
-const requireValue = (ok, message) => {
+}
+function requireValue(ok: unknown, message: string): asserts ok {
   if (!ok) fail(400, 99992402, message);
-};
-const clone = (x) => structuredClone(x);
+}
+const clone = <T>(x: T): T => structuredClone(x);
 
 // A fresh server owns one world. No reset/admin/score HTTP endpoints exist.
-export async function startMock(seed, options = {}) {
+export async function startMock(seed: World, options: MockOptions = {}) {
   const world = clone(seed),
-    calls = [];
+    calls: ApiCall[] = [];
   let nextEvent = 1,
     nextMessage = 1;
-  function page(items, q) {
+  function page<T>(items: T[], q: URLSearchParams) {
     const offset = Number(q.get('page_token') || 0),
       size = Number(q.get('page_size') || 100);
     requireValue(
@@ -41,19 +51,19 @@ export async function startMock(seed, options = {}) {
       page_token: offset + size < items.length ? String(offset + size) : '',
     };
   }
-  function calendar(id, write = false) {
+  function calendar(id: string, write = false) {
     const c = world.calendars.find((c) => c.calendar_id === id);
     if (!c) fail(404, 191001, 'Calendar not found');
     if (write && c.role === 'reader') fail(403, 99991672, 'Permission denied');
     return c;
   }
-  const eventTime = (time) =>
+  const eventTime = (time: ApiObject) =>
     time?.timestamp !== undefined
       ? Number(time.timestamp)
       : /^\d{4}-\d{2}-\d{2}$/.test(time?.date || '')
         ? Date.parse(time.date + 'T00:00:00Z') / 1000
         : NaN;
-  function checkEvent(e) {
+  function checkEvent(e: ApiObject) {
     requireValue(
       typeof e.summary === 'string' && e.summary.length > 0,
       'summary required',
@@ -65,14 +75,14 @@ export async function startMock(seed, options = {}) {
       'start_time/end_time require epoch seconds with end > start',
     );
   }
-  function values(range, sheets = world.sheets) {
+  function values(range: string, sheets: Record<string, Sheet> = world.sheets) {
     const [id, cells] = range.split('!'),
       sheet = sheets[id];
     if (!sheet) fail(404, 1310002, 'Sheet not found');
     if (!cells) return { range, values: clone(sheet.values) };
     const match = /^([A-Z]+)(\d+)?(?::([A-Z]+)(\d+)?)?$/.exec(cells);
     requireValue(match, 'Unsupported A1 range');
-    const col = (x) =>
+    const col = (x: string) =>
       [...x].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) - 1;
     const left = col(match[1]),
       right = col(match[3] || match[1]);
@@ -91,14 +101,14 @@ export async function startMock(seed, options = {}) {
       ),
     };
   }
-  function route(method, u, body) {
+  function route(method: string, u: URL, body: ApiObject) {
     const p = decodeURIComponent(u.pathname),
       q = u.searchParams;
     const spreadsheetId =
       /^\/open-apis\/(?:sheets|sheet_ai)\/v[23]\/spreadsheets\/([^/]+)/.exec(
         p,
       )?.[1];
-    const book = world.spreadsheets?.[spreadsheetId];
+    const book = world.spreadsheets?.[spreadsheetId || ''];
     const sheets = book?.sheets ?? world.sheets;
     const spreadsheetToken = book ? spreadsheetId : world.spreadsheet_token;
     const spreadsheetTitle = book?.title ?? world.spreadsheet_title;
@@ -138,13 +148,13 @@ export async function startMock(seed, options = {}) {
       p ===
         `/open-apis/sheet_ai/v2/spreadsheets/${spreadsheetToken}/tools/invoke_read`
     ) {
-      let input;
+      let input: ApiObject;
       try {
         input = JSON.parse(body.input);
       } catch {
         fail(400, 99992402, 'Invalid tool input');
       }
-      let output;
+      let output: ApiObject;
       if (body.tool_name === 'get_workbook_structure')
         output = {
           revision: 1,
@@ -170,12 +180,13 @@ export async function startMock(seed, options = {}) {
         requireValue(sid && sheets[sid], 'Unknown sheet');
         const ranges = input.ranges || [input.range];
         requireValue(
-          Array.isArray(ranges) && ranges.every((x) => typeof x === 'string'),
+          Array.isArray(ranges) &&
+            ranges.every((x: unknown) => typeof x === 'string'),
           'ranges required',
         );
         output = {
           sheet_id: sid,
-          ranges: ranges.map((range) => {
+          ranges: ranges.map((range: string) => {
             const v = values(`${sid}!${range}`, sheets);
             return {
               range,
@@ -189,7 +200,9 @@ export async function startMock(seed, options = {}) {
         if (body.tool_name === 'get_range_as_csv')
           output = {
             csv: output.ranges[0].values
-              .map((row) => row.map((v) => JSON.stringify(v)).join(','))
+              .map((row: unknown[]) =>
+                row.map((v) => JSON.stringify(v)).join(','),
+              )
               .join('\n'),
             has_more: false,
           };
@@ -201,7 +214,7 @@ export async function startMock(seed, options = {}) {
       p ===
         `/open-apis/sheet_ai/v2/spreadsheets/${spreadsheetToken}/tools/invoke_write`
     ) {
-      let input;
+      let input: ApiObject;
       try {
         input = JSON.parse(body.input);
       } catch {
@@ -227,7 +240,7 @@ export async function startMock(seed, options = {}) {
         input.range || '',
       );
       requireValue(match, 'Finite A1 range required');
-      const col = (letters) =>
+      const col = (letters: string) =>
         [...letters].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) - 1;
       const left = col(match[1]),
         top = Number(match[2]) - 1;
@@ -241,7 +254,8 @@ export async function startMock(seed, options = {}) {
         Array.isArray(input.cells) &&
           input.cells.length === bottom - top + 1 &&
           input.cells.every(
-            (row) => Array.isArray(row) && row.length === right - left + 1,
+            (row: unknown) =>
+              Array.isArray(row) && row.length === right - left + 1,
           ),
         'Cell matrix must match range',
       );
@@ -290,8 +304,10 @@ export async function startMock(seed, options = {}) {
       field_name: field.name,
       ...field,
     }));
-    const validFields = (updates) =>
-      updates &&
+    const validFields = (
+      updates: unknown,
+    ): updates is Record<string, string | number> =>
+      !!updates &&
       typeof updates === 'object' &&
       !Array.isArray(updates) &&
       Object.entries(updates).every(([key, value]) => {
@@ -301,13 +317,13 @@ export async function startMock(seed, options = {}) {
           typeof value === (field.type === 'number' ? 'number' : 'string')
         );
       });
-    const matrix = (records) => ({
+    const matrix = (records: BaseRecord[]) => ({
       fields: fields.map((f) => f.name),
       record_id_list: records.map((r) => r.record_id),
       data: records.map((r) => fields.map((f) => r.fields[f.name])),
       has_more: false,
     });
-    const createRecord = (data) => {
+    const createRecord = (data: unknown) => {
       requireValue(validFields(data), 'Invalid field map');
       let id = 1;
       while (
@@ -329,7 +345,7 @@ export async function startMock(seed, options = {}) {
           body.create_records.length <= 200,
         'create_records requires 1 to 200 records',
       );
-      const records = body.create_records.map(createRecord);
+      const records: BaseRecord[] = body.create_records.map(createRecord);
       return { records, record_id_list: records.map((r) => r.record_id) };
     }
     if (method === 'GET' && p === baseV3 + '/fields')
@@ -377,7 +393,7 @@ export async function startMock(seed, options = {}) {
       return {
         spreadsheetToken: spreadsheetToken,
         revision: 1,
-        valueRanges: ranges.map(values),
+        valueRanges: ranges.map((range) => values(range, sheets)),
       };
     }
     if (method === 'GET' && p === '/open-apis/calendar/v4/calendars')
@@ -416,7 +432,7 @@ export async function startMock(seed, options = {}) {
           );
           event.attendees ||= [];
           const existing = event.attendees.find(
-            (item) => item.third_party_email === a.third_party_email,
+            (item: ApiObject) => item.third_party_email === a.third_party_email,
           );
           if (existing) {
             added.push(clone(existing));
@@ -435,7 +451,7 @@ export async function startMock(seed, options = {}) {
       if (method === 'POST' && action === 'batch_delete') {
         requireValue(Array.isArray(body.attendee_ids), 'attendee_ids required');
         event.attendees = (event.attendees || []).filter(
-          (a) => !body.attendee_ids.includes(a.attendee_id),
+          (a: ApiObject) => !body.attendee_ids.includes(a.attendee_id),
         );
         return {};
       }
@@ -475,7 +491,8 @@ export async function startMock(seed, options = {}) {
           world.events.some((event) => event.event_id === `evt_${nextEvent}`)
         )
           nextEvent++;
-        const event = {
+        const event: World['events'][number] = {
+          summary: body.summary as string,
           ...clone(body),
           event_id: `evt_${nextEvent++}`,
           calendar_id: cid,
@@ -542,7 +559,7 @@ export async function startMock(seed, options = {}) {
         Array.isArray(body.queries) && body.queries.length <= 20,
         'queries must contain up to 20 messages',
       );
-      const messages = body.queries.map((query) => {
+      const messages = body.queries.map((query: ApiObject) => {
         const message = world.messages.find(
           (m) => m.message_id === query.message_id,
         );
@@ -550,11 +567,11 @@ export async function startMock(seed, options = {}) {
         return message;
       });
       return {
-        success_msg_reaction_counts: messages.map((m) => ({
+        success_msg_reaction_counts: messages.map((m: ApiObject) => ({
           message_id: m.message_id,
           reaction_count: m.reaction_count || [],
         })),
-        success_msg_reaction_details: messages.map((m) => ({
+        success_msg_reaction_details: messages.map((m: ApiObject) => ({
           message_id: m.message_id,
           message_reaction_items: m.message_reaction_items || [],
         })),
@@ -648,9 +665,21 @@ export async function startMock(seed, options = {}) {
       response = {
         code: 0,
         msg: 'success',
-        data: route(req.method, new URL(req.url, 'http://localhost'), body),
+        data: route(
+          req.method || 'GET',
+          new URL(req.url || '/', 'http://localhost'),
+          body,
+        ),
       };
-    } catch (e) {
+    } catch (error) {
+      const e =
+        error instanceof ApiError
+          ? error
+          : {
+              status: 500,
+              code: 990002,
+              message: error instanceof Error ? error.message : String(error),
+            };
       // Reject atomically, including programmer errors; never leak a half-write.
       for (const k of Object.keys(world)) delete world[k];
       Object.assign(world, before);
@@ -663,7 +692,7 @@ export async function startMock(seed, options = {}) {
       ['record', before.base.records, world.base.records, 'record_id'],
       ['message', before.messages, world.messages, 'message_id'],
       ['chat', before.chats, world.chats, 'chat_id'],
-    ]) {
+    ] as [string, ApiObject[], ApiObject[], string][]) {
       for (const item of oldItems) {
         if (!newItems.some((x) => x[key] === item[key]))
           mutations.push({
@@ -712,8 +741,8 @@ export async function startMock(seed, options = {}) {
     }
     calls.push({
       seq: calls.length + 1,
-      method: req.method,
-      path: req.url,
+      method: req.method || 'GET',
+      path: req.url || '/',
       body: clone(body),
       status,
       response: clone(response),
@@ -724,13 +753,16 @@ export async function startMock(seed, options = {}) {
     res.writeHead(status, { 'content-type': 'application/json' });
     res.end(JSON.stringify(response));
   });
-  await new Promise((resolve) =>
+  await new Promise<void>((resolve) =>
     server.listen(options.port ?? 0, options.host ?? '127.0.0.1', resolve),
   );
   return {
-    url: `http://127.0.0.1:${server.address().port}`,
+    url: `http://127.0.0.1:${(server.address() as import('node:net').AddressInfo).port}`,
     world,
     calls,
-    close: () => new Promise((resolve) => server.close(resolve)),
+    close: () =>
+      new Promise<void>((resolve, reject) =>
+        server.close((error) => (error ? reject(error) : resolve())),
+      ),
   };
 }

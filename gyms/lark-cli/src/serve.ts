@@ -1,7 +1,8 @@
 import { readFileSync, writeFileSync, renameSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { parseArgs } from 'node:util';
-import { startMock } from './server.mjs';
+import type { World, ApiCall } from './types.ts';
+import { startMock } from './server.ts';
 const { values } = parseArgs({
   options: {
     seed: { type: 'string' },
@@ -15,9 +16,10 @@ if (!values.seed || !values.state || !values.ready)
   throw new Error('--seed --state --ready are required');
 const seed = JSON.parse(readFileSync(values.seed, 'utf8'));
 mkdirSync(dirname(values.state), { recursive: true });
-const persist = (world, calls) => {
-  writeFileSync(values.state + '.tmp', JSON.stringify({ seed, world, calls }));
-  renameSync(values.state + '.tmp', values.state);
+const statePath = values.state;
+const persist = (world: World, calls: ApiCall[]) => {
+  writeFileSync(statePath + '.tmp', JSON.stringify({ seed, world, calls }));
+  renameSync(statePath + '.tmp', statePath);
 };
 const backend = await startMock(seed, {
   onSnapshot: persist,

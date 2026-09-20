@@ -8,19 +8,13 @@
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.*",
     "test:go": "cd gyms/lark-cli/cli && go test ./... && go vet ./...",
-    "oracle": "tsx src/main.ts --agent oracle",
-    "run": "tsx src/main.ts",
+    "oracle": "node --test tests/harbor.test.mjs",
     "check": "npm run typecheck && npm run format:check && npm test && npm run test:go",
-    "prepare:harbor": "node scripts/prepare-harbor.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "engines": {
     "node": ">=24"
-  },
-  "dependencies": {
-    "@openai/codex-sdk": "0.154.0",
-    "zod": "4.6.5"
   },
   "devDependencies": {
     "@types/node": "22.20.3",

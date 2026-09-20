@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { resolve } from 'node:path';
-import { startMock } from '../gyms/lark-cli/src/server.mjs';
+import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 test('Record deletion is atomic, visible across interfaces, isolated and audited', async () => {
   const seed = JSON.parse(

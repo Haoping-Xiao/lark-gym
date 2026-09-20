@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { verify } from './verify.mjs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { verify } from './verify.ts';
 const output = process.env.VERIFIER_OUTPUT || '/logs/verifier';
 mkdirSync(output, { recursive: true });
 try {
@@ -11,9 +11,11 @@ try {
   );
   const result = verify(snapshot.seed, snapshot.world, snapshot.calls);
   writeFileSync(`${output}/result.json`, JSON.stringify(result, null, 2));
+  if (result.status === 'environment_incomplete')
+    throw new Error('ENV_UNSUPPORTED: invalid trial');
   writeFileSync(`${output}/reward.txt`, result.success ? '1\n' : '0\n');
   console.log(JSON.stringify(result));
 } catch (error) {
-  writeFileSync(`${output}/reward.txt`, '0\n');
+  rmSync(`${output}/reward.txt`, { force: true });
   throw error;
 }

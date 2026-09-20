@@ -23,7 +23,7 @@
 - Use Harbor job configurations under `experiments/eval/`; keep training integration configurations under `experiments/rl/<framework>/`. Evaluation and training consume the same task packages.
 - Run verification independently of the agent, using backend-collected state/history and declared task artifacts. Agent-authored output is not authoritative evidence of backend changes.
 - Keep success rewards and per-condition diagnostic results distinct. Changes to reward semantics must be explicit.
-- The existing `src/` SDK runner is transitional. Remove it only after the Harbor replacement is verified; do not develop a second execution framework around it.
+- Harbor is the execution entrypoint. Do not reintroduce a separate SDK runner, task registry, executable wrapper, or custom agent hook.
 
 ## Validation and delivery
 

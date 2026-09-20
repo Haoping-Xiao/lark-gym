@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { resolve } from 'node:path';
-import { startMock } from '../gyms/lark-cli/src/server.mjs';
+import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 test('Membership CLI writes are readable, idempotent, permission checked and run-isolated', async () => {
   const seed = JSON.parse(
@@ -35,7 +35,7 @@ test('Membership CLI writes are readable, idempotent, permission checked and run
     await cli(a, 'create', ['U_SARAH']);
     await cli(a, 'create', ['U_SARAH']);
     assert.deepEqual(
-      a.world.chats.find((c: { chat_id: string }) => c.chat_id === 'oc_C_ENG')
+      a.world.chats.find((c: { chat_id: string }) => c.chat_id === 'oc_C_ENG')!
         .member_ids,
       ['U_SARAH'],
     );
@@ -45,12 +45,12 @@ test('Membership CLI writes are readable, idempotent, permission checked and run
     assert.doesNotMatch((await cli(a, 'get')).stdout, /U_MARCUS/);
     a.world.chats.find(
       (c: { chat_id: string }) => c.chat_id === 'oc_C_ENG',
-    ).can_manage_members = false;
+    )!.can_manage_members = false;
     await assert.rejects(cli(a, 'delete', ['U_SARAH']));
     assert.match((await cli(a, 'get')).stdout, /U_SARAH/);
     a.world.chats.find(
       (c: { chat_id: string }) => c.chat_id === 'oc_C_ENG',
-    ).can_manage_members = true;
+    )!.can_manage_members = true;
     await cli(a, 'delete', ['U_SARAH']);
     assert.doesNotMatch((await cli(a, 'get')).stdout, /U_SARAH/);
     assert.ok(
