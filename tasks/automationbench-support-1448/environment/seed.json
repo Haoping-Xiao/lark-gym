@@ -1,0 +1,426 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_csat": {
+      "title": "CSAT Data",
+      "sheets": {
+        "ws_responses": {
+          "title": "Survey Responses",
+          "values": [
+            ["Conversation_ID", "Customer_Email", "Rating", "Comment"],
+            ["csat_h1", "c1@test.com", "5", "Excellent help!"],
+            ["csat_h2", "c2@test.com", "4", "Good response."],
+            ["csat_h3", "c3@test.com", "5", "Very helpful."],
+            ["csat_h4", "c4@test.com", "1", "Terrible experience."],
+            ["csat_h5", "c5@test.com", "3.5", "Okay."],
+            ["csat_h7", "c7@test.com", "4", "Good."],
+            ["csat_h99", "c99@test.com", "2", "Slow response."],
+            ["csat_h9", "c9@test.com", "1", "Still waiting."]
+          ]
+        },
+        "ws_agent_roster": {
+          "title": "Agent Roster",
+          "values": [
+            ["Agent_Email", "Agent_Name", "Team", "Performance_Threshold"],
+            ["nora.reeves@company.example.com", "Nora Reeves", "tier1", "3.5"],
+            ["marco.lin@company.example.com", "Marco Lin", "tier1", "3.5"],
+            ["priya.shah@company.example.com", "Priya Shah", "tier2", "4.0"],
+            ["james.okoro@company.example.com", "James Okoro", "tier2", "4.0"]
+          ]
+        },
+        "ws_results": {
+          "title": "CSAT Results",
+          "values": [["Agent", "Average_CSAT", "Response_Count", "Status"]]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Report_Reference", "CSAT-W06-2026"],
+            ["Report_Period", "2026-02-03 to 2026-02-09"],
+            ["Report_Recipient", "support-ops@company.example.com"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h1",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h1",
+          "subject": "Login issue",
+          "status": "closed",
+          "assignee_id": "hu_1",
+          "customer_email": "c1@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h2",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h2",
+          "subject": "Billing question",
+          "status": "closed",
+          "assignee_id": "hu_1",
+          "customer_email": "c2@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h3",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h3",
+          "subject": "Feature request",
+          "status": "closed",
+          "assignee_id": "hu_2",
+          "customer_email": "c3@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h4",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h4",
+          "subject": "Bug report",
+          "status": "closed",
+          "assignee_id": "hu_2",
+          "customer_email": "c4@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h5",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h5",
+          "subject": "Account help",
+          "status": "closed",
+          "assignee_id": "hu_3",
+          "customer_email": "c5@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h6",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h6",
+          "subject": "Setup assistance",
+          "status": "open",
+          "assignee_id": "hu_3"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h7",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h7",
+          "subject": "Integration help",
+          "status": "closed",
+          "assignee_id": "hu_4",
+          "customer_email": "c7@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h8",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h8",
+          "subject": "Shipping delay",
+          "status": "closed",
+          "assignee_id": "hu_5",
+          "customer_email": "c8@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h9",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h9",
+          "subject": "Refund inquiry",
+          "status": "pending",
+          "assignee_id": "hu_1",
+          "customer_email": "c9@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_csat_h10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "csat_h10",
+          "subject": "Data export question",
+          "status": "closed",
+          "assignee_id": "hu_2",
+          "customer_email": "c10@test.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_007",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_007",
+          "subject": "Software license renewal",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_004",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_004",
+          "subject": "New hire onboarding checklist",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_001",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_001",
+          "subject": "Vendor payment query",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_1",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_1",
+          "email": "nora.reeves@company.example.com",
+          "name": "Nora Reeves"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_2",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_2",
+          "email": "marco.lin@company.example.com",
+          "name": "Marco Lin"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_3",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_3",
+          "email": "priya.shah@company.example.com",
+          "name": "Priya Shah"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_4",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_4",
+          "email": "james.okoro@company.example.com",
+          "name": "James Okoro"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_5",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_5",
+          "email": "temp.contractor@company.example.com",
+          "name": "Temp Contractor"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_003",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_003",
+          "name": "Robin Hartley",
+          "email": "rhartley@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_inbox_support",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "inbox_support",
+          "name": "Support",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "c10@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "c1@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "c2@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "c3@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "c4@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "c5@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "c7@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "c8@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "c99@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "c9@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "james.okoro@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "marco.lin@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "nora.reeves@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "priya.shah@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "rhartley@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "support-ops@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "temp.contractor@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_MET",
+      "name": "support-metrics",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

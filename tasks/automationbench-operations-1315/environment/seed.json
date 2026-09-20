@@ -1,0 +1,526 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_lead_sync": {
+      "title": "Lead Sync",
+      "sheets": {
+        "ws_log": {
+          "title": "Log",
+          "values": [["Email", "Score", "Temperature", "Action"]]
+        },
+        "ws_sync_rules": {
+          "title": "Sync Rules",
+          "values": [
+            ["Rule", "Description", "Tier", "Tag", "Min Score", "Max Score"],
+            [
+              "Opt-Out Exclusion",
+              "Contacts with lifecycle_stage = 'opted-out' must be excluded from Mailchimp sync entirely. Do not add or update tags for opted-out contacts. If they already exist in Mailchimp, remove their temperature tags.",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Legal Data Hold",
+              "Contacts whose HubSpot notes mention 'legal hold' or 'data privacy review' must be excluded from all Mailchimp sync operations until the hold is lifted. Do not add, update, or remove tags for these contacts.",
+              "",
+              "",
+              "",
+              ""
+            ],
+            ["", "", "Hot Lead", "hot-lead", "80", "100"],
+            ["", "", "Warm Lead", "warm-lead", "50", "79"],
+            ["", "", "Cold Lead", "cold-lead", "0", "49"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hubspot_sync_001",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "hot@lead.example.com",
+          "lead_score": 95
+        }
+      },
+      {
+        "record_id": "rec_hubspot_sync_002",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "warm@lead.example.com",
+          "lead_score": 65
+        }
+      },
+      {
+        "record_id": "rec_hubspot_sync_003",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "cold@lead.example.com",
+          "lead_score": 25
+        }
+      },
+      {
+        "record_id": "rec_hubspot_sync_004",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "optout@lead.example.com",
+          "lead_score": 85,
+          "lifecycle_stage": "opted-out"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_sync_005",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "boundary.hot@lead.example.com",
+          "lead_score": 80
+        }
+      },
+      {
+        "record_id": "rec_hubspot_sync_006",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "boundary.cold@lead.example.com",
+          "lead_score": 49
+        }
+      },
+      {
+        "record_id": "rec_hubspot_sync_007",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "legal.hold@lead.example.com",
+          "lead_score": 90,
+          "notes": "legal hold - data privacy review pending LGL-2026-003"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_001",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "m.reeves@pinnaclelogi.example.com",
+          "firstname": "Martin",
+          "lastname": "Reeves",
+          "jobtitle": "Facilities Director",
+          "company": "Pinnacle Logistics"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_008",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "d.okafor@crestfield.example.com",
+          "firstname": "Diana",
+          "lastname": "Okafor",
+          "jobtitle": "Compliance Officer",
+          "company": "Crestfield Manufacturing"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_004",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "l.morales@beaconsafe.example.com",
+          "firstname": "Lydia",
+          "lastname": "Morales",
+          "jobtitle": "Safety Coordinator",
+          "company": "Beacon Safety Systems"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_005",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "g.thompson@keystoneit.example.com",
+          "firstname": "Grant",
+          "lastname": "Thompson",
+          "jobtitle": "IT Operations Manager",
+          "company": "Keystone IT Services"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_007",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "v.lindgren@coastalfl.example.com",
+          "firstname": "Victor",
+          "lastname": "Lindgren",
+          "jobtitle": "Fleet Manager",
+          "company": "Coastal Fleet Services"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_ct_006",
+        "fields": {
+          "collection": "hubspot_contacts",
+          "email": "n.patel@harbourwar.example.com",
+          "firstname": "Nina",
+          "lastname": "Patel",
+          "jobtitle": "Warehouse Supervisor",
+          "company": "Harbor Warehousing"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_007",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Harbor Warehousing",
+          "industry": "Warehousing",
+          "domain": "harbourwar.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_003",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Apex Facilities Group",
+          "industry": "Real Estate",
+          "domain": "apexfacili.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_004",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "TrueNorth Equipment",
+          "industry": "Industrial",
+          "domain": "truenortheq.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_002",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Granite Supply Co",
+          "industry": "Manufacturing",
+          "domain": "granitesupply.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_008",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Summit Maintenance Corp",
+          "industry": "Facilities",
+          "domain": "summitmain.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_co_005",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Beacon Safety Systems",
+          "industry": "Safety",
+          "domain": "beaconsafe.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_001",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "Pinnacle Logistics — Annual HVAC Contract",
+          "amount": 48000,
+          "dealstage": "closedwon",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_004",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "TrueNorth Equipment — Forklift Lease Renewal",
+          "amount": 92000,
+          "dealstage": "closedwon",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_005",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "Beacon Safety — Fire Suppression Upgrade",
+          "amount": 28000,
+          "dealstage": "presentationscheduled",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_dl_003",
+        "fields": {
+          "collection": "hubspot_deals",
+          "dealname": "Apex Facilities — Building Maintenance RFP",
+          "amount": 35000,
+          "dealstage": "qualifiedtobuy",
+          "pipeline": "default"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_tk_003",
+        "fields": {
+          "collection": "hubspot_tickets",
+          "subject": "Warehouse roof leak report",
+          "content": "Leak detected near skylight in Section B. Bucket placed temporarily.",
+          "hs_pipeline": "0",
+          "hs_pipeline_stage": "2",
+          "hs_ticket_priority": "HIGH"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_tk_001",
+        "fields": {
+          "collection": "hubspot_tickets",
+          "subject": "HVAC filter delivery delay",
+          "content": "Filters ordered Feb 20 not yet delivered. Vendor says backordered.",
+          "hs_pipeline": "0",
+          "hs_pipeline_stage": "1",
+          "hs_ticket_priority": "MEDIUM"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_tk_002",
+        "fields": {
+          "collection": "hubspot_tickets",
+          "subject": "Badge printer cartridge needed",
+          "content": "Badge printer in reception running low on ribbon. Need replacement.",
+          "hs_pipeline": "0",
+          "hs_pipeline_stage": "1",
+          "hs_ticket_priority": "LOW"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_ops_tk_005",
+        "fields": {
+          "collection": "hubspot_tickets",
+          "subject": "Conference room booking system down",
+          "content": "Room booking app showing 500 error since 8 AM. Users can't reserve rooms.",
+          "hs_pipeline": "0",
+          "hs_pipeline_stage": "2",
+          "hs_ticket_priority": "HIGH"
+        }
+      },
+      {
+        "record_id": "rec_mailchimp_audiences_aud_main",
+        "fields": {
+          "collection": "mailchimp_audiences",
+          "id": "aud_main",
+          "name": "Main List"
+        }
+      },
+      {
+        "record_id": "rec_mailchimp_subscribers_aud_main:hot@lead.example.com",
+        "fields": {
+          "collection": "mailchimp_subscribers",
+          "email": "hot@lead.example.com",
+          "tags": "[\"cold-lead\"]",
+          "list_id": "aud_main"
+        }
+      },
+      {
+        "record_id": "rec_mailchimp_subscribers_aud_main:warm@lead.example.com",
+        "fields": {
+          "collection": "mailchimp_subscribers",
+          "email": "warm@lead.example.com",
+          "tags": "[]",
+          "list_id": "aud_main"
+        }
+      },
+      {
+        "record_id": "rec_mailchimp_subscribers_aud_main:optout@lead.example.com",
+        "fields": {
+          "collection": "mailchimp_subscribers",
+          "email": "optout@lead.example.com",
+          "tags": "[\"hot-lead\"]",
+          "list_id": "aud_main"
+        }
+      },
+      {
+        "record_id": "rec_mailchimp_subscribers_aud_main:boundary.hot@lead.example.com",
+        "fields": {
+          "collection": "mailchimp_subscribers",
+          "email": "boundary.hot@lead.example.com",
+          "tags": "[\"warm-lead\"]",
+          "list_id": "aud_main"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "lead_score",
+        "type": "number"
+      },
+      {
+        "name": "lifecycle_stage",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "firstname",
+        "type": "text"
+      },
+      {
+        "name": "lastname",
+        "type": "text"
+      },
+      {
+        "name": "jobtitle",
+        "type": "text"
+      },
+      {
+        "name": "company",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "dealname",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "dealstage",
+        "type": "text"
+      },
+      {
+        "name": "pipeline",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "name": "hs_pipeline",
+        "type": "text"
+      },
+      {
+        "name": "hs_pipeline_stage",
+        "type": "text"
+      },
+      {
+        "name": "hs_ticket_priority",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "list_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "boundary.cold@lead.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "boundary.hot@lead.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "cold@lead.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "d.okafor@crestfield.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "g.thompson@keystoneit.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "hot@lead.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "l.morales@beaconsafe.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "legal.hold@lead.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "m.reeves@pinnaclelogi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "n.patel@harbourwar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "optout@lead.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "v.lindgren@coastalfl.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "warm@lead.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

@@ -1,0 +1,390 @@
+{
+  "now": "2026-02-09T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_playbook": {
+      "title": "Onboarding Playbook",
+      "sheets": {
+        "ws_onboarding_steps": {
+          "title": "Onboarding Steps",
+          "values": [
+            ["Tier", "Step", "Action"],
+            ["Enterprise", "1", "Schedule kickoff call"],
+            ["Enterprise", "2", "Create technical setup ticket"],
+            ["Enterprise", "3", "Create data migration ticket"],
+            ["Enterprise", "4", "Create training ticket"],
+            ["Growth", "1", "Create setup guide ticket"],
+            ["Growth", "2", "Email CSM introduction"],
+            ["Starter", "1", "Email CSM introduction"],
+            ["default", "1", "Email CSM introduction"]
+          ]
+        },
+        "ws_customer_tiers": {
+          "title": "Customer Tiers",
+          "values": [
+            ["Customer_Email", "Tier", "CSM_Email"],
+            ["alice@acmecorp.com", "Enterprise", "csm1@company.example.com"],
+            ["bob@startupco.io", "Growth", "csm2@company.example.com"],
+            ["carol@smallbiz.com", "Starter", "csm3@company.example.com"]
+          ]
+        },
+        "ws_onboarding_log": {
+          "title": "Onboarding Log",
+          "values": [["Customer_Email", "Tier", "Step", "Status"]]
+        }
+      }
+    }
+  },
+  "calendars": [
+    {
+      "calendar_id": "cal_onboarding",
+      "summary": "cal_onboarding",
+      "role": "owner"
+    }
+  ],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_ob_t1",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "ob_t1",
+          "subject": "New customer: Acme Corp",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "ob_c1",
+          "tags": "[\"new-customer\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_ob_t2",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "ob_t2",
+          "subject": "New customer: StartupCo",
+          "status": 2,
+          "priority": 2,
+          "requester_id": "ob_c2",
+          "tags": "[\"new-customer\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_ob_t3",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "ob_t3",
+          "subject": "New customer: SmallBiz",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "ob_c3",
+          "tags": "[\"new-customer\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_ob_t4",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "ob_t4",
+          "subject": "New customer: MysteryInc",
+          "status": 2,
+          "priority": 1,
+          "requester_id": "ob_c4",
+          "tags": "[\"new-customer\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_ob_t5",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "ob_t5",
+          "subject": "New customer: OldCo (resolved)",
+          "status": 4,
+          "priority": 2,
+          "requester_id": "ob_c5",
+          "tags": "[\"new-customer\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_ob_t6",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "ob_t6",
+          "subject": "Bug report",
+          "status": 2,
+          "priority": 3,
+          "requester_id": "ob_c1",
+          "tags": "[\"bug\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_009",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_009",
+          "subject": "SLA timer paused but still counting",
+          "description": "Ticket was set to 'Pending' but the SLA timer keeps running.",
+          "status": 5,
+          "priority": 3,
+          "tags": "[\"sla\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_007",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_007",
+          "subject": "Canned response formatting broken",
+          "description": "Canned responses lose formatting when applied to rich-text tickets.",
+          "status": 5,
+          "priority": 1,
+          "tags": "[\"formatting\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_tickets_fd_noise_003",
+        "fields": {
+          "collection": "freshdesk_tickets",
+          "id": "fd_noise_003",
+          "subject": "Integration sync stopped",
+          "description": "Salesforce integration hasn't synced contacts since yesterday.",
+          "status": 5,
+          "priority": 2,
+          "tags": "[\"integration\"]",
+          "notes": "[]"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_ob_c1",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "ob_c1",
+          "name": "Alice Park",
+          "email": "alice@acmecorp.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_ob_c2",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "ob_c2",
+          "name": "Bob Lee",
+          "email": "bob@startupco.io"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_ob_c3",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "ob_c3",
+          "name": "Carol Wu",
+          "email": "carol@smallbiz.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_ob_c4",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "ob_c4",
+          "name": "Dan Torres",
+          "email": "dan@mysteryinc.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_ob_c5",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "ob_c5",
+          "name": "Eve Kim",
+          "email": "eve@oldco.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_004",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_004",
+          "name": "Fiona Campbell",
+          "email": "fcampbell@oakmont.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_005",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_005",
+          "name": "Rohan Gupta",
+          "email": "rgupta@pinnacleco.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "requester_email",
+        "type": "text"
+      },
+      {
+        "name": "parent_ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "private",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob@startupco.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol@smallbiz.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "csm1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "csm2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "csm3@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "dan@mysteryinc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "eve@oldco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "fcampbell@oakmont.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "onboarding@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "rgupta@pinnacleco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_OB",
+      "name": "onboarding",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

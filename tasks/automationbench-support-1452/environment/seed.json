@@ -1,0 +1,519 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_kb": {
+      "title": "Knowledge Base Coverage",
+      "sheets": {
+        "ws_articles": {
+          "title": "Articles",
+          "values": [
+            [
+              "Topic",
+              "Article_URL",
+              "Last_Updated",
+              "Coverage_Status",
+              "Notes"
+            ],
+            ["sso", "https://docs.example.com/sso", "2025-06-01", "full", ""],
+            ["webhooks", "", "", "none", ""],
+            [
+              "data-export",
+              "https://docs.example.com/export",
+              "2026-01-15",
+              "full",
+              ""
+            ],
+            [
+              "billing",
+              "https://docs.example.com/billing",
+              "2026-01-20",
+              "full",
+              ""
+            ],
+            [
+              "api",
+              "https://docs.example.com/api",
+              "2025-09-01",
+              "partial",
+              "RETIRED - content migrating to developer portal. Do not create documentation tickets for this topic."
+            ]
+          ]
+        },
+        "ws_gap_tracking": {
+          "title": "Gap Tracking",
+          "values": [["Topic", "Conversation_Count", "Severity", "Jira_Key"]]
+        },
+        "ws_review_policy": {
+          "title": "Review Policy",
+          "values": [
+            ["Rule", "Value", "Action"],
+            [
+              "Staleness_Cutoff",
+              "2025-08-10",
+              "Articles with Last_Updated before this date are stale. Treat Coverage_Status as 'needs-review' for gap analysis regardless of current label."
+            ],
+            [
+              "High_Volume_Threshold",
+              "3",
+              "Topics with active conversation count >= this threshold must be flagged as gaps regardless of Coverage_Status."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv1",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "How to set up SSO integration",
+          "status": "active",
+          "customer_id": "gap_cust1",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"sso\",\"integration\"]",
+          "threads": "[{\"id\":\"gap_thr1\",\"type\":\"customer\",\"body\":\"Can you help me set up SSO?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv2",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "SSO login not working",
+          "status": "active",
+          "customer_id": "gap_cust2",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"sso\"]",
+          "threads": "[{\"id\":\"gap_thr2\",\"type\":\"customer\",\"body\":\"SAML errors when logging in via SSO.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv3",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "SSO configuration issue",
+          "status": "active",
+          "customer_id": "gap_cust3",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"sso\",\"configuration\"]",
+          "threads": "[{\"id\":\"gap_thr3\",\"type\":\"customer\",\"body\":\"Having trouble configuring SSO with Okta.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv4",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "SSO timeout problems",
+          "status": "active",
+          "customer_id": "gap_cust4",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"sso\"]",
+          "threads": "[{\"id\":\"gap_thr4\",\"type\":\"customer\",\"body\":\"SSO session keeps timing out.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv5",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook payload format",
+          "status": "active",
+          "customer_id": "gap_cust1",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"webhooks\",\"api\"]",
+          "threads": "[{\"id\":\"gap_thr5\",\"type\":\"customer\",\"body\":\"What format are webhook payloads in?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv6",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook delivery failures",
+          "status": "active",
+          "customer_id": "gap_cust2",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"webhooks\"]",
+          "threads": "[{\"id\":\"gap_thr6\",\"type\":\"customer\",\"body\":\"Webhooks are failing intermittently.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv7",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "How to export data",
+          "status": "active",
+          "customer_id": "gap_cust3",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"data-export\"]",
+          "threads": "[{\"id\":\"gap_thr7\",\"type\":\"customer\",\"body\":\"How do I export my data to CSV?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv8",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Billing cycle question",
+          "status": "active",
+          "customer_id": "gap_cust4",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"billing\"]",
+          "threads": "[{\"id\":\"gap_thr8\",\"type\":\"customer\",\"body\":\"When does my billing cycle reset?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv9",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API rate limiting",
+          "status": "active",
+          "customer_id": "gap_cust5",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"api\",\"rate-limits\"]",
+          "threads": "[{\"id\":\"gap_thr9\",\"type\":\"customer\",\"body\":\"What are the API rate limits?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv10",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Old SSO question",
+          "status": "closed",
+          "customer_id": "gap_cust5",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"sso\"]",
+          "threads": "[{\"id\":\"gap_thr10\",\"type\":\"customer\",\"body\":\"Old SSO question.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv11",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Billing invoice download",
+          "status": "active",
+          "customer_id": "gap_cust1",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"billing\"]",
+          "threads": "[{\"id\":\"gap_thr11\",\"type\":\"customer\",\"body\":\"How do I download my invoice?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv12",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Export scheduled reports",
+          "status": "active",
+          "customer_id": "gap_cust2",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"data-export\"]",
+          "threads": "[{\"id\":\"gap_thr12\",\"type\":\"customer\",\"body\":\"Can I schedule a recurring CSV export?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv13",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API webhook authentication",
+          "status": "active",
+          "customer_id": "gap_cust3",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"api\",\"webhooks\"]",
+          "threads": "[{\"id\":\"gap_thr13\",\"type\":\"customer\",\"body\":\"How do I authenticate webhook callbacks via the API?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv14",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Re: SSO promo offer",
+          "status": "spam",
+          "customer_id": "gap_cust1",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"sso\"]",
+          "threads": "[{\"id\":\"gap_thr14\",\"type\":\"customer\",\"body\":\"Buy cheap SSO licenses now!\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv15",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Security audit question",
+          "status": "active",
+          "customer_id": "gap_cust4",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"security\"]",
+          "threads": "[{\"id\":\"gap_thr15\",\"type\":\"customer\",\"body\":\"Can you share your SOC2 compliance docs?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_conv16",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Onboarding guide missing",
+          "status": "active",
+          "customer_id": "gap_cust5",
+          "mailbox_id": "gap_mb1",
+          "tags": "[\"onboarding\"]",
+          "threads": "[{\"id\":\"gap_thr16\",\"type\":\"customer\",\"body\":\"Where is the onboarding walkthrough?\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_005",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Duplicate customer profiles",
+          "status": "closed",
+          "customer_email": "noise_user5@ironbark.example.com",
+          "tags": "[\"data\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"We have three separate profiles for the same customer.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_002",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Import CSV failing silently",
+          "status": "closed",
+          "customer_email": "noise_user2@cedarpoint.example.com",
+          "tags": "[\"import\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Uploading a 10k-row CSV just spins and nothing imports.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_003",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook signatures not matching",
+          "status": "closed",
+          "customer_email": "noise_user3@tidewaterio.example.com",
+          "tags": "[\"api\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our server can't verify the webhook HMAC signature.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_cust1",
+        "fields": {
+          "collection": "help_customers",
+          "email": "user1@techco.com",
+          "first_name": "User",
+          "last_name": "One"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_cust2",
+        "fields": {
+          "collection": "help_customers",
+          "email": "user2@dataco.com",
+          "first_name": "User",
+          "last_name": "Two"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_cust3",
+        "fields": {
+          "collection": "help_customers",
+          "email": "user3@cloudco.com",
+          "first_name": "User",
+          "last_name": "Three"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_cust4",
+        "fields": {
+          "collection": "help_customers",
+          "email": "user4@startco.com",
+          "first_name": "User",
+          "last_name": "Four"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_cust5",
+        "fields": {
+          "collection": "help_customers",
+          "email": "user5@devco.com",
+          "first_name": "User",
+          "last_name": "Five"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_gap_mb1",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Support"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "topic",
+        "type": "text"
+      },
+      {
+        "name": "conversation_count",
+        "type": "number"
+      },
+      {
+        "name": "severity",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "issue_key",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "content-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "noise_user2@cedarpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "noise_user3@tidewaterio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "noise_user5@ironbark.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "user1@techco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "user2@dataco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "user3@cloudco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "user4@startco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "user5@devco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_KB",
+      "name": "knowledge-base",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

@@ -1,0 +1,787 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_coaching": {
+      "title": "Coaching Tracker",
+      "sheets": {
+        "ws_quality_rules": {
+          "title": "Quality Rules",
+          "values": [
+            ["Rule", "Description", "Action"],
+            [
+              "Short Response",
+              "Agent response is fewer than 20 words and contains no greeting (Hi/Hello/Hey)",
+              "Flag for coaching: response quality"
+            ],
+            [
+              "Reopened Conversation",
+              "Conversation has a 'reopened' tag",
+              "Flag for coaching: resolution thoroughness"
+            ],
+            [
+              "Strong Performer",
+              "All conversations have responses over 20 words with greetings and none are reopened",
+              "Recognize in review as strong performer"
+            ],
+            [
+              "Coaching Threshold",
+              "Only flag agents for coaching if they have 2 or more quality issues across their conversations",
+              "Agents with fewer than 2 issues do not need coaching"
+            ],
+            [
+              "Existing Coaching",
+              "Do not create new coaching plans for agents with active coaching records in ws_active_coaching",
+              "Skip coaching recommendation if already being coached"
+            ],
+            [
+              "Urgent Coaching",
+              "If agent has 2+ issues AND average CSAT below 3.0 in ws_csat, mark as urgent coaching priority",
+              "Flag as urgent coaching priority in review"
+            ]
+          ]
+        },
+        "ws_active_coaching": {
+          "title": "Active Coaching Plans",
+          "values": [
+            ["Agent Name", "Coach", "Start Date", "Status"],
+            ["Agent Beta", "Manager Sarah", "2026-01-15", "Active"]
+          ]
+        },
+        "ws_csat": {
+          "title": "Agent CSAT Scores",
+          "values": [
+            ["Agent Name", "Average CSAT", "Survey Count"],
+            ["Agent Alpha", "4.5", "12"],
+            ["Agent Beta", "2.1", "8"],
+            ["Agent Gamma", "3.2", "10"],
+            ["Agent Delta", "3.8", "9"],
+            ["Agent Epsilon", "4.7", "6"],
+            ["Agent Zeta", "3.9", "11"],
+            ["Agent Eta", "2.5", "7"],
+            ["Agent Theta", "4.0", "5"],
+            ["Agent Iota", "3.5", "4"],
+            ["Ironclad Systems", "Noise Value 1", "5"],
+            ["BlueStar Ventures", "Noise Value 2", "12"],
+            ["Cascade Analytics", "Noise Value 3", "8"],
+            ["Vertex Capital", "Noise Value 4", "25"],
+            ["Thornwood Partners", "Noise Value 5", "3"],
+            ["Starling Financial", "Noise Value 6", "50"],
+            ["Redwood Technologies", "Noise Value 7", "15"],
+            ["Eastgate Solutions", "Noise Value 8", "7"],
+            ["Montclair Industries", "Noise Value 9", "30"],
+            ["Pacific Ridge Corp", "Noise Value 10", "10"],
+            ["Summit Group Holdings", "Noise Value 11", "5"],
+            ["Riverview Partners", "Noise Value 12", "12"],
+            ["Northgate Technologies", "Noise Value 13", "8"],
+            ["Silverstone Group", "Noise Value 14", "25"],
+            ["CloudBridge Systems", "Noise Value 15", "3"]
+          ]
+        },
+        "ws_reviews": {
+          "title": "Agent Reviews",
+          "values": [
+            [
+              "Agent Name",
+              "Total Conversations",
+              "Issues Found",
+              "Recommendation"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hiver_conversations_qa_01",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_01",
+          "subject": "Login issue",
+          "status": "closed",
+          "assignee_id": "hu_alpha",
+          "customer_email": "user1@test.com",
+          "customer_name": "User One",
+          "tags": "[]",
+          "last_agent_response": "Hi User One! I'm sorry to hear about the login issue. I've reset your credentials and you should now be able to log in. Please let me know if you need anything else."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_02",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_02",
+          "subject": "Billing clarification",
+          "status": "closed",
+          "assignee_id": "hu_alpha",
+          "customer_email": "user2@test.com",
+          "customer_name": "User Two",
+          "tags": "[]",
+          "last_agent_response": "Hello User Two! Great question about your billing. Your next invoice will be prorated for the upgrade. I've attached a breakdown for your reference."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_03",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_03",
+          "subject": "Feature question",
+          "status": "closed",
+          "assignee_id": "hu_alpha",
+          "customer_email": "user3@test.com",
+          "customer_name": "User Three",
+          "tags": "[]",
+          "last_agent_response": "Hi User Three! That feature is available on the Pro plan. I'd be happy to walk you through the upgrade process. Would you like to schedule a quick call?"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_04",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_04",
+          "subject": "Password reset",
+          "status": "closed",
+          "assignee_id": "hu_beta",
+          "customer_email": "user4@test.com",
+          "customer_name": "User Four",
+          "tags": "[]",
+          "last_agent_response": "Done."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_05",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_05",
+          "subject": "Account access",
+          "status": "closed",
+          "assignee_id": "hu_beta",
+          "customer_email": "user5@test.com",
+          "customer_name": "User Five",
+          "tags": "[]",
+          "last_agent_response": "Fixed."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_06",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_06",
+          "subject": "API key request",
+          "status": "closed",
+          "assignee_id": "hu_beta",
+          "customer_email": "user6@test.com",
+          "customer_name": "User Six",
+          "tags": "[]",
+          "last_agent_response": "Sent."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_07",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_07",
+          "subject": "Export not working",
+          "status": "open",
+          "assignee_id": "hu_gamma",
+          "customer_email": "user7@test.com",
+          "customer_name": "User Seven",
+          "tags": "[\"reopened\"]",
+          "last_agent_response": "Hi User Seven, I've looked into the export issue and applied a fix. Please try again."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_08",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_08",
+          "subject": "Search returning wrong results",
+          "status": "open",
+          "assignee_id": "hu_gamma",
+          "customer_email": "user8@test.com",
+          "customer_name": "User Eight",
+          "tags": "[\"reopened\"]",
+          "last_agent_response": "Hello User Eight, I understand the search results aren't matching. I've escalated this to the engineering team."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_09",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_09",
+          "subject": "Dashboard filter help",
+          "status": "closed",
+          "assignee_id": "hu_gamma",
+          "customer_email": "user9@test.com",
+          "customer_name": "User Nine",
+          "tags": "[]",
+          "last_agent_response": "Hi User Nine, I've updated the dashboard filters as you requested. The date range should now work correctly."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_10",
+          "subject": "Webhook configuration",
+          "status": "closed",
+          "assignee_id": "hu_delta",
+          "customer_email": "user10@test.com",
+          "customer_name": "User Ten",
+          "tags": "[]",
+          "last_agent_response": "Check docs."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_11",
+          "subject": "Team permissions setup",
+          "status": "closed",
+          "assignee_id": "hu_delta",
+          "customer_email": "user11@test.com",
+          "customer_name": "User Eleven",
+          "tags": "[]",
+          "last_agent_response": "Hi User Eleven! I've configured the team permissions as requested. Admins now have full access and members have read-only. Let me know if you need changes."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_12",
+          "subject": "Data import help",
+          "status": "closed",
+          "assignee_id": "hu_delta",
+          "customer_email": "user12@test.com",
+          "customer_name": "User Twelve",
+          "tags": "[]",
+          "last_agent_response": "Hello User Twelve, I've looked into the import issue. The CSV format should use UTF-8 encoding. I've updated the documentation with clearer instructions."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_13",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_13",
+          "subject": "Custom report setup",
+          "status": "closed",
+          "assignee_id": "hu_epsilon",
+          "customer_email": "user13@test.com",
+          "customer_name": "User Thirteen",
+          "tags": "[]",
+          "last_agent_response": "Hi User Thirteen! I've created the custom report template you requested. It includes all the metrics we discussed. I've also added a quick tutorial video link for reference."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_14",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_14",
+          "subject": "Onboarding walkthrough",
+          "status": "closed",
+          "assignee_id": "hu_epsilon",
+          "customer_email": "user14@test.com",
+          "customer_name": "User Fourteen",
+          "tags": "[]",
+          "last_agent_response": "Hello User Fourteen! Welcome aboard! I've prepared a step-by-step onboarding guide tailored to your team size. Feel free to book a live session anytime this week."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_15",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_15",
+          "subject": "SSO configuration",
+          "status": "open",
+          "assignee_id": "hu_zeta",
+          "customer_email": "user15@test.com",
+          "customer_name": "User Fifteen",
+          "tags": "[\"reopened\"]",
+          "last_agent_response": "Hi User Fifteen, I've reconfigured the SSO settings. Please try logging in again and let me know if it works."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_16",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_16",
+          "subject": "Calendar sync issue",
+          "status": "closed",
+          "assignee_id": "hu_zeta",
+          "customer_email": "user16@test.com",
+          "customer_name": "User Sixteen",
+          "tags": "[]",
+          "last_agent_response": "Hello User Sixteen! I've fixed the calendar sync. Your events should now appear correctly in both systems."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_17",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_17",
+          "subject": "Notification preferences",
+          "status": "closed",
+          "assignee_id": "hu_zeta",
+          "customer_email": "user17@test.com",
+          "customer_name": "User Seventeen",
+          "tags": "[]",
+          "last_agent_response": "Hi User Seventeen! I've updated your notification preferences as requested. You'll now only receive critical alerts via email."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_18",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_18",
+          "subject": "Report generation error",
+          "status": "open",
+          "assignee_id": "hu_eta",
+          "customer_email": "user18@test.com",
+          "customer_name": "User Eighteen",
+          "tags": "[\"reopened\"]",
+          "last_agent_response": "Hi User Eighteen, I've attempted to fix the report generation issue. Please try running it again."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_19",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_19",
+          "subject": "Integration setup help",
+          "status": "closed",
+          "assignee_id": "hu_eta",
+          "customer_email": "user19@test.com",
+          "customer_name": "User Nineteen",
+          "tags": "[]",
+          "last_agent_response": "Use the API."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_20",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_20",
+          "subject": "Password change request",
+          "status": "open",
+          "assignee_id": "hu_theta",
+          "customer_email": "user20@test.com",
+          "customer_name": "User Twenty",
+          "tags": "[\"reopened\"]",
+          "last_agent_response": "Hi User Twenty, I have reset your password. Please check your email for the reset link."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_21",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_21",
+          "subject": "Backup restoration",
+          "status": "closed",
+          "assignee_id": "hu_theta",
+          "customer_email": "user21@test.com",
+          "customer_name": "User Twenty-One",
+          "tags": "[]",
+          "last_agent_response": "Done."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_22",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_22",
+          "subject": "Email forwarding setup",
+          "status": "closed",
+          "assignee_id": "hu_iota",
+          "customer_email": "user22@test.com",
+          "customer_name": "User Twenty-Two",
+          "tags": "[]",
+          "last_agent_response": "Configured."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_qa_23",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "qa_23",
+          "subject": "Domain verification",
+          "status": "closed",
+          "assignee_id": "hu_iota",
+          "customer_email": "user23@test.com",
+          "customer_name": "User Twenty-Three",
+          "tags": "[]",
+          "last_agent_response": "Hello User Twenty-Three! I have verified your domain settings and everything looks correct. DNS records are propagating normally."
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_002",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_002",
+          "subject": "Office supply reorder request",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_005",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_005",
+          "subject": "Conference room booking conflict",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_007",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_007",
+          "subject": "Software license renewal",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_alpha",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_alpha",
+          "name": "Agent Alpha",
+          "email": "alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_beta",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_beta",
+          "name": "Agent Beta",
+          "email": "beta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_gamma",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_gamma",
+          "name": "Agent Gamma",
+          "email": "gamma@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_delta",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_delta",
+          "name": "Agent Delta",
+          "email": "delta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_epsilon",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_epsilon",
+          "name": "Agent Epsilon",
+          "email": "epsilon@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_zeta",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_zeta",
+          "name": "Agent Zeta",
+          "email": "zeta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_eta",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_eta",
+          "name": "Agent Eta",
+          "email": "eta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_theta",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_theta",
+          "name": "Agent Theta",
+          "email": "theta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_iota",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_iota",
+          "name": "Agent Iota",
+          "email": "iota@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_001",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_001",
+          "name": "Sam Cartwright",
+          "email": "scartwright@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_hm_sup",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "hm_sup",
+          "name": "Support Inbox",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "last_agent_response",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alpha@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "beta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "delta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "epsilon@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "gamma@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "iota@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "scartwright@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "theta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "user10@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "user11@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "user12@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "user13@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "user14@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "user15@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "user16@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "user17@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "user18@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "user19@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "user1@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "user20@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "user21@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "user22@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "user23@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "user2@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "user3@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "user4@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "user5@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "user6@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "user7@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "user8@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "user9@test.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "zeta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_qual",
+      "name": "support-quality",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

@@ -1,0 +1,435 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_performance": {
+      "title": "Performance Data",
+      "sheets": {
+        "ws_benchmarks": {
+          "title": "Benchmarks",
+          "values": [
+            ["Metric", "Target_Value", "Description"],
+            ["min_conversations", "3", "Minimum conversations handled"],
+            ["min_closed_pct", "60", "Minimum close rate percentage"]
+          ]
+        },
+        "ws_goals": {
+          "title": "Goals",
+          "values": [
+            [
+              "Agent_Email",
+              "Personal_Goal_Conversations",
+              "Recognition_Threshold",
+              "Manager_Email"
+            ],
+            [
+              "agent_alpha@company.example.com",
+              "5",
+              "5",
+              "manager1@company.example.com"
+            ],
+            [
+              "agent_beta@company.example.com",
+              "5",
+              "5",
+              "manager1@company.example.com"
+            ],
+            [
+              "agent_charlie@company.example.com",
+              "3",
+              "3",
+              "manager2@company.example.com"
+            ],
+            [
+              "agent_delta@company.example.com",
+              "3",
+              "3",
+              "manager2@company.example.com"
+            ]
+          ]
+        },
+        "ws_results_log": {
+          "title": "Results Log",
+          "values": [
+            ["Agent_Email", "Conversations", "Closed", "Close_Rate", "Status"]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["report_tracking_code", "PERF-RPT-W06"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h1",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h1",
+          "subject": "Login help",
+          "status": "closed",
+          "assignee_id": "agent_alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h2",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h2",
+          "subject": "Billing question",
+          "status": "closed",
+          "assignee_id": "agent_alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h3",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h3",
+          "subject": "Setup issue",
+          "status": "closed",
+          "assignee_id": "agent_alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h4",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h4",
+          "subject": "Password reset",
+          "status": "closed",
+          "assignee_id": "agent_alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h5",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h5",
+          "subject": "API question",
+          "status": "open",
+          "assignee_id": "agent_alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h6",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h6",
+          "subject": "Feature question",
+          "status": "pending",
+          "assignee_id": "agent_alpha@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h7",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h7",
+          "subject": "Integration help",
+          "status": "open",
+          "assignee_id": "agent_beta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h8",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h8",
+          "subject": "Bug report",
+          "status": "open",
+          "assignee_id": "agent_beta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h9",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h9",
+          "subject": "Slow loading",
+          "status": "pending",
+          "assignee_id": "agent_beta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h10",
+          "subject": "Data export",
+          "status": "open",
+          "assignee_id": "agent_beta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h11",
+          "subject": "Config issue",
+          "status": "closed",
+          "assignee_id": "agent_beta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h12",
+          "subject": "Quick fix",
+          "status": "closed",
+          "assignee_id": "agent_charlie@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h13",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h13",
+          "subject": "Simple question",
+          "status": "closed",
+          "assignee_id": "agent_charlie@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h14",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h14",
+          "subject": "Complex issue",
+          "status": "open",
+          "assignee_id": "agent_delta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_perf_h15",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "perf_h15",
+          "subject": "Ongoing problem",
+          "status": "pending",
+          "assignee_id": "agent_delta@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_008",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_008",
+          "subject": "Building access card request",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_003",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_003",
+          "subject": "IT equipment return process",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_001",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_001",
+          "subject": "Vendor payment query",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_1",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_1",
+          "email": "agent_alpha@company.example.com",
+          "name": "Agent Alpha"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_2",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_2",
+          "email": "agent_beta@company.example.com",
+          "name": "Agent Beta"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_3",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_3",
+          "email": "agent_charlie@company.example.com",
+          "name": "Agent Charlie"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_4",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_4",
+          "email": "agent_delta@company.example.com",
+          "name": "Agent Delta"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_002",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_002",
+          "name": "Lee Patterson",
+          "email": "lpatterson@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_inbox_support",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "inbox_support",
+          "name": "Support",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "agent_email",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "agent_alpha@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "agent_beta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "agent_charlie@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "agent_delta@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "lpatterson@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "manager1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "manager2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_TEAM",
+      "name": "support-team",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

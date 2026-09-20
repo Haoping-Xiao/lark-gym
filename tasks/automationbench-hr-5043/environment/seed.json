@@ -1,0 +1,142 @@
+{
+  "now": "2026-03-20T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_offers_pending": {
+      "title": "Offer Approvals",
+      "sheets": {
+        "ws_offers": {
+          "title": "Pending Offers",
+          "values": [
+            [
+              "Candidate",
+              "Email",
+              "Role",
+              "Salary",
+              "Start Date",
+              "Approval",
+              "DocuSign Status"
+            ],
+            [
+              "Elena Vasquez",
+              "elena.vasquez@email.example.com",
+              "Senior Backend Engineer",
+              "$155,000",
+              "2026-04-14",
+              "Approved",
+              "Not Sent"
+            ],
+            [
+              "James Morton",
+              "james.morton@email.example.com",
+              "Staff Engineer",
+              "$195,000",
+              "2026-04-21",
+              "Approved",
+              "Not Sent"
+            ],
+            [
+              "Priya Kapoor",
+              "priya.kapoor@email.example.com",
+              "Product Manager",
+              "$140,000",
+              "TBD",
+              "Pending VP Review",
+              "Not Sent"
+            ]
+          ]
+        },
+        "ws_offer_status": {
+          "title": "DocuSign Status Convention",
+          "values": [
+            ["Outcome", "DocuSign Status"],
+            ["Approved offer sent for signature", "DocuSign Sent"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_docusign_templates_tmpl_offer_letter",
+        "fields": {
+          "collection": "docusign_templates",
+          "template_id": "tmpl_offer_letter",
+          "name": "Standard Offer Letter",
+          "description": "Standard employment offer letter template"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "template_id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "candidate",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "salary",
+        "type": "text"
+      },
+      {
+        "name": "start_date",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "elena.vasquez@email.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "james.morton@email.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "priya.kapoor@email.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

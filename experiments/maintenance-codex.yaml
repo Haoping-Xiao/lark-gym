@@ -1,14 +1,12 @@
-# Run from the repository root after npm run prepare:harbor.
-# The task Dockerfile supplies the lark-cli gym; gym is not a Harbor job field.
+# Install the pinned Harbor revision and run scripts/build-images.sh first.
 job_name: maintenance-codex
-tasks:
-  - path: tasks/maintenance-notice
+jobs_dir: runs/harbor
+n_concurrent_trials: 1
 agents:
   - name: codex
     model_name: openai/gpt-6-astra
 environment:
   type: docker
-n_attempts: 1
-n_concurrent_trials: 1
-extra_instruction_paths:
-  - tasks/maintenance-notice/tools.md
+datasets:
+  - path: tasks
+    task_names: [maintenance-notice]

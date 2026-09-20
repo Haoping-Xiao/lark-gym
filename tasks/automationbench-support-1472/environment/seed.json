@@ -1,0 +1,388 @@
+{
+  "now": "2026-02-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_digest": {
+      "title": "Digest Config",
+      "sheets": {
+        "ws_categories": {
+          "title": "Categories",
+          "values": [
+            ["Keyword", "Category"],
+            ["outage", "infrastructure"],
+            ["down", "infrastructure"],
+            ["payment", "billing"],
+            ["refund", "billing"],
+            ["charge", "billing"],
+            ["invoice", "billing"],
+            ["bug", "engineering"],
+            ["error", "engineering"]
+          ]
+        },
+        "ws_recipients": {
+          "title": "Recipients",
+          "values": [
+            ["Category", "Recipient_Email", "High_Priority_Threshold"],
+            ["infrastructure", "ops-lead@company.example.com", "any"],
+            ["billing", "finance@company.example.com", "3"],
+            ["engineering", "eng-lead@company.example.com", "5"]
+          ]
+        },
+        "ws_digest_log": {
+          "title": "Digest Log",
+          "values": [["Date", "Category", "Count", "Action_Taken"]]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["digest_id", "DIGEST-20260210"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv1",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv1",
+          "subject": "Production outage in US-East",
+          "status": "open",
+          "assigned_to": "agent_a@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv2",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv2",
+          "subject": "Server down in EU cluster",
+          "status": "open",
+          "assigned_to": "agent_a@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv3",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv3",
+          "subject": "CDN outage affecting images",
+          "status": "open",
+          "assigned_to": "agent_b@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv4",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv4",
+          "subject": "Payment failed for customer",
+          "status": "open",
+          "assigned_to": "agent_b@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv5",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv5",
+          "subject": "Refund request pending",
+          "status": "open",
+          "assigned_to": "agent_c@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv6",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv6",
+          "subject": "Double charge on invoice",
+          "status": "open",
+          "assigned_to": "agent_c@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv7",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv7",
+          "subject": "Refund processing error",
+          "status": "open",
+          "assigned_to": "agent_a@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv8",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv8",
+          "subject": "Bug in user registration",
+          "status": "open",
+          "assigned_to": "agent_d@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv9",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv9",
+          "subject": "API error on checkout",
+          "status": "open",
+          "assigned_to": "agent_d@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv10",
+          "subject": "Error in SSO integration",
+          "status": "open",
+          "assigned_to": "agent_b@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv11",
+          "subject": "General account inquiry",
+          "status": "open",
+          "assigned_to": "agent_c@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_digest_conv12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "digest_conv12",
+          "subject": "Question about new features",
+          "status": "open",
+          "assigned_to": "agent_d@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_004",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_004",
+          "subject": "New hire onboarding checklist",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_002",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_002",
+          "subject": "Office supply reorder request",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_009",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_009",
+          "subject": "Parking permit application",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_a",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_a",
+          "email": "agent_a@company.example.com",
+          "name": "Agent Alpha"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_b",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_b",
+          "email": "agent_b@company.example.com",
+          "name": "Agent Beta"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_c",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_c",
+          "email": "agent_c@company.example.com",
+          "name": "Agent Charlie"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_d",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_d",
+          "email": "agent_d@company.example.com",
+          "name": "Agent Delta"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_003",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_003",
+          "name": "Robin Hartley",
+          "email": "rhartley@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_inbox_support",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "inbox_support",
+          "name": "Support",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "assigned_to",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "agent_a@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "agent_b@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "agent_c@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "agent_d@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eng-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "ops-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "rhartley@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_DIGEST",
+      "name": "daily-digest",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

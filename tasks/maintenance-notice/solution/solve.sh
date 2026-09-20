@@ -1,3 +1,3 @@
 #!/bin/sh
 set -eu
-node /solution/entry.mjs
+node /solution/entry.ts

@@ -1,0 +1,173 @@
+{
+  "now": "2026-04-10T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_receiving": {
+      "title": "Receiving Log",
+      "sheets": {
+        "ws_received": {
+          "title": "Received Items",
+          "values": [
+            ["PO #", "Vendor", "Ordered Qty", "Received Qty", "Unit Price"],
+            ["XPO-401", "Alpine Supplies", "100", "100", "$50"],
+            ["XPO-402", "Baxter Materials", "50", "35", "$250"],
+            ["XPO-403", "Cascade Equipment", "10", "12", "$800"],
+            ["XPO-404", "Alpine Supply Co", "25", "25", "$128"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_xero_xc_401",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_401",
+          "name": "Alpine Supplies",
+          "is_supplier": "true"
+        }
+      },
+      {
+        "record_id": "rec_xero_xc_402",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_402",
+          "name": "Baxter Materials",
+          "is_supplier": "true"
+        }
+      },
+      {
+        "record_id": "rec_xero_xc_403",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_403",
+          "name": "Cascade Equipment",
+          "is_supplier": "true"
+        }
+      },
+      {
+        "record_id": "rec_xero_xc_404",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_404",
+          "name": "Alpine Supply Co",
+          "is_supplier": "true"
+        }
+      },
+      {
+        "record_id": "rec_xero_xpo_401",
+        "fields": {
+          "collection": "xero_purchase_orders",
+          "purchase_order_id": "xpo_401",
+          "purchase_order_number": "XPO-401",
+          "contact_name": "Alpine Supplies",
+          "contact_id": "xc_401",
+          "status": "AUTHORISED",
+          "total": "5000"
+        }
+      },
+      {
+        "record_id": "rec_xero_xpo_402",
+        "fields": {
+          "collection": "xero_purchase_orders",
+          "purchase_order_id": "xpo_402",
+          "purchase_order_number": "XPO-402",
+          "contact_name": "Baxter Materials",
+          "contact_id": "xc_402",
+          "status": "AUTHORISED",
+          "total": "12500"
+        }
+      },
+      {
+        "record_id": "rec_xero_xpo_403",
+        "fields": {
+          "collection": "xero_purchase_orders",
+          "purchase_order_id": "xpo_403",
+          "purchase_order_number": "XPO-403",
+          "contact_name": "Cascade Equipment",
+          "contact_id": "xc_403",
+          "status": "AUTHORISED",
+          "total": "8000"
+        }
+      },
+      {
+        "record_id": "rec_xero_xpo_404",
+        "fields": {
+          "collection": "xero_purchase_orders",
+          "purchase_order_id": "xpo_404",
+          "purchase_order_number": "XPO-404",
+          "contact_name": "Alpine Supply Co",
+          "contact_id": "xc_404",
+          "status": "AUTHORISED",
+          "total": "3200"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "is_supplier",
+        "type": "text"
+      },
+      {
+        "name": "purchase_order_id",
+        "type": "text"
+      },
+      {
+        "name": "purchase_order_number",
+        "type": "text"
+      },
+      {
+        "name": "contact_name",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "total",
+        "type": "number"
+      },
+      {
+        "name": "quantity",
+        "type": "number"
+      },
+      {
+        "name": "unit_price",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "procurement@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

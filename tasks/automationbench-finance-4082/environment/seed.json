@@ -1,0 +1,109 @@
+{
+  "now": "2026-02-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_discount_analysis": {
+      "title": "Discount Analysis",
+      "sheets": {
+        "ws_bills_disc": {
+          "title": "Bills with Discounts",
+          "values": [
+            ["Vendor", "Bill Amount", "Terms", "Bill Date", "Notes"],
+            ["Acme Supplies", "$15,000", "2/10 Net 30", "2026-02-05", ""],
+            ["TechServe", "$8,000", "1/15 Net 45", "2026-02-03", ""],
+            [
+              "Metro Supply",
+              "$3,200",
+              "3/10 Net 30",
+              "2026-02-08",
+              "Dispute pending - quantity issue"
+            ],
+            ["CloudHost Pro", "$22,000", "1.5/10 Net 60", "2026-02-01", ""]
+          ]
+        },
+        "ws_cash_position": {
+          "title": "Cash Position",
+          "values": [
+            ["Account", "Balance", "Date"],
+            ["Operating", "$185,000", "2026-02-10"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ap@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "cfo@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "treasury@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "vendor-relations@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_discount_pol",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_discount_pol\\\", \\\"thread_id\\\": \\\"th_disc\\\", \\\"from_\\\": \\\"cfo@company.example.com\\\", \\\"to\\\": [\\\"treasury@company.example.com\\\"], \\\"subject\\\": \\\"Early Payment Discount Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T08:00:00Z\\\"}\\n消息 ID：msg_discount_pol\\n来源：cfo@company.example.com\\n收件人：treasury@company.example.com\\n日期：2026-02-01T08:00:00Z\\n主题：Early Payment Discount Policy\\nEarly payment discount rules:\\n\\n1. Only take discounts when available cash exceeds $100,000 after payment\\n2. Prioritize by annualized return: (discount% / (due_days - discount_days)) * 365\\n3. Minimum annualized return to take a discount: 15%\\n4. Bills with dispute notes should NOT be paid early\\n5. Report: vendor, bill amount, discount amount, annualized return, recommendation\\n\\n- CFO\"}"
+      },
+      "create_time": "1769932800000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
+      },
+      "create_time": "1769079600000"
+    }
+  ]
+}

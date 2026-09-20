@@ -1,0 +1,400 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_orders": {
+      "title": "Order Tracking",
+      "sheets": {
+        "ws_orders": {
+          "title": "Orders",
+          "values": [
+            [
+              "Order Number",
+              "Customer Email",
+              "Status",
+              "Tracking",
+              "Ship Date",
+              "Delivery Date",
+              "Cancel Date"
+            ],
+            [
+              "ORD-4521",
+              "buyer1@mail.com",
+              "Shipped",
+              "TRK-99887",
+              "2026-01-28",
+              "2026-02-03",
+              ""
+            ],
+            [
+              "ORD-4522",
+              "buyer2@mail.com",
+              "Processing",
+              "",
+              "2026-02-06",
+              "",
+              ""
+            ],
+            [
+              "ORD-4523",
+              "buyer3@mail.com",
+              "Cancelled",
+              "",
+              "",
+              "",
+              "2026-01-25"
+            ],
+            [
+              "ORD-4524",
+              "buyer5@mail.com",
+              "Shipped",
+              "TRK-11111",
+              "2026-02-01",
+              "2026-02-07",
+              ""
+            ],
+            [
+              "ORD-4525",
+              "buyer5@mail.com",
+              "Processing",
+              "",
+              "2026-02-08",
+              "",
+              ""
+            ],
+            ["ORD-4526", "buyer6@mail.com", "Backordered", "", "", "", ""],
+            [
+              "ORD-45211",
+              "buyer11@mail.com",
+              "Processing",
+              "",
+              "2026-02-10",
+              "",
+              ""
+            ],
+            [
+              "ORD-4527",
+              "buyer9@mail.com",
+              "Shipped",
+              "TRK-33333",
+              "2026-01-30",
+              "2026-02-05",
+              ""
+            ]
+          ]
+        },
+        "ws_vip_orders": {
+          "title": "VIP Customers",
+          "values": [
+            ["Customer Email", "VIP Level", "Reply_Prefix"],
+            ["buyer1@mail.com", "Gold", "[PRIORITY]"],
+            ["buyer2@mail.com", "Silver", ""],
+            ["buyer3@mail.com", "Silver", ""],
+            ["buyer5@mail.com", "Gold", "[PRIORITY]"],
+            ["buyer6@mail.com", "Silver", ""],
+            ["buyer8@mail.com", "Gold", "[PRIORITY]"]
+          ]
+        },
+        "ws_refund_policy": {
+          "title": "Refund Policy",
+          "values": [
+            ["Order Number", "Eligible"],
+            ["ORD-4523", "Yes"],
+            ["ORD-4527", "No"]
+          ]
+        },
+        "ws_order_log": {
+          "title": "Order Log",
+          "values": [["Order Number", "Customer", "Status", "Action Taken"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_gorgias_tickets_g_101",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_101",
+          "subject": "Where is my order?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_1\",\"email\":\"buyer1@mail.com\",\"name\":\"Alex Rivera\"}",
+          "messages": "[{\"body_text\":\"Hi, I placed order ORD-4521 last week and haven't received any updates. Can you check on this?\",\"sender_type\":\"customer\",\"sender_email\":\"buyer1@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_102",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_102",
+          "subject": "Order status check",
+          "status": "open",
+          "customer": "{\"id\":\"gc_2\",\"email\":\"buyer2@mail.com\",\"name\":\"Sam Lee\"}",
+          "messages": "[{\"body_text\":\"Can you tell me the status of ORD-4522? I need it by Friday.\",\"sender_type\":\"customer\",\"sender_email\":\"buyer2@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_103",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_103",
+          "subject": "Cancelled order question",
+          "status": "open",
+          "customer": "{\"id\":\"gc_3\",\"email\":\"buyer3@mail.com\",\"name\":\"Jordan Patel\"}",
+          "messages": "[{\"body_text\":\"I see that ORD-4523 was cancelled. Can I get a refund?\",\"sender_type\":\"customer\",\"sender_email\":\"buyer3@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_104",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_104",
+          "subject": "General question",
+          "status": "open",
+          "customer": "{\"id\":\"gc_4\",\"email\":\"buyer4@mail.com\",\"name\":\"Casey Wu\"}",
+          "messages": "[{\"body_text\":\"Hi, I placed an order recently but I can't find the confirmation email. Can you help?\",\"sender_type\":\"customer\",\"sender_email\":\"buyer4@mail.com\"}]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_105",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_105",
+          "subject": "Multiple order check",
+          "status": "open",
+          "customer": "{\"id\":\"gc_5\",\"email\":\"buyer5@mail.com\",\"name\":\"Taylor Kim\"}",
+          "messages": "[{\"body_text\":\"Hi, can you check on my orders ORD-4524 and ORD-4525? Thanks!\",\"sender_type\":\"customer\",\"sender_email\":\"buyer5@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_106",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_106",
+          "subject": "Backordered item status",
+          "status": "open",
+          "customer": "{\"id\":\"gc_6\",\"email\":\"buyer6@mail.com\",\"name\":\"Jordan Lee\"}",
+          "messages": "[{\"body_text\":\"What's the status of ORD-4526?\",\"sender_type\":\"customer\",\"sender_email\":\"buyer6@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_107",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_107",
+          "subject": "Checking on an order",
+          "status": "open",
+          "customer": "{\"id\":\"gc_7\",\"email\":\"buyer7@mail.com\",\"name\":\"Robin Chen\"}",
+          "messages": "[{\"body_text\":\"Hi, I need to check the status of ORD-4521. My spouse placed it but I'm following up.\",\"sender_type\":\"customer\",\"sender_email\":\"buyer7@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_108",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_108",
+          "subject": "Order not showing up",
+          "status": "open",
+          "customer": "{\"id\":\"gc_8\",\"email\":\"buyer8@mail.com\",\"name\":\"Morgan Blake\"}",
+          "messages": "[{\"body_text\":\"I can't find any info on my order ORD-45210. It should have shipped by now.\",\"sender_type\":\"customer\",\"sender_email\":\"buyer8@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_109",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_109",
+          "subject": "Order delivery update",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_9\",\"email\":\"buyer9@mail.com\",\"name\":\"Dana Reeves\"}",
+          "messages": "[{\"body_text\":\"Can you check on ORD-4527? I haven't received it yet.\",\"sender_type\":\"customer\",\"sender_email\":\"buyer9@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_110",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_110",
+          "subject": "Need order status",
+          "status": "open",
+          "customer": "{\"id\":\"gc_10\",\"email\":\"buyer10@mail.com\",\"name\":\"Pat Nguyen\"}",
+          "messages": "[{\"body_text\":\"What's my order status? I ordered something last week and it still hasn't arrived.\",\"sender_type\":\"customer\",\"sender_email\":\"buyer10@mail.com\"}]",
+          "tags": "[\"order-inquiry\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_007",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_007",
+          "subject": "Gift card balance not showing",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_007\",\"email\":\"shopper7@mailbox.example.com\",\"name\":\"Parker Sullivan\"}",
+          "messages": "[{\"body_text\":\"I redeemed a $50 gift card but my balance shows $0.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_004",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_004",
+          "subject": "Damaged item in shipment",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_004\",\"email\":\"shopper4@mailbox.example.com\",\"name\":\"Alex Kim\"}",
+          "messages": "[{\"body_text\":\"My package arrived with the glass vase broken. Photos attached.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_009",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_009",
+          "subject": "Product review not publishing",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_001\",\"email\":\"shopper1@mailbox.example.com\",\"name\":\"Riley Morgan\"}",
+          "messages": "[{\"body_text\":\"I submitted a review 3 days ago and it still isn't visible on the product page.\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "sender_type",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "buyer10@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "buyer11@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "buyer1@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "buyer2@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "buyer3@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "buyer4@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "buyer5@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "buyer6@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "buyer7@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "buyer8@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "buyer9@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "shopper1@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "shopper4@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "shopper7@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ORDERSUP",
+      "name": "order-support",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

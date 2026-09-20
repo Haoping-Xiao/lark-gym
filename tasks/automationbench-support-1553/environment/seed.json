@@ -1,0 +1,424 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_handoff": {
+      "title": "Handoff Rules",
+      "sheets": {
+        "ws_rules": {
+          "title": "Routing Rules",
+          "values": [
+            ["Tag Pattern", "Target Team", "Priority"],
+            ["billing,enterprise", "Finance", "High"],
+            ["security", "Security", "Critical"],
+            ["legal", "Legal", "High"],
+            ["billing,refund", "Finance", "Medium"]
+          ]
+        },
+        "ws_leads": {
+          "title": "Team Leads",
+          "values": [
+            ["Team", "Lead Name", "Lead Email"],
+            ["Finance", "Maria Santos", "maria@company.example.com"],
+            ["Security", "Tom Bradley", "tom@company.example.com"],
+            ["Legal", "Lisa Park", "lisa@company.example.com"]
+          ]
+        },
+        "ws_candidates": {
+          "title": "Handoff Candidates",
+          "values": [
+            ["Conversation ID", "Subject", "Target Team", "Priority", "Status"]
+          ]
+        },
+        "ws_config": {
+          "title": "Routing Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "HANDOFF-Q1-20260210"],
+            ["Skip_Tag", "handed-off"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hiver_conversations_hv_h01",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h01",
+          "subject": "Enterprise account issue - invoice #4821",
+          "status": "open",
+          "customer_email": "alice@corp.com",
+          "customer_name": "Alice Morgan",
+          "tags": "[\"billing\",\"enterprise\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h02",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h02",
+          "subject": "Cannot connect to REST endpoint",
+          "status": "open",
+          "customer_email": "bob@tech.io",
+          "customer_name": "Bob Chen",
+          "tags": "[\"technical\",\"api\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h03",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h03",
+          "subject": "Getting started with platform setup",
+          "status": "pending",
+          "customer_email": "carla@new.com",
+          "customer_name": "Carla Davis",
+          "tags": "[\"onboarding\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h04",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h04",
+          "subject": "Possible data exposure in admin panel",
+          "status": "open",
+          "customer_email": "dan@secure.com",
+          "customer_name": "Dan Kim",
+          "tags": "[\"security\",\"urgent\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h05",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h05",
+          "subject": "Question about feature availability",
+          "status": "open",
+          "customer_email": "eva@basic.com",
+          "customer_name": "Eva Moore",
+          "tags": "[\"general\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h06",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h06",
+          "subject": "Invoice clarification from last month",
+          "status": "closed",
+          "customer_email": "felix@old.com",
+          "customer_name": "Felix Nguyen",
+          "tags": "[\"billing\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h07",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h07",
+          "subject": "Follow-up on escalated API timeout",
+          "status": "open",
+          "customer_email": "gina@done.com",
+          "customer_name": "Gina Park",
+          "tags": "[\"technical\",\"handed-off\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h08",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h08",
+          "subject": "GDPR data retention policy inquiry",
+          "status": "open",
+          "customer_email": "hiro@legal.com",
+          "customer_name": "Hiro Tanaka",
+          "tags": "[\"legal\",\"compliance\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h09",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h09",
+          "subject": "Suggestion for dashboard improvements",
+          "status": "pending",
+          "customer_email": "iris@user.com",
+          "customer_name": "Iris Lopez",
+          "tags": "[\"feedback\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h10",
+          "subject": "Requesting credit for service outage",
+          "status": "open",
+          "customer_email": "jake@refund.com",
+          "customer_name": "Jake Torres",
+          "tags": "[\"billing\",\"refund\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h11",
+          "subject": "Monthly billing cycle question",
+          "status": "open",
+          "customer_email": "kim@standard.com",
+          "customer_name": "Kim Patel",
+          "tags": "[\"billing\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h12",
+          "subject": "Performance degradation report",
+          "status": "pending",
+          "customer_email": "leo@perf.com",
+          "customer_name": "Leo Martinez",
+          "tags": "[\"technical\",\"performance\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_h13",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_h13",
+          "subject": "Security audit for compliance review",
+          "status": "open",
+          "customer_email": "nina@audit.com",
+          "customer_name": "Nina Chen",
+          "tags": "[\"legal\",\"security\"]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_010",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_010",
+          "subject": "Benefits enrollment question",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_005",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_005",
+          "subject": "Conference room booking conflict",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_002",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_002",
+          "subject": "Office supply reorder request",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_01",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_01",
+          "name": "Support Lead",
+          "email": "support-lead@company.example.com",
+          "role": "admin"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_001",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_001",
+          "name": "Sam Cartwright",
+          "email": "scartwright@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_sm_01",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "sm_01",
+          "name": "Support",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob@tech.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carla@new.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dan@secure.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eva@basic.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "felix@old.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "gina@done.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "hiro@legal.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "iris@user.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "jake@refund.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "kim@standard.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "leo@perf.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "lisa@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "maria@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "nina@audit.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "scartwright@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "support-lead@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "tom@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_HANDOFF",
+      "name": "support-handoffs",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

@@ -1,0 +1,250 @@
+{
+  "now": "2026-03-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_training": {
+      "title": "Training Records",
+      "sheets": {
+        "ws_requirements": {
+          "title": "Training Requirements",
+          "values": [
+            ["Training", "Frequency", "Required For", "Grace Period Days"],
+            ["Security Awareness", "Annual", "All Employees", "30"],
+            ["Anti-Harassment", "Biennial", "All Employees", "14"],
+            ["HIPAA Compliance", "Annual", "Engineering, Support", "0"],
+            ["Manager Leadership", "Annual", "Managers Only", "30"]
+          ]
+        },
+        "ws_records": {
+          "title": "Employee Training Log",
+          "values": [
+            [
+              "Employee",
+              "Email",
+              "Manager",
+              "Manager Email",
+              "Department",
+              "Is Manager",
+              "Training",
+              "Completed"
+            ],
+            [
+              "Alice Park",
+              "alice.park@company.example.com",
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "Engineering",
+              "No",
+              "Security Awareness",
+              "2025-02-10"
+            ],
+            [
+              "Alice Park",
+              "alice.park@company.example.com",
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "Engineering",
+              "No",
+              "HIPAA Compliance",
+              "2025-04-01"
+            ],
+            [
+              "Bob Chen",
+              "bob.chen@company.example.com",
+              "David Okonkwo",
+              "david.okonkwo@company.example.com",
+              "Engineering",
+              "No",
+              "Security Awareness",
+              "2025-12-01"
+            ],
+            [
+              "Bob Chen",
+              "bob.chen@company.example.com",
+              "David Okonkwo",
+              "david.okonkwo@company.example.com",
+              "Engineering",
+              "No",
+              "HIPAA Compliance",
+              "2026-01-15"
+            ],
+            [
+              "Carol Diaz",
+              "carol.diaz@company.example.com",
+              "Carlos Reyes",
+              "carlos.reyes@company.example.com",
+              "Marketing",
+              "No",
+              "Security Awareness",
+              "2026-01-20"
+            ],
+            [
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "VP Sales",
+              "vp-sales@company.example.com",
+              "Sales",
+              "Yes",
+              "Security Awareness",
+              "2025-01-05"
+            ],
+            [
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "VP Sales",
+              "vp-sales@company.example.com",
+              "Sales",
+              "Yes",
+              "Manager Leadership",
+              "2024-11-20"
+            ],
+            [
+              "Dave Kim",
+              "dave.kim@company.example.com",
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "Support",
+              "No",
+              "Security Awareness",
+              "2026-02-15"
+            ],
+            [
+              "Dave Kim",
+              "dave.kim@company.example.com",
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "Support",
+              "No",
+              "HIPAA Compliance",
+              "2025-10-01"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice.park@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "bob.chen@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "carlos.reyes@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "carol.diaz@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "compliance-officer@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "dave.kim@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "david.okonkwo@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "hr-director@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "hr-ops@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "lisa.wang@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "social-committee@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "vp-sales@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_COMPLY",
+      "name": "compliance",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_hipaa_update",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_hipaa_update\\\", \\\"thread_id\\\": \\\"th_hipaa_update\\\", \\\"from_\\\": \\\"compliance-officer@company.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"HIPAA Training Frequency Change - Effective Immediately\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-03-10T08:00:00Z\\\"}\\n消息 ID：msg_hipaa_update\\n来源：compliance-officer@company.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-03-10T08:00:00Z\\n主题：HIPAA Training Frequency Change - Effective Immediately\\nTeam,\\n\\nPer the new CMS audit requirements, HIPAA Compliance training is now required SEMI-ANNUALLY (every 6 months) instead of annually. This is effective immediately. Please use the updated frequency for all compliance audits going forward.\\n\\n- Compliance Officer\"}"
+      },
+      "create_time": "1773129600000"
+    },
+    {
+      "message_id": "om_msg_enrollment_policy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_enrollment_policy\\\", \\\"thread_id\\\": \\\"th_enrollment_policy\\\", \\\"from_\\\": \\\"hr-director@company.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"Training Enrollment Policy Reminder\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-03-08T09:00:00Z\\\"}\\n消息 ID：msg_enrollment_policy\\n来源：hr-director@company.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-03-08T09:00:00Z\\n主题：Training Enrollment Policy Reminder\\nTeam,\\n\\nReminder: ONLY managers may enroll employees in training sessions. HR operations should notify the manager of overdue training and request that they enroll their reports. Do NOT auto-enroll employees directly - this violates our enrollment authorization policy.\\n\\n- HR Director\"}"
+      },
+      "create_time": "1772960400000"
+    },
+    {
+      "message_id": "om_noise_hr_msg004",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_msg004\\\", \\\"thread_id\\\": \\\"noise_hr_th004\\\", \\\"from_\\\": \\\"social-committee@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Spring Social - April 12 RSVP\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-03-05T12:00:00Z\\\"}\\n消息 ID：noise_hr_msg004\\n来源：social-committee@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-03-05T12:00:00Z\\n主题：Spring Social - April 12 RSVP\\nJoin us for our spring social event on April 12! Food trucks, lawn games, and live music.\"}"
+      },
+      "create_time": "1772712000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_COMPLY",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_sm001\\\", \\\"channel_id\\\": \\\"C_COMPLY\\\", \\\"user_id\\\": \\\"U_NOISE1\\\", \\\"ts\\\": \\\"2026-03-01T10:00:00Z\\\"}\\nReminder: parking lot B is closed for repaving this week. Use lot C.\"}"
+      },
+      "create_time": "2026-03-01T10:00:00Z"
+    }
+  ]
+}

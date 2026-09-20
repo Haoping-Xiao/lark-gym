@@ -1,0 +1,339 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_nurture": {
+      "title": "Trial Nurture",
+      "sheets": {
+        "ws_milestones": {
+          "title": "Required Milestones",
+          "values": [
+            ["Step", "Event Name", "Order"],
+            ["Account Creation", "account_created", "1"],
+            ["Profile Setup", "profile_setup", "2"],
+            ["First Feature Use", "first_feature", "3"],
+            ["Team Invitation", "invite_team", "4"]
+          ]
+        },
+        "ws_emails": {
+          "title": "Milestone Emails",
+          "values": [
+            ["Milestone Completed", "Subject", "Body"],
+            [
+              "account_created",
+              "Welcome! Set up your profile",
+              "Great start! Next step: complete your profile setup."
+            ],
+            [
+              "profile_setup",
+              "Profile Done! Try your first feature",
+              "Your profile is set up. Now try using a feature."
+            ],
+            [
+              "first_feature",
+              "Nice! Invite your team",
+              "You have used your first feature. Invite team members next."
+            ],
+            [
+              "invite_team",
+              "All milestones complete!",
+              "Congratulations on completing all onboarding milestones."
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "TNR-20260207-P6HQ"],
+            ["Stuck_Trial_Action", "Create Salesforce task for follow-up"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t01",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t01",
+          "email": "ontrack1@trial.com",
+          "name": "Ava Kim",
+          "company": "TrialA",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-25T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-01-26T11:00:00Z\",\"data\":{}},{\"event_name\":\"first_feature\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t02",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t02",
+          "email": "ontrack2@trial.com",
+          "name": "Ben Okafor",
+          "company": "TrialB",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-20T09:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-01-21T10:00:00Z\",\"data\":{}},{\"event_name\":\"first_feature\",\"created_at\":\"2026-02-04T11:00:00Z\",\"data\":{}},{\"event_name\":\"invite_team\",\"created_at\":\"2026-02-06T09:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t03",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t03",
+          "email": "stuck1@trial.com",
+          "name": "Carla Diaz",
+          "company": "TrialC",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-18T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-01-19T11:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t04",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t04",
+          "email": "ontrack3@trial.com",
+          "name": "Dan Petrov",
+          "company": "TrialD",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-28T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t05",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t05",
+          "email": "converted1@trial.com",
+          "name": "Elena Voss",
+          "company": "TrialE",
+          "tags": "[\"trial\",\"customer\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-10T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-01-11T11:00:00Z\",\"data\":{}},{\"event_name\":\"first_feature\",\"created_at\":\"2026-01-12T14:00:00Z\",\"data\":{}},{\"event_name\":\"invite_team\",\"created_at\":\"2026-01-13T09:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t06",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t06",
+          "email": "converted2@trial.com",
+          "name": "Felix Tanaka",
+          "company": "TrialF",
+          "tags": "[\"trial\",\"customer\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-15T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-01-16T11:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t07",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t07",
+          "email": "stuck2@trial.com",
+          "name": "Gina Park",
+          "company": "TrialG",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-22T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t08",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t08",
+          "email": "stuck3@trial.com",
+          "name": "Hiro Chen",
+          "company": "TrialH",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-20T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-02-01T11:00:00Z\",\"data\":{}},{\"event_name\":\"first_feature\",\"created_at\":\"2026-02-02T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t09",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t09",
+          "email": "juststarted@trial.com",
+          "name": "Iris Wang",
+          "company": "TrialI",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_t10",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_t10",
+          "email": "ontrack4@trial.com",
+          "name": "Jake Torres",
+          "company": "TrialJ",
+          "tags": "[\"trial\"]",
+          "events": "[{\"event_name\":\"account_created\",\"created_at\":\"2026-01-28T10:00:00Z\",\"data\":{}},{\"event_name\":\"profile_setup\",\"created_at\":\"2026-01-29T11:00:00Z\",\"data\":{}},{\"event_name\":\"first_feature\",\"created_at\":\"2026-02-06T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_003",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_003",
+          "email": "user3@sunridge.example.com",
+          "name": "Tariq Osman",
+          "tags": "[]",
+          "company": "Sunridge Partners",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-27T14:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_001",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_001",
+          "email": "user1@echovalley.example.com",
+          "name": "Quinn Donovan",
+          "tags": "[]",
+          "company": "Echo Valley Software",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-28T10:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_005",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_005",
+          "email": "user5@crestmoor.example.com",
+          "name": "Matias Cordero",
+          "tags": "[]",
+          "company": "Crestmoor Digital",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-26T16:00:00Z\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "company",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "events",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "source_customer_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "converted1@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "converted2@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "juststarted@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "ontrack1@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "ontrack2@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "ontrack3@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "ontrack4@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "stuck1@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "stuck2@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "stuck3@trial.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "user1@echovalley.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "user3@sunridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "user5@crestmoor.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

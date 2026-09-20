@@ -1,0 +1,93 @@
+{
+  "now": "2026-02-05T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_reclass": {
+      "title": "Expense Reclassification",
+      "sheets": {
+        "ws_requests": {
+          "title": "Pending Requests",
+          "values": [
+            [
+              "Expense ID",
+              "Current Category",
+              "Requested Category",
+              "Amount",
+              "Reason",
+              "Requested By",
+              "Status"
+            ],
+            [
+              "EXP-4401",
+              "Office Supplies",
+              "Software",
+              "$2,400",
+              "Was Figma annual license, not supplies",
+              "Engineering Head",
+              "Pending"
+            ],
+            [
+              "EXP-4402",
+              "Travel",
+              "Client Entertainment",
+              "$850",
+              "Client dinner, not personal travel",
+              "Sales Head",
+              "Pending"
+            ],
+            [
+              "EXP-4403",
+              "Consulting",
+              "Unicorn Expenses",
+              "$5,000",
+              "Special project",
+              "Intern",
+              "Pending"
+            ]
+          ]
+        },
+        "ws_coa": {
+          "title": "Chart of Accounts",
+          "values": [
+            ["Code", "Name", "Type", "Active"],
+            ["5010", "Software", "Expense", "Yes"],
+            ["5020", "Office Supplies", "Expense", "Yes"],
+            ["5030", "Travel", "Expense", "Yes"],
+            ["5040", "Client Entertainment", "Expense", "Yes"],
+            ["5050", "Consulting", "Expense", "Yes"]
+          ]
+        },
+        "ws_reclass_status": {
+          "title": "Reclassification Status Convention",
+          "values": [
+            ["Outcome", "Status"],
+            ["Requested category exists and is active", "Completed"],
+            ["Requested category is absent or inactive", "Rejected"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

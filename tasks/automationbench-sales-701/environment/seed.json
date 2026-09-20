@@ -1,0 +1,1418 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_channel_policy": {
+      "title": "Slack Channel Policy",
+      "sheets": {
+        "ws_routing_001": {
+          "title": "Channel Routing",
+          "values": [
+            ["Min_Employees", "Max_Employees", "Channel"],
+            ["500", "", "enterprise-prospects"],
+            ["0", "499", "smb-prospects"]
+          ]
+        },
+        "ws_tier_overrides": {
+          "title": "Account Tier Overrides",
+          "values": [
+            ["Tier", "Channel", "Notes"],
+            [
+              "Strategic",
+              "strategic-accounts",
+              "Strategic-tier accounts always route here regardless of employee count. Include opportunity details (amount, stage) alongside company profile."
+            ],
+            [
+              "Named",
+              "named-accounts",
+              "Named accounts route here for dedicated tracking."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U001",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U001",
+          "name": "Sales Bot",
+          "username": "salesbot"
+        }
+      },
+      {
+        "record_id": "rec_006xx000005RES1",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Q1 Enterprise Deal",
+          "stage_name": "Negotiation",
+          "amount": 250000.0,
+          "account_id": "001xx000003NXS1"
+        }
+      },
+      {
+        "record_id": "rec_006xx000005RES2",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Q1 SMB Expansion",
+          "stage_name": "Proposal",
+          "amount": 25000.0,
+          "account_id": "001xx000003NXS2"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO007",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Redwood Technologies - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-07-07T00:00:00",
+          "amount": 95000.0,
+          "account_id": "001xx000099NA007",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO014",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Silverstone Group - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-05-14T00:00:00",
+          "amount": 40000.0,
+          "account_id": "001xx000099NA014",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO020",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Alpine Digital - Platform License",
+          "stage_name": "Needs Analysis",
+          "close_date": "2026-02-20T00:00:00",
+          "amount": 150000.0,
+          "account_id": "001xx000099NA020",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO001",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ironclad Systems - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-01-01T00:00:00",
+          "amount": 85000.0,
+          "account_id": "001xx000099NA001",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO017",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ironridge Solutions - Platform License",
+          "stage_name": "Value Proposition",
+          "close_date": "2026-08-17T00:00:00",
+          "amount": 50000.0,
+          "account_id": "001xx000099NA017",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO011",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Summit Group Holdings - Platform License",
+          "stage_name": "Prospecting",
+          "close_date": "2026-02-11T00:00:00",
+          "amount": 60000.0,
+          "account_id": "001xx000099NA011",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO015",
+        "fields": {
+          "collection": "opportunities",
+          "name": "CloudBridge Systems - Platform License",
+          "stage_name": "Id. Decision Makers",
+          "close_date": "2026-06-15T00:00:00",
+          "amount": 320000.0,
+          "account_id": "001xx000099NA015",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO016",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Harbourview Capital - Platform License",
+          "stage_name": "Prospecting",
+          "close_date": "2026-07-16T00:00:00",
+          "amount": 70000.0,
+          "account_id": "001xx000099NA016",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO012",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Riverview Partners - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-03-12T00:00:00",
+          "amount": 180000.0,
+          "account_id": "001xx000099NA012",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO006",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Starling Financial - Platform License",
+          "stage_name": "Needs Analysis",
+          "close_date": "2026-06-06T00:00:00",
+          "amount": 75000.0,
+          "account_id": "001xx000099NA006",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO004",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Vertex Capital - Platform License",
+          "stage_name": "Value Proposition",
+          "close_date": "2026-04-04T00:00:00",
+          "amount": 200000.0,
+          "account_id": "001xx000099NA004",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO009",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Montclair Industries - Platform License",
+          "stage_name": "Qualification",
+          "close_date": "2026-09-09T00:00:00",
+          "amount": 25000.0,
+          "account_id": "001xx000099NA009",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO018",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Lakefront Ventures - Platform License",
+          "stage_name": "Proposal",
+          "close_date": "2026-09-18T00:00:00",
+          "amount": 90000.0,
+          "account_id": "001xx000099NA018",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO010",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Pacific Ridge Corp - Platform License",
+          "stage_name": "Perception Analysis",
+          "close_date": "2026-01-10T00:00:00",
+          "amount": 140000.0,
+          "account_id": "001xx000099NA010",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000099NO019",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Westbrook Group - Platform License",
+          "stage_name": "Negotiation",
+          "close_date": "2026-01-19T00:00:00",
+          "amount": 65000.0,
+          "account_id": "001xx000099NA019",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000003NXS1",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Nexus Dynamics",
+          "industry": "Technology",
+          "tier": "Strategic"
+        }
+      },
+      {
+        "record_id": "rec_001xx000003NXS2",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Nexus Partners",
+          "industry": "Consulting"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA018",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Lakefront Ventures",
+          "industry": "Healthcare",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA032",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Terrace Software",
+          "industry": "Software",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA007",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Redwood Technologies",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA008",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Eastgate Solutions",
+          "industry": "Business Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA036",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverstone Analytics",
+          "industry": "Analytics",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA038",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sunridge Capital",
+          "industry": "Private Equity",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA016",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Harbourview Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA035",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Zenith Platforms",
+          "industry": "SaaS",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA015",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "CloudBridge Systems",
+          "industry": "Technology",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA031",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sunstone Capital",
+          "industry": "Private Equity",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA040",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Birchwood Analytics",
+          "industry": "Analytics",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA003",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Cascade Analytics",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA019",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Westbrook Group",
+          "industry": "Energy",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA012",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverview Partners",
+          "industry": "Real Estate",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA020",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Alpine Digital",
+          "industry": "Marketing",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA029",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverside Insurance",
+          "industry": "Insurance",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA004",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Vertex Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA005",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Thornwood Partners",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA045",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Aspen Digital",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA013",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Northgate Technologies",
+          "industry": "IT Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA002",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "BlueStar Ventures",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA011",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Summit Group Holdings",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA014",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Silverstone Group",
+          "industry": "Automotive",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA044",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sterling Software",
+          "industry": "Software",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA024",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Highpoint Consulting",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA009",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Montclair Industries",
+          "industry": "Manufacturing",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA010",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Pacific Ridge Corp",
+          "industry": "Retail",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA030",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Stonebridge Holdings",
+          "industry": "Financial Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA041",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Crestwood Ventures",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA006",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Starling Financial",
+          "industry": "Financial Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA017",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Ironridge Solutions",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA037",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Oceanfront Labs",
+          "industry": "Research",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA023",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Foxridge Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA025",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meadowbrook Tech",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA026",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Northstar Media",
+          "industry": "Media",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA043",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meadowview Partners",
+          "industry": "Consulting",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA042",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Horizon Technologies",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA027",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Oceanfront Labs",
+          "industry": "Research",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA021",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Bayside Analytics",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA028",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Parkside Solutions",
+          "industry": "IT Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_company_nexus_001",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "company_nexus_001",
+          "name": "Nexus Dynamics",
+          "industry": "Information Technology",
+          "website": "https://nexusdynamics.example.com",
+          "employee_count_range": "501-1000",
+          "specialties": "[\"Cloud Computing\",\"AI Solutions\",\"Data Analytics\",\"Enterprise Software\"]",
+          "description": "Leading provider of enterprise cloud solutions.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_company_nexus_002",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "company_nexus_002",
+          "name": "Nexus Partners",
+          "industry": "Management Consulting",
+          "website": "https://nexuspartners.example.com",
+          "employee_count_range": "51-200",
+          "specialties": "[\"Strategy\",\"Operations\"]",
+          "description": "Boutique consulting firm.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_company_nova_001",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "company_nova_001",
+          "name": "Nova Technologies",
+          "industry": "Information Technology",
+          "website": "https://novatech.example.com",
+          "employee_count_range": "1001-5000",
+          "specialties": "[\"Cloud Computing\",\"DevOps\",\"Security\"]",
+          "description": "Cloud infrastructure provider.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_company_apex_001",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "company_apex_001",
+          "name": "Apex Dynamics Group",
+          "industry": "Manufacturing",
+          "website": "https://apexdynamics.example.com",
+          "employee_count_range": "201-500",
+          "specialties": "[\"Automation\",\"Robotics\"]",
+          "description": "Industrial automation solutions.",
+          "is_verified": "false"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_company_nexus_003",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "company_nexus_003",
+          "name": "Nexus Dynamics Inc",
+          "industry": "Information Technology",
+          "website": "https://nexusdynamicsinc.example.com",
+          "employee_count_range": "51-200",
+          "specialties": "[\"Cloud Computing\",\"Managed Services\"]",
+          "description": "Regional cloud services provider. Subsidiary of larger group.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_004",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_004",
+          "name": "Vertex Capital",
+          "industry": "Financial Services",
+          "employee_count": 60,
+          "employee_count_range": "51-200",
+          "website": "https://vertex.example.com",
+          "specialties": "[\"Private Equity\",\"Growth Capital\"]",
+          "description": "Growth-stage PE firm.",
+          "is_verified": "false"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_009",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_009",
+          "name": "Highpoint Consulting",
+          "industry": "Consulting",
+          "employee_count": 350,
+          "employee_count_range": "201-500",
+          "website": "https://highpoint.example.com",
+          "specialties": "[\"IT Strategy\",\"Digital Transformation\"]",
+          "description": "Consulting for mid-market digital initiatives.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_006",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_006",
+          "name": "Redwood Technologies",
+          "industry": "Technology",
+          "employee_count": 780,
+          "employee_count_range": "501-1000",
+          "website": "https://redwood.example.com",
+          "specialties": "[\"Cloud Infrastructure\",\"DevOps\"]",
+          "description": "Cloud infrastructure for scale-ups.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_005",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_005",
+          "name": "Thornwood Partners",
+          "industry": "Consulting",
+          "employee_count": 420,
+          "employee_count_range": "201-500",
+          "website": "https://thornwood.example.com",
+          "specialties": "[\"Strategy\",\"Digital Transformation\"]",
+          "description": "Management consulting for F500 clients.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_014",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_014",
+          "name": "Alpine Digital",
+          "industry": "Marketing",
+          "employee_count": 95,
+          "employee_count_range": "51-200",
+          "website": "https://alpine.example.com",
+          "specialties": "[\"Performance Marketing\",\"SEO\"]",
+          "description": "Digital marketing agency.",
+          "is_verified": "false"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_012",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_012",
+          "name": "Pacific Ridge Corp",
+          "industry": "Retail",
+          "employee_count": 2800,
+          "employee_count_range": "1001-5000",
+          "website": "https://pacificridge.example.com",
+          "specialties": "[\"E-commerce\",\"Retail Tech\"]",
+          "description": "Omni-channel retail group.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_001",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_001",
+          "name": "Ironclad Systems",
+          "industry": "Technology",
+          "employee_count": 320,
+          "employee_count_range": "201-500",
+          "website": "https://ironclad.example.com",
+          "specialties": "[\"Enterprise Software\",\"API Integration\"]",
+          "description": "Enterprise workflow automation for ops teams.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_007",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_007",
+          "name": "Eastgate Solutions",
+          "industry": "Business Services",
+          "employee_count": 230,
+          "employee_count_range": "201-500",
+          "website": "https://eastgate.example.com",
+          "specialties": "[\"Process Automation\",\"BPO\"]",
+          "description": "Business process outsourcing.",
+          "is_verified": "false"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_010",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_010",
+          "name": "CloudBridge Systems",
+          "industry": "Technology",
+          "employee_count": 560,
+          "employee_count_range": "501-1000",
+          "website": "https://cloudbridge.example.com",
+          "specialties": "[\"Cloud Migration\",\"Hybrid Cloud\"]",
+          "description": "Multi-cloud management and migration.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_003",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_003",
+          "name": "Cascade Analytics",
+          "industry": "Technology",
+          "employee_count": 150,
+          "employee_count_range": "51-200",
+          "website": "https://cascade.example.com",
+          "specialties": "[\"Data Analytics\",\"ML Ops\"]",
+          "description": "Real-time data analytics platform.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_011",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_011",
+          "name": "Northstar Media",
+          "industry": "Media",
+          "employee_count": 1200,
+          "employee_count_range": "1001-5000",
+          "website": "https://northstar.example.com",
+          "specialties": "[\"Digital Media\",\"Content Distribution\"]",
+          "description": "Digital media and content network.",
+          "is_verified": "true"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_companies_li_noise_co_015",
+        "fields": {
+          "collection": "linkedin_companies",
+          "id": "li_noise_co_015",
+          "name": "Zenith Platforms",
+          "industry": "SaaS",
+          "employee_count": 450,
+          "employee_count_range": "201-500",
+          "website": "https://zenith.example.com",
+          "specialties": "[\"Revenue Intelligence\",\"Sales AI\"]",
+          "description": "AI-powered revenue platform.",
+          "is_verified": "true"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "stage_name",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "close_date",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "tier",
+        "type": "text"
+      },
+      {
+        "name": "parent_id",
+        "type": "text"
+      },
+      {
+        "name": "website",
+        "type": "text"
+      },
+      {
+        "name": "employee_count_range",
+        "type": "text"
+      },
+      {
+        "name": "specialties",
+        "type": "text"
+      },
+      {
+        "name": "is_verified",
+        "type": "text"
+      },
+      {
+        "name": "employee_count",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C001STRAT",
+      "name": "strategic-accounts",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C001ENTERPRISE",
+      "name": "enterprise-prospects",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C001SMB",
+      "name": "smb-prospects",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990007.000007\\\", \\\"user_id\\\": \\\"U_noise_07\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nPSA: CRM maintenance Saturday 2-4am. Save your work Friday night.\"}"
+      },
+      "create_time": "1740990007.000007"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990002.000002\\\", \\\"user_id\\\": \\\"U_noise_02\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nJust wrapped the Ironclad demo. Really engaged team, feels like a solid Proposal push.\"}"
+      },
+      "create_time": "1740990002.000002"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990044.000044\\\", \\\"user_id\\\": \\\"U_noise_44\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nOOO Wed-Thu for QBR prep. All my accounts covered — ping me if urgent.\"}"
+      },
+      "create_time": "1740990044.000044"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990047.000047\\\", \\\"user_id\\\": \\\"U_noise_47\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nCloudBridge legal has questions about data residency. Looping in our DPO for a joint call.\"}"
+      },
+      "create_time": "1740990047.000047"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990041.000041\\\", \\\"user_id\\\": \\\"U_noise_41\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nWavecrest Analytics asking for a case study. Does anyone have an analytics vertical reference?\"}"
+      },
+      "create_time": "1740990041.000041"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990032.000032\\\", \\\"user_id\\\": \\\"U_noise_32\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nCan someone share the latest competitive battle card? Need it before my Northgate call.\"}"
+      },
+      "create_time": "1740990032.000032"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990008.000008\\\", \\\"user_id\\\": \\\"U_noise_08\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nCascade Analytics came back from procurement — they're asking for net-60 terms\"}"
+      },
+      "create_time": "1740990008.000008"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990027.000027\\\", \\\"user_id\\\": \\\"U_noise_27\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nTerrace Software asked for implementation timeline — sending over SOW template today\"}"
+      },
+      "create_time": "1740990027.000027"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990010.000010\\\", \\\"user_id\\\": \\\"U_noise_10\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nStandup: Yesterday - Vertex Capital call. Today - Northgate demo. Blocker: legal review taking 2 weeks\"}"
+      },
+      "create_time": "1740990010.000010"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990006.000006\\\", \\\"user_id\\\": \\\"U_noise_06\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nBlueStar Ventures just signed the NDA — moving to discovery this week\"}"
+      },
+      "create_time": "1740990006.000006"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990031.000031\\\", \\\"user_id\\\": \\\"U_noise_31\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nJust got off a call with Harbourview — they want to move to contract this week. Need legal ASAP.\"}"
+      },
+      "create_time": "1740990031.000031"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990017.000017\\\", \\\"user_id\\\": \\\"U_noise_17\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nClearwater Systems legal is asking about SOC 2 Type II — grabbing report from InfoSec\"}"
+      },
+      "create_time": "1740990017.000017"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990023.000023\\\", \\\"user_id\\\": \\\"U_noise_23\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nParkside Solutions: renewal conversation starting. They want a multi-year discount.\"}"
+      },
+      "create_time": "1740990023.000023"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990033.000033\\\", \\\"user_id\\\": \\\"U_noise_33\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nSunstone Capital agreed to a 2-year deal at 8% discount. Checking with VP before countersigning.\"}"
+      },
+      "create_time": "1740990033.000033"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990020.000020\\\", \\\"user_id\\\": \\\"U_noise_20\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nMeadowbrook Tech delayed decision to Q2 — board didn't approve new software spend this quarter\"}"
+      },
+      "create_time": "1740990020.000020"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990013.000013\\\", \\\"user_id\\\": \\\"U_noise_13\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nHarbourview Capital: champion just left the company 😬 Need to re-map the account\"}"
+      },
+      "create_time": "1740990013.000013"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990038.000038\\\", \\\"user_id\\\": \\\"U_noise_38\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nAnyone have a warm contact at Northstar Media? Need an intro for the media vertical.\"}"
+      },
+      "create_time": "1740990038.000038"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990037.000037\\\", \\\"user_id\\\": \\\"U_noise_37\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nUpdated security questionnaire template posted in Google Drive. Check #sales-enablement.\"}"
+      },
+      "create_time": "1740990037.000037"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990029.000029\\\", \\\"user_id\\\": \\\"U_noise_29\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nWavecrest Analytics on boarding call went great. Happy customer — ask for referral?\"}"
+      },
+      "create_time": "1740990029.000029"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990034.000034\\\", \\\"user_id\\\": \\\"U_noise_34\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nReminder: all deals >$50k need second-level approval. Submit in Salesforce before EOD.\"}"
+      },
+      "create_time": "1740990034.000034"
+    },
+    {
+      "message_id": "om_slack_20",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990009.000009\\\", \\\"user_id\\\": \\\"U_noise_09\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nNew competitive intel doc posted in #competitive. Ironridge is offering 20% discount to steal accounts.\"}"
+      },
+      "create_time": "1740990009.000009"
+    },
+    {
+      "message_id": "om_slack_21",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990026.000026\\\", \\\"user_id\\\": \\\"U_noise_26\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nSunstone Capital: new CFO coming in. Scheduling intro call for next week.\"}"
+      },
+      "create_time": "1740990026.000026"
+    },
+    {
+      "message_id": "om_slack_22",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990050.000050\\\", \\\"user_id\\\": \\\"U_noise_50\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nMaplecrest Systems sent us an unsolicited security questionnaire — anyone know this account?\"}"
+      },
+      "create_time": "1740990050.000050"
+    },
+    {
+      "message_id": "om_slack_23",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990024.000024\\\", \\\"user_id\\\": \\\"U_noise_24\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nRiverside Insurance just posted a LinkedIn job for a 'Platform Manager' — good upsell signal!\"}"
+      },
+      "create_time": "1740990024.000024"
+    },
+    {
+      "message_id": "om_slack_24",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990048.000048\\\", \\\"user_id\\\": \\\"U_noise_48\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nMeadowbrook Tech rescheduled again — Q2 for sure. Marking as delayed in CRM.\"}"
+      },
+      "create_time": "1740990048.000048"
+    },
+    {
+      "message_id": "om_slack_25",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990016.000016\\\", \\\"user_id\\\": \\\"U_noise_16\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nBayside Analytics is evaluating us vs. Competitor X. Request for a third reference call.\"}"
+      },
+      "create_time": "1740990016.000016"
+    },
+    {
+      "message_id": "om_slack_26",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990046.000046\\\", \\\"user_id\\\": \\\"U_noise_46\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nBig W: Bayside Analytics just signed! $85k ARR, 18-month deal. Congrats team! 🥳\"}"
+      },
+      "create_time": "1740990046.000046"
+    },
+    {
+      "message_id": "om_slack_27",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990035.000035\\\", \\\"user_id\\\": \\\"U_noise_35\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nFoxridge Capital — legal pushed back on the liability cap. Anyone dealt with this before?\"}"
+      },
+      "create_time": "1740990035.000035"
+    },
+    {
+      "message_id": "om_slack_28",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990025.000025\\\", \\\"user_id\\\": \\\"U_noise_25\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nStonebridge Holdings legal review complete — moving to final approval. Should close by Friday.\"}"
+      },
+      "create_time": "1740990025.000025"
+    },
+    {
+      "message_id": "om_slack_29",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990049.000049\\\", \\\"user_id\\\": \\\"U_noise_49\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nWeek 10 starts Monday. Let's sprint to close! Who needs backup on any deals?\"}"
+      },
+      "create_time": "1740990049.000049"
+    },
+    {
+      "message_id": "om_slack_30",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990045.000045\\\", \\\"user_id\\\": \\\"U_noise_45\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nIronridge is back! After 6 weeks dark they replied to the breakup email. Scheduling a call.\"}"
+      },
+      "create_time": "1740990045.000045"
+    },
+    {
+      "message_id": "om_slack_31",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990043.000043\\\", \\\"user_id\\\": \\\"U_noise_43\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nStonebridge Holdings asked for a multi-year price lock. Escalating to pricing committee.\"}"
+      },
+      "create_time": "1740990043.000043"
+    },
+    {
+      "message_id": "om_slack_32",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990030.000030\\\", \\\"user_id\\\": \\\"U_noise_30\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nZenith Platforms contract fully executed ✅ Handing off to CS now.\"}"
+      },
+      "create_time": "1740990030.000030"
+    },
+    {
+      "message_id": "om_slack_33",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990003.000003\\\", \\\"user_id\\\": \\\"U_noise_03\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nReminder: pipeline review call at 3pm today. Please update your opps before then.\"}"
+      },
+      "create_time": "1740990003.000003"
+    },
+    {
+      "message_id": "om_slack_34",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990004.000004\\\", \\\"user_id\\\": \\\"U_noise_04\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nCongrats to Megan on closing Thornwood Partners! 🎉 $95k ARR\"}"
+      },
+      "create_time": "1740990004.000004"
+    },
+    {
+      "message_id": "om_slack_35",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990040.000040\\\", \\\"user_id\\\": \\\"U_noise_40\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nNew pricing deck is live — v3.2. All previous versions deprecated, please update your decks.\"}"
+      },
+      "create_time": "1740990040.000040"
+    },
+    {
+      "message_id": "om_slack_36",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990039.000039\\\", \\\"user_id\\\": \\\"U_noise_39\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nQ1 close plan: 5 deals in final stage, $620k at risk. Let's align on blockers today.\"}"
+      },
+      "create_time": "1740990039.000039"
+    },
+    {
+      "message_id": "om_slack_37",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990001.000001\\\", \\\"user_id\\\": \\\"U_noise_01\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nMorning all! Big week ahead — let's close Q1 strong 💪\"}"
+      },
+      "create_time": "1740990001.000001"
+    },
+    {
+      "message_id": "om_slack_38",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990018.000018\\\", \\\"user_id\\\": \\\"U_noise_18\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nFoxridge Capital: verbal yes from the CFO. Contract coming this week!\"}"
+      },
+      "create_time": "1740990018.000018"
+    },
+    {
+      "message_id": "om_slack_39",
+      "chat_id": "oc_C001STRAT",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990015.000015\\\", \\\"user_id\\\": \\\"U_noise_15\\\", \\\"channel_id\\\": \\\"C001STRAT\\\"}\\nWeek 9 leaderboard just posted. Three of us are over 130% — great work everyone!\"}"
+      },
+      "create_time": "1740990015.000015"
+    }
+  ]
+}

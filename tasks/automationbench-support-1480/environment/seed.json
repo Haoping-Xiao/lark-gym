@@ -1,0 +1,458 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_bridge": {
+      "title": "Bridge Config",
+      "sheets": {
+        "ws_event_types": {
+          "title": "Event Types",
+          "values": [
+            ["Event_Name", "Create_Ticket", "Subject_Template", "HC_Event"],
+            [
+              "support_request",
+              "true",
+              "[Enterprise Support] {subject}",
+              "bridged-to-zoho"
+            ],
+            [
+              "bug_report",
+              "true",
+              "[Enterprise Bug] {subject}",
+              "bridged-to-zoho"
+            ],
+            ["feature_request", "false", "", ""],
+            [
+              "billing_inquiry",
+              "true",
+              "[Enterprise Billing] {subject}",
+              "bridged-to-zoho"
+            ]
+          ]
+        },
+        "ws_priority_rules": {
+          "title": "Priority Rules",
+          "values": [
+            ["Event_Name", "Zoho_Priority"],
+            ["bug_report", "High"],
+            ["support_request", "Medium"],
+            ["billing_inquiry", "Low"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zd_ct1",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zd_ct1",
+          "first_name": "Maya",
+          "last_name": "Johnson",
+          "email": "maya@globalcorp.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_002",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_002",
+          "first_name": "Marco",
+          "last_name": "Di Stefano",
+          "email": "mds@silveroak.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_003",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_003",
+          "first_name": "Ren",
+          "last_name": "Sugimoto",
+          "email": "rsugimoto@eastwind.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_zd_acc1",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "zd_acc1",
+          "account_name": "GlobalCorp"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc1",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc1",
+          "email": "maya@globalcorp.com",
+          "name": "Maya Johnson",
+          "tags": "[\"enterprise\"]",
+          "company": "GlobalCorp",
+          "events": "[{\"event_name\":\"support_request\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{\"subject\":\"Need help with SSO configuration\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc2",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc2",
+          "email": "noah@megainc.com",
+          "name": "Noah Williams",
+          "tags": "[\"enterprise\"]",
+          "company": "MegaInc",
+          "events": "[{\"event_name\":\"bug_report\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{\"subject\":\"Dashboard crashes on large datasets\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc3",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc3",
+          "email": "olivia@acmeent.com",
+          "name": "Olivia Davis",
+          "tags": "[\"enterprise\"]",
+          "company": "AcmeEnt",
+          "events": "[{\"event_name\":\"support_request\",\"created_at\":\"2026-02-06T09:00:00Z\",\"data\":{\"subject\":\"API rate limit increase request\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc4",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc4",
+          "email": "peter@bigsolutions.io",
+          "name": "Peter Chen",
+          "tags": "[\"enterprise\"]",
+          "company": "BigSolutions",
+          "events": "[{\"event_name\":\"feature_request\",\"created_at\":\"2026-02-06T11:00:00Z\",\"data\":{\"subject\":\"Add dark mode support\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc5",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc5",
+          "email": "quinn@silentent.com",
+          "name": "Quinn Patel",
+          "tags": "[\"enterprise\"]",
+          "company": "SilentEnt",
+          "events": "[]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc6",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc6",
+          "email": "rachel@smallbiz.com",
+          "name": "Rachel Torres",
+          "tags": "[\"starter\"]",
+          "company": "SmallBiz",
+          "events": "[{\"event_name\":\"support_request\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{\"subject\":\"Need help with setup\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc7",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc7",
+          "email": "sam@trialuser.com",
+          "name": "Sam Nakamura",
+          "tags": "[\"trial\"]",
+          "company": "TrialUser Co",
+          "events": "[{\"event_name\":\"bug_report\",\"created_at\":\"2026-02-05T12:00:00Z\",\"data\":{\"subject\":\"Login button broken\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc8",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc8",
+          "email": "tara@freeco.com",
+          "name": "Tara Kim",
+          "tags": "[\"free-tier\"]",
+          "company": "FreeCo",
+          "events": "[{\"event_name\":\"support_request\",\"created_at\":\"2026-02-06T08:00:00Z\",\"data\":{\"subject\":\"How to upgrade plan\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc9",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc9",
+          "email": "victor@alphacorp.com",
+          "name": "Victor Lane",
+          "tags": "[\"enterprise\"]",
+          "company": "AlphaCorp",
+          "events": "[{\"event_name\":\"billing_inquiry\",\"created_at\":\"2026-02-06T15:00:00Z\",\"data\":{\"subject\":\"Clarification on enterprise pricing tiers\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc10",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc10",
+          "email": "diana@proplan.com",
+          "name": "Diana Ross",
+          "tags": "[\"pro\"]",
+          "company": "ProPlan Inc",
+          "events": "[{\"event_name\":\"support_request\",\"created_at\":\"2026-02-06T12:00:00Z\",\"data\":{\"subject\":\"SSO integration help needed\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_br_hc11",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "br_hc11",
+          "email": "frank@megasystems.io",
+          "name": "Frank Webb",
+          "tags": "[\"enterprise\"]",
+          "company": "MegaSystems",
+          "events": "[{\"event_name\":\"feature_request\",\"created_at\":\"2026-02-05T09:00:00Z\",\"data\":{\"subject\":\"Add SAML SSO support\"}},{\"event_name\":\"bug_report\",\"created_at\":\"2026-02-06T16:00:00Z\",\"data\":{\"subject\":\"Report export fails with timeout\"}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_007",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_007",
+          "email": "user7@silverline.example.com",
+          "name": "Marcus Daly",
+          "tags": "[]",
+          "company": "Silverline Systems",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-25T12:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_004",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_004",
+          "email": "user4@baypoint.example.com",
+          "name": "Elena Novak",
+          "tags": "[\"webinar-attended\"]",
+          "company": "Baypoint Tech",
+          "events": "[{\"event_name\":\"signup\",\"created_at\":\"2026-03-02T11:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_002",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_002",
+          "email": "user2@ironwood.example.com",
+          "name": "Sienna Walsh",
+          "tags": "[\"newsletter\"]",
+          "company": "Ironwood Analytics",
+          "events": "[{\"event_name\":\"login\",\"created_at\":\"2026-03-01T09:00:00Z\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "company",
+        "type": "text"
+      },
+      {
+        "name": "events",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "contact_email",
+        "type": "text"
+      },
+      {
+        "name": "source_customer_id",
+        "type": "text"
+      },
+      {
+        "name": "source_event",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "event_name",
+        "type": "text"
+      },
+      {
+        "name": "source_event_name",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "diana@proplan.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "frank@megasystems.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "maya@globalcorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "mds@silveroak.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "noah@megainc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "olivia@acmeent.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "peter@bigsolutions.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "quinn@silentent.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "rachel@smallbiz.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "rsugimoto@eastwind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "sam@trialuser.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "tara@freeco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "user2@ironwood.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "user4@baypoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "user7@silverline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "victor@alphacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ENT",
+      "name": "enterprise-support",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

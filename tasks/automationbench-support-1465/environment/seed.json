@@ -1,0 +1,465 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_sync": {
+      "title": "Sync Config",
+      "sheets": {
+        "ws_sync_rules": {
+          "title": "Sync Rules",
+          "values": [
+            ["Rule", "Value"],
+            ["status_whitelist", "new,open"],
+            ["priority_whitelist", "normal,low"],
+            ["excluded_tags", "internal,confidential"]
+          ]
+        },
+        "ws_field_map": {
+          "title": "Field Map",
+          "values": [
+            ["Zendesk_Priority", "Freshdesk_Priority"],
+            ["urgent", "4"],
+            ["high", "3"],
+            ["normal", "2"],
+            ["low", "1"]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["batch_id", "SYNC-BATCH-20260210"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fd_c1",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fd_c1",
+          "name": "Alice Park",
+          "email": "alice@clienta.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fd_c2",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fd_c2",
+          "name": "Bob Kim",
+          "email": "bob@clientb.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fd_c3",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fd_c3",
+          "name": "Carol Wu",
+          "email": "carol@clientc.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_007",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_007",
+          "name": "Andrei Sokolov",
+          "email": "asokolov@cobaltio.example.com"
+        }
+      },
+      {
+        "record_id": "rec_freshdesk_contacts_fc_noise_002",
+        "fields": {
+          "collection": "freshdesk_contacts",
+          "id": "fc_noise_002",
+          "name": "Lucia Romero",
+          "email": "lromero@ridgeline.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t1",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Slow dashboard",
+          "status": "new",
+          "priority": "normal",
+          "requester_id": "sync_u1",
+          "created_at": "2026-02-01T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t2",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Email notifications broken",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "sync_u2",
+          "created_at": "2026-02-02T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t3",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Calendar sync issue",
+          "status": "new",
+          "priority": "low",
+          "requester_id": "sync_u3",
+          "created_at": "2026-02-03T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t4",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Report generation fails",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "sync_u4",
+          "created_at": "2026-02-04T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t5",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Production outage",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "sync_u1",
+          "created_at": "2026-02-05T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t6",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Internal tooling issue",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "sync_u2",
+          "created_at": "2026-02-03T10:00:00Z",
+          "tags": "[\"internal\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t7",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Security audit question",
+          "status": "open",
+          "priority": "low",
+          "requester_id": "sync_u3",
+          "created_at": "2026-02-04T10:00:00Z",
+          "tags": "[\"confidential\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t8",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Old login issue",
+          "status": "solved",
+          "priority": "normal",
+          "requester_id": "sync_u1",
+          "created_at": "2026-01-20T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t9",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Awaiting customer reply",
+          "status": "pending",
+          "priority": "normal",
+          "requester_id": "sync_u4",
+          "created_at": "2026-01-25T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_t10",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Critical data loss",
+          "status": "new",
+          "priority": "urgent",
+          "requester_id": "sync_u2",
+          "created_at": "2026-02-06T10:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_004",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Auto-tagging rule not triggering",
+          "description": "The automation rule 'tag VIP on enterprise plan' stopped firing 2 days ago.",
+          "status": "solved",
+          "priority": "normal",
+          "tags": "[\"automation\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_003",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook delivery failing with 502",
+          "description": "Our webhook endpoint returns 502 for about 30% of events since last night.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"webhook\",\"api\",\"weekend-watch\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_009",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Knowledge base search returns no results",
+          "description": "Searching for 'password reset' in the KB returns zero results even though the article exists.",
+          "status": "solved",
+          "priority": "low",
+          "tags": "[\"kb\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_u1",
+        "fields": {
+          "collection": "support_users",
+          "name": "Alice Park",
+          "email": "alice@clienta.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_u2",
+        "fields": {
+          "collection": "support_users",
+          "name": "Bob Kim",
+          "email": "bob@clientb.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_u3",
+        "fields": {
+          "collection": "support_users",
+          "name": "Carol Wu",
+          "email": "carol@clientc.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_sync_u4",
+        "fields": {
+          "collection": "support_users",
+          "name": "Dan Lee",
+          "email": "dan@clientd.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_007",
+        "fields": {
+          "collection": "support_users",
+          "name": "Vikram Bhandari",
+          "email": "vbhandari@ironforge.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_008",
+        "fields": {
+          "collection": "support_users",
+          "name": "Sienna Wallace",
+          "email": "swallace@mapleleaf.example.com",
+          "role": "end-user"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "number"
+      },
+      {
+        "name": "priority",
+        "type": "number"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      },
+      {
+        "name": "requester_email",
+        "type": "text"
+      },
+      {
+        "name": "source_created_at",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@clienta.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "asokolov@cobaltio.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "bob@clientb.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "carol@clientc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dan@clientd.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "lromero@ridgeline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "swallace@mapleleaf.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "vbhandari@ironforge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_OUT",
+      "name": "outsource-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

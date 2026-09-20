@@ -1,0 +1,348 @@
+{
+  "now": "2026-02-05T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_history": {
+      "title": "Customer History",
+      "sheets": {
+        "ws_customers": {
+          "title": "Customers",
+          "values": [
+            ["Email", "Name", "Plan", "Churned Date"],
+            [
+              "former.ent@bigco.com",
+              "Former Enterprise",
+              "Enterprise",
+              "2025-12-15"
+            ],
+            ["former.pro@midco.com", "Former Pro", "Pro", "2026-01-10"],
+            [
+              "former.start@smallco.com",
+              "Former Starter",
+              "Starter",
+              "2026-01-20"
+            ],
+            ["dnc@company.example.com", "DNC Person", "Pro", "2025-11-01"],
+            ["recent@leftus.com", "Recent Churn", "Pro", "2026-01-20"],
+            [
+              "former.enterprise@bigco.com",
+              "Former Enterprise Plus",
+              "Enterprise",
+              "2025-10-01"
+            ],
+            ["active-churned@co.com", "Reactivated User", "Pro", "2025-12-01"],
+            [
+              "already.sent@prev.com",
+              "Already Contacted",
+              "Starter",
+              "2025-12-10"
+            ]
+          ]
+        },
+        "ws_outreach": {
+          "title": "Outreach Log",
+          "values": [
+            ["Email", "Name", "Plan", "Date Sent"],
+            [
+              "already.sent@prev.com",
+              "Already Contacted",
+              "Starter",
+              "2025-12-01"
+            ]
+          ]
+        },
+        "ws_spend_history": {
+          "title": "Spend History",
+          "values": [
+            ["Email", "Total Spend"],
+            ["former.ent@bigco.com", "$8,000"],
+            ["former.pro@midco.com", "$12,000"],
+            ["former.start@smallco.com", "$3,000"],
+            ["dnc@company.example.com", "$6,500"],
+            ["recent@leftus.com", "$5,000"],
+            ["former.enterprise@bigco.com", "$15,000"],
+            ["active-churned@co.com", "$9,000"],
+            ["already.sent@prev.com", "$2,500"]
+          ]
+        },
+        "ws_winback_config": {
+          "title": "Win-back Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Enterprise_Discount", "20%"],
+            ["Pro_Discount", "15%"],
+            ["Starter_Offer", "free month"],
+            ["Spend_Upgrade_Threshold", "10000"],
+            ["Recent_Churn_Days", "30"],
+            ["Recent_Subject", "We miss you"],
+            ["Old_Churn_Days", "90"],
+            ["Old_Subject", "Come back"],
+            ["Enterprise_Spend_Upgrade_Discount", "30%"],
+            [
+              "Spend_Upgrade_Rule",
+              "If Total Spend exceeds threshold, apply next tier discount (Starter->Pro, Pro->Enterprise, Enterprise->Enterprise_Spend_Upgrade_Discount)"
+            ]
+          ]
+        }
+      }
+    },
+    "ss_dnc": {
+      "title": "DNC List",
+      "sheets": {
+        "ws_list": {
+          "title": "DNC",
+          "values": [
+            ["Email", "Reason"],
+            ["dnc@company.example.com", "Legal request"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_contacts_ic_w1",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w1",
+          "name": "Former Enterprise",
+          "email": "former.ent@bigco.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w2",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w2",
+          "name": "Former Pro",
+          "email": "former.pro@midco.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w3",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w3",
+          "name": "Former Starter",
+          "email": "former.start@smallco.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w4",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w4",
+          "name": "Active User",
+          "email": "active@co.com",
+          "contact_type": "user",
+          "tags": "[\"active\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w5",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w5",
+          "name": "DNC Person",
+          "email": "dnc@company.example.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w6",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w6",
+          "name": "Recent Churn",
+          "email": "recent@leftus.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w7",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w7",
+          "name": "Former Enterprise Plus",
+          "email": "former.enterprise@bigco.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w8",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w8",
+          "name": "Recent Churn Co",
+          "email": "recent@leftus.co",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w9",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w9",
+          "name": "Reactivated User",
+          "email": "active-churned@co.com",
+          "contact_type": "user",
+          "tags": "[\"active\",\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_w10",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_w10",
+          "name": "Already Contacted",
+          "email": "already.sent@prev.com",
+          "contact_type": "user",
+          "tags": "[\"churned\"]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_010",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_010",
+          "name": "Sophie Watts",
+          "email": "swatts@nebulaco.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_009",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_009",
+          "name": "Derek Santos",
+          "email": "dsantos@helixnet.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "active-churned@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "active@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "already.sent@prev.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dnc@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dsantos@helixnet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "former.ent@bigco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "former.enterprise@bigco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "former.pro@midco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "former.start@smallco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "recent@leftus.co",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "recent@leftus.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "swatts@nebulaco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_cs",
+      "name": "customer-success",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

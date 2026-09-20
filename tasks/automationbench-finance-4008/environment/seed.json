@@ -1,0 +1,105 @@
+{
+  "now": "2026-02-06T11:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_recon": {
+      "title": "Invoice Reconciliation",
+      "sheets": {
+        "ws_ar_system": {
+          "title": "AR System Export",
+          "values": [
+            ["Invoice #", "Customer", "Amount", "Status", "Notes"],
+            ["INV-3001", "NovaTech Solutions", "$5,200.00", "Paid", ""],
+            ["INV-3002", "Meridian Corp", "$8,750.00", "Outstanding", ""],
+            ["INV-3003", "Vanguard Apparel", "$3,100.00", "Outstanding", ""],
+            ["INV-3004", "Ridgeway Partners", "$12,000.00", "Outstanding", ""],
+            [
+              "INV-3006",
+              "NovaTech Solutions",
+              "$2,100.00",
+              "Outstanding",
+              "credit applied - do not include in recon"
+            ],
+            [
+              "INV-3007",
+              "Alpine Corp",
+              "$6,300.00",
+              "Under Dispute",
+              "customer disputes line item 3"
+            ]
+          ]
+        },
+        "ws_accounting": {
+          "title": "Accounting System Export",
+          "values": [
+            ["Invoice #", "Customer", "Amount", "Status", "Notes"],
+            ["INV-3001", "NovaTech", "$5,200.00", "Paid", ""],
+            ["INV-3002", "Meridian Corp", "$8,500.00", "Outstanding", ""],
+            [
+              "INV-3005",
+              "Sterling & Associates",
+              "$4,600.00",
+              "Outstanding",
+              ""
+            ],
+            ["INV-3004", "Ridgeway Partners", "$12,000.00", "Outstanding", ""],
+            [
+              "INV-3002",
+              "Meridian Corp",
+              "$8,750.00",
+              "Outstanding",
+              "corrected amount per Feb 5 adjustment"
+            ],
+            ["INV-3007", "Alpine Corp", "$4,800.00", "Under Dispute", ""]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_FIN_ALERTS",
+      "name": "finance-alerts",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f001\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_SARAH\\\", \\\"ts\\\": \\\"1706100000.000100\\\"}\\nReminder: month-end close starts next Monday. Please have all journal entries submitted by Thursday.\"}"
+      },
+      "create_time": "1706100000.000100"
+    }
+  ]
+}

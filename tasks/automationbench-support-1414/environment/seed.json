@@ -1,0 +1,413 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_sync_config": {
+      "title": "Zendesk-HubSpot Sync Rules",
+      "sheets": {
+        "ws_sync_rules": {
+          "title": "Sync Rules",
+          "values": [
+            ["Rule", "Condition", "Action"],
+            [
+              "Domain Matching",
+              "Zendesk org domain matches a HubSpot company domain",
+              "Link: add 'HubSpot ID: [company_id]' to the Zendesk org notes"
+            ],
+            [
+              "No Domain Match",
+              "No HubSpot company has a matching domain for the Zendesk org",
+              "Create a new HubSpot company using the Zendesk org name and domain"
+            ],
+            [
+              "Churned Lifecycle Tag",
+              "Matched HubSpot company has lifecycle_stage = 'churned'",
+              "Add tag 'RISK' to the Zendesk organization"
+            ],
+            [
+              "Non-Churned Lifecycle",
+              "Matched HubSpot company lifecycle_stage is anything other than 'churned' (e.g. customer, lead, opportunity)",
+              "No tag action required"
+            ],
+            [
+              "Name Mismatch",
+              "Zendesk org name differs from matched HubSpot company name (but domains match)",
+              "Add to Zendesk org notes: 'Name mismatch: HubSpot has [company_name]'"
+            ],
+            [
+              "Empty Domain",
+              "Zendesk org has no domain (empty or missing)",
+              "Skip domain matching; create a new HubSpot company with the org name only"
+            ],
+            [
+              "Multiple Domain Matches",
+              "Multiple HubSpot companies share the same domain as a Zendesk org",
+              "Use the company whose name most closely matches the Zendesk org name for HubSpot ID; check ALL matched companies for lifecycle tags"
+            ],
+            [
+              "Slack Summary",
+              "After all orgs are processed",
+              "Post to #crm-sync: counts of matched, created, and RISK-flagged orgs"
+            ],
+            [
+              "Force-Sync Override",
+              "Org name = 'VaultData Inc'",
+              "Create HubSpot company and add HubSpot ID to notes even if no domain match exists"
+            ],
+            [
+              "Hold-Sync Override",
+              "Org name = 'SunsetCorp'",
+              "Do NOT modify this org at all — no notes, no tags, no HubSpot company creation"
+            ]
+          ]
+        },
+        "ws_org_inventory": {
+          "title": "Org Inventory",
+          "values": [
+            ["Org ID", "Org Name"],
+            ["org_201", "Acme Industries"],
+            ["org_202", "TechVentures"],
+            ["org_203", "NewStartup"],
+            ["org_204", "DataPrime"],
+            ["org_205", "Acme Corp"],
+            ["org_206", "CloudNine Software"],
+            ["org_207", "BrightPath Analytics"],
+            ["org_208", "Zenith Solutions"],
+            ["org_209", "GlobalTech"],
+            ["org_210", "Pinnacle Systems"],
+            ["org_211", "Nexus Corp"],
+            ["org_212", "Orion Labs"],
+            ["org_213", "VaultData Inc"],
+            ["org_214", "SunsetCorp"],
+            ["NZ-00202601", "Ironclad Systems"],
+            ["NZ-00202602", "BlueStar Ventures"],
+            ["NZ-00202603", "Cascade Analytics"],
+            ["NZ-00202604", "Vertex Capital"],
+            ["NZ-00202605", "Thornwood Partners"],
+            ["NZ-00202606", "Starling Financial"],
+            ["NZ-00202607", "Redwood Technologies"],
+            ["NZ-00202608", "Eastgate Solutions"],
+            ["NZ-00202609", "Montclair Industries"],
+            ["NZ-00202610", "Pacific Ridge Corp"],
+            ["NZ-00202611", "Summit Group Holdings"],
+            ["NZ-00202612", "Riverview Partners"],
+            ["NZ-00202613", "Northgate Technologies"],
+            ["NZ-00202614", "Silverstone Group"],
+            ["NZ-00202615", "CloudBridge Systems"]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "priority_sync_org",
+              "VaultData Inc",
+              "Priority Sync",
+              "Priority sync - create HubSpot company and sync even if no domain match"
+            ],
+            [
+              "pending_deactivation_org",
+              "SunsetCorp",
+              "Hold Sync",
+              "Pending deactivation - do not sync or modify this org"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zendesk_org_201",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Acme Industries",
+          "domain_names": "[\"acmeindustries.com\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_202",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "TechVentures",
+          "domain_names": "[\"techventures.io\"]",
+          "notes": "",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_203",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "NewStartup",
+          "domain_names": "[\"newstartup.co\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_204",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "DataPrime",
+          "domain_names": "[\"dataprime.io\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_205",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Acme Corp",
+          "domain_names": "[\"acme-industries.com\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_206",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "CloudNine Software",
+          "domain_names": "[\"cloudnine.io\"]",
+          "notes": "",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_207",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "BrightPath Analytics",
+          "domain_names": "[\"brightpath.com\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_208",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Zenith Solutions",
+          "domain_names": "[]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_209",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "GlobalTech",
+          "domain_names": "[\"globaltech.net\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_210",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Pinnacle Systems",
+          "domain_names": "[\"pinnaclesys.com\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_211",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Nexus Corp",
+          "domain_names": "[\"nexuscorp.io\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_212",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Orion Labs",
+          "domain_names": "[\"orionlabs.dev\"]",
+          "notes": "",
+          "tags": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_213",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "VaultData Inc",
+          "domain_names": "[\"vaultdata.com\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_214",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "SunsetCorp",
+          "domain_names": "[\"sunsetcorp.com\"]",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co1",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Acme Industries",
+          "domain": "acmeindustries.com",
+          "lifecycle_stage": "customer"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co2",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "TechVentures",
+          "domain": "techventures.io",
+          "lifecycle_stage": "churned"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co3",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "DataPrime Solutions",
+          "domain": "dataprime.io",
+          "lifecycle_stage": "customer"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co4",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "CloudNine",
+          "domain": "cloudnine.io",
+          "lifecycle_stage": "churned"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co5",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "BrightPath Analytics",
+          "domain": "brightpath.com",
+          "lifecycle_stage": "opportunity"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co6",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Unrelated Corp",
+          "domain": "unrelatedcorp.com",
+          "lifecycle_stage": "customer"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co7",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "GlobalTech",
+          "domain": "globaltech.net",
+          "lifecycle_stage": "lead"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co8",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Pinnacle Systems",
+          "domain": "pinnaclesystems.com",
+          "lifecycle_stage": "customer"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co9",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Nexus Corp",
+          "domain": "nexuscorp.io",
+          "lifecycle_stage": "customer"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co10",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Nexus Digital",
+          "domain": "nexuscorp.io",
+          "lifecycle_stage": "lead"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co11",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Orion Laboratories",
+          "domain": "orionlabs.dev",
+          "lifecycle_stage": "churned"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co12",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "SunsetCorp",
+          "domain": "sunsetcorp.com",
+          "lifecycle_stage": "customer"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "lifecycle_stage",
+        "type": "text"
+      },
+      {
+        "name": "external_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_crm",
+      "name": "crm-sync",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

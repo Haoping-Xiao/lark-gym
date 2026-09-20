@@ -1,0 +1,149 @@
+{
+  "now": "2026-04-10T18:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_daily_sales": {
+      "title": "Daily Sales",
+      "sheets": {
+        "ws_tax_rates": {
+          "title": "Tax Rates",
+          "values": [
+            ["State", "Rate"],
+            ["CA", "0.08"],
+            ["TX", "0.06"],
+            ["NY", "0.09"],
+            ["FL", "0.07"]
+          ]
+        },
+        "ws_apr10": {
+          "title": "2026-04-10",
+          "values": [
+            ["Transaction ID", "Customer", "Subtotal", "State", "Status"],
+            ["TXN-5001", "Helix Systems", "$1,000.00", "CA", "Completed"],
+            ["TXN-5002", "Orchid Freight", "$500.00", "TX", "Completed"],
+            ["TXN-5003", "Crestline Partners", "$2,000.00", "NY", "Voided"],
+            ["TXN-5004", "Juniper Labs", "$800.00", "FL", "Completed"],
+            ["TXN-5005", "Beacon Supplies", "$300.00", "CA", "Completed"],
+            ["TXN-5006", "Atlas Retail", "$450.00", "TX", "Refunded"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_quickbooks_qc_helix",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_helix",
+          "display_name": "Helix Systems"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_orchid",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_orchid",
+          "display_name": "Orchid Freight"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_crest",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_crest",
+          "display_name": "Crestline Partners"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_juniper",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_juniper",
+          "display_name": "Juniper Labs"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_beacon",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_beacon",
+          "display_name": "Beacon Supplies"
+        }
+      },
+      {
+        "record_id": "rec_quickbooks_qc_atlas",
+        "fields": {
+          "collection": "quickbooks_customers",
+          "id": "qc_atlas",
+          "display_name": "Atlas Retail"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "display_name",
+        "type": "text"
+      },
+      {
+        "name": "transaction_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "date",
+        "type": "text"
+      },
+      {
+        "name": "subtotal",
+        "type": "number"
+      },
+      {
+        "name": "tax",
+        "type": "number"
+      },
+      {
+        "name": "total",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "manager@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

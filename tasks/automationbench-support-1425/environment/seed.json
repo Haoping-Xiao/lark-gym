@@ -1,0 +1,778 @@
+{
+  "now": "2026-02-01T12:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_refund_policy": {
+      "title": "Refund Policy",
+      "sheets": {
+        "ws_thresholds": {
+          "title": "Thresholds",
+          "values": [
+            ["Rule", "Value", "source_row_id"],
+            ["Auto-Approve Threshold (Standard)", "$500.00", "th1"],
+            ["Auto-Approve Threshold (VIP)", "$1000.00", "th2"],
+            ["Refund Window (Days)", "30", "th3"],
+            ["VIP Customer Email", "jenny@example.com", "th4"],
+            ["VIP Customer Email", "lisa@example.com", "th5"],
+            ["VIP Customer Email", "amy@example.com", "th6"],
+            ["VIP Customer Email", "derek@example.com", "th7"],
+            ["Repeat Refunder Email", "carlos@example.com", "th8"],
+            ["Repeat Refunder Email", "mark@example.com", "th9"]
+          ]
+        },
+        "ws_categories": {
+          "title": "Categories",
+          "values": [
+            ["Category", "Eligible", "Notes", "source_row_id"],
+            ["Electronics", "Yes", "", "cat1"],
+            ["Clothing", "Yes", "Must be unworn", "cat2"],
+            ["Home & Garden", "No", "Excluded - final sale", "cat3"],
+            ["Books", "Yes", "", "cat4"],
+            ["Food & Beverage", "No", "Excluded - perishable", "cat5"]
+          ]
+        },
+        "ws_orders": {
+          "title": "Orders",
+          "values": [
+            [
+              "Order Number",
+              "Customer Name",
+              "Amount",
+              "Category",
+              "Order Date",
+              "Status",
+              "Flags",
+              "source_row_id"
+            ],
+            [
+              "4501",
+              "Jenny Liu",
+              "$650.00",
+              "Electronics",
+              "2026-01-15",
+              "Delivered",
+              "",
+              "r1"
+            ],
+            [
+              "4502",
+              "Mark Torres",
+              "$89.50",
+              "Clothing",
+              "2025-12-01",
+              "Delivered",
+              "",
+              "r2"
+            ],
+            [
+              "4503",
+              "Amy Park",
+              "$210.00",
+              "Books",
+              "2026-01-20",
+              "Refunded",
+              "",
+              "r3"
+            ],
+            [
+              "4504",
+              "Lisa Park",
+              "$749.99",
+              "Electronics",
+              "2026-01-25",
+              "Delivered",
+              "",
+              "r4"
+            ],
+            [
+              "4505",
+              "Kevin Chen",
+              "$320.00",
+              "Clothing",
+              "2026-01-10",
+              "Delivered",
+              "",
+              "r5"
+            ],
+            [
+              "4506",
+              "Sam Wilson",
+              "$500.00",
+              "Clothing",
+              "2026-01-28",
+              "Delivered",
+              "",
+              "r6"
+            ],
+            [
+              "4507",
+              "Priya Sharma",
+              "$510.00",
+              "Home & Garden",
+              "2026-01-18",
+              "Delivered",
+              "",
+              "r7"
+            ],
+            [
+              "4508",
+              "Carlos Mendez",
+              "$250.00",
+              "Clothing",
+              "2026-01-22",
+              "Delivered",
+              "",
+              "r8"
+            ],
+            [
+              "4509",
+              "Derek Hale",
+              "$1050.00",
+              "Electronics",
+              "2026-01-20",
+              "Delivered",
+              "",
+              "r9"
+            ],
+            [
+              "4510",
+              "Rachel Adams",
+              "$350.00",
+              "Electronics",
+              "2026-01-19",
+              "Delivered",
+              "",
+              "r10"
+            ],
+            [
+              "4511",
+              "Megan Loyalty",
+              "$800.00",
+              "Electronics",
+              "2026-01-21",
+              "Delivered",
+              "",
+              "r11"
+            ],
+            [
+              "4512",
+              "Otto Brandt",
+              "$150.00",
+              "Clothing",
+              "2026-01-23",
+              "Delivered",
+              "fraud-review",
+              "r12"
+            ],
+            [
+              "5",
+              "Ironclad Systems",
+              "15000",
+              "Tier-Noise-1",
+              "2026-01-15",
+              "Inactive",
+              "",
+              ""
+            ],
+            [
+              "12",
+              "BlueStar Ventures",
+              "25000",
+              "Tier-Noise-2",
+              "2026-02-03",
+              "Archived",
+              "",
+              ""
+            ],
+            [
+              "8",
+              "Cascade Analytics",
+              "48000",
+              "Tier-Noise-3",
+              "2026-02-18",
+              "Void",
+              "",
+              ""
+            ],
+            [
+              "25",
+              "Vertex Capital",
+              "72000",
+              "Tier-Noise-4",
+              "2026-03-01",
+              "Cancelled",
+              "",
+              ""
+            ],
+            [
+              "3",
+              "Thornwood Partners",
+              "113000",
+              "Tier-Noise-5",
+              "2026-03-07",
+              "Superseded",
+              "",
+              ""
+            ],
+            [
+              "50",
+              "Starling Financial",
+              "35000",
+              "Tier-Noise-6",
+              "2025-11-20",
+              "Deactivated",
+              "",
+              ""
+            ],
+            [
+              "15",
+              "Redwood Technologies",
+              "88000",
+              "Tier-Noise-7",
+              "2025-12-05",
+              "Inactive",
+              "",
+              ""
+            ],
+            [
+              "7",
+              "Eastgate Solutions",
+              "19000",
+              "Tier-Noise-8",
+              "2026-01-28",
+              "Archived",
+              "",
+              ""
+            ],
+            [
+              "30",
+              "Montclair Industries",
+              "54000",
+              "Tier-Noise-9",
+              "2026-02-14",
+              "Void",
+              "",
+              ""
+            ],
+            [
+              "10",
+              "Pacific Ridge Corp",
+              "93000",
+              "Tier-Noise-10",
+              "2026-03-03",
+              "Cancelled",
+              "",
+              ""
+            ],
+            [
+              "5",
+              "Summit Group Holdings",
+              "15000",
+              "Tier-Noise-11",
+              "2026-01-15",
+              "Superseded",
+              "",
+              ""
+            ],
+            [
+              "12",
+              "Riverview Partners",
+              "25000",
+              "Tier-Noise-12",
+              "2026-02-03",
+              "Deactivated",
+              "",
+              ""
+            ],
+            [
+              "8",
+              "Northgate Technologies",
+              "48000",
+              "Tier-Noise-13",
+              "2026-02-18",
+              "Inactive",
+              "",
+              ""
+            ],
+            [
+              "25",
+              "Silverstone Group",
+              "72000",
+              "Tier-Noise-14",
+              "2026-03-01",
+              "Archived",
+              "",
+              ""
+            ],
+            [
+              "3",
+              "CloudBridge Systems",
+              "113000",
+              "Tier-Noise-15",
+              "2026-03-07",
+              "Void",
+              "",
+              ""
+            ]
+          ]
+        },
+        "ws_refund_log": {
+          "title": "Refund Log",
+          "values": [["Order Number", "Customer", "Amount", "Action", "Date"]]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason"],
+            [
+              "Auto-Approve Any Amount",
+              "loyalty@example.com",
+              "Auto-approve refund regardless of amount (skip threshold check). Match by customer email.",
+              "Loyalty program members get unlimited auto-approval as a perk"
+            ],
+            [
+              "Always Escalate",
+              "fraud-review",
+              "Escalate to Jira regardless of amount. Match by order Flags field in orders sheet.",
+              "Orders flagged for fraud review must go through manual finance review"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_gorgias_tickets_gt_r1",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r1",
+          "subject": "Refund: Order #4501",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r1\",\"body_text\":\"I'd like a refund for order 4501 please.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"jenny@example.com\"}]",
+          "customer": "{\"id\":\"gc_r1\",\"email\":\"jenny@example.com\",\"name\":\"Jenny Liu\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r2",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r2",
+          "subject": "Refund: Order #4502",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r2\",\"body_text\":\"Requesting refund for order 4502.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"mark@example.com\"}]",
+          "customer": "{\"id\":\"gc_r2\",\"email\":\"mark@example.com\",\"name\":\"Mark Torres\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r3",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r3",
+          "subject": "Refund: Order #4503",
+          "status": "closed",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r3\",\"body_text\":\"Already processed.\",\"channel\":\"email\",\"sender_type\":\"agent\",\"sender_email\":\"support@company.example.com\"}]",
+          "customer": "{\"id\":\"gc_r3\",\"email\":\"amy@example.com\",\"name\":\"Amy Park\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r4",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r4",
+          "subject": "Where is my order?",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"shipping\"]",
+          "messages": "[{\"id\":\"gm_r4\",\"body_text\":\"My order hasn't arrived.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"dan@example.com\"}]",
+          "customer": "{\"id\":\"gc_r4\",\"email\":\"dan@example.com\",\"name\":\"Dan Kim\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r5",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r5",
+          "subject": "Refund: Order #4504",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r5\",\"body_text\":\"Please refund order 4504.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"lisa@example.com\"}]",
+          "customer": "{\"id\":\"gc_r5\",\"email\":\"lisa@example.com\",\"name\":\"Lisa Park\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r6",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r6",
+          "subject": "Refund: Order #4599",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r6\",\"body_text\":\"I need a refund for order 4599.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"nina@example.com\"}]",
+          "customer": "{\"id\":\"gc_r6\",\"email\":\"nina@example.com\",\"name\":\"Nina Ray\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r7",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r7",
+          "subject": "Refund: Order #45010",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r7\",\"body_text\":\"Refund needed for order 45010.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"tom@example.com\"}]",
+          "customer": "{\"id\":\"gc_r7\",\"email\":\"tom@example.com\",\"name\":\"Tom Reed\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r8",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r8",
+          "subject": "Refund: Order #4501",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r8\",\"body_text\":\"I purchased order 4501, please refund.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"jenny.liu@example.com\"}]",
+          "customer": "{\"id\":\"gc_r8\",\"email\":\"jenny.liu@example.com\",\"name\":\"Jenny Q. Liu\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r9",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r9",
+          "subject": "Refund: Order #4505",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-requested\"]",
+          "messages": "[{\"id\":\"gm_r9\",\"body_text\":\"I want to return order 4505.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"kevin@example.com\"}]",
+          "customer": "{\"id\":\"gc_r9\",\"email\":\"kevin@example.com\",\"name\":\"Kevin Chen\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r10",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r10",
+          "subject": "Refund: Order #4506",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r10\",\"body_text\":\"Please process refund for order 4506.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"sam@example.com\"}]",
+          "customer": "{\"id\":\"gc_r10\",\"email\":\"sam@example.com\",\"name\":\"Sam Wilson\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r11",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r11",
+          "subject": "Refund: Order #4507",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r11\",\"body_text\":\"I need a refund for order 4507.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"priya@example.com\"}]",
+          "customer": "{\"id\":\"gc_r11\",\"email\":\"priya@example.com\",\"name\":\"Priya Sharma\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r12",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r12",
+          "subject": "Refund: Order #4508",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r12\",\"body_text\":\"Requesting a refund on order 4508.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"carlos@example.com\"}]",
+          "customer": "{\"id\":\"gc_r12\",\"email\":\"carlos@example.com\",\"name\":\"Carlos Mendez\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r13",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r13",
+          "subject": "Refund: Order #4510",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r13\",\"body_text\":\"Please refund order 4510.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"rachel@example.com\"}]",
+          "customer": "{\"id\":\"gc_r13\",\"email\":\"rachel@example.com\",\"name\":\"Rachel Adams\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r14",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r14",
+          "subject": "Refund: Order #4509",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r14\",\"body_text\":\"I want a refund for order 4509.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"derek@example.com\"}]",
+          "customer": "{\"id\":\"gc_r14\",\"email\":\"derek@example.com\",\"name\":\"Derek Hale\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r15",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r15",
+          "subject": "Refund: Order #4511",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r15\",\"body_text\":\"Please refund order 4511.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"loyalty@example.com\"}]",
+          "customer": "{\"id\":\"gc_r15\",\"email\":\"loyalty@example.com\",\"name\":\"Megan Loyalty\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_gt_r16",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "gt_r16",
+          "subject": "Refund: Order #4512",
+          "status": "open",
+          "channel": "email",
+          "tags": "[\"refund-approved\"]",
+          "messages": "[{\"id\":\"gm_r16\",\"body_text\":\"I need a refund for order 4512.\",\"channel\":\"email\",\"sender_type\":\"customer\",\"sender_email\":\"otto@example.com\"}]",
+          "customer": "{\"id\":\"gc_r16\",\"email\":\"otto@example.com\",\"name\":\"Otto Brandt\"}"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_006",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_006",
+          "subject": "Order stuck in processing",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_006\",\"email\":\"shopper6@mailbox.example.com\",\"name\":\"Morgan Bailey\"}",
+          "messages": "[{\"body_text\":\"Order #ORD-9987 has been 'processing' for 5 days now.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_001",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_001",
+          "subject": "Where is my refund?",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_001\",\"email\":\"shopper1@mailbox.example.com\",\"name\":\"Riley Morgan\"}",
+          "messages": "[{\"body_text\":\"I returned my order 2 weeks ago and still no refund.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_007",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_007",
+          "subject": "Gift card balance not showing",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_007\",\"email\":\"shopper7@mailbox.example.com\",\"name\":\"Parker Sullivan\"}",
+          "messages": "[{\"body_text\":\"I redeemed a $50 gift card but my balance shows $0.\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "channel",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "sender_type",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "amy@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "carlos@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "dan@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "derek@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "jenny.liu@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "jenny@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "kevin@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "lisa@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "loyalty@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "mark@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "nina@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "otto@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "priya@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "rachel@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "sam@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "shopper1@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "shopper6@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "shopper7@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "tom@example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_finops",
+      "name": "finance-ops",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_refunds",
+      "name": "refunds",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

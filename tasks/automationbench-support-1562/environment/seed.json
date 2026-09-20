@@ -1,0 +1,475 @@
+{
+  "now": "2026-02-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_escalation": {
+      "title": "Escalation Tracker",
+      "sheets": {
+        "ws_history": {
+          "title": "Escalation History",
+          "values": [
+            [
+              "Ticket ID",
+              "Current Tier",
+              "Escalation Count",
+              "Last Escalated",
+              "Status"
+            ],
+            ["tkt_601", "Tier 1", "1", "2026-02-01", "Active"],
+            ["tkt_602", "Tier 2", "2", "2026-01-30", "Active"],
+            ["tkt_603", "Tier 3", "3", "2026-01-28", "Active"],
+            ["tkt_604", "Tier 1", "1", "2026-02-08", "Cooldown"],
+            ["tkt_608", "Tier 1", "1", "2026-02-01", "Active"],
+            ["tkt_609", "Tier 2", "2", "2026-01-28", "Active"]
+          ]
+        },
+        "ws_log": {
+          "title": "Escalation Log",
+          "values": [["Ticket ID", "From Tier", "To Tier", "Date", "Notes"]]
+        },
+        "ws_config": {
+          "title": "Escalation Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "ESC-WF-20260210"],
+            ["Max_Tier", "3"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_601",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Payment processing timeout errors",
+          "description": "Payments are timing out intermittently since Tuesday.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_401",
+          "group_id": "grp_t1",
+          "created_at": "2026-01-28T10:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_602",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Data sync failures between modules",
+          "description": "CRM data not syncing to reporting module.",
+          "status": "open",
+          "priority": "urgent",
+          "requester_id": "usr_402",
+          "group_id": "grp_t2",
+          "created_at": "2026-01-25T09:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_603",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Complete system outage for enterprise customer",
+          "description": "Entire platform is down for Acme Corp since yesterday.",
+          "status": "open",
+          "priority": "urgent",
+          "requester_id": "usr_403",
+          "group_id": "grp_t3",
+          "created_at": "2026-01-20T08:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_604",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Slow API responses on /v2/users endpoint",
+          "description": "API latency exceeds 5 seconds.",
+          "status": "open",
+          "priority": "normal",
+          "requester_id": "usr_404",
+          "group_id": "grp_t1",
+          "created_at": "2026-02-05T14:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_605",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Email notifications not sending",
+          "description": "Users report not receiving email notifications for 3 days.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_405",
+          "group_id": "grp_t1",
+          "created_at": "2026-01-30T11:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_606",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Feature request: bulk user import",
+          "description": "Need ability to import users via CSV.",
+          "status": "open",
+          "priority": "low",
+          "requester_id": "usr_406",
+          "group_id": "grp_t1",
+          "created_at": "2026-02-01T09:00:00Z",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_607",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Login page CSS broken on Safari",
+          "description": "Login page renders incorrectly on Safari.",
+          "status": "closed",
+          "priority": "normal",
+          "requester_id": "usr_401",
+          "group_id": "grp_t1",
+          "created_at": "2026-01-15T10:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_608",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Dashboard widgets not loading for admins",
+          "description": "Admin users see blank widgets on the dashboard.",
+          "status": "open",
+          "priority": "high",
+          "requester_id": "usr_402",
+          "group_id": "grp_t1",
+          "created_at": "2026-01-29T13:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_609",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook signature validation failing",
+          "description": "All outbound webhook signatures fail validation on partner side.",
+          "status": "open",
+          "priority": "urgent",
+          "requester_id": "usr_405",
+          "group_id": "grp_t2",
+          "created_at": "2026-01-22T16:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_610",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Calendar integration timezone mismatch",
+          "description": "Calendar events show wrong times after timezone change.",
+          "status": "pending",
+          "priority": "normal",
+          "requester_id": "usr_406",
+          "group_id": "grp_t1",
+          "created_at": "2026-02-03T09:00:00Z",
+          "tags": "[\"needs-review\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_006",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Bulk update timed out for 500 tickets",
+          "description": "Tried to bulk-update status on 500 tickets and the operation timed out.",
+          "status": "solved",
+          "priority": "normal",
+          "tags": "[\"bulk\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_005",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Agent collision on shared ticket",
+          "description": "Two agents edited the same ticket and one update was silently dropped.",
+          "status": "solved",
+          "priority": "low",
+          "tags": "[\"collision\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_007",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "SLA breach notification not sent",
+          "description": "A high-priority ticket breached SLA but no Slack alert was triggered.",
+          "status": "solved",
+          "priority": "high",
+          "tags": "[\"sla\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_401",
+        "fields": {
+          "collection": "support_users",
+          "name": "Laura Chen",
+          "email": "laura@acmecorp.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_402",
+        "fields": {
+          "collection": "support_users",
+          "name": "Mike Torres",
+          "email": "mike@novatech.io",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_403",
+        "fields": {
+          "collection": "support_users",
+          "name": "Diana Reeves",
+          "email": "diana@bigco.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_404",
+        "fields": {
+          "collection": "support_users",
+          "name": "Raj Gupta",
+          "email": "raj@techstart.io",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_405",
+        "fields": {
+          "collection": "support_users",
+          "name": "Nina Kowalski",
+          "email": "nina@globalfin.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_406",
+        "fields": {
+          "collection": "support_users",
+          "name": "Chris Park",
+          "email": "chris@smallbiz.net",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_004",
+        "fields": {
+          "collection": "support_users",
+          "name": "Lena Kowalski",
+          "email": "lkowalski@stratos.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_001",
+        "fields": {
+          "collection": "support_users",
+          "name": "Jamie Thornton",
+          "email": "jthorn@neogrid.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_grp_t1",
+        "fields": {
+          "collection": "support_groups",
+          "name": "Tier 1 Support"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_grp_t2",
+        "fields": {
+          "collection": "support_groups",
+          "name": "Tier 2 Engineering"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_grp_t3",
+        "fields": {
+          "collection": "support_groups",
+          "name": "Tier 3 Senior Engineering"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "group_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "chris@smallbiz.net",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "diana@bigco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "jthorn@neogrid.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "laura@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "lkowalski@stratos.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "mike@novatech.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "nina@globalfin.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "raj@techstart.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ESC",
+      "name": "support-escalations",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

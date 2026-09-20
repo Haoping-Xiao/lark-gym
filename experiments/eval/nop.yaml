@@ -1,0 +1,10 @@
+job_name: automationbench-nop
+jobs_dir: runs/harbor
+n_concurrent_trials: 2
+agents:
+  - name: nop
+environment:
+  type: docker
+datasets:
+  - path: tasks
+    task_names: ['automationbench-*']

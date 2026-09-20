@@ -1,0 +1,2269 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_enrichment": {
+      "title": "Enrichment Policy",
+      "sheets": {
+        "ws_rules": {
+          "title": "Action Rules",
+          "values": [
+            ["Account Type", "Priority", "Action", "source_row_id"],
+            ["Customer", "High", "Create SF Task", "r1"],
+            ["Customer", "Medium", "Comment Only", "r2"],
+            ["Customer", "Low", "Comment Only", "r3"],
+            ["Prospect", "Any", "Create SF Opportunity", "r4"],
+            ["No Account", "Any", "Comment Only", "r5"]
+          ]
+        },
+        "ws_skip": {
+          "title": "Skip Statuses",
+          "values": [
+            ["Status", "source_row_id"],
+            ["Closed", "s1"],
+            ["On Hold", "s2"]
+          ]
+        },
+        "ws_overrides": {
+          "title": "Override Rules",
+          "values": [
+            ["Rule Type", "Value", "Action", "Reason", "source_row_id"],
+            [
+              "account_tag",
+              "Strategic",
+              "Always Create Task",
+              "Strategic accounts always get a follow-up task regardless of account type match",
+              "o1"
+            ],
+            [
+              "account_list",
+              "churning-review",
+              "Skip Enrichment",
+              "Accounts under churn review should not receive any enrichment actions",
+              "o2"
+            ],
+            [
+              "strategic_accounts",
+              "Strategic Partners Ltd",
+              "Always Create Task",
+              "Specific account tagged as Strategic",
+              "o3"
+            ],
+            [
+              "churning_review_accounts",
+              "ChurningAcct Corp",
+              "Skip Enrichment",
+              "Account currently under churning review",
+              "o4"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_101",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_101",
+          "subject": "Production outage affecting dashboard",
+          "description": "Our main dashboard has been down for 2 hours.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_201",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_102",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_102",
+          "subject": "Question about data retention policy",
+          "description": "What is your data retention policy for enterprise accounts?",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_202",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_103",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_103",
+          "subject": "Integration with Zapier broken",
+          "description": "Our Zapier integration stopped working after the latest update.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_203",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_104",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_104",
+          "subject": "Old billing issue",
+          "description": "Resolved billing discrepancy.",
+          "status": "Closed",
+          "priority": "Low",
+          "contact_id": "zdc_204",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_105",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_105",
+          "subject": "Need custom integration",
+          "description": "We need a custom API integration for our workflow.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_205",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_106",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_106",
+          "subject": "Account setup questions",
+          "description": "Need help setting up our team account.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_206",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_107",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_107",
+          "subject": "Billing portal access",
+          "description": "Cannot access the billing portal.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_207",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_108",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_108",
+          "subject": "Scheduled maintenance window request",
+          "description": "Need to schedule a maintenance window for next week.",
+          "status": "On Hold",
+          "priority": "High",
+          "contact_id": "zdc_208",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_109",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_109",
+          "subject": "API latency spikes in EU region",
+          "description": "We are seeing intermittent latency spikes on the EU endpoint.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_209",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_110",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_110",
+          "subject": "Data sync errors on staging",
+          "description": "Staging environment data sync is failing silently.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_210",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_111",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_111",
+          "subject": "SSO failures after IdP migration",
+          "description": "SSO stopped working after we migrated identity providers.",
+          "status": "Escalated",
+          "priority": "High",
+          "contact_id": "zdc_211",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_112",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_112",
+          "subject": "Webhook delivery failures",
+          "description": "Webhooks are not being delivered to our endpoint.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_212",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_113",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_113",
+          "subject": "Bulk import timing out",
+          "description": "CSV bulk import hangs on files over 10k rows.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_213",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_114",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_114",
+          "subject": "License renewal inquiry",
+          "description": "Requesting info on license renewal pricing.",
+          "status": "Closed",
+          "priority": "High",
+          "contact_id": "zdc_214",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_115",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_115",
+          "subject": "Strategic partner API access request",
+          "description": "We need expanded API access for our integration.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_215",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_116",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_116",
+          "subject": "Service downgrade request",
+          "description": "Looking to downgrade our service tier.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_216",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_117",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_117",
+          "subject": "Feature request for dashboard widgets",
+          "description": "We would like additional widget options on our dashboard.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_217",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_118",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_118",
+          "subject": "Migration assistance needed",
+          "description": "Need help migrating from legacy system.",
+          "status": "Open",
+          "priority": "High",
+          "contact_id": "zdc_218",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_119",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_119",
+          "subject": "Partner API documentation outdated",
+          "description": "The partner API docs reference deprecated endpoints.",
+          "status": "Open",
+          "priority": "Medium",
+          "contact_id": "zdc_219",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_001",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_001",
+          "subject": "Portal login returns blank page",
+          "description": "Customer portal shows a white screen after login.",
+          "status": "Closed",
+          "priority": "High",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_010",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_010",
+          "subject": "Knowledge base article version conflict",
+          "description": "Two agents edited the same KB article and changes were lost.",
+          "status": "Closed",
+          "priority": "Low",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_005",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_005",
+          "subject": "Customer portal search not working",
+          "description": "Search in the self-service portal returns zero results.",
+          "status": "Closed",
+          "priority": "Low",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_201",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_201",
+          "first_name": "Angela",
+          "last_name": "Torres",
+          "email": "angela@meridiantech.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_202",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_202",
+          "first_name": "Ryan",
+          "last_name": "Nguyen",
+          "email": "ryan@meridiantech.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_203",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_203",
+          "first_name": "Kenji",
+          "last_name": "Tanaka",
+          "email": "kenji@solopreneur.me"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_204",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_204",
+          "first_name": "Old",
+          "last_name": "User",
+          "email": "old@closed.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_205",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_205",
+          "first_name": "Laura",
+          "last_name": "Kim",
+          "email": "laura@prospectco.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_206",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_206",
+          "first_name": "James",
+          "last_name": "Lee",
+          "email": "james@orphan.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_207",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_207",
+          "first_name": "Nina",
+          "last_name": "Shah",
+          "email": "nina@churnedinc.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_208",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_208",
+          "first_name": "Marta",
+          "last_name": "Rios",
+          "email": "marta@onhold.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_209",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_209",
+          "first_name": "Derek",
+          "last_name": "Finch",
+          "email": "derek@meridian-tech.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_210",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_210",
+          "first_name": "Sasha",
+          "last_name": "Volk",
+          "email": "sasha@brightlabs.io"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_211",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_211",
+          "first_name": "Tomas",
+          "last_name": "Eriksen",
+          "email": "tomas@vexillum.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_212",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_212",
+          "first_name": "Priya",
+          "last_name": "Nair",
+          "email": "priya@novacrest.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_213",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_213",
+          "first_name": "James",
+          "last_name": "Torres",
+          "email": "james.torres@waveline.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_214",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_214",
+          "first_name": "Closed",
+          "last_name": "User2",
+          "email": "closed2@gone.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_215",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_215",
+          "first_name": "Rafael",
+          "last_name": "Santos",
+          "email": "rafael@strategicpartners.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_216",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_216",
+          "first_name": "Mei",
+          "last_name": "Chen",
+          "email": "mei@churningacct.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_217",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_217",
+          "first_name": "Hiro",
+          "last_name": "Matsuda",
+          "email": "hiro@acmesmb.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_218",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_218",
+          "first_name": "Carlos",
+          "last_name": "Reyes",
+          "email": "carlos@meridiantechnologies.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_219",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_219",
+          "first_name": "Olivia",
+          "last_name": "Grant",
+          "email": "olivia@partnerlogic.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_005",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_005",
+          "first_name": "Andre",
+          "last_name": "Williams",
+          "email": "awilliams@springdale.example.com"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_contacts_zdc_noise_001",
+        "fields": {
+          "collection": "zoho_desk_contacts",
+          "id": "zdc_noise_001",
+          "first_name": "Hannah",
+          "last_name": "Park",
+          "email": "hpark@riverbend.example.com"
+        }
+      },
+      {
+        "record_id": "rec_sf_c10",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Angela",
+          "last_name": "Torres",
+          "email": "angela@meridiantech.com",
+          "account_id": "sf_a10"
+        }
+      },
+      {
+        "record_id": "rec_sf_c11",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ryan",
+          "last_name": "Nguyen",
+          "email": "ryan@meridiantech.com",
+          "account_id": "sf_a10"
+        }
+      },
+      {
+        "record_id": "rec_sf_c12",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Laura",
+          "last_name": "Kim",
+          "email": "laura@prospectco.com",
+          "account_id": "sf_a11"
+        }
+      },
+      {
+        "record_id": "rec_sf_c13",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "James",
+          "last_name": "Lee",
+          "email": "james@orphan.com",
+          "account_id": ""
+        }
+      },
+      {
+        "record_id": "rec_sf_c14",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Nina",
+          "last_name": "Shah",
+          "email": "nina@churnedinc.com",
+          "account_id": "sf_a12"
+        }
+      },
+      {
+        "record_id": "rec_sf_c15",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Derek",
+          "last_name": "Finch",
+          "email": "derek@meridian-tech.com",
+          "account_id": "sf_a13"
+        }
+      },
+      {
+        "record_id": "rec_sf_c16",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sasha",
+          "last_name": "Volk",
+          "email": "sasha@brightlabs.io",
+          "account_id": "sf_a14"
+        }
+      },
+      {
+        "record_id": "rec_sf_c17",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Tomas",
+          "last_name": "Eriksen",
+          "email": "tomas@vexillum.com",
+          "account_id": "sf_a15"
+        }
+      },
+      {
+        "record_id": "rec_sf_c18",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Priya",
+          "last_name": "Nair",
+          "email": "priya@novacrest.com",
+          "account_id": ""
+        }
+      },
+      {
+        "record_id": "rec_sf_c19",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "James",
+          "last_name": "Torres",
+          "email": "james.torres@waveline.com",
+          "account_id": "sf_a16"
+        }
+      },
+      {
+        "record_id": "rec_sf_c20",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Rafael",
+          "last_name": "Santos",
+          "email": "rafael@strategicpartners.com",
+          "account_id": "sf_a17"
+        }
+      },
+      {
+        "record_id": "rec_sf_c21",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Mei",
+          "last_name": "Chen",
+          "email": "mei@churningacct.com",
+          "account_id": "sf_a18"
+        }
+      },
+      {
+        "record_id": "rec_sf_c22",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hiro",
+          "last_name": "Matsuda",
+          "email": "hiro@acmesmb.com",
+          "account_id": "sf_a19"
+        }
+      },
+      {
+        "record_id": "rec_sf_c23",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Carlos",
+          "last_name": "Reyes",
+          "email": "carlos@meridiantechnologies.com",
+          "account_id": "sf_a20"
+        }
+      },
+      {
+        "record_id": "rec_sf_c24",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Olivia",
+          "last_name": "Grant",
+          "email": "olivia@partnerlogic.com",
+          "account_id": "sf_a21"
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC034",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Morgan",
+          "last_name": "Horton",
+          "email": "morgan.horton@wavecrestana.example.com",
+          "phone": "+1-555-233-2231",
+          "account_id": "001xx000099NA034",
+          "title": "Sales Analyst",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC020",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hannah",
+          "last_name": "Fletcher",
+          "email": "hannah.fletcher@alpinedigita.example.com",
+          "phone": "+1-555-219-2133",
+          "account_id": "001xx000099NA020",
+          "title": "Sales Operations Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC004",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Megan",
+          "last_name": "Sullivan",
+          "email": "megan.sullivan@vertexcapita.example.com",
+          "phone": "+1-555-203-2021",
+          "account_id": "001xx000099NA004",
+          "title": "Account Executive",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC047",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sawyer",
+          "last_name": "Fleming",
+          "email": "sawyer.fleming@riverviewpar.example.com",
+          "phone": "+1-555-246-2322",
+          "account_id": "001xx000099NA012",
+          "title": "Sales Operations Lead",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC050",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "River",
+          "last_name": "Williamson",
+          "email": "river.williamson@cloudbridges.example.com",
+          "phone": "+1-555-249-2343",
+          "account_id": "001xx000099NA015",
+          "title": "Director of Business Dev",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC036",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Casey",
+          "last_name": "Erickson",
+          "email": "casey.erickson@ironcladsyst.example.com",
+          "phone": "+1-555-235-2245",
+          "account_id": "001xx000099NA001",
+          "title": "Territory Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC032",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Peyton",
+          "last_name": "Barker",
+          "email": "peyton.barker@terracesoftw.example.com",
+          "phone": "+1-555-231-2217",
+          "account_id": "001xx000099NA032",
+          "title": "Channel Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC052",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Indigo",
+          "last_name": "Hammond",
+          "email": "indigo.hammond@ironridgesol.example.com",
+          "phone": "+1-555-251-2357",
+          "account_id": "001xx000099NA017",
+          "title": "Sales Excellence Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC008",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Natalie",
+          "last_name": "Hoffman",
+          "email": "natalie.hoffman@eastgatesolu.example.com",
+          "phone": "+1-555-207-2049",
+          "account_id": "001xx000099NA008",
+          "title": "Customer Success Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC028",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Madison",
+          "last_name": "Payne",
+          "email": "madison.payne@parksidesolu.example.com",
+          "phone": "+1-555-227-2189",
+          "account_id": "001xx000099NA028",
+          "title": "VP of Customer Success",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC016",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sophia",
+          "last_name": "Griffin",
+          "email": "sophia.griffin@harbourviewc.example.com",
+          "phone": "+1-555-215-2105",
+          "account_id": "001xx000099NA016",
+          "title": "Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC006",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Priya",
+          "last_name": "Nair",
+          "email": "priya.nair@starlingfina.example.com",
+          "phone": "+1-555-205-2035",
+          "account_id": "001xx000099NA006",
+          "title": "Senior Sales Engineer",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC039",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Reese",
+          "last_name": "Sutton",
+          "email": "reese.sutton@vertexcapita.example.com",
+          "phone": "+1-555-238-2266",
+          "account_id": "001xx000099NA004",
+          "title": "Account Coordinator",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC015",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Nathan",
+          "last_name": "Barnes",
+          "email": "nathan.barnes@cloudbridges.example.com",
+          "phone": "+1-555-214-2098",
+          "account_id": "001xx000099NA015",
+          "title": "VP of Engineering",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC046",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Emerson",
+          "last_name": "Mcdonald",
+          "email": "emerson.mcdonald@summitgrouph.example.com",
+          "phone": "+1-555-245-2315",
+          "account_id": "001xx000099NA011",
+          "title": "Senior Solutions Engineer",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC051",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sage",
+          "last_name": "Norris",
+          "email": "sage.norris@harbourviewc.example.com",
+          "phone": "+1-555-250-2350",
+          "account_id": "001xx000099NA016",
+          "title": "Account Growth Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC037",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Drew",
+          "last_name": "Zimmerman",
+          "email": "drew.zimmerman@bluestarvent.example.com",
+          "phone": "+1-555-236-2252",
+          "account_id": "001xx000099NA002",
+          "title": "VP of Sales",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC013",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Derek",
+          "last_name": "Hamilton",
+          "email": "derek.hamilton@northgatetec.example.com",
+          "phone": "+1-555-212-2084",
+          "account_id": "001xx000099NA013",
+          "title": "Solutions Architect",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC026",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Zoe",
+          "last_name": "Spencer",
+          "email": "zoe.spencer@northstarmed.example.com",
+          "phone": "+1-555-225-2175",
+          "account_id": "001xx000099NA026",
+          "title": "Head of Sales",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC011",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Marcus",
+          "last_name": "Reed",
+          "email": "marcus.reed@summitgrouph.example.com",
+          "phone": "+1-555-210-2070",
+          "account_id": "001xx000099NA011",
+          "title": "Enterprise Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC018",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Olivia",
+          "last_name": "Haynes",
+          "email": "olivia.haynes@lakefrontven.example.com",
+          "phone": "+1-555-217-2119",
+          "account_id": "001xx000099NA018",
+          "title": "Partner Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC003",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Daniel",
+          "last_name": "Park",
+          "email": "daniel.park@cascadeanaly.example.com",
+          "phone": "+1-555-202-2014",
+          "account_id": "001xx000099NA003",
+          "title": "VP of Marketing",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC054",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Wren",
+          "last_name": "Ramsey",
+          "email": "wren.ramsey@westbrookgro.example.com",
+          "phone": "+1-555-253-2371",
+          "account_id": "001xx000099NA019",
+          "title": "Strategic Sales Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC005",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Kevin",
+          "last_name": "Walsh",
+          "email": "kevin.walsh@thornwoodpar.example.com",
+          "phone": "+1-555-204-2028",
+          "account_id": "001xx000099NA005",
+          "title": "Product Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC048",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Quinn",
+          "last_name": "Townsend",
+          "email": "quinn.townsend@northgatetec.example.com",
+          "phone": "+1-555-247-2329",
+          "account_id": "001xx000099NA013",
+          "title": "Key Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC017",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ethan",
+          "last_name": "Nichols",
+          "email": "ethan.nichols@ironridgesol.example.com",
+          "phone": "+1-555-216-2112",
+          "account_id": "001xx000099NA017",
+          "title": "Senior Account Executive",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC012",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Amber",
+          "last_name": "Foster",
+          "email": "amber.foster@riverviewpar.example.com",
+          "phone": "+1-555-211-2077",
+          "account_id": "001xx000099NA012",
+          "title": "Business Development Rep",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC040",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hayden",
+          "last_name": "Lowe",
+          "email": "hayden.lowe@thornwoodpar.example.com",
+          "phone": "+1-555-239-2273",
+          "account_id": "001xx000099NA005",
+          "title": "Sales Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC025",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Logan",
+          "last_name": "Holt",
+          "email": "logan.holt@meadowbrookt.example.com",
+          "phone": "+1-555-224-2168",
+          "account_id": "001xx000099NA025",
+          "title": "Sales Engineer",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC043",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Avery",
+          "last_name": "Benson",
+          "email": "avery.benson@eastgatesolu.example.com",
+          "phone": "+1-555-242-2294",
+          "account_id": "001xx000099NA008",
+          "title": "Partner Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC055",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Remy",
+          "last_name": "Padilla",
+          "email": "remy.padilla@alpinedigita.example.com",
+          "phone": "+1-555-254-2378",
+          "account_id": "001xx000099NA020",
+          "title": "Global Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC019",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Caleb",
+          "last_name": "Pierce",
+          "email": "caleb.pierce@westbrookgro.example.com",
+          "phone": "+1-555-218-2126",
+          "account_id": "001xx000099NA019",
+          "title": "Inside Sales Rep",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC041",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Blake",
+          "last_name": "Parsons",
+          "email": "blake.parsons@starlingfina.example.com",
+          "phone": "+1-555-240-2280",
+          "account_id": "001xx000099NA006",
+          "title": "Business Development Dir",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC031",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Jordan",
+          "last_name": "Marsh",
+          "email": "jordan.marsh@sunstonecapi.example.com",
+          "phone": "+1-555-230-2210",
+          "account_id": "001xx000099NA031",
+          "title": "Senior BDR",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC033",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Taylor",
+          "last_name": "Walton",
+          "email": "taylor.walton@uplandsystem.example.com",
+          "phone": "+1-555-232-2224",
+          "account_id": "001xx000099NA033",
+          "title": "Account Director",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC027",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Cameron",
+          "last_name": "Burke",
+          "email": "cameron.burke@oceanfrontla.example.com",
+          "phone": "+1-555-226-2182",
+          "account_id": "001xx000099NA027",
+          "title": "Strategic Account Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC007",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Brandon",
+          "last_name": "Ortega",
+          "email": "brandon.ortega@redwoodtechn.example.com",
+          "phone": "+1-555-206-2042",
+          "account_id": "001xx000099NA007",
+          "title": "Chief Revenue Officer",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC009",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Tyler",
+          "last_name": "Brooks",
+          "email": "tyler.brooks@montclairind.example.com",
+          "phone": "+1-555-208-2056",
+          "account_id": "001xx000099NA009",
+          "title": "Sales Development Rep",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC002",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Rachel",
+          "last_name": "Torres",
+          "email": "rachel.torres@bluestarvent.example.com",
+          "phone": "+1-555-201-2007",
+          "account_id": "001xx000099NA002",
+          "title": "Director of Sales",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC053",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Phoenix",
+          "last_name": "Briggs",
+          "email": "phoenix.briggs@lakefrontven.example.com",
+          "phone": "+1-555-252-2364",
+          "account_id": "001xx000099NA018",
+          "title": "Head of Partnerships",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC030",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Hailey",
+          "last_name": "Chandler",
+          "email": "hailey.chandler@stonebridgeh.example.com",
+          "phone": "+1-555-229-2203",
+          "account_id": "001xx000099NA030",
+          "title": "Director of Operations",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC022",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Grace",
+          "last_name": "Stanton",
+          "email": "grace.stanton@clearwatersy.example.com",
+          "phone": "+1-555-221-2147",
+          "account_id": "001xx000099NA022",
+          "title": "Marketing Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC045",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Rowan",
+          "last_name": "Snyder",
+          "email": "rowan.snyder@pacificridge.example.com",
+          "phone": "+1-555-244-2308",
+          "account_id": "001xx000099NA010",
+          "title": "Enterprise BDR",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC049",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Harley",
+          "last_name": "Schultz",
+          "email": "harley.schultz@silverstoneg.example.com",
+          "phone": "+1-555-248-2336",
+          "account_id": "001xx000099NA014",
+          "title": "Inside Sales Manager",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_003xx000099NC042",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Finley",
+          "last_name": "Hoover",
+          "email": "finley.hoover@redwoodtechn.example.com",
+          "phone": "+1-555-241-2287",
+          "account_id": "001xx000099NA007",
+          "title": "Customer Solutions Lead",
+          "description": "Outreach hold: contact pending compliance review — do not enroll in campaigns or sequences until review is complete."
+        }
+      },
+      {
+        "record_id": "rec_sf_a10",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meridian Technologies",
+          "account_type": "Customer - Enterprise"
+        }
+      },
+      {
+        "record_id": "rec_sf_a11",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "ProspectCo",
+          "account_type": "Prospect"
+        }
+      },
+      {
+        "record_id": "rec_sf_a12",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Churned Inc",
+          "account_type": "Customer"
+        }
+      },
+      {
+        "record_id": "rec_sf_a13",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meridian-Tech Solutions",
+          "account_type": "Prospect"
+        }
+      },
+      {
+        "record_id": "rec_sf_a14",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "BrightLabs",
+          "account_type": "Customer - Prospect"
+        }
+      },
+      {
+        "record_id": "rec_sf_a15",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Vexillum Corp",
+          "account_type": "Customer"
+        }
+      },
+      {
+        "record_id": "rec_sf_a16",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Waveline Digital",
+          "account_type": "Prospect"
+        }
+      },
+      {
+        "record_id": "rec_sf_a17",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Strategic Partners Ltd",
+          "account_type": "Other"
+        }
+      },
+      {
+        "record_id": "rec_sf_a18",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "ChurningAcct Corp",
+          "account_type": "Customer"
+        }
+      },
+      {
+        "record_id": "rec_sf_a19",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Acme SMB Solutions",
+          "account_type": "Customer - SMB"
+        }
+      },
+      {
+        "record_id": "rec_sf_a20",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meridian Technologies Inc",
+          "account_type": "Customer"
+        }
+      },
+      {
+        "record_id": "rec_sf_a21",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "PartnerLogic",
+          "account_type": "Partner"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA003",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Cascade Analytics",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA034",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Wavecrest Analytics",
+          "industry": "Analytics",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA004",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Vertex Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA036",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverstone Analytics",
+          "industry": "Analytics",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA038",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sunridge Capital",
+          "industry": "Private Equity",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA032",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Terrace Software",
+          "industry": "Software",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA031",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sunstone Capital",
+          "industry": "Private Equity",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA044",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sterling Software",
+          "industry": "Software",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA026",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Northstar Media",
+          "industry": "Media",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA035",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Zenith Platforms",
+          "industry": "SaaS",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA022",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Clearwater Systems",
+          "industry": "Cybersecurity",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA027",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Oceanfront Labs",
+          "industry": "Research",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA025",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meadowbrook Tech",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA040",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Birchwood Analytics",
+          "industry": "Analytics",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA030",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Stonebridge Holdings",
+          "industry": "Financial Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA010",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Pacific Ridge Corp",
+          "industry": "Retail",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA037",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Oceanfront Labs",
+          "industry": "Research",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA039",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Maplecrest Systems",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA021",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Bayside Analytics",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA016",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Harbourview Capital",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA041",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Crestwood Ventures",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA007",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Redwood Technologies",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA045",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Aspen Digital",
+          "industry": "Technology",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA015",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "CloudBridge Systems",
+          "industry": "Technology",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA013",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Northgate Technologies",
+          "industry": "IT Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA012",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverview Partners",
+          "industry": "Real Estate",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA019",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Westbrook Group",
+          "industry": "Energy",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA009",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Montclair Industries",
+          "industry": "Manufacturing",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA002",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "BlueStar Ventures",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA043",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meadowview Partners",
+          "industry": "Consulting",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA008",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Eastgate Solutions",
+          "industry": "Business Services",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA001",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Ironclad Systems",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA014",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Silverstone Group",
+          "industry": "Automotive",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA020",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Alpine Digital",
+          "industry": "Marketing",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA029",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Riverside Insurance",
+          "industry": "Insurance",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA042",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Horizon Technologies",
+          "industry": "Technology",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA024",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Highpoint Consulting",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA028",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Parkside Solutions",
+          "industry": "IT Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA011",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Summit Group Holdings",
+          "industry": "Financial Services",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000099NA005",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Thornwood Partners",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "account_type",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "tier",
+        "type": "text"
+      },
+      {
+        "name": "parent_id",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "stage",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "amber.foster@riverviewpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "angela@meridiantech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "avery.benson@eastgatesolu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "awilliams@springdale.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "blake.parsons@starlingfina.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "brandon.ortega@redwoodtechn.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "caleb.pierce@westbrookgro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "cameron.burke@oceanfrontla.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "carlos@meridiantechnologies.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "casey.erickson@ironcladsyst.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "closed2@gone.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "daniel.park@cascadeanaly.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "derek.hamilton@northgatetec.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "derek@meridian-tech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "drew.zimmerman@bluestarvent.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "emerson.mcdonald@summitgrouph.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "ethan.nichols@ironridgesol.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "finley.hoover@redwoodtechn.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "grace.stanton@clearwatersy.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "hailey.chandler@stonebridgeh.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "hannah.fletcher@alpinedigita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "harley.schultz@silverstoneg.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "hayden.lowe@thornwoodpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "hiro@acmesmb.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "hpark@riverbend.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "indigo.hammond@ironridgesol.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "james.torres@waveline.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "james@orphan.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "jordan.marsh@sunstonecapi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "kenji@solopreneur.me",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "kevin.walsh@thornwoodpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "laura@prospectco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "logan.holt@meadowbrookt.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "madison.payne@parksidesolu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_34",
+      "name": "marcus.reed@summitgrouph.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_35",
+      "name": "marta@onhold.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_36",
+      "name": "megan.sullivan@vertexcapita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_37",
+      "name": "mei@churningacct.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_38",
+      "name": "morgan.horton@wavecrestana.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_39",
+      "name": "natalie.hoffman@eastgatesolu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_40",
+      "name": "nathan.barnes@cloudbridges.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_41",
+      "name": "nina@churnedinc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_42",
+      "name": "old@closed.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_43",
+      "name": "olivia.haynes@lakefrontven.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_44",
+      "name": "olivia@partnerlogic.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_45",
+      "name": "peyton.barker@terracesoftw.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_46",
+      "name": "phoenix.briggs@lakefrontven.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_47",
+      "name": "priya.nair@starlingfina.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_48",
+      "name": "priya@novacrest.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_49",
+      "name": "quinn.townsend@northgatetec.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_50",
+      "name": "rachel.torres@bluestarvent.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_51",
+      "name": "rafael@strategicpartners.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_52",
+      "name": "reese.sutton@vertexcapita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_53",
+      "name": "remy.padilla@alpinedigita.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_54",
+      "name": "river.williamson@cloudbridges.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_55",
+      "name": "rowan.snyder@pacificridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_56",
+      "name": "ryan@meridiantech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_57",
+      "name": "sage.norris@harbourviewc.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_58",
+      "name": "sasha@brightlabs.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_59",
+      "name": "sawyer.fleming@riverviewpar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_60",
+      "name": "sophia.griffin@harbourviewc.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_61",
+      "name": "taylor.walton@uplandsystem.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_62",
+      "name": "tomas@vexillum.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_63",
+      "name": "tyler.brooks@montclairind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_64",
+      "name": "wren.ramsey@westbrookgro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_65",
+      "name": "zoe.spencer@northstarmed.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

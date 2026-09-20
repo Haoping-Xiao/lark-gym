@@ -1,0 +1,128 @@
+{
+  "now": "2026-03-20T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_pips": {
+      "title": "PIP Tracker",
+      "sheets": {
+        "ws_active": {
+          "title": "Active PIPs",
+          "values": [
+            [
+              "Employee",
+              "Monday Item ID",
+              "Manager",
+              "Manager Email",
+              "PIP Start",
+              "30-Day Checkpoint",
+              "60-Day Checkpoint",
+              "PIP End",
+              "Status",
+              "Escalation Contact"
+            ],
+            [
+              "Bob Chen",
+              "item_pip_001",
+              "David Okonkwo",
+              "david.okonkwo@company.example.com",
+              "2026-01-20",
+              "2026-02-19",
+              "2026-03-21",
+              "2026-04-20",
+              "Active",
+              "hr-director@company.example.com"
+            ],
+            [
+              "Frank Torres",
+              "item_pip_002",
+              "Lisa Wang",
+              "lisa.wang@company.example.com",
+              "2025-12-15",
+              "2026-01-14",
+              "2026-02-13",
+              "2026-03-15",
+              "Active",
+              "hr-director@company.example.com"
+            ],
+            [
+              "Sam Rivera",
+              "item_pip_003",
+              "David Okonkwo",
+              "david.okonkwo@company.example.com",
+              "2026-03-01",
+              "2026-03-31",
+              "2026-04-30",
+              "2026-05-30",
+              "Active",
+              "hr-director@company.example.com"
+            ]
+          ]
+        },
+        "ws_pip_policy": {
+          "title": "PIP Process",
+          "values": [
+            ["Step"],
+            [
+              "When a checkpoint date falls within the current week, email the employee's manager to schedule a review meeting. Mention which checkpoint (30-day or 60-day) it is."
+            ],
+            [
+              "If a PIP has passed its end date without resolution (Status still 'Active'), escalate to the Escalation Contact immediately and state that the PIP is expired."
+            ],
+            [
+              "No action needed for PIPs with no upcoming checkpoints this week and not yet expired."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "item_id",
+        "type": "text"
+      },
+      {
+        "name": "employee",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "david.okonkwo@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "hr-director@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "lisa.wang@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

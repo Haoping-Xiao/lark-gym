@@ -1,0 +1,767 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_churn": {
+      "title": "Churn Risk Dashboard",
+      "sheets": {
+        "ws_churn": {
+          "title": "Churn Risk Log",
+          "values": [
+            [
+              "Company Name",
+              "Open Tickets",
+              "Tier",
+              "Action Taken",
+              "CSM Notified"
+            ]
+          ]
+        },
+        "ws_account_tiers": {
+          "title": "Account Tiers",
+          "values": [
+            ["Company Name", "Tier", "Contract Value"],
+            ["Acme Widgets", "Gold", "$120,000"],
+            ["BetaCorp", "Silver", "$45,000"],
+            ["Gamma Inc", "Silver", "$60,000"],
+            ["ChurnedCo", "Bronze", "$15,000"],
+            ["Acme Widget", "Gold", "$95,000"],
+            ["DeltaForce", "Silver", "$50,000"]
+          ]
+        },
+        "ws_escalation_contacts": {
+          "title": "Escalation Contacts",
+          "values": [
+            ["Company Name", "CSM Email"],
+            ["Acme Widgets", "sarah@company.example.com"],
+            ["ChurnedCo", "jan@company.example.com"],
+            ["Acme Widget", "mike@company.example.com"]
+          ]
+        },
+        "ws_risk_config": {
+          "title": "Risk Scoring Configuration",
+          "values": [
+            ["Setting", "Value"],
+            [
+              "Ticket Status to Count",
+              "Only count tickets with status = open. Do NOT count pending, hold, solved, or closed."
+            ],
+            ["Gold Tier Threshold", "1 or more open tickets = at risk"],
+            ["Silver Tier Threshold", "2 or more open tickets = at risk"],
+            ["Bronze Tier Threshold", "3 or more open tickets = at risk"],
+            [
+              "Action: Non-churned at-risk",
+              "Create HubSpot ticket with company name in subject"
+            ],
+            [
+              "Action: Churned at-risk",
+              "Create Salesforce task (SF Task) with company name in subject. Do NOT create HubSpot ticket."
+            ],
+            [
+              "CSM Notification",
+              "If company has entry in ws_escalation_contacts, email the CSM. Set CSM Notified=Yes. Otherwise CSM Notified=No."
+            ],
+            [
+              "Company Name Matching",
+              "Match companies by EXACT name. Near-match names (e.g. singular vs plural) are separate companies."
+            ],
+            [
+              "Slack Summary Format",
+              "Include: total companies at risk stated as '<N> companies at risk', HubSpot tickets created, SF tasks created, count per tier (Gold: N, Silver: N, Bronze: N)"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zendesk_tkt_cr1",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "API errors increasing",
+          "status": "open",
+          "priority": "high",
+          "organization_id": "org_cr1",
+          "requester_id": "u_cr1",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr2",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Dashboard not loading",
+          "status": "open",
+          "priority": "urgent",
+          "organization_id": "org_cr1",
+          "requester_id": "u_cr2",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr3",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Report export broken",
+          "status": "open",
+          "priority": "normal",
+          "organization_id": "org_cr1",
+          "requester_id": "u_cr3",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr4",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Minor UI bug",
+          "status": "open",
+          "priority": "low",
+          "organization_id": "org_cr2",
+          "requester_id": "u_cr4",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr5",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Integration question",
+          "status": "solved",
+          "priority": "normal",
+          "organization_id": "org_cr2",
+          "requester_id": "u_cr5",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr6",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "SSO not working",
+          "status": "open",
+          "priority": "high",
+          "organization_id": "org_cr3",
+          "requester_id": "u_cr6",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr7",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Billing portal down",
+          "status": "open",
+          "priority": "urgent",
+          "organization_id": "org_cr3",
+          "requester_id": "u_cr7",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr8",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Data export broken",
+          "status": "open",
+          "priority": "high",
+          "organization_id": "org_cr4",
+          "requester_id": "u_cr8",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr9",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Integration failing",
+          "status": "open",
+          "priority": "normal",
+          "organization_id": "org_cr4",
+          "requester_id": "u_cr9",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr10",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Login issues",
+          "status": "pending",
+          "priority": "high",
+          "organization_id": "org_cr4",
+          "requester_id": "u_cr10",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr11",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Password reset loop",
+          "status": "open",
+          "priority": "normal",
+          "organization_id": "org_cr4",
+          "requester_id": "u_cr10",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr12",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Webhook delivery failures",
+          "status": "open",
+          "priority": "high",
+          "organization_id": "org_cr5",
+          "requester_id": "u_cr11",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr13",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Scheduled reports missing",
+          "status": "open",
+          "priority": "normal",
+          "organization_id": "org_cr5",
+          "requester_id": "u_cr12",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr14",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Custom field not saving",
+          "status": "open",
+          "priority": "normal",
+          "organization_id": "org_cr6",
+          "requester_id": "u_cr13",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr15",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Email forwarding delay",
+          "status": "pending",
+          "priority": "low",
+          "organization_id": "org_cr6",
+          "requester_id": "u_cr14",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_cr16",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Mobile app crash on load",
+          "status": "hold",
+          "priority": "high",
+          "organization_id": "org_cr6",
+          "requester_id": "u_cr14",
+          "tags": "[]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_008",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Duplicate tickets from email parser",
+          "description": "Same customer email generated 3 separate tickets instead of one thread.",
+          "status": "solved",
+          "priority": "normal",
+          "tags": "[\"email\",\"dupe\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_012",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Custom field not showing in reports",
+          "description": "The 'Contract Tier' custom field doesn't appear in the reporting dashboard.",
+          "status": "solved",
+          "priority": "low",
+          "tags": "[\"reporting\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_tkt_noise_015",
+        "fields": {
+          "collection": "support_tickets",
+          "subject": "Ticket merge lost internal notes",
+          "description": "After merging two tickets, all internal notes from the secondary were lost.",
+          "status": "solved",
+          "priority": "normal",
+          "tags": "[\"merge\"]",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr1",
+        "fields": {
+          "collection": "support_users",
+          "name": "Alice Martin",
+          "email": "alice@acmewidgets.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr2",
+        "fields": {
+          "collection": "support_users",
+          "name": "Bob Chen",
+          "email": "bob@acmewidgets.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr3",
+        "fields": {
+          "collection": "support_users",
+          "name": "Carol Davis",
+          "email": "carol@acmewidgets.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr4",
+        "fields": {
+          "collection": "support_users",
+          "name": "Dan Miller",
+          "email": "dan@betacorp.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr5",
+        "fields": {
+          "collection": "support_users",
+          "name": "Eve Park",
+          "email": "eve@betacorp.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr6",
+        "fields": {
+          "collection": "support_users",
+          "name": "Frank Torres",
+          "email": "frank@gammainc.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr7",
+        "fields": {
+          "collection": "support_users",
+          "name": "Grace Kim",
+          "email": "grace@gammainc.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr8",
+        "fields": {
+          "collection": "support_users",
+          "name": "Hank Wilson",
+          "email": "hank@churnedco.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr9",
+        "fields": {
+          "collection": "support_users",
+          "name": "Irene Lopez",
+          "email": "irene@churnedco.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr10",
+        "fields": {
+          "collection": "support_users",
+          "name": "Jack Brown",
+          "email": "jack@churnedco.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr11",
+        "fields": {
+          "collection": "support_users",
+          "name": "Karen Liu",
+          "email": "karen@acmewidget.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr12",
+        "fields": {
+          "collection": "support_users",
+          "name": "Leo Russo",
+          "email": "leo@acmewidget.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr13",
+        "fields": {
+          "collection": "support_users",
+          "name": "Mia Scott",
+          "email": "mia@deltaforce.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_u_cr14",
+        "fields": {
+          "collection": "support_users",
+          "name": "Nate Patel",
+          "email": "nate@deltaforce.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_002",
+        "fields": {
+          "collection": "support_users",
+          "name": "Dana Whitfield",
+          "email": "dwhit@crestline.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_usr_noise_007",
+        "fields": {
+          "collection": "support_users",
+          "name": "Vikram Bhandari",
+          "email": "vbhandari@ironforge.example.com",
+          "role": "end-user"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_cr1",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Acme Widgets",
+          "domain_names": "[\"acmewidgets.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_cr2",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "BetaCorp",
+          "domain_names": "[\"betacorp.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_cr3",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Gamma Inc",
+          "domain_names": "[\"gammainc.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_cr4",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "ChurnedCo",
+          "domain_names": "[\"churnedco.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_cr5",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Acme Widget",
+          "domain_names": "[\"acmewidget.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_org_cr6",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "DeltaForce",
+          "domain_names": "[\"deltaforce.com\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_cr1",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Acme Widgets",
+          "domain": "acmewidgets.com",
+          "industry": "Manufacturing"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_cr3",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Gamma Inc",
+          "domain": "gammainc.com",
+          "industry": "Technology"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_cr4",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "ChurnedCo",
+          "domain": "churnedco.com",
+          "lifecycle_stage": "churned"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_cr5",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Acme Widget",
+          "domain": "acmewidget.com",
+          "industry": "Logistics"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_cr6",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "DeltaForce",
+          "domain": "deltaforce.com",
+          "industry": "Finance"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "organization_id",
+        "type": "text"
+      },
+      {
+        "name": "requester_id",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "lifecycle_stage",
+        "type": "text"
+      },
+      {
+        "name": "company_name",
+        "type": "text"
+      },
+      {
+        "name": "company_id",
+        "type": "text"
+      },
+      {
+        "name": "open_tickets",
+        "type": "number"
+      },
+      {
+        "name": "tier",
+        "type": "text"
+      },
+      {
+        "name": "contract_value",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice@acmewidgets.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob@acmewidgets.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol@acmewidgets.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dan@betacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "dwhit@crestline.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "eve@betacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "frank@gammainc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "grace@gammainc.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "hank@churnedco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "irene@churnedco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "jack@churnedco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "jan@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "karen@acmewidget.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "leo@acmewidget.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "mia@deltaforce.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "mike@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "nate@deltaforce.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "sarah@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "vbhandari@ironforge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_cs",
+      "name": "customer-success",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

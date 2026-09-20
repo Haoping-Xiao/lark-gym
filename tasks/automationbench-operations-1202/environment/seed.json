@@ -1,0 +1,175 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_compliance_queue": {
+      "title": "Compliance Queue",
+      "sheets": {
+        "ws_queue": {
+          "title": "Queue",
+          "values": [
+            [
+              "Vendor",
+              "Document",
+              "Document Type",
+              "Status",
+              "Priority",
+              "Due",
+              "Notes"
+            ],
+            [
+              "Apex",
+              "Insurance Certificate",
+              "External",
+              "Ready",
+              "High",
+              "2026-02-03",
+              ""
+            ],
+            ["Northwind", "W-9", "External", "Ready", "High", "2026-02-01", ""],
+            [
+              "BlueYard",
+              "Safety Manual",
+              "External",
+              "Waiting",
+              "High",
+              "2026-02-01",
+              ""
+            ],
+            [
+              "North Wind LLC",
+              "Internal Audit Report",
+              "Internal Audit",
+              "Ready",
+              "High",
+              "2026-01-30",
+              ""
+            ],
+            [
+              "Apex Solutions",
+              "Compliance Cert",
+              "External",
+              "Ready",
+              "Medium",
+              "2026-01-28",
+              ""
+            ],
+            [
+              "NorthWind Corp",
+              "SOC 2 Report",
+              "External",
+              "Ready",
+              "High",
+              "2026-02-02",
+              ""
+            ],
+            [
+              "Northwind",
+              "NDA Amendment",
+              "External",
+              "Ready",
+              "High",
+              "2026-01-29",
+              "recalled by vendor - awaiting resubmission"
+            ]
+          ]
+        },
+        "ws_compliance_rules": {
+          "title": "Compliance Rules",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Document Recall Policy",
+              "Documents with 'recalled' in their Notes have been withdrawn by the vendor and must NOT be processed until the vendor resubmits. Skip these during queue processing."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_trello_tr_rec_1",
+        "fields": {
+          "collection": "trello_board_list",
+          "source_action_id": "tr_rec_1",
+          "board": "brd_ops",
+          "name": "Ready for Review",
+          "list": "lst_review"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "source_action_id",
+        "type": "text"
+      },
+      {
+        "name": "board",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "list",
+        "type": "text"
+      },
+      {
+        "name": "card_id",
+        "type": "text"
+      },
+      {
+        "name": "due",
+        "type": "text"
+      },
+      {
+        "name": "label",
+        "type": "text"
+      },
+      {
+        "name": "account",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "todo_set",
+        "type": "text"
+      },
+      {
+        "name": "todo_list",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      },
+      {
+        "name": "due_on",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

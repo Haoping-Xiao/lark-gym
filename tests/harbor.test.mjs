@@ -2,14 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, execFile } from 'node:child_process';
 import { once } from 'node:events';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, cp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { promisify } from 'node:util';
-import { oracle } from '../tasks/maintenance-notice/solution/oracle.mjs';
 const exec = promisify(execFile);
 test(
-  'Harbor service persists CLI mutations for the standalone verifier',
+  'Standalone task entrypoints use backend artifacts without repository runtime dependencies',
   { timeout: 30000 },
   async () => {
     const dir = await mkdtemp(join(tmpdir(), 'feishu-harbor-test-'));
@@ -18,7 +17,7 @@ test(
     const child = spawn(
       process.execPath,
       [
-        'gyms/lark-cli/src/serve.mjs',
+        'gyms/lark-cli/src/serve.ts',
         '--seed',
         'tasks/maintenance-notice/environment/seed.json',
         '--state',
@@ -29,6 +28,12 @@ test(
       { stdio: 'pipe' },
     );
     const stopped = once(child, 'exit');
+    await cp('tasks/maintenance-notice/tests', join(dir, 'tests'), {
+      recursive: true,
+    });
+    await cp('tasks/maintenance-notice/solution', join(dir, 'solution'), {
+      recursive: true,
+    });
     try {
       let endpoint;
       for (let n = 0; n < 100; n++) {
@@ -44,7 +49,7 @@ test(
       }
       assert.ok(endpoint, 'Mock service readiness timed out');
       const verifier = () =>
-        exec(process.execPath, ['tasks/maintenance-notice/tests/entry.mjs'], {
+        exec(process.execPath, [join(dir, 'tests/entry.ts')], {
           env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: dir },
         });
       await verifier();
@@ -52,11 +57,14 @@ test(
         (await readFile(join(dir, 'reward.txt'), 'utf8')).trim(),
         '0',
       );
-      await oracle((args) =>
-        exec(resolve('gyms/lark-cli/bin/lark-cli'), args, {
-          env: { PATH: process.env.PATH, HOME: dir, FEISHU_MOCK_URL: endpoint },
-        }),
-      );
+      await exec(process.execPath, [join(dir, 'solution/entry.ts')], {
+        cwd: dir,
+        env: {
+          PATH: resolve('gyms/lark-cli/bin') + ':' + process.env.PATH,
+          HOME: dir,
+          FEISHU_MOCK_URL: endpoint,
+        },
+      });
       await verifier();
       assert.equal(
         (await readFile(join(dir, 'reward.txt'), 'utf8')).trim(),

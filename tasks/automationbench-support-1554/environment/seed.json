@@ -1,0 +1,486 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_audit": {
+      "title": "Mailbox Audit",
+      "sheets": {
+        "ws_rules": {
+          "title": "Audit Rules",
+          "values": [
+            ["Rule", "Description", "Severity"],
+            [
+              "must_be_assigned",
+              "All open/pending conversations must have an assignee",
+              "High"
+            ],
+            [
+              "must_have_tags",
+              "All open/pending conversations must have at least one tag",
+              "Medium"
+            ],
+            [
+              "must_be_recent",
+              "Open conversations must be updated within last 7 days",
+              "High"
+            ]
+          ]
+        },
+        "ws_findings": {
+          "title": "Audit Findings",
+          "values": [
+            ["Conversation ID", "Subject", "Rule Violated", "Severity"]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["report_recipient", "compliance@company.example.com"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hiver_conversations_hv_a01",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a01",
+          "subject": "API rate limiting configuration",
+          "status": "open",
+          "assignee_id": "hu_a1",
+          "customer_email": "c1@corp.com",
+          "customer_name": "Client 1",
+          "tags": "[\"billing\"]",
+          "created_at": "2026-02-02T10:00:00Z",
+          "updated_at": "2026-02-06T14:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a02",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a02",
+          "subject": "Payment gateway timeout errors",
+          "status": "open",
+          "assignee_id": "null",
+          "customer_email": "c2@corp.com",
+          "customer_name": "Client 2",
+          "tags": "[\"support\"]",
+          "created_at": "2026-02-03T09:00:00Z",
+          "updated_at": "2026-02-05T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a03",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a03",
+          "subject": "User account migration request",
+          "status": "pending",
+          "assignee_id": "hu_a1",
+          "customer_email": "c3@corp.com",
+          "customer_name": "Client 3",
+          "tags": "[]",
+          "created_at": "2026-02-04T11:00:00Z",
+          "updated_at": "2026-02-06T09:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a04",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a04",
+          "subject": "Database connection pool exhaustion",
+          "status": "open",
+          "assignee_id": "hu_a2",
+          "customer_email": "c4@corp.com",
+          "customer_name": "Client 4",
+          "tags": "[\"technical\"]",
+          "created_at": "2026-01-15T10:00:00Z",
+          "updated_at": "2026-01-20T14:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a05",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a05",
+          "subject": "SSL certificate renewal completed",
+          "status": "closed",
+          "assignee_id": "null",
+          "customer_email": "c5@corp.com",
+          "customer_name": "Client 5",
+          "tags": "[]",
+          "created_at": "2026-01-10T09:00:00Z",
+          "updated_at": "2026-01-12T16:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a06",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a06",
+          "subject": "Webhook delivery failures",
+          "status": "open",
+          "assignee_id": "null",
+          "customer_email": "c6@corp.com",
+          "customer_name": "Client 6",
+          "tags": "[]",
+          "created_at": "2026-01-25T10:00:00Z",
+          "updated_at": "2026-01-28T14:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a07",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a07",
+          "subject": "OAuth token refresh flow",
+          "status": "pending",
+          "assignee_id": "hu_a2",
+          "customer_email": "c7@corp.com",
+          "customer_name": "Client 7",
+          "tags": "[\"follow-up\"]",
+          "created_at": "2026-02-05T10:00:00Z",
+          "updated_at": "2026-02-06T11:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a08",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a08",
+          "subject": "Custom report builder issue",
+          "status": "open",
+          "assignee_id": "null",
+          "customer_email": "c8@corp.com",
+          "customer_name": "Client 8",
+          "tags": "[]",
+          "created_at": "2026-02-06T08:00:00Z",
+          "updated_at": "2026-02-06T08:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a09",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a09",
+          "subject": "Mobile SDK integration guide",
+          "status": "open",
+          "assignee_id": "hu_a1",
+          "customer_email": "c9@corp.com",
+          "customer_name": "Client 9",
+          "tags": "[\"resolved\"]",
+          "created_at": "2026-02-01T10:00:00Z",
+          "updated_at": "2026-02-06T15:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a10",
+          "subject": "Batch import performance issue",
+          "status": "closed",
+          "assignee_id": "hu_a1",
+          "customer_email": "c10@corp.com",
+          "customer_name": "Client 10",
+          "tags": "[\"done\"]",
+          "created_at": "2026-02-01T10:00:00Z",
+          "updated_at": "2026-02-05T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a11",
+          "subject": "CDN cache invalidation",
+          "status": "open",
+          "assignee_id": "hu_a2",
+          "customer_email": "c11@corp.com",
+          "customer_name": "Client 11",
+          "tags": "[\"infrastructure\"]",
+          "created_at": "2026-01-10T10:00:00Z",
+          "updated_at": "2026-01-18T14:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a12",
+          "subject": "Scheduled maintenance window",
+          "status": "pending",
+          "assignee_id": "hu_a1",
+          "customer_email": "c12@corp.com",
+          "customer_name": "Client 12",
+          "tags": "[]",
+          "created_at": "2026-02-04T10:00:00Z",
+          "updated_at": "2026-02-06T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_a13",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_a13",
+          "subject": "Legacy migration completed",
+          "status": "closed",
+          "assignee_id": "null",
+          "customer_email": "c13@corp.com",
+          "customer_name": "Client 13",
+          "tags": "[]",
+          "created_at": "2026-01-05T10:00:00Z",
+          "updated_at": "2026-01-08T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_007",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_007",
+          "subject": "Software license renewal",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_002",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_002",
+          "subject": "Office supply reorder request",
+          "status": "closed",
+          "assignee_id": "hu_noise_002",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_009",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_009",
+          "subject": "Parking permit application",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_a1",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_a1",
+          "name": "Agent One",
+          "email": "agent1@company.example.com",
+          "role": "member"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_a2",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_a2",
+          "name": "Agent Two",
+          "email": "agent2@company.example.com",
+          "role": "member"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_003",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_003",
+          "name": "Robin Hartley",
+          "email": "rhartley@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_sm_a1",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "sm_a1",
+          "name": "Support Inbox",
+          "email": "support@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_sm_a2",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "sm_a2",
+          "name": "Sales Inbox",
+          "email": "sales@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "updated_at",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "role",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "agent1@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "agent2@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "c10@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "c11@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "c12@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "c13@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "c1@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "c2@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "c3@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "c4@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "c5@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "c6@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "c7@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "c8@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "c9@corp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "compliance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "rhartley@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "sales@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

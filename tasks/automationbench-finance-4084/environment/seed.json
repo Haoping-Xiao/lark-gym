@@ -1,0 +1,166 @@
+{
+  "now": "2026-01-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_ap_turnover": {
+      "title": "AP Turnover Data",
+      "sheets": {
+        "ws_vendor_ap": {
+          "title": "Q4 2025 Vendor AP",
+          "values": [
+            ["Vendor", "Avg AP Balance", "Total Purchases", "Status", "Notes"],
+            ["Acme Supplies", "$18,000", "$72,000", "Active", ""],
+            ["TechServe", "$45,000", "$66,000", "Active", ""],
+            ["Metro Supply", "$3,000", "$15,000", "Active", ""],
+            ["CloudHost Pro", "$9,600", "$28,800", "Active", ""],
+            ["Acme Supply Corp", "$12,000", "$36,000", "Active", ""],
+            [
+              "DataFlow Systems",
+              "$7,200",
+              "$18,000",
+              "Inactive",
+              "vendor contract terminated Q3 - exclude from analysis"
+            ],
+            ["Pinnacle Services", "$14,000", "$42,000", "Active", ""]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ap@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "cfo@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "vendor-relations@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "vp-finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_AP",
+      "name": "accounts-payable",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_dpo_target",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_dpo_target\\\", \\\"thread_id\\\": \\\"th_dpo\\\", \\\"from_\\\": \\\"cfo@company.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"DPO Targets\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-10T08:00:00Z\\\"}\\n消息 ID：msg_dpo_target\\n来源：cfo@company.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-10T08:00:00Z\\n主题：DPO Targets\\nTarget DPO range: 30-45 days.\\n\\n- Under 30 days: paying too quickly (losing cash float)\\n- Over 45 days: paying too slowly (risk vendor relationships)\\n- DPO = Average AP Balance / (Total Purchases / Days in Period)\\n- Q4 has 92 days\\n\\n- CFO\"}"
+      },
+      "create_time": "1768032000000"
+    },
+    {
+      "message_id": "om_msg_vp_dpo_change",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_dpo_change\\\", \\\"thread_id\\\": \\\"th_vp_dpo\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Updated DPO Target Range\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-14T10:00:00Z\\\"}\\n消息 ID：msg_vp_dpo_change\\n来源：vp-finance@company.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-14T10:00:00Z\\n主题：Updated DPO Target Range\\nEffective immediately, the target DPO range is narrowed to 35-42 days. We need tighter cash management this quarter. Vendors outside this range should be flagged.\\n\\n- VP Finance\"}"
+      },
+      "create_time": "1768384800000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
+      },
+      "create_time": "1769079600000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_AP",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_vendor_correction\\\", \\\"channel_id\\\": \\\"C_AP\\\", \\\"user_id\\\": \\\"U_AP_CLERK\\\", \\\"ts\\\": \\\"1768336000.000100\\\"}\\nHeads up: Metro Supply's Total Purchases for Q4 should be $18,000, not $15,000. Their December invoice was entered late. Avg AP stays at $3,000.\"}"
+      },
+      "create_time": "1768336000.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

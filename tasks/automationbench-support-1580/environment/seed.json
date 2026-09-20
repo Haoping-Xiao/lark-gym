@@ -1,0 +1,416 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_loyalty": {
+      "title": "Loyalty Program",
+      "sheets": {
+        "ws_order_history": {
+          "title": "Order History",
+          "values": [
+            [
+              "Customer Email",
+              "Order Number",
+              "Order Value",
+              "Return Value",
+              "Date"
+            ],
+            ["ada.strong@gmail.com", "ORD-L801", "$350", "$0", "2025-09-10"],
+            ["ada.strong@gmail.com", "ORD-L802", "$200", "$0", "2025-11-15"],
+            ["ada.strong@gmail.com", "ORD-L803", "$150", "$0", "2026-01-05"],
+            [
+              "cole.brennan@outlook.com",
+              "ORD-L804",
+              "$800",
+              "$0",
+              "2025-06-01"
+            ],
+            [
+              "cole.brennan@outlook.com",
+              "ORD-L805",
+              "$600",
+              "$0",
+              "2025-10-20"
+            ],
+            [
+              "cole.brennan@outlook.com",
+              "ORD-L806",
+              "$450",
+              "$0",
+              "2026-01-10"
+            ],
+            ["mei.lin@yahoo.com", "ORD-L807", "$500", "$0", "2025-12-01"],
+            ["mei.lin@yahoo.com", "ORD-L810", "$250", "$0", "2026-01-20"],
+            ["raj.anand@proton.me", "ORD-L811", "$600", "$350", "2025-08-15"],
+            ["raj.anand@proton.me", "ORD-L812", "$200", "$200", "2025-12-10"],
+            ["sara.voss@icloud.com", "ORD-L813", "$400", "$250", "2025-10-01"],
+            ["sara.voss@icloud.com", "ORD-L814", "$300", "$300", "2026-01-15"],
+            ["leo.marsh@gmail.com", "ORD-L815", "$120", "$0", "2026-01-25"],
+            ["nina.cruz@hotmail.com", "ORD-L816", "$75", "$0", "2026-02-01"],
+            ["tom.hall@mail.com", "ORD-L808", "$200", "$0", "2026-01-30"],
+            ["Ironclad Systems", "5", "15000", "15000", "2026-01-15"],
+            ["BlueStar Ventures", "12", "25000", "25000", "2026-02-03"],
+            ["Cascade Analytics", "8", "48000", "48000", "2026-02-18"],
+            ["Vertex Capital", "25", "72000", "72000", "2026-03-01"],
+            ["Thornwood Partners", "3", "113000", "113000", "2026-03-07"],
+            ["Starling Financial", "50", "35000", "35000", "2025-11-20"],
+            ["Redwood Technologies", "15", "88000", "88000", "2025-12-05"],
+            ["Eastgate Solutions", "7", "19000", "19000", "2026-01-28"],
+            ["Montclair Industries", "30", "54000", "54000", "2026-02-14"],
+            ["Pacific Ridge Corp", "10", "93000", "93000", "2026-03-03"],
+            ["Summit Group Holdings", "5", "15000", "15000", "2026-01-15"],
+            ["Riverview Partners", "12", "25000", "25000", "2026-02-03"],
+            ["Northgate Technologies", "8", "48000", "48000", "2026-02-18"],
+            ["Silverstone Group", "25", "72000", "72000", "2026-03-01"],
+            ["CloudBridge Systems", "3", "113000", "113000", "2026-03-07"]
+          ]
+        },
+        "ws_tiers": {
+          "title": "Tier Thresholds",
+          "values": [
+            ["Tier", "Min Points", "Benefits"],
+            ["Bronze", "0", "1 point per $1 spent, birthday discount"],
+            ["Silver", "200", "1.5x points, free shipping on orders over $50"],
+            ["Gold", "500", "2x points, free shipping, early access to sales"],
+            [
+              "Platinum",
+              "1000",
+              "3x points, free shipping, priority support, exclusive events"
+            ]
+          ]
+        },
+        "ws_rewards": {
+          "title": "Rewards Catalog",
+          "values": [
+            ["Reward", "Points Cost", "Min Tier"],
+            ["$10 store credit", "100", "Bronze"],
+            ["$25 store credit", "250", "Silver"],
+            ["Free shipping for a year", "500", "Gold"],
+            ["VIP event access", "1000", "Platinum"]
+          ]
+        },
+        "ws_loyalty_log": {
+          "title": "Loyalty Log",
+          "values": [["Customer Email", "Action", "Details"]]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["Batch_Reference", "LOYAL-OPS-20260214"],
+            ["Loyalty_Team_Email", "loyalty@peakvista.com"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_gorgias_tickets_g_601",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_601",
+          "subject": "Am I eligible for Gold tier?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_81\",\"email\":\"ada.strong@gmail.com\",\"name\":\"Ada Strong\"}",
+          "messages": "[{\"body_text\":\"I've been shopping a lot and think I should be Gold tier by now. Can you check my points?\",\"sender_type\":\"customer\",\"sender_email\":\"ada.strong@gmail.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_602",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_602",
+          "subject": "Loyalty tier status",
+          "status": "open",
+          "customer": "{\"id\":\"gc_82\",\"email\":\"cole.brennan@outlook.com\",\"name\":\"Cole Brennan\"}",
+          "messages": "[{\"body_text\":\"What tier am I in? I think I should be upgraded based on my purchases this year.\",\"sender_type\":\"customer\",\"sender_email\":\"cole.brennan@outlook.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_603",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_603",
+          "subject": "Check my loyalty points",
+          "status": "open",
+          "customer": "{\"id\":\"gc_83\",\"email\":\"mei.lin@yahoo.com\",\"name\":\"Mei Lin\"}",
+          "messages": "[{\"body_text\":\"Can you tell me how many points I have and what tier I'm in?\",\"sender_type\":\"customer\",\"sender_email\":\"mei.lin@yahoo.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_604",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_604",
+          "subject": "Why did my tier change?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_84\",\"email\":\"raj.anand@proton.me\",\"name\":\"Raj Anand\"}",
+          "messages": "[{\"body_text\":\"I was Gold tier last month but now it shows Silver. What happened?\",\"sender_type\":\"customer\",\"sender_email\":\"raj.anand@proton.me\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_605",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_605",
+          "subject": "Points seem wrong",
+          "status": "open",
+          "customer": "{\"id\":\"gc_85\",\"email\":\"sara.voss@icloud.com\",\"name\":\"Sara Voss\"}",
+          "messages": "[{\"body_text\":\"My points dropped from 600 to something lower. I think my recent return was counted twice.\",\"sender_type\":\"customer\",\"sender_email\":\"sara.voss@icloud.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_606",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_606",
+          "subject": "How many points do I have?",
+          "status": "open",
+          "customer": "{\"id\":\"gc_86\",\"email\":\"leo.marsh@gmail.com\",\"name\":\"Leo Marsh\"}",
+          "messages": "[{\"body_text\":\"Just curious how many loyalty points I've earned so far.\",\"sender_type\":\"customer\",\"sender_email\":\"leo.marsh@gmail.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_607",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_607",
+          "subject": "Points check",
+          "status": "open",
+          "customer": "{\"id\":\"gc_87\",\"email\":\"nina.cruz@hotmail.com\",\"name\":\"Nina Cruz\"}",
+          "messages": "[{\"body_text\":\"What is my current points balance?\",\"sender_type\":\"customer\",\"sender_email\":\"nina.cruz@hotmail.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_608",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_608",
+          "subject": "Missing points from order",
+          "status": "open",
+          "customer": "{\"id\":\"gc_88\",\"email\":\"tom.hall@mail.com\",\"name\":\"Tom Hall\"}",
+          "messages": "[{\"body_text\":\"I placed order ORD-L808 for $200 but never got the points for it. Can you add them?\",\"sender_type\":\"customer\",\"sender_email\":\"tom.hall@mail.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_609",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_609",
+          "subject": "Redeem my rewards",
+          "status": "open",
+          "customer": "{\"id\":\"gc_89\",\"email\":\"ada.strong@gmail.com\",\"name\":\"Ada Strong\"}",
+          "messages": "[{\"body_text\":\"I want to redeem my points for a $25 store credit. I should have enough points.\",\"sender_type\":\"customer\",\"sender_email\":\"ada.strong@gmail.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_610",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_610",
+          "subject": "Use my loyalty rewards",
+          "status": "open",
+          "customer": "{\"id\":\"gc_90\",\"email\":\"cole.brennan@outlook.com\",\"name\":\"Cole Brennan\"}",
+          "messages": "[{\"body_text\":\"I'd like to redeem my points for the free shipping for a year reward.\",\"sender_type\":\"customer\",\"sender_email\":\"cole.brennan@outlook.com\"}]",
+          "tags": "[\"loyalty\"]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_003",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_003",
+          "subject": "Discount code not applying",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_003\",\"email\":\"shopper3@mailbox.example.com\",\"name\":\"Jamie Lin\"}",
+          "messages": "[{\"body_text\":\"The code SAVE20 isn't working at checkout.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_001",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_001",
+          "subject": "Where is my refund?",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_001\",\"email\":\"shopper1@mailbox.example.com\",\"name\":\"Riley Morgan\"}",
+          "messages": "[{\"body_text\":\"I returned my order 2 weeks ago and still no refund.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_gorgias_tickets_g_noise_007",
+        "fields": {
+          "collection": "gorgias_tickets",
+          "id": "g_noise_007",
+          "subject": "Gift card balance not showing",
+          "status": "closed",
+          "customer": "{\"id\":\"gc_noise_007\",\"email\":\"shopper7@mailbox.example.com\",\"name\":\"Parker Sullivan\"}",
+          "messages": "[{\"body_text\":\"I redeemed a $50 gift card but my balance shows $0.\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "messages",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "earned_points",
+        "type": "number"
+      },
+      {
+        "name": "available_points",
+        "type": "number"
+      },
+      {
+        "name": "tier",
+        "type": "text"
+      },
+      {
+        "name": "ticket_id",
+        "type": "text"
+      },
+      {
+        "name": "body_text",
+        "type": "text"
+      },
+      {
+        "name": "sender_type",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      },
+      {
+        "name": "reward",
+        "type": "text"
+      },
+      {
+        "name": "points_cost",
+        "type": "number"
+      },
+      {
+        "name": "batch_reference",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ada.strong@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "cole.brennan@outlook.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "leo.marsh@gmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "loyalty@peakvista.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "mei.lin@yahoo.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "nina.cruz@hotmail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "raj.anand@proton.me",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "sara.voss@icloud.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "shopper1@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "shopper3@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "shopper7@mailbox.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "tom.hall@mail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_LOYAL",
+      "name": "loyalty-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

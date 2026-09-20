@@ -1,0 +1,1310 @@
+{
+  "now": "2026-01-28T12:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_abm_config": {
+      "title": "ABM Config",
+      "sheets": {
+        "ws_outreach_policy": {
+          "title": "Outreach Policy",
+          "values": [
+            ["Setting", "Value"],
+            ["Inactivity Threshold", "30 days"],
+            [
+              "Contact Seniority",
+              "VP-level or higher only (VP, SVP, EVP, C-level). Directors and below should not be contacted."
+            ],
+            [
+              "Partnership Account Hold",
+              "Accounts whose Salesforce notes mention 'strategic partnership', 'partnership negotiation', or 'joint GTM' must be excluded from cold outreach. These accounts are in active partnership discussions and unsolicited outreach could damage the relationship."
+            ],
+            [
+              "Litigation and Legal Hold Block",
+              "Accounts with 'DO NOT CONTACT', 'litigation', or a LOC- reference code in their Salesforce account notes or description are on a legal hold and must not receive any outreach. Additionally, consult the ws_account_blocklist worksheet — accounts listed there are blocked regardless of other criteria."
+            ]
+          ]
+        },
+        "ws_account_blocklist": {
+          "title": "Account Blocklist",
+          "values": [
+            ["Account Name", "Reason", "Effective"],
+            [
+              "Meridian Global Ltd",
+              "Active litigation LOC-2026-003 — all outreach suspended per Legal",
+              "2026-01-10"
+            ]
+          ]
+        }
+      }
+    },
+    "ss_abm_tracker": {
+      "title": "ABM Tracker",
+      "sheets": {
+        "ws_outreach": {
+          "title": "Outreach",
+          "values": [["Account", "Contact", "Profile", "Status"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_acc_t1_001",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "BigEnterprise Corp",
+          "tier": "Tier 1",
+          "owner_id": "owner_ae1",
+          "last_activity": "2025-12-20T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_acc_t1_002",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "MegaCorp Inc",
+          "tier": "Tier 1",
+          "owner_id": "owner_ae2",
+          "last_activity": "2025-12-15T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_acc_t1_active",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "ActiveAccount LLC",
+          "tier": "Tier 1",
+          "owner_id": "owner_ae1",
+          "last_activity": "2026-01-25T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_acc_t2",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Tier2Company",
+          "tier": "Tier 2",
+          "owner_id": "owner_ae3",
+          "last_activity": "2025-12-01T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_acc_t1_partner",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "PartnerVentures LLC",
+          "tier": "Tier 1",
+          "owner_id": "owner_ae2",
+          "last_activity": "2025-12-10T10:00:00Z",
+          "description": "Strategic partnership negotiation in progress - joint GTM under review Q1 2026"
+        }
+      },
+      {
+        "record_id": "rec_acc_t1_litig",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Meridian Global Ltd",
+          "tier": "Tier 1",
+          "owner_id": "owner_ae1",
+          "last_activity": "2025-12-05T10:00:00Z",
+          "description": "DO NOT CONTACT — active litigation LOC-2026-003"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA020",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Oakmont Data Centers",
+          "industry": "IT Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA011",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Prairie Energy Partners",
+          "industry": "Energy",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA019",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Sterling Compliance",
+          "industry": "Compliance",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA004",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "TrueNorth Equipment",
+          "industry": "Industrial",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA006",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Ridgeline Transport",
+          "industry": "Transportation",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA010",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Keystone IT Services",
+          "industry": "IT Services",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA008",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Crestfield Manufacturing",
+          "industry": "Manufacturing",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA002",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Granite Supply Co",
+          "industry": "Manufacturing",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA003",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Apex Facilities Group",
+          "industry": "Real Estate",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA009",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Summit Maintenance Corp",
+          "industry": "Facilities",
+          "tier": "Gold",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA017",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Bridgeway Consulting",
+          "industry": "Consulting",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA012",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Ironworks Construction",
+          "industry": "Construction",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA016",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Vanguard Security",
+          "industry": "Security",
+          "tier": "Bronze",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA007",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Harbor Warehousing",
+          "industry": "Warehousing",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_001xx000098NA001",
+        "fields": {
+          "collection": "accounts",
+          "account_name": "Pinnacle Logistics",
+          "industry": "Logistics",
+          "tier": "Silver",
+          "parent_id": "null",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_con_be_001",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "John",
+          "last_name": "Hadley",
+          "title": "VP Operations",
+          "email": "john@bigent.example.com",
+          "account_id": "acc_t1_001",
+          "account_name": "BigEnterprise Corp",
+          "description": "LinkedIn: https://linkedin.com/in/johnhadley"
+        }
+      },
+      {
+        "record_id": "rec_con_be_002",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sarah",
+          "last_name": "Pratt",
+          "title": "Director IT",
+          "email": "sarah@bigent.example.com",
+          "account_id": "acc_t1_001",
+          "account_name": "BigEnterprise Corp",
+          "description": "LinkedIn: https://linkedin.com/in/sarahpratt"
+        }
+      },
+      {
+        "record_id": "rec_con_be_003",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Tyler",
+          "last_name": "Brooks",
+          "title": "Business Analyst",
+          "email": "tyler@bigent.example.com",
+          "account_id": "acc_t1_001",
+          "account_name": "BigEnterprise Corp",
+          "description": "LinkedIn: https://linkedin.com/in/tylerbrooks"
+        }
+      },
+      {
+        "record_id": "rec_con_mc_001",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Mike",
+          "last_name": "Thornton",
+          "title": "CTO",
+          "email": "mike@megacorp.example.com",
+          "account_id": "acc_t1_002",
+          "account_name": "MegaCorp Inc",
+          "description": "LinkedIn: https://linkedin.com/in/mikethornton"
+        }
+      },
+      {
+        "record_id": "rec_con_pv_001",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Rachel",
+          "last_name": "Nguyen",
+          "title": "SVP Strategic Partnerships",
+          "email": "rachel@partnerventures.example.com",
+          "account_id": "acc_t1_partner",
+          "account_name": "PartnerVentures LLC",
+          "description": "LinkedIn: https://linkedin.com/in/rachelnguyen"
+        }
+      },
+      {
+        "record_id": "rec_con_mg_001",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Devon",
+          "last_name": "Ashworth",
+          "title": "VP Enterprise Sales",
+          "email": "d.ashworth@meridianglobal.example.com",
+          "account_id": "acc_t1_litig",
+          "account_name": "Meridian Global Ltd",
+          "description": "LinkedIn: https://linkedin.com/in/devonashworth"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC020",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Angela",
+          "last_name": "McBride",
+          "email": "angela.mcbride@oakmontdatac.example.com",
+          "phone": "+1-555-419-3209",
+          "account_id": "001xx000098NA020",
+          "title": "Facilities Coordinator",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC005",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Grant",
+          "last_name": "Thompson",
+          "email": "grant.thompson@beaconsafety.example.com",
+          "phone": "+1-555-404-3044",
+          "account_id": "001xx000098NA005",
+          "title": "IT Operations Manager",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC024",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Helen",
+          "last_name": "Prescott",
+          "email": "helen.prescott@truenorthequ.example.com",
+          "phone": "+1-555-423-3253",
+          "account_id": "001xx000098NA004",
+          "title": "Quality Assurance Lead",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC011",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Howard",
+          "last_name": "Russo",
+          "email": "howard.russo@prairieenerg.example.com",
+          "phone": "+1-555-410-3110",
+          "account_id": "001xx000098NA011",
+          "title": "Environmental Health Lead",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC002",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Sandra",
+          "last_name": "Chen",
+          "email": "sandra.chen@granitesuppl.example.com",
+          "phone": "+1-555-401-3011",
+          "account_id": "001xx000098NA002",
+          "title": "Operations Manager",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC001",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Martin",
+          "last_name": "Reeves",
+          "email": "martin.reeves@pinnaclelogi.example.com",
+          "phone": "+1-555-400-3000",
+          "account_id": "001xx000098NA001",
+          "title": "Facilities Director",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC008",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Diana",
+          "last_name": "Okafor",
+          "email": "diana.okafor@crestfieldma.example.com",
+          "phone": "+1-555-407-3077",
+          "account_id": "001xx000098NA008",
+          "title": "Compliance Officer",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC017",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Philip",
+          "last_name": "Hartley",
+          "email": "philip.hartley@bridgewaycon.example.com",
+          "phone": "+1-555-416-3176",
+          "account_id": "001xx000098NA017",
+          "title": "Risk & Compliance Manager",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC023",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ross",
+          "last_name": "Navarro",
+          "email": "ross.navarro@apexfaciliti.example.com",
+          "phone": "+1-555-422-3242",
+          "account_id": "001xx000098NA003",
+          "title": "Shipping Supervisor",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC003",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Derek",
+          "last_name": "Kowalski",
+          "email": "derek.kowalski@apexfaciliti.example.com",
+          "phone": "+1-555-402-3022",
+          "account_id": "001xx000098NA003",
+          "title": "Procurement Lead",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC007",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Victor",
+          "last_name": "Lindgren",
+          "email": "victor.lindgren@harborwareho.example.com",
+          "phone": "+1-555-406-3066",
+          "account_id": "001xx000098NA007",
+          "title": "Fleet Manager",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC014",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Carla",
+          "last_name": "Whitfield",
+          "email": "carla.whitfield@coastalfleet.example.com",
+          "phone": "+1-555-413-3143",
+          "account_id": "001xx000098NA014",
+          "title": "Project Coordinator",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC006",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Nina",
+          "last_name": "Patel",
+          "email": "nina.patel@ridgelinetra.example.com",
+          "phone": "+1-555-405-3055",
+          "account_id": "001xx000098NA006",
+          "title": "Warehouse Supervisor",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC022",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Brenda",
+          "last_name": "Liang",
+          "email": "brenda.liang@granitesuppl.example.com",
+          "phone": "+1-555-421-3231",
+          "account_id": "001xx000098NA002",
+          "title": "Procurement Analyst",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC021",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Warren",
+          "last_name": "Duval",
+          "email": "warren.duval@pinnaclelogi.example.com",
+          "phone": "+1-555-420-3220",
+          "account_id": "001xx000098NA001",
+          "title": "Plant Manager",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC013",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Isaac",
+          "last_name": "Johansson",
+          "email": "isaac.johansson@northwindpro.example.com",
+          "phone": "+1-555-412-3132",
+          "account_id": "001xx000098NA013",
+          "title": "Security Operations Lead",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC019",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Gerald",
+          "last_name": "Pearson",
+          "email": "gerald.pearson@sterlingcomp.example.com",
+          "phone": "+1-555-418-3198",
+          "account_id": "001xx000098NA019",
+          "title": "Logistics Coordinator",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC009",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Ruben",
+          "last_name": "Vasquez",
+          "email": "ruben.vasquez@summitmainte.example.com",
+          "phone": "+1-555-408-3088",
+          "account_id": "001xx000098NA009",
+          "title": "Maintenance Supervisor",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC018",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Miriam",
+          "last_name": "Soto",
+          "email": "miriam.soto@greenfielden.example.com",
+          "phone": "+1-555-417-3187",
+          "account_id": "001xx000098NA018",
+          "title": "Inventory Control Lead",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_003xx000098NC016",
+        "fields": {
+          "collection": "contacts",
+          "first_name": "Yvette",
+          "last_name": "Dawson",
+          "email": "yvette.dawson@vanguardsecu.example.com",
+          "phone": "+1-555-415-3165",
+          "account_id": "001xx000098NA016",
+          "title": "Building Services Manager",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO002",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Granite Supply Co - Service Contract",
+          "stage_name": "Proposal",
+          "close_date": "2026-02-02T00:00:00",
+          "amount": 78000.0,
+          "account_id": "001xx000098NA002",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO010",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Keystone IT Services - Service Contract",
+          "stage_name": "Qualification",
+          "close_date": "2026-01-10T00:00:00",
+          "amount": 48000.0,
+          "account_id": "001xx000098NA010",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO006",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Ridgeline Transport - Service Contract",
+          "stage_name": "Closed Lost",
+          "close_date": "2026-06-06T00:00:00",
+          "amount": 55000.0,
+          "account_id": "001xx000098NA006",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO004",
+        "fields": {
+          "collection": "opportunities",
+          "name": "TrueNorth Equipment - Service Contract",
+          "stage_name": "Closed Won",
+          "close_date": "2026-04-04T00:00:00",
+          "amount": 150000.0,
+          "account_id": "001xx000098NA004",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO005",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Beacon Safety Systems - Service Contract",
+          "stage_name": "Prospecting",
+          "close_date": "2026-05-05T00:00:00",
+          "amount": 18000.0,
+          "account_id": "001xx000098NA005",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO003",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Apex Facilities Group - Service Contract",
+          "stage_name": "Qualification",
+          "close_date": "2026-03-03T00:00:00",
+          "amount": 25000.0,
+          "account_id": "001xx000098NA003",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO009",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Summit Maintenance Corp - Service Contract",
+          "stage_name": "Closed Won",
+          "close_date": "2026-09-09T00:00:00",
+          "amount": 92000.0,
+          "account_id": "001xx000098NA009",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_006xx000098NO007",
+        "fields": {
+          "collection": "opportunities",
+          "name": "Harbor Warehousing - Service Contract",
+          "stage_name": "Negotiation",
+          "close_date": "2026-07-07T00:00:00",
+          "amount": 63000.0,
+          "account_id": "001xx000098NA007",
+          "description": "null"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_profiles_source_index_0",
+        "fields": {
+          "collection": "linkedin_profiles",
+          "first_name": "John",
+          "last_name": "Hadley",
+          "headline": "VP Operations at BigEnterprise Corp",
+          "current_company": "BigEnterprise Corp",
+          "current_title": "VP Operations",
+          "email": "john@bigent.example.com",
+          "public_profile_url": "https://linkedin.com/in/johnhadley"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_profiles_source_index_1",
+        "fields": {
+          "collection": "linkedin_profiles",
+          "first_name": "Sarah",
+          "last_name": "Pratt",
+          "headline": "Director IT at BigEnterprise Corp",
+          "current_company": "BigEnterprise Corp",
+          "current_title": "Director IT",
+          "email": "sarah@bigent.example.com",
+          "public_profile_url": "https://linkedin.com/in/sarahpratt"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_profiles_source_index_2",
+        "fields": {
+          "collection": "linkedin_profiles",
+          "first_name": "Tyler",
+          "last_name": "Brooks",
+          "headline": "Business Analyst at BigEnterprise Corp",
+          "current_company": "BigEnterprise Corp",
+          "current_title": "Business Analyst",
+          "email": "tyler@bigent.example.com",
+          "public_profile_url": "https://linkedin.com/in/tylerbrooks"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_profiles_source_index_3",
+        "fields": {
+          "collection": "linkedin_profiles",
+          "first_name": "Mike",
+          "last_name": "Thornton",
+          "headline": "CTO at MegaCorp Inc",
+          "current_company": "MegaCorp Inc",
+          "current_title": "CTO",
+          "email": "mike@megacorp.example.com",
+          "public_profile_url": "https://linkedin.com/in/mikethornton"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_profiles_source_index_4",
+        "fields": {
+          "collection": "linkedin_profiles",
+          "first_name": "Rachel",
+          "last_name": "Nguyen",
+          "headline": "SVP Strategic Partnerships at PartnerVentures LLC",
+          "current_company": "PartnerVentures LLC",
+          "current_title": "SVP Strategic Partnerships",
+          "email": "rachel@partnerventures.example.com",
+          "public_profile_url": "https://linkedin.com/in/rachelnguyen"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_profiles_source_index_5",
+        "fields": {
+          "collection": "linkedin_profiles",
+          "first_name": "Devon",
+          "last_name": "Ashworth",
+          "headline": "VP Enterprise Sales at Meridian Global Ltd",
+          "current_company": "Meridian Global Ltd",
+          "current_title": "VP Enterprise Sales",
+          "email": "d.ashworth@meridianglobal.example.com",
+          "public_profile_url": "https://linkedin.com/in/devonashworth"
+        }
+      },
+      {
+        "record_id": "rec_linkedin_posts_post_jh_001",
+        "fields": {
+          "collection": "linkedin_posts",
+          "id": "post_jh_001",
+          "author_id": "johnhadley",
+          "text": "Excited to share that BigEnterprise Corp just completed our warehouse automation rollout. 40% efficiency gains across three distribution centers. #SupplyChain #Operations",
+          "created_at": "2026-01-20T14:30:00Z",
+          "likes_count": 127,
+          "comments_count": 18
+        }
+      },
+      {
+        "record_id": "rec_linkedin_posts_post_mt_001",
+        "fields": {
+          "collection": "linkedin_posts",
+          "id": "post_mt_001",
+          "author_id": "mikethornton",
+          "text": "We migrated MegaCorp's entire data platform to a lakehouse architecture last quarter. Processing costs down 60%. Happy to discuss our approach with anyone evaluating similar moves.",
+          "created_at": "2026-01-18T09:15:00Z",
+          "likes_count": 89,
+          "comments_count": 34
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "tier",
+        "type": "text"
+      },
+      {
+        "name": "owner_id",
+        "type": "text"
+      },
+      {
+        "name": "last_activity",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      },
+      {
+        "name": "parent_id",
+        "type": "text"
+      },
+      {
+        "name": "first_name",
+        "type": "text"
+      },
+      {
+        "name": "last_name",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "stage_name",
+        "type": "text"
+      },
+      {
+        "name": "close_date",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "headline",
+        "type": "text"
+      },
+      {
+        "name": "current_company",
+        "type": "text"
+      },
+      {
+        "name": "current_title",
+        "type": "text"
+      },
+      {
+        "name": "public_profile_url",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "author_id",
+        "type": "text"
+      },
+      {
+        "name": "text",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "likes_count",
+        "type": "number"
+      },
+      {
+        "name": "comments_count",
+        "type": "number"
+      },
+      {
+        "name": "profile_url",
+        "type": "text"
+      },
+      {
+        "name": "message",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "what_id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_linkedin_source_index_0",
+      "name": "https://linkedin.com/in/johnhadley",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_linkedin_source_index_1",
+      "name": "https://linkedin.com/in/sarahpratt",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_linkedin_source_index_2",
+      "name": "https://linkedin.com/in/tylerbrooks",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_linkedin_source_index_3",
+      "name": "https://linkedin.com/in/mikethornton",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_linkedin_source_index_4",
+      "name": "https://linkedin.com/in/rachelnguyen",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_linkedin_source_index_5",
+      "name": "https://linkedin.com/in/devonashworth",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "angela.mcbride@oakmontdatac.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "brenda.liang@granitesuppl.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carla.whitfield@coastalfleet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "d.ashworth@meridianglobal.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "derek.kowalski@apexfaciliti.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "diana.okafor@crestfieldma.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "gerald.pearson@sterlingcomp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "grant.thompson@beaconsafety.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "helen.prescott@truenorthequ.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "howard.russo@prairieenerg.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "isaac.johansson@northwindpro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "john@bigent.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "martin.reeves@pinnaclelogi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "mike@megacorp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "miriam.soto@greenfielden.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "nina.patel@ridgelinetra.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "philip.hartley@bridgewaycon.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "rachel@partnerventures.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "ross.navarro@apexfaciliti.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "ruben.vasquez@summitmainte.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "sandra.chen@granitesuppl.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "sarah@bigent.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "tyler@bigent.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "victor.lindgren@harborwareho.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "warren.duval@pinnaclelogi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "yvette.dawson@vanguardsecu.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_CABMTEAM",
+      "name": "abm-team",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080016.000016\\\", \\\"user_id\\\": \\\"U_ops_16\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nPest control visit scheduled for Thursday evening after business hours.\"}"
+      },
+      "create_time": "1741080016.000016"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080009.000009\\\", \\\"user_id\\\": \\\"U_ops_09\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nInventory cycle count results posted. 3 discrepancies being investigated.\"}"
+      },
+      "create_time": "1741080009.000009"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080007.000007\\\", \\\"user_id\\\": \\\"U_ops_07\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nPSA: Server room B2 maintenance window Saturday 2-6 AM. UPS bypass test included.\"}"
+      },
+      "create_time": "1741080007.000007"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080014.000014\\\", \\\"user_id\\\": \\\"U_ops_14\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nHVAC filter replacement complete for Building A. Next round: Building C on March 10.\"}"
+      },
+      "create_time": "1741080014.000014"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080002.000002\\\", \\\"user_id\\\": \\\"U_ops_02\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nLoading dock 3 cleared and ready for the 7 AM shipment. Dock 1 still blocked by the pallet wrapping machine.\"}"
+      },
+      "create_time": "1741080002.000002"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080011.000011\\\", \\\"user_id\\\": \\\"U_ops_11\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nChemical storage area inspection complete. One label faded — replaced on the spot.\"}"
+      },
+      "create_time": "1741080011.000011"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080021.000021\\\", \\\"user_id\\\": \\\"U_ops_21\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nOOO: I'm out Thursday/Friday. Nina is covering warehouse ops.\"}"
+      },
+      "create_time": "1741080021.000021"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080023.000023\\\", \\\"user_id\\\": \\\"U_ops_23\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nCompressed gas cylinder audit completed. All tags current.\"}"
+      },
+      "create_time": "1741080023.000023"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080012.000012\\\", \\\"user_id\\\": \\\"U_ops_12\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nParking lot B re-striping scheduled for this weekend. Please park in Lot C.\"}"
+      },
+      "create_time": "1741080012.000012"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080008.000008\\\", \\\"user_id\\\": \\\"U_ops_08\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nElevator B back in service after maintenance. Thanks to the ElevatorPlus team for the quick turnaround.\"}"
+      },
+      "create_time": "1741080008.000008"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080006.000006\\\", \\\"user_id\\\": \\\"U_ops_06\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nNew vendor onboarded: GreenField Environmental. Insurance certs verified.\"}"
+      },
+      "create_time": "1741080006.000006"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080024.000024\\\", \\\"user_id\\\": \\\"U_ops_24\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nThe recycling compactor is jammed again. Maintenance ticket submitted.\"}"
+      },
+      "create_time": "1741080024.000024"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080003.000003\\\", \\\"user_id\\\": \\\"U_ops_03\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nReminder: fire drill at 2 PM today. Please make sure all exits are clear.\"}"
+      },
+      "create_time": "1741080003.000003"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080015.000015\\\", \\\"user_id\\\": \\\"U_ops_15\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nWeekly ops metrics: Work orders closed: 47. Average resolution time: 6.2 hours. Great work everyone!\"}"
+      },
+      "create_time": "1741080015.000015"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080005.000005\\\", \\\"user_id\\\": \\\"U_ops_05\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nAnyone know if the badge printer in reception is fixed? Still showing paper jam.\"}"
+      },
+      "create_time": "1741080005.000005"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080001.000001\\\", \\\"user_id\\\": \\\"U_ops_01\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nGood morning ops team. Facilities checklist for today is posted in #facilities-daily.\"}"
+      },
+      "create_time": "1741080001.000001"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080013.000013\\\", \\\"user_id\\\": \\\"U_ops_13\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nNew hire orientation: 3 new warehouse staff starting Monday. Badge photos at 8 AM.\"}"
+      },
+      "create_time": "1741080013.000013"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080019.000019\\\", \\\"user_id\\\": \\\"U_ops_19\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nConference room 301 AV equipment upgraded. New wireless casting system is live.\"}"
+      },
+      "create_time": "1741080019.000019"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080004.000004\\\", \\\"user_id\\\": \\\"U_ops_04\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nGenerator test completed ✅ All 3 units passed. Logs uploaded to CMMS.\"}"
+      },
+      "create_time": "1741080004.000004"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_CABMTEAM",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080025.000025\\\", \\\"user_id\\\": \\\"U_ops_25\\\", \\\"channel_id\\\": \\\"CABMTEAM\\\"}\\nEmergency lighting test completed for all buildings. 2 bulbs replaced in Building D stairwell.\"}"
+      },
+      "create_time": "1741080025.000025"
+    }
+  ]
+}

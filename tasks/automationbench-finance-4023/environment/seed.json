@@ -1,0 +1,109 @@
+{
+  "now": "2026-02-01T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_revrec": {
+      "title": "Rev Rec Workbook",
+      "sheets": {
+        "ws_contracts": {
+          "title": "Active Contracts",
+          "values": [
+            [
+              "Contract ID",
+              "Customer",
+              "Total Value",
+              "Start Date",
+              "Term (Months)",
+              "Status"
+            ],
+            ["CTR-001", "NovaTech", "$120,000", "2026-01-01", "12", "Active"],
+            [
+              "CTR-002",
+              "Meridian Corp",
+              "$36,000",
+              "2025-10-01",
+              "6",
+              "Active"
+            ],
+            [
+              "CTR-003",
+              "Vanguard Apparel",
+              "$48,000",
+              "2026-03-01",
+              "12",
+              "Active"
+            ],
+            [
+              "CTR-004",
+              "Sterling & Associates",
+              "$60,000",
+              "2025-07-01",
+              "12",
+              "Cancelled"
+            ]
+          ]
+        },
+        "ws_schedule": {
+          "title": "January 2026 Schedule",
+          "values": [["Contract", "Customer", "Amount"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "accounting@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_revrec_policy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_revrec_policy\\\", \\\"thread_id\\\": \\\"th_revrec\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"Revenue Recognition Policy - 2026\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-28T08:00:00Z\\\"}\\n消息 ID：msg_revrec_policy\\n来源：controller@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-01-28T08:00:00Z\\n主题：Revenue Recognition Policy - 2026\\nRev rec rules:\\n\\n1. Spread total contract value evenly over the contract term\\n2. Monthly amount = Total Value / Number of Months (round to nearest cent)\\n3. Contracts with status 'Cancelled' should be excluded entirely\\n4. Contracts starting after the current month should be marked as 'Deferred' and NOT included in the current month's schedule\\n5. Calculate and include January 2026 recognition amount only\\n\\n- Controller\"}"
+      },
+      "create_time": "1769587200000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    }
+  ]
+}

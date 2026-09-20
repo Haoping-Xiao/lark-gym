@@ -1,0 +1,435 @@
+{
+  "now": "2026-02-09T12:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_sla": {
+      "title": "SLA Configuration",
+      "sheets": {
+        "ws_targets": {
+          "title": "SLA Targets",
+          "values": [
+            ["Tier", "First Response Target (hours)", "Escalation Email"],
+            ["Enterprise", "4", "enterprise-escalations@company.example.com"],
+            ["Premium", "8", "premium-escalations@company.example.com"],
+            ["Standard", "24", "standard-escalations@company.example.com"]
+          ]
+        },
+        "ws_tiers": {
+          "title": "Customer Tiers",
+          "values": [
+            ["Customer Domain", "Tier"],
+            ["acmecorp.com", "Enterprise"],
+            ["globaltech.com", "Premium"],
+            ["smallbiz.com", "Standard"],
+            ["tinystore.com", "Standard"]
+          ]
+        },
+        "ws_breaches": {
+          "title": "SLA Breaches",
+          "values": [
+            [
+              "Conversation ID",
+              "Customer",
+              "Tier",
+              "Target Hours",
+              "Actual Hours",
+              "Status"
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Config",
+          "values": [
+            ["Key", "Value"],
+            ["Report_Reference", "SLA-RPT-20260209"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_hiver_conversations_sla_01",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_01",
+          "subject": "Dashboard loading slowly",
+          "status": "open",
+          "customer_email": "ops@acmecorp.com",
+          "customer_name": "Acme Corp Support",
+          "tags": "[\"technical\"]",
+          "created_at": "2026-02-09T08:00:00Z",
+          "first_response_at": "2026-02-09T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_02",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_02",
+          "subject": "API authentication failures",
+          "status": "open",
+          "customer_email": "dev@acmecorp.com",
+          "customer_name": "Acme Corp Dev",
+          "tags": "[\"technical\",\"api\"]",
+          "created_at": "2026-02-09T06:00:00Z",
+          "first_response_at": "2026-02-09T12:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_03",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_03",
+          "subject": "Billing discrepancy on invoice #4521",
+          "status": "open",
+          "customer_email": "finance@globaltech.com",
+          "customer_name": "GlobalTech Finance",
+          "tags": "[\"billing\"]",
+          "created_at": "2026-02-08T14:00:00Z",
+          "first_response_at": "2026-02-08T19:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_04",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_04",
+          "subject": "Cannot access admin panel",
+          "status": "open",
+          "customer_email": "admin@globaltech.com",
+          "customer_name": "GlobalTech Admin",
+          "tags": "[\"access\"]",
+          "created_at": "2026-02-08T08:00:00Z",
+          "first_response_at": "2026-02-08T18:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_05",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_05",
+          "subject": "Feature suggestion for reports",
+          "status": "open",
+          "customer_email": "user@smallbiz.com",
+          "customer_name": "SmallBiz User",
+          "tags": "[\"feature\"]",
+          "created_at": "2026-02-07T10:00:00Z",
+          "first_response_at": "2026-02-08T06:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_06",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_06",
+          "subject": "Mobile app crashing on login",
+          "status": "open",
+          "customer_email": "support@tinystore.com",
+          "customer_name": "TinyStore Support",
+          "tags": "[\"technical\",\"mobile\"]",
+          "created_at": "2026-02-07T08:00:00Z",
+          "first_response_at": "2026-02-08T14:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_07",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_07",
+          "subject": "Urgent: data sync failure",
+          "status": "open",
+          "customer_email": "eng@acmecorp.com",
+          "customer_name": "Acme Corp Engineering",
+          "tags": "[\"technical\",\"urgent\"]",
+          "created_at": "2026-02-09T04:00:00Z",
+          "first_response_at": "null"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_08",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_08",
+          "subject": "Resolved password reset",
+          "status": "closed",
+          "customer_email": "user@closedcase.com",
+          "customer_name": "Closed Case User",
+          "tags": "[\"account\"]",
+          "created_at": "2026-02-06T10:00:00Z",
+          "first_response_at": "2026-02-06T11:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_09",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_09",
+          "subject": "Webhook delivery failures",
+          "status": "open",
+          "customer_email": "dev@unknownco.io",
+          "customer_name": "UnknownCo Dev",
+          "tags": "[\"technical\"]",
+          "created_at": "2026-02-08T06:00:00Z",
+          "first_response_at": "2026-02-09T07:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_10",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_10",
+          "subject": "SSO configuration help",
+          "status": "pending",
+          "customer_email": "it@acmecorp.com",
+          "customer_name": "Acme Corp IT",
+          "tags": "[\"onboarding\"]",
+          "created_at": "2026-02-09T07:00:00Z",
+          "first_response_at": "2026-02-09T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_11",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_11",
+          "subject": "Report export format question",
+          "status": "open",
+          "customer_email": "analyst@globaltech.com",
+          "customer_name": "GlobalTech Analyst",
+          "tags": "[\"general\"]",
+          "created_at": "2026-02-08T09:00:00Z",
+          "first_response_at": "2026-02-08T16:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_sla_12",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "sla_12",
+          "subject": "Account settings not saving",
+          "status": "open",
+          "customer_email": "user2@smallbiz.com",
+          "customer_name": "SmallBiz User 2",
+          "tags": "[\"technical\"]",
+          "created_at": "2026-02-08T08:00:00Z",
+          "first_response_at": "2026-02-09T07:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_009",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_009",
+          "subject": "Parking permit application",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_003",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_003",
+          "subject": "IT equipment return process",
+          "status": "closed",
+          "assignee_id": "hu_noise_003",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_conversations_hv_noise_001",
+        "fields": {
+          "collection": "hiver_conversations",
+          "id": "hv_noise_001",
+          "subject": "Vendor payment query",
+          "status": "closed",
+          "assignee_id": "hu_noise_001",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_s1",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_s1",
+          "name": "Support Team",
+          "email": "support@company.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_users_hu_noise_001",
+        "fields": {
+          "collection": "hiver_users",
+          "id": "hu_noise_001",
+          "name": "Sam Cartwright",
+          "email": "scartwright@noiseco.example.com"
+        }
+      },
+      {
+        "record_id": "rec_hiver_shared_mailboxes_hm_support",
+        "fields": {
+          "collection": "hiver_shared_mailboxes",
+          "id": "hm_support",
+          "name": "Support Inbox",
+          "email": "support@company.example.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "customer_name",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "first_response_at",
+        "type": "text"
+      },
+      {
+        "name": "assignee_id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "admin@globaltech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "analyst@globaltech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "dev@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "dev@unknownco.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eng@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "enterprise-escalations@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "finance@globaltech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "it@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "ops@acmecorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "premium-escalations@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "scartwright@noiseco.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "standard-escalations@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "support@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "support@tinystore.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "user2@smallbiz.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "user@closedcase.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "user@smallbiz.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_sla",
+      "name": "sla-monitoring",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

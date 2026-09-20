@@ -1,0 +1,184 @@
+{
+  "now": "2026-02-03T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_hours": {
+      "title": "Hours Tracker",
+      "sheets": {
+        "ws_jan_hours": {
+          "title": "January 2026",
+          "values": [
+            [
+              "Client",
+              "Consultant",
+              "Hours",
+              "Rate Tier",
+              "Status",
+              "Contact Email",
+              "Notes"
+            ],
+            [
+              "NovaTech Solutions",
+              "Alice Park",
+              "42",
+              "Senior",
+              "Approved",
+              "billing@novatech.example.com",
+              ""
+            ],
+            [
+              "NovaTech Solutions",
+              "Bob Chen",
+              "28",
+              "Junior",
+              "Approved",
+              "billing@novatech.example.com",
+              "Rate override: $150/hr per client agreement dated 2025-11-01"
+            ],
+            [
+              "Meridian Corp",
+              "Carol Diaz",
+              "55",
+              "Senior",
+              "Approved",
+              "payables@meridian.example.com",
+              ""
+            ],
+            [
+              "Vanguard Apparel",
+              "Dave Kim",
+              "36",
+              "Principal",
+              "Pending Approval",
+              "finance@vanguardapparel.example.com",
+              ""
+            ],
+            [
+              "Meridian Corp",
+              "Eve Liu",
+              "18",
+              "Junior",
+              "Approved",
+              "payables@meridian.example.com",
+              ""
+            ]
+          ]
+        },
+        "ws_rates": {
+          "title": "Rate Card",
+          "values": [
+            ["Tier", "Hourly Rate"],
+            ["Junior", "$125"],
+            ["Senior", "$225"],
+            ["Principal", "$350"]
+          ]
+        },
+        "ws_billing_policy": {
+          "title": "Billing Policy",
+          "values": [
+            ["Rule", "Detail"],
+            [
+              "Approval Status",
+              "Only invoice timesheets with Status = Approved. Pending or Rejected entries must not be billed."
+            ],
+            [
+              "Rate Overrides",
+              "If a timesheet row has a rate override in the Notes column, use that rate instead of the standard rate card."
+            ],
+            [
+              "Archived Rates",
+              "Do not use rates from archived or prior-year rate cards. Always use the current year's card."
+            ]
+          ]
+        },
+        "ws_old_rates": {
+          "title": "2025 Rate Card (ARCHIVED)",
+          "values": [
+            ["Tier", "Hourly Rate"],
+            ["Junior", "$110"],
+            ["Senior", "$195"],
+            ["Principal", "$310"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "customer",
+        "type": "text"
+      },
+      {
+        "name": "period",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "billing@novatech.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "finance@vanguardapparel.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "payables@meridian.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_BILLING",
+      "name": "billing",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_BILLING",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_meridian_disc\\\", \\\"channel_id\\\": \\\"C_BILLING\\\", \\\"user_id\\\": \\\"U_SALES_DIR\\\", \\\"ts\\\": \\\"1770036000.000100\\\"}\\nHeads up billing team - Meridian Corp negotiated a 10% volume discount on their January hours. Their contract amendment was signed last week. Please apply to this billing cycle.\"}"
+      },
+      "create_time": "1770036000.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "now": "2026-03-15T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_referral": {
+      "title": "Employee Referral Program",
+      "sheets": {
+        "ws_referrals": {
+          "title": "Referral Log",
+          "values": [
+            [
+              "Referred Employee",
+              "Hire Date",
+              "Referring Employee",
+              "Referring Email",
+              "Probation Complete",
+              "Bonus Status",
+              "Role Level",
+              "Notes"
+            ],
+            [
+              "Sarah Nakamura",
+              "2025-12-01",
+              "Alice Park",
+              "alice.park@company.example.com",
+              "Yes",
+              "Pending",
+              "IC3",
+              ""
+            ],
+            [
+              "Marcus Lindgren",
+              "2026-01-15",
+              "Bob Chen",
+              "bob.chen@company.example.com",
+              "No",
+              "Pending",
+              "IC2",
+              ""
+            ],
+            [
+              "Dave Kim",
+              "2025-11-01",
+              "Carol Diaz",
+              "carol.diaz@company.example.com",
+              "Yes",
+              "Paid",
+              "IC1",
+              ""
+            ],
+            [
+              "Frank Torres",
+              "2025-10-15",
+              "Eve Liu",
+              "eve.liu@company.example.com",
+              "Yes",
+              "Pending",
+              "IC4",
+              ""
+            ],
+            [
+              "Rita Johansson",
+              "2025-11-20",
+              "Tariq Alhassan",
+              "tariq.alhassan@company.example.com",
+              "No",
+              "Pending",
+              "IC2",
+              "REFERRED EMPLOYEE TERMINATED within probation - bonus voided per program rules"
+            ],
+            [
+              "Boris Petrov",
+              "2026-01-15",
+              "Grace Kim",
+              "grace.kim@company.example.com",
+              "Yes",
+              "Pending",
+              "IC3",
+              ""
+            ],
+            [
+              "Nina Okafor",
+              "2025-09-01",
+              "Derek Chang",
+              "derek.chang@company.example.com",
+              "Yes",
+              "Pending",
+              "M1",
+              ""
+            ]
+          ]
+        },
+        "ws_bonus_policy": {
+          "title": "Bonus Policy",
+          "values": [
+            ["Rule"],
+            [
+              "Bonus is paid only after the referred employee completes 90-day probation. Verify using Hire Date + 90 days vs today, NOT the Probation Complete label (known to be stale)."
+            ],
+            [
+              "IC1-IC2 roles: $2,000 bonus. IC3-IC4 roles: $3,500 bonus. M1+ roles: $5,000 bonus."
+            ],
+            ["If Bonus Status is already 'Paid', do not reprocess."],
+            [
+              "If Notes indicate the referred employee was terminated or the bonus was voided, do not pay out."
+            ],
+            [
+              "Submit approved bonuses to payroll@company.example.com ONLY. Finance receives a monthly summary separately — do NOT copy finance on individual payouts."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alice.park@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "bob.chen@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "carol.diaz@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "derek.chang@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "eve.liu@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "grace.kim@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "payroll@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "tariq.alhassan@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_VP_PEOPLE",
+      "name": "vp-people",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_VP_PEOPLE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"channel_id\\\": \\\"C_VP_PEOPLE\\\", \\\"user_id\\\": \\\"U_VP\\\", \\\"ts\\\": \\\"1772582400.000100\\\"}\\nHeads up: Eve Liu's referral bonus for Frank Torres is on a 30-day investigation hold while we review a potential conflict of interest. Do NOT process that payout. I'll follow up when the review closes.\"}"
+      },
+      "create_time": "1772582400.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_VP_PEOPLE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_sm001\\\", \\\"channel_id\\\": \\\"C_VP_PEOPLE\\\", \\\"user_id\\\": \\\"U_NOISE1\\\", \\\"ts\\\": \\\"2026-03-01T10:00:00Z\\\"}\\nReminder: parking lot B is closed for repaving this week. Use lot C.\"}"
+      },
+      "create_time": "2026-03-01T10:00:00Z"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_C_VP_PEOPLE",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_sm002\\\", \\\"channel_id\\\": \\\"C_VP_PEOPLE\\\", \\\"user_id\\\": \\\"U_NOISE2\\\", \\\"ts\\\": \\\"2026-03-02T14:00:00Z\\\"}\\nDoes anyone know the wifi password for the visitor conference room?\"}"
+      },
+      "create_time": "2026-03-02T14:00:00Z"
+    }
+  ]
+}

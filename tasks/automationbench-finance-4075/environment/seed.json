@@ -1,0 +1,77 @@
+{
+  "now": "2026-02-10T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_vendor_recon": {
+      "title": "Vendor Reconciliation",
+      "sheets": {
+        "ws_vendor_stmts": {
+          "title": "Vendor Statements Received",
+          "values": [
+            ["Vendor", "Email", "Statement Balance"],
+            ["Acme Supplies", "ar@acme.example.com", "$6,200"],
+            ["CloudHost Pro", "billing@cloudhost.example.com", "$9,600"],
+            ["Metro Supply", "ar@metro.example.com", "$1,800"],
+            ["TechServe Solutions", "billing@techserve.example.com", "$4,500"]
+          ]
+        },
+        "ws_our_ap": {
+          "title": "Our AP Balances",
+          "values": [
+            ["Vendor", "AP Balance", "Notes"],
+            ["Acme Supplies", "$4,200", ""],
+            ["CloudHost Pro", "$9,600", ""],
+            ["Metro Supply", "$2,580", ""],
+            [
+              "TechServe Solutions",
+              "$4,500",
+              "payment in transit - exclude from recon"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ar@acme.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ar@metro.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "billing@cloudhost.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "billing@techserve.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "controller@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

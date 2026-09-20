@@ -1,0 +1,84 @@
+{
+  "new_chats": [],
+  "memberships": [],
+  "source_assertion_overrides": {
+    "0": "客户要价750000不等于内部批准450000；用明确approved金额发送。",
+    "4": "批准450000低于500000门槛，不建Partnership Kickoff类型。"
+  },
+  "order_groups": [
+    {
+      "kind": "message",
+      "ids": ["oc_email_35"]
+    },
+    {
+      "kind": "record",
+      "collection": "opportunities"
+    }
+  ],
+  "forbidden_records": [],
+  "forbidden_messages": [],
+  "updates": [
+    {
+      "record_id": "rec_006xx000006OPP1",
+      "field": "amount",
+      "value": 450000,
+      "mode": "equals"
+    },
+    {
+      "record_id": "rec_006xx000006OPP1",
+      "field": "stage_name",
+      "value": "Contract Sent",
+      "mode": "equals"
+    },
+    {
+      "record_id": "rec_006xx000006OPP1",
+      "field": "description",
+      "value": "Approved $450,000 used; customer request $750,000 not approved | Emily Watson | Partnership Agreement | deadline 2024-03-13 | 70/30 | North America exclusive | 2 years with auto-renewal",
+      "mode": "equals",
+      "contains": [
+        "450,000",
+        "750,000",
+        "not approved",
+        "Emily Watson",
+        "2024-03-13",
+        "70/30",
+        "North America exclusive",
+        "2 years with auto-renewal"
+      ]
+    }
+  ],
+  "creates": [
+    {
+      "collection": "signature_requests",
+      "template_id": "tmpl_partnership",
+      "template_name": "Partnership Agreement",
+      "account_id": "001xx000004ACC1",
+      "opportunity_id": "006xx000006OPP1",
+      "recipient_email": "emily.watson@acme.example.com",
+      "status": "Sent",
+      "amount": 450000,
+      "subject": "Partnership Agreement - $450,000",
+      "deadline": "2024-03-13",
+      "revenue_share": "70/30",
+      "territory": "North America exclusive",
+      "term": "2 years with auto-renewal"
+    }
+  ],
+  "create_contains": {},
+  "creation_contains": {},
+  "messages": [
+    {
+      "chat_id": "oc_email_35",
+      "contains": [
+        "Partnership Agreement - $450,000",
+        "Acme",
+        "70/30",
+        "North America exclusive",
+        "2 years with auto-renewal",
+        "2024-03-13"
+      ]
+    }
+  ],
+  "events": [],
+  "cells": []
+}

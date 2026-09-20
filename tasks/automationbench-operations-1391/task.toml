@@ -1,0 +1,24 @@
+schema_version = "1.4"
+artifacts = [{ source = "/var/lib/feishu-mock/state.json", service = "mock" }]
+[task]
+name = "officegym/automationbench-operations-1391"
+version = "0.1.0"
+authors = []
+[metadata]
+category = "office-automation"
+tags = ["feishu", "operations", "automationbench-adapted"]
+source_domain = "operations"
+source_id = 1391
+source_commit = "4a8e1061254004d9dac807054eed33fad7d1ff14"
+source_task = "operations.loading_dock_scheduling"
+scored_domain = true
+[agent]
+timeout_sec = 600.0
+[verifier]
+timeout_sec = 120.0
+environment_mode = "separate"
+[environment]
+build_timeout_sec = 1200.0
+cpus = 2
+memory_mb = 2048
+storage_mb = 10240

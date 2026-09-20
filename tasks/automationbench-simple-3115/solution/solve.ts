@@ -1,0 +1,16 @@
+import { execFileSync } from 'node:child_process';
+const commands: string[][] = [
+  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-upsert',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_crm',
+    '--json',
+    '{"collection": "issues", "issuetype": "Task", "summary": "Migrate legacy data to new schema", "project": "INFRA"}',
+  ],
+];
+for (const args of commands)
+  execFileSync(process.env.LARK_CLI || 'lark-cli', args, { stdio: 'inherit' });

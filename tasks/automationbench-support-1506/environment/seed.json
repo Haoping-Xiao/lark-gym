@@ -1,0 +1,379 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_templates": {
+      "title": "Response Templates",
+      "sheets": {
+        "ws_responses": {
+          "title": "Topic Templates",
+          "values": [
+            ["Topic Tag", "Priority", "Template Body"],
+            [
+              "login",
+              "1",
+              "We understand you are having trouble logging in. Please try resetting your password at our reset page."
+            ],
+            [
+              "billing",
+              "2",
+              "Thank you for reaching out about billing. Our billing team will review your account within 24 hours."
+            ]
+          ]
+        },
+        "ws_config": {
+          "title": "Report Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "AUTO-RESP-20260210"]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_conversations_conv_d01",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d01",
+          "title": "Billing question about plan upgrade",
+          "state": "open",
+          "contact_ids": "[\"ic_d01\"]",
+          "tags": "[\"billing\"]",
+          "conversation_parts": "[{\"body\":\"How do I upgrade my plan?\",\"author_type\":\"user\",\"author_id\":\"ic_d01\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_d02",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d02",
+          "title": "Cannot log in to account",
+          "state": "open",
+          "contact_ids": "[\"ic_d02\"]",
+          "tags": "[\"login\"]",
+          "conversation_parts": "[{\"body\":\"I keep getting an error when logging in.\",\"author_type\":\"user\",\"author_id\":\"ic_d02\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_d03",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d03",
+          "title": "Old resolved issue",
+          "state": "closed",
+          "contact_ids": "[\"ic_d03\"]",
+          "tags": "[\"billing\"]",
+          "conversation_parts": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_d04",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d04",
+          "title": "Login fails after billing change",
+          "state": "open",
+          "contact_ids": "[\"ic_d04\"]",
+          "tags": "[\"billing\",\"login\"]",
+          "conversation_parts": "[{\"body\":\"After changing my plan I cannot log in anymore.\",\"author_type\":\"user\",\"author_id\":\"ic_d04\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_d06",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d06",
+          "title": "Product feedback",
+          "state": "open",
+          "contact_ids": "[\"ic_d06\"]",
+          "tags": "[\"feedback\"]",
+          "conversation_parts": "[{\"body\":\"I have some suggestions for the UI.\",\"author_type\":\"user\",\"author_id\":\"ic_d06\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_d07",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d07",
+          "title": "Snoozed billing issue",
+          "state": "snoozed",
+          "contact_ids": "[\"ic_d07\"]",
+          "tags": "[\"billing\"]",
+          "conversation_parts": "[{\"body\":\"I was overcharged last month.\",\"author_type\":\"user\",\"author_id\":\"ic_d07\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_d08",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_d08",
+          "title": "Unknown category inquiry",
+          "state": "open",
+          "contact_ids": "[\"ic_d08\"]",
+          "tags": "[\"shipping\"]",
+          "conversation_parts": "[{\"body\":\"Where is my order?\",\"author_type\":\"user\",\"author_id\":\"ic_d08\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_003",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_003",
+          "title": "Bug in notification settings",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_003\"]",
+          "tags": "[\"bug-report\"]",
+          "conversation_parts": "[{\"body\":\"I disabled email notifications but I'm still getting them.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_008",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_008",
+          "title": "Webhook payloads missing fields",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_008\"]",
+          "tags": "[\"api\",\"webhook\"]",
+          "conversation_parts": "[{\"body\":\"The conversation.updated webhook is missing the 'tags' field in the payload.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_010",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_010",
+          "title": "Custom bot flow broken",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_002\"]",
+          "tags": "[\"bot\"]",
+          "conversation_parts": "[{\"body\":\"Our custom bot flow stopped routing to the right team after we added a new step.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d01",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d01",
+          "name": "Amy Brooks",
+          "email": "amy@acme.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d02",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d02",
+          "name": "Brad Cole",
+          "email": "brad@techco.io",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d03",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d03",
+          "name": "Cara Dean",
+          "email": "cara@old.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d04",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d04",
+          "name": "Drew Evans",
+          "email": "drew@multiissue.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d06",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d06",
+          "name": "Fred Gray",
+          "email": "fred@ideas.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d07",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d07",
+          "name": "Gina Hart",
+          "email": "gina@snoozed.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_d08",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_d08",
+          "name": "Hank Irwin",
+          "email": "hank@unknown.com",
+          "contact_type": "user",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_001",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_001",
+          "name": "Sora Fujimoto",
+          "email": "sfujimoto@skyvault.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_002",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_002",
+          "name": "Tara Jennings",
+          "email": "tjennings@prismdata.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "amy@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "brad@techco.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "cara@old.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "drew@multiissue.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "fred@ideas.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "gina@snoozed.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "hank@unknown.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "sfujimoto@skyvault.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "tjennings@prismdata.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

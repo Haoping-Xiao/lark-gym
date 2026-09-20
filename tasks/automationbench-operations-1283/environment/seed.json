@@ -1,0 +1,1602 @@
+{
+  "now": "2026-01-30T00:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_feedback_config": {
+      "title": "Feedback Config",
+      "sheets": {
+        "ws_routing_rules": {
+          "title": "Routing Rules",
+          "values": [
+            ["Sentiment", "Domain Type", "Channels", "Notes", "Rule", "Policy"],
+            [
+              "Negative",
+              "Enterprise/Corp",
+              "#customer-issues,#vip-escalations",
+              "Domains containing 'enterprise' or 'corp' qualify as Enterprise/Corp",
+              "",
+              ""
+            ],
+            [
+              "Negative",
+              "Standard",
+              "#customer-issues",
+              "All other domains",
+              "",
+              ""
+            ],
+            [
+              "Positive",
+              "All",
+              "#customer-wins",
+              "Include customer email and summary",
+              "",
+              ""
+            ],
+            [
+              "Neutral",
+              "All",
+              "none",
+              "Do not post neutral feedback to any channel",
+              "",
+              ""
+            ],
+            [
+              "",
+              "",
+              "",
+              "",
+              "Self-Resolved Override",
+              "If a feedback email body contains resolution language such as 'resolved', 'fixed', 'no action needed', or 'issue has been addressed', treat as informational only. Do NOT route to any Slack channel regardless of overall sentiment tone."
+            ]
+          ]
+        },
+        "ws_routing_overrides_q1": {
+          "title": "Q1 2026 Routing Override",
+          "values": [
+            ["Rule", "Effective Date", "Policy"],
+            [
+              "Enterprise Domain Expansion",
+              "2026-01-01",
+              "Effective Q1 2026, the definition of enterprise/corp domain for VIP escalation is expanded. In addition to domains containing 'enterprise' or 'corp', domains containing 'group' now also qualify for VIP escalation routing. This supersedes the original routing definition."
+            ],
+            [
+              "Seasonal Hold",
+              "2026-01-15",
+              "During Q1 2026, feedback from domains or email body text containing seasonal industry keywords ('winter', 'summer', 'seasonal', 'resort') must be placed on hold for account manager review. Do NOT route to any Slack channel. Mark as read but do not post."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_mail_msg_fb_001",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_001",
+          "thread_id": "thr_fb_001",
+          "from_": "happy@customer.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Amazing product!",
+          "body_plain": "Your product has transformed our business. The team loves it and we've seen 40% productivity gains. Keep up the great work!",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_002",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_002",
+          "thread_id": "thr_fb_002",
+          "from_": "angry@customer.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Terrible experience",
+          "body_plain": "I've been waiting 3 weeks for support. This is unacceptable. Your product keeps crashing and nobody responds to my tickets. I'm considering switching to a competitor.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T11:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_003",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_003",
+          "thread_id": "thr_fb_003",
+          "from_": "neutral@customer.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: It is okay I guess",
+          "body_plain": "The product works as expected. Nothing special but nothing bad either. It does what it says.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T12:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_004",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_004",
+          "thread_id": "thr_fb_004",
+          "from_": "frustrated@bigcorp.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Disappointed with service",
+          "body_plain": "We have been a customer for 3 years and the quality has really declined. Response times are slow and features keep breaking. Very disappointed.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T13:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_005",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_005",
+          "thread_id": "thr_fb_005",
+          "from_": "satisfied@enterprise-solutions.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Great partnership",
+          "body_plain": "Your team has been fantastic. The onboarding was smooth and support is always responsive. We are very happy with our decision.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T14:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_006",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_006",
+          "thread_id": "thr_fb_006",
+          "from_": "feedback-bot@company.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Internal test message",
+          "body_plain": "This is an internal test of the feedback system. Please ignore this automated message.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T08:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_007",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_007",
+          "thread_id": "thr_fb_007",
+          "from_": "old_feedback@legacy.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Old complaint",
+          "body_plain": "This is terrible! The worst product I have ever used. Completely unusable!",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-27T10:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_008",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_008",
+          "thread_id": "thr_fb_008",
+          "from_": "already_processed@repeat.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Repeat complaint",
+          "body_plain": "Still having the same issues I reported last week. Very frustrated!",
+          "label_ids": "[\"INBOX\",\"UNREAD\",\"PROCESSED\"]",
+          "is_read": "false",
+          "date": "2026-01-29T09:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_009",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_009",
+          "thread_id": "thr_fb_009",
+          "from_": "happycustomer@enterprise-tech.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Mixed feelings",
+          "body_plain": "Some features are good, some are not. Overall it is average. Not great, not terrible.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T15:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_010",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_010",
+          "thread_id": "thr_fb_010",
+          "from_": "upset@megacorp.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Very unhappy with support",
+          "body_plain": "We were extremely frustrated with the slow response times and lack of communication from your support team. This was completely unacceptable for an enterprise customer. UPDATE: Our account manager reached out and resolved this yesterday, no action needed.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T16:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_011",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_011",
+          "thread_id": "thr_fb_011",
+          "from_": "complaints@winterresorts.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Service degradation during peak season",
+          "body_plain": "During our peak winter season your platform went down twice causing significant revenue loss. Your SLA commitments were not met and we expect compensation.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T17:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_012",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_012",
+          "thread_id": "thr_fb_012",
+          "from_": "ops@acmegroup.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Billing errors on our account",
+          "body_plain": "We have been overcharged for the last two months. Our finance team has flagged multiple billing discrepancies that need immediate resolution.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T18:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_fb_013",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_fb_013",
+          "thread_id": "thr_fb_013",
+          "from_": "ops@techdynamic.example.com",
+          "to": "[\"feedback@company.example.com\"]",
+          "subject": "Feedback: Positive feedback - excellent platform",
+          "body_plain": "Everything has been great! Although I should mention that our winter operations team has been having some minor issues with the seasonal dashboard module. But overall we're very satisfied.",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false",
+          "date": "2026-01-29T19:00:00Z"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_021",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_021",
+          "thread_id": "th_ops_021",
+          "from_": "vlindgren@harbourwar.example.com",
+          "to": "[\"me\"]",
+          "subject": "Racking system installation — Phase 2",
+          "body_plain": "Phase 2 racking installation scheduled for March 17-21. Please confirm aisle 12-14 will be cleared by March 14.",
+          "date": "2026-03-03T09:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_001",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_001",
+          "thread_id": "th_ops_001",
+          "from_": "facilities@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Daily Facilities Report — March 3",
+          "body_plain": "Morning report: All HVAC systems nominal. Elevator B maintenance scheduled 2 PM. Parking lot sweeping completed overnight.",
+          "date": "2026-03-03T07:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_025",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_025",
+          "thread_id": "th_ops_025",
+          "from_": "hrusso@prairieener.example.com",
+          "to": "[\"me\"]",
+          "subject": "Solar panel cleaning scheduled",
+          "body_plain": "Solar panel cleaning crew scheduled for March 8, 6 AM - 12 PM. Roof access needed. Please notify security.",
+          "date": "2026-03-01T14:20:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_015",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_015",
+          "thread_id": "th_ops_015",
+          "from_": "backups@company.example.com",
+          "to": "[\"ops-team@company.example.com\"]",
+          "subject": "Nightly Backup Report — March 2",
+          "body_plain": "All backups completed successfully. Total data: 4.2 TB. Duration: 3h 17m. No errors.",
+          "date": "2026-03-03T06:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_029",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_029",
+          "thread_id": "th_ops_029",
+          "from_": "alerts@cmms.example.com",
+          "to": "[\"me\"]",
+          "subject": "Work Order #WO-3847 Overdue",
+          "body_plain": "Work Order #WO-3847 (Generator monthly test — Building D) is 2 days overdue. Assigned to: Ruben Vasquez.",
+          "date": "2026-03-02T14:15:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_008",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_008",
+          "thread_id": "th_ops_008",
+          "from_": "service@elevatorplus.example.com",
+          "to": "[\"me\"]",
+          "subject": "Elevator Maintenance Confirmation — March 5",
+          "body_plain": "Confirming elevator maintenance for Building A, elevators 1-3, March 5 from 6 AM to 10 AM. Please post out-of-service notices.",
+          "date": "2026-03-01T16:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_004",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_004",
+          "thread_id": "th_ops_004",
+          "from_": "security@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Monthly Access Audit — February 2026",
+          "body_plain": "February access audit complete. 3 badges deactivated (terminations), 7 new badges issued. No anomalies detected.",
+          "date": "2026-03-01T09:15:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_038",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_038",
+          "thread_id": "th_ops_038",
+          "from_": "msoto@bridgeway.example.com",
+          "to": "[\"me\"]",
+          "subject": "Inventory cycle count — discrepancies found",
+          "body_plain": "March cycle count found discrepancies in 3 SKUs: BOLT-M8x25 (-42 units), FILTER-HV13 (-7 units), GLOVE-NIT-L (+15 boxes). Investigation underway.",
+          "date": "2026-03-03T10:45:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_003",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_003",
+          "thread_id": "th_ops_003",
+          "from_": "safety@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Safety Incident Report #SR-2026-047",
+          "body_plain": "Minor slip reported in warehouse aisle 7. No injury. Root cause: condensation from cooler unit. Corrective action: floor mat installed.",
+          "date": "2026-03-01T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_031",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_031",
+          "thread_id": "th_ops_031",
+          "from_": "inventory@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Low Stock Alert: Nitrile Gloves (Large)",
+          "body_plain": "Stock level for Nitrile Gloves (Large) dropped below reorder point. Current: 8 boxes. Reorder point: 15 boxes. Auto-PO submitted.",
+          "date": "2026-03-01T16:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_002",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_002",
+          "thread_id": "th_ops_002",
+          "from_": "maintenance@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Preventive Maintenance Schedule — Week 10",
+          "body_plain": "Attached: Week 10 PM schedule. 14 work orders open, 3 urgent. Building C chiller inspection due Thursday.",
+          "date": "2026-03-02T06:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_033",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_033",
+          "thread_id": "th_ops_033",
+          "from_": "training@company.example.com",
+          "to": "[\"ops-team@company.example.com\"]",
+          "subject": "Forklift Certification Renewal — March 20",
+          "body_plain": "Forklift certification renewal class on March 20, 8 AM - 12 PM, Warehouse Training Room. 6 spots remaining.",
+          "date": "2026-03-02T12:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_020",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_020",
+          "thread_id": "th_ops_020",
+          "from_": "energy@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Monthly Energy Report — February 2026",
+          "body_plain": "February energy consumption: 142,000 kWh (down 3% from Jan). Peak demand: 380 kW on Feb 14. Solar offset: 12%.",
+          "date": "2026-03-01T10:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_010",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_010",
+          "thread_id": "th_ops_010",
+          "from_": "lmorales@beaconsafe.example.com",
+          "to": "[\"me\"]",
+          "subject": "Fire extinguisher inspection report ready",
+          "body_plain": "Annual fire extinguisher inspection complete. 2 units replaced (Building B, Floor 3). Full report attached.",
+          "date": "2026-03-03T08:20:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_023",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_023",
+          "thread_id": "th_ops_023",
+          "from_": "rvasquez@summitmain.example.com",
+          "to": "[\"me\"]",
+          "subject": "Boiler inspection passed",
+          "body_plain": "Annual boiler inspection completed. All 3 units passed. Certificates uploaded to the compliance portal.",
+          "date": "2026-03-03T10:15:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_005",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_005",
+          "thread_id": "th_ops_005",
+          "from_": "procurement@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Purchase Order Approval Required — PO-2026-0312",
+          "body_plain": "PO for janitorial supplies ($3,200) awaiting approval. Vendor: CleanRight Supply. Delivery: March 10.",
+          "date": "2026-02-28T07:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_016",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_016",
+          "thread_id": "th_ops_016",
+          "from_": "hr@company.example.com",
+          "to": "[\"all@company.example.com\"]",
+          "subject": "New Employee Onboarding — Week of March 10",
+          "body_plain": "3 new hires starting March 10. Please ensure workstations, badges, and parking passes are ready by March 7.",
+          "date": "2026-02-27T11:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_019",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_019",
+          "thread_id": "th_ops_019",
+          "from_": "shipping@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Inbound Shipment — Tracking #TRK8847291",
+          "body_plain": "Shipment from TrueNorth Equipment arriving March 5. 3 pallets. Please allocate dock space.",
+          "date": "2026-02-28T15:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_027",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_027",
+          "thread_id": "th_ops_027",
+          "from_": "ijohansson@northwind.example.com",
+          "to": "[\"me\"]",
+          "subject": "Vendor scorecard Q1 results",
+          "body_plain": "Q1 vendor scorecards posted. Top performers: Granite Supply (98/100), Summit Maintenance (95/100). 2 vendors flagged for late deliveries.",
+          "date": "2026-03-02T09:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_028",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_028",
+          "thread_id": "th_ops_028",
+          "from_": "cwhitfield@coastalfl.example.com",
+          "to": "[\"me\"]",
+          "subject": "Fleet fuel consumption report — February",
+          "body_plain": "February fleet fuel: 4,200 gallons. Average 14.2 MPG. Vehicle F-112 flagged for 22% above average consumption.",
+          "date": "2026-03-01T11:45:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_034",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_034",
+          "thread_id": "th_ops_034",
+          "from_": "calendar-noreply@meet.example.com",
+          "to": "[\"me\"]",
+          "subject": "Meeting Confirmed: Weekly Ops Standup",
+          "body_plain": "Your meeting 'Weekly Ops Standup' has been confirmed for Monday March 3 at 9:00 AM PST.",
+          "date": "2026-03-02T17:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_017",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_017",
+          "thread_id": "th_ops_017",
+          "from_": "ehs@company.example.com",
+          "to": "[\"ops-team@company.example.com\"]",
+          "subject": "OSHA Training Reminder — Due March 15",
+          "body_plain": "Reminder: Annual OSHA safety training must be completed by March 15. Log into LMS to access the module.",
+          "date": "2026-03-01T08:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_014",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_014",
+          "thread_id": "th_ops_014",
+          "from_": "helpdesk@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Ticket #HD-4521 resolved",
+          "body_plain": "Your ticket regarding conference room AV equipment has been resolved. New projector installed and tested in Room 301.",
+          "date": "2026-03-02T16:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_018",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_018",
+          "thread_id": "th_ops_018",
+          "from_": "fleet@company.example.com",
+          "to": "[\"me\"]",
+          "subject": "Vehicle #F-207 maintenance due",
+          "body_plain": "Vehicle F-207 (2024 Ford Transit) is due for 30k mile service. Schedule with Fleet Auto by March 12.",
+          "date": "2026-03-03T07:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_007",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_007",
+          "thread_id": "th_ops_007",
+          "from_": "schen@granitesupply.example.com",
+          "to": "[\"me\"]",
+          "subject": "Quote for replacement HVAC filters",
+          "body_plain": "Hi, attached is the quote for 200 MERV-13 filters. Unit price: $24.50. Bulk discount applied. Lead time: 5 business days.",
+          "date": "2026-03-02T11:30:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_036",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_036",
+          "thread_id": "th_ops_036",
+          "from_": "ydawson@atlasproperty.example.com",
+          "to": "[\"me\"]",
+          "subject": "Lease renewal — Building D, Suite 400",
+          "body_plain": "Lease renewal for Suite 400 due April 30. Current rate: $32/sqft. Landlord proposing 4% increase. Suggest we counter at 2%.",
+          "date": "2026-03-01T15:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_035",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_035",
+          "thread_id": "th_ops_035",
+          "from_": "nfry@prairieener.example.com",
+          "to": "[\"me\"]",
+          "subject": "Energy audit scheduling",
+          "body_plain": "Annual energy audit scheduled for March 24-25. Auditor will need access to all electrical panels and HVAC mechanical rooms.",
+          "date": "2026-03-03T09:00:00Z",
+          "label_ids": "[\"INBOX\",\"UNREAD\"]",
+          "is_read": "false"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_030",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_030",
+          "thread_id": "th_ops_030",
+          "from_": "alerts@bms.example.com",
+          "to": "[\"me\"]",
+          "subject": "Building Management Alert — Zone 3 Humidity",
+          "body_plain": "Humidity in Zone 3 exceeded 65% at 11:23 AM. Dehumidifier activated. Current reading: 58%.",
+          "date": "2026-03-03T07:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_006",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_006",
+          "thread_id": "th_ops_006",
+          "from_": "mreeves@pinnaclelogi.example.com",
+          "to": "[\"me\"]",
+          "subject": "Re: Delivery Schedule Update",
+          "body_plain": "Confirming the updated delivery schedule: Tuesday/Thursday 6 AM - 8 AM. Loading dock 3 reserved.",
+          "date": "2026-03-02T14:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_msg_ops_022",
+        "fields": {
+          "collection": "mail_messages",
+          "id": "msg_ops_022",
+          "thread_id": "th_ops_022",
+          "from_": "dokafor@crestfield.example.com",
+          "to": "[\"me\"]",
+          "subject": "Compliance audit follow-up items",
+          "body_plain": "3 items from last week's compliance audit need attention: chemical storage labeling, eyewash station testing, and forklift cert updates.",
+          "date": "2026-03-02T13:00:00Z",
+          "label_ids": "[\"INBOX\"]",
+          "is_read": "true"
+        }
+      },
+      {
+        "record_id": "rec_mail_labels_PROCESSED",
+        "fields": {
+          "collection": "mail_labels",
+          "id": "PROCESSED",
+          "name": "PROCESSED"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "thread_id",
+        "type": "text"
+      },
+      {
+        "name": "from_",
+        "type": "text"
+      },
+      {
+        "name": "to",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "body_plain",
+        "type": "text"
+      },
+      {
+        "name": "label_ids",
+        "type": "text"
+      },
+      {
+        "name": "is_read",
+        "type": "text"
+      },
+      {
+        "name": "date",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "alerts@bms.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "alerts@cmms.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "all@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "already_processed@repeat.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "angry@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "backups@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "calendar-noreply@meet.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "complaints@winterresorts.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "cwhitfield@coastalfl.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "dokafor@crestfield.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "ehs@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "energy@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "facilities@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "feedback-bot@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "feedback@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "fleet@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "frustrated@bigcorp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "happy@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "happycustomer@enterprise-tech.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "helpdesk@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_20",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_21",
+      "name": "hrusso@prairieener.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_22",
+      "name": "ijohansson@northwind.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_23",
+      "name": "inventory@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_24",
+      "name": "lmorales@beaconsafe.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_25",
+      "name": "maintenance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_26",
+      "name": "mreeves@pinnaclelogi.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_27",
+      "name": "msoto@bridgeway.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_28",
+      "name": "neutral@customer.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_29",
+      "name": "nfry@prairieener.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_30",
+      "name": "old_feedback@legacy.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_31",
+      "name": "ops-team@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_32",
+      "name": "ops@acmegroup.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_33",
+      "name": "ops@techdynamic.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_34",
+      "name": "procurement@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_35",
+      "name": "rvasquez@summitmain.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_36",
+      "name": "safety@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_37",
+      "name": "satisfied@enterprise-solutions.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_38",
+      "name": "schen@granitesupply.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_39",
+      "name": "security@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_40",
+      "name": "service@elevatorplus.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_41",
+      "name": "shipping@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_42",
+      "name": "training@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_43",
+      "name": "upset@megacorp.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_44",
+      "name": "vlindgren@harbourwar.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_45",
+      "name": "ydawson@atlasproperty.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_CCUSTISS",
+      "name": "customer-issues",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_CCUSTWIN",
+      "name": "customer-wins",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_CVIPESC",
+      "name": "vip-escalations",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_fb_001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_001\\\", \\\"thread_id\\\": \\\"thr_fb_001\\\", \\\"from_\\\": \\\"happy@customer.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Amazing product!\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T10:00:00Z\\\"}\\n消息 ID：msg_fb_001\\n来源：happy@customer.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T10:00:00Z\\n主题：Feedback: Amazing product!\\nYour product has transformed our business. The team loves it and we've seen 40% productivity gains. Keep up the great work!\"}"
+      },
+      "create_time": "1769680800000"
+    },
+    {
+      "message_id": "om_msg_fb_002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_002\\\", \\\"thread_id\\\": \\\"thr_fb_002\\\", \\\"from_\\\": \\\"angry@customer.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Terrible experience\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T11:00:00Z\\\"}\\n消息 ID：msg_fb_002\\n来源：angry@customer.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T11:00:00Z\\n主题：Feedback: Terrible experience\\nI've been waiting 3 weeks for support. This is unacceptable. Your product keeps crashing and nobody responds to my tickets. I'm considering switching to a competitor.\"}"
+      },
+      "create_time": "1769684400000"
+    },
+    {
+      "message_id": "om_msg_fb_003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_003\\\", \\\"thread_id\\\": \\\"thr_fb_003\\\", \\\"from_\\\": \\\"neutral@customer.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: It is okay I guess\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T12:00:00Z\\\"}\\n消息 ID：msg_fb_003\\n来源：neutral@customer.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T12:00:00Z\\n主题：Feedback: It is okay I guess\\nThe product works as expected. Nothing special but nothing bad either. It does what it says.\"}"
+      },
+      "create_time": "1769688000000"
+    },
+    {
+      "message_id": "om_msg_fb_004",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_004\\\", \\\"thread_id\\\": \\\"thr_fb_004\\\", \\\"from_\\\": \\\"frustrated@bigcorp.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Disappointed with service\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T13:00:00Z\\\"}\\n消息 ID：msg_fb_004\\n来源：frustrated@bigcorp.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T13:00:00Z\\n主题：Feedback: Disappointed with service\\nWe have been a customer for 3 years and the quality has really declined. Response times are slow and features keep breaking. Very disappointed.\"}"
+      },
+      "create_time": "1769691600000"
+    },
+    {
+      "message_id": "om_msg_fb_005",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_005\\\", \\\"thread_id\\\": \\\"thr_fb_005\\\", \\\"from_\\\": \\\"satisfied@enterprise-solutions.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Great partnership\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T14:00:00Z\\\"}\\n消息 ID：msg_fb_005\\n来源：satisfied@enterprise-solutions.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T14:00:00Z\\n主题：Feedback: Great partnership\\nYour team has been fantastic. The onboarding was smooth and support is always responsive. We are very happy with our decision.\"}"
+      },
+      "create_time": "1769695200000"
+    },
+    {
+      "message_id": "om_msg_fb_006",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_006\\\", \\\"thread_id\\\": \\\"thr_fb_006\\\", \\\"from_\\\": \\\"feedback-bot@company.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Internal test message\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T08:00:00Z\\\"}\\n消息 ID：msg_fb_006\\n来源：feedback-bot@company.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T08:00:00Z\\n主题：Feedback: Internal test message\\nThis is an internal test of the feedback system. Please ignore this automated message.\"}"
+      },
+      "create_time": "1769673600000"
+    },
+    {
+      "message_id": "om_msg_fb_007",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_007\\\", \\\"thread_id\\\": \\\"thr_fb_007\\\", \\\"from_\\\": \\\"old_feedback@legacy.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Old complaint\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-27T10:00:00Z\\\"}\\n消息 ID：msg_fb_007\\n来源：old_feedback@legacy.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-27T10:00:00Z\\n主题：Feedback: Old complaint\\nThis is terrible! The worst product I have ever used. Completely unusable!\"}"
+      },
+      "create_time": "1769508000000"
+    },
+    {
+      "message_id": "om_msg_fb_008",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_008\\\", \\\"thread_id\\\": \\\"thr_fb_008\\\", \\\"from_\\\": \\\"already_processed@repeat.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Repeat complaint\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\", \\\"PROCESSED\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T09:00:00Z\\\"}\\n消息 ID：msg_fb_008\\n来源：already_processed@repeat.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T09:00:00Z\\n主题：Feedback: Repeat complaint\\nStill having the same issues I reported last week. Very frustrated!\"}"
+      },
+      "create_time": "1769677200000"
+    },
+    {
+      "message_id": "om_msg_fb_009",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_009\\\", \\\"thread_id\\\": \\\"thr_fb_009\\\", \\\"from_\\\": \\\"happycustomer@enterprise-tech.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Mixed feelings\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T15:00:00Z\\\"}\\n消息 ID：msg_fb_009\\n来源：happycustomer@enterprise-tech.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T15:00:00Z\\n主题：Feedback: Mixed feelings\\nSome features are good, some are not. Overall it is average. Not great, not terrible.\"}"
+      },
+      "create_time": "1769698800000"
+    },
+    {
+      "message_id": "om_msg_fb_010",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_010\\\", \\\"thread_id\\\": \\\"thr_fb_010\\\", \\\"from_\\\": \\\"upset@megacorp.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Very unhappy with support\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T16:00:00Z\\\"}\\n消息 ID：msg_fb_010\\n来源：upset@megacorp.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T16:00:00Z\\n主题：Feedback: Very unhappy with support\\nWe were extremely frustrated with the slow response times and lack of communication from your support team. This was completely unacceptable for an enterprise customer. UPDATE: Our account manager reached out and resolved this yesterday, no action needed.\"}"
+      },
+      "create_time": "1769702400000"
+    },
+    {
+      "message_id": "om_msg_fb_011",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_011\\\", \\\"thread_id\\\": \\\"thr_fb_011\\\", \\\"from_\\\": \\\"complaints@winterresorts.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Service degradation during peak season\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T17:00:00Z\\\"}\\n消息 ID：msg_fb_011\\n来源：complaints@winterresorts.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T17:00:00Z\\n主题：Feedback: Service degradation during peak season\\nDuring our peak winter season your platform went down twice causing significant revenue loss. Your SLA commitments were not met and we expect compensation.\"}"
+      },
+      "create_time": "1769706000000"
+    },
+    {
+      "message_id": "om_msg_fb_012",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_012\\\", \\\"thread_id\\\": \\\"thr_fb_012\\\", \\\"from_\\\": \\\"ops@acmegroup.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Billing errors on our account\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T18:00:00Z\\\"}\\n消息 ID：msg_fb_012\\n来源：ops@acmegroup.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T18:00:00Z\\n主题：Feedback: Billing errors on our account\\nWe have been overcharged for the last two months. Our finance team has flagged multiple billing discrepancies that need immediate resolution.\"}"
+      },
+      "create_time": "1769709600000"
+    },
+    {
+      "message_id": "om_msg_fb_013",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_fb_013\\\", \\\"thread_id\\\": \\\"thr_fb_013\\\", \\\"from_\\\": \\\"ops@techdynamic.example.com\\\", \\\"to\\\": [\\\"feedback@company.example.com\\\"], \\\"subject\\\": \\\"Feedback: Positive feedback - excellent platform\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-29T19:00:00Z\\\"}\\n消息 ID：msg_fb_013\\n来源：ops@techdynamic.example.com\\n收件人：feedback@company.example.com\\n日期：2026-01-29T19:00:00Z\\n主题：Feedback: Positive feedback - excellent platform\\nEverything has been great! Although I should mention that our winter operations team has been having some minor issues with the seasonal dashboard module. But overall we're very satisfied.\"}"
+      },
+      "create_time": "1769713200000"
+    },
+    {
+      "message_id": "om_msg_ops_021",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_021\\\", \\\"thread_id\\\": \\\"th_ops_021\\\", \\\"from_\\\": \\\"vlindgren@harbourwar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Racking system installation — Phase 2\\\", \\\"date\\\": \\\"2026-03-03T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_021\\n来源：vlindgren@harbourwar.example.com\\n收件人：me\\n日期：2026-03-03T09:00:00Z\\n主题：Racking system installation — Phase 2\\nPhase 2 racking installation scheduled for March 17-21. Please confirm aisle 12-14 will be cleared by March 14.\"}"
+      },
+      "create_time": "1772528400000"
+    },
+    {
+      "message_id": "om_msg_ops_001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_001\\\", \\\"thread_id\\\": \\\"th_ops_001\\\", \\\"from_\\\": \\\"facilities@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Daily Facilities Report — March 3\\\", \\\"date\\\": \\\"2026-03-03T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_001\\n来源：facilities@company.example.com\\n收件人：me\\n日期：2026-03-03T07:00:00Z\\n主题：Daily Facilities Report — March 3\\nMorning report: All HVAC systems nominal. Elevator B maintenance scheduled 2 PM. Parking lot sweeping completed overnight.\"}"
+      },
+      "create_time": "1772521200000"
+    },
+    {
+      "message_id": "om_msg_ops_025",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_025\\\", \\\"thread_id\\\": \\\"th_ops_025\\\", \\\"from_\\\": \\\"hrusso@prairieener.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Solar panel cleaning scheduled\\\", \\\"date\\\": \\\"2026-03-01T14:20:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_025\\n来源：hrusso@prairieener.example.com\\n收件人：me\\n日期：2026-03-01T14:20:00Z\\n主题：Solar panel cleaning scheduled\\nSolar panel cleaning crew scheduled for March 8, 6 AM - 12 PM. Roof access needed. Please notify security.\"}"
+      },
+      "create_time": "1772374800000"
+    },
+    {
+      "message_id": "om_msg_ops_015",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_015\\\", \\\"thread_id\\\": \\\"th_ops_015\\\", \\\"from_\\\": \\\"backups@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"Nightly Backup Report — March 2\\\", \\\"date\\\": \\\"2026-03-03T06:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_015\\n来源：backups@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-03T06:00:00Z\\n主题：Nightly Backup Report — March 2\\nAll backups completed successfully. Total data: 4.2 TB. Duration: 3h 17m. No errors.\"}"
+      },
+      "create_time": "1772517600000"
+    },
+    {
+      "message_id": "om_msg_ops_029",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_029\\\", \\\"thread_id\\\": \\\"th_ops_029\\\", \\\"from_\\\": \\\"alerts@cmms.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Work Order #WO-3847 Overdue\\\", \\\"date\\\": \\\"2026-03-02T14:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_029\\n来源：alerts@cmms.example.com\\n收件人：me\\n日期：2026-03-02T14:15:00Z\\n主题：Work Order #WO-3847 Overdue\\nWork Order #WO-3847 (Generator monthly test — Building D) is 2 days overdue. Assigned to: Ruben Vasquez.\"}"
+      },
+      "create_time": "1772460900000"
+    },
+    {
+      "message_id": "om_msg_ops_008",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_008\\\", \\\"thread_id\\\": \\\"th_ops_008\\\", \\\"from_\\\": \\\"service@elevatorplus.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Elevator Maintenance Confirmation — March 5\\\", \\\"date\\\": \\\"2026-03-01T16:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_008\\n来源：service@elevatorplus.example.com\\n收件人：me\\n日期：2026-03-01T16:00:00Z\\n主题：Elevator Maintenance Confirmation — March 5\\nConfirming elevator maintenance for Building A, elevators 1-3, March 5 from 6 AM to 10 AM. Please post out-of-service notices.\"}"
+      },
+      "create_time": "1772380800000"
+    },
+    {
+      "message_id": "om_msg_ops_004",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_004\\\", \\\"thread_id\\\": \\\"th_ops_004\\\", \\\"from_\\\": \\\"security@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Monthly Access Audit — February 2026\\\", \\\"date\\\": \\\"2026-03-01T09:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_004\\n来源：security@company.example.com\\n收件人：me\\n日期：2026-03-01T09:15:00Z\\n主题：Monthly Access Audit — February 2026\\nFebruary access audit complete. 3 badges deactivated (terminations), 7 new badges issued. No anomalies detected.\"}"
+      },
+      "create_time": "1772356500000"
+    },
+    {
+      "message_id": "om_msg_ops_038",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_038\\\", \\\"thread_id\\\": \\\"th_ops_038\\\", \\\"from_\\\": \\\"msoto@bridgeway.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Inventory cycle count — discrepancies found\\\", \\\"date\\\": \\\"2026-03-03T10:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_038\\n来源：msoto@bridgeway.example.com\\n收件人：me\\n日期：2026-03-03T10:45:00Z\\n主题：Inventory cycle count — discrepancies found\\nMarch cycle count found discrepancies in 3 SKUs: BOLT-M8x25 (-42 units), FILTER-HV13 (-7 units), GLOVE-NIT-L (+15 boxes). Investigation underway.\"}"
+      },
+      "create_time": "1772534700000"
+    },
+    {
+      "message_id": "om_msg_ops_003",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_003\\\", \\\"thread_id\\\": \\\"th_ops_003\\\", \\\"from_\\\": \\\"safety@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Safety Incident Report #SR-2026-047\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_003\\n来源：safety@company.example.com\\n收件人：me\\n日期：2026-03-01T08:00:00Z\\n主题：Safety Incident Report #SR-2026-047\\nMinor slip reported in warehouse aisle 7. No injury. Root cause: condensation from cooler unit. Corrective action: floor mat installed.\"}"
+      },
+      "create_time": "1772352000000"
+    },
+    {
+      "message_id": "om_msg_ops_031",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_031\\\", \\\"thread_id\\\": \\\"th_ops_031\\\", \\\"from_\\\": \\\"inventory@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Low Stock Alert: Nitrile Gloves (Large)\\\", \\\"date\\\": \\\"2026-03-01T16:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_031\\n来源：inventory@company.example.com\\n收件人：me\\n日期：2026-03-01T16:45:00Z\\n主题：Low Stock Alert: Nitrile Gloves (Large)\\nStock level for Nitrile Gloves (Large) dropped below reorder point. Current: 8 boxes. Reorder point: 15 boxes. Auto-PO submitted.\"}"
+      },
+      "create_time": "1772383500000"
+    },
+    {
+      "message_id": "om_msg_ops_002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_002\\\", \\\"thread_id\\\": \\\"th_ops_002\\\", \\\"from_\\\": \\\"maintenance@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Preventive Maintenance Schedule — Week 10\\\", \\\"date\\\": \\\"2026-03-02T06:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_002\\n来源：maintenance@company.example.com\\n收件人：me\\n日期：2026-03-02T06:30:00Z\\n主题：Preventive Maintenance Schedule — Week 10\\nAttached: Week 10 PM schedule. 14 work orders open, 3 urgent. Building C chiller inspection due Thursday.\"}"
+      },
+      "create_time": "1772433000000"
+    },
+    {
+      "message_id": "om_msg_ops_033",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_033\\\", \\\"thread_id\\\": \\\"th_ops_033\\\", \\\"from_\\\": \\\"training@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"Forklift Certification Renewal — March 20\\\", \\\"date\\\": \\\"2026-03-02T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_033\\n来源：training@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-02T12:00:00Z\\n主题：Forklift Certification Renewal — March 20\\nForklift certification renewal class on March 20, 8 AM - 12 PM, Warehouse Training Room. 6 spots remaining.\"}"
+      },
+      "create_time": "1772452800000"
+    },
+    {
+      "message_id": "om_msg_ops_020",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_020\\\", \\\"thread_id\\\": \\\"th_ops_020\\\", \\\"from_\\\": \\\"energy@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Monthly Energy Report — February 2026\\\", \\\"date\\\": \\\"2026-03-01T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_020\\n来源：energy@company.example.com\\n收件人：me\\n日期：2026-03-01T10:00:00Z\\n主题：Monthly Energy Report — February 2026\\nFebruary energy consumption: 142,000 kWh (down 3% from Jan). Peak demand: 380 kW on Feb 14. Solar offset: 12%.\"}"
+      },
+      "create_time": "1772359200000"
+    },
+    {
+      "message_id": "om_msg_ops_010",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_010\\\", \\\"thread_id\\\": \\\"th_ops_010\\\", \\\"from_\\\": \\\"lmorales@beaconsafe.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Fire extinguisher inspection report ready\\\", \\\"date\\\": \\\"2026-03-03T08:20:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_010\\n来源：lmorales@beaconsafe.example.com\\n收件人：me\\n日期：2026-03-03T08:20:00Z\\n主题：Fire extinguisher inspection report ready\\nAnnual fire extinguisher inspection complete. 2 units replaced (Building B, Floor 3). Full report attached.\"}"
+      },
+      "create_time": "1772526000000"
+    },
+    {
+      "message_id": "om_msg_ops_023",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_023\\\", \\\"thread_id\\\": \\\"th_ops_023\\\", \\\"from_\\\": \\\"rvasquez@summitmain.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Boiler inspection passed\\\", \\\"date\\\": \\\"2026-03-03T10:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_023\\n来源：rvasquez@summitmain.example.com\\n收件人：me\\n日期：2026-03-03T10:15:00Z\\n主题：Boiler inspection passed\\nAnnual boiler inspection completed. All 3 units passed. Certificates uploaded to the compliance portal.\"}"
+      },
+      "create_time": "1772532900000"
+    },
+    {
+      "message_id": "om_msg_ops_005",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_005\\\", \\\"thread_id\\\": \\\"th_ops_005\\\", \\\"from_\\\": \\\"procurement@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Purchase Order Approval Required — PO-2026-0312\\\", \\\"date\\\": \\\"2026-02-28T07:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_005\\n来源：procurement@company.example.com\\n收件人：me\\n日期：2026-02-28T07:45:00Z\\n主题：Purchase Order Approval Required — PO-2026-0312\\nPO for janitorial supplies ($3,200) awaiting approval. Vendor: CleanRight Supply. Delivery: March 10.\"}"
+      },
+      "create_time": "1772264700000"
+    },
+    {
+      "message_id": "om_msg_ops_016",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_016\\\", \\\"thread_id\\\": \\\"th_ops_016\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all@company.example.com\\\"], \\\"subject\\\": \\\"New Employee Onboarding — Week of March 10\\\", \\\"date\\\": \\\"2026-02-27T11:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_016\\n来源：hr@company.example.com\\n收件人：all@company.example.com\\n日期：2026-02-27T11:00:00Z\\n主题：New Employee Onboarding — Week of March 10\\n3 new hires starting March 10. Please ensure workstations, badges, and parking passes are ready by March 7.\"}"
+      },
+      "create_time": "1772190000000"
+    },
+    {
+      "message_id": "om_msg_ops_019",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_019\\\", \\\"thread_id\\\": \\\"th_ops_019\\\", \\\"from_\\\": \\\"shipping@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Inbound Shipment — Tracking #TRK8847291\\\", \\\"date\\\": \\\"2026-02-28T15:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_019\\n来源：shipping@company.example.com\\n收件人：me\\n日期：2026-02-28T15:30:00Z\\n主题：Inbound Shipment — Tracking #TRK8847291\\nShipment from TrueNorth Equipment arriving March 5. 3 pallets. Please allocate dock space.\"}"
+      },
+      "create_time": "1772292600000"
+    },
+    {
+      "message_id": "om_msg_ops_027",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_027\\\", \\\"thread_id\\\": \\\"th_ops_027\\\", \\\"from_\\\": \\\"ijohansson@northwind.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Vendor scorecard Q1 results\\\", \\\"date\\\": \\\"2026-03-02T09:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_027\\n来源：ijohansson@northwind.example.com\\n收件人：me\\n日期：2026-03-02T09:30:00Z\\n主题：Vendor scorecard Q1 results\\nQ1 vendor scorecards posted. Top performers: Granite Supply (98/100), Summit Maintenance (95/100). 2 vendors flagged for late deliveries.\"}"
+      },
+      "create_time": "1772443800000"
+    },
+    {
+      "message_id": "om_msg_ops_028",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_028\\\", \\\"thread_id\\\": \\\"th_ops_028\\\", \\\"from_\\\": \\\"cwhitfield@coastalfl.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Fleet fuel consumption report — February\\\", \\\"date\\\": \\\"2026-03-01T11:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_028\\n来源：cwhitfield@coastalfl.example.com\\n收件人：me\\n日期：2026-03-01T11:45:00Z\\n主题：Fleet fuel consumption report — February\\nFebruary fleet fuel: 4,200 gallons. Average 14.2 MPG. Vehicle F-112 flagged for 22% above average consumption.\"}"
+      },
+      "create_time": "1772365500000"
+    },
+    {
+      "message_id": "om_msg_ops_034",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_034\\\", \\\"thread_id\\\": \\\"th_ops_034\\\", \\\"from_\\\": \\\"calendar-noreply@meet.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Meeting Confirmed: Weekly Ops Standup\\\", \\\"date\\\": \\\"2026-03-02T17:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_034\\n来源：calendar-noreply@meet.example.com\\n收件人：me\\n日期：2026-03-02T17:00:00Z\\n主题：Meeting Confirmed: Weekly Ops Standup\\nYour meeting 'Weekly Ops Standup' has been confirmed for Monday March 3 at 9:00 AM PST.\"}"
+      },
+      "create_time": "1772470800000"
+    },
+    {
+      "message_id": "om_msg_ops_017",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_017\\\", \\\"thread_id\\\": \\\"th_ops_017\\\", \\\"from_\\\": \\\"ehs@company.example.com\\\", \\\"to\\\": [\\\"ops-team@company.example.com\\\"], \\\"subject\\\": \\\"OSHA Training Reminder — Due March 15\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_017\\n来源：ehs@company.example.com\\n收件人：ops-team@company.example.com\\n日期：2026-03-01T08:00:00Z\\n主题：OSHA Training Reminder — Due March 15\\nReminder: Annual OSHA safety training must be completed by March 15. Log into LMS to access the module.\"}"
+      },
+      "create_time": "1772352000000"
+    },
+    {
+      "message_id": "om_msg_ops_014",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_014\\\", \\\"thread_id\\\": \\\"th_ops_014\\\", \\\"from_\\\": \\\"helpdesk@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Ticket #HD-4521 resolved\\\", \\\"date\\\": \\\"2026-03-02T16:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_014\\n来源：helpdesk@company.example.com\\n收件人：me\\n日期：2026-03-02T16:30:00Z\\n主题：Ticket #HD-4521 resolved\\nYour ticket regarding conference room AV equipment has been resolved. New projector installed and tested in Room 301.\"}"
+      },
+      "create_time": "1772469000000"
+    },
+    {
+      "message_id": "om_msg_ops_018",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_018\\\", \\\"thread_id\\\": \\\"th_ops_018\\\", \\\"from_\\\": \\\"fleet@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Vehicle #F-207 maintenance due\\\", \\\"date\\\": \\\"2026-03-03T07:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_018\\n来源：fleet@company.example.com\\n收件人：me\\n日期：2026-03-03T07:30:00Z\\n主题：Vehicle #F-207 maintenance due\\nVehicle F-207 (2024 Ford Transit) is due for 30k mile service. Schedule with Fleet Auto by March 12.\"}"
+      },
+      "create_time": "1772523000000"
+    },
+    {
+      "message_id": "om_msg_ops_007",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_007\\\", \\\"thread_id\\\": \\\"th_ops_007\\\", \\\"from_\\\": \\\"schen@granitesupply.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Quote for replacement HVAC filters\\\", \\\"date\\\": \\\"2026-03-02T11:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_007\\n来源：schen@granitesupply.example.com\\n收件人：me\\n日期：2026-03-02T11:30:00Z\\n主题：Quote for replacement HVAC filters\\nHi, attached is the quote for 200 MERV-13 filters. Unit price: $24.50. Bulk discount applied. Lead time: 5 business days.\"}"
+      },
+      "create_time": "1772451000000"
+    },
+    {
+      "message_id": "om_msg_ops_036",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_036\\\", \\\"thread_id\\\": \\\"th_ops_036\\\", \\\"from_\\\": \\\"ydawson@atlasproperty.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Lease renewal — Building D, Suite 400\\\", \\\"date\\\": \\\"2026-03-01T15:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_036\\n来源：ydawson@atlasproperty.example.com\\n收件人：me\\n日期：2026-03-01T15:00:00Z\\n主题：Lease renewal — Building D, Suite 400\\nLease renewal for Suite 400 due April 30. Current rate: $32/sqft. Landlord proposing 4% increase. Suggest we counter at 2%.\"}"
+      },
+      "create_time": "1772377200000"
+    },
+    {
+      "message_id": "om_msg_ops_035",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_035\\\", \\\"thread_id\\\": \\\"th_ops_035\\\", \\\"from_\\\": \\\"nfry@prairieener.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Energy audit scheduling\\\", \\\"date\\\": \\\"2026-03-03T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_ops_035\\n来源：nfry@prairieener.example.com\\n收件人：me\\n日期：2026-03-03T09:00:00Z\\n主题：Energy audit scheduling\\nAnnual energy audit scheduled for March 24-25. Auditor will need access to all electrical panels and HVAC mechanical rooms.\"}"
+      },
+      "create_time": "1772528400000"
+    },
+    {
+      "message_id": "om_msg_ops_030",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_030\\\", \\\"thread_id\\\": \\\"th_ops_030\\\", \\\"from_\\\": \\\"alerts@bms.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Building Management Alert — Zone 3 Humidity\\\", \\\"date\\\": \\\"2026-03-03T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_030\\n来源：alerts@bms.example.com\\n收件人：me\\n日期：2026-03-03T07:00:00Z\\n主题：Building Management Alert — Zone 3 Humidity\\nHumidity in Zone 3 exceeded 65% at 11:23 AM. Dehumidifier activated. Current reading: 58%.\"}"
+      },
+      "create_time": "1772521200000"
+    },
+    {
+      "message_id": "om_msg_ops_006",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_006\\\", \\\"thread_id\\\": \\\"th_ops_006\\\", \\\"from_\\\": \\\"mreeves@pinnaclelogi.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Delivery Schedule Update\\\", \\\"date\\\": \\\"2026-03-02T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_006\\n来源：mreeves@pinnaclelogi.example.com\\n收件人：me\\n日期：2026-03-02T14:00:00Z\\n主题：Re: Delivery Schedule Update\\nConfirming the updated delivery schedule: Tuesday/Thursday 6 AM - 8 AM. Loading dock 3 reserved.\"}"
+      },
+      "create_time": "1772460000000"
+    },
+    {
+      "message_id": "om_msg_ops_022",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ops_022\\\", \\\"thread_id\\\": \\\"th_ops_022\\\", \\\"from_\\\": \\\"dokafor@crestfield.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Compliance audit follow-up items\\\", \\\"date\\\": \\\"2026-03-02T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_ops_022\\n来源：dokafor@crestfield.example.com\\n收件人：me\\n日期：2026-03-02T13:00:00Z\\n主题：Compliance audit follow-up items\\n3 items from last week's compliance audit need attention: chemical storage labeling, eyewash station testing, and forklift cert updates.\"}"
+      },
+      "create_time": "1772456400000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080013.000013\\\", \\\"user_id\\\": \\\"U_ops_13\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nNew hire orientation: 3 new warehouse staff starting Monday. Badge photos at 8 AM.\"}"
+      },
+      "create_time": "1741080013.000013"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080012.000012\\\", \\\"user_id\\\": \\\"U_ops_12\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nParking lot B re-striping scheduled for this weekend. Please park in Lot C.\"}"
+      },
+      "create_time": "1741080012.000012"
+    },
+    {
+      "message_id": "om_slack_2",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080025.000025\\\", \\\"user_id\\\": \\\"U_ops_25\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nEmergency lighting test completed for all buildings. 2 bulbs replaced in Building D stairwell.\"}"
+      },
+      "create_time": "1741080025.000025"
+    },
+    {
+      "message_id": "om_slack_3",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080006.000006\\\", \\\"user_id\\\": \\\"U_ops_06\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nNew vendor onboarded: GreenField Environmental. Insurance certs verified.\"}"
+      },
+      "create_time": "1741080006.000006"
+    },
+    {
+      "message_id": "om_slack_4",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080019.000019\\\", \\\"user_id\\\": \\\"U_ops_19\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nConference room 301 AV equipment upgraded. New wireless casting system is live.\"}"
+      },
+      "create_time": "1741080019.000019"
+    },
+    {
+      "message_id": "om_slack_5",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080015.000015\\\", \\\"user_id\\\": \\\"U_ops_15\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nWeekly ops metrics: Work orders closed: 47. Average resolution time: 6.2 hours. Great work everyone!\"}"
+      },
+      "create_time": "1741080015.000015"
+    },
+    {
+      "message_id": "om_slack_6",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080023.000023\\\", \\\"user_id\\\": \\\"U_ops_23\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nCompressed gas cylinder audit completed. All tags current.\"}"
+      },
+      "create_time": "1741080023.000023"
+    },
+    {
+      "message_id": "om_slack_7",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080020.000020\\\", \\\"user_id\\\": \\\"U_ops_20\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nVendor scorecard review meeting at 3 PM. Please review the Q1 reports beforehand.\"}"
+      },
+      "create_time": "1741080020.000020"
+    },
+    {
+      "message_id": "om_slack_8",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080005.000005\\\", \\\"user_id\\\": \\\"U_ops_05\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nAnyone know if the badge printer in reception is fixed? Still showing paper jam.\"}"
+      },
+      "create_time": "1741080005.000005"
+    },
+    {
+      "message_id": "om_slack_9",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080007.000007\\\", \\\"user_id\\\": \\\"U_ops_07\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nPSA: Server room B2 maintenance window Saturday 2-6 AM. UPS bypass test included.\"}"
+      },
+      "create_time": "1741080007.000007"
+    },
+    {
+      "message_id": "om_slack_10",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080024.000024\\\", \\\"user_id\\\": \\\"U_ops_24\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nThe recycling compactor is jammed again. Maintenance ticket submitted.\"}"
+      },
+      "create_time": "1741080024.000024"
+    },
+    {
+      "message_id": "om_slack_11",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080014.000014\\\", \\\"user_id\\\": \\\"U_ops_14\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nHVAC filter replacement complete for Building A. Next round: Building C on March 10.\"}"
+      },
+      "create_time": "1741080014.000014"
+    },
+    {
+      "message_id": "om_slack_12",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080004.000004\\\", \\\"user_id\\\": \\\"U_ops_04\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nGenerator test completed ✅ All 3 units passed. Logs uploaded to CMMS.\"}"
+      },
+      "create_time": "1741080004.000004"
+    },
+    {
+      "message_id": "om_slack_13",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080016.000016\\\", \\\"user_id\\\": \\\"U_ops_16\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nPest control visit scheduled for Thursday evening after business hours.\"}"
+      },
+      "create_time": "1741080016.000016"
+    },
+    {
+      "message_id": "om_slack_14",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080022.000022\\\", \\\"user_id\\\": \\\"U_ops_22\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nSafety shoe replacement vouchers available from EHS. See Lydia for details.\"}"
+      },
+      "create_time": "1741080022.000022"
+    },
+    {
+      "message_id": "om_slack_15",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080018.000018\\\", \\\"user_id\\\": \\\"U_ops_18\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nForklift F-04 battery replacement done. Back in service.\"}"
+      },
+      "create_time": "1741080018.000018"
+    },
+    {
+      "message_id": "om_slack_16",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080008.000008\\\", \\\"user_id\\\": \\\"U_ops_08\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nElevator B back in service after maintenance. Thanks to the ElevatorPlus team for the quick turnaround.\"}"
+      },
+      "create_time": "1741080008.000008"
+    },
+    {
+      "message_id": "om_slack_17",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080010.000010\\\", \\\"user_id\\\": \\\"U_ops_10\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nFleet update: Vehicle F-207 in for service today. Using F-210 as backup.\"}"
+      },
+      "create_time": "1741080010.000010"
+    },
+    {
+      "message_id": "om_slack_18",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080017.000017\\\", \\\"user_id\\\": \\\"U_ops_17\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nThe roof leak in Building C has been patched. Monitoring for 48 hours before closing the ticket.\"}"
+      },
+      "create_time": "1741080017.000017"
+    },
+    {
+      "message_id": "om_slack_19",
+      "chat_id": "oc_CCUSTISS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1741080009.000009\\\", \\\"user_id\\\": \\\"U_ops_09\\\", \\\"channel_id\\\": \\\"CCUSTISS\\\"}\\nInventory cycle count results posted. 3 discrepancies being investigated.\"}"
+      },
+      "create_time": "1741080009.000009"
+    }
+  ]
+}

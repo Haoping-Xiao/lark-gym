@@ -1,0 +1,399 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_patterns": {
+      "title": "Resolution Patterns",
+      "sheets": {
+        "ws_keywords": {
+          "title": "Keyword Rules",
+          "values": [
+            ["Category", "Keywords", "Priority"],
+            ["Authentication", "login,SSO,password,auth", "1"],
+            ["Performance", "slow,timeout,latency,performance", "2"],
+            ["Data", "export,import,migration,data loss", "3"],
+            ["Billing", "invoice,charge,billing,payment", "4"]
+          ]
+        },
+        "ws_analytics": {
+          "title": "Pattern Analytics",
+          "values": [["Category", "Count", "Jira Created"]]
+        },
+        "ws_policies": {
+          "title": "Analysis Policies",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Multi-Category Assignment",
+              "If a ticket matches keywords from multiple categories, assign it to the category with the lowest Priority number."
+            ],
+            [
+              "On Hold Exclusion",
+              "Tickets with status 'On Hold' are excluded from resolution pattern analysis."
+            ],
+            [
+              "VP Account Exception",
+              "If an account listed in ws_vp_exceptions has tickets in a matching category, create a Jira Epic (not Story) for that account+category combination, regardless of the 3-ticket threshold."
+            ]
+          ]
+        },
+        "ws_vp_exceptions": {
+          "title": "VP Account Exceptions",
+          "values": [
+            ["Account Name", "Category", "Jira Issue Type", "Notes"],
+            [
+              "AlphaCo",
+              "Performance",
+              "Epic",
+              "VP Engineering mandated Epic-level tracking for AlphaCo performance issues. Override normal Story creation."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c01",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c01",
+          "subject": "SSO login failure",
+          "description": "User cannot login via SSO.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c1"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c02",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c02",
+          "subject": "Password reset not working",
+          "description": "Password reset email never arrives.",
+          "status": "Closed",
+          "priority": "Medium",
+          "account_id": "za_c2"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c03",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c03",
+          "subject": "Auth token expired",
+          "description": "Authentication tokens expiring too quickly.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c1"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c04",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c04",
+          "subject": "Login session expired",
+          "description": "Login session expires too quickly, forcing re-auth.",
+          "status": "Closed",
+          "priority": "Medium",
+          "account_id": "za_c3"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c05",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c05",
+          "subject": "Dashboard slow to load",
+          "description": "Dashboard takes 30s to render.",
+          "status": "Closed",
+          "priority": "Medium",
+          "account_id": "za_c2"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c06",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c06",
+          "subject": "API latency spikes",
+          "description": "API response latency exceeds SLA.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c4"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c07",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c07",
+          "subject": "Report generation timeout",
+          "description": "Large reports timeout during generation.",
+          "status": "Closed",
+          "priority": "Medium",
+          "account_id": "za_c1"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c08",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c08",
+          "subject": "CSV export empty",
+          "description": "Exported CSV has no data.",
+          "status": "Closed",
+          "priority": "Low",
+          "account_id": "za_c3"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c09",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c09",
+          "subject": "Data import failed",
+          "description": "Bulk import rejected rows silently.",
+          "status": "Closed",
+          "priority": "Medium",
+          "account_id": "za_c5"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c10",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c10",
+          "subject": "Double billing charge",
+          "description": "Customer charged twice for same invoice.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c2"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c11",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c11",
+          "subject": "Invoice discrepancy",
+          "description": "Invoice amount does not match quote.",
+          "status": "Closed",
+          "priority": "Medium",
+          "account_id": "za_c4"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c12",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c12",
+          "subject": "General inquiry about roadmap",
+          "description": "When is the next release?",
+          "status": "Open",
+          "priority": "Low",
+          "account_id": "za_c5"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c13",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c13",
+          "subject": "SSO billing integration error",
+          "description": "Customer SSO auth triggers unexpected billing charge.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c3"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c14",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c14",
+          "subject": "Slow dashboard loading",
+          "description": "Dashboard performance issues persisting.",
+          "status": "On Hold",
+          "priority": "Medium",
+          "account_id": "za_c4"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c15",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c15",
+          "subject": "Billing portal login broken",
+          "description": "Cannot login to billing portal, auth keeps failing.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c2"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zt_c16",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zt_c16",
+          "subject": "API timeout on reports endpoint",
+          "description": "Reports endpoint has consistent timeout issues.",
+          "status": "Closed",
+          "priority": "High",
+          "account_id": "za_c1"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_002",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_002",
+          "subject": "Report scheduler sending duplicates",
+          "description": "The weekly report is being emailed twice every Monday.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_007",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_007",
+          "subject": "Email channel creating duplicate tickets",
+          "description": "Same email thread creates 2 tickets when CC'd on reply.",
+          "status": "Closed",
+          "priority": "Medium",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_tickets_zd_noise_010",
+        "fields": {
+          "collection": "zoho_desk_tickets",
+          "id": "zd_noise_010",
+          "subject": "Knowledge base article version conflict",
+          "description": "Two agents edited the same KB article and changes were lost.",
+          "status": "Closed",
+          "priority": "Low",
+          "comments": "[]"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_c1",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_c1",
+          "account_name": "AlphaCo"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_c2",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_c2",
+          "account_name": "BravoInc"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_c3",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_c3",
+          "account_name": "CharlieGrp"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_c4",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_c4",
+          "account_name": "DeltaSoft"
+        }
+      },
+      {
+        "record_id": "rec_zoho_desk_accounts_za_c5",
+        "fields": {
+          "collection": "zoho_desk_accounts",
+          "id": "za_c5",
+          "account_name": "EchoTech"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "account_id",
+        "type": "text"
+      },
+      {
+        "name": "comments",
+        "type": "text"
+      },
+      {
+        "name": "account_name",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "issuetype",
+        "type": "text"
+      },
+      {
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "name": "source_account_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_ANALYTICS",
+      "name": "support-analytics",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

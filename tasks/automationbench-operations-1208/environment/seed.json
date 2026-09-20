@@ -1,0 +1,123 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_ops_safety": {
+      "title": "Safety Walks",
+      "sheets": {
+        "ws_walks": {
+          "title": "Walks",
+          "values": [
+            [
+              "Quarter",
+              "Area",
+              "Building",
+              "Inspection Date",
+              "Status",
+              "Notes"
+            ],
+            ["Q1", "Warehouse", "Main", "2026-03-02", "Scheduled", ""],
+            ["Q1", "Office", "Main", "2026-03-01", "Completed", ""],
+            ["Q1", "Warehouse Annex", "Main", "2026-02-28", "Scheduled", ""],
+            ["Q1", "Loading Dock", "Satellite", "2026-02-25", "Scheduled", ""],
+            ["Q1", "Storage", "Main", "2026-02-20", "Deferred", ""],
+            ["Q2", "Warehouse", "Main", "2026-02-15", "Scheduled", ""],
+            [
+              "Q1",
+              "Loading Bay",
+              "Main",
+              "2026-02-22",
+              "Scheduled",
+              "pending safety authority approval - do not schedule until clearance received"
+            ]
+          ]
+        },
+        "ws_policy": {
+          "title": "Walk Scheduling Policy",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Annex Exclusion",
+              "Areas containing 'Annex' in their name are managed by the Facilities Annex team and must not be scheduled through the main walk queue."
+            ],
+            [
+              "Administrative Hold",
+              "Walks where Notes contain 'pending' must not be scheduled until written clearance is received from the Safety Authority."
+            ]
+          ]
+        }
+      }
+    },
+    "ss_ops": {
+      "title": "Ops Tracker",
+      "sheets": {
+        "ws_log": {
+          "title": "Task Log",
+          "values": [["Task", "Due", "Area", "Owner"]]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_asana_as_rec_2",
+        "fields": {
+          "collection": "asana_find_section",
+          "source_action_id": "as_rec_2",
+          "workspace": "ws_ops",
+          "project": "proj_facilities",
+          "name": "March",
+          "section": "sec_mar"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "source_action_id",
+        "type": "text"
+      },
+      {
+        "name": "workspace",
+        "type": "text"
+      },
+      {
+        "name": "project",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "section",
+        "type": "text"
+      },
+      {
+        "name": "tag",
+        "type": "text"
+      },
+      {
+        "name": "dueDate",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

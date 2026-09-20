@@ -1,0 +1,133 @@
+{
+  "now": "2026-01-29T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_projects": {
+      "title": "Projects",
+      "sheets": {
+        "ws_approved": {
+          "title": "Approved",
+          "values": [
+            [
+              "Project Name",
+              "Priority",
+              "Status",
+              "Target Start",
+              "PM",
+              "PM Email",
+              "Notes"
+            ],
+            [
+              "Platform Modernization",
+              "High",
+              "Approved",
+              "2026-02-03",
+              "Alice Wong",
+              "awong@company.example.com",
+              ""
+            ],
+            [
+              "Mobile App Redesign",
+              "High",
+              "Approved",
+              "2026-02-10",
+              "Bob Chen",
+              "",
+              ""
+            ],
+            [
+              "Infrastructure Overhaul",
+              "High",
+              "Approved",
+              "2026-01-28",
+              "Carol Davis",
+              "",
+              "HOLD - budget approval pending CFO sign-off"
+            ],
+            [
+              "API Gateway Migration",
+              "High",
+              "Approved",
+              "2026-02-01",
+              "Dave Park",
+              "",
+              "CANCELLED - merged into Platform Modernization scope"
+            ]
+          ]
+        },
+        "ws_project_policy": {
+          "title": "Project Policy",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "Hold Deferral",
+              "Projects with 'HOLD' in Notes are awaiting additional approvals and must not be kicked off."
+            ],
+            [
+              "Cancelled Project Exclusion",
+              "Projects with 'CANCELLED' in Notes have been merged or dropped and must not be kicked off."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [
+    {
+      "calendar_id": "cal_projects",
+      "summary": "cal_projects",
+      "role": "owner"
+    }
+  ],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "board",
+        "type": "text"
+      },
+      {
+        "name": "list",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "parent_page",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "content",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "awong@company.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": [],
+  "chat_creation_allowed": true
+}

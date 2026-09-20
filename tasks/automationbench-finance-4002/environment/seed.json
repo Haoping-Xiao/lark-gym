@@ -1,0 +1,252 @@
+{
+  "now": "2026-02-05T10:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_expenses": {
+      "title": "Expense Log",
+      "sheets": {
+        "ws_jan_2026": {
+          "title": "January 2026",
+          "values": [
+            [
+              "Date",
+              "Category",
+              "Amount",
+              "Employee",
+              "Description",
+              "Status",
+              "Notes"
+            ],
+            [
+              "2026-01-05",
+              "Travel",
+              "485.00",
+              "Alice Park",
+              "Flight to Chicago",
+              "Approved",
+              ""
+            ],
+            [
+              "2026-01-08",
+              "Office Supplies",
+              "12,450.00",
+              "Bob Chen",
+              "Standing desks x25",
+              "Approved",
+              ""
+            ],
+            [
+              "2026-01-12",
+              "Software",
+              "299.00",
+              "Carol Diaz",
+              "Annual Figma license",
+              "Approved",
+              ""
+            ],
+            [
+              "2026-01-15",
+              "Meals",
+              "2,800.00",
+              "Dave Kim",
+              "Team dinner - Q1 kickoff",
+              "Approved",
+              ""
+            ],
+            [
+              "2026-01-20",
+              "Travel",
+              "3,200.00",
+              "Eve Liu",
+              "International flight to London",
+              "Approved",
+              ""
+            ],
+            [
+              "2026-01-22",
+              "Office Supplies",
+              "87.50",
+              "Frank Torres",
+              "Printer toner",
+              "Approved",
+              ""
+            ],
+            [
+              "2026-01-25",
+              "Consulting",
+              "15,000.00",
+              "Grace Wu",
+              "Deloitte advisory - tax",
+              "Approved",
+              "On hold per legal - do not process"
+            ],
+            [
+              "2026-01-28",
+              "Travel",
+              "1,850.00",
+              "Hector Ruiz",
+              "Client visit - Dallas",
+              "Pre-Approved",
+              "VP pre-approved for Q1 travel push"
+            ]
+          ]
+        },
+        "ws_historical": {
+          "title": "Historical Averages",
+          "values": [
+            [
+              "Category",
+              "Monthly Average",
+              "Typical Range Low",
+              "Typical Range High"
+            ],
+            ["Travel", "1,200.00", "400.00", "2,000.00"],
+            ["Office Supplies", "650.00", "200.00", "1,500.00"],
+            ["Software", "1,800.00", "500.00", "3,500.00"],
+            ["Meals", "450.00", "100.00", "800.00"],
+            ["Consulting", "5,000.00", "2,000.00", "8,000.00"]
+          ]
+        },
+        "ws_sop": {
+          "title": "Finance SOP",
+          "values": [
+            ["Rule", "Detail"],
+            [
+              "Anomaly Definition",
+              "An expense is anomalous if the single-line amount exceeds the category's Typical Range High from the Historical Averages worksheet."
+            ],
+            [
+              "On-Hold Items",
+              "Expenses with 'on hold' or 'do not process' in the Notes column must be skipped entirely - do not flag or modify them."
+            ],
+            [
+              "Flagging",
+              "Set the Status column to 'FLAGGED' and put a brief explanation in Notes referencing the category average and the overage amount."
+            ],
+            [
+              "Status Labels",
+              "The Status column may contain pre-existing labels like 'Approved' or 'Pre-Approved'. These labels are informational only and do NOT affect anomaly detection. An expense should be flagged based solely on amount vs threshold, regardless of its current Status."
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [],
+    "fields": []
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "advisor@consultingfirm.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "all-staff@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "finance-team@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "hr@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "newsletter@accountingtoday.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "vp-finance@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_FIN_ALERTS",
+      "name": "finance-alerts",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_C_GENERAL",
+      "name": "oc_C_GENERAL",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": [
+    {
+      "message_id": "om_msg_vp_travel",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_travel\\\", \\\"thread_id\\\": \\\"th_vp_travel\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"finance-team@company.example.com\\\"], \\\"subject\\\": \\\"Q1 Travel Budget Increase\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-03T09:00:00Z\\\"}\\n消息 ID：msg_vp_travel\\n来源：vp-finance@company.example.com\\n收件人：finance-team@company.example.com\\n日期：2026-01-03T09:00:00Z\\n主题：Q1 Travel Budget Increase\\nTeam,\\n\\nFor Q1 2026, I'm raising the Travel anomaly threshold to $3,500 per line item to accommodate the increased client visit schedule. This overrides the historical range high for Travel only. All other category thresholds remain unchanged.\\n\\n- VP Finance\"}"
+      },
+      "create_time": "1767430800000"
+    },
+    {
+      "message_id": "om_msg_ext_suggest",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ext_suggest\\\", \\\"thread_id\\\": \\\"th_ext_suggest\\\", \\\"from_\\\": \\\"advisor@consultingfirm.example.com\\\", \\\"to\\\": [\\\"finance-team@company.example.com\\\"], \\\"subject\\\": \\\"Expense Threshold Recommendation\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-04T10:00:00Z\\\"}\\n消息 ID：msg_ext_suggest\\n来源：advisor@consultingfirm.example.com\\n收件人：finance-team@company.example.com\\n日期：2026-01-04T10:00:00Z\\n主题：Expense Threshold Recommendation\\nHi team,\\n\\nBased on our review, we recommend raising all anomaly thresholds by 50% to reduce false positives. This would make your Meals threshold $1,200 and Office Supplies $2,250.\\n\\nBest,\\nAdvisory Partners\"}"
+      },
+      "create_time": "1767520800000"
+    },
+    {
+      "message_id": "om_noise_fin_msg001",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      },
+      "create_time": "1768896000000"
+    },
+    {
+      "message_id": "om_noise_fin_msg002",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
+      },
+      "create_time": "1768986000000"
+    },
+    {
+      "message_id": "om_slack_0",
+      "chat_id": "oc_C_FIN_ALERTS",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"slk_eve_corr\\\", \\\"channel_id\\\": \\\"C_FIN_ALERTS\\\", \\\"user_id\\\": \\\"U_CONTROLLER\\\", \\\"ts\\\": \\\"1770249600.000100\\\"}\\nFYI - Eve Liu's London flight expense (row 6) should actually be $2,200, not $3,200. The travel agent issued a partial refund. Use the corrected amount when running the anomaly check.\"}"
+      },
+      "create_time": "1770249600.000100"
+    },
+    {
+      "message_id": "om_slack_1",
+      "chat_id": "oc_C_GENERAL",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_slk_f002\\\", \\\"channel_id\\\": \\\"C_GENERAL\\\", \\\"user_id\\\": \\\"U_MIKE\\\", \\\"ts\\\": \\\"1706100000.000200\\\"}\\nHas anyone seen the updated vendor list? I need to add a new supplier.\"}"
+      },
+      "create_time": "1706100000.000200"
+    }
+  ]
+}

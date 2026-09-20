@@ -1,0 +1,249 @@
+{
+  "now": "2026-04-12T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_intl_pmts": {
+      "title": "International Payments",
+      "sheets": {
+        "ws_fx_rates": {
+          "title": "FX Rates",
+          "values": [
+            ["Currency", "Rate per USD"],
+            ["EUR", "0.90"],
+            ["JPY", "150"],
+            ["GBP", "0.80"]
+          ]
+        },
+        "ws_received_pmts": {
+          "title": "Received Payments",
+          "values": [
+            ["Customer", "Email", "Invoice #", "Currency", "Amount"],
+            [
+              "EuroLogic GmbH",
+              "finance@eurologic.example.com",
+              "XI-3001",
+              "EUR",
+              "9000"
+            ],
+            [
+              "Tokyo Tech Co",
+              "ap@tokyotech.example.com",
+              "XI-3002",
+              "JPY",
+              "1500000"
+            ],
+            [
+              "London Gear Ltd",
+              "ar@londongear.example.com",
+              "XI-3003",
+              "GBP",
+              "4000"
+            ],
+            [
+              "Milan Styles Srl",
+              "finance@milanstyles.example.com",
+              "XI-3004",
+              "EUR",
+              "1800"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_xero_xc_301",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_301",
+          "name": "EuroLogic GmbH",
+          "email_address": "finance@eurologic.example.com"
+        }
+      },
+      {
+        "record_id": "rec_xero_xc_302",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_302",
+          "name": "Tokyo Tech Co",
+          "email_address": "ap@tokyotech.example.com"
+        }
+      },
+      {
+        "record_id": "rec_xero_xc_303",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_303",
+          "name": "London Gear Ltd",
+          "email_address": "ar@londongear.example.com"
+        }
+      },
+      {
+        "record_id": "rec_xero_xc_304",
+        "fields": {
+          "collection": "xero_contacts",
+          "contact_id": "xc_304",
+          "name": "Milan Styles Srl",
+          "email_address": "finance@milanstyles.example.com"
+        }
+      },
+      {
+        "record_id": "rec_xero_xi_3001",
+        "fields": {
+          "collection": "xero_invoices",
+          "invoice_id": "xi_3001",
+          "invoice_number": "XI-3001",
+          "type": "ACCREC",
+          "contact_name": "EuroLogic GmbH",
+          "contact_id": "xc_301",
+          "status": "AUTHORISED",
+          "total": "9000",
+          "amount_due": "9000",
+          "currency_code": "EUR"
+        }
+      },
+      {
+        "record_id": "rec_xero_xi_3002",
+        "fields": {
+          "collection": "xero_invoices",
+          "invoice_id": "xi_3002",
+          "invoice_number": "XI-3002",
+          "type": "ACCREC",
+          "contact_name": "Tokyo Tech Co",
+          "contact_id": "xc_302",
+          "status": "AUTHORISED",
+          "total": "1500000",
+          "amount_due": "1500000",
+          "currency_code": "JPY"
+        }
+      },
+      {
+        "record_id": "rec_xero_xi_3003",
+        "fields": {
+          "collection": "xero_invoices",
+          "invoice_id": "xi_3003",
+          "invoice_number": "XI-3003",
+          "type": "ACCREC",
+          "contact_name": "London Gear Ltd",
+          "contact_id": "xc_303",
+          "status": "VOIDED",
+          "total": "4000",
+          "amount_due": "4000",
+          "currency_code": "GBP"
+        }
+      },
+      {
+        "record_id": "rec_xero_xi_3004",
+        "fields": {
+          "collection": "xero_invoices",
+          "invoice_id": "xi_3004",
+          "invoice_number": "XI-3004",
+          "type": "ACCREC",
+          "contact_name": "Milan Styles Srl",
+          "contact_id": "xc_304",
+          "status": "DRAFT",
+          "total": "1800",
+          "amount_due": "1800",
+          "currency_code": "EUR"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "contact_id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email_address",
+        "type": "text"
+      },
+      {
+        "name": "invoice_id",
+        "type": "text"
+      },
+      {
+        "name": "invoice_number",
+        "type": "text"
+      },
+      {
+        "name": "type",
+        "type": "text"
+      },
+      {
+        "name": "contact_name",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "total",
+        "type": "text"
+      },
+      {
+        "name": "amount_due",
+        "type": "text"
+      },
+      {
+        "name": "currency_code",
+        "type": "text"
+      },
+      {
+        "name": "amount",
+        "type": "number"
+      },
+      {
+        "name": "usd_equivalent",
+        "type": "number"
+      },
+      {
+        "name": "date",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "ap@tokyotech.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "ar@londongear.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "finance@eurologic.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "finance@milanstyles.example.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

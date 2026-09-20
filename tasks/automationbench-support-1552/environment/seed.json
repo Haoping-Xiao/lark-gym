@@ -1,0 +1,360 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_satisfaction": {
+      "title": "Satisfaction Analysis",
+      "sheets": {
+        "ws_weights": {
+          "title": "Signal Weights",
+          "values": [
+            ["Event Type", "Points", "Signal"],
+            ["upgrade", "3", "positive"],
+            ["referral", "2", "positive"],
+            ["five_star_rating", "2", "positive"],
+            ["downgrade", "-3", "negative"],
+            ["complaint", "-2", "negative"],
+            ["one_star_rating", "-3", "negative"]
+          ]
+        },
+        "ws_thresholds": {
+          "title": "Score Thresholds",
+          "values": [
+            ["Customer Type", "Satisfied Min", "Dissatisfied Max"],
+            ["standard", "3", "-1"],
+            ["enterprise", "5", "1"]
+          ]
+        },
+        "ws_plans": {
+          "title": "Enterprise Customers",
+          "values": [
+            ["Email", "Company", "Plan"],
+            ["enterprise_happy@deltacorp.com", "DeltaCorp", "enterprise"],
+            ["enterprise_border@epsiloncorp.com", "EpsilonCorp", "enterprise"],
+            ["enterprise_bad@iotacorp.com", "IotaCorp", "enterprise"]
+          ]
+        },
+        "ws_config": {
+          "title": "Analysis Config",
+          "values": [
+            ["Setting", "Value"],
+            ["Batch_Reference", "CSAT-BATCH-20260210"],
+            ["Analysis_Period", "2026-02-01 to 2026-02-07"],
+            [
+              "Escalation_System",
+              "Salesforce (create task for each dissatisfied customer)"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat01",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat01",
+          "email": "happy@acme.com",
+          "name": "Ava Torres",
+          "company": "AcmeCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"upgrade\",\"created_at\":\"2026-02-05T10:00:00Z\",\"data\":{}},{\"event_name\":\"referral\",\"created_at\":\"2026-02-06T14:00:00Z\",\"data\":{}},{\"event_name\":\"five_star_rating\",\"created_at\":\"2026-02-06T15:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat02",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat02",
+          "email": "unhappy@betaco.io",
+          "name": "Ben Kim",
+          "company": "BetaCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"downgrade\",\"created_at\":\"2026-02-04T10:00:00Z\",\"data\":{}},{\"event_name\":\"complaint\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}},{\"event_name\":\"one_star_rating\",\"created_at\":\"2026-02-06T09:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat03",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat03",
+          "email": "mixed@gammatech.com",
+          "name": "Carla Petrov",
+          "company": "GammaTech",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"upgrade\",\"created_at\":\"2026-02-03T10:00:00Z\",\"data\":{}},{\"event_name\":\"complaint\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}},{\"event_name\":\"five_star_rating\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat04",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat04",
+          "email": "enterprise_happy@deltacorp.com",
+          "name": "Dan Okafor",
+          "company": "DeltaCorp",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"upgrade\",\"created_at\":\"2026-02-04T10:00:00Z\",\"data\":{}},{\"event_name\":\"referral\",\"created_at\":\"2026-02-05T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat05",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat05",
+          "email": "enterprise_border@epsiloncorp.com",
+          "name": "Elena Voss",
+          "company": "EpsilonCorp",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"upgrade\",\"created_at\":\"2026-02-05T10:00:00Z\",\"data\":{}},{\"event_name\":\"complaint\",\"created_at\":\"2026-02-06T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat06",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat06",
+          "email": "neutral@zetaco.com",
+          "name": "Felix Tanaka",
+          "company": "ZetaCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"five_star_rating\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat07",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat07",
+          "email": "verybad@etacorp.com",
+          "name": "Gina Shah",
+          "company": "EtaCorp",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"downgrade\",\"created_at\":\"2026-02-03T10:00:00Z\",\"data\":{}},{\"event_name\":\"complaint\",\"created_at\":\"2026-02-04T14:00:00Z\",\"data\":{}},{\"event_name\":\"complaint\",\"created_at\":\"2026-02-05T09:00:00Z\",\"data\":{}},{\"event_name\":\"one_star_rating\",\"created_at\":\"2026-02-06T11:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat08",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat08",
+          "email": "ok@thetaco.com",
+          "name": "Hiro Lopez",
+          "company": "ThetaCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"upgrade\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}},{\"event_name\":\"five_star_rating\",\"created_at\":\"2026-02-06T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat09",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat09",
+          "email": "enterprise_bad@iotacorp.com",
+          "name": "Iris Chen",
+          "company": "IotaCorp",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"downgrade\",\"created_at\":\"2026-02-04T10:00:00Z\",\"data\":{}},{\"event_name\":\"one_star_rating\",\"created_at\":\"2026-02-06T14:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_sat10",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_sat10",
+          "email": "mild@kappaco.com",
+          "name": "Jake Diaz",
+          "company": "KappaCo",
+          "tags": "[]",
+          "events": "[{\"event_name\":\"referral\",\"created_at\":\"2026-02-06T10:00:00Z\",\"data\":{}}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_003",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_003",
+          "email": "user3@sunridge.example.com",
+          "name": "Tariq Osman",
+          "tags": "[]",
+          "company": "Sunridge Partners",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-27T14:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_004",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_004",
+          "email": "user4@baypoint.example.com",
+          "name": "Elena Novak",
+          "tags": "[\"webinar-attended\"]",
+          "company": "Baypoint Tech",
+          "events": "[{\"event_name\":\"signup\",\"created_at\":\"2026-03-02T11:00:00Z\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpcrunch_customers_hc_noise_001",
+        "fields": {
+          "collection": "helpcrunch_customers",
+          "id": "hc_noise_001",
+          "email": "user1@echovalley.example.com",
+          "name": "Quinn Donovan",
+          "tags": "[]",
+          "company": "Echo Valley Software",
+          "events": "[{\"event_name\":\"page_view\",\"created_at\":\"2026-02-28T10:00:00Z\"}]"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "company",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "events",
+        "type": "text"
+      },
+      {
+        "name": "batch_reference",
+        "type": "text"
+      },
+      {
+        "name": "customer_id",
+        "type": "text"
+      },
+      {
+        "name": "score",
+        "type": "number"
+      },
+      {
+        "name": "classification",
+        "type": "text"
+      },
+      {
+        "name": "customer_type",
+        "type": "text"
+      },
+      {
+        "name": "analysis_period",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "source_customer_id",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "enterprise_bad@iotacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "enterprise_border@epsiloncorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "enterprise_happy@deltacorp.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "happy@acme.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "mild@kappaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "mixed@gammatech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "neutral@zetaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "ok@thetaco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "unhappy@betaco.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "user1@echovalley.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "user3@sunridge.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "user4@baypoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "verybad@etacorp.com",
+      "chat_mode": "p2p"
+    }
+  ],
+  "messages": []
+}

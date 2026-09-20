@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { startMock } from '../gyms/lark-cli/src/server.mjs';
-import { verify } from '../tasks/maintenance-notice/tests/verify.mjs';
-import { oracle } from '../tasks/maintenance-notice/solution/oracle.mjs';
+import { startMock } from '../gyms/lark-cli/src/server.ts';
+import { verify } from '../tasks/maintenance-notice/tests/verify.ts';
+import { oracle } from '../tasks/maintenance-notice/solution/oracle.ts';
 const seed = JSON.parse(
   await readFile(
     new URL(

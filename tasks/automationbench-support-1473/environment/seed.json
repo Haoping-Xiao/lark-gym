@@ -1,0 +1,241 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_enrichment": {
+      "title": "Enrichment Spec",
+      "sheets": {
+        "ws_field_mapping": {
+          "title": "Field Mapping",
+          "values": [
+            ["HubSpot_Field", "Zendesk_Target", "Target_Type"],
+            ["lifecycle_stage", "lifecycle_stage", "tag"],
+            ["annual_revenue", "annual_revenue", "details"],
+            ["industry", "industry", "notes"]
+          ]
+        },
+        "ws_enrichment_rules": {
+          "title": "Enrichment Rules",
+          "values": [
+            ["Rule", "Description"],
+            [
+              "require_hubspot_match",
+              "Only enrich if HubSpot company found by domain"
+            ],
+            ["skip_do_not_enrich", "Skip organizations with do-not-enrich tag"],
+            [
+              "flag_name_mismatch",
+              "If HubSpot name differs from Zendesk name, flag discrepancy and do not overwrite"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_user_U_BOT",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "U_BOT",
+          "name": "Workflow Bot",
+          "username": "workflow-bot",
+          "is_bot": "true"
+        }
+      },
+      {
+        "record_id": "rec_zendesk_c360_org1",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "AlphaTech",
+          "domain_names": "[\"alphatech.com\"]",
+          "tags": "[]",
+          "details": "",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_c360_org2",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "BetaCorp",
+          "domain_names": "[\"betacorp.io\"]",
+          "tags": "[]",
+          "details": "",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_c360_org3",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "GammaLabs",
+          "domain_names": "[\"gammalabs.com\"]",
+          "tags": "[\"do-not-enrich\"]",
+          "details": "",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_c360_org4",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "DeltaSoft",
+          "domain_names": "[\"deltasoft.com\"]",
+          "tags": "[]",
+          "details": "",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_c360_org5",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "Epsilon Inc",
+          "domain_names": "[\"epsiloninc.com\"]",
+          "tags": "[]",
+          "details": "",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_zendesk_c360_org6",
+        "fields": {
+          "collection": "support_organizations",
+          "name": "ZetaGroup",
+          "domain_names": "[\"zetagroup.com\"]",
+          "tags": "[]",
+          "details": "",
+          "notes": ""
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co1",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "AlphaTech",
+          "domain": "alphatech.com",
+          "lifecycle_stage": "customer",
+          "annual_revenue": "5000000",
+          "industry": "Technology"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co2",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "Beta Corporation",
+          "domain": "betacorp.io",
+          "lifecycle_stage": "opportunity",
+          "annual_revenue": "2000000",
+          "industry": "Finance"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co3",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "GammaLabs",
+          "domain": "gammalabs.com",
+          "lifecycle_stage": "customer",
+          "annual_revenue": "8000000",
+          "industry": "Healthcare"
+        }
+      },
+      {
+        "record_id": "rec_hubspot_hs_co4",
+        "fields": {
+          "collection": "hubspot_companies",
+          "name": "DeltaSoft",
+          "domain": "deltasoft.com",
+          "lifecycle_stage": "lead",
+          "annual_revenue": "500000",
+          "industry": "Software"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "username",
+        "type": "text"
+      },
+      {
+        "name": "is_bot",
+        "type": "text"
+      },
+      {
+        "name": "domain_names",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "details",
+        "type": "text"
+      },
+      {
+        "name": "notes",
+        "type": "text"
+      },
+      {
+        "name": "domain",
+        "type": "text"
+      },
+      {
+        "name": "lifecycle_stage",
+        "type": "text"
+      },
+      {
+        "name": "annual_revenue",
+        "type": "text"
+      },
+      {
+        "name": "industry",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_user_U_BOT",
+      "name": "U_BOT | Workflow Bot",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "data-quality@company.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_CRM",
+      "name": "crm-ops",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

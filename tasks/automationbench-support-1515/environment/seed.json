@@ -1,0 +1,428 @@
+{
+  "now": "2026-02-24T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_categories": {
+      "title": "Categorization Rules",
+      "sheets": {
+        "ws_rules": {
+          "title": "Category Rules",
+          "values": [
+            ["Category", "Keywords", "Priority", "Target Mailbox"],
+            [
+              "cat-billing",
+              "invoice, billing, payment, refund, charge, subscription",
+              "1",
+              "mb_billing"
+            ],
+            [
+              "cat-technical",
+              "api, error, webhook, timeout, 500, crash",
+              "2",
+              "mb_tech"
+            ],
+            [
+              "cat-account",
+              "password, login, account, reset, access",
+              "3",
+              "mb_account"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_helpscout_hs_cat01",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Invoice payment issue",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u1@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I cannot pay my invoice through the portal.\",\"created_by\":\"u1@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat02",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "API 500 error on production",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u2@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our API calls are returning 500 errors.\",\"created_by\":\"u2@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat03",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Old billing ticket",
+          "status": "active",
+          "mailbox_id": "mb_billing",
+          "customer_email": "u3@co.com",
+          "tags": "[\"cat-billing\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Already tagged.\",\"created_by\":\"u3@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat04",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Password reset not working",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u4@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"My password reset link is expired.\",\"created_by\":\"u4@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat05",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "General feedback about UI",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u5@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I love the new design but the colors are too bright.\",\"created_by\":\"u5@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat06",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Refund request",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u6@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I need a refund for the overcharge on my subscription.\",\"created_by\":\"u6@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat07",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Tech issue old",
+          "status": "active",
+          "mailbox_id": "mb_tech",
+          "customer_email": "u7@co.com",
+          "tags": "[\"cat-technical\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Old tech ticket.\",\"created_by\":\"u7@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat08",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Webhook failures",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u8@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Our webhooks are failing with timeout errors.\",\"created_by\":\"u8@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat09",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Praise for support team",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u9@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Your support team is amazing, thank you!\",\"created_by\":\"u9@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat10",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Account billing discrepancy",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u10@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"My account shows wrong billing amount for the subscription.\",\"created_by\":\"u10@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat11",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Login error keeps happening",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u11@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"I keep getting a login error when trying to access my account.\",\"created_by\":\"u11@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat12",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Question about my plan",
+          "status": "active",
+          "mailbox_id": "mb_gen",
+          "customer_email": "u12@co.com",
+          "tags": "[]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"What features are included in the enterprise tier?\",\"created_by\":\"u12@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_cat13",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Old account issue with payment",
+          "status": "active",
+          "mailbox_id": "mb_account",
+          "customer_email": "u13@co.com",
+          "tags": "[\"cat-account\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Need help with payment on my account.\",\"created_by\":\"u13@co.com\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_006",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Automation rule not matching tags",
+          "status": "closed",
+          "customer_email": "noise_user6@windrose.example.com",
+          "tags": "[\"automation\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"My rule to auto-assign 'vip' tagged convos isn't working.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_002",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Import CSV failing silently",
+          "status": "closed",
+          "customer_email": "noise_user2@cedarpoint.example.com",
+          "tags": "[\"import\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"Uploading a 10k-row CSV just spins and nothing imports.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_hs_conv_noise_008",
+        "fields": {
+          "collection": "help_conversations",
+          "subject": "Saved reply variables not populating",
+          "status": "closed",
+          "customer_email": "noise_user8@brighton.example.com",
+          "tags": "[\"templates\"]",
+          "threads": "[{\"thread_type\":\"customer\",\"body\":\"The {{customer.name}} variable renders as blank in replies.\"}]"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_gen",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "General",
+          "email": "general@co.com"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_billing",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Billing",
+          "email": "billing@co.com"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_tech",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Technical",
+          "email": "tech@co.com"
+        }
+      },
+      {
+        "record_id": "rec_helpscout_mb_account",
+        "fields": {
+          "collection": "help_mailboxes",
+          "name": "Account",
+          "email": "account@co.com"
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "subject",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "type": "text"
+      },
+      {
+        "name": "mailbox_id",
+        "type": "text"
+      },
+      {
+        "name": "customer_email",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "threads",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "public",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "account@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "billing@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "general@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "noise_user2@cedarpoint.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "noise_user6@windrose.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "noise_user8@brighton.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "tech@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "u10@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "u11@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "u12@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "u13@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "u1@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "u2@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "u3@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "u4@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_15",
+      "name": "u5@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_16",
+      "name": "u6@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_17",
+      "name": "u7@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_18",
+      "name": "u8@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_19",
+      "name": "u9@co.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_CAT",
+      "name": "support-categories",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}

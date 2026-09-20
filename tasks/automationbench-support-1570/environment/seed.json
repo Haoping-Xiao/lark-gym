@@ -1,0 +1,901 @@
+{
+  "now": "2026-02-07T09:00:00Z",
+  "spreadsheet_token": "ss_unused",
+  "sheets": {},
+  "spreadsheets": {
+    "ss_entitlements": {
+      "title": "Product Entitlements",
+      "sheets": {
+        "ws_products": {
+          "title": "Product Access",
+          "values": [
+            [
+              "Company",
+              "Analytics",
+              "Billing",
+              "API",
+              "Mobile",
+              "Last_Updated"
+            ],
+            ["AlphaTech", "Yes", "Yes", "Yes", "Yes", "2025-09-15"],
+            ["BetaFinance", "No", "Yes", "No", "No", "2025-10-20"],
+            ["GammaDev", "No", "No", "Yes", "No", "2025-08-10"],
+            ["DeltaRetail", "Yes", "Yes", "No", "No", "2025-11-05"],
+            ["EpsilonData", "Yes", "No", "Yes", "No", "2025-07-22"],
+            ["ZetaOps", "No", "Yes", "No", "No", "2025-12-01"],
+            ["EtaCommerce", "Yes", "Yes", "Yes", "Yes", "2025-06-18"],
+            ["ThetaMobile", "No", "No", "No", "Yes", "2025-10-30"],
+            ["IotaBasic", "No", "Yes", "No", "No", "2025-11-15"],
+            ["BillingCo", "Yes", "Yes", "No", "No", "2025-08-25"],
+            ["VerifyTech", "Yes", "No", "Yes", "No", "2026-02-07T02:30:00Z"],
+            [
+              "Ironclad Systems",
+              "Noise Value 1",
+              "Noise Value 1",
+              "Noise Value 1",
+              "Noise Value 1",
+              "Vance"
+            ],
+            [
+              "BlueStar Ventures",
+              "Noise Value 2",
+              "Noise Value 2",
+              "Noise Value 2",
+              "Noise Value 2",
+              "Torres"
+            ],
+            [
+              "Cascade Analytics",
+              "Noise Value 3",
+              "Noise Value 3",
+              "Noise Value 3",
+              "Noise Value 3",
+              "Park"
+            ],
+            [
+              "Vertex Capital",
+              "Noise Value 4",
+              "Noise Value 4",
+              "Noise Value 4",
+              "Noise Value 4",
+              "Sullivan"
+            ],
+            [
+              "Thornwood Partners",
+              "Noise Value 5",
+              "Noise Value 5",
+              "Noise Value 5",
+              "Noise Value 5",
+              "Walsh"
+            ],
+            [
+              "Starling Financial",
+              "Noise Value 6",
+              "Noise Value 6",
+              "Noise Value 6",
+              "Noise Value 6",
+              "Nair"
+            ],
+            [
+              "Redwood Technologies",
+              "Noise Value 7",
+              "Noise Value 7",
+              "Noise Value 7",
+              "Noise Value 7",
+              "Ortega"
+            ],
+            [
+              "Eastgate Solutions",
+              "Noise Value 8",
+              "Noise Value 8",
+              "Noise Value 8",
+              "Noise Value 8",
+              "Hoffman"
+            ],
+            [
+              "Montclair Industries",
+              "Noise Value 9",
+              "Noise Value 9",
+              "Noise Value 9",
+              "Noise Value 9",
+              "Brooks"
+            ],
+            [
+              "Pacific Ridge Corp",
+              "Noise Value 10",
+              "Noise Value 10",
+              "Noise Value 10",
+              "Noise Value 10",
+              "Simmons"
+            ],
+            [
+              "Summit Group Holdings",
+              "Noise Value 11",
+              "Noise Value 11",
+              "Noise Value 11",
+              "Noise Value 11",
+              "Vance"
+            ],
+            [
+              "Riverview Partners",
+              "Noise Value 12",
+              "Noise Value 12",
+              "Noise Value 12",
+              "Noise Value 12",
+              "Torres"
+            ],
+            [
+              "Northgate Technologies",
+              "Noise Value 13",
+              "Noise Value 13",
+              "Noise Value 13",
+              "Noise Value 13",
+              "Park"
+            ],
+            [
+              "Silverstone Group",
+              "Noise Value 14",
+              "Noise Value 14",
+              "Noise Value 14",
+              "Noise Value 14",
+              "Sullivan"
+            ],
+            [
+              "CloudBridge Systems",
+              "Noise Value 15",
+              "Noise Value 15",
+              "Noise Value 15",
+              "Noise Value 15",
+              "Walsh"
+            ]
+          ]
+        },
+        "ws_routing_rules": {
+          "title": "Routing Rules",
+          "values": [
+            ["Scenario", "Condition", "Tag", "Reply Action", "Notes"],
+            [
+              "Single Product - Entitled",
+              "Conversation mentions exactly ONE product and company has that product = Yes in ws_products",
+              "{product}-support (e.g. analytics-support, billing-support, api-support, mobile-support)",
+              "Reply confirming routing to the product team",
+              ""
+            ],
+            [
+              "Single Product - Not Entitled",
+              "Conversation mentions exactly ONE product but company has that product = No in ws_products",
+              "sales-referral",
+              "Reply explaining the product is not in their current plan and refer to sales",
+              ""
+            ],
+            [
+              "Multiple Products Mentioned",
+              "Conversation mentions TWO or more products regardless of entitlements",
+              "triage",
+              "Reply explaining the issue spans multiple products and will be triaged. Do NOT apply individual product-support tags.",
+              ""
+            ],
+            [
+              "No Product Mentioned",
+              "Conversation does not mention any product (Analytics, Billing, API, Mobile)",
+              "",
+              "No routing tag needed",
+              ""
+            ],
+            [
+              "Skip Criteria",
+              "Conversation state is closed or snoozed",
+              "",
+              "Do not process. Skip entirely.",
+              ""
+            ],
+            [
+              "Starter Plan - Not Entitled (footnote)",
+              "Company plan is 'starter' AND conversation mentions a product the company does NOT have",
+              "trial-offer",
+              "Reply explaining the product is available as a trial and direct to trial signup. This overrides the standard 'sales-referral' tag for starter plan companies.",
+              ""
+            ],
+            [
+              "Recently Updated Entitlement",
+              "Company's entitlement record in ws_products has a Last_Updated timestamp within 24 hours of the current date",
+              "verification-queue",
+              "Route to verification queue for entitlement confirmation before standard routing. Reply explaining the request is being verified.",
+              "Entitlements updated within 24 hours are pending verification — route to verification-queue"
+            ]
+          ]
+        },
+        "ws_escalation_overrides": {
+          "title": "Escalation Overrides",
+          "values": [
+            [
+              "Override_ID",
+              "Company",
+              "Override_Tag",
+              "Authorized_By",
+              "Status"
+            ],
+            [
+              "ESC-001",
+              "EpsilonData",
+              "enterprise-support",
+              "VP of Engineering",
+              "Approved"
+            ],
+            [
+              "ESC-002",
+              "ZetaOps",
+              "enterprise-support",
+              "Account Representative",
+              "Pending Approval"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "calendars": [],
+  "events": [],
+  "base": {
+    "app_token": "base_crm",
+    "table_id": "tbl_crm",
+    "records": [
+      {
+        "record_id": "rec_intercom_conversations_conv_r01",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r01",
+          "title": "Dashboard charts not rendering",
+          "state": "open",
+          "contact_ids": "[\"ic_r01\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"The analytics dashboard charts stopped rendering after the last update. The data tables still work but all visualizations show a blank canvas.\",\"author_type\":\"user\",\"author_id\":\"ic_r01\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r02",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r02",
+          "title": "Recurring invoice generation failing",
+          "state": "open",
+          "contact_ids": "[\"ic_r02\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Our recurring invoices in the Billing module stopped generating. We set up auto-billing for 200 clients and none of the March invoices were created.\",\"author_type\":\"user\",\"author_id\":\"ic_r02\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r03",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r03",
+          "title": "Webhook deliveries timing out",
+          "state": "open",
+          "contact_ids": "[\"ic_r03\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Our API webhook deliveries are timing out. We're receiving 504 errors on about half the webhook callbacks from your API platform.\",\"author_type\":\"user\",\"author_id\":\"ic_r03\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r04",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r04",
+          "title": "Mobile app push notifications broken",
+          "state": "open",
+          "contact_ids": "[\"ic_r04\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"We're trying to set up push notifications in the Mobile module but keep getting configuration errors. Is there a setup guide?\",\"author_type\":\"user\",\"author_id\":\"ic_r04\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r05",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r05",
+          "title": "Data sync between API and Analytics",
+          "state": "open",
+          "contact_ids": "[\"ic_r05\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"We're seeing a mismatch between what the API returns and what shows in the Analytics dashboard. The API data endpoint shows 1500 records but Analytics only displays 1200. Is there a sync delay?\",\"author_type\":\"user\",\"author_id\":\"ic_r05\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r06",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r06",
+          "title": "Want to try the analytics features",
+          "state": "open",
+          "contact_ids": "[\"ic_r06\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"I saw a demo of your Analytics product and would love to try it. How can we get access to the analytics dashboard and reporting features?\",\"author_type\":\"user\",\"author_id\":\"ic_r06\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r07",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r07",
+          "title": "Payment processing on mobile",
+          "state": "open",
+          "contact_ids": "[\"ic_r07\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"We need to process payments through both the Billing module and the Mobile app. The desktop Billing portal works fine but mobile payment processing fails at checkout.\",\"author_type\":\"user\",\"author_id\":\"ic_r07\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r08",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r08",
+          "title": "Old API question",
+          "state": "closed",
+          "contact_ids": "[\"ic_r08\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"How do I authenticate with the API?\",\"author_type\":\"user\",\"author_id\":\"ic_r08\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r09",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r09",
+          "title": "Account password reset",
+          "state": "open",
+          "contact_ids": "[\"ic_r09\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"I can't remember my password and the reset link expired. Can you resend it?\",\"author_type\":\"user\",\"author_id\":\"ic_r09\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r10",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r10",
+          "title": "iOS app crashing on launch",
+          "state": "open",
+          "contact_ids": "[\"ic_r10\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Our iOS mobile app crashes immediately on launch since the latest update. Android works fine. This is blocking our field team.\",\"author_type\":\"user\",\"author_id\":\"ic_r10\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r11",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r11",
+          "title": "Need API access for integration",
+          "state": "open",
+          "contact_ids": "[\"ic_r11\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"We want to build a custom integration using your API. Where can we find the API documentation and get our API keys?\",\"author_type\":\"user\",\"author_id\":\"ic_r11\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r12",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r12",
+          "title": "Analytics export issue",
+          "state": "snoozed",
+          "contact_ids": "[\"ic_r12\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"The CSV export from Analytics is broken.\",\"author_type\":\"user\",\"author_id\":\"ic_r12\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_conv_r13",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "conv_r13",
+          "title": "Help with quarterly reporting setup",
+          "state": "open",
+          "contact_ids": "[\"ic_r13\"]",
+          "tags": "[]",
+          "conversation_parts": "[{\"body\":\"Our billing department needs help setting up their quarterly expense reports in the system. They handle all our internal billing and invoicing. Can someone walk us through the reporting templates?\",\"author_type\":\"user\",\"author_id\":\"ic_r13\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_002",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_002",
+          "title": "Upgrade to enterprise plan",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_002\"]",
+          "tags": "[\"upgrade\"]",
+          "conversation_parts": "[{\"body\":\"We're interested in upgrading from Pro to Enterprise. What are the differences?\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_001",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_001",
+          "title": "Need help with API integration",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_001\"]",
+          "tags": "[\"api\"]",
+          "conversation_parts": "[{\"body\":\"I'm trying to integrate your API with our backend and getting auth errors.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_conversations_ic_conv_noise_009",
+        "fields": {
+          "collection": "intercom_conversations",
+          "id": "ic_conv_noise_009",
+          "title": "Team inbox not loading on mobile",
+          "state": "closed",
+          "contact_ids": "[\"ic_c_noise_001\"]",
+          "tags": "[\"mobile\"]",
+          "conversation_parts": "[{\"body\":\"The team inbox shows a blank screen on the iOS app since the latest update.\",\"author_type\":\"user\"}]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r01",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r01",
+          "name": "Amy Chen",
+          "email": "amy@alphatech.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r01\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r02",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r02",
+          "name": "Ben Willis",
+          "email": "ben@betafinance.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r02\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r03",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r03",
+          "name": "Clara Ruiz",
+          "email": "clara@gammadev.io",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r03\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r04",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r04",
+          "name": "Dan Foster",
+          "email": "dan@deltaretail.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r04\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r05",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r05",
+          "name": "Eva Lindqvist",
+          "email": "eva@epsilondata.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r05\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r06",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r06",
+          "name": "Faisal Ahmed",
+          "email": "faisal@zetaops.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r06\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r07",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r07",
+          "name": "Grace Kim",
+          "email": "grace@etacommerce.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r07\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r08",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r08",
+          "name": "Hiro Tanaka",
+          "email": "hiro@oldclosed.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r08\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r09",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r09",
+          "name": "Irene Black",
+          "email": "irene@generalq.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r09\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r10",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r10",
+          "name": "Jake Morris",
+          "email": "jake@thetamobile.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r10\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r11",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r11",
+          "name": "Karen Wu",
+          "email": "karen@iotabasic.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r11\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r12",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r12",
+          "name": "Luis Vargas",
+          "email": "luis@snoozedco.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r12\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_r13",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_r13",
+          "name": "Maria Santos",
+          "email": "maria@billingco.com",
+          "contact_type": "user",
+          "company_ids": "[\"ico_r13\"]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_004",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_004",
+          "name": "Aisha Rahman",
+          "email": "arahman@luminex.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_contacts_ic_c_noise_006",
+        "fields": {
+          "collection": "intercom_contacts",
+          "id": "ic_c_noise_006",
+          "name": "Celine Dubois",
+          "email": "cdubois@apexsys.example.com",
+          "contact_type": "user",
+          "company_ids": "[]",
+          "tags": "[]"
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r01",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r01",
+          "name": "AlphaTech",
+          "plan": "enterprise",
+          "size": 200
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r02",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r02",
+          "name": "BetaFinance",
+          "plan": "professional",
+          "size": 75
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r03",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r03",
+          "name": "GammaDev",
+          "plan": "enterprise",
+          "size": 150
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r04",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r04",
+          "name": "DeltaRetail",
+          "plan": "professional",
+          "size": 50
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r05",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r05",
+          "name": "EpsilonData",
+          "plan": "enterprise",
+          "size": 300
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r06",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r06",
+          "name": "ZetaOps",
+          "plan": "starter",
+          "size": 20
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r07",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r07",
+          "name": "EtaCommerce",
+          "plan": "enterprise",
+          "size": 180
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r08",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r08",
+          "name": "OldClosed",
+          "plan": "professional",
+          "size": 40
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r09",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r09",
+          "name": "GeneralQ Inc",
+          "plan": "starter",
+          "size": 15
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r10",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r10",
+          "name": "ThetaMobile",
+          "plan": "professional",
+          "size": 90
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r11",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r11",
+          "name": "IotaBasic",
+          "plan": "starter",
+          "size": 10
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r12",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r12",
+          "name": "SnoozedCo",
+          "plan": "professional",
+          "size": 30
+        }
+      },
+      {
+        "record_id": "rec_intercom_companies_ico_r13",
+        "fields": {
+          "collection": "intercom_companies",
+          "id": "ico_r13",
+          "name": "BillingCo",
+          "plan": "professional",
+          "size": 60
+        }
+      }
+    ],
+    "fields": [
+      {
+        "name": "collection",
+        "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      },
+      {
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "contact_ids",
+        "type": "text"
+      },
+      {
+        "name": "tags",
+        "type": "text"
+      },
+      {
+        "name": "conversation_parts",
+        "type": "text"
+      },
+      {
+        "name": "name",
+        "type": "text"
+      },
+      {
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "name": "contact_type",
+        "type": "text"
+      },
+      {
+        "name": "company_ids",
+        "type": "text"
+      },
+      {
+        "name": "plan",
+        "type": "text"
+      },
+      {
+        "name": "size",
+        "type": "number"
+      },
+      {
+        "name": "conversation_id",
+        "type": "text"
+      },
+      {
+        "name": "body",
+        "type": "text"
+      },
+      {
+        "name": "author_type",
+        "type": "text"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "chat_id": "oc_mail",
+      "name": "业务来信",
+      "chat_mode": "group"
+    },
+    {
+      "chat_id": "oc_email_0",
+      "name": "amy@alphatech.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_1",
+      "name": "arahman@luminex.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_2",
+      "name": "ben@betafinance.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_3",
+      "name": "cdubois@apexsys.example.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_4",
+      "name": "clara@gammadev.io",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_5",
+      "name": "dan@deltaretail.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_6",
+      "name": "eva@epsilondata.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_7",
+      "name": "faisal@zetaops.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_8",
+      "name": "grace@etacommerce.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_9",
+      "name": "hiro@oldclosed.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_10",
+      "name": "irene@generalq.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_11",
+      "name": "jake@thetamobile.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_12",
+      "name": "karen@iotabasic.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_13",
+      "name": "luis@snoozedco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_email_14",
+      "name": "maria@billingco.com",
+      "chat_mode": "p2p"
+    },
+    {
+      "chat_id": "oc_C_ROUTE",
+      "name": "support-routing",
+      "chat_mode": "group"
+    }
+  ],
+  "messages": []
+}
