@@ -6,6 +6,7 @@ COPY scripts/build-cli.sh scripts/build-cli.sh
 RUN bash scripts/build-cli.sh
 FROM node:24-bookworm-slim
 RUN apt-get update && apt-get install -y --no-install-recommends bash ca-certificates git python3 && rm -rf /var/lib/apt/lists/*
+RUN npm install --global @openai/codex@latest && codex --version
 COPY --from=builder /build/gyms/lark-cli/bin/lark-cli /usr/local/bin/lark-cli
 WORKDIR /workspace
 CMD ["sleep", "infinity"]
