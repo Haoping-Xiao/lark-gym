@@ -1,16 +1,23 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_085154084c74',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_085154084c74',
     '--json',
-    '{"collection": "tasks", "name": "评审 PDF 导出需求", "description": "Hi team, it would be great if we could export reports to PDF directly from the dashboard. This would save us a lot of time. Thanks, Nina"}',
+    '{"name": "评审 PDF 导出需求", "description": "Hi team, it would be great if we could export reports to PDF directly from the dashboard. This would save us a lot of time. Thanks, Nina"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

@@ -1,15 +1,20 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
   [
     'base',
-    '+record-upsert',
+    '+record-list',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
-    '--json',
-    '{"collection": "subscribers", "email": "emily.nakamura@solvex.example.com", "list_id": "list_001"}',
+    'tbl_4f0da948ae36',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_0e89ffd80fde',
   ],
   [
     'base',
@@ -17,9 +22,19 @@ const commands: string[][] = [
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_0e89ffd80fde',
     '--json',
-    '{"collection": "subscribers", "email": "emily.nakamura@solvex.example.com", "list_id": "list_002"}',
+    '{"email": "emily.nakamura@solvex.example.com", "list_id": "list_001"}',
+  ],
+  [
+    'base',
+    '+record-upsert',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_0e89ffd80fde',
+    '--json',
+    '{"email": "emily.nakamura@solvex.example.com", "list_id": "list_002"}',
   ],
 ];
 for (const args of commands)

@@ -16,14 +16,14 @@
 - Keep business logic and graders in TypeScript; retain the actual Go lark-cli. Do not add shell wrappers solely to inject a backend URL: install the CLI on PATH and configure the URL through the task environment.
 - Agents use normal CLI commands, never raw API escape hatches. CLI parsing and execution must run real code against the simulated backend.
 - Formal evaluation and training separate the agent from the Mock backend. Each trial gets independent state initialized from the same frozen seed. Never put backend state, reference solutions, or grading code into the agent image.
-- All endpoints operate on shared business state. Unknown endpoints invalidate environment coverage; they are not agent failures. Record mutations and export backend state for verification.
+- All endpoints operate on shared business state. Unknown endpoints always record environment coverage gaps; task policy decides sample eligibility and optional penalties, defaulting to exclusion and zero penalty. They are not automatically model failures. Record mutations and export backend state for verification.
 
 ## Evaluation and training
 
 - Use Harbor job configurations under `experiments/eval/`; keep training integration configurations under `experiments/rl/<framework>/`. Evaluation and training consume the same task packages.
 - Run verification independently of the agent, using backend-collected state/history and declared task artifacts. Agent-authored output is not authoritative evidence of backend changes.
-- Keep success rewards and per-condition diagnostic results distinct. Changes to reward semantics must be explicit.
-- Harbor is the execution entrypoint. Do not reintroduce a separate SDK runner, task registry, executable wrapper, or custom agent hook.
+- Keep business success, raw rewards, penalties, sample eligibility, and per-condition diagnostics distinct. Use deterministic rules for explicit structural/literal requirements; use semantic rubrics where string checks can reject valid business results. Judge failures are verifier errors, not model failures. Changes to reward semantics must be explicit.
+- Harbor is the execution entrypoint. Do not reintroduce a separate SDK runner, task registry, executable wrapper, or custom agent execution hook. Task-owned environment-error hooks are supported; they log unsupported operations and configure feedback, penalties, and sample eligibility.
 
 ## Validation and delivery
 

@@ -1,16 +1,39 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_f883a4577cea',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_281832285f98',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_45a5c62241ee',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_45a5c62241ee',
     '--json',
-    '{"collection": "tickets", "subject": "Question about pricing", "description": "Hi, could you explain the difference between your pricing tiers? We\'re a team of 30 and not sure which plan fits best. Thanks, Jamie Park"}',
+    '{"subject": "Question about pricing", "description": "Hi, could you explain the difference between your pricing tiers? We\'re a team of 30 and not sure which plan fits best. Thanks, Jamie Park"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

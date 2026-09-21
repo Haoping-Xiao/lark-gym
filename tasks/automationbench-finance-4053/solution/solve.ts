@@ -1,16 +1,13 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
   [
     'base',
-    '+record-upsert',
+    '+record-list',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
-    '--json',
-    '{"collection": "wire_transfers", "request_id": "WR-001", "payee": "Acme Supplies", "amount": 8500, "status": "Sent"}',
+    'tbl_ed170c29e4d5',
   ],
   [
     'base',
@@ -18,9 +15,19 @@ const commands: string[][] = [
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_ed170c29e4d5',
     '--json',
-    '{"collection": "wire_transfers", "request_id": "WR-004", "payee": "CloudHost Pro", "amount": 25000, "status": "Sent"}',
+    '{"request_id": "WR-001", "payee": "Acme Supplies", "amount": 8500, "status": "Sent"}',
+  ],
+  [
+    'base',
+    '+record-upsert',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_ed170c29e4d5',
+    '--json',
+    '{"request_id": "WR-004", "payee": "CloudHost Pro", "amount": 25000, "status": "Sent"}',
   ],
   [
     'sheets',

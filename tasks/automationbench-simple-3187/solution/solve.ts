@@ -1,16 +1,39 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_f883a4577cea',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_281832285f98',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_45a5c62241ee',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_45a5c62241ee',
     '--json',
-    '{"collection": "tickets", "subject": "ESCALATION: Data sync failures in production", "description": "This is our 3rd day experiencing intermittent data sync failures. This is impacting 500+ users. We need immediate resolution or will consider alternatives. - Rachel Kim, VP Engineering", "priority": "high"}',
+    '{"subject": "ESCALATION: Data sync failures in production", "description": "This is our 3rd day experiencing intermittent data sync failures. This is impacting 500+ users. We need immediate resolution or will consider alternatives. - Rachel Kim, VP Engineering", "priority": "high"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

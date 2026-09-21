@@ -1,16 +1,23 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_085154084c74',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_085154084c74',
     '--json',
-    '{"collection": "tasks", "workspace": "ws_prod", "name": "Add dark mode feature", "project": "proj_backlog"}',
+    '{"workspace": "ws_prod", "name": "Add dark mode feature", "project": "proj_backlog"}',
   ],
 ];
 for (const args of commands)

@@ -4,13 +4,13 @@
 
 通过真实 lark-cli，在独立、有状态的飞书 Mock 中评测办公 Agent。任务采用 Harbor 原生格式，包含中文要求、初始业务数据、CLI 参考解和独立评分器。
 
-目前包含 **800 道 AutomationBench 改写任务**（600 道正式题、200 道 simple 辅助题），以及一个维护通知示例。800 道任务均已通过本地 CLI 参考解和反例检查，以及原生 Harbor 容器验收（800 次参考解得 1 分、800 次空操作得 0 分）。维护通知示例也通过了独立容器验证。本项目是飞书业务改写，不是官方 AutomationBench 分数复现。
+目前包含 **800 道 AutomationBench 改写任务**（600 道正式题、200 道 simple 辅助题），以及一个维护通知示例。当前任务版本 0.2.0 引入分表、环境不足策略及语义评分；完整模型与容器验收尚待执行。旧版本的 800 题容器证据见下方验证边界，不能用于证明新评分已通过。本项目是飞书业务改写，不是官方 AutomationBench 分数复现。
 
 ```text
 tasks/<name>/
-  instruction.md          中文任务与工具使用说明
+  instruction.md          中文业务请求
   task.toml               Harbor 资源、超时、后端产物及独立评分配置
-  environment/            Dockerfile、Compose、Mock Dockerfile、seed.json
+  environment/            镜像、Compose、seed、操作指南与环境不足策略
   solution/               真实 CLI 参考解，只提供给 oracle
   tests/                  独立评分镜像、test.sh、评分代码与期望条件
 gyms/lark-cli/            Go CLI 接入、TypeScript Mock、公共基础镜像
@@ -36,7 +36,7 @@ npm run oracle
 node --test tests/migration.test.ts
 ```
 
-这些检查使用真实 CLI 访问 Mock，并验证空操作、缺失必要业务操作、禁止通知和无关数据误改。它们不能代替 Harbor 容器验收。
+这些检查使用真实 CLI 访问 Mock，验证结构性缺失、禁止通知、无关数据误改以及语义检查的交接。文本含义检查需要真实 judge；例如 sales-703 的空操作也必须经过语义判定。它们不能代替模型或 Harbor 容器验收。
 
 ## Harbor 运行
 
@@ -45,16 +45,16 @@ node --test tests/migration.test.ts
 ```bash
 pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
 bash scripts/build-images.sh
-harbor run --path tasks/automationbench-simple-3001 --agent oracle
-harbor run --path tasks/automationbench-simple-3001 --agent nop
-harbor run --config experiments/eval/oracle.yaml
+harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent oracle
+harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent nop
+harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracle.yaml
 ```
 
-任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器、自定义 hook 或第二套 task 注册表。
+任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表；任务内环境不足 hook 只处理工具错误与审计。
 
-Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口归为环境覆盖不足，不能当作正常失败样本。
+Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足；默认排除样本，任务策略可以选择保留并扣分。
 
-模型评测使用 Harbor 内置 Agent，例如 `harbor run --config experiments/maintenance-codex.yaml`；需要单独配置该 Agent 的认证，运行可能产生模型费用。CI 仅运行 oracle/nop，不调用收费模型。原生任务也可作为兼容 Harbor 的训练系统输入，本仓库不自建训练调度器，尚未验证实际 RL 训练。
+模型评测使用 Harbor 内置 Agent，例如 `harbor run --config experiments/maintenance-codex.yaml`；需要单独配置该 Agent 的认证，运行可能产生模型费用。普通 CI 不调用模型；手动启用完整验收会运行语义 judge，oracle/nop 也可能产生模型费用。原生任务也可作为兼容 Harbor 的训练系统输入，本仓库不自建训练调度器，尚未验证实际 RL 训练。
 
 ## 数据与改写
 
@@ -70,4 +70,12 @@ CLI 固定版本 `0493db0cd1a10d6dd8a2295128bec3e319c7fbb0`，构建时下载上
 
 Mock 实现任务需要的共享业务状态和部分权限规则；尚未与真实飞书租户做差分验证，也不模拟完整 OAuth、线上通知送达或全部接口。未知端点返回 501。只使用本地合成凭据，不向生产系统写入。
 
-验证版本为 `e4c2848c1c7cfd676d95f28839a9f539693e645a`：[完整 CI 与产物](https://github.com/Haoping-Xiao/lark-gym/actions/runs/35478351128)。本地 813 项测试、Go 测试和 vet 通过；全部 25 组容器产物已下载复核，任务集合恰好覆盖 800 题。第 12 组首次因 Docker 构建器异常中断，同一提交重跑通过，其余组首次通过。逐题 `container_verified` 对应此验证版本，详细证据记录在 `scripts/migration/automationbench.json`；后续业务代码修改需要重新验证。
+历史验证版本为 `e4c2848c1c7cfd676d95f28839a9f539693e645a`：[完整 CI 与产物](https://github.com/Haoping-Xiao/lark-gym/actions/runs/35478351128)。本地 813 项测试、Go 测试和 vet 通过；全部 25 组容器产物已下载复核，任务集合恰好覆盖 800 题。第 12 组首次因 Docker 构建器异常中断，同一提交重跑通过，其余组首次通过。逐题 `container_verified` 对应此验证版本，详细证据记录在 `scripts/migration/automationbench.json`；后续业务代码修改需要重新验证。
+
+## 业务与评分整理
+
+当前任务按业务实体分表，用户请求与操作环境说明分开。环境不足经 task 内 hook 留下请求与处置日志；默认继续执行、最终排除样本，扣分默认 0。策略支持累计扣分上限、负分下限及样本有效性配置。
+
+评分保留对象、数量、数值状态、权限和无关数据保护等代码检查；文本含义交给 Reward Kit rubric，避免禁词或参考措辞误杀。`tests/test.sh` 执行完整评分；单独运行 `verify.ts` 只得到程序检查的中间结果。judge 失败不生成最终分数。需要在独立 verifier 中配置模型接入。
+
+[实现及运行说明](scripts/task-support/README.md) · [逐题检查清单](reports/task-audit.json)。普通 CI 不运行付费 judge；全量容器加语义验收需显式启动工作流。历史 800 题 oracle/nop 结果不能替代本次语义评分或 Astra 探索验收，测试租户对照仍需单独执行。

@@ -1,16 +1,39 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_f883a4577cea',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_281832285f98',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_45a5c62241ee',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_45a5c62241ee',
     '--json',
-    '{"collection": "tickets", "subject": "Contract renewal terms", "description": "Hi, our contract is up for renewal next month. We\'d like to discuss modifying the SLA terms. Can someone from your legal team reach out? Thanks, Patricia Delgado", "group_id": "grp_legal"}',
+    '{"subject": "Contract renewal terms", "description": "Hi, our contract is up for renewal next month. We\'d like to discuss modifying the SLA terms. Can someone from your legal team reach out? Thanks, Patricia Delgado", "group_id": "grp_legal"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

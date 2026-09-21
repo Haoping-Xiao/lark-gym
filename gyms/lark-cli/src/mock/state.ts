@@ -22,6 +22,7 @@ function rejectAsyncResult(data: unknown) {
 export function createState(
   seed: World,
   onSnapshot?: MockOptions['onSnapshot'],
+  onUnsupported?: MockOptions['onUnsupported'],
 ) {
   const world = structuredClone(seed);
   const calls: ApiCall[] = [];
@@ -58,14 +59,30 @@ export function createState(
         response: { code: e.code || 990002, msg: e.message },
       };
     }
-    calls.push({
+    const call: ApiCall = {
       seq: calls.length + 1,
+      timestamp: new Date().toISOString(),
       ...structuredClone(request),
       status: result.status,
       response: structuredClone(result.response),
       changed: !isDeepStrictEqual(before, world),
       mutations: collectMutations(before, world),
-    });
+    };
+    if (result.status === 501 && onUnsupported) {
+      try {
+        call.unsupported = onUnsupported(structuredClone(call));
+        rejectAsyncResult(call.unsupported);
+        if (typeof call.unsupported.feedback === 'string') {
+          result.response = {
+            ...result.response,
+            msg: `${result.response.msg}; ${call.unsupported.feedback}`,
+          };
+        }
+      } catch (error) {
+        call.unsupported = { kind: 'hook_error', error: String(error) };
+      }
+    }
+    calls.push(call);
     onSnapshot?.(world, calls);
     return result;
   };

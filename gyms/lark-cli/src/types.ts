@@ -25,6 +25,13 @@ export interface World {
     table_id: string;
     records: BaseRecord[];
     fields?: { name: string; type: string }[];
+    tables?: {
+      table_id: string;
+      name: string;
+      collection: string;
+      read_only?: boolean;
+      fields: { name: string; type: string }[];
+    }[];
   };
   chats: (ApiObject & { chat_id: string; name: string })[];
   chat_creation_allowed?: boolean;
@@ -38,12 +45,15 @@ export interface ApiCall {
   status: number;
   response: unknown;
   changed: boolean;
+  timestamp?: string;
+  unsupported?: Record<string, unknown>;
   mutations: { kind: string; id: string; before?: unknown; after: unknown }[];
 }
 export interface MockOptions {
   host?: string;
   port?: number;
   onSnapshot?: (world: World, calls: ApiCall[]) => void;
+  onUnsupported?: (call: ApiCall) => Record<string, unknown>;
 }
 export interface Verdict {
   status: 'pass' | 'fail' | 'environment_incomplete';

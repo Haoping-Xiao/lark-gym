@@ -1,3 +1,5 @@
+> 当前任务整理使用 `scripts/task-support/`：按业务实体分表、任务内环境不足策略和语义评分。下文保留初次迁移历史说明，其中混合 collection 表、纯字符串评分及旧容器结果不代表此次修改后的实现或验收。重新生成任务后按该目录 README 执行整理和验证。
+
 # AutomationBench → LarkGym
 
 固定上游提交见 `automationbench.json`。该清单覆盖 600 道正式题和 200 道辅助题；只有实际通过检查的任务标记 `local-cli-verified`，容器检查单列。此实现是飞书业务改写，不是官方评测复现。

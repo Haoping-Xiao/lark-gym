@@ -1,0 +1,90 @@
+# Task business and verifier review (task version 0.2.0)
+
+## Changes and observed problems
+
+- Reviewed the generated packages for all 800 AutomationBench tasks (600 formal,
+  200 simple), plus the maintenance example. This is a package/schema/scoring
+  audit, not independent certification of every source business interpretation.
+- Replaced the mixed business collection table with 1,504 entity tables across
+  the 800 tasks. Table APIs select records from one authoritative state, hide the
+  internal collection field, and prevent writes to declared lookup tables.
+  User requests and environment guidance now live in separate files.
+- Simple-3151 previously mixed ticket/case guidance and prescribed reference
+  prose. Its request now asks for a support ticket based on the customer message;
+  the task exposes the ticket table and the grader still checks the business facts.
+- Field projection was previously ignored; table details and group search lacked
+  routes. Added scoped behavior and real-CLI checks. During review, member search
+  was found to read a different field from membership writes; it now reads the
+  same membership state, including after removal and across isolated runs.
+- String guards such as marketing-1142's `renew` cannot distinguish a renewal
+  from a refusal. Text meaning now goes to a task-owned rubric. The explicit
+  `INFR-SUBJ-Q1` tag remains a code check. Simple-3006's source link and the exact
+  text requested in simple-3016/3038 also remain code checks.
+- Sales-703 is a text-only task: an unchanged world can pass structural checks,
+  but must still reach the semantic judge. The pipeline regression exercises
+  this handoff with a stubbed failing judge; it does not prove model judgment.
+
+## Data and policy invariants checked locally
+
+Compared all 800 seeds against base commit
+`ad1f0423975ad4481dc4fa0e13ae5848e7ba8731`: after removing the newly added
+`base.tables` metadata, every seed is identical to its baseline. No
+`tests/expected.json` business values changed. This preserves source records,
+policies, distractors and target facts; it does not certify that the earlier
+migration itself was fully faithful.
+
+All 801 environment/verifier policy and hook pairs match. The 800 semantic
+support copies match their source templates. All 800 rubric TOMLs validate using
+the actual installed `harbor-rewardkit==0.2.1` schema, without model calls.
+
+Unsupported operations roll back and return 501. The task hook records the
+request, reason, decision and timestamp; the agent may continue until its normal
+Harbor timeout. Default penalty is zero and the sample is excluded. Policies can
+change cumulative penalty cap, score floor (including negative or unbounded),
+and eligibility. A hook or judge infrastructure error never becomes a model
+failure score. Semantic checks only run after structural checks pass and sample
+eligibility permits grading.
+
+## Scoped contract evidence
+
+| Scope                  | Local evidence                                                                                                                   | Not established                                                                  |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Base records           | Real CLI field-name/ID projection, offset/limit, update/read/list, invalid field, batch atomicity, deletion, cross-run isolation | Real-tenant error codes and all query/filter semantics                           |
+| Business tables        | Entity-local reads/writes, schema, cross-table ID rejection, single shared state                                                 | Full online Base permission model                                                |
+| Chats                  | Group keyword/mode search, shared membership reads after add/remove, creation/read/messages and permission rejection             | Full visibility, manager, sorting, mute behavior and production identity mapping |
+| Calendar/sheets        | Existing read/write, wrong-window/collateral, isolation and transaction regressions retained                                     | Full Feishu API coverage                                                         |
+| Unsupported operations | Hook, rollback, continuation, inclusion/exclusion, penalty/floor behavior                                                        | Agent exploration coverage rate                                                  |
+| Semantic grading       | Actual rubric schema validation and stubbed pass/fail/provider-error composition                                                 | Live judge accuracy, alternative-answer acceptance or false-negative rate        |
+
+Unknown behavior remains an explicit coverage gap rather than a fabricated
+success response. The comparison helper `scripts/compare-cli-contracts.mjs`
+accepts paired real/Mock CLI commands and ID normalization; it has not been run
+against a tenant. A match means the declared JSON observations match, not that
+unobserved side effects or all API behavior match.
+
+## Completed local validation
+
+- `npm run check`: passed type checking, formatting, all 825 Node tests, Go tests and vet. This includes programmatic regressions for all 800 migrated tasks.
+- `npm run oracle`: passed the standalone maintenance reference-solution/artifact test.
+- Focused table/member and verifier-composition tests passed after final changes. Judge composition uses a stub, not a model.
+- 800 actual RewardKit rubric schemas validated; 801 policy/hook pairs and shared support copies checked for consistency.
+
+## Pending runtime acceptance
+
+The local host has no Docker/Harbor execution surface and no configured model
+credentials. Docker installation was not authorized. The following remain unrun:
+
+1. Native Harbor builds and runtime collection for the new verifier image.
+2. Full 800-task oracle/no-op acceptance with live semantic judges.
+3. `gpt-6-astra` agent exploration via `experiments/eval/astra-coverage.yaml`.
+4. Real Feishu test-tenant command/flag and state-transition comparisons.
+
+Ordinary CI runs local checks and the deterministic maintenance container case.
+The 800-task workflow requires explicit model execution and verifier credentials;
+even no-op trials can require a judge. Astra exploration is separate from judge
+execution. Historical 800-task container results apply only to their recorded
+older commit, not to task version 0.2.0.
+
+Review the shared changes first (`scripts/task-support`, Mock routes, tests, CI),
+then task-owned policies and overrides. Most changed files are generated native
+Harbor packages rather than separate hand-written implementations.

@@ -1,15 +1,22 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_085154084c74',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_085154084c74',
     '--json',
-    '{"collection": "tasks", "name": "Monitor Spring Promo 2026 metrics", "workspace": "ws_marketing"}',
+    '{"name": "Monitor Spring Promo 2026 metrics", "workspace": "ws_marketing"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

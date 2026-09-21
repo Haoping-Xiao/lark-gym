@@ -49,6 +49,76 @@ export function createImRoutes(
         q,
         body,
       );
+    if (method === 'POST' && p === '/open-apis/im/v2/chats/search') {
+      const filter = body.filter || {};
+      requireValue(
+        typeof filter === 'object' && !Array.isArray(filter),
+        'Invalid chat filter',
+      );
+      for (const key of ['member_ids', 'chat_modes'])
+        requireValue(
+          filter[key] === undefined ||
+            (Array.isArray(filter[key]) &&
+              filter[key].every((value: unknown) => typeof value === 'string')),
+          `Invalid ${key}`,
+        );
+      requireValue(
+        filter.disable_search_by_user === undefined ||
+          typeof filter.disable_search_by_user === 'boolean',
+        'Invalid disable_search_by_user',
+      );
+      requireValue(
+        body.query === undefined || typeof body.query === 'string',
+        'Invalid query',
+      );
+      const unsupported = Object.keys(filter).filter(
+        (key) =>
+          !['chat_modes', 'member_ids', 'disable_search_by_user'].includes(key),
+      );
+      if (unsupported.length || body.sorter)
+        fail(
+          501,
+          990001,
+          'ENV_UNSUPPORTED: chat search visibility/manager/sort filters',
+        );
+      requireValue(
+        typeof body.query === 'string' || Array.isArray(filter.member_ids),
+        'query or member_ids required',
+      );
+      const keyword = String(body.query || '')
+        .replace(/^"|"$/g, '')
+        .toLowerCase();
+      const matches = world.chats.filter(
+        (chat) =>
+          chat.chat_mode !== 'p2p' &&
+          (chat.name.toLowerCase().includes(keyword) ||
+            (!filter.disable_search_by_user &&
+              (chat.member_ids || []).some((id: string) =>
+                world.base.records.some(
+                  (record) =>
+                    record.fields.collection === 'lookup_users' &&
+                    record.fields.id === id &&
+                    String(record.fields.real_name || record.fields.name || '')
+                      .toLowerCase()
+                      .includes(keyword),
+                ),
+              ))) &&
+          (!filter.chat_modes ||
+            filter.chat_modes.includes(
+              chat.chat_mode === 'topic' ? 'thread' : 'default',
+            )) &&
+          (!filter.member_ids ||
+            filter.member_ids.every((id: string) =>
+              (chat.member_ids || []).includes(id),
+            )),
+      );
+      const result = page(matches, q);
+      return {
+        ...result,
+        total: matches.length,
+        items: result.items.map((chat) => ({ meta_data: chat })),
+      };
+    }
     if (method === 'POST' && p === '/open-apis/im/v1/chats')
       return createChat(world, q, body);
     const chatPath = p.match(/^\/open-apis\/im\/v1\/chats\/([^/]+)$/);

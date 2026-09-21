@@ -1,16 +1,23 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_02e3fe5aad80',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_02e3fe5aad80',
     '--json',
-    '{"collection": "issues", "project": "PROD", "issue_type": "Story", "summary": "bulk export 功能反馈", "description": "Hi, it would be really helpful if we could bulk export all records as CSV with custom column selection. Currently we have to export one page at a time. Thanks, Yuki Tanaka"}',
+    '{"project": "PROD", "issue_type": "Story", "summary": "bulk export 功能反馈", "description": "Hi, it would be really helpful if we could bulk export all records as CSV with custom column selection. Currently we have to export one page at a time. Thanks, Yuki Tanaka"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [
