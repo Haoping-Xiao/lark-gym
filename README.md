@@ -66,7 +66,7 @@ AutomationBench 固定上游提交 `4a8e1061254004d9dac807054eed33fad7d1ff14`，
 
 ## 验证边界
 
-CLI 固定版本 `0493db0cd1a10d6dd8a2295128bec3e319c7fbb0`，构建时下载上游代码，使用本项目 Go host 接入 Mock。没有 Mock 地址时直接失败；raw API 命令禁用。未加载上游内嵌 skills 或 Aily 插件。
+CLI 固定版本 `0493db0cd1a10d6dd8a2295128bec3e319c7fbb0`，构建时下载上游代码，使用本项目 Go host 接入 Mock。没有 Mock 地址时直接失败；raw API 命令禁用。构建时复用同一上游版本的文档嵌入代码，将 skills 及命令指导文档打包进二进制；`lark-cli skills list/read` 无需源码目录即可使用。未加载 Aily 插件。
 
 Mock 实现任务需要的共享业务状态和部分权限规则；尚未与真实飞书租户做差分验证，也不模拟完整 OAuth、线上通知送达或全部接口。未知端点返回 501。只使用本地合成凭据，不向生产系统写入。
 
