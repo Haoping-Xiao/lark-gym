@@ -32,15 +32,26 @@ export function prepareSemantic(
         rule.sheet_id === cell.sheet_id &&
         rule.columns.includes(cell.column),
     );
-  // Opt-in policies follow task review; explicit message counts remain strict.
+  const literalMessageTerms = new Map(
+    (expected.messages || []).map((m: Json, i: number) => [
+      m,
+      config.literal_message_terms?.[String(i)] || [],
+    ]),
+  );
+  // Only reviewed recipients may vary message count. Other recipients retain
+  // their original per-message checks, including indexed literal requirements.
   if (seed && config.message_count === 'per_recipient') {
     const old = new Set(seed.messages.map((m: Json) => m.message_id));
     const sent = world.messages.filter((m: Json) => !old.has(m.message_id));
-    const recipients = [
-      ...new Set<string>((expected.messages || []).map((m: Json) => m.chat_id)),
-    ];
-    expected.messages = recipients.flatMap((chat_id) =>
-      Array.from(
+    const scope: string[] | undefined = config.message_count_chats;
+    if (scope) original.message_count_chats = scope;
+    const visited = new Set<string>();
+    expected.messages = (expected.messages || []).flatMap((message: Json) => {
+      const chat_id = message.chat_id;
+      if (scope && !scope.includes(chat_id)) return [message];
+      if (visited.has(chat_id)) return [];
+      visited.add(chat_id);
+      return Array.from(
         {
           length: Math.max(
             1,
@@ -48,8 +59,8 @@ export function prepareSemantic(
           ),
         },
         () => ({ chat_id, contains: [] }),
-      ),
-    );
+      );
+    });
     deferred.push('messages.per_recipient_completeness_and_no_redundancy');
   }
   if (seed && config.unordered_new_rows) {
@@ -104,7 +115,7 @@ export function prepareSemantic(
   }
   for (const [i, message] of (expected.messages || []).entries()) {
     if (message.contains?.length) {
-      message.contains = config.literal_message_terms?.[String(i)] || [];
+      message.contains = literalMessageTerms.get(message) || [];
       deferred.push(`messages[${i}].content`);
     }
   }

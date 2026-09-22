@@ -47,3 +47,51 @@ test('semantic review defers wording without dropping recipient, identity or num
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('scoped message expansion preserves other recipients and original literal indices', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'semantic-scoped-'));
+  try {
+    const config = join(dir, 'config.json');
+    await writeFile(
+      config,
+      JSON.stringify({
+        enabled: true,
+        text_fields: [],
+        message_count: 'per_recipient',
+        message_count_chats: ['flexible'],
+        literal_message_terms: { '1': ['EXACT'] },
+      }),
+    );
+    const expected = {
+      messages: [
+        { chat_id: 'flexible', contains: ['all details'] },
+        { chat_id: 'strict', contains: ['EXACT'] },
+      ],
+      creates: [],
+      updates: [],
+    };
+    const seed = { messages: [] };
+    const world = {
+      messages: [
+        { message_id: 'a', chat_id: 'flexible' },
+        { message_id: 'b', chat_id: 'flexible' },
+        { message_id: 'c', chat_id: 'strict' },
+      ],
+    };
+    const review = prepareSemantic(
+      expected,
+      world,
+      pathToFileURL(config),
+      seed,
+    );
+    assert.deepEqual(expected.messages, [
+      { chat_id: 'flexible', contains: [] },
+      { chat_id: 'flexible', contains: [] },
+      { chat_id: 'strict', contains: ['EXACT'] },
+    ]);
+    assert.deepEqual(review.original.message_count_chats, ['flexible']);
+    assert.equal(review.original.messages.length, 2);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});

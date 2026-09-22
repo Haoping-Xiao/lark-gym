@@ -564,3 +564,25 @@ It chose to combine Bob Chen and Hugo Fernandez in the sales manager's message,
 while notifying the employees separately. Both business and independent semantic
 checks pass. The same collected backend state fails the old task configuration,
 providing actual model-exploration evidence in addition to the reference variants.
+
+### Recipient-scoped message flexibility
+
+HR5004, HR5010, HR5069 and HR5102 now permit equivalent message grouping only for
+reviewed recipients: IT/Payroll, the recruiting coordinator, the two recruiters,
+and the HR business partners respectively. The `message_count_chats` opt-in leaves
+all other recipients' original per-message checks intact. Indexed literal terms
+remain attached to their original message even when an earlier flexible recipient
+has more messages. The judge receives the scope explicitly.
+
+This distinction preserves HR5010's per-candidate confirmation requirements and
+HR5102's explicit single benefits-channel summary. HR5080 is unchanged: each
+emergency notice still needs its complete location, date, reason and WFH directive.
+Task instructions, seeds, references and expected business facts are unchanged.
+
+Actual real-CLI reference variants split complete IT/Payroll requests,
+coordinator interview details, recruiter duplicate groups and HRBP employee
+notices. All four old verifiers reject the alternatives. New structural checks
+accept the scoped alternatives but reject splitting the candidate confirmation or
+the explicitly single channel summary. Another real execution omits one duplicate
+group for one recruiter for semantic negative validation. These are reference
+variants with collected backend history, not model exploration or modified states.
