@@ -252,3 +252,28 @@ was a valid failure after 52 requests: the player did not read the billing-group
 10% Meridian discount and invoiced 14,625 rather than 13,162.5. Source review
 confirmed the discount; hard and semantic graders rejected the result. No
 scoring rule was relaxed to make that player attempt pass.
+
+### Further local review: mail boundary and finance4010
+
+A fresh marketing1142 Astra player made 65 requests and passed programmatic
+and independent semantic checks, but two native-mail requests (list and search)
+returned 501. It remains excluded, not a valid pass. Contact improvements do not
+establish native-mail coverage.
+
+A source inventory at `10a051b9` found 386 of 800 tasks with 8,746 original mail
+messages in the migrated IM archive; 357 tasks contain multiple recipients.
+There is no explicit native mailbox identity or permission model. Six tasks also
+have 333 mutable `mail_messages` ledger rows, whereas `oc_mail` preserves the
+historical snapshot. Projecting that archive into mailbox `me` would invent
+ownership and could return stale read/label state. Native-mail support therefore
+remains unimplemented; the declared IM/ledger migration is unchanged.
+
+Finance4010's original request explicitly allows message(s), and its close
+procedure specifies complete balanced entries, not an exact message count.
+Its previous verifier rejected a complete summary split into entries and totals.
+A task-specific `per_recipient` override now checks destination and delegates
+completeness and redundancy to the existing semantic rubric. Wrong recipients
+still fail structural checks. Independent gpt-6-astra judges accepted the complete
+split and rejected missing totals and a duplicate report. These three are
+controlled post-state fixtures derived from a recorded reference run, not player
+traces. Task instructions, seed, expected facts and reference solution are unchanged.

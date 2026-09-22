@@ -7,7 +7,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const id of [4001, 4008])
+for (const id of [4001, 4008, 4010])
   test(`finance ${id}: business-equivalent output passes structural rules; bad output fails`, async () => {
     const root = `tasks/automationbench-finance-${id}`;
     const seed = JSON.parse(
