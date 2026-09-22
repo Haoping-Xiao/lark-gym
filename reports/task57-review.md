@@ -128,3 +128,32 @@ Follow-up local verification: `npm run check` passed with 830 Node tests,
 TypeScript checks, formatting, Go tests and vet; `npm run oracle` passed.
 All 800 seeds and expected-result files equal the pre-follow-up versions.
 Hosted checks for this follow-up commit are tracked separately in the PR.
+
+## Local development with real Codex sessions
+
+The personal SDK workflow remains outside this repository. It runs gpt-6-astra
+against the real CLI and an independent Mock, then starts a fresh judge session
+using the task rubric and backend snapshot. This is not Harbor container or
+RewardKit HTTP transport acceptance.
+
+Three initial exploration trials (4001, 4008, 3151) revealed message search,
+mail, resource-filter and no-overwrite coverage gaps. All were excluded by the
+coverage policy. 4008 and 3151 passed business/semantic checks; 4001 omitted
+supplier-return notices. The follow-up implements shared-state IM search and
+batch lookup, Drive document-type filtering, and atomic no-overwrite sheet
+writes. Message search supports text terms, chat and time filters; unsupported
+sender/attachment filters remain explicit gaps, and production ranking is not
+replicated. Mail and sheet-comment discovery still need work.
+
+Finance4001 now explicitly sends its Notes and invoice-date columns to semantic
+review. Other tasks do not inherit this opt-in; supplier, invoice, money and due
+date constraints remain structural. Actual independent judge sessions accepted
+row reordering, complete split reports, source date spelling and supported
+notes; rejected omitted/duplicate reports and an incorrect invoice date. A
+wrong supplier was rejected by hard rules. Controlled alternative states are
+labeled as fixtures and do not invent mutation histories.
+
+Full reference-result semantic review of 800 frozen tasks is running locally;
+this is neither complete nor 800 player trials. The local code checks passed
+832 tests plus type/format/Go checks and oracle verification. The additional
+Drive type-filter regression and typecheck passed separately after that run.

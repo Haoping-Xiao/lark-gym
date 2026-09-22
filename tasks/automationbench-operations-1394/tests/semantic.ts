@@ -23,6 +23,15 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  const semanticCell = (cell: Json) =>
+    cell.contains?.length ||
+    (typeof cell.value === 'string' && cell.value.length > 80) ||
+    (config.semantic_cell_columns || []).some(
+      (rule: Json) =>
+        rule.spreadsheet_token === cell.spreadsheet_token &&
+        rule.sheet_id === cell.sheet_id &&
+        rule.columns.includes(cell.column),
+    );
   // Opt-in policies follow task review; explicit message counts remain strict.
   if (seed && config.message_count === 'per_recipient') {
     const old = new Set(seed.messages.map((m: Json) => m.message_id));
@@ -75,8 +84,7 @@ export function prepareSemantic(
           empty(before[index]) &&
           !used.has(key) &&
           cells.every((c) =>
-            c.contains?.length ||
-            (typeof c.value === 'string' && c.value.length > 80)
+            semanticCell(c)
               ? true
               : c.one_of
                 ? c.one_of.some((v: any) =>
@@ -127,10 +135,7 @@ export function prepareSemantic(
       deferred.push(`updates[${i}].${check.field}`);
     }
   for (const [i, check] of (expected.cells || []).entries()) {
-    if (
-      check.contains?.length ||
-      (typeof check.value === 'string' && check.value.length > 80)
-    ) {
+    if (semanticCell(check)) {
       check.value = (
         check.spreadsheet_token
           ? world.spreadsheets?.[check.spreadsheet_token]?.sheets

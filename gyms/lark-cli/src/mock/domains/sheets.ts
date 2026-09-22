@@ -147,9 +147,14 @@ export function sheetsRoutes(
     if (
       Object.keys(input).some(
         (key) =>
-          !['excel_id', 'sheet_id', 'sheet_name', 'range', 'cells'].includes(
-            key,
-          ),
+          ![
+            'excel_id',
+            'sheet_id',
+            'sheet_name',
+            'range',
+            'cells',
+            'allow_overwrite',
+          ].includes(key),
       )
     )
       fail(501, 990001, 'ENV_UNSUPPORTED: sheet write options');
@@ -190,6 +195,18 @@ export function sheetsRoutes(
           'Invalid cell value',
         );
       }
+    requireValue(
+      input.allow_overwrite === undefined ||
+        typeof input.allow_overwrite === 'boolean',
+      'allow_overwrite must be boolean',
+    );
+    if (input.allow_overwrite === false)
+      for (let y = top; y <= bottom; y++)
+        for (let x = left; x <= right; x++)
+          requireValue(
+            sheet.values[y]?.[x] === undefined || sheet.values[y][x] === '',
+            'Write would overwrite a nonempty cell',
+          );
     for (let y = top; y <= bottom; y++) {
       while (sheet.values.length <= y) sheet.values.push([]);
       for (let x = left; x <= right; x++) {

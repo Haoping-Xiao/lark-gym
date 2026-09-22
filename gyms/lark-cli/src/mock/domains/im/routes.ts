@@ -1,3 +1,4 @@
+import { searchMessages } from './search.ts';
 import type { ApiObject, World } from '../../../types.ts';
 import { chatMembers, createChat } from './chats.ts';
 import { fail, requireValue } from '../../errors.ts';
@@ -12,6 +13,8 @@ export function createImRoutes(
 ): RouteHandler {
   let nextMessage = 1;
   return ({ method, path: p, query: q, body }) => {
+    const searched = searchMessages(world, { method, path: p, query: q, body });
+    if (searched !== undefined) return searched;
     if (
       method === 'POST' &&
       p === '/open-apis/im/v1/messages/reactions/batch_query'

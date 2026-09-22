@@ -36,6 +36,11 @@ for (const id of [4001, 4008])
         const sheet = first.spreadsheet_token
           ? world.spreadsheets![first.spreadsheet_token].sheets[first.sheet_id]
           : world.sheets[first.sheet_id];
+        // Source date spelling and explanatory notes are semantic checks, not row identity.
+        sheet.values[rows[1]][4] = 'January 30, 2026';
+        sheet.values[rows[1]][3] =
+          'REVIEW - over threshold; corrected by Controller';
+        sheet.values[rows[0]][3] = 'Invoice source retained';
         [sheet.values[rows[0]], sheet.values[rows[1]]] = [
           sheet.values[rows[1]],
           sheet.values[rows[0]],

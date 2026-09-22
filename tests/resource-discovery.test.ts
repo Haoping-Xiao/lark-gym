@@ -77,8 +77,34 @@ test('real CLI discovers business resources without a per-task catalogue', async
     );
     assert.equal(titleOnly.data.total, 0);
     assert.equal(backend.calls.filter((c) => c.status === 501).length, 0);
+    assert.equal(
+      (
+        await cli(
+          'drive',
+          '+search',
+          '--query',
+          '客服工单',
+          '--doc-types',
+          'sheet',
+        )
+      ).data.total,
+      0,
+    );
+    assert.equal(
+      (
+        await cli(
+          'drive',
+          '+search',
+          '--query',
+          '客服工单',
+          '--doc-types',
+          'bitable',
+        )
+      ).data.total,
+      1,
+    );
     await assert.rejects(
-      cli('drive', '+search', '--query', '客服', '--doc-types', 'sheet'),
+      cli('drive', '+search', '--query', '客服', '--creator-ids', 'ou_unknown'),
     );
     assert.equal(backend.calls.at(-1)?.status, 501);
     assert.equal(backend.calls.at(-1)?.changed, false);

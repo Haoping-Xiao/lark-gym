@@ -70,7 +70,15 @@ export function driveRoutes(
             !Array.isArray(filter)),
         'Invalid search filter',
       );
-      supported(Object.keys(filter || {}), ['only_title']);
+      supported(Object.keys(filter || {}), ['only_title', 'doc_types']);
+      requireValue(
+        filter?.doc_types === undefined ||
+          (Array.isArray(filter.doc_types) &&
+            filter.doc_types.every(
+              (type: unknown) => typeof type === 'string',
+            )),
+        'Invalid doc_types',
+      );
       requireValue(
         filter?.only_title === undefined ||
           typeof filter.only_title === 'boolean',
@@ -79,10 +87,13 @@ export function driveRoutes(
     }
     const filter = body.doc_filter || {};
     const queryText = body.query.toLocaleLowerCase();
-    const matches = resources(world).filter((file) =>
-      (filter.only_title ? file.name : `${file.name} ${file.text}`)
-        .toLocaleLowerCase()
-        .includes(queryText),
+    const matches = resources(world).filter(
+      (file) =>
+        (!filter.doc_types?.length ||
+          filter.doc_types.includes(file.type.toUpperCase())) &&
+        (filter.only_title ? file.name : `${file.name} ${file.text}`)
+          .toLocaleLowerCase()
+          .includes(queryText),
     );
     const result = page(
       matches,
