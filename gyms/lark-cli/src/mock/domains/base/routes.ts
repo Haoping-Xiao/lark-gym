@@ -1,3 +1,4 @@
+import { filterRecords } from './query.ts';
 import type { BaseRecord, World } from '../../../types.ts';
 import { deleteRecords } from './records.ts';
 import { fail, requireValue } from '../../errors.ts';
@@ -110,6 +111,7 @@ export function baseRoutes(
       return field;
     });
   };
+  const fieldName = (id: string) => projection([id])[0].name;
   const matrix = (
     records: BaseRecord[],
     selection?: unknown,
@@ -174,7 +176,10 @@ export function baseRoutes(
     return { fields, field_list: fields, items: fields, has_more: false };
   if (method === 'GET' && p === baseV3 + '/records') {
     const unsupported = [...q.keys()].filter(
-      (key) => !['field_id', 'offset', 'limit', 'user_id_type'].includes(key),
+      (key) =>
+        !['field_id', 'offset', 'limit', 'user_id_type', 'filter'].includes(
+          key,
+        ),
     );
     if (unsupported.length)
       fail(
@@ -205,7 +210,65 @@ export function baseRoutes(
         fail(400, 99992402, 'Invalid field_id');
       }
     }
-    return matrix(table.records, selection, offset, limit);
+    let filter: unknown;
+    if (q.has('filter')) {
+      try {
+        filter = JSON.parse(q.get('filter')!);
+      } catch {
+        fail(400, 99992402, 'Invalid filter JSON');
+      }
+    }
+    return matrix(
+      filterRecords(table.records, filter, fieldName),
+      selection,
+      offset,
+      limit,
+    );
+  }
+  if (method === 'POST' && p === baseV3 + '/records/search') {
+    if (
+      Object.keys(body).some(
+        (key) =>
+          ![
+            'keyword',
+            'search_fields',
+            'select_fields',
+            'offset',
+            'limit',
+            'filter',
+          ].includes(key),
+      ) ||
+      [...q.keys()].some((key) => key !== 'user_id_type')
+    )
+      fail(501, 990001, 'ENV_UNSUPPORTED: record search option');
+    requireValue(
+      typeof body.keyword === 'string' && body.keyword.length > 0,
+      'keyword required',
+    );
+    requireValue(
+      Array.isArray(body.search_fields) && body.search_fields.length > 0,
+      'search_fields required',
+    );
+    const names = projection(body.search_fields).map((field) => field.name);
+    const offset = body.offset ?? 0,
+      limit = body.limit ?? 200;
+    requireValue(
+      Number.isInteger(offset) &&
+        offset >= 0 &&
+        Number.isInteger(limit) &&
+        limit > 0,
+      'Invalid offset or limit',
+    );
+    const keyword = body.keyword.toLowerCase();
+    const records = filterRecords(table.records, body.filter, fieldName).filter(
+      (record) =>
+        names.some((name) =>
+          String(record.fields[name] ?? '')
+            .toLowerCase()
+            .includes(keyword),
+        ),
+    );
+    return matrix(records, body.select_fields, offset, limit);
   }
   if (method === 'POST' && p === baseV3 + '/records/batch_get') {
     requireValue(

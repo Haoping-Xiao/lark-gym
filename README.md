@@ -54,6 +54,8 @@ harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracl
 
 Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足；默认排除样本，任务策略可以选择保留并扣分。
 
+多维表记录列表支持 `filter={logic, conditions}` 的标量比较子集：`and/or`、文本/数字相等与不等、数字大小比较；不隐式转换文本和数字。记录搜索按指定字段做不区分大小写的子串匹配，可组合过滤、字段投影及分页，读取共享实时状态。复杂数组/布尔过滤、排序和视图查询仍记录 501，不代表与真实飞书所有查询语义等价。
+
 模型评测使用 Harbor 内置 Agent，例如 `harbor run --config experiments/maintenance-codex.yaml`；需要单独配置该 Agent 的认证，运行可能产生模型费用。普通 CI 不调用模型；手动启用完整验收会运行语义 judge，oracle/nop 也可能产生模型费用。原生任务也可作为兼容 Harbor 的训练系统输入，本仓库不自建训练调度器，尚未验证实际 RL 训练。
 
 ## 数据与改写

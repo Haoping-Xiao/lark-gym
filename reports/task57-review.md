@@ -204,3 +204,18 @@ This combines the frozen baseline's 767 passes with subsequent corrected-case
 rejudges, not a new 800-case run on the latest commit. Player exploration still
 has environment coverage exclusions; container/model transport and real-tenant
 parity are separate, incomplete acceptance items.
+
+## Record-query coverage follow-up
+
+The actual CLI's record-search request and scalar list-filter protocol now read
+the same table state as mutations, before projection and pagination. Real-CLI
+regression exercises updates followed by search, numeric filtering, equality,
+filtered pagination and explicit rejection of unsupported operators/options.
+Keyword matching is case-insensitive substring matching; numeric/text values
+are not implicitly coerced. Complex filters, sorting and view semantics remain
+outside this implemented subset, pending real-tenant contract comparison.
+
+A fresh gpt-6-astra player run of simple3016 completed 21 backend requests with
+no unsupported calls, passed programmatic and independent semantic checks, and
+was a valid successful sample. Its earlier excluded run remains retained; this
+single rerun does not establish broad environment coverage.
