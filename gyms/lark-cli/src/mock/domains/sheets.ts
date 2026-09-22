@@ -1,5 +1,6 @@
 import type { ApiObject, World, Sheet } from '../../types.ts';
 import { fail, requireValue } from '../errors.ts';
+import { parseCsv, formatCsv } from '../csv.ts';
 import type { ApiRequest, ResponseData } from '../types.ts';
 
 function values(range: string, sheets: Record<string, Sheet>) {
@@ -121,11 +122,7 @@ export function sheetsRoutes(
       };
       if (body.tool_name === 'get_range_as_csv')
         output = {
-          csv: output.ranges[0].values
-            .map((row: unknown[]) =>
-              row.map((v) => JSON.stringify(v)).join(','),
-            )
-            .join('\n'),
+          csv: formatCsv(output.ranges[0].values),
           has_more: false,
         };
     } else fail(501, 990001, `ENV_UNSUPPORTED: sheet tool ${body.tool_name}`);
@@ -142,7 +139,8 @@ export function sheetsRoutes(
     } catch {
       fail(400, 99992402, 'Invalid tool input');
     }
-    if (body.tool_name !== 'set_cell_range')
+    const csvWrite = body.tool_name === 'set_range_from_csv';
+    if (body.tool_name !== 'set_cell_range' && !csvWrite)
       fail(501, 990001, `ENV_UNSUPPORTED: sheet tool ${body.tool_name}`);
     if (
       Object.keys(input).some(
@@ -151,13 +149,36 @@ export function sheetsRoutes(
             'excel_id',
             'sheet_id',
             'sheet_name',
-            'range',
-            'cells',
+            ...(csvWrite ? ['start_cell', 'csv'] : ['range', 'cells']),
             'allow_overwrite',
           ].includes(key),
       )
     )
       fail(501, 990001, 'ENV_UNSUPPORTED: sheet write options');
+    if (csvWrite) {
+      const start = /^([A-Z]+)([1-9][0-9]*)$/.exec(input.start_cell || '');
+      requireValue(start, 'Finite start_cell required');
+      const rows = parseCsv(input.csv);
+      if (rows.some((row) => row.some((value) => value.startsWith('='))))
+        fail(501, 990001, 'ENV_UNSUPPORTED: CSV formula evaluation');
+      const firstColumn = [...start[1]].reduce(
+        (n, c) => n * 26 + c.charCodeAt(0) - 64,
+        0,
+      );
+      let lastColumn = firstColumn + rows[0].length - 1,
+        letters = '';
+      requireValue(
+        lastColumn <= 1000 && Number(start[2]) + rows.length - 1 <= 100000,
+        'Invalid write range',
+      );
+      while (lastColumn > 0) {
+        lastColumn--;
+        letters = String.fromCharCode(65 + (lastColumn % 26)) + letters;
+        lastColumn = Math.floor(lastColumn / 26);
+      }
+      input.range = `${input.start_cell}:${letters}${Number(start[2]) + rows.length - 1}`;
+      input.cells = rows.map((row) => row.map((value) => ({ value })));
+    }
     const sid =
       input.sheet_id ||
       Object.keys(sheets).find((id) => sheets[id].title === input.sheet_name);

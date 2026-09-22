@@ -436,3 +436,27 @@ checks, using the original row order. One unsupported Sheet AI `set_range_from_c
 operation excludes the run, so it has no valid reward and does not close that
 coverage gap. Acceptance of alternative row orders is established by the separate
 controlled cases, not this player trajectory.
+
+### CSV writes through the real CLI
+
+The Sheet AI `set_range_from_csv` operation now parses rectangular CSV and delegates
+its cell matrix to the existing bounded, atomic write path. Quoted commas, escaped
+quotes, embedded newlines, CRLF, empty fields, Unicode and leading zeroes retain
+text values. CSV export uses CSV quote escaping rather than JSON string escaping,
+so imports can be read back correctly. Invalid syntax, ragged rows, invalid bounds
+and no-overwrite conflicts reject before mutation. Formula evaluation remains an
+explicit 501, including mixed text/formula batches; formulas are not silently
+stored as computed results. Unknown options remain unsupported.
+
+Real-CLI tests verify roundtrip contents, overwrite rejection, workbook isolation
+and mutation logging. The exact previously failing sales1104 CSV request was
+replayed successfully and wrote two rows. A separate literal-backslash-n variant
+was preserved as text, not converted into a line break. These are request replays,
+not player trajectories.
+
+Fresh sales1104 exploration made 65 calls with zero 501 responses and passed both
+business and semantic checks (valid reward 1). It chose `set_cell_range`, so direct
+CSV evidence is the replay and regression test. Finance4027 made 52 calls and
+passed business/semantic checks, but its unsupported `batch_update` excludes the
+run; that operation is distinct from CSV import and remains unimplemented. No
+production API parity or complete Sheet AI coverage is claimed.
