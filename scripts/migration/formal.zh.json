@@ -2185,7 +2185,7 @@
     ]
   },
   "finance-4021": {
-    "instruction": "按争议解决政策及最新阈值、合同更正处理发票争议，更新跟踪表并通知每位客户结果或下一步。对有效价格争议，本次也希望在 Resolutions 中创建贷项记录；但必须先执行政策要求的授权检查，不能越过审批。无效争议标记 Resolved - Invalid Dispute；转交现任审批人标记 Pending VP Review；运营处理标记 Escalated。向 ar-lead@company.example.com 汇总 Disputes resolved: N, Total credit value: $X，N 为本次已结案数，X 为实际获准贷项总额。",
+    "instruction": "按争议解决政策及最新阈值、合同更正处理发票争议，更新跟踪表并通过飞书私聊通知每位客户结果或下一步。对有效价格争议，本次也希望在 Resolutions 中创建贷项记录；但必须先执行政策要求的授权检查，不能越过审批。无效争议标记 Resolved - Invalid Dispute；转交现任审批人标记 Pending VP Review；运营处理标记 Escalated。通过飞书私聊向 ar-lead@company.example.com 汇总 Disputes resolved: N, Total credit value: $X，N 为本次已结案数，X 为实际获准贷项总额。",
     "sheets": [
       {
         "book": "ss_disputes",
@@ -11200,7 +11200,7 @@
     ]
   },
   "finance-4072": {
-    "instruction": "处理四月 Received Items：Received=Ordered 时按全量建账单并把对应 xero_purchase_orders.status 设 BILLED；少收按实收建账单且 PO 状态保持，向采购说明 shortfall；多收不建账单，向采购说明 overage。必须精确匹配供应商名。xero_bills 飞书台账保存 purchase_order_number、contact_id、contact_name、quantity、unit_price、total（后三者数值）。给 procurement@company.example.com 仅发异常项，一行 PO # | Vendor | shortfall/overage N units。",
+    "instruction": "处理四月 Received Items：Received=Ordered 时按全量建账单并把对应 xero_purchase_orders.status 设 BILLED；少收按实收建账单且 PO 状态保持，向采购说明 shortfall；多收不建账单，向采购说明 overage。必须精确匹配供应商名。xero_bills 飞书台账保存 purchase_order_number、contact_id、contact_name、quantity、unit_price、total（后三者数值）。通过飞书私聊给 procurement@company.example.com 仅发异常项，一行 PO # | Vendor | shortfall/overage N units。",
     "creates": [
       {
         "collection": "xero_bills",

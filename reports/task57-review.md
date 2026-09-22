@@ -314,3 +314,29 @@ independently rejudged after the instruction change, with the same expected
 verdicts. Full local checks passed 843 tests plus type/format/Go checks and the
 reference entrypoint check; task-input and changed-file format checks passed
 again after the delivery-channel edits.
+
+### Further financial notification checks
+
+Finance4021, 4058, 4061–4064 and 4072–4073 were individually reviewed against the
+original requests and supplied policies before enabling per-recipient message
+checks. All eight complete-split fixtures failed the previous verifier and passed
+independent gpt-6-astra semantic review after the change. The corrected reference
+states from the earlier finance4061/4062 fixes were used for those two tasks;
+other fixtures use the recorded baseline references. Seeds were checked against
+the current tasks. Controlled post-state edits are labeled separately from the
+original reference call history.
+
+Three negative fixtures were independently rejected: claiming a bank payment was
+initiated in finance4061, changing finance4063's repayment deadline from February
+24 to February 21, and reporting finance4072's over-receipt as a shortage. Wrong
+recipients remain rejected by the real-CLI/reference structural regressions.
+The opt-ins leave all other business checks and the semantic rubrics intact.
+
+Finance4021 and 4072 now explicitly name Feishu private messages as the delivery
+channel, including in their judge copies and migration definitions. No commands,
+resource IDs or answer content were added. A fresh finance4072 Astra player made
+51 requests with zero 501 responses, completed the ledger changes and procurement
+notification, and passed both programmatic and independent semantic checks (valid
+reward 1). It sent a combined report; split handling is established by the
+controlled alternatives. Seeds, expected facts and reference solutions were not
+changed in this batch.

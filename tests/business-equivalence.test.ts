@@ -7,7 +7,10 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const id of [4001, 4008, 4009, 4010, 4011, 4012, 4013, 4014, 4015, 4016])
+for (const id of [
+  4001, 4008, 4009, 4010, 4011, 4012, 4013, 4014, 4015, 4016, 4021, 4058, 4061,
+  4062, 4063, 4064, 4072, 4073,
+])
   test(`finance ${id}: business-equivalent output passes structural rules; bad output fails`, async () => {
     const root = `tasks/automationbench-finance-${id}`;
     const seed = JSON.parse(
