@@ -277,3 +277,40 @@ still fail structural checks. Independent gpt-6-astra judges accepted the comple
 split and rejected missing totals and a duplicate report. These three are
 controlled post-state fixtures derived from a recorded reference run, not player
 traces. Task instructions, seed, expected facts and reference solution are unchanged.
+
+### Reviewed notification granularity: seven more finance tasks
+
+Finance4009 and finance4011–4016 were individually checked against their original
+requests, current instructions and supplied business policies. They require the
+correct recipients, content and business actions, but do not prescribe a fixed
+number of transport messages. Each now explicitly opts into per-recipient
+completeness and redundancy checks; no global grading default changed. Task data,
+expected facts, reference solutions and semantic rubrics are unchanged.
+
+Controlled complete splits failed the previous programmatic checks for all seven.
+The real-CLI/reference integration tests now accept those structural alternatives
+and still reject wrong recipients. Fresh independent gpt-6-astra judges accepted
+all seven complete splits. Three separate negative fixtures were rejected:
+finance4009 without the required `[PRIORITY]` marker, finance4012 with a duplicated
+invoice notification, and finance4016 omitting Operations from the variance report
+and alert. These are labeled controlled post-states retaining reference history as
+provenance, not model-generated trajectories or new reference executions.
+
+A fresh finance4015 player on the initial split-policy revision made 55 requests,
+failed to deliver the report and triggered eight native-mail coverage gaps. The
+instruction only said to send a report to an email address, while verification
+expected Feishu IM. The delivery channel is now explicitly stated as Feishu
+private messages in finance4011, 4012, 4014 and 4015, their judge-visible copies and
+migration definitions. This clarifies the existing business destination; it adds
+no CLI commands, resource IDs or expected report content. Native mail remains
+unsupported and coverage exclusions are unchanged.
+
+After that clarification, a fresh finance4015 Astra player made 32 requests with
+zero 501 responses, delivered the report to the expected private chat, and passed
+both programmatic and independent semantic checks (valid reward 1). It sent one
+report, so the controlled fixtures remain the evidence for split-report handling.
+Four affected positive fixtures and the finance4012 duplicate negative were also
+independently rejudged after the instruction change, with the same expected
+verdicts. Full local checks passed 843 tests plus type/format/Go checks and the
+reference entrypoint check; task-input and changed-file format checks passed
+again after the delivery-channel edits.

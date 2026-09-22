@@ -1761,7 +1761,7 @@
     ]
   },
   "finance-4011": {
-    "instruction": "为这批新签约客户建立财务客户档案，以便开票。范围是 CRM 中 2026-02-05 至 2026-02-08 成交的客户。先查客户设立程序，再创建 quickbooks_customers，字段 display_name、email、payment_terms、currency；遵守信用冻结和默认币种要求。每成功创建一位客户，向其账单联系人发送欢迎确认。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
+    "instruction": "为这批新签约客户建立财务客户档案，以便开票。范围是 CRM 中 2026-02-05 至 2026-02-08 成交的客户。先查客户设立程序，再创建 quickbooks_customers，字段 display_name、email、payment_terms、currency；遵守信用冻结和默认币种要求。每成功创建一位客户，通过飞书私聊向其账单联系人发送欢迎确认。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
     "creates": [
       {
         "collection": "quickbooks_customers",
@@ -1792,7 +1792,7 @@
     ]
   },
   "finance-4012": {
-    "instruction": "为本周已完成订单创建财务发票，遵守开票 SOP，逐项计算数量、单价和折扣。写入 quickbooks_invoices，包含 customer_id、customer_name、memo（订单号）、total_amt 和 due_date（YYYY-MM-DD）。创建后向每个客户发送发票详情，保留原订单号和金额信息。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
+    "instruction": "为本周已完成订单创建财务发票，遵守开票 SOP，逐项计算数量、单价和折扣。写入 quickbooks_invoices，包含 customer_id、customer_name、memo（订单号）、total_amt 和 due_date（YYYY-MM-DD）。创建后通过飞书私聊向每个客户发送发票详情，保留原订单号和金额信息。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
     "creates": [
       {
         "collection": "quickbooks_invoices",
@@ -1886,7 +1886,7 @@
     ]
   },
   "finance-4014": {
-    "instruction": "为一月份已完成的自由职业项目开票。读取项目跟踪表，仅处理 Complete 项目；在 wave_invoices 中记录 customer_id、project、total，按工时乘费率计算。将发票详情发送给各客户，计算总额使用千分位，例如 1,234。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
+    "instruction": "为一月份已完成的自由职业项目开票。读取项目跟踪表，仅处理 Complete 项目；在 wave_invoices 中记录 customer_id、project、total，按工时乘费率计算。通过飞书私聊将发票详情发送给各客户，计算总额使用千分位，例如 1,234。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
     "creates": [
       {
         "collection": "wave_invoices",
@@ -1915,7 +1915,7 @@
     ]
   },
   "finance-4015": {
-    "instruction": "将四月份银行对账单与 quickbooks_payments 财务付款台账逐条核对。用 reference/payment_number 匹配，只报告差异：同编号金额不同为 AMOUNT_MISMATCH，仅银行存在为 BANK_ONLY，仅付款台账存在为 QB_ONLY。向 controller@company.example.com 发送报告，每项列编号、类别和双方原始金额（只存在一方则列该方金额）；不改动账本。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
+    "instruction": "将四月份银行对账单与 quickbooks_payments 财务付款台账逐条核对。用 reference/payment_number 匹配，只报告差异：同编号金额不同为 AMOUNT_MISMATCH，仅银行存在为 BANK_ONLY，仅付款台账存在为 QB_ONLY。通过飞书私聊向 controller@company.example.com 发送报告，每项列编号、类别和双方原始金额（只存在一方则列该方金额）；不改动账本。\n\n原财务系统改为飞书多维表格财务台账：collection 为 quickbooks_、xero_ 或 wave_ 加原集合名。现有记录 ID 为 rec_ 加来源平台名、下划线、原始实体 ID；实体原始 ID 字段保留，用于关联。新发票/账单的金额使用数值，原有文本金额字段更新时保持文本类型。发送发票对应向账单联系人发送飞书私聊，标题放首行。",
     "messages": [
       {
         "email": "controller@company.example.com",

@@ -112,4 +112,4 @@ Task-specific grading policies preserve required identity and collateral checks:
 existing-row updates strict; `message_count: per_recipient` permits splitting a
 report, while code still checks recipients and the semantic judge checks complete
 coverage and absence of redundant notifications. These are opt-in reviewed
-policies (finance-4001, finance-4008 and finance-4010), not blanket relaxations across tasks.
+policies (finance-4001 and individually reviewed finance-4008–4016), not blanket relaxations across tasks.
