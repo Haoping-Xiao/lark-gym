@@ -182,5 +182,11 @@ payment; finance4062 renders the derived NY taxable sales with two decimal
 places; finance4075 asks each mismatched supplier to verify the discrepancy.
 Migration definitions and the affected numeric-format reference facts were
 synchronized. Business data, task requests and rubrics remain unchanged.
-Nine of the baseline's 33 rejected cases have now been corrected and rejudged;
-the remaining 24 still require review/remediation, in addition to coverage gaps.
+Six further references now pass independent live rejudging: hr5059 includes the
+orientation start time in the director notice; hr5113 preserves the exact subject
+line; hr5126 limits the safety announcement to status counts; sales808 reports
+pending invitation records without claiming invitations were sent; support1413
+labels its full-state snapshot; support1573 removes an unsupported future promise.
+Migration definitions are synchronized without changing requests, seed or rubrics.
+Fifteen of the baseline's 33 rejected cases have now been corrected and rejudged;
+the remaining 18 still require review/remediation, in addition to coverage gaps.

