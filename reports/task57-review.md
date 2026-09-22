@@ -388,3 +388,29 @@ controller, and passed both business and semantic checks. It also attempted the
 unsupported Sheet AI `invoke_write` endpoint once, so the run is excluded and has
 no valid reward. This confirms the revised delivery scope in an actual trajectory,
 not closure of the Sheet AI coverage gap.
+
+### Optional embargo-status notice
+
+Finance4094's current instruction explicitly permits, rather than requires, an
+embargo-only CFO notice. Its source policy prohibits distributing calculations and
+allows internal working papers; source assertions 0 and 1 nevertheless demand an
+email notice. Those assertions now have explicit overrides. The task opts into
+`optional_message_chats` for the CFO only: absent delivery is accepted, while a
+present notice retains its recipient, count and content checks. Required internal
+workpapers, instructions, seed, reference solution and shared rubric are unchanged.
+Other tasks retain their existing required-delivery behavior.
+
+The old verifier rejected complete workpapers without a notice. Fresh independent
+gpt-6-astra judges now accept both no notice and a compliant embargo-only notice;
+a notice disclosing ratios and covenant status is still rejected. These are
+controlled post-state cases with historical calls labeled as provenance. Real-CLI
+regressions cover optional omission, extra recipients, duplicate notices and
+missing DSCR workpapers; finance4027 remains a control where omitted delivery
+fails. Optional-recipient metadata accompanies the original facts for semantic
+review, so absence is not mistaken for incomplete business reporting.
+
+A fresh finance4094 player independently chose not to send any notification. It
+created all five required workpapers in 36 backend requests with zero 501
+responses and passed programmatic and independent semantic checks (valid reward
+1). Replaying this actual collected state through the previous verifier failed,
+confirming the correction on an actual alternative trajectory as well as fixtures.

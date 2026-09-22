@@ -114,3 +114,9 @@ report, while code still checks recipients and the semantic judge checks complet
 coverage and absence of redundant notifications. Reviewed task-specific opt-ins
 are listed in [semantic-overrides.json](semantic-overrides.json); these policies
 do not change the default grading behavior of other tasks.
+
+`optional_message_chats` permits an explicitly optional notification to be absent
+for reviewed recipients (currently finance-4094's embargo-only CFO notice). When
+present, the ordinary recipient, message-count and content checks still apply;
+absence never waives required records or forbidden disclosures. The original
+content facts and optional-recipient metadata are passed to the semantic judge.

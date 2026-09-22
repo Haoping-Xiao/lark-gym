@@ -108,6 +108,24 @@ export function prepareSemantic(
       deferred.push(`messages[${i}].content`);
     }
   }
+  // Only reviewed optional deliveries may be absent; present messages retain
+  // their original count, recipient and content checks.
+  if (seed && config.optional_message_chats?.length) {
+    const old = new Set(seed.messages.map((m: Json) => m.message_id));
+    const recipients = new Set(
+      world.messages
+        .filter((m: Json) => !old.has(m.message_id))
+        .map((m: Json) => m.chat_id),
+    );
+    original.optional_message_chats = config.optional_message_chats;
+    expected.messages = (expected.messages || []).filter((message: Json) => {
+      if (!config.optional_message_chats.includes(message.chat_id)) return true;
+      deferred.push(
+        `messages.optional_delivery[${message.chat_id}].check_content_if_present`,
+      );
+      return recipients.has(message.chat_id);
+    });
+  }
   for (const key of ['forbidden_messages', 'forbidden_records']) {
     expected[key] = (expected[key] || []).filter((check: Json, i: number) => {
       const hasContent = Array.isArray(check.contains)
