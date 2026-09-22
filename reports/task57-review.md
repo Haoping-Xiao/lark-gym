@@ -414,3 +414,25 @@ created all five required workpapers in 36 backend requests with zero 501
 responses and passed programmatic and independent semantic checks (valid reward
 1). Replaying this actual collected state through the previous verifier failed,
 confirming the correction on an actual alternative trajectory as well as fixtures.
+
+### New-row order in hiring signals and reactivation logs
+
+Sales1104 and support1571 ask for complete records and their source assertions
+check row existence by company or email/tier, without imposing a row order. Both
+output sheets start empty. Each task now opts into the existing
+`unordered_new_rows` policy; instructions, seeds, expected business facts,
+reference solutions and shared helper behavior remain unchanged.
+
+Reversing only complete newly written rows failed both previous verifiers. The
+same controlled states now pass programmatic checks and independent gpt-6-astra
+judges. Replacing one row with a duplicate of another still fails programmatic
+identity/completeness checks in both tasks (the separate semantic content checks
+pass, but final rewards remain zero). Real-CLI reference regressions cover these
+positive and negative cases. Historical reference calls are retained and labeled
+as provenance; controlled final-row edits are not presented as player actions.
+
+A fresh sales1104 player made 65 backend requests and passed business and semantic
+checks, using the original row order. One unsupported Sheet AI `set_range_from_csv`
+operation excludes the run, so it has no valid reward and does not close that
+coverage gap. Acceptance of alternative row orders is established by the separate
+controlled cases, not this player trajectory.
