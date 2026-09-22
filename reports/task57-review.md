@@ -364,3 +364,27 @@ A fresh finance4080 player made 29 requests with zero 501 responses, sent the sa
 complete summary separately to both specified recipients, and passed programmatic
 and independent semantic checks (valid reward 1). It used two full reports, so
 split-report acceptance is evidenced by the controlled fixtures.
+
+### Duplicate-payment reporting scope
+
+Finance4027's original request and Duplicate Payment Detection Policy require
+reporting suspected pairs to the controller. Upstream assertions 4 and 5 add a
+finance-alerts broadcast absent from both, and the migration had incorporated that
+extra audience into the instruction. Explicit assertion overrides now record the
+conflict in the migration definition and expected facts; the instruction, judge
+copy and reference solution require only the controller report. The seed and all
+four duplicate-payment flags remain unchanged, including the seventh-day pair.
+
+The previous verifier rejected a complete controller-only result. After correction,
+a fresh reference execution and a controlled controller-only state both passed
+independent gpt-6-astra judges. A report missing the Metro pair failed semantic
+review; an extra group broadcast failed structural checks (its semantic content
+check alone passed). Real-CLI regressions also reject missing controller delivery
+and an omitted seventh-day flag. Controlled states preserve labeled historical
+reference calls and are not player trajectories.
+
+A fresh finance4027 player made 51 backend requests, delivered only to the
+controller, and passed both business and semantic checks. It also attempted the
+unsupported Sheet AI `invoke_write` endpoint once, so the run is excluded and has
+no valid reward. This confirms the revised delivery scope in an actual trajectory,
+not closure of the Sheet AI coverage gap.

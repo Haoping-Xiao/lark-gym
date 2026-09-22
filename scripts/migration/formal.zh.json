@@ -9134,7 +9134,7 @@
     ]
   },
   "finance-4027": {
-    "instruction": "按重复付款检测政策扫描 ss_vendor_pmts/ws_jan_pmts，标记每个疑似重复对的两行 Flag=Potential Duplicate；7 日边界包含第 7 天。向 controller@company.example.com 发飞书私聊，并在 finance-alerts 群同步同一摘要。报告逐行“Vendor | Payment ID / Payment ID | Amount | 间隔 days”。仅标记，不撤销付款。",
+    "instruction": "按重复付款检测政策扫描 ss_vendor_pmts/ws_jan_pmts，标记每个疑似重复对的两行 Flag=Potential Duplicate；7 日边界包含第 7 天。向 controller@company.example.com 发飞书私聊。报告逐行“Vendor | Payment ID / Payment ID | Amount | 间隔 days”。仅标记，不撤销付款。",
     "sheets": [
       {
         "book": "ss_vendor_pmts",
@@ -9185,16 +9185,12 @@
           "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days",
           "Metro Supply | VP-004 / VP-006 | $780.00 | 7 days"
         ]
-      },
-      {
-        "channel": "finance-alerts",
-        "text": "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days\nMetro Supply | VP-004 / VP-006 | $780.00 | 7 days",
-        "contains": [
-          "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days",
-          "Metro Supply | VP-004 / VP-006 | $780.00 | 7 days"
-        ]
       }
-    ]
+    ],
+    "assertion_overrides": {
+      "4": "Original user request and Duplicate Payment Detection Policy require reporting suspected pairs only to controller. Upstream Slack assertions add an unsupported audience; preserve controller report and all duplicate flags, remove required group broadcast.",
+      "5": "Original user request and Duplicate Payment Detection Policy require reporting suspected pairs only to controller. Upstream Slack assertions add an unsupported audience; preserve controller report and all duplicate flags, remove required group broadcast."
+    }
   },
   "finance-4030": {
     "instruction": "今天是 2026-02-15。根据逾期发票表和晚付费政策，按整日差计算逾期天数。只为应收取费用者更新 Late Fee，数值保留两位小数的美元字符串；免收者保持原行且不通知。逐人发飞书私聊，使用“Invoice # | Customer | 原余额 | Late fee 费用 | New total 新余额”关联各金额，派生金额使用千位逗号、两位小数。",
