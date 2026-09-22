@@ -8,7 +8,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_0',
     '--text',
-    'Acme Supplies | Statement $6,200 | AP $4,200 | Difference +$2,000',
+    'Acme Supplies | Statement $6,200 | AP $4,200 | Difference +$2,000\n请核对上述对账单余额与我方应付余额的差异。',
   ],
   [
     'im',
@@ -16,7 +16,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_1',
     '--text',
-    'Metro Supply | Statement $1,800 | AP $2,580 | Difference -$780',
+    'Metro Supply | Statement $1,800 | AP $2,580 | Difference -$780\n请核对上述对账单余额与我方应付余额的差异。',
   ],
   [
     'im',
