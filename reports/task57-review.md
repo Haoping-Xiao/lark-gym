@@ -188,5 +188,19 @@ line; hr5126 limits the safety announcement to status counts; sales808 reports
 pending invitation records without claiming invitations were sent; support1413
 labels its full-state snapshot; support1573 removes an unsupported future promise.
 Migration definitions are synchronized without changing requests, seed or rubrics.
-Fifteen of the baseline's 33 rejected cases have now been corrected and rejudged;
-the remaining 18 still require review/remediation, in addition to coverage gaps.
+The remaining eighteen references also passed independent live rejudging.
+Corrections preserve source wording, subject-line placement, UTC windows,
+operation status, offboarding authorization context and signature requests.
+Marketing1074 now includes the additional blackout-date campaign; marketing1115
+preserves source attribution and the relationships between competitive facts.
+Support1415 names skipped contacts and support1425 includes expired/denied
+amount subtotals. Hr5072 now actually reads the requested standup, roster, leave
+and announcement sources before reporting the review; its migration recipe
+preserves these reference read commands.
+
+All 33 rejected reference results from the frozen 800-case baseline have now
+been corrected and individually accepted by the unchanged live semantic judge.
+This combines the frozen baseline's 767 passes with subsequent corrected-case
+rejudges, not a new 800-case run on the latest commit. Player exploration still
+has environment coverage exclusions; container/model transport and real-tenant
+parity are separate, incomplete acceptance items.

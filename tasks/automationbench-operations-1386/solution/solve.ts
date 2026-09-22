@@ -51,7 +51,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_13',
     '--text',
-    'International Hazmat Declaration | SHP-801 | Frankfurt, Germany | $45,000',
+    'International Hazmat Declaration | SHP-801 | Frankfurt, Germany | $45,000 | 请签署此申报材料',
   ],
   [
     'im',
@@ -59,7 +59,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_47',
     '--text',
-    'International Hazmat Declaration | SHP-804 | Osaka, Japan | $32,000',
+    'International Hazmat Declaration | SHP-804 | Osaka, Japan | $32,000 | 请签署此申报材料',
   ],
   [
     'im',

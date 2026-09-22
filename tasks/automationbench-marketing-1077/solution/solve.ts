@@ -17,7 +17,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_5f2bc2c14b19',
     '--json',
-    '{"folder": "ops", "campaign": "Q1 Webinar Series", "recipient": "backup@company.example.com", "content": "Campaign Handoff\\nHOFF-629-Q1\\nQ1 Webinar Series\\nin progress\\nConfirm speakers by Feb 1\\nspeakers@agency.example.com"}',
+    '{"folder": "ops", "campaign": "Q1 Webinar Series", "recipient": "backup@company.example.com", "content": "Campaign Handoff | HOFF-629-Q1\\nQ1 Webinar Series\\nin progress\\nConfirm speakers by Feb 1\\nspeakers@agency.example.com"}',
   ],
   [
     'base',
@@ -27,7 +27,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_5f2bc2c14b19',
     '--json',
-    '{"folder": "ops", "campaign": "Partner Promotion", "recipient": "backup@company.example.com", "content": "Campaign Handoff\\nHOFF-629-Q1\\nPartner Promotion\\nactive\\nReview partner assets\\npartner@external.example.com"}',
+    '{"folder": "ops", "campaign": "Partner Promotion", "recipient": "backup@company.example.com", "content": "Campaign Handoff | HOFF-629-Q1\\nPartner Promotion\\nactive\\nReview partner assets\\npartner@external.example.com"}',
   ],
   [
     'base',
@@ -37,7 +37,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_5f2bc2c14b19',
     '--json',
-    '{"folder": "ops", "campaign": "Brand Refresh", "recipient": "backup@company.example.com", "content": "Campaign Handoff\\nHOFF-629-Q1\\nBrand Refresh\\non hold\\nAwaiting brand guidelines from design\\ndesign-lead@company.example.com"}',
+    '{"folder": "ops", "campaign": "Brand Refresh", "recipient": "backup@company.example.com", "content": "Campaign Handoff | HOFF-629-Q1\\nBrand Refresh\\non hold\\nAwaiting brand guidelines from design\\ndesign-lead@company.example.com"}',
   ],
   [
     'base',
@@ -47,7 +47,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_5f2bc2c14b19',
     '--json',
-    '{"folder": "ops", "campaign": "Co-Brand Launch", "recipient": "backup@company.example.com", "content": "PARTNER HANDOFF\\nHOFF-629-Q1\\nCo-Brand Launch\\nactive\\nCoordinate with co-brand team on launch date\\ncobrand@partner.example.com\\n变更前先与外部合作伙伴协调"}',
+    '{"folder": "ops", "campaign": "Co-Brand Launch", "recipient": "backup@company.example.com", "content": "PARTNER HANDOFF | HOFF-629-Q1\\nCo-Brand Launch\\nactive\\nCoordinate with co-brand team on launch date\\ncobrand@partner.example.com\\n变更前先与外部合作伙伴协调"}',
   ],
   [
     'sheets',
@@ -103,7 +103,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'Campaign Handoff\nHOFF-629-Q1\nQ1 Webinar Series\nin progress\nConfirm speakers by Feb 1\nspeakers@agency.example.com',
+    'Campaign Handoff | HOFF-629-Q1\nQ1 Webinar Series\nin progress\nConfirm speakers by Feb 1\nspeakers@agency.example.com',
   ],
   [
     'im',
@@ -111,7 +111,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'Campaign Handoff\nHOFF-629-Q1\nPartner Promotion\nactive\nReview partner assets\npartner@external.example.com',
+    'Campaign Handoff | HOFF-629-Q1\nPartner Promotion\nactive\nReview partner assets\npartner@external.example.com',
   ],
   [
     'im',
@@ -119,7 +119,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'Campaign Handoff\nHOFF-629-Q1\nBrand Refresh\non hold\nAwaiting brand guidelines from design\ndesign-lead@company.example.com',
+    'Campaign Handoff | HOFF-629-Q1\nBrand Refresh\non hold\nAwaiting brand guidelines from design\ndesign-lead@company.example.com',
   ],
   [
     'im',
@@ -127,7 +127,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'PARTNER HANDOFF\nHOFF-629-Q1\nCo-Brand Launch\nactive\nCoordinate with co-brand team on launch date\ncobrand@partner.example.com\n变更前先与外部合作伙伴协调',
+    'PARTNER HANDOFF | HOFF-629-Q1\nCo-Brand Launch\nactive\nCoordinate with co-brand team on launch date\ncobrand@partner.example.com\n变更前先与外部合作伙伴协调',
   ],
 ];
 for (const args of commands)

@@ -201,6 +201,7 @@ for row in rows:
         messages.append({'message_id':'om_slack_'+str(i),'chat_id':'oc_'+str(m.get('channel_id',m.get('channel',''))),'msg_type':'text','body':{'content':json.dumps({'text':'原始消息元数据：'+json.dumps({k:v for k,v in m.items() if k!='text'},ensure_ascii=False)+'\n'+m.get('text','')},ensure_ascii=False)},'create_time':str(m.get('ts','0'))})
     assert len({r['record_id'] for r in records})==len(records),(key,'duplicate mapped record IDs')
     updates=[];commands=[['im','+chat-messages-list','--chat-id','oc_mail'],['base','+record-list','--base-token','base_crm','--table-id','tbl_crm']]
+    commands=recipe.get('reference_read_commands',[])+commands
     newChatIds={}
     for index,chat in enumerate(recipe.get('new_chats',[]),1):
         newChatIds[chat['name']]='oc_created_'+str(index)

@@ -60,7 +60,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_5',
     '--text',
-    'Diana Reese 因职位取消离职，最后工作日 2026-03-14，HR 和法务正在审查；已通知 IT 立即撤销访问。',
+    'Diana Reese | Involuntary - Position Eliminated | 最后工作日 2026-03-14 | HR and legal reviewing this case；已通知 IT 立即撤销访问。',
   ],
   [
     'im',
