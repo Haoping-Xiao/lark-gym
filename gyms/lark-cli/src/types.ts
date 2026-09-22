@@ -18,6 +18,15 @@ export interface World {
     string,
     { title: string; sheets: Record<string, Sheet> }
   >;
+  // Absent means no comments in this fixture, not an alternate response cache.
+  drive_comments?: (ApiObject & {
+    file_token: string;
+    file_type: string;
+    comment_id: string;
+    is_solved: boolean;
+    is_whole: boolean;
+    reply_list?: { replies: ApiObject[] };
+  })[];
   calendars: ApiObject[];
   events: (ApiObject & { event_id: string; summary: string })[];
   base: {

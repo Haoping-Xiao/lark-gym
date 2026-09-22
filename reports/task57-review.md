@@ -219,3 +219,18 @@ A fresh gpt-6-astra player run of simple3016 completed 21 backend requests with
 no unsupported calls, passed programmatic and independent semantic checks, and
 was a valid successful sample. Its earlier excluded run remains retained; this
 single rerun does not establish broad environment coverage.
+
+## Document-comment read coverage
+
+Accessible sheet/base resources now expose scoped comment lists, batch reads
+and reply pagination from shared optional `drive_comments` fixture state.
+An absent comments fixture means an initially empty comment set. Solved/whole
+filters apply before pagination; unknown resources and cross-document comment
+IDs fail. Writes, reactions and relation expansion remain explicit coverage
+exclusions. Real-CLI regression verifies nonempty fixtures, filters, pagination,
+consistent list/batch reads, empty state and independent trial copies.
+
+A fresh finance4008 Astra run completed 23 requests, no 501 responses and both
+hard/semantic checks passed. That run did not call comments, so it proves a
+valid successful trial, not replay of the former comment-read path. The comment
+path itself was exercised by the real-CLI integration regression.

@@ -41,6 +41,90 @@ export function driveRoutes(
   world: World,
   { method, path, query, body }: ApiRequest,
 ) {
+  const commentsPath = path.match(
+    /^\/open-apis\/drive\/v1\/files\/([^/]+)\/comments(?:\/(batch_query)|\/([^/]+)\/replies)?$/,
+  );
+  if (
+    commentsPath &&
+    ((method === 'GET' && !commentsPath[2]) ||
+      (method === 'POST' && commentsPath[2]))
+  ) {
+    const token = decodeURIComponent(commentsPath[1]);
+    const file = resources(world).find((file) => file.token === token);
+    if (!file) fail(404, 1061002, 'File not found');
+    requireValue(
+      query.get('file_type') === file.type,
+      'File type does not match resource',
+    );
+    const batch = Boolean(commentsPath[2]);
+    const replyId = commentsPath[3] && decodeURIComponent(commentsPath[3]);
+    supported(
+      [...query.keys()],
+      batch
+        ? ['file_type']
+        : [
+            'file_type',
+            'page_size',
+            'page_token',
+            ...(replyId ? [] : ['is_solved', 'is_whole']),
+          ],
+    );
+    if (!batch)
+      requireValue(
+        Number(query.get('page_size') || 50) <= 100,
+        'Comment page_size must be at most 100',
+      );
+    const comments = (world.drive_comments || []).filter(
+      (comment) =>
+        comment.file_token === token && comment.file_type === file.type,
+    );
+    const visible = ({
+      file_token: _token,
+      file_type: _type,
+      ...comment
+    }: NonNullable<World['drive_comments']>[number]) =>
+      structuredClone(comment);
+    if (batch) {
+      supported(Object.keys(body), ['comment_ids']);
+      requireValue(
+        Array.isArray(body.comment_ids) &&
+          body.comment_ids.length > 0 &&
+          body.comment_ids.length <= 100 &&
+          body.comment_ids.every((id: unknown) => typeof id === 'string'),
+        'comment_ids requires 1..100 IDs',
+      );
+      const items = body.comment_ids.map((id: string) => {
+        const comment = comments.find((comment) => comment.comment_id === id);
+        if (!comment) fail(404, 1061002, 'Comment not found');
+        return visible(comment);
+      });
+      return { items };
+    }
+    if (replyId) {
+      const comment = comments.find(
+        (comment) => comment.comment_id === replyId,
+      );
+      if (!comment) fail(404, 1061002, 'Comment not found');
+      return page(comment.reply_list?.replies || [], query);
+    }
+    for (const field of ['is_solved', 'is_whole'])
+      requireValue(
+        !query.has(field) || ['true', 'false'].includes(query.get(field)!),
+        `Invalid ${field}`,
+      );
+    return page(
+      comments
+        .filter((comment) =>
+          ['is_solved', 'is_whole'].every(
+            (field) =>
+              !query.has(field) ||
+              comment[field] === (query.get(field) === 'true'),
+          ),
+        )
+        .map(visible),
+      query,
+    );
+  }
   if (method === 'GET' && path === '/open-apis/drive/v1/files') {
     supported([...query.keys()], ['page_size', 'page_token', 'folder_token']);
     // All current business documents are at the accessible root. Unknown folder
