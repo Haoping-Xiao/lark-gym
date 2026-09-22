@@ -586,3 +586,19 @@ accept the scoped alternatives but reject splitting the candidate confirmation o
 the explicitly single channel summary. Another real execution omits one duplicate
 group for one recruiter for semantic negative validation. These are reference
 variants with collected backend history, not model exploration or modified states.
+
+### Marketing report sections
+
+Marketing1041, 1043, 1047 and 1075 permit complete reports to span messages to
+their existing recipient. Source requests and policies do not impose a single
+message. Only message-count configuration changes; instructions, seeds, expected
+facts and reference solutions remain unchanged. Independent semantic checks still
+require complete report rows, ranking, metrics and recommendations, with no
+redundant or prohibited delivery.
+
+Real CLI reference variants partition each report at a line boundary, preserving
+all content. The old verifiers reject all four complete alternatives. A separate
+SEO1043 variant omits the required `/solutions` row to test semantic completeness.
+These are collected reference-variant executions, not model-player trials or
+edited backend histories. Marketing1045 remains outside this change because its
+current source guideline explicitly requires the tracking code in all outputs.
