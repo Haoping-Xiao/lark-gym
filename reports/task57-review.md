@@ -482,3 +482,29 @@ messages still delivered. Both independent gpt-6-astra content reviews pass; fin
 rewards are 1 and 0 because the structural ordering check catches the violation.
 These are actual reference-variant executions, not model exploration and not edited
 post-state or invented history.
+
+### Per-transfer ordering rather than a batch barrier
+
+Finance4032's source IC Transfer Procedures step 5 requires a transfer's
+notification before its Status becomes Processed. The source user asks to record
+each transfer and notify its receiving entity. It does not require all records to
+exist before the first notification, or all notifications before the first status
+update. The previous `order_groups` introduced those extra batch barriers.
+
+The task now declares four independent `entity_order` dependencies. Each matches
+its transfer record by collection/reference, a newly sent notification by recipient
+and reference, and the corresponding cell's transition to Processed. Successful
+backend mutation sequences establish record-before-notice-before-status for each
+transfer, while allowing other transfers and approved amount/rate corrections to
+interleave. The instruction clarifies “each transfer”; financial facts, seed,
+reference solution and required notification contents remain unchanged. The
+migration template and email-to-chat mapping preserve these dependencies.
+
+Four real CLI executions keep identical commands and business values but vary
+order: the batch reference, a per-transfer execution, status-before-notification,
+and notification-before-recording. The old verifier rejects the valid per-transfer
+execution; the corrected verifier accepts both valid sequences and rejects both
+invalid sequences while their final content checks still pass. These are actual
+reference variants with backend-collected history, not model exploration or
+synthetic post-state mutations. This ordering check does not establish arbitrary
+historical message-content correctness beyond the declared entity matching.

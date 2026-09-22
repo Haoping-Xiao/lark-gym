@@ -31,6 +31,17 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  entity_order?: {
+    record: { collection: string; equals: Fields };
+    message: { chat_id: string; contains: string[] };
+    cell: {
+      spreadsheet_token: string;
+      sheet_id: string;
+      row: number;
+      column: number;
+      value: string | number;
+    };
+  }[];
   new_chats?: { name: string; description: string; user_ids: string[] }[];
   memberships?: { chat_id: string; user_ids: string[] }[];
   order_groups?: {
@@ -417,12 +428,80 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   previousStageEnd = Math.max(previousStageEnd, ...sequences);
   return { group, passed };
 });
+// Each entity has its own record -> notification -> status dependency.
+// Unrelated entities may interleave, and non-status cell corrections are not a barrier.
+const entityOrderChecks = (expected.entity_order || []).map((rule) => {
+  const records: number[] = [],
+    messages: number[] = [],
+    statuses: number[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || []) {
+      if (!mutation.after) continue;
+      if (
+        mutation.kind === 'record' &&
+        mutation.after.fields?.collection === rule.record.collection &&
+        Object.entries(rule.record.equals).every(([key, value]) =>
+          isDeepStrictEqual(mutation.after.fields[key], value),
+        )
+      )
+        records.push(call.seq);
+      if (
+        mutation.kind === 'message' &&
+        !mutation.before &&
+        mutation.after.chat_id === rule.message.chat_id
+      ) {
+        try {
+          const text = JSON.parse(mutation.after.body.content).text;
+          if (
+            typeof text === 'string' &&
+            rule.message.contains.every((part) => text.includes(part))
+          )
+            messages.push(call.seq);
+        } catch {
+          /* Malformed content cannot establish notification delivery. */
+        }
+      }
+      const cell = rule.cell;
+      if (
+        mutation.kind === 'spreadsheet' &&
+        mutation.id === cell.spreadsheet_token &&
+        isDeepStrictEqual(
+          mutation.after.sheets?.[cell.sheet_id]?.values[cell.row]?.[
+            cell.column
+          ],
+          cell.value,
+        ) &&
+        !isDeepStrictEqual(
+          mutation.before?.sheets?.[cell.sheet_id]?.values[cell.row]?.[
+            cell.column
+          ],
+          cell.value,
+        )
+      )
+        statuses.push(call.seq);
+    }
+  }
+  return {
+    rule,
+    records,
+    messages,
+    statuses,
+    passed:
+      records.length > 0 &&
+      messages.length > 0 &&
+      statuses.length > 0 &&
+      Math.min(...messages) > Math.min(...records) &&
+      Math.min(...statuses) > Math.max(...messages),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
+  entityOrderChecks.every((c) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
@@ -445,6 +524,7 @@ writeFileSync(
       chatChecks,
       membershipChecks,
       orderChecks,
+      entityOrderChecks,
       messageChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,

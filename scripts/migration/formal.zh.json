@@ -12696,7 +12696,7 @@
     ]
   },
   "finance-4032": {
-    "instruction": "今天是 2026-02-01，按 IC Transfer Procedures 与最新明确批准/纠正处理二月公司间划转。Treasury 对本批次汇率批准有效；本题将 Controller 的最终金额更正视为本批次该金额已确定，不再沿用旧的待人数确认备注。先在 ic_transfers 飞书台账记录 ref、from_entity、to_entity、currency、amount数值、fx_rate数值、usd_amount数值、description；再向接收方Contact发私聊，含原描述、Ref、原币金额与统一 Transfers total: $X；通知后才把来源Status设Processed，同时回写获批金额/汇率更正。只是模拟记账。",
+    "instruction": "今天是 2026-02-01，按 IC Transfer Procedures 与最新明确批准/纠正处理二月公司间划转。Treasury 对本批次汇率批准有效；本题将 Controller 的最终金额更正视为本批次该金额已确定，不再沿用旧的待人数确认备注。每笔划转先在 ic_transfers 飞书台账记录 ref、from_entity、to_entity、currency、amount数值、fx_rate数值、usd_amount数值、description；再向接收方Contact发私聊，含原描述、Ref、原币金额与统一 Transfers total: $X；该笔通知后才把对应来源Status设Processed，同时回写获批金额/汇率更正。只是模拟记账。",
     "now": "2026-02-01T10:00:00Z",
     "creates": [
       {
@@ -12839,23 +12839,82 @@
       }
     ],
     "command_order": [0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 6, 7, 8, 9, 10, 11],
-    "order_groups": [
+    "entity_order": [
       {
-        "kind": "record",
-        "collection": "ic_transfers"
+        "record": {
+          "collection": "ic_transfers",
+          "equals": {
+            "ref": "IC-2026-020"
+          }
+        },
+        "message": {
+          "email": "westfin@company.example.com",
+          "contains": ["IC-2026-020"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_ic",
+          "sheet_id": "ws_feb_ic",
+          "row": 1,
+          "column": 6,
+          "value": "Processed"
+        }
       },
       {
-        "kind": "message",
-        "emails": [
-          "westfin@company.example.com",
-          "eastfin@company.example.com",
-          "southfin@company.example.com",
-          "europefin@company.example.com"
-        ]
+        "record": {
+          "collection": "ic_transfers",
+          "equals": {
+            "ref": "IC-2026-021"
+          }
+        },
+        "message": {
+          "email": "eastfin@company.example.com",
+          "contains": ["IC-2026-021"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_ic",
+          "sheet_id": "ws_feb_ic",
+          "row": 2,
+          "column": 6,
+          "value": "Processed"
+        }
       },
       {
-        "kind": "spreadsheet",
-        "ids": ["ss_ic"]
+        "record": {
+          "collection": "ic_transfers",
+          "equals": {
+            "ref": "IC-2026-022"
+          }
+        },
+        "message": {
+          "email": "southfin@company.example.com",
+          "contains": ["IC-2026-022"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_ic",
+          "sheet_id": "ws_feb_ic",
+          "row": 3,
+          "column": 6,
+          "value": "Processed"
+        }
+      },
+      {
+        "record": {
+          "collection": "ic_transfers",
+          "equals": {
+            "ref": "IC-2026-023"
+          }
+        },
+        "message": {
+          "email": "europefin@company.example.com",
+          "contains": ["IC-2026-023"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_ic",
+          "sheet_id": "ws_feb_ic",
+          "row": 4,
+          "column": 6,
+          "value": "Processed"
+        }
       }
     ]
   },
