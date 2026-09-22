@@ -126,6 +126,26 @@ export function prepareSemantic(
       return recipients.has(message.chat_id);
     });
   }
+  // Reviewed, optional follow-up requests are graded for purpose, not an
+  // invented fixed count. Required deliveries and all other recipients remain strict.
+  if (seed && config.optional_requests?.length) {
+    original.optional_requests = config.optional_requests;
+    const old = new Set(seed.messages.map((m: Json) => m.message_id));
+    const allowed = new Set(
+      config.optional_requests.map((rule: Json) => rule.chat_id),
+    );
+    const requests = world.messages.filter(
+      (m: Json) => !old.has(m.message_id) && allowed.has(m.chat_id),
+    );
+    expected.messages = [
+      ...(expected.messages || []),
+      ...requests.map((m: Json) => ({ chat_id: m.chat_id, contains: [] })),
+    ];
+    if (requests.length)
+      deferred.push(
+        'messages.optional_requests.business_scope_and_no_redundancy',
+      );
+  }
   for (const key of ['forbidden_messages', 'forbidden_records']) {
     expected[key] = (expected[key] || []).filter((check: Json, i: number) => {
       const hasContent = Array.isArray(check.contains)

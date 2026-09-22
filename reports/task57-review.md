@@ -508,3 +508,32 @@ invalid sequences while their final content checks still pass. These are actual
 reference variants with backend-collected history, not model exploration or
 synthetic post-state mutations. This ordering check does not establish arbitrary
 historical message-content correctness beyond the declared entity matching.
+
+### Optional written-approval requests for intern onboarding
+
+HR5133's IT policy requires written hiring-manager approval before IT provisions
+accounts. The source assertions prohibit card issuance and direct corporate-account
+notifications, but do not prohibit asking the hosting managers for approval. The
+adapted request already says approval is missing and provisioning is pending.
+Its fixed six-message verifier nevertheless rejected a valid additional request.
+
+Only this task opts into `optional_requests`, scoped to its three hosting managers
+and their respective interns. Required deliveries retain their original checks;
+other recipients remain disallowed. Present optional messages are passed to the
+semantic judge with explicit purpose and subject scope, including checks against
+irrelevance, redundancy, fabricated approval/completion and prohibited requests.
+The absence of an optional request remains valid. This is semantic validation,
+not a claim that the structural verifier alone recognizes those meanings.
+
+The source request, seed, reference solution and expected business facts remain
+unchanged. Actual real-CLI reference executions followed by a manager approval
+request reproduce the old false rejection. Separate real calls falsely claiming
+approval or asking for corporate cards provide semantic negative cases; unrelated
+recipients remain a structural negative. These are controlled real executions,
+not model exploration. The shared helper/rubric and reviewed config preserve the
+opt-in when tasks are generated; other existing task runtimes are unchanged.
+
+HR5128 was also source-reviewed: assertion 8 explicitly forbids any message to the
+external awards vendor, and the policy does not require sending that vendor a
+refusal. That source constraint is retained; this review does not treat the
+proposed vendor-reply exception as an established migration defect.
