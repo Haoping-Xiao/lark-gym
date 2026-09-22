@@ -1,25 +1,3 @@
 今天2026-01-21，处理prospect@newco.example.com明天的demo请求，查邮件和Demo Routing Rules，核对CRM员工限制和现有预约。选择正确rep，在该rep邮箱为calendar_id的飞书日历创建Sales Demo并添加prospect参会，按event type时长。原题未给时刻，本题选09:00–17:00 UTC内最早完整空档；把lead owner_id更新为对应Salesforce user ID，其他lead资料和已有预约保留。
 
-# 操作环境
-
-使用本环境的 Mock 版 lark-cli。业务资料按实体分别存入飞书多维表格，表目录见下方。记录 ID 通过查询获取。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
-
-日程使用飞书 calendar 命令，日历 ID：mike@company.example.com。使用来源明确时区；未标时区按 UTC。
-
-飞书电子表格目录：
-
-- ss_routing_rules：Demo Routing Rules；工作表 ws_demo_routing（Routing Matrix）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-21T09:00:00Z。
-
-## 业务表目录
-
-Base：base_crm。每张表代表一种业务实体，使用该表列出的业务字段。
-
-- tbl_16ebec160999：calendly_event_types（来源实体 calendly_event_types）
-- tbl_28391869719b：calendly_invitees（来源实体 calendly_invitees）
-- tbl_a98a54c1e855：calendly_scheduled_events（来源实体 calendly_scheduled_events）
-- tbl_bd6e430f9134：calendly_users（来源实体 calendly_users）
-- tbl_aef450dc78ea：销售线索（来源实体 leads）
-- tbl_7dfb4cf67742：users（来源实体 users）
+本次业务处理以 2026-01-21T09:00:00Z 为时间基准。

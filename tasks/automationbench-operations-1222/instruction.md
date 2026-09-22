@@ -1,1 +1,3 @@
 当前2026-02-03，读取Training Schedule及所有培训、场地和blackout政策，选择下一可安排的forklift safety session，按原开始结束时间创建cal_ops飞书日程Forklift Safety Training，location保留源地点、description记录instructor。随后ops-updates通知日期、地点、完整起止和讲师，不替受限场次报名，不改排期表。
+
+本次业务处理以 2026-02-03T10:00:00Z 为时间基准。

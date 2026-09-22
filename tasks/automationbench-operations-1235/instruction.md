@@ -1,1 +1,3 @@
 按Audit Calendar全部政策选下一可执行Planned/Full/Q1 audit，新建asana_tasks(name=Q1 Ops Audit/workspace=ws_ops/project=proj_compliance/section从Q1查询/tag=Audit/dueDate取源Due)，在ss_audit_log/ws_audit追加Task/Due/Quarter，再发ops-updates确认名称与日期。仅登记安排，不把审计标完成、不修改原排期。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 今天为 2026-01-27。查看视频库和所有生产说明，按视频主管标准为合格录播生成社交片段建议，写入片段队列并指定平台。本批每个合格录播的所有 key_moments 均生成一条建议：演示片段去 Instagram、快速提示去 Twitter，其余专业内容去 LinkedIn。status=Suggested，priority 一般 Normal、明确优先片段 High；production_ref 填生产批次码，clip_description 保留原片段名及明确反应量。只规划，不实际剪辑或发布。
+
+本次业务处理以 2026-01-27T12:00:00Z 为时间基准。

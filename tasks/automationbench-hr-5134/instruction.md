@@ -1,1 +1,3 @@
-按Benefits Enrollment Eligibility Guidelines及本次orientation实际名单审查资格。满足条件者仅将队列Enrollment Status改Enrolled（本题的模拟参保完成动作），并私聊全名与确认；其余按政策发缺失条件说明、保持Queued，遇hold遵从政策。benefits群汇总本轮结果，不联系外部保险系统。
+按Benefits Enrollment Eligibility Guidelines及本次orientation实际名单审查资格。满足条件者仅将队列Enrollment Status改Enrolled，并私聊全名与确认；其余按政策发缺失条件说明、保持Queued，遇hold遵从政策。benefits群汇总本轮结果，不联系外部保险系统。
+
+本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

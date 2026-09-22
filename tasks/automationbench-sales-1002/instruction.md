@@ -1,1 +1,3 @@
 为确切的Enterprise Platform机会安排60分钟demo，核对当前安全政策、账户状态和Sales Channel Routing Policy，按金额通知正确群，保留公司/机会名和金额。Zoom改飞书视频日程，日历ID sales@company.example.com为host。原题未给日期，本实验选择冻结时间之后、availability_schedules内第一个可用的60分钟窗口；availability时区按来源America/Los_Angeles。waiting room在此环境明确替换为仅受邀者入会(vc_data.meeting_settings.join_meeting_permission=only_event_attendees)，另设非空password；不声称实现逐人放行。来源无客户邮箱，只创建主持人日程、不虚构客户邀请；通知包含完整日期、当地时区/起止时间、时长、公司、机会名和格式化金额。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

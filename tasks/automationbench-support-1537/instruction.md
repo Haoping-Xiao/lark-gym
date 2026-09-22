@@ -1,1 +1,3 @@
 按meta当前2026-02-15及ss_risk/ws_weights，new_account_months为自然月年龄排除，未满该月数的账户不评分/记表/创建task；不从Batch_Reference猜今天。所有票计Ticket Count，priority=High计High Priority Count（含Closed），非Closed计Unresolved。score=总票*ticket_weight+High*severity_weight+未结*unresolved_weight。ws_results各数值写文本，达到threshold才创建tasks(subject按SF_Task_Subject_Format/priority=High/status=Not Started/source_account_id=Zoho ID/description含Batch_Reference、公司、所有分项与score)。SF accounts为空，不伪造CRM ID或创建account，不发额外消息。
+
+本次业务处理以 2026-02-15T09:00:00Z 为时间基准。

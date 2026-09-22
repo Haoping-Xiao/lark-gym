@@ -1,1 +1,3 @@
 按 Payment Fraud Detection Rules 与最新明确豁免扫描 Recent Payments。外部自证不是内部豁免，普通审批或已确认合法仍需按规则标记。银行变更只有日期、无时刻时，将次日付款标为潜在24小时风险待核实，不断言精确时差。所有命中行 Flag=Suspicious，Notes 保持原样；给 fraud-team@company.example.com 和 finance-alerts 群分别汇总 Payment ID | Vendor | 原Amount | 原因。原因标签用 3+ payments same day、Unapproved vendor、round amount over $10,000、Outside business hours、Recent bank change; exact time needs review，可补确认/审批背景。不向供应商发通知，不撤销付款。
+
+本次业务处理以 2026-02-10T09:00:00Z 为时间基准。

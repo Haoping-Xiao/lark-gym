@@ -1,1 +1,3 @@
 固定2025-01-20，按ss_renewals筛选未来0..90日续约（自然日期差含边界），Completed/DNC/过去或超范围跳过。按ws_tiers优先级/标签新建freshdesk_tickets(subject=Renewal alert - 公司/description含公司邮箱日期剩余天数/priority数字/status=2/requester_id既有contact ID/tags JSON/renewal_date)。只给对应Account Manager邮箱IM，每经理汇总自己的公司、到期日、days和tier tag/数量，包含Batch_Reference，不直接联系客户；不更改未要求的schedule状态。
+
+本次业务处理以 2025-01-20T09:00:00Z 为时间基准。

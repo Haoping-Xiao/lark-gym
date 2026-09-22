@@ -1,1 +1,3 @@
 按Compensation Adjustment Processing Procedures处理本周队列，结合后续撤回、暂停及核验条件，给有权处理项通知员工和经理并标Processed，超权限项交规定负责人。消息写全名、以New Salary减Current Salary算出的加薪额与新年薪（美元千位分隔），comp-ops发完成摘要。仅更新规定Status，不把本次队列处理伪装成真实工资支付。
+
+本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

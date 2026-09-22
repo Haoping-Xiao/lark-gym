@@ -1,1 +1,3 @@
-逐ss_merge/ws_pairs核实双方first_name、last_name、organization完全相同才合并（不使用模糊姓名，公开本题判定规则）。把secondary的全部help_conversations customer_id/customer_email改primary，保留原threads作者与正文作为历史；每张移交会话新增help_notes(conversation_id/body含merge和双方完整邮箱/public=false文本)，已有primary会话不加移交备注。完成迁移后用base +record-delete --yes删除secondary客户记录，primary原资料不改；不匹配整对不动。data-quality汇总merge数/移交会话数、成功姓名与邮箱，不列跳过姓名。
+请核查 ss_merge/ws_pairs 中的疑似重复客户，仅在双方名字、姓氏和组织完全一致时，将次要客户合并到主客户。移交次要客户的全部会话，保留历史消息和作者，并为每张移交会话添加私有备注，注明 merge 及双方完整邮箱；主客户原有会话无需加移交备注。全部移交完成后删除次要客户档案，保留主客户资料，不改动不匹配的客户对。最后在 data-quality 汇报实际合并的客户对数、移交会话数、成功对象姓名及邮箱。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

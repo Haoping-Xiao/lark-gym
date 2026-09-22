@@ -1,1 +1,3 @@
 分析截至2026-03-07的Q1客户会议ROI。读取sales-ops当前政策，只算已结束的外部客户会议，用CRM机会amount除该账户累计会议小时（每场时长计一次，不按人数重复）；会议参与邮箱和contacts关联账户。低于政策阈值则建tasks，subject遵循政策，related_to_id关联机会，owner_id沿用机会负责人，status=Not Started，description注明累计分钟、金额和美元每小时。按政策私聊sales ops汇总所有账户ROI与需复核者。
+
+本次业务处理以 2026-03-07T09:00:00Z 为时间基准。

@@ -1,4 +1,5 @@
 import type { World } from '../types.ts';
+import { driveRoutes } from './domains/drive.ts';
 import { baseRoutes } from './domains/base/routes.ts';
 import { createCalendarRoutes } from './domains/calendar.ts';
 import { identityRoutes } from './domains/identity.ts';
@@ -17,6 +18,10 @@ export function createRouter(world: World) {
     const family = /^\/open-apis\/([^/]+)\//.exec(request.path)?.[1];
     let result: ResponseData | undefined;
     switch (family) {
+      case 'drive':
+      case 'search':
+        result = driveRoutes(world, request);
+        break;
       case 'authen':
         result = identityRoutes(request);
         break;

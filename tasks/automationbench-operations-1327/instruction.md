@@ -1,1 +1,3 @@
 安排Feb9–15含边界且无Hold的清洁，要求Available且Certification精确匹配Clean Type；同类多名可用者按Name字母序选择，避免任意固定答案。源未给时区，明确UTC；按policy在due date 09–12创建cal_cleaning飞书日历，summary为完整Property，description含Location/清洁员，真实attendees含选中邮箱。向Ops Coordinator私聊全部Property、Location、due、09:00–12:00 UTC、清洁员；不改来源排期、不派On Leave。
+
+本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

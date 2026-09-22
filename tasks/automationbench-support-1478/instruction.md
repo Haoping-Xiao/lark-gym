@@ -1,1 +1,3 @@
 按ss_templates为new support_tickets分类，subject关键词大小写不敏感，多个模板命中按ws_templates行顺序，均不匹配default。先检查ws_conditions（组织以ticket organization_id为准），命中转Human Review组并加human-review，不回复。Auto_Send=true创建公开support_comments(ticket_id/body=模板原文/public=true/template_id)作为实际自动回复，并追加auto-responded；false仅内部comment(public=false)，不自动发送也不加该tag。按非空Group_ID分组，默认空组不造值。auto-response报告Batch_Reference、总数、公开auto response数、内部draft数及human review数。模板处理数包含内部draft，不能当作已发送数。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

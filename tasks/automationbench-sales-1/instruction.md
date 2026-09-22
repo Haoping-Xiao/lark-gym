@@ -1,1 +1,3 @@
 处理 HR 发来的电话号码更新。查找 hr-updates@company.example.com 发布的最新 VERIFIED 批次（按批次编号排序，排除草稿），逐个完整邮箱匹配 CRM contacts。对同一联系人采用未取消记录中最新生效日期的号码，日期相同则 P1 优先于 P2/P3；美国日期按月/日/年解释。号码规范为 XXX-XXX-XXXX。仅更新存在且唯一匹配的联系人，为每项实际更新创建 notes，parent_id 指向原联系人 ID、title 为 Phone Update Applied，正文说明新号码和来源。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

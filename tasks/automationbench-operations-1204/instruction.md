@@ -1,1 +1,3 @@
 查看facilities incidents及escalation rules，选择最紧急可升级的Open事件；同优先级先Impact=Critical，再最小Severity，再最早Reported。查jira_project精确匹配Operations Support。飞书Base新建jira_issues(project/issuetype=Incident/summary/external_id=incident:<Location>)，confluence_pages(cloudId=cloud_ops/space_id=SP_OPS/type=page/title=Incident - <Location>/body为Summary原文)。将ops-team@company.example.com作为本题ops团队接收地址，先私聊通知，再建jira_comments(issue_external_id/comment含notified)。不要在未通知时记已通知，也不要修改原事件表。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

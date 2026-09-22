@@ -1,1 +1,3 @@
 按最新career fair物流消息协调，先核对已有venue确认，勿重复预订或违反采购冻结。Trello源仅有Card ID，给现有卡的comment改为card_comments飞书台账card_id、comment，不创建新卡。每位comment列Recruiter、Booth、Role、活动日期时间和prep checklist；清单补定为准备岗位介绍、候选人登记及角色材料，休假者只注明leave/replacement needed，不当作已排班。向Facilities私聊复核现有venue、confirmation number、capacity、活动日期时间，不发swag采购。
+
+本次业务处理以 2026-04-07T09:00:00Z 为时间基准。

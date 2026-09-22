@@ -1,1 +1,3 @@
 处理新利益相关人的入职通知，按 Contact Onboarding SOP 将符合条件的人加入飞书 CRM contacts。处理 meetings@company.example.com 的未读 ACTION-REQUIRED 通知，排除草稿与已处理通知。按完整客户名称、邮箱识别对象，执行审核限制、去重及职级分类；description 采用 Seniority: <分类>。处理结束后按 SOP 向 crm-ops@company.example.com 发飞书私聊确认；SOP 明确要求时，说明被跳过的对象及理由。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

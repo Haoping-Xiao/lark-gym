@@ -1,1 +1,3 @@
 按Quality Audit给有agent回复的票逐票评分；源未指定多轮合成，补定greeting/resolution/长度取最后一条agent回复（不能误取最后customer），professional_tone审查该票全部agent历史，后续礼貌回复不能抹去先前粗俗。greeting需开头独立Hi/Hello/Hey；length>=50字符；resolution需确定的解决或具体可执行步骤，i guess式猜测或just call back later不算；slang含表中整词及idk、man式随意称呼（不要把u子串误判you）。日志Score数字文本，Details固定greeting=N; resolution=N; length=N; tone=N，全部有回复者都记，包括无benchmark者。按agent所有票平均低于其benchmark才创建gorgias_tickets(subject=coaching - <邮箱>/agent_email/status=open/description含平均与建议)，并lead邮箱IM；无benchmark只报告unbenchmarked不猜lead。quality-assurance发完整逐票及逐agent平均两位小数/票数/benchmark状态，原票不改或补coaching消息。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

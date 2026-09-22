@@ -1,1 +1,3 @@
 核对Equipment和Inspectors，选择Overdue中Risk Score最高设备及Available且Certification匹配的检查员。原Calendly改cal_ops飞书日历，2026-02-03 09:00 UTC、时长取Equipment Inspection配置，邀请检查员。创建inspection_schedule(applicationId=base_equipment/tableName=Inspection Schedule/Equipment/Inspector/Date/Status=Scheduled)及notion_pages(parent_page=pg_inspections/title=设备名/content含设备、检查员、原Risk Score及UTC窗口)。私聊facilities@company.example.com和facilities群同样安排，不改变源设备检查完成状态。
+
+本次业务处理以 2026-02-01T09:00:00Z 为时间基准。

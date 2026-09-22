@@ -1,1 +1,3 @@
 今天是 2026-01-27。根据 ss_market/ws_tam 和当前市场分析方法为 ceo@company.example.com 发送飞书私聊。先查最新方法和数据质量规则；逐细分领域按“segment | addressable_accounts | avg_deal_size | 算得规模”列出，Estimated 紧跟对应规模。TAM/SAM 用 $XB、SOM 用 $XM（B=十亿、M=百万），逐行“指标 | 数值”，再列“SAM Segments | 数量”。保留方法追踪码及 Data Quality Issues 专节；SOM 使用与 SAM 相同的规模基数乘当前份额。
+
+本次业务处理以 2026-01-27T09:00:00Z 为时间基准。

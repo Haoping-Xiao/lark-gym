@@ -1,1 +1,3 @@
 今天2026-02-20，按Recording Distribution Policy分发昨天已结束会议的录制；在zoom_meetings中取原recording_url，按会议类型和CRM对应关系选择收件人。原email及CC改独立飞书私聊，第一行带Recording及会议标题；Discovery需notes关联机会存链接，Training按政策发资源群。recording-log汇报每场会议名、URL及实际分发人数（含CC副本），不把未执行对象列为已发送；源CRM及会议只读，唯一CRM写入为所需note。
+
+本次业务处理以 2026-02-20T12:00:00Z 为时间基准。

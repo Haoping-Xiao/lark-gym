@@ -1,1 +1,3 @@
 处理procurement@company.example.com所有未读vendor reviews，精确匹配tbl_ops里pipefy_find_database_records实体。Approved写phase_id=phase_approved/field_status=Approved；Rejected写phase_rejected/Rejected；Conditional写phase_pending_docs/Pending Docs。每个处理项分别私聊procurement确认名称、原decision及实际phase/status，若有原因也原文保留。已读条目不重做，不合并相近vendor名。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
-按Background Check Result Handling与最新供应商结果更正处理。来源Result回写明确更正，Status依政策；失败者另记offer_actions飞书台账candidate_id、candidate、action=Rescind、reason=Failed background check，作为模拟撤回记录，不向候选人直接发送失败通知。Clear给Hiring Manager、Failed给HR Director、Conditional先给Legal私聊姓名/ID/Position/结果与详情；通知后标相应Status。recruiting群只公告Clear可继续入职的姓名/Position，其他结果只报处理计数不暴露失败或Conditional人员身份。Pending不改不通知。
+按Background Check Result Handling与最新供应商结果更正处理。来源Result回写明确更正，Status依政策；失败者另记offer_actions飞书台账candidate_id、candidate、action=Rescind、reason=Failed background check，作为撤回处理记录，不向候选人直接发送失败通知。Clear给Hiring Manager、Failed给HR Director、Conditional先给Legal私聊姓名/ID/Position/结果与详情；通知后标相应Status。recruiting群只公告Clear可继续入职的姓名/Position，其他结果只报处理计数不暴露失败或Conditional人员身份。Pending不改不通知。
+
+本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

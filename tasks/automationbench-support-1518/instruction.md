@@ -1,1 +1,3 @@
 检查open、defect标签Gorgias票，通过完整产品名匹配ss_defects/ws_catalog，Notes的RECALLED/HOLD优先于active，未知产品和非defect不处理。停产/召回/hold仅gorgias_replies(ticket_id/sender_type=agent/body解释discontinued/recalled/hold)，无tracking承诺、无log/bug。允许产品按现有known和本轮相同产品+同故障去重，新问题每组一条issues(project=QA/issuetype=Bug/summary含产品故障/description完整保留各来源正文/external_key)。新external_key公开规则QA-最早来源ticketID，既有用原Jira Key，关联是业务编号不猜Base recordID。成功票各写ws_log，Status=Known: key或Filed: key，并回复product/defect/tracking key；原消息和tags不变。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

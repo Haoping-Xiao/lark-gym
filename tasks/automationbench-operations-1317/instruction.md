@@ -1,1 +1,3 @@
 读ABM Config和blocklist，只选Tier1且超过inactivity threshold、无partnership/legal hold的账户，CRM联系人需VP以上且用LinkedIn近期帖子个性化。LinkedIn发送改linkedin_invitations(profile_url/message/status=Pending)业务请求，不实际联网；正文包含姓名、公司及原帖子主题和百分比，不虚构合作。每账户AE创建tasks(owner_id/what_id/subject=ABM Touch - <Account Name>)；ss_abm_tracker/ws_outreach每联系人追加Account/Contact/Profile/Status=Pending。abm-team通知实际账户、联系人和主题，不列被阻断名单。
+
+本次业务处理以 2026-01-28T12:00:00Z 为时间基准。

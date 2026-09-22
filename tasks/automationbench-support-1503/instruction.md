@@ -1,1 +1,3 @@
 处理open、feature-request且没有feature-logged的会话，按ws_blocklist完整公司名或邮箱domain排除竞争者，不回复/记录/报告排除项。按ws_areas关键词匹配title+正文，多类命中按行顺序。每条记录ws_log并追加feature-logged，创建intercom_replies(conversation_id/author_type=admin/body感谢并含feature与Product Area)。上游未明示story门槛，采用公开约定：本轮同area至少2条有效请求才汇成一条issues(project=PROD/issuetype=Story/summary含area/description完整列每请求ID/title/正文/request_count数字)，单条仅记录回复。product-feedback报告Batch_Reference、有效请求数、story数和请求人/title/area。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

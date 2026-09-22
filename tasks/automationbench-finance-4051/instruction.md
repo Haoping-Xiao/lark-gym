@@ -1,1 +1,3 @@
 今天2026-02-05，核对一月Card Statement与Submitted Expenses，以持卡人、日期、金额匹配；Notes个人误报即使金额吻合也不能对账成功。新增Card Statement的Status：干净匹配Matched，未提交Unmatched，误报Submitted in error；保留源费用。私聊缺凭证的持卡人索取凭证，并向controller@company.example.com发送仅异常汇总，列Merchant、原金额、Card、异常原因；不能把正常匹配项写入汇总。
+
+本次业务处理以 2026-02-05T09:00:00Z 为时间基准。

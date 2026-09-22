@@ -1,1 +1,3 @@
 按ss_escalation_policy升级zoho_desk_tickets至freshdesk台账，精确classification排除和Never优先，Always覆盖status。源未显式给去重规则，补定目标subject=L2 Escalation: 原subject完整相同则复用，分别追加freshdesk_notes(ticket_id/body含原Zoho id、姓名、邮箱、描述)，不降现有priority、不重复新票。新票为freshdesk_tickets(subject/description/status=2/priority按政策/tags JSON escalation,l2/requester_email/external_id=zoho:<原id>)，只有需建新票且邮箱不存在时创建freshdesk_contacts(name/email/external_id=email:<邮箱>)。每个有效源票追加zoho_desk_comments(ticket_id/content含Escalated to L2及现有ticket id或新external_id)。原comments/history不改。support-escalations总结处理源票数、新票数、复用数及全部有效subject/姓名，不列跳过项。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

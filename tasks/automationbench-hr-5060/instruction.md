@@ -1,1 +1,3 @@
 今天2026-03-20，读取Recruiting Metrics，为每位经理私聊汇总其全部open roles。逐Role保留Days Open、Candidates at Interview、Total Applicants、Spend、Priority原值，计算Cost per applicant到两位美元。仅当Days Open严格超过45且Interview人数少于3时标at risk，其余写正常，不改来源表。
+
+本次业务处理以 2026-03-20T09:00:00Z 为时间基准。

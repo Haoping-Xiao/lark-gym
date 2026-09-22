@@ -1,1 +1,3 @@
 按ss_satisfaction的Analysis_Period自然日期含首尾累加event权重，未配置事件记0，enterprise仅以ws_plans完整邮箱判定；Satisfied Min和Dissatisfied Max都含等号。非neutral追加对应tag，satisfied给客户邮箱IM感谢并含Batch_Reference/姓名/公司/score；dissatisfied只创建tasks(subject含Batch_Reference、姓名、公司/description含score及分类/status=Not Started/source_customer_id)，不发客户IM；neutral不改tags、不触达。源未提供结果sheet，公开用satisfaction_results(batch_reference/customer_id/email/company/score数字/classification/customer_type/analysis_period)为全部客户登记结果，保留原events。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

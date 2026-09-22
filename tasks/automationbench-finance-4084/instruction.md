@@ -1,1 +1,3 @@
 今天是 2026-01-15，分析 Q4 2025 供应商 DPO。核对当前业务来信的目标区间及 accounts-payable 群更正；排除失效供应商。按 Avg AP Balance/(Total Purchases/Days in Period) 计算，保留两位小数。向 controller@company.example.com 发飞书私聊，列 Target | 范围 days、Period | 天数 days，然后逐供应商 Vendor | 平均AP | 更正后采购额 | DPO days | Too fast/Too slow/In range；目标端点包含在区间内。不回写来源。
+
+本次业务处理以 2026-01-15T09:00:00Z 为时间基准。

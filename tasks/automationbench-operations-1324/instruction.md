@@ -1,1 +1,3 @@
 只处理INV-2026-0452的Paid行，Part Number严格以-EXP结尾且无Recall Hold。expedited item count明确为不同有效行数（不是数量和），value=sum(quantity*unit price)。创建monday_items(board_id=brd_shipping/name=发票号/expedited_item_count/total_expedited_value/status=Pending/due=2026-02-11)，数值字段用number。私聊warehouse@company.example.com包含每个有效part/原quantity、总值以千分位表示。只登记待发货，不实际发货、不修改发票。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

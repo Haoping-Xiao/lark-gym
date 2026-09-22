@@ -1,1 +1,3 @@
 核对三月项目计费，只处理 Active/Complete，Hold 完全排除。Earned Revenue=Billable Hours×Rate，不用 Hours Logged。按 Project 关联 Invoiced To Date，给 finance-lead@company.example.com 发飞书私聊，逐行 Project | Earned Revenue | Total Invoiced | 有符号差额（Earned-Invoiced，零不带符号）。包括金额一致的在范围项目，不修改源表。
+
+本次业务处理以 2026-04-05T09:00:00Z 为时间基准。

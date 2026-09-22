@@ -1,1 +1,3 @@
 按enrichment spec以完整domain匹配support_organizations/hubspot_companies，do-not-enrich跳过；name mismatch整org不写任何字段，仅data-quality邮箱IM报告双方name/domain，不覆盖名称。成功匹配追加lifecycle原值tag、details记annual_revenue: 原值、notes记industry: 原值，保留其他字段；缺match不创建company。crm-ops报告已enriched公司及字段、成功数和discrepancy数，不列无匹配或禁止对象。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

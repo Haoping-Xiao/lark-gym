@@ -1,1 +1,3 @@
 按完整email连接intercom_contacts、history、spend、DNC和outreach历史。churned且无active、无已发送tag/历史才候选，缺history不猜；Recent_Churn_Days用于标题非拒绝，离开>Old_Churn_Days用Old_Subject，其余（含中间30–90）补定Recent_Subject。Total Spend严格超过threshold才升一级优惠。Gmail转邮箱IM，保留name/plan/原spend和对应offer；发送成功后追加win-back-sent并outreach日志，原计划不因优惠升级修改。customer-success仅汇总已发送人数/姓名/优惠，不列Skipped。
+
+本次业务处理以 2026-02-05T09:00:00Z 为时间基准。

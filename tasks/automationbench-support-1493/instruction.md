@@ -1,1 +1,3 @@
 按ss_journey配置逐requester_id聚合Freshdesk，不按邮箱domain合并。Total包含全部状态，Open含配置status2和priority>=3的pending3，Resolved只status4；状态5不擅算resolved。按rules排除不足票数和QA域名。ws_map数值均文本，Open Rate两位小数，记录本轮旅程milestone；HubSpot既有contact仅更新lifecyclestage，无则创建email/lifecyclestage。被排除者包括既有CRM也不改。customer-success报告journey、参与人数、stage人数及逐人总/open/resolved/rate/stage，不触发无关VP testimonial表。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

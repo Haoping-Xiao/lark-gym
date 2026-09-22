@@ -1,1 +1,3 @@
 按Promotion Announcement Guidelines筛选可公开晋升，遵循上季度开头、逐人Name: Previous Title -> New Title (Department)、结尾格式。飞书私聊all-company@company.example.com，首行Subject: Q1 2026 Promotions - Congratulations!，只发一次；不把Lateral或未清除Hold/Pending纳入，不改源表。
+
+本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

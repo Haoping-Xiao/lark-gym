@@ -1,1 +1,3 @@
 按 Materiality Thresholds 核对 January Actuals。对 budget/prior month 分别判断是否达到重大差异，取绝对比例/金额与严格大于阈值比较；只有达到门槛的比较项进入报告。给 controller@company.example.com 发飞书私聊，行格式 Account | Jan 原金额 | Dec 2025/Budget 原金额 | 有符号百分比（两位小数，half-up） | 有符号美元差额。解释只基于源资料；缺少业务原因则明确“缺少业务原因材料，需负责人补充”，不得编造。保持来源不变。
+
+本次业务处理以 2026-02-03T10:00:00Z 为时间基准。

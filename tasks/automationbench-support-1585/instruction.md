@@ -1,1 +1,3 @@
 按ss_capacity分析Open负载，agent Max_Tickets用数量判断，优先移动较低优先级票（Low、Medium、High；同级ID数字升序），仅在同Department内转给有空余capacity者，最少移动到个人不超限。部门按Priority_Weight加权负载对Max_Dept_Load判断，转移不改变部门总负载，不把部门过载当已解决。每移动票新增zoho_desk_comments(ticket_id/content含redistributed及原新Agent_ID/is_public=false文本)，不改priority/department。ws_report为运行前快照：Overloaded_Agents用roster IDs逗号拼接，无则空串；Status=Overloaded/Within capacity。邮件目的地原题缺失，本题显式使用测试邮箱capacity@support.example.com的IM；它与capacity-planning报告含capacity、各部门数量/人数/加权负载、原过载者及转移后人数。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

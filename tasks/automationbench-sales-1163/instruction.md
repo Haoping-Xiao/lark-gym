@@ -1,1 +1,3 @@
 今天2026-01-22，对Product Launch 2026主场webinar的注册者计分，查评分表及近期政策通知，为符合条件者创建CRM leads(first_name/last_name/company/email/status=New/rating/description)。description分项记录attendance、questions、polls得分及总分（格式可写Total: N points），保留参与数据，不修改原评分表或预览场资料。
+
+本次业务处理以 2026-01-22T10:00:00Z 为时间基准。

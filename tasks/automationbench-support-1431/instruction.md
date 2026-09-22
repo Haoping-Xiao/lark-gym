@@ -1,1 +1,3 @@
 汇总2026-02-07当前help_conversations快照。为消除源请求路由缺省，规则公开：support-daily仅active或pending且assigned_to为空；escalations仅active且tag精确escalated，pending升级不进实时升级群，候选tag不等于已升级；两群均列原subject。team-lead邮箱IM标题Daily Support Digest，含active/pending/closed/spam全量计数、active升级数、未分配active/pending数，以及所有active/pending会话subject及状态；不猜时间窗口或修改工单。Gmail改飞书私聊。
+
+本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

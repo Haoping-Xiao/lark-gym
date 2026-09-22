@@ -1,1 +1,3 @@
 今天2026-01-21，处理未来60天内到期的已签合同，结合champion LinkedIn状态和open support cases判断健康。按原要求健康账户约Renewal Discussion并存Draft Renewal Agreement；风险账户只建内部CSM review和High task，无续约合同；auto-renew不动作。会议使用primary飞书日历，原题未给时刻与时长，固定明天10:00–10:30健康续约、11:00–11:30内部review；源材料未提供CSM身份时内部日程只留组织者，不编造参会人。signature_requests包含template_id/template_name/account_id/recipient_email/status=Draft/amount，tasks关联风险account、status=Not Started/priority=High。每个需处理账户建renewal_talking_points(account_id/body)记录金额、到期日、关系依据及讨论建议，renewals汇总；保留原合同和机会状态。
+
+本次业务处理以 2026-01-21T10:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 筛选值得关注的行业人士：casey_analyst、casey_analytics、sam_growth、jordan_ops、pat_insights、alex_data、alex_dataops、riley_market、drew_cx、morgan_ai、taylor_saas、kelly_martech，并查看 VP Social 的补充名单。查询 twitter_users 飞书台账，要求验证账号、至少 10000 真实粉丝和可信专业人士简介，排除仿冒、机器人、代理代运营、暂停及明确限制账号。将关注关系写入 twitter_follows 台账（user_id、target_user_id、target_username），这是飞书关注名单，不对 Twitter 发起真实关注。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

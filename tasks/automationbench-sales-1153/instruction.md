@@ -1,1 +1,3 @@
 处理未来30个自然日（今天起含边界、不含已过期）到期合同，按VP Renewal Policy决定发送或手工复核。发出续约改signature_requests台账（source_envelope_id/opportunity_id/template_id/template_name/signer_name/email/amount/status=Sent）加签署人私聊；已处理opportunity stage改Renewal，有实际续约报价才更新amount，否则保留原金额并建tasks手工复核（subject包含Manual review及客户、related_to_id为商机、status=Not Started）。不要给未授权客户发送或处理窗口外合同。
+
+本次业务处理以 2026-01-21T10:00:00Z 为时间基准。

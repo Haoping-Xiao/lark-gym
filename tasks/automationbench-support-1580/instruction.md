@@ -1,1 +1,3 @@
 处理open loyalty票，按ss_loyalty逐邮箱累计Order Value减Return Value，以1净美元=1历史积分；Tier Benefits倍率不追溯应用历史消费。tier由累计earned积分确定，兑换只扣available余额不降低已获tier，核实缺失订单若已计入不得重复充值。源无账户余额/履约系统，新增loyalty_balances每位已处理客户一条(customer_email/earned_points/available_points/tier)，合格兑换新增loyalty_redemptions(customer_email/ticket_id/reward/points_cost/status=Approved/batch_reference)，作为本地奖励批准台账，不声称外部发券。每票gorgias_replies公开回复积分/等级；退货说明扣减，兑换说明奖励/花费/余量。ws_loyalty_log逐票Action=Balance review或Redeem，Details含票ID与处理详情。群及Loyalty_Team_Email邮箱IM包含Batch_Reference、姓名及各项金额/积分/处理。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

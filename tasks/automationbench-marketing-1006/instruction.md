@@ -1,1 +1,3 @@
 处理 Lead Tracking（ss_leads）的 New Leads（ws_new）中本次网络研讨会线索。按当前政策核对竞品、备注和重复报名，将合格联系人新增到飞书 CRM 的 hubspot_contacts，保留姓名、邮箱、公司、职务，并用 lead_source=webinar 标记来源。新增后私聊 webinar-ops@company.example.com 确认，首行作为标题，包含政策要求的批次码、实际新增数量与联系人姓名；原始值照录。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

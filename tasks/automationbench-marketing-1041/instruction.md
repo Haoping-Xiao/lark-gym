@@ -1,1 +1,3 @@
 今天是 2026-01-27。根据 Content Calendar（ss_cal/ws_cal）和收件箱中的分发政策，安排昨天新博客的社媒分发，组织 org_001。读取 buffer_channels，将本次渠道发布计划登记到 buffer_posts 飞书台账，字段 organization_id、channel_id、text、scheduled_at=2026-01-27T10:00:00Z、status=scheduled，不调用外部发布服务。向政策指定负责人发私聊，说明博客、安排的渠道和追踪码，用“Channels scheduled: N”报告实际排期数，不能声称已外部发布。
+
+本次业务处理以 2026-01-27T09:00:00Z 为时间基准。

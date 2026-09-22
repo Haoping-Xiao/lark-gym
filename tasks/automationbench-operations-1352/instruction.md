@@ -1,1 +1,3 @@
 按Holiday Staffing全部policy只统计Confirmed且无LEAVE/OT-HOLD者，仅Holiday Coverage Required=Yes部门；人数>=Min才排班，否则只私聊dept head缺口，不给不足部门部分排班。原未定时区明确UTC，Feb16 08–17每个够员部门创建一个cal_holiday日历<Department> Holiday Coverage，实际attendees包含所有合格confirmed员工。operations群报每部门eligible/min及short/covered、无需值班部门not required，不发hr。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

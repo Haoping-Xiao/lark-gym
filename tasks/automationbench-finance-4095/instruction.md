@@ -1,1 +1,3 @@
 审核 Pending Claims：Missing Receipts Total 必须为 $0 且 Total Amount≤$2,000 才 Approved，否则 Returned。原位更新 Status，并逐员工发飞书私聊说明 Claim ID、姓名、原金额和结果。给 payroll@company.example.com 只汇总批准项 Employee | 原金额，以及 Total approved | 合计；不付款，不改写源金额格式。
+
+本次业务处理以 2026-04-10T09:00:00Z 为时间基准。

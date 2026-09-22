@@ -1,1 +1,3 @@
 关联 Q1 Transactions 与 Vendor Risk 选审计样本：High 风险的全部 Active 交易，Medium 仅 Active 且金额严格大于 $10,000，Low 与 Voided 完全排除。按源交易顺序追加到 Selected Samples，保留 TXN ID、Vendor、Amount；Reason 使用 High risk 或 Medium risk > $10,000。向 external-auditors@kpmg.example.com 发飞书私聊，每样本一行 TXN ID | Vendor | Amount | Reason。不改源交易或风险评级。
+
+本次业务处理以 2026-04-12T09:00:00Z 为时间基准。

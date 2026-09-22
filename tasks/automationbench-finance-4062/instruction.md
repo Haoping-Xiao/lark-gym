@@ -1,1 +1,3 @@
 按给定 Sales Tax Tracker 与最新豁免通知计算 Q4 2025 分辖区应缴税额。应用税率生效日期，扣除豁免通知中的估计销售额，并明确这些估计待复核。向 tax@company.example.com 发飞书私聊：有非零税率的各辖区逐月 State | Month | 调整后Taxable Sales | Rate | Tax，随后各州 total 与 Total remittance；派生金额美元千位逗号两位小数。再列豁免金额与审阅状态。本轮只准备汇款计划，不申报或付款。
+
+本次业务处理以 2026-01-15T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 处理Maria最新改期来信，按当前政策核对确切邮箱、锁定及已有改期次数，避开primary日历冲突。在本题Thursday指2026-02-26、来信未给时区按UTC；选择14:00之后最早可容纳完整原会期的空档。原预约保留在calendly_scheduled_events台账，取消时改status=cancelled并记录cancellation_reason；新预约创建真实primary飞书日程并加入客户，标题保持event type。更新lead状态并建notes(parent_id/title/body)记录Rescheduled、日期、12小时起止时刻及原预约uri；不得取消LOCKED或同名他人安排。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

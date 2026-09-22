@@ -1,1 +1,3 @@
 按Progressive Discipline Policy及Privacy Standard处理Pending纪律事项。核验Prior Actions与Recommended Action逐级一致，按政策仅给必要收件人飞书私聊，不CC公共HR群。每条通知含Employee、Issue、Prior Actions与本次Recommended Action。全部所需通知发出后，才把来源Status设Processed；不代替经理实施处分。
+
+本次业务处理以 2026-03-20T09:00:00Z 为时间基准。

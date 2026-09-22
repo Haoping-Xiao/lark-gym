@@ -1,1 +1,3 @@
 监控目标客户LinkedIn资料中的购买信号，每个独立信号建tasks写明source_id、账户related_to_id、subject、description和status=Not Started；更新账户priority并在buying-signals公告。本题强度规则明确：至少2种独立信号为High，1种为Medium，无信号保留原值；人数增长严格大于0才计信号，普通技术博客不自动视为tech stack change。人物职位升级应如实说明，不能无证据称其新入职。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

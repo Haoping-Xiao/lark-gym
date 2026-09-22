@@ -1,1 +1,3 @@
 今天是 2026-02-15。按照 Credit Limit Review Policy 评审客户；新客户不改不报告。推荐值四舍五入到最近1000，审批前不直接更改 Current Limit，在 Customer Credit 新增 Recommended Limit，Status 使用 Increase recommended、Decrease recommended、Immediate review。只需立即复核但无额度调整规则者推荐值保持原限额。向 credit-committee@company.example.com 发飞书私聊，关联客户、原额度、推荐额度或触发复核的余额与结论。
+
+本次业务处理以 2026-02-15T09:00:00Z 为时间基准。

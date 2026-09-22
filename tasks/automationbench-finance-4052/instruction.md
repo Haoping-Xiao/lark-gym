@@ -1,1 +1,3 @@
 为 January Expenses 制作资助分配计划，先检验 Allowable Categories，再按日期顺序累计分配，每项必须能被当前剩余预算完整覆盖，不能部分分配；超预算或不允许类别单独标明且不扣额度。向 grants@company.example.com 发飞书私聊，逐行 Grant | Description | Category | 原Amount | Allocate/over budget/not allowable，并逐Grant报 Planned allocation 和 Remaining。源 Remaining 是本轮尚未分配时余额；本轮交付报告计划，不修改预算或执行拨款。
+
+本次业务处理以 2026-02-05T10:00:00Z 为时间基准。

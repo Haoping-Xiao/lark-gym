@@ -1,1 +1,3 @@
 核对Equipment Leases全部policy和VP Finance最新预算，逐部门按Request ID升序，只Approved无hold/void/suspended且当下remaining足够才扣减模拟可用预算；超预算项跳过可继续后面较小项，不超售。同名Equipment Lease Agreement模板优先带documents的完整协议模板，排除只有描述的噪声模板。DocuSign改signature_requests(template_id/template_name/signer_email/request_id/equipment/monthly_cost/status=Sent)，实际向vendor私聊签署请求后私聊requestor确认；procurement汇总每项ID、equipment、原金额及本次monthly committed千分位总额。不实际付款、不回写源预算表，不把Sent算已签好。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 检查open工单情绪：强烈不满或流失风险加retention-risk，明确赞扬加success-story，中性不动。中断/数据损失风险urgent并assigned_team=Management；退款/账单强烈不满high并assigned_team=Billing；正向assigned_team=Customer Success且保留priority。源未给group ID，使用上述公开team字段，不伪造group。每个特别关注票新增support_comments内部评论（ticket_id/public=false文本/body含sentiment及negative或positive和issue topic英文关键词），不覆写历史。customer-health汇总包含Batch_Reference、逐票ID、请求人完整姓名及情绪/主题，概括frustrated和positive票数。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

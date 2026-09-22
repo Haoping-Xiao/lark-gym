@@ -1,1 +1,3 @@
 为TechStart - Platform Deal按Sales Process Playbook安排标准会议，先验证账户适用范围，再查每步类型、contact role和stage。飞书primary日历承载会议；原题无日期，本题从2026-02-25起每步间隔一天、均10:00 UTC，按event type时长，参会人按playbook角色匹配。全部安排后stage改最终步骤对应值，description保留playbook ref，并用meeting_stage_plan记录各步step/meeting_type/opp_stage_after/opportunity_id（这是计划，不表示会议已举行）。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

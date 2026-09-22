@@ -1,1 +1,3 @@
 Meridian Corp Platform Deal 刚刚成交！将其标记为成交，并按最新通知路由政策通知正确的团队。请从 Account Hierarchy 电子表格确认客户分层，必要时参考 FX Rates 电子表格换算货币，并检查是否存在未结支持升级问题。团队通知邮箱为 support-escalation@example.com、executive-team@example.com、sales-team@example.com、smb-team@example.com、vp-sales@example.com；使用飞书私聊发送通知，内容应包含相关实体名称和金额。
+
+本次业务处理以 2026-01-28T10:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 查ops@company.example.com最新vendor checklist归档来信，从google_drive_find_multiple_files和google_drive_folder台账识别正确文件及Archived Vendors文件夹。将文件实体folder实际更新为目标ID，并建notion_pages(parent_page=pg_ops、title保留文件原名、content记录Archived及file/目标folder)。原Drive/Notion移至Base业务台账，不操作外部文件、不改其他版本。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

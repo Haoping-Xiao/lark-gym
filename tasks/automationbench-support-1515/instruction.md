@@ -1,1 +1,3 @@
 按ss_categories/ws_rules重路由active、没有任意现有cat类别标签的HelpScout会话。subject与threads正文关键词大小写不敏感，多命中取最小Priority；无匹配不推断。添加选中Category、改mailbox_id，新增私有help_notes(conversation_id/body含categorized、类别和目标mailbox/public=false文本)。support-categories仅汇总本轮成功categoriz数量/subject/类别/目标mailbox。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

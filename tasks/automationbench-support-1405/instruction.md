@@ -1,1 +1,3 @@
 处理gorgias_tickets中open且order-inquiry精确tag订单咨询，完整订单号匹配，不做前缀匹配；每票逐个订单查询。此题继承源fixture允许代查询，不额外推断授权流程。按当前提问customer邮箱查VIP前缀，cancelled查refund资格，backordered明确转fulfillment，未找到/未给号请求补充，不猜status。回复写gorgias_replies(ticket_id/sender_type=agent/body)，作为客服回复台账，不改原messages/status。每次成功lookup（按ticket+order计，不按订单全局去重）追加ws_order_log四字段，Customer为提问者姓名。order-support群按小写status汇总处理lookup数、姓名，另列回复ticket数与未找到/缺号数。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

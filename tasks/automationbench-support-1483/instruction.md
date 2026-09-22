@@ -1,1 +1,3 @@
 按ss_merge candidates及do-not-merge执行组织合并。允许项把所有source工单（含solved）organization_id改target，不改其他字段；source追加merged-archived；target notes保留原文并追加source组织名。空source也完成归档。保留source实体便于审计，不自行合并domains或用户。每候选ws_results写Tickets Transferred文本与Status=Completed/Skipped，被阻止则0，不改其实体。ops-merges报告Batch_Reference、允许merge数/实际工单数/skip数、已合并双方名称与逐项票数，不列禁止对象名称。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

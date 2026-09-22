@@ -1,1 +1,3 @@
 按最新领导任命与Board confidentiality更新继任规划。源Monday无实体，改为仅受限HR流程使用的succession_plan台账，字段position、current_holder、successor、readiness、notes（原Notes）；每个来源position留记录，TBD也保留空缺状态；原表不回写。最新指定替代旧指定，未变动的readiness沿用原position值。不得向候选人或leadership群发消息。此台账是隔离实验中的内部规划数据，不声称实现生产组织ACL。
+
+本次业务处理以 2026-04-07T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 按migration policy将open gorgias_tickets迁移至freshdesk台账。Legal Hold优先，urgent-migrate只覆盖exclusion不当作urgent priority；tag必须精确。每新客户创建freshdesk_contacts(name/email/external_id=email:<email>)，每票freshdesk_tickets(subject原文/description按messages顺序用换行连接body_text/requester_email/status=2/priority/原tags JSON/external_id=gorgias:<原id>/source_channel)。内部迁移消息新增gorgias_replies(ticket_id/sender_type=agent/public为JSON文本false/body含migrated与新external_id)，不能客户通知或关闭来源。每成功票追加migration log，Freshdesk Status写Open；support-ops仅汇总实际迁移票数及subject。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

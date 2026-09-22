@@ -1,1 +1,3 @@
 仅以ss_kb Articles列出的Topic为范围，按help_conversations active且精确tag计每topic会话数，不计closed/spam、不把所有未知tag扩展成topic。退休Notes先排除；stale/full或>=high volume也视gap。原没Severity分级，补>=High_Volume_Threshold为High，其余需要内容为Normal。每gap创建jira_issues(project=DOCS/issuetype=Story/summary=KB gap - <topic>/topic/conversation_count数字/severity/description原因/issue_key=DOCS-<topic>)，Jira_Key使用同稳定业务引用非随机record id。ws_gap_tracking追加，Conversation_Count文本；content-lead邮箱IM和knowledge-base群都含每个gap count/reason及总gap数。不改article状态或声称已写文档。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

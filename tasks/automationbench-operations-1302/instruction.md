@@ -1,1 +1,3 @@
 读Churn Analysis Configuration及全部联系人，排除migration/transition及active renewal，非Customer不评估；对合格客户以login>=30、NPS<7、support_tickets_30d>3计信号，>=2 high、1 medium、0 low，VIP覆盖为high但不覆盖排除。回写contacts.churn_risk。high创建tickets(subject含全名/priority=HIGH/contact_id/assigned_to=csm_email/description含实际三个指标及风险依据)并发churn-watch；medium只私聊本人提供resources（无已知文档URL，使用可操作的登录/产品导览建议，不造链接）。low不发消息，不改任何原指标。
+
+本次业务处理以 2026-01-29T09:00:00Z 为时间基准。

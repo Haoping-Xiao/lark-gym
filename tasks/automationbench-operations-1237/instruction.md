@@ -1,1 +1,3 @@
 查compliance@company.example.com最新subject含Follow-up的邮件，将任务文字与due原文同步到本次跟进。Trello原源只给card_812引用无本体，创建trello_cards(card_id=card_812/board=brd_ops/list为In Review查询ID/due/label=lbl_compliance)保存目标状态；Basecamp用basecamp_todos(account=acct_ops/project=proj_facilities/todo_set=set_compliance/todo_list=list_fire/content/due_on)。两处落地后通知ops-updates原任务和日期，不选其他发件人事项。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

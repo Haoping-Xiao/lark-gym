@@ -1,1 +1,3 @@
 按ss_migration状态/类别映射，将受支持且未关闭的help_conversations迁入reamaze_conversations；同邮箱contact复用，不重复建。新会话source_id/subject/status/contact_email/category/created_at，完整保留source_threads/source_tags JSON与source_mailbox_id，不丢原始历史。迁好再建help_notes(conversation_id/body含migrated to Re:amaze/public=false)，最后close原会话；原threads/tags不改。migration-status报告migration进度、会话数/新增联系人数量和涉及姓名/subject。这里只迁飞书台账，不接外部系统。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

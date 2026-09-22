@@ -1,1 +1,3 @@
 核查description含Champion的CRM联系人当前LinkedIn任职，发现换公司按procedure设status=Former Employee，建notes(parent_id为原contact)记录旧新公司，再建立LinkedIn邀请台账linkedin_invitations(profile_id/profile_url/message/status=Pending)。新公司已是Account时创建关联该Account及原contact的Re-engage task(status=Not Started)，否则建新leads，保留新邮箱、职位、公司，status=New。旧contact原公司/邮箱不改，sales-alerts汇报实际变动数和路径，勿将未变人物计入。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

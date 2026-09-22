@@ -1,1 +1,3 @@
 阅读全部Training Policy，从Mandatory/Scheduled且可安排者选Pending Attendees最多项，找Available且认证匹配trainer。Zoom改host邮箱作calendar_id的飞书视频日历，主题原Training Topic、排期日10:00 UTC和原Duration，不猜参训个人名单。创建monday_items(board_id=brd_training/item_name=<Topic> - <Date>/training_status=Room Booked/attendees原人数)，training_log(applicationId=base_hr/tableName=Training Log/Topic/Date/Trainer/Expected/Status=Room Booked)。私聊training-attendees@company.example.com主题Mandatory Training: <Topic>，含原Date、Duration、Expected和Trainer:姓名及邮箱。源排期和hold不修改。
+
+本次业务处理以 2026-02-01T09:00:00Z 为时间基准。

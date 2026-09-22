@@ -1,7 +1,13 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { isDeepStrictEqual } from 'node:util';
 
 type Json = Record<string, any>;
-export function prepareSemantic(expected: Json, world: Json, configPath: URL) {
+export function prepareSemantic(
+  expected: Json,
+  world: Json,
+  configPath: URL,
+  seed?: Json,
+) {
   const config = existsSync(configPath)
     ? JSON.parse(readFileSync(configPath, 'utf8'))
     : { enabled: false };
@@ -17,6 +23,77 @@ export function prepareSemantic(expected: Json, world: Json, configPath: URL) {
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  // Opt-in policies follow task review; explicit message counts remain strict.
+  if (seed && config.message_count === 'per_recipient') {
+    const old = new Set(seed.messages.map((m: Json) => m.message_id));
+    const sent = world.messages.filter((m: Json) => !old.has(m.message_id));
+    const recipients = [
+      ...new Set<string>((expected.messages || []).map((m: Json) => m.chat_id)),
+    ];
+    expected.messages = recipients.flatMap((chat_id) =>
+      Array.from(
+        {
+          length: Math.max(
+            1,
+            sent.filter((m: Json) => m.chat_id === chat_id).length,
+          ),
+        },
+        () => ({ chat_id, contains: [] }),
+      ),
+    );
+    deferred.push('messages.per_recipient_completeness_and_no_redundancy');
+  }
+  if (seed && config.unordered_new_rows) {
+    const groups = new Map<string, Json[]>();
+    for (const cell of expected.cells || []) {
+      const key = JSON.stringify([
+        cell.spreadsheet_token,
+        cell.sheet_id,
+        cell.row,
+      ]);
+      groups.set(key, [...(groups.get(key) || []), cell]);
+    }
+    const used = new Set<string>();
+    for (const cells of groups.values()) {
+      const first = cells[0];
+      const sheet = (state: Json) =>
+        (first.spreadsheet_token
+          ? state.spreadsheets?.[first.spreadsheet_token]?.sheets
+          : state.sheets)?.[first.sheet_id]?.values || [];
+      const before = sheet(seed),
+        after = sheet(world);
+      const empty = (row: any[]) =>
+        !row || row.every((v) => v === '' || v === null);
+      if (!empty(before[first.row])) continue; // Existing records keep their identity.
+      const row = after.findIndex((values: any[], index: number) => {
+        const key = JSON.stringify([
+          first.spreadsheet_token,
+          first.sheet_id,
+          index,
+        ]);
+        return (
+          empty(before[index]) &&
+          !used.has(key) &&
+          cells.every((c) =>
+            c.contains?.length ||
+            (typeof c.value === 'string' && c.value.length > 80)
+              ? true
+              : c.one_of
+                ? c.one_of.some((v: any) =>
+                    isDeepStrictEqual(values[c.column], v),
+                  )
+                : isDeepStrictEqual(values[c.column], c.value),
+          )
+        );
+      });
+      if (row >= 0) {
+        used.add(
+          JSON.stringify([first.spreadsheet_token, first.sheet_id, row]),
+        );
+        for (const cell of cells) cell.row = row;
+      }
+    }
+  }
   for (const [i, message] of (expected.messages || []).entries()) {
     if (message.contains?.length) {
       message.contains = config.literal_message_terms?.[String(i)] || [];

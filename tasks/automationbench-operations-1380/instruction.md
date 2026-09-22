@@ -1,1 +1,3 @@
 核对Skills/Role Competencies及全部policy、过去30天LMS completion邮件，以邮箱识别同名员工，最近完成视已掌握对应技能。仅Required差集、无scheduled/probation/transfer排除者创建asana_tasks(project=Training/name=原Name/email/missing_skills JSON数组/missing_count)，源project无ID使用逻辑名称Training。私聊各自training plan包含每项剩余技能、总数及学习后复核建议，不把已经补齐或optional技能列入计划。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

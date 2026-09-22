@@ -1,1 +1,3 @@
 今天是 2026-02-01，执行二月预付摊销。依据 Amortization Rules、最新例外和 accounting 群的明确纠正，不能继续沿用已被纠正的暂停备注。修正 Total 后以 Total 减既有 Amortized to Date 得当前待摊余额，再计本月费用，更新 Amortized to Date/Remaining；金额保留美元千位逗号和两位小数。创建 journal_entries 飞书分录（item、period=2026-02、debit_account=源Expense Account、credit_account=Prepaid Asset、amount数值）。向 controller@company.example.com 发私聊，逐项 Item | Debit 费用科目 | Credit Prepaid Asset | 本月金额，附 Total amortization: $X。
+
+本次业务处理以 2026-02-01T10:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 按Access Management所有policy及routing处理Pending，用邮箱+Department对齐directory而非仅姓名；manager title满足对应level才创建asana_tasks(workspace/project/section取routing/name=原Requestor/email/department/access_level)。Denied只私聊requestor解释部门、申请级别、manager原title及未达审批级别。源只要求路由，故不改queue.Status、不授予实际权限，Processed完全跳过。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

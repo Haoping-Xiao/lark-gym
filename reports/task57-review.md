@@ -8,7 +8,7 @@
 - Replaced the mixed business collection table with 1,504 entity tables across
   the 800 tasks. Table APIs select records from one authoritative state, hide the
   internal collection field, and prevent writes to declared lookup tables.
-  User requests and environment guidance now live in separate files.
+  Task-specific execution guides were subsequently removed; see the follow-up below.
 - Simple-3151 previously mixed ticket/case guidance and prescribed reference
   prose. Its request now asks for a support ticket based on the customer message;
   the task exposes the ticket table and the grader still checks the business facts.
@@ -88,3 +88,43 @@ older commit, not to task version 0.2.0.
 Review the shared changes first (`scripts/task-support`, Mock routes, tests, CI),
 then task-owned policies and overrides. Most changed files are generated native
 Harbor packages rather than separate hand-written implementations.
+
+## Follow-up: user context and reviewed grading restrictions
+
+The 801-task external Codex static review finished in 101 batches. Its labels are
+candidate findings, not executed task acceptance. The personal scheduler and raw
+review output remain outside this repository.
+
+Confirmed problems addressed in this follow-up:
+
+1. Removed 800 task-specific AGENTS files and their Docker COPY instructions.
+   Verifiers now receive exactly the user request instead of appending execution
+   and migration instructions. Business reference times remain visible.
+2. Added Drive root listing and document search over the actual live Sheets/Base
+   objects, so locating resources does not require the deleted catalogue. The
+   real CLI test exercises pagination, finding a business table, searching after
+   a write and rejecting an unsupported filter. It does not certify production
+   permissions, folders, all filters or all 801 discovery paths.
+3. Rewrote five reviewed user requests and removed repeated financial-system
+   migration/record-ID hints. Kept business restrictions and scope (including
+   record-only or rehearsal operations) rather than claiming external payments
+   or publications were executed. This is not a claim that all 459 instruction
+   candidates from the model have been independently resolved.
+4. Finance-4001 accepts equivalent newly entered invoice rows in either order;
+   wrong values and unrelated changes remain failures. Finance-4008 allows
+   multiple report messages to the intended recipient; semantic completeness,
+   missing details and redundant notifications still require the judge.
+5. Maintenance accepts the target system in the event description and a localized
+   title. Read-before-write checks cover the target's candidate windows, rather
+   than requiring unrelated Server Room rows.
+
+Paired regression cases exercise the valid alternatives and wrong vendor,
+wrong recipient or missing event identity. No live semantic judge was invoked
+for these cases; intermediate structural acceptance is not final reward.
+Other model-suggested grading changes remain candidates until reviewed against
+source intent and visible policy. No blanket relaxation of all task criteria.
+
+Follow-up local verification: `npm run check` passed with 830 Node tests,
+TypeScript checks, formatting, Go tests and vet; `npm run oracle` passed.
+All 800 seeds and expected-result files equal the pre-follow-up versions.
+Hosted checks for this follow-up commit are tracked separately in the PR.

@@ -1,1 +1,3 @@
 按ss_kb/ws_domains路由unresolved会话，subject+messages关键词不区分大小写，多个domain命中按表行顺序取首个（不按命中数），无命中general。写assignee_email并追加domain标签，general使用uncategorized。仅KB Link非空才新增reamaze_replies(conversation_id/author_type=staff/body含domain、原KB链接及Batch_Reference)给客户；不为general造链接或额外回复。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

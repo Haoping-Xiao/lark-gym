@@ -91,3 +91,25 @@ linking. The same task's ban on the substring `renew` is deferred to semantic
 review so a refusal to renew is not automatically treated as a renewal.
 
 `literal_fields` 保留指定字段的精确/包含检查：simple-3006 要求原链接，simple-3016 和 simple-3038 明确给出写入文本。这些默认例外与 marketing-1142 的标签规则保存在 `semantic-overrides.json`。任务版本升至 0.2.0；原始业务记录与 expected.json 保持不变，语义评分只调整内存中的程序检查副本。
+
+## User-facing context and resource discovery
+
+Task Dockerfiles do not install per-task AGENTS files. The judge receives exactly
+`instruction.md`, plus authoritative seed/state; it no longer concatenates an
+execution guide. Business reference time is explicit in the request. Reviewed
+request changes live in `user-request-overrides.json`; review-model proposals are
+not automatically installed.
+
+Drive file listing and title/content search derive their results from the live
+Sheets and Base objects. These are an accessible root catalogue for the task
+identity, not a simulation of all Drive permissions/folders. Unknown filters
+remain recorded 501 gaps. CLI regression tests cover discovery, pagination,
+content search after a write, and rejecting an unsupported filter. Production
+parity and every possible discovery workflow remain unverified.
+
+Task-specific grading policies preserve required identity and collateral checks:
+`unordered_new_rows` accepts equivalent new rows in a different order, leaving
+existing-row updates strict; `message_count: per_recipient` permits splitting a
+report, while code still checks recipients and the semantic judge checks complete
+coverage and absence of redundant notifications. These are opt-in reviewed
+policies (finance-4001 and finance-4008), not blanket relaxations across tasks.

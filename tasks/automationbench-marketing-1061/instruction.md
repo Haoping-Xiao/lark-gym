@@ -1,1 +1,3 @@
 现在是 2026-01-27 20:00 UTC。按社媒负责人及 social-ops 群最新规则，为 ss_social/ws_posts 中就绪内容排期，组织 org_001。读取 buffer_channels，在 buffer_posts 飞书台账创建 organization_id、channel_id、text、scheduled_at、status=scheduled。保留源日期，默认 09:00 UTC。保留原文；追加标签固定顺序为：功能 hashtag、适用合规标签、适用思想领导标签、Twitter UTM、平台 SCH 码，最后批次码，各段一个空格。不需要的项省略；相同平台的配额按源表顺序选择，不能给禁发内容另换日期规避政策。
+
+本次业务处理以 2026-01-27T20:00:00Z 为时间基准。

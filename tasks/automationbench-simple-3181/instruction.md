@@ -1,1 +1,3 @@
 在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

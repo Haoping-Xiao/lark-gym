@@ -1,1 +1,3 @@
 按signal config检查open intercom会话正文，关键词大小写不敏感子串，每种signal同会话只一次；通过contact company与SF account完整name连接现有非Closed机会，不推断没有的机会。每有效信号创建tasks(subject=配置subject - 公司/priority/status=Not Started/owner_id=机会owner/what_id=机会ID/account_id/conversation_id/description原会话正文)，contact加intercom_notes(contact_id/body含signal/company/conversation)，会话tags追加signal-detected。仅Send_Email=yes给owner邮箱IM，其他不发。revenue-ops含report_id/实际信号数、公司/姓名/signal，排除无机会或无signal者。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

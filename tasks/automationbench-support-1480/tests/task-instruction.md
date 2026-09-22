@@ -1,23 +1,3 @@
 按ss_bridge迁移enterprise标签客户的符合Create_Ticket=true的事件，不只看最后一条事件，未配置或false跳过。任务今天2026-02-07 09UTC优先于seed旧meta；本轮处理给出的全部事件。匹配zoho_desk_accounts完整公司名、contacts邮箱，有则复用，无才创建(account_name; contact email/first_name/last_name/account_name)。工单zoho_desk_tickets取Subject_Template/priority，status=Open/contact_email/account_name/source_customer_id/source_event完整JSON。每成功工单后新增helpcrunch_events(customer_id/event_name=HC_Event/source_event_name/subject/created_at当前时间)，不把事件当tag。enterprise-support报告bridge、数量、姓名/公司/工单/priority。
 
-# 操作环境
-
-使用本环境的 Mock 版 lark-cli。业务资料按实体分别存入飞书多维表格，表目录见下方。记录 ID 通过查询获取。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
-
-飞书电子表格目录：
-
-- ss_bridge：Bridge Config；工作表 ws_event_types（Event Types）, ws_priority_rules（Priority Rules）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-07T09:00:00Z。
-
-## 业务表目录
-
-Base：base_crm。每张表代表一种业务实体，使用该表列出的业务字段。
-
-- tbl_98b83ca845cc：helpcrunch_customers（来源实体 helpcrunch_customers）
-- tbl_28bd11d360be：helpcrunch_events（来源实体 helpcrunch_events）
-- tbl_281832285f98：成员资料（来源实体 lookup_users）
-- tbl_c05487963269：zoho_desk_accounts（来源实体 zoho_desk_accounts）
-- tbl_8d0d5ae16ba6：zoho_desk_contacts（来源实体 zoho_desk_contacts）
-- tbl_13c706bfa9d5：zoho_desk_tickets（来源实体 zoho_desk_tickets）
+本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

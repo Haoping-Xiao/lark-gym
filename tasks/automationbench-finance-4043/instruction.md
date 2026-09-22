@@ -1,1 +1,3 @@
-今天是 2026-01-15。按给定 State Rates（包括生效日期备注）核对上一季度的 wave_invoices 与 wave_customers 飞书台账。此环境把 invoice_total 视为含税总额，计税基础=invoice_total-invoice_tax_total；应收税按当时州税率算并四舍五入到分。只向 tax@company.example.com 报不一致发票，逐行 Invoice | Customer | State | 已收税 | 应收税 | 差额（已收-应收，正数带+），金额两位小数。保持所有发票不变。
+今天是 2026-01-15。按给定 State Rates（包括生效日期备注）核对上一季度的 wave_invoices 与 wave_customers 飞书台账。invoice_total 为含税总额，计税基础=invoice_total-invoice_tax_total；应收税按当时州税率算并四舍五入到分。只向 tax@company.example.com 报不一致发票，逐行 Invoice | Customer | State | 已收税 | 应收税 | 差额（已收-应收，正数带+），金额两位小数。保持所有发票不变。
+
+本次业务处理以 2026-01-15T09:00:00Z 为时间基准。

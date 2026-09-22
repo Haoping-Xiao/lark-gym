@@ -1,1 +1,3 @@
 请安排 2026-03-12 15:00 UTC 开始、持续 2 小时的 Customer Training Session 飞书视频会议。启用报名流程：在多维表格报名台账创建 registration 记录，name 为会议名称，registration_enabled 为 true（文本）；会议入会范围设为仅日程参与者，后续报名通过后再添加参会人。使用工作日历 cal_primary，当前主持账号为 agent@company.example.com。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

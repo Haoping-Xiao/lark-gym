@@ -1,1 +1,3 @@
 按本周Interview Schedule、申请来信及panel偏好准备面试包。LinkedIn只提供离线姓名和URL快照，不能声称已验证履历；外部候选人交叉核对该快照和申请，内部转岗只用内部摘要。撤回者不准备、不通知，来源Status改Cancelled；源无日历实例不伪造取消会议。每个有效候选人在interview_dossiers台账保存candidate、role、interview_date、body；将同份brief分别私聊给各panel成员，保留履历数字、经验、偏好问题。源未标finalist，本题仅将仍Confirmed外部候选人作为本批finalist，给bgcheck-coord@company.example.com一条姓名/Role申请，不自行背调。body不得编造资料未给出的竞争项目，需说明未提供。
+
+本次业务处理以 2026-03-25T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 对ready的Proposal商机按Template Selection Rules从上到下首次命中选协议，尊重Legal政府/公共部门路径和hold。普通发送改signature_requests台账（opportunity_id/template_id/template_name/signer_email/status=Sent）加primary联系人私聊，然后description追加模板名；政府/公共部门只追加Procurement review required，不实际访问采购portal或发签署请求，原stage和amount不改。非Proposal不作为ready。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

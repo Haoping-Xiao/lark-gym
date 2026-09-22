@@ -1,1 +1,3 @@
 从 ss_serp/ws_data 查找精选摘要优化机会并按价值加入 ss_optimize/ws_queue。一般候选要求排名在前十、存在他站精选摘要且不是自己占有；另外纳入用户指定的高意向商业词 crm pricing。crm benefits 页面即将退役。尊重数据未核实、合并重复等备注。按 volume 降序追加，保留 keyword、current_position、volume；opportunity 用 Featured Snippet 表示一般候选、Commercial Intent 表示商业词例外。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

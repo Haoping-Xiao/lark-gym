@@ -1,1 +1,3 @@
 今天为 2026-01-27。处理待审试用延期申请，严格按 ss_trext 的 Policy 工作表规则决定。分别向每个申请账户发送批准或拒绝私聊，再给 trial-ops@company.example.com 批次汇总；批准消息的新到期日使用 Month D（如 February 15）。在请求表 decision 字段记 Approved/Denied；批准时同时更新 trial_end_date 并增加 previous_extensions，拒绝则不改日期和次数。原始值照录。
+
+本次业务处理以 2026-01-27T12:00:00Z 为时间基准。

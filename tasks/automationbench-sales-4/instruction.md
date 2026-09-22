@@ -1,1 +1,3 @@
 向 Q1 Product Launch Webinar（701xx000001STU1）加入符合条件的 Director 及以上联系人。读取 CRM 账户、联系人和 ss_campaign_rules，应用行业及所有账户/个人限制。源环境未提供独立同意记录与营销触达历史，本轮仅对现有记录中可核实的限制执行筛选；不将缺失历史当作已完成真实合规审核。为通过者在 campaign_members 创建关系，campaign_id、contact_id、status=Added、added_at=当前 UTC 时间、authorization=User request。不要发送邀请或修改源联系人。
+
+本次业务处理以 2026-01-27T10:00:00Z 为时间基准。

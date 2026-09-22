@@ -1,1 +1,3 @@
 查看 ss_space/ws_rooms 的空间利用率，筛选 Office 类型且日均利用率低于 40% 的办公室，排除会议室、Renovation 及政策/最新通知排除的场所。将合并建议保存为飞书报告台账 reports 记录，title 为 Space Consolidation Report - Q1 2026，workspace 为 sp_facilities，body 列房间、容量、入住率及 consolidate 建议。另向设施总监 rachel.torres@company.example.com 私聊结果，包含总空置座位数（各候选房间 capacity × (1 - occupancy%) 之和），保留两位小数，不向下取整。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

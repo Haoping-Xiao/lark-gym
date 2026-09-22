@@ -1,1 +1,3 @@
 按refund policy处理open且精确refund-approved票，按完整订单号匹配；VIP只按当前客户email非姓名。判定顺序补明：Not Found、超过window Expired、category不符Denied，再fraud/repeat refunder Escalated，最后loyalty免金额或<=阈值Draft，否则Escalated；源refund-approved视已确认服装条件，不猜额外检查。不同ticket分别日志即使同订单。Gmail草稿改mail_drafts(to/ticket_id/subject/body)，Draft只准备确认不实际退款，body须说明未执行退款；升级jira_issues(project=FIN/issuetype=Task/summary含order/ticket_id/description含姓名金额原因)。每处理票写gorgias_replies(ticket_id/sender_type=agent/body含姓名/order/原金额/规定outcome词)，ws_refund_log逐笔追加，不存在order Amount留空。finance-ops汇总各Action计数及已查到金额分组总额；Draft总额与Escalated总额按票计算，不能把两笔同order跨票消重。不改原订单状态。
+
+本次业务处理以 2026-02-01T12:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 今天是 2026-02-10，本轮处理周明确为滚动7天2026-02-04至02-10（含端点），按收件日筛选真正的供应商发票。源只有邮件文本、没有附件或Drive文件，因此在 invoice_archive 飞书台账保存 invoice_number、file_name（YYYY-MM_VendorName_InvoiceNumber，保留Vendor空格）、source_message_id、content原邮件正文，不伪造PDF。向 Registry 按收件日、同日source id排序追加原有 Invoice/Vendor/Amount，加 Date Filed、Invoice #、Drive Link；Invoice和Invoice #同源号，Amount保留美元原文，Drive Link用lark-gym://invoice/InvoiceNumber作为台账逻辑引用。向ap-lead@company.example.com私聊按上月格式报告 Invoices filed: N, Total amount: $X 与逐发票 Vendor | Invoice | Amount | 发票日期。
+
+本次业务处理以 2026-02-10T09:00:00Z 为时间基准。

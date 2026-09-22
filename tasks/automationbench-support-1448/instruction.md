@@ -1,1 +1,3 @@
 按CSAT Data配置及roster邮箱关联hiver用户、conversation与survey，仅closed且有有效response者计分；无response不按0、未知conversation不猜，非roster不列。源无survey日期，将现有responses视Report_Period快照。按原始平均严格低于个人threshold才flagged，其他ok；Average_CSAT写一位小数文本、Response_Count数字文本，所有roster各一行。只发Report_Recipient邮箱IM及support-metrics，不通知客户或被评agent。两处含Report_Reference/period、每人平均/response count/threshold/status和flag总数，格式Name: average=N.N, responses=N, threshold=N.N, status=...以明确归属。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

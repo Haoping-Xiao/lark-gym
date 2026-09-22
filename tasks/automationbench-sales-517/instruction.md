@@ -1,1 +1,3 @@
 处理业务来信 msg_deal_request_001 的商机请求，按照当前定价政策计算金额，在正确的顶层母公司下创建商机，而不是子公司。name 使用 [Account Name] - Q1 Enterprise Deal，stage_name 为 Qualification；向该公司职级最高的联系人发送确认私聊，首行为 Deal Request Received，包含公司名、商机名及计算金额。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

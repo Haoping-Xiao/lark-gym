@@ -1,1 +1,3 @@
 查看 ss_events 的 Q1 行业活动，优先选择规模较大、与 SaaS、CRM 或 Marketing Tech 相关的未来活动，在 ss_recs 中追加建议。规模较大定义为预计至少 1000 人；遵守备注中的报名及参与限制。填写 Event_Name、Recommendation（sponsor / speak / attend only）、Priority（High / Medium / Low）和 Rationale；参与方式可结合活动特点自行选择，理由需引用领域、人数和赞助成本。只推荐，不实际报名或付款。
+
+本次业务处理以 2026-01-27T12:00:00Z 为时间基准。

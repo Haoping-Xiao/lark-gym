@@ -1,1 +1,3 @@
-读取 expense-submissions 群的报销凭据，先核对 Expense Policy，再把合格项写入 Expense Tracker/Submissions。金额保留两位小数但不带美元符号，除 Amount、Category 外保存 Date、Description、source_message_id。超过每人餐费上限但缺人数的请求不能登记，需补人数；被拒类别按政策说明。逐原请求在同一飞书群发确认或拒绝说明，正文保留 source_message_id，此环境用来源关联群消息替代原平台线程回复。
+读取 expense-submissions 群的报销凭据，先核对 Expense Policy，再把合格项写入 Expense Tracker/Submissions。金额保留两位小数但不带美元符号，除 Amount、Category 外保存 Date、Description、source_message_id。超过每人餐费上限但缺人数的请求不能登记，需补人数；被拒类别按政策说明。逐原请求在同一飞书群发确认或拒绝说明，正文保留 source_message_id。
+
+本次业务处理以 2026-02-05T14:00:00Z 为时间基准。

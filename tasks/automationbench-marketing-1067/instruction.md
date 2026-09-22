@@ -1,1 +1,3 @@
 使用 ss_social_roi / ws_data 分析社交渠道表现，按现行报告要求向 director@company.example.com 私聊。消息包含渠道及金额；每行采用“channel | ad_spend | conversions | revenue | ROI”，金额加千位分隔符，原始空收入写“缺失”，无法计算的 ROI 写 N/A。原始数值不改动，并汇总分析范围内支出和转化。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

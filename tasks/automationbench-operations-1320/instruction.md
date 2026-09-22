@@ -1,1 +1,3 @@
 按ss_social_analytics配置分析Buffer org_001，Organic精确匹配不含Boosted、Primary；21天lookback以日期边界Jan7 00:00UTC至当前时刻，避免把当天09时排除。来源day与published_at实际星期不一致，明确使用来源day/hour作业务时段标签，published_at仅过滤日期；聚合每个day/hour平均engagement_rate。分别选Top3与Low3，平分较早时间先，样本不足6时排名允许交集并注明，不把重合项同时当强制推荐与禁发。创建notion_pages(title=Posting Schedule Optimization/content)，ws_timing每时段追加Day/Hour/Rate/Rank，百分比整数带%。social-strategy报告两个排名、样本量、推荐每周最佳单一时段及avoid最差单一时段，不真正发布或改schedule。
+
+本次业务处理以 2026-01-28T12:00:00Z 为时间基准。

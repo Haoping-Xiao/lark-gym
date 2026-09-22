@@ -1,1 +1,3 @@
 合作伙伴 Zenith Analytics 的联系人为 Ravi Kapoor，邮箱 ravi.kapoor@zenithanalytics.example.com。在飞书 contacts 台账创建联系人，firstname、lastname、email、company 填入对应信息；再在 tasks 台账创建 name=Onboard Zenith Analytics、workspace=ws_partnerships 的入驻任务。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 按ss_enrichment全部规则将zoho_desk_tickets和zoho_desk_contacts以完整email匹配CRM contacts/accounts。Account Type严格完整匹配，不能把Customer - Enterprise/Customer - Prospect/Customer - SMB当Customer；skip与churning review先执行，Strategic明确名单覆盖普通type匹配。每个非跳过票写zoho_desk_comments(ticket_id/content)，有账户写CRM Account及原account_name/account_type，未找到contact写No CRM account found，contact无account写no account linked。不覆写历史comments。按政策创建tasks(subject/原account_id/contact_id/ticket_id/priority=High/status=Not Started)或opportunities(name=原subject/account_id/contact_id/ticket_id/stage=Prospecting)，不猜金额；未匹配任何规则的已知账户仅备注。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

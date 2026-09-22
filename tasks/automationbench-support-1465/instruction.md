@@ -1,1 +1,3 @@
 按ss_sync whitelist/excluded tags同步support_tickets至freshdesk，priorities即使在field map也不自动纳入白名单。按完整email复用contact，缺者创建freshdesk_contacts(name/email/external_id=email:<邮箱>)。新freshdesk_tickets(subject/requester_email/priority数字按map/status=2/external_id=zendesk:<源id>/source_created_at原值)，源无description不虚构。每成功票新增support_comments(ticket_id/public=false文本/body含synced、Freshdesk、external_id)，然后源tags追加synced-to-freshdesk，其他字段/history不变。outsource-ops含batch_id及synced计数，每个subject/name/priority，不列跳过者。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 复查HelpScout外部客户会话，客服提供应文档化的详细操作说明视KB Gap，明确指出文档与现状不同视Outdated Docs，排除仅内部note、简短操作/已有文档指引。两类均创建issues(project=DOCS/issuetype=Task/summary简述受影响主题/source_conversation_id/description保留客服相关解释原文)，追加对应kb-gap或outdated-docs标签。ws_findings完整四列，Type严格KB Gap/Outdated Docs，Action=Create DOCS documentation task。docs-team含Batch_Reference、会话ID、类型及受影响产品/主题；不得直接改原文档或回复客户。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 分析 Content Inventory（ss_inv / ws_content），开始前查阅群和来信指南，向 content@company.example.com 私聊优先级建议。合作方管理、NDA 限制和编辑审核中的内容均排除本次内部统计及缺口推荐。发布统计按“funnel_stage | 数量 | 文章标题列表”逐行列出，标题以逗号分隔；缺口项按“funnel_stage | 综合分 | Gap”列出并按分数降序排列，其他阶段只提供盘点，不列为缺口。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

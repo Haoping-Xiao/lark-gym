@@ -1,1 +1,3 @@
 按优先级路由Q1 Campaign Targets并联系prospects。今天2026-01-21。Zoom注册改为飞书zoom_registrants报名台账（meeting_id为源数字ID、email/first_name/last_name），LinkedIn邀请改为linkedin_invitations台账（profile_url/email/message/status=Pending）；两者代表本模拟登记与发送请求，不连接外网。Email使用飞书私聊、首行为subject。保留模板原文和姓名/公司占位符替换，随后回写Routed_Channel原标签及日期，campaign-ops公告各渠道人数与实际处理名单。DNC/Legal hold优先于任何路由。
+
+本次业务处理以 2026-01-21T09:00:00Z 为时间基准。

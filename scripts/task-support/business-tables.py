@@ -38,12 +38,6 @@ for task in sorted((ROOT/'tasks').glob('automationbench-*')):
             updated.append(new)
         else: raise ValueError((task.name,args))
     p.write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(updated,ensure_ascii=False,indent=2)+";\nfor (const args of commands) execFileSync(process.env.LARK_CLI || 'lark-cli', args, { stdio: 'inherit' });\n")
-    guide=task/'environment/AGENTS.md';text=guide.read_text()
-    text=re.sub(r'业务台账位于飞书多维表格 base_crm / tbl_crm。.*?字段名及需要精确写入的数据保留原文。', '业务资料按实体分表，表目录见下方。字段名保留原文。',text,flags=re.S)
-    text=text.replace('CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 通过查询获取。','业务资料按实体分别存入飞书多维表格，表目录见下方。记录 ID 通过查询获取。')
-    text=text.replace('业务台账位于 base_crm / tbl_crm，使用 base 业务命令操作，collection 字段标明记录类型。','业务台账按实体分表，使用下方目录定位对应业务表。')
-    text+='\n## 业务表目录\n\nBase：base_crm。每张表代表一种业务实体，使用该表列出的业务字段。\n\n'+'\n'.join(f"- {t['table_id']}：{t['name']}（来源实体 {t['collection']}）" for t in tables)+'\n'
-    guide.write_text(text)
     instruction=task/'instruction.md';text=instruction.read_text()
     text=re.sub(r'[，。]collection 为 [^。]+。','。',text)
     text=text.replace('原业务表映射为同名 collection。','')

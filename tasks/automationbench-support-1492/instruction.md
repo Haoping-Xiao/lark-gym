@@ -1,1 +1,3 @@
 按ss_compliance扫描Freshdesk subject+description大小写不敏感的原文关键词；不扩展同义词。已有任意一个配置Compliance Tag即视为整票已处理，完全跳过，即使还含另一关键字。对新命中票追加各去重tag、创建一条私有freshdesk_notes(ticket_id/body含compliance及关键词/Severity/private=true文本)，ws_tracker每命中keyword一行。compliance-alerts报新增票数、票ID/subject/keyword/severity；不得复述具体SSN或卡号，原始描述不改。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 按IT Onboarding清单、Notes及最新IT政策建立账号配置工单。Jira改为it_tickets飞书台账，字段summary=员工全名、project、priority、description；description列Department、Role、Start Date与获准系统、配置方式。尊重root特殊审批权限，普通onboarding仅允许IAM Console；返聘只reactivate existing accounts，contractor限定权限。只创建工单，不实际开通账号，也不自行开安全审批单。
+
+本次业务处理以 2026-03-20T09:00:00Z 为时间基准。

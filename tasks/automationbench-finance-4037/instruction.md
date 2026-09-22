@@ -1,1 +1,3 @@
 从 March Deals 计算三月佣金，仅包含 Won。Deal Value <25000 按6%，25000至75000（含端点）按9%，超过75000按12%；Notes含 Referral 则另加固定500。给每名有佣金的销售发飞书私聊通知合计，再给 payroll@company.example.com 逐行“Rep | Commission $金额”及“Grand total | $金额”；使用千位逗号。本轮只报最终佣金，不混列未加奖金的中间值，不回写或付款。
+
+本次业务处理以 2026-04-05T09:00:00Z 为时间基准。

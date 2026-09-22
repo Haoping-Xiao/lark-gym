@@ -1,1 +1,3 @@
 按Temp Staffing所有policy匹配全部Open Roles（本题包括表中March1职位，不限本月），Filled跳过，未标Status视Open/Active。按positions行顺序逐项，再按temps行顺序选第一个技能全包含、Available From<=Start<=Until且无hold/inactive者，每temp最多一次。Requires Certification=Yes需至少一个未标expired有效证书；无过期说明视有效，不强加未给的特定认证要求。私聊每位placed worker岗位ID/部门/start/name，并hr-ops汇总；不修改来源staff/position表，不给未匹配者通知。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 今天是 2026-02-01，按 Recurring JE Posting Procedures 登记二月有效的 Active 分录。journal_entries 飞书台账保存 entry、period=2026-02、debit_account、credit_account、amount数值、status=Posted。需反转者同时创建 journal_reversals 队列，entry、due_date=下月1日、对调的debit_account/credit_account、amount、status=Scheduled；这是未来反转计划，不声称今天已经反转。向 controller@company.example.com 发私聊，逐行 Entry | Debit 科目 | Credit 科目 | 原Amount，报告 Total debits/Total credits，并列反转日期。
+
+本次业务处理以 2026-02-01T10:00:00Z 为时间基准。

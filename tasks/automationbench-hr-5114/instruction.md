@@ -1,1 +1,3 @@
 依据Termination Processing Procedures处理仍Pending且未撤销者。向IT合并私聊请求在各Last Day撤权，不提前执行；Payroll合并私聊申请最终薪资计算并列PTO，空/N/A/TBD明确PTO balance unknown，0 days不是未知。逐员工私聊告别、Last Day及交接/归还设备联系HR的指引（源无详细清单，不编造地址）。通知完成后Status=Processed，再向hr-ops合并报告姓名/Last Day，不披露PTO。不实际发薪或直接撤权，Processed仅代表本流程交接完成。
+
+本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

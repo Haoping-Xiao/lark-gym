@@ -1,1 +1,3 @@
 按Departments全部Review Policies/Q1 Eligibility及最新HR/COO邮件，评估2026年度评审资格，选有效headcount最多者、同分最早Review Start。DocuSign改signature_requests(template_id/template_name/signer_email/status=Sent)并私聊dept head签署请求。原缺会议时刻，明确Review Start当日10UTC2小时cal_hr飞书视频日历<Department> Review Calibration并邀请head；Monday原缺board明确brd_hr_reviews，创建monday_items(board_id/item_name=<Department> 2026 Review Cycle)；Confluence原只有HR无ID，使用业务space=HR的confluence_pages(space/title=2026 Review Cycle: <Department>/body)。页面及部门群含annual review、当前headcount、N eligible department总数及UTC会议安排；headcount更新不自动解除EXEMPT。
+
+本次业务处理以 2026-02-14T11:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 只对Closed票按ss_patterns/ws_keywords匹配subject+description，大小写不敏感，多类取最小Priority，Open/On Hold和无匹配排除。ws_analytics每配置Category一行Count文本；类别总量>=3生成类别级issues(project=KB/issuetype=Story/summary含Category/description含category和count)，Jira Created=Yes，否则No。VP账户例外另按account+category产生Epic，不受3票门槛，且该账户不创建账户级Story；类别级聚合Story仍保留。Epic description列该账户类别的来源票ID/subject，source_account_id。support-analytics报告每类count、Story数与例外账户Epic，不声称未匹配已归类。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

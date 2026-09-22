@@ -1,1 +1,3 @@
 处理freshdesk status=2且精确new-customer票，按requester邮箱连接playbook tiers，未知走default。缺default CSM补定共享onboarding@company.example.com，不猜个人；未知客户也做默认介绍。Enterprise kickoff缺日期补Feb10 10–11UTC/cal_onboarding，客户与CSM实际attendee；technical setup/data migration/training各freshdesk_tickets(subject=<公司> - <步骤英文>/requester_email/status=2/priority=2/parent_ticket_id)。Growth仅setup guide票及客户CSM introduction，Starter/default仅客户intro；各CSM另IM通知客户姓名/email/tier和安排。每票新增freshdesk_notes(ticket_id/private=true文本/body含onboarding/company/tier)，逐step追加log，Status分别Scheduled/Ticket Created/Introduction Sent，表示已安排非已完成实施。群只发一条含每个已启动客户公司名。
+
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

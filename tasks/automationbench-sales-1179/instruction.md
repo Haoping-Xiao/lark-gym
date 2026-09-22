@@ -1,1 +1,3 @@
 TechVentures - Enterprise Deal刚完成Demo，按deal-room-techventures的post-demo playbook继续推进，合同只暂存draft。使用primary飞书日程代替Calendly/Zoom；本题固定明天2026-02-25：09:00–09:30内部prep（不加客户），10:00起按event type时长安排Pricing Discussion，11:00–11:30视频Technical Q&A。合同台账signature_requests写template_id/template_name/account_id/opportunity_id/recipient_email/status=Draft/amount；不要发送合同。另建proposal_talking_points，基于现有250000金额和已知联系人起草待确认的范围、价值、定价与技术议题，不能编造ROI或同意签署。更新机会stage并在deal room说明实际安排与合同draft状态。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

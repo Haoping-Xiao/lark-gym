@@ -1,1 +1,3 @@
 今天是 2026-01-27。为 Apex 3.0 发布向媒体发通知，候选范围为 PR 机构邮件中的推荐名单；对照 ss_mdia 媒体台账、传播 VP 标准和法务限制筛选。源材料没有完整新闻稿，因此本轮只发送“Apex 3.0 launch announcement”发布通知，不虚构功能、数字或引述。使用飞书私聊，随后向 pr-team@company.example.com 汇总推荐名单中全部发送/排除项及原因，逐行“outlet_name | tier | DA | Sent/Excluded | 依据”。法务限制优先于一般分发条件。 依据栏分别用 meets distribution criteria、litigation 或 below tier and DA threshold 表示相应结论。
+
+本次业务处理以 2026-01-27T09:00:00Z 为时间基准。

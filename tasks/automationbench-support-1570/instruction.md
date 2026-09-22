@@ -1,1 +1,3 @@
 固定2026-02-07 09:00UTC，按ss_entitlements为open会话路由，closed/snoozed全跳过。判断用户实际产品诉求，不将部门名称中的billing等普通名词当产品。仅已Approved override优先；否则24h内更新entitlement先verification，再按多产品triage/单产品授权/Starter trial例外处理；无产品不加标签不回复。不为只有entitlement行而无会话的公司编造会话。新建intercom_replies(conversation_id/body解释对应队列或sales/trial/triage理由/author_type=admin)，历史parts不改；标签保留其他值，support-routing逐处理会话ID和tag及总数。
+
+本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

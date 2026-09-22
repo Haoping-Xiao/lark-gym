@@ -1,1 +1,3 @@
 处理Acme合作合同请求，核对来信、CRM批准条件和contract-process政策。原材料存在客户请求金额与内部approved contract value不一致；本适配将内部批准金额作为发送上限，不能把客户要价当内部批准。收件人以最新客户明确的签署人指示为准。DocuSign改signature_requests台账，写template_id/template_name/account_id/opportunity_id/recipient_email/status=Sent/amount/subject/deadline/revenue_share/territory/term，并向正确签署人私聊；deadline定义为close_date加政策规定天数。满足政策门槛才新建calendly_event_types记录，不虚构预约时间。发送后更新机会amount、stage_name及description，保留批准值与请求差异的审计说明，不改原来信。
+
+本次业务处理以 2024-01-24T10:00:00Z 为时间基准。

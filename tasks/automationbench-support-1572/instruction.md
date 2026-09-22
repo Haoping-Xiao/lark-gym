@@ -1,1 +1,3 @@
 按用户指定2026-02-07审计（覆盖旧meta日期）。仅open且至少一条面向客户admin回复；内部part_type=note不算回复。整段服务要求有proper greeting，每次解决方案/后续诊断都提供充分detail；开头已有问候无需每轮重复，但早先优质回复不能掩盖后续敷衍答复。任一标准缺失则quality-low，否则quality-high，保留旧tag。低质量新增intercom_notes(conversation_id/author_type=admin/body含coaching及缺失greeting/detail)，不向客户发消息。ws_scores每会话一行Agent取admin ID去agent_后首字母大写，Quality Rating=High/Low，Notes写标准判断；群报告Batch_Reference及各agent高低数量。
+
+本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

@@ -1,1 +1,3 @@
 读mailchimp_subscribers中aud_main的状态和ss_sync_policy/ws_mailchimp_rules，处理可更新的cleaned联系人。源Contacts表为空，本适配明确按email upsert：不存在则新建airtable_contacts(applicationId=base_contacts/tableName=Contacts/email/Email Status=Invalid)，不是伪称更新已有实体。遵守GDPR deletion hold，不改源订阅或其他状态。向政策Report Recipient私聊报告实际处理邮箱及Invalid、总数。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

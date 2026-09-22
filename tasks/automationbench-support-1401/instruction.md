@@ -1,3 +1,5 @@
 将飞书客服台账中的新工单同步到 CRM 案例台账。开始处理前并行读取三份配置表：ss_blocklist/ws_orgs、ss_sla/ws_tiers 和 ss_config/ws_config；按配置筛选与分配优先级。按完整邮箱匹配客户联系人，跳过已存在同客户、同主题的案例；仅处理 new 工单，Blocked 域名不能同步。优先采用配置中的规则；其他工单的 normal 优先级对应 Medium。创建 cases 记录，保留工单主题、描述和联系人/客户引用，origin 为 Web、status 为 New。为每个成功同步的工单新增一条 support_comments 内部备注（ticket_id 为原工单 ID、public 为 JSON 文本 false），说明同步 CRM 并包含客户名称。最后向 support-sync 群汇报已创建数量、同步后案例总数、处理的客户与优先级，并包含配置表中的 Batch_Reference；不列举跳过对象。
 
-客服数据位于同一多维表格：support_tickets、support_users、support_organizations、support_groups 分别对应工单、请求人、客户组织、支持组，记录 ID 为 rec_zendesk_ 加原始 ID。现有工单 comments 保留历史；新增备注写 support_comments，不重写历史数组。其他 CRM 引用仍用原始 ID。
+客服数据位于同一多维表格：support_tickets、support_users、support_organizations、support_groups 分别对应工单、请求人、客户组织、支持组。现有工单 comments 保留历史；新增备注写 support_comments，不重写历史数组。其他 CRM 引用仍用原始 ID。
+
+本次业务处理以 2026-02-10T09:00:00Z 为时间基准。

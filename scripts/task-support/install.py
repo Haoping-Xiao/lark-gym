@@ -28,7 +28,7 @@ CMD ["--unsupported-hook", "/opt/mock/unsupported.ts", "--unsupported-policy", "
         docker.write_text(s)
     for name in ('semantic.ts', 'semantic.toml', 'evaluate.ts'):
         (task / 'tests' / name).write_text(Path(__file__).with_name(name).read_text())
-    (task / 'tests/task-instruction.md').write_text((task / 'instruction.md').read_text() + '\n' + ((task / 'environment/AGENTS.md').read_text() if (task / 'environment/AGENTS.md').exists() else ''))
+    (task / 'tests/task-instruction.md').write_text((task / 'instruction.md').read_text())
     semantic_config = task / 'tests/semantic-config.json'
     if not semantic_config.exists():
         semantic_config.write_text(json.dumps({'enabled': True, 'text_fields': ['subject', 'description', 'body', 'text', 'notes', 'note', 'summary', 'reason', 'comment', 'content', 'body_text', 'message', 'caption', 'requirements'], **json.loads(Path(__file__).with_name('semantic-overrides.json').read_text()).get(task.name, {})}, indent=2) + '\n')
@@ -55,6 +55,11 @@ writeFileSync(
         s = s.replace(marker, "const semantic = prepareSemantic(expected, world, new URL('./semantic-config.json', import.meta.url));\n" + marker)
         s = s.replace('      success,\n', '      success: coverage.valid_sample && success,\n      business_success: success,\n      semantic,\n')
         verifier.write_text(s)
+    # Pass authoritative initial state for reviewed structural equivalences.
+    s = verifier.read_text()
+    s = s.replace("  new URL('./semantic-config.json', import.meta.url),\n);", "  new URL('./semantic-config.json', import.meta.url),\n  seed,\n);")
+    s = s.replace("new URL('./semantic-config.json', import.meta.url));", "new URL('./semantic-config.json', import.meta.url), seed);")
+    verifier.write_text(s)
 
 if __name__ == '__main__':
     for task in sorted((ROOT / 'tasks').glob('automationbench-*')):

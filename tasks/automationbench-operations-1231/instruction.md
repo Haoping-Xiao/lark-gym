@@ -1,1 +1,3 @@
 查看Purchase Requests与Procurement Policy，从已Approved且无hold、Cost<=5000的申请选最高金额项。在pipefy_find_database_records精确找到ops表对应card，写phase_id=phase_approved/field_status=Approved，随后ops-updates通知名称、原Cost、Approved及card_id；不批准超额或仍需procurement review项。
+
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

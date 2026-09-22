@@ -1,1 +1,3 @@
 今天是 2026-01-27 15:00 UTC。整理 StrataCorp 新平台竞争响应简报，汇合跟踪表、分析师来信和 competitive-intel 群的一线反馈，给 strategy@company.example.com 发飞书私聊。功能对照逐行按“feature_name | stratacorp_has | we_have | gap_status | priority”保留原文，其余材料需标识来源、引用关键数值。同时按当前定价页审批流程处理新价格：审批请求使用 hubspot_tickets 台账，subject 与政策一致，description 列出具体价格修改。 非表格部分按“主题 | 对应事实或数值”分行，分析师部分使用 AI-Powered Insights、Native Mobile App、Pricing、Embedded Analytics、Custom Workflows 标签，一线信息用 Field，建议用 Response。
+
+本次业务处理以 2026-01-27T15:00:00Z 为时间基准。

@@ -68,6 +68,7 @@ const semantic = prepareSemantic(
   expected,
   world,
   new URL('./semantic-config.json', import.meta.url),
+  seed,
 );
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(

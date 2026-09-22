@@ -1,1 +1,3 @@
 今天是 2026-01-27。审计 ss_audit/ws_pages 的内容质量，按当前政策发送 content-manager@company.example.com 飞书私聊。审计仅限 Published 且未被备注排除的内容。为消除旧标准歧义，本轮 Thin 为不足 1000 词，Stale 为至少 12 个月未更新，Few Links 为内部链接少于 3；Missing Images 单独出现不足以触发刷新，其余问题或当前政策的 Bloated Stale 均需报告。每页逐行“title | url | word_count | last_updated | 有效 monthly_traffic | 问题标签”，标签按 Thin、Stale、Missing Images、Few Links、Bloated Stale 顺序列出，保留追踪码。
+
+本次业务处理以 2026-01-27T10:00:00Z 为时间基准。
