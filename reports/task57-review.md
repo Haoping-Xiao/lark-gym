@@ -460,3 +460,25 @@ CSV evidence is the replay and regression test. Finance4027 made 52 calls and
 passed business/semantic checks, but its unsupported `batch_update` excludes the
 run; that operation is distinct from CSV import and remains unimplemented. No
 production API parity or complete Sheet AI coverage is claimed.
+
+### All required notices before disciplinary processing
+
+HR5058's Processing Convention says to set Status to Processed after all required
+notifications are sent. Its instruction states that ordering explicitly. The
+previous order checker recorded only the first message to each recipient, missing
+a second required notice to the HR Director.
+
+The task now opts into `all_messages` for its notification stage. Every new message
+creation contributes to the stage end; later edits are not additional sends. Other
+tasks retain their previous ordering behavior, and the migration definition and
+verifier template preserve the opt-in. Instructions, seed, reference solution and
+message facts are unchanged.
+
+Two reference variants were executed through the real CLI in independent states:
+normal ordering and a variant moving the Tom Bradford director notification after
+all status updates. Both passed the old verifier. The corrected verifier accepts
+the normal run and rejects the late run specifically on ordering, with all six
+messages still delivered. Both independent gpt-6-astra content reviews pass; final
+rewards are 1 and 0 because the structural ordering check catches the violation.
+These are actual reference-variant executions, not model exploration and not edited
+post-state or invented history.

@@ -31,7 +31,12 @@ type Check = {
   mode: string;
 };
 const expected: {
-  order_groups?: { kind: string; ids?: string[]; collection?: string }[];
+  order_groups?: {
+    kind: string;
+    ids?: string[];
+    collection?: string;
+    all_messages?: boolean;
+  }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
   updates: Check[];
@@ -314,7 +319,11 @@ const orderChecks = (expected.order_groups || []).map((group) => {
         mutation.after.fields?.collection !== group.collection
       )
         continue;
-      if (found.has(identity)) continue;
+      // This opt-in stage ends after every distinct new notification, not
+      // after the first notification to each recipient. Edits are not sends.
+      if (group.all_messages && group.kind === 'message') {
+        if (mutation.before) continue;
+      } else if (found.has(identity)) continue;
       found.add(identity);
       sequences.push(call.seq);
     }
