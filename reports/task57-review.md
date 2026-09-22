@@ -340,3 +340,27 @@ notification, and passed both programmatic and independent semantic checks (vali
 reward 1). It sent a combined report; split handling is established by the
 controlled alternatives. Seeds, expected facts and reference solutions were not
 changed in this batch.
+
+### Financial reports and per-recipient completeness
+
+Finance4075–4077, 4079–4084 and 4086–4088 were individually checked against the
+original requests, current instructions and supplied policies. Each now opts into
+per-recipient report checks; task instructions, seed, expected facts, reference
+solutions and shared rubrics are unchanged. All 12 complete-split fixtures failed
+the previous verifier and passed fresh independent gpt-6-astra judges after the
+change. Finance4075 uses its corrected reference state; other fixtures use the
+recorded baseline, with seeds checked against current task data.
+
+Four controlled negatives were rejected: finance4079 falsely reporting a disputed
+escrow as Released, finance4080 omitting different required items for each of its
+two recipients, finance4083 reporting a scheduled reversal as already completed,
+and finance4088 reversing the sign of an intercompany difference. In particular,
+the finance4080 judge checked each recipient's complete report rather than taking
+the union of all delivered information. Structural regressions continue to reject
+wrong recipients. These are labeled post-state perturbations retaining original
+reference history, not player trajectories.
+
+A fresh finance4080 player made 29 requests with zero 501 responses, sent the same
+complete summary separately to both specified recipients, and passed programmatic
+and independent semantic checks (valid reward 1). It used two full reports, so
+split-report acceptance is evidenced by the controlled fixtures.

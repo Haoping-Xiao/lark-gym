@@ -111,5 +111,6 @@ Task-specific grading policies preserve required identity and collateral checks:
 `unordered_new_rows` accepts equivalent new rows in a different order, leaving
 existing-row updates strict; `message_count: per_recipient` permits splitting a
 report, while code still checks recipients and the semantic judge checks complete
-coverage and absence of redundant notifications. These are opt-in reviewed
-policies (finance-4001 and individually reviewed finance-4008–4016, 4021, 4058, 4061–4064 and 4072–4073), not blanket relaxations across tasks.
+coverage and absence of redundant notifications. Reviewed task-specific opt-ins
+are listed in [semantic-overrides.json](semantic-overrides.json); these policies
+do not change the default grading behavior of other tasks.
