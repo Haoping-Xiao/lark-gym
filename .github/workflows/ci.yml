@@ -4,11 +4,6 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
-      astra_scope:
-        description: 'Astra player + live judge acceptance; run smoke before full'
-        type: choice
-        options: ['off', smoke, full]
-        default: 'off'
       run_model_judges:
         description: 'Run all native Harbor trials with live semantic judges (requires verifier model credentials)'
         type: boolean
@@ -110,9 +105,3 @@ jobs:
         with:
           name: native-harbor-results-${{ matrix.shard }}
           path: runs/harbor/
-  model-acceptance:
-    if: github.event_name == 'workflow_dispatch' && inputs.astra_scope != 'off'
-    uses: ./.github/workflows/model-acceptance.yml
-    with:
-      scope: ${{ inputs.astra_scope }}
-    secrets: inherit
