@@ -53,7 +53,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_notice_0',
     '--text',
-    '周报 Week of Feb 23：成交 12 单，收入 $340K。',
+    '周报 Week of Feb 23：成交 12 单，收入 340K。',
   ],
 ];
 for (const args of commands)

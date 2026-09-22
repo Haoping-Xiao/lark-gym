@@ -42,7 +42,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_notice_0',
     '--text',
-    'Re: Project Update: Mobile App v2 Phase 2 Complete\n已记录 Phase 2 Complete，下一步下周开始 Phase 3。',
+    'Re: Project Update: Mobile App v2 Phase 2 Complete\n已记录 Phase 2 Complete，来信表示已准备在其所说的“下周”（2026-02-23 至 2026-03-01）开始 Phase 3。',
   ],
 ];
 for (const args of commands)

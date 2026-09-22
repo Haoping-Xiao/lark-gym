@@ -157,3 +157,20 @@ Full reference-result semantic review of 800 frozen tasks is running locally;
 this is neither complete nor 800 player trials. The local code checks passed
 832 tests plus type/format/Go checks and oracle verification. The additional
 Drive type-filter regression and typecheck passed separately after that run.
+
+## Reference-result corrections after live semantic review
+
+Five source-checked reference defects were corrected, together with their
+migration definitions. Simple3077 now anchors “today” to the original February23
+message; simple3165 preserves the original February21 message's next-week
+interval rather than shifting it at reply time; simple3170 no longer adds a
+dollar currency absent from the source. Support1431 includes all five closed
+conversations. Support1472 includes all fifteen conversations, with five
+uncategorized rows, including closed rows permitted by its full-snapshot scope.
+The two support tasks' expected counts were corrected accordingly; no seed,
+user request or semantic rubric was relaxed.
+
+All five corrected task-owned reference solutions were executed through the
+real CLI and independently accepted by gpt-6-astra using the unchanged rubrics.
+These results supersede their rejected baseline outputs; they do not resolve
+other rejected cases or environment coverage exclusions.
