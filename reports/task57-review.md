@@ -537,3 +537,30 @@ HR5128 was also source-reviewed: assertion 8 explicitly forbids any message to t
 external awards vendor, and the policy does not require sending that vendor a
 refusal. That source constraint is retained; this review does not treat the
 proposed vendor-reply exception as an established migration defect.
+
+### Reviewed HR notices grouped by recipient
+
+HR5120, HR5121, HR5129 and HR5132 require each affected person's information to
+reach the appropriate manager, HR Director or CFO. Their source requests,
+procedures and existence/content assertions do not require separate messages to
+the same recipient. The previous fixed message counts rejected complete combined
+notices in all four tasks.
+
+These four tasks opt into the existing per-recipient semantic completeness and
+no-redundancy check. Source facts, instructions, seeds, reference solutions and
+recipient restrictions are unchanged. Background-check confidentiality, renewal
+rate authority, RTO requirements and compensation approval limits remain in force.
+
+Real CLI reference variants concatenate complete notices only when their recipient
+is identical; other operations and message contents are retained. All four old
+verifiers reject these variants, and the corrected structural checks accept them
+for independent content review. A compensation variant deliberately omits Tobi's
+manager notice while retaining the other manager notice, testing that combining
+messages cannot hide missing business content. These are actual reference-variant
+executions, not model exploration or fabricated final states/history.
+
+A separate actual HR5129 player run made 64 backend calls with no 501 responses.
+It chose to combine Bob Chen and Hugo Fernandez in the sales manager's message,
+while notifying the employees separately. Both business and independent semantic
+checks pass. The same collected backend state fails the old task configuration,
+providing actual model-exploration evidence in addition to the reference variants.
