@@ -234,3 +234,21 @@ A fresh finance4008 Astra run completed 23 requests, no 501 responses and both
 hard/semantic checks passed. That run did not call comments, so it proves a
 valid successful trial, not replay of the former comment-read path. The comment
 path itself was exercised by the real-CLI integration regression.
+
+## Contact and membership coverage
+
+The simulator now derives stable `ou_mock_` aliases from existing user records
+and email-addressed P2P recipients. Search, basic/profile reads, membership
+read/write and member-filtered chat search use the same identity mapping;
+memberships retain canonical source IDs. Missing business names/departments
+are not invented. Activation/tenant metadata describes simulator accounts only,
+with a response notice; employment/organization filters remain unsupported.
+Real-CLI regression covers ID round-trips, email recipients, mutation/readback,
+failed-write atomicity and independent trials.
+
+Fresh Astra runs for hr5029 and finance4005 both had zero unsupported calls.
+Hr5029 passed hard and semantic verification after 79 requests. Finance4005
+was a valid failure after 52 requests: the player did not read the billing-group
+10% Meridian discount and invoiced 14,625 rather than 13,162.5. Source review
+confirmed the discount; hard and semantic graders rejected the result. No
+scoring rule was relaxed to make that player attempt pass.

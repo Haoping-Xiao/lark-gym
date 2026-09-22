@@ -1,3 +1,4 @@
+import { openId } from '../contact.ts';
 import { searchMessages } from './search.ts';
 import type { ApiObject, World } from '../../../types.ts';
 import { chatMembers, createChat } from './chats.ts';
@@ -39,6 +40,35 @@ export function createImRoutes(
           message_id: m.message_id,
           message_reaction_items: m.message_reaction_items || [],
         })),
+      };
+    }
+    const membersListPath = p.match(
+      /^\/open-apis\/im\/v1\/chats\/([^/]+)\/members\/list$/,
+    );
+    if (method === 'GET' && membersListPath) {
+      if (
+        [...q.keys()].some(
+          (key) => !['member_id_type', 'page_size', 'page_token'].includes(key),
+        )
+      )
+        fail(501, 990001, 'ENV_UNSUPPORTED: member list option');
+      requireValue(
+        Number(q.get('page_size') || 100) <= 100,
+        'page_size exceeds 100',
+      );
+      const result = chatMembers(
+        world,
+        method,
+        decodeURIComponent(membersListPath[1]),
+        q,
+        body,
+      );
+      requireValue('items' in result, 'Invalid membership read result');
+      return {
+        users: result.items,
+        bots: [],
+        has_more: result.has_more,
+        page_token: result.page_token,
       };
     }
     const membershipPath = p.match(
@@ -112,7 +142,9 @@ export function createImRoutes(
             )) &&
           (!filter.member_ids ||
             filter.member_ids.every((id: string) =>
-              (chat.member_ids || []).includes(id),
+              (chat.member_ids || []).some(
+                (member: string) => member === id || openId(member) === id,
+              ),
             )),
       );
       const result = page(matches, q);

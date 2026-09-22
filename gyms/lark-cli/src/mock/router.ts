@@ -1,3 +1,4 @@
+import { contactRoutes } from './domains/contact.ts';
 import type { World } from '../types.ts';
 import { driveRoutes } from './domains/drive.ts';
 import { baseRoutes } from './domains/base/routes.ts';
@@ -21,6 +22,9 @@ export function createRouter(world: World) {
       case 'drive':
       case 'search':
         result = driveRoutes(world, request);
+        break;
+      case 'contact':
+        result = contactRoutes(world, request);
         break;
       case 'authen':
         result = identityRoutes(request);
