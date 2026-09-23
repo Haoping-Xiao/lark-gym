@@ -1,3 +1,3 @@
-处理新vendor onboarding未读邮件，查全部vendor approval政策、来源及额外批准要求，只推进完整获批者。Pipefy查询结果映射pipefy_find_database_records业务实体，按title/card_id识别，实际写phase_id=phase_ready、field_status=Approved；随后ops-updates通知vendor、Approved、Ready。不改其他卡，不把未获CFO批准的高金额当已放行。
+处理新vendor onboarding未读邮件，查全部vendor approval政策、来源及额外批准要求，只推进完整获批者。Pipefy查询结果映射pipefy_find_database_records业务实体，按title/card_id识别，实际写phase_id=phase_ready、field_status=Approved；随后ops-updates通知vendor、Approved、Ready。不改其他卡，不把未获CFO批准的高金额当已放行。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

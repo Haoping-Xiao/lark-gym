@@ -7023,7 +7023,7 @@
     ]
   },
   "marketing-1135": {
-    "instruction": "今天是 2026-01-27。逐项审查 ss_ptnr 的合作伙伴内容，结合品牌指南和最新法务指示，使用飞书私聊逐投稿通知联系人；同一联系人有多篇投稿时分别通知。决定用 Approved、Rejected、Legal Hold，非批准项需说明原因。处理后给 partner-ops@company.example.com 发汇总，逐行“partner_name | title | 决定 | 依据”，保留原投稿标题。",
+    "instruction": "今天是 2026-01-27。逐项审查 ss_ptnr 的合作伙伴内容，结合品牌指南和最新法务指示，使用飞书私聊逐投稿通知联系人；同一联系人有多篇投稿时分别通知。决定用 Approved、Rejected、Legal Hold，非批准项需说明原因。处理后给 partner-ops@company.example.com 发汇总，逐行“partner_name | title | 决定 | 依据”，保留原投稿标题。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。",
     "messages": [
       {
         "email": "content@cloudsync.example.com",
@@ -7122,7 +7122,7 @@
     ]
   },
   "marketing-1143": {
-    "instruction": "现在是 2026-01-27 10:00 UTC。检查 ss_crisis/ws_posts，按最新危机手册和 crisis-war-room 群消息核实类别并逐项路由至飞书群。HR 事项仅私聊 hr@company.example.com，不能混入营销群或 comms 摘要；已自行澄清解决的帖子不再路由。给指定 comms 负责人私聊汇总本轮营销/客服路由项，逐行“author | category | reach”，修正误分类；总覆盖人数使用“Total Routed Reach | 整数”，只统计该摘要范围，HR 单独处理。",
+    "instruction": "现在是 2026-01-27 10:00 UTC。检查 ss_crisis/ws_posts，按最新危机手册和 crisis-war-room 群消息核实类别并逐项路由至飞书群。HR 事项仅私聊 hr@company.example.com，不能混入营销群或 comms 摘要；已自行澄清解决的帖子不再路由。给指定 comms 负责人私聊汇总本轮营销/客服路由项，逐行“author | category | reach”，修正误分类；总覆盖人数使用“Total Routed Reach | 整数”，只统计该摘要范围，HR 单独处理。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。消息包含与实际处理有关的来源数值。",
     "now": "2026-01-27T10:00:00Z",
     "messages": [
       {
@@ -25147,7 +25147,7 @@
     ]
   },
   "operations-1207": {
-    "instruction": "处理新vendor onboarding未读邮件，查全部vendor approval政策、来源及额外批准要求，只推进完整获批者。Pipefy查询结果映射pipefy_find_database_records业务实体，按title/card_id识别，实际写phase_id=phase_ready、field_status=Approved；随后ops-updates通知vendor、Approved、Ready。不改其他卡，不把未获CFO批准的高金额当已放行。",
+    "instruction": "处理新vendor onboarding未读邮件，查全部vendor approval政策、来源及额外批准要求，只推进完整获批者。Pipefy查询结果映射pipefy_find_database_records业务实体，按title/card_id识别，实际写phase_id=phase_ready、field_status=Approved；随后ops-updates通知vendor、Approved、Ready。不改其他卡，不把未获CFO批准的高金额当已放行。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。",
     "updates": [
       {
         "id": "pipefy_pf_rec_2",
@@ -25202,7 +25202,7 @@
     ]
   },
   "operations-1209": {
-    "instruction": "处理compliance@company.example.com所有vendor compliance action，按vendor名定位brd_ops的trello_organization_card实体。Hold写list为On Hold查询所得ID、due为通知期限、label=lbl_vendor_hold；Warning只创建trello_comments(card/comment)并含原原因和日期，不动卡字段。每个Hold分别私聊ops-vendors，首行Vendor Hold: <Vendor>、正文保留Reason: <原原因>和Due: <日期>。不对Warning发hold通知。",
+    "instruction": "处理compliance@company.example.com所有vendor compliance action，按vendor名定位brd_ops的trello_organization_card实体。Hold写list为On Hold查询所得ID、due为通知期限、label=lbl_vendor_hold；Warning只创建trello_comments(card/comment)并含原原因和日期，不动卡字段。每个Hold分别私聊ops-vendors，首行Vendor Hold: <Vendor>、正文清楚包含供应商名称、原原因和期限，正文标签不限。不对Warning发hold通知。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。",
     "updates": [
       {
         "id": "trello_tr_fc_1",
@@ -30194,7 +30194,7 @@
   },
   "operations-1386": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按Outbound Shipments全部政策及制裁邮件处理hazmat申报。这里仅执行题内模拟政策，不代表现实贸易或运输合规判断。DocuSign替为signature_requests(template_id/template_name/shipment_id/destination/declared_value/signer_email/status=Sent)及实际shipper私聊申报签署请求。compliance私聊汇总已处理ID/目的地/金额、count、total declared value，并单列受制裁且禁止处理的shipment；logistics群只汇总实际已处理者的同样信息，不列跳过项。不改源Declaration Status，不声称已签署。",
+    "instruction": "按Outbound Shipments全部政策及制裁邮件处理hazmat申报。这里仅执行题内模拟政策，不代表现实贸易或运输合规判断。DocuSign替为signature_requests(template_id/template_name/shipment_id/destination/declared_value/signer_email/status=Sent)及实际shipper私聊申报签署请求。compliance私聊汇总已处理ID/目的地/金额、count、total declared value，并单列受制裁且禁止处理的shipment；logistics群只汇总实际已处理者的同样信息，不列跳过项。不改源Declaration Status，不声称已签署。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。计算合计允许准确且币种清楚的等价表达。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -30272,7 +30272,7 @@
   },
   "operations-1391": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按dock policies和cargo manifest处理全部请求，requested dock为偏好而非硬要求；按请求行顺序，优先偏好兼容可用dock，否则选编号最小的兼容可用dock，任何2小时重叠均冲突；不存在的偏好也可改选。历史/Completed不占用，manifest覆盖表单类型。无可用兼容dock才Rejected；insurance为On Hold不排期。时区补定UTC，cal_docks创建Dock [N] - [Company]两小时日程，description含Request ID和实际cargo，原无attendee不补。向每个contact私聊ID、确认的dock/date/time或拒绝/hold理由；每条均包含Scheduled=N; Rejected=N; On Hold=N总计（包括hold通知）。源表不回写。",
+    "instruction": "按dock policies和cargo manifest处理全部请求，requested dock为偏好而非硬要求；按请求行顺序，优先偏好兼容可用dock，否则选编号最小的兼容可用dock，任何2小时重叠均冲突；不存在的偏好也可改选。历史/Completed不占用，manifest覆盖表单类型。无可用兼容dock才Rejected；insurance为On Hold不排期。时区补定UTC，cal_docks创建Dock [N] - [Company]两小时日程，description含Request ID和实际cargo，原无attendee不补。向每个contact私聊ID、确认的dock/date/time或拒绝/hold理由；每条均包含Scheduled=N; Rejected=N; On Hold=N总计（包括hold通知）。源表不回写。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。",
     "events": [
       {
         "calendar_id": "cal_docks",
