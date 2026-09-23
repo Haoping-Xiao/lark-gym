@@ -10178,7 +10178,7 @@
     ]
   },
   "finance-4049": {
-    "instruction": "核对三月项目计费，只处理 Active/Complete，Hold 完全排除。Earned Revenue=Billable Hours×Rate，不用 Hours Logged。按 Project 关联 Invoiced To Date，给 finance-lead@company.example.com 发飞书私聊，逐行 Project | Earned Revenue | Total Invoiced | 有符号差额（Earned-Invoiced，零不带符号）。包括金额一致的在范围项目，不修改源表。",
+    "instruction": "核对三月项目计费，只处理 Active/Complete，Hold 完全排除。Earned Revenue=Billable Hours×Rate，不用 Hours Logged。按 Project 关联 Invoiced To Date，给 finance-lead@company.example.com 发飞书私聊，逐行 Project | Earned Revenue | Total Invoiced | 有符号差额（Earned-Invoiced，零不带符号）。包括金额一致的在范围项目，不修改源表。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。报告须包含相关来源金额。",
     "messages": [
       {
         "email": "finance-lead@company.example.com",
@@ -11710,7 +11710,7 @@
     ]
   },
   "finance-4089": {
-    "instruction": "今天是 2026-02-15。按 Requirements 检查 Active 供应商保险有效期及最低保障，Inactive 完全跳过。30日内到期和已过期者逐人发飞书私聊要求更新证书；过期者 Status=Non-Compliant，并在新增 Payment Hold 列写 Yes。向 vendor-management 群及 compliance@company.example.com 分别报告所有本轮Active供应商 Vendor | Expiry | Coverage | Compliant/Expiring within 30 days/Non-Compliant，冻结付款者补 Payment Hold Yes。其他源行不动。",
+    "instruction": "今天是 2026-02-15。按 Requirements 检查 Active 供应商保险有效期及最低保障，Inactive 完全跳过。30日内到期和已过期者逐人发飞书私聊要求更新证书；过期者 Status=Non-Compliant，并在新增 Payment Hold 列写 Yes。向 vendor-management 群及 compliance@company.example.com 分别报告所有本轮Active供应商 Vendor | Expiry | Coverage | Compliant/Expiring within 30 days/Non-Compliant，冻结付款者补 Payment Hold Yes。其他源行不动。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。",
     "now": "2026-02-15T09:00:00Z",
     "sheets": [
       {
@@ -11765,7 +11765,7 @@
     ]
   },
   "finance-4090": {
-    "instruction": "使用 Open Foreign Currency Invoices 和 Current Rates 计算未实现汇兑损益。该表汇率为每单位外币的美元数，以外币金额×当前率得到美元估值，和 USD at Booking 比较，资产增值为Gain、减少为Loss。给 controller@company.example.com 发飞书私聊，逐行 Invoice | Customer | Currency Foreign Amount | Booking $值 | Current $值 | Gain/Loss $值，附 Net unrealized gain/loss。只报未实现影响，不登记实收或修改汇率。",
+    "instruction": "使用 Open Foreign Currency Invoices 和 Current Rates 计算未实现汇兑损益。该表汇率为每单位外币的美元数，以外币金额×当前率得到美元估值，和 USD at Booking 比较，资产增值为Gain、减少为Loss。给 controller@company.example.com 发飞书私聊，逐行 Invoice | Customer | Currency Foreign Amount | Booking $值 | Current $值 | Gain/Loss $值，附 Net unrealized gain/loss。只报未实现影响，不登记实收或修改汇率。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。报告须包含相关来源金额。",
     "messages": [
       {
         "email": "controller@company.example.com",
@@ -12148,7 +12148,7 @@
     }
   },
   "finance-4096": {
-    "instruction": "今天是 2026-02-10。按 Cash Sweep Policy、当周目标例外及 treasury 群余额更正执行日终模拟归集。只在 Operating/Money Market 之间调拨，不能执行未获 Investment Committee 批准的其他投资。更新余额表到调拨后余额，并在 cash_transfers 飞书台账保存 from_account、to_account、amount数值、date。给 treasury@company.example.com 私聊及 treasury 群报告更正后的前额、后额和划转额，其他账户不改不列。",
+    "instruction": "今天是 2026-02-10。按 Cash Sweep Policy、当周目标例外及 treasury 群余额更正执行日终模拟归集。只在 Operating/Money Market 之间调拨，不能执行未获 Investment Committee 批准的其他投资。更新余额表到调拨后余额，并在 cash_transfers 飞书台账保存 from_account、to_account、amount数值、date。给 treasury@company.example.com 私聊及 treasury 群报告更正后的前额、后额和划转额，其他账户不改不列。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。",
     "now": "2026-02-10T16:00:00Z",
     "sheets": [
       {
