@@ -242,6 +242,15 @@ export function prepareSemantic(
       config.literal_terms_per_message_chat?.[message.chat_id] || [];
     message.contains = [...new Set([...(message.contains || []), ...terms])];
   }
+  // One witness message must contain every required term. Put this check first
+  // for its recipient so later unconstrained checks cannot consume the witness.
+  const witnessChats = new Set<string>();
+  for (const message of expected.messages || []) {
+    const terms = config.literal_terms_in_one_message_chat?.[message.chat_id];
+    if (!terms || witnessChats.has(message.chat_id)) continue;
+    witnessChats.add(message.chat_id);
+    message.contains = [...new Set([...(message.contains || []), ...terms])];
+  }
   // Only reviewed optional deliveries may be absent; present messages retain
   // their original count, recipient and content checks.
   if (seed && config.optional_message_chats?.length) {

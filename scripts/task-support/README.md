@@ -123,7 +123,7 @@ content facts and optional-recipient metadata are passed to the semantic judge.
 
 `usd_result_columns` opts reviewed derived-result columns into deterministic USD
 amount comparison. Plain numbers and numeric strings (optionally prefixed with
-`$`, correctly grouped commas and up to two decimal places) compare by exact
+`$`, correctly grouped commas and cent-exact decimals, including trailing zeros) compare by exact
 integer cents. Other currencies, malformed strings and different amounts fail.
 Only declared expected result cells qualify; unchanged source values remain
 protected. Currently this covers finance 4048 remaining credit/bill balances and
@@ -154,3 +154,5 @@ considers new records only, leaving existing source records unchanged.
 `usd_result_columns.require_grouping` 仅在来源明确要求千分位时启用：绝对金额达到 1,000 美元必须使用含逗号的字符串；精确到分的等价写法及额外小数尾零可接受，非零的分以下数位不可接受。该规则同时用于新行匹配和最终单元格验收，不扩展到来源金额。
 
 `creation_one_of` 为指定创建项的字段声明经来源确认的有限别名。替代值只在其余业务字段完全匹配时归一化；既有记录、错客户 ID、错业务单号和未列出的名称不受放宽。
+
+`literal_terms_in_one_message_chat` 保留明确的同一正文要求：指定收件人至少有一条新消息同时包含全部字面值，与 `message_count=per_recipient` 共用时可以追加相关补充说明，但不能把该组值完全拆散。每个收件人只支持一组；消息检查先匹配这条完整正文，再匹配其他消息，补充说明先发也不误拒。所有消息仍接受完整性、关联和无冗余语义评审。
