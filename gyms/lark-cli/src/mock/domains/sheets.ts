@@ -1,5 +1,5 @@
 import type { ApiObject, World, Sheet } from '../../types.ts';
-import { fail, requireValue } from '../errors.ts';
+import { ApiError, fail, requireValue } from '../errors.ts';
 import { parseCsv, formatCsv } from '../csv.ts';
 import type { ApiRequest, ResponseData } from '../types.ts';
 
@@ -138,6 +138,80 @@ export function sheetsRoutes(
       input = JSON.parse(body.input);
     } catch {
       fail(400, 99992402, 'Invalid tool input');
+    }
+    if (body.tool_name === 'batch_update') {
+      // Only the all-success cell-write subset is established by both upstream
+      // contracts. Failed/mixed batches remain coverage gaps: never guess which
+      // earlier writes survive a backend failure.
+      const unsupported = () =>
+        fail(
+          501,
+          990001,
+          'ENV_UNSUPPORTED: batch requires successful cell-only operations',
+        );
+      if (
+        Object.keys(input).some(
+          (key) =>
+            !['excel_id', 'operations', 'continue_on_error'].includes(key),
+        ) ||
+        (input.excel_id !== undefined && input.excel_id !== spreadsheetToken) ||
+        (input.continue_on_error !== undefined &&
+          typeof input.continue_on_error !== 'boolean') ||
+        !Array.isArray(input.operations) ||
+        !input.operations.length ||
+        input.operations.length > 1000
+      )
+        unsupported();
+      const staged = structuredClone(world);
+      for (const operation of input.operations) {
+        if (
+          !operation ||
+          operation.tool_name !== 'set_cell_range' ||
+          Object.keys(operation).some(
+            (key) => !['tool_name', 'input'].includes(key),
+          ) ||
+          !operation.input ||
+          typeof operation.input !== 'object' ||
+          Array.isArray(operation.input) ||
+          (operation.input.excel_id !== undefined &&
+            operation.input.excel_id !== spreadsheetToken)
+        )
+          unsupported();
+        try {
+          sheetsRoutes(staged, {
+            method,
+            path: p,
+            query: q,
+            body: {
+              tool_name: 'set_cell_range',
+              input: JSON.stringify(operation.input),
+            },
+          });
+        } catch (error) {
+          if (
+            error instanceof ApiError &&
+            [400, 404, 501].includes(error.status)
+          )
+            unsupported();
+          throw error;
+        }
+      }
+      world.sheets = staged.sheets;
+      world.spreadsheets = staged.spreadsheets;
+      return {
+        output: JSON.stringify({
+          total: input.operations.length,
+          succeeded: input.operations.length,
+          failed: 0,
+          results: input.operations.map(
+            (operation: ApiObject, index: number) => ({
+              index,
+              tool_name: operation.tool_name,
+              success: true,
+            }),
+          ),
+        }),
+      };
     }
     const csvWrite = body.tool_name === 'set_range_from_csv';
     if (body.tool_name !== 'set_cell_range' && !csvWrite)
