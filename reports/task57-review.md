@@ -665,3 +665,25 @@ reject all four alternatives. A further ROI execution omits Initech only from th
 report, retaining its review task, to test recipient-level completeness. Task
 instructions, seeds, expected facts and references remain unchanged. These are
 reference-variant executions, not model-player trials or edited backend histories.
+
+### Support reports and lead briefings
+
+Support1446, 1447, 1463, 1468, 1475, 1488 and 1495 allow complete report sections
+across messages only for reviewed recipients: the migration channel, technical
+lead, warranty channel, sales-support channel, revenue-ops channel, two primary
+on-call staff and escalation managers respectively. Source requests and policies
+specify required content and recipients without these fixed message counts.
+Other recipients keep their existing per-message rules.
+
+The change preserves migration identity/deduplication, classification precedence,
+warranty decisions and exact count phrases, deal amounts, signal counts/tracking
+codes, urgent-only engineering escalation and one-level overdue-ticket routing.
+Instructions, seeds, expected facts and reference solutions are unchanged. Task
+helpers and rubrics match the shared installer for recipient-scoped grading.
+
+Seven actual CLI reference variants partition reports at line boundaries while
+retaining all content. All fail the previous fixed-count checks. Negative runs
+omit one technical ticket only from its lead's briefing, or one urgent ticket only
+from the support lead's handoff, leaving the other deliveries and state changes
+intact. These are collected real executions, not model-player trials or edited
+backend states/history.
