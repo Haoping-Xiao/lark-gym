@@ -788,3 +788,13 @@ notifications. Negative variants write duplicate invoice/contract IDs, ensuring
 missing or mismatched identities still fail. Unit tests also perturb complete
 rows and duplicate one; these post-state tests are distinct from the recorded
 real CLI variants and neither is a model-player trial.
+
+## 财务 4002：明确跨月检查的账期
+
+原始任务本身将“本月”与 2026-02-05 的执行时间、January 2026 明细及一月评分对象混用。本次显式适配为检查 Expense Log 中 2026 年 1 月费用，同步题面、生成来源和裁判输入。保留执行时间、初始数据、原始阈值与覆盖关系、法律暂停项、来源值、参考解和评分。它是消除来源账期矛盾的任务适配，不声称来源原文已经明确一月，也不改变检测算法。
+
+## 原生 RewardKit 语义评分加载修复
+
+首次本地 Harbor 财务参考解在调用模型前失败：RewardKit 0.2.1 将 criterion.id 和 name 分开，只有 id 时从中文说明自动生成的 name 重复。所有 800 个任务及生成模板补充三个稳定 name，保留原 id 和评分文本。容器 CI 增加禁网加载所有 rubric 的检查，并验证去掉 name 可复现原错误；不调用模型。实际 HTTP 语义验收使用个人目录中的本地 Codex SDK 适配器和现有登录，适配器不进入仓库。
+
+本地实跑验证：固定 Harbor 版本及独立 verifier 容器中，4017 参考解通过真实 RewardKit HTTP 语义评分；HR5129 原生 Astra 选手 71 次请求、零 501，程序及语义评分通过。4005 选手 63 次请求、零 501，首轮旧 rubric 导致裁判故障，保留原始失败；同一可信后端状态经修复后的独立容器复验通过。5132 真实 CLI 漏通知反例的程序检查通过，但 HTTP 语义裁判拒绝，奖励为 0。4002 一月账期参考解通过；实际选手遇批量写入 501，仍按规则排除，不宣称该样本通过。

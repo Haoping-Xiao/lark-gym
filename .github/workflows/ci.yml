@@ -38,6 +38,7 @@ jobs:
           python-version: '3.13'
       - run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
       - run: bash scripts/build-images.sh
+      - run: docker run --rm --network none -e LITELLM_LOCAL_MODEL_COST_MAP=True -v "$PWD:/repo:ro" --entrypoint python lark-gym-verifier:0.3.0 /repo/scripts/check-rewardkit-configs.py
       - run: harbor run --path tasks/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
       - run: python scripts/check-harbor-results.py runs/harbor/maintenance-oracle 1 maintenance-notice
       - run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop

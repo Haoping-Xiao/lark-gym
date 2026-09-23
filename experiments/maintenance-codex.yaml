@@ -5,6 +5,9 @@ n_concurrent_trials: 1
 agents:
   - name: codex
     model_name: openai/gpt-6-astra
+    kwargs:
+      config:
+        developer_instructions: 环境中已安装 lark-cli，可从 shell 调用 lark-cli --help 发现工具。业务读写使用 lark-cli 的常规命令；不要直接调用 HTTP 或使用原始 API 逃生口。
 environment:
   type: docker
 datasets:
