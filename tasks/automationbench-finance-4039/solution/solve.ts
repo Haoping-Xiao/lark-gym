@@ -53,7 +53,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'Helix Systems | 2026-04 | Invoice $4,120',
+    'Helix Systems | 2026-04 | Invoice $4,120 | 来源基础单价 $100',
   ],
   [
     'im',
@@ -61,7 +61,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_1',
     '--text',
-    'Orchid Freight | 2026-04 | Invoice $5,250',
+    'Orchid Freight | 2026-04 | Invoice $5,250 | 来源基础单价 $50',
   ],
   [
     'im',
@@ -69,7 +69,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_0',
     '--text',
-    'Crestline Partners | 2026-04 | Invoice $3,300',
+    'Crestline Partners | 2026-04 | Invoice $3,300 | 来源基础单价 $200',
   ],
 ];
 for (const args of commands)
