@@ -32,15 +32,26 @@ export function prepareSemantic(
         rule.sheet_id === cell.sheet_id &&
         rule.columns.includes(cell.column),
     );
-  // Opt-in policies follow task review; explicit message counts remain strict.
+  const literalMessageTerms = new Map(
+    (expected.messages || []).map((m: Json, i: number) => [
+      m,
+      config.literal_message_terms?.[String(i)] || [],
+    ]),
+  );
+  // Only reviewed recipients may vary message count. Other recipients retain
+  // their original per-message checks, including indexed literal requirements.
   if (seed && config.message_count === 'per_recipient') {
     const old = new Set(seed.messages.map((m: Json) => m.message_id));
     const sent = world.messages.filter((m: Json) => !old.has(m.message_id));
-    const recipients = [
-      ...new Set<string>((expected.messages || []).map((m: Json) => m.chat_id)),
-    ];
-    expected.messages = recipients.flatMap((chat_id) =>
-      Array.from(
+    const scope: string[] | undefined = config.message_count_chats;
+    if (scope) original.message_count_chats = scope;
+    const visited = new Set<string>();
+    expected.messages = (expected.messages || []).flatMap((message: Json) => {
+      const chat_id = message.chat_id;
+      if (scope && !scope.includes(chat_id)) return [message];
+      if (visited.has(chat_id)) return [];
+      visited.add(chat_id);
+      return Array.from(
         {
           length: Math.max(
             1,
@@ -48,8 +59,8 @@ export function prepareSemantic(
           ),
         },
         () => ({ chat_id, contains: [] }),
-      ),
-    );
+      );
+    });
     deferred.push('messages.per_recipient_completeness_and_no_redundancy');
   }
   if (seed && config.unordered_new_rows) {
@@ -104,9 +115,54 @@ export function prepareSemantic(
   }
   for (const [i, message] of (expected.messages || []).entries()) {
     if (message.contains?.length) {
-      message.contains = config.literal_message_terms?.[String(i)] || [];
+      message.contains = literalMessageTerms.get(message) || [];
       deferred.push(`messages[${i}].content`);
     }
+  }
+  // Recipient-level literal requirements apply to every actual output, including
+  // each member of an expanded report. Keep them after semantic text removal.
+  for (const message of expected.messages || []) {
+    const terms =
+      config.literal_terms_per_message_chat?.[message.chat_id] || [];
+    message.contains = [...new Set([...(message.contains || []), ...terms])];
+  }
+  // Only reviewed optional deliveries may be absent; present messages retain
+  // their original count, recipient and content checks.
+  if (seed && config.optional_message_chats?.length) {
+    const old = new Set(seed.messages.map((m: Json) => m.message_id));
+    const recipients = new Set(
+      world.messages
+        .filter((m: Json) => !old.has(m.message_id))
+        .map((m: Json) => m.chat_id),
+    );
+    original.optional_message_chats = config.optional_message_chats;
+    expected.messages = (expected.messages || []).filter((message: Json) => {
+      if (!config.optional_message_chats.includes(message.chat_id)) return true;
+      deferred.push(
+        `messages.optional_delivery[${message.chat_id}].check_content_if_present`,
+      );
+      return recipients.has(message.chat_id);
+    });
+  }
+  // Reviewed, optional follow-up requests are graded for purpose, not an
+  // invented fixed count. Required deliveries and all other recipients remain strict.
+  if (seed && config.optional_requests?.length) {
+    original.optional_requests = config.optional_requests;
+    const old = new Set(seed.messages.map((m: Json) => m.message_id));
+    const allowed = new Set(
+      config.optional_requests.map((rule: Json) => rule.chat_id),
+    );
+    const requests = world.messages.filter(
+      (m: Json) => !old.has(m.message_id) && allowed.has(m.chat_id),
+    );
+    expected.messages = [
+      ...(expected.messages || []),
+      ...requests.map((m: Json) => ({ chat_id: m.chat_id, contains: [] })),
+    ];
+    if (requests.length)
+      deferred.push(
+        'messages.optional_requests.business_scope_and_no_redundancy',
+      );
   }
   for (const key of ['forbidden_messages', 'forbidden_records']) {
     expected[key] = (expected[key] || []).filter((check: Json, i: number) => {

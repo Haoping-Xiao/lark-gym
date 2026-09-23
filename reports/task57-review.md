@@ -602,3 +602,22 @@ SEO1043 variant omits the required `/solutions` row to test semantic completenes
 These are collected reference-variant executions, not model-player trials or
 edited backend histories. Marketing1045 remains outside this change because its
 current source guideline explicitly requires the tracking code in all outputs.
+
+### Tracking code on every marketing1045 output
+
+The updated source guideline requires `CGAP-2026-Q1` in all outputs, replacing
+the old tracking code. It does not require a single report message. This task now
+allows complete report sections across messages while requiring the current code
+in every message to the content team. The shared opt-in
+`literal_terms_per_message_chat` preserves these checks after semantic content
+removal and message-count expansion. Recipient restrictions, published counts,
+composite gap scores and excluded topics remain unchanged.
+
+Two real CLI reference variants send complete report sections with the code in
+both parts or only the first part. The former passes structural checks; the latter
+fails the per-message code check. The old fixed-count configuration rejects both.
+These executions retain collected backend history and are not model-player trials.
+
+Independent Astra content judges accept both variants' combined report facts.
+The missing-code case is rejected by the deterministic per-message literal rule,
+not by the content judge; semantic approval cannot override that failure.

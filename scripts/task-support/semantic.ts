@@ -119,6 +119,13 @@ export function prepareSemantic(
       deferred.push(`messages[${i}].content`);
     }
   }
+  // Recipient-level literal requirements apply to every actual output, including
+  // each member of an expanded report. Keep them after semantic text removal.
+  for (const message of expected.messages || []) {
+    const terms =
+      config.literal_terms_per_message_chat?.[message.chat_id] || [];
+    message.contains = [...new Set([...(message.contains || []), ...terms])];
+  }
   // Only reviewed optional deliveries may be absent; present messages retain
   // their original count, recipient and content checks.
   if (seed && config.optional_message_chats?.length) {
