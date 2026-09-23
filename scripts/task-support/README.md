@@ -146,3 +146,5 @@ fixed times for tasks asking only for a day or morning. Creation normalization
 considers new records only, leaving existing source records unchanged.
 
 `numeric_result_columns` 仅用于经业务复核的派生比率列，以精确十进制值比较数值及字符串（允许科学计数法），不接受币种、非法数值或浮点舍入后的近似等价。与 `unordered_new_rows` 同用时，行匹配使用同一比率规则；来源金额仍按原值比较。
+
+`schedule_fields` 用于只指定日期/时段的排期：程序要求严格有效且带时区的时间戳，业务日期/时段交给带 `schedule_window` 标记的独立评审；参考具体小时不是固定值。simple 3051–3060 明示相对排期按 UTC，这是适配约定而非上游原文规则；活动正文中原有 EST 等时区不改变。固定时刻任务仍用 `instant_fields`。

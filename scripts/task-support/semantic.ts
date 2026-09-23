@@ -104,6 +104,7 @@ export function prepareSemantic(
   const literalFields = new Set<string>(config.literal_fields || []);
   const semanticField = (field: string) =>
     !config.instant_fields?.includes(field) &&
+    !config.schedule_fields?.includes(field) &&
     !config.json_text_fields?.[field] &&
     !literalFields.has(field) &&
     (fields.has(field.toLowerCase()) ||
@@ -282,8 +283,11 @@ export function prepareSemantic(
     });
   }
   const reviewedField = (key: string) =>
-    config.json_text_fields?.[key] || config.instant_fields?.includes(key);
+    config.json_text_fields?.[key] ||
+    config.instant_fields?.includes(key) ||
+    config.schedule_fields?.includes(key);
   const sameReviewedField = (key: string, actual: unknown, value: unknown) => {
+    if (config.schedule_fields?.includes(key)) return instant(actual) !== null;
     if (config.instant_fields?.includes(key)) {
       const expectedTime = instant(value);
       return expectedTime !== null && instant(actual) === expectedTime;
@@ -292,6 +296,8 @@ export function prepareSemantic(
   };
   for (const check of expected.updates || []) {
     const mode = reviewedField(check.field);
+    if (config.schedule_fields?.includes(check.field))
+      deferred.push('updates.schedule_window');
     if (!mode || check.mode !== 'equals') continue;
     const actual = world.base.records.find(
       (r: Json) => r.record_id === check.record_id,
@@ -302,6 +308,8 @@ export function prepareSemantic(
   for (const record of expected.creates || []) {
     const keys = Object.keys(record).filter((key) => reviewedField(key));
     if (!keys.length) continue;
+    if (keys.some((key) => config.schedule_fields?.includes(key)))
+      deferred.push('creates.schedule_window');
     const actual = world.base.records.find(
       (r: Json) =>
         !seed?.base?.records.some(
