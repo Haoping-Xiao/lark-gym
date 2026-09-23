@@ -738,3 +738,18 @@ updates, deadline exclusions and date formatting remain unchanged.
 Real CLI reference variants preserve all report lines and repeat required headers
 in each part. Missing-code variants remove the code only from the second output.
 These are collected executions, not model-player trials or edited backend states.
+
+### Itemized launch reapproval requests
+
+Marketing1610 permits content-team to receive one reapproval request per expired
+item instead of requiring one combined message. Only this recipient uses flexible
+message counts; coordination, product distribution and final-summary recipients
+retain their current rules. Source assertions require all three items and do not
+specify an email count. Approval windows, exact headlines, channel queues, status
+updates and the distinction between queueing and external publication remain
+unchanged. Task helpers and rubric match the shared recipient-scoped installer.
+
+Real CLI variants request reapproval separately for LC-003, LC-005 and LC-006. A
+negative variant omits LC-006 only from content-team while preserving its status
+and launch-ops summary, testing the required delivery independently of those
+other records. These are reference variants, not model-player exploration.
