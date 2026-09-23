@@ -2452,16 +2452,16 @@
     ]
   },
   "hr-5023": {
-    "instruction": "向受影响员工分发政策更新，本次也要求分发 AI 政策。请先审核全部原始更新及最新员工地点变化，只传播已经批准且允许分发的政策。向 company-announcements 群发布公告，并逐人向适用员工私聊，包含生效日、相关金额及受影响人数。",
+    "instruction": "向受影响员工分发政策更新，本次也要求分发 AI 政策。请先审核全部原始更新及最新员工地点变化，只传播已经批准且允许分发的政策。向 company-announcements 群发布公告，并逐人向适用员工私聊，包含生效日、相关金额及受影响人数。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "messages": [
       {
         "channel": "company-announcements",
-        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：当地时间 10 AM - 3 PM 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
+        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：10 AM - 3 PM local time 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
         "contains": ["remote", "April 1, 2026", "10 AM", "3 PM", "1,500", "2"]
       },
       {
         "email": "bob.chen@company.example.com",
-        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：当地时间 10 AM - 3 PM 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
+        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：10 AM - 3 PM local time 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
         "contains": [
           "Remote Work",
           "April 1, 2026",
@@ -2473,7 +2473,7 @@
       },
       {
         "email": "marcus.lindgren@company.example.com",
-        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：当地时间 10 AM - 3 PM 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
+        "text": "Remote Work Policy / remote 工作政策将于 April 1, 2026 生效：10 AM - 3 PM local time 保持可用；每月一次线下团队见面，公司承担差旅；居家办公补贴 $1,500/year。 本次适用 2 名员工。",
         "contains": [
           "Remote Work",
           "April 1, 2026",
@@ -14906,7 +14906,7 @@
     ]
   },
   "hr-5062": {
-    "instruction": "今天2026-03-20，本周明确为2026-03-16至03-22（含端点）。按PIP Process处理本周checkpoint及到期仍Active项。源Monday没有item实体，状态变更改登记pip_status_updates飞书台账，字段item_id、employee、status：本周checkpoint为Review Due，过期为Expired。私聊按政策找经理或Escalation Contact，包含姓名、checkpoint类型及日期或expired和PIP End；不改源表、不代表已完成评审/纪律处分。",
+    "instruction": "今天2026-03-20，本周明确为2026-03-16至03-22（含端点）。按PIP Process处理本周checkpoint及到期仍Active项。源Monday没有item实体，状态变更改登记pip_status_updates飞书台账，字段item_id、employee、status：本周checkpoint为Review Due，过期为Expired。私聊按政策找经理或Escalation Contact，包含姓名、checkpoint类型及日期或expired和PIP End；不改源表、不代表已完成评审/纪律处分。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "now": "2026-03-20T09:00:00Z",
     "creates": [
       {
@@ -14936,7 +14936,7 @@
     ]
   },
   "hr-5063": {
-    "instruction": "处理Internal Transfers请求。源Trello只有Card ID无实体，改为transfer_cards台账记录card_id、employee、list（按Decision使用Approved/Denied）、comment含原部门、新部门、有效日期或原Denial Reason。批准只是移到Approved，不提前变更实际雇佣部门；批准项通知当前及接收经理，拒绝项只登记原因、不另发经理通知。来源表保持不变。",
+    "instruction": "处理Internal Transfers请求。源Trello只有Card ID无实体，改为transfer_cards台账记录card_id、employee、list（按Decision使用Approved/Denied）、comment含原部门、新部门、有效日期或原Denial Reason。批准只是移到Approved，不提前变更实际雇佣部门；批准项通知当前及接收经理，拒绝项只登记原因、不另发经理通知。来源表保持不变。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "creates": [
       {
         "collection": "transfer_cards",
@@ -15181,7 +15181,7 @@
     ]
   },
   "hr-5069": {
-    "instruction": "按相同Email识别跨渠道重复候选人（姓名和Role可不同），把每组所有相关行Duplicate Flag设Duplicate。每位涉及的recruiter私聊汇总其相关重复组，包含两行原姓名、Email、Source、Role，请其合并，不自行删除或合并。唯一记录不改。",
+    "instruction": "按相同Email识别跨渠道重复候选人（姓名和Role可不同），把每组所有相关行Duplicate Flag设Duplicate。每位涉及的recruiter私聊汇总其相关重复组，包含两行原姓名、Email、Source、Role，请其合并，不自行删除或合并。唯一记录不改。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "sheets": [
       {
         "book": "ss_candidates",
@@ -15358,7 +15358,7 @@
     ]
   },
   "hr-5072": {
-    "instruction": "今天2026-03-20，核对昨日eng-standup、团队Roster、请假和engineering最新公告。按生效出勤规则决定是否私聊经理，保护缺席者隐私；完成后只给eng-standup一条汇总，含核查日期、当前规则与是否需要升级。不改来源、不公开姓名或个人请假信息。",
+    "instruction": "今天2026-03-20，核对昨日eng-standup、团队Roster、请假和engineering最新公告。按生效出勤规则决定是否私聊经理，保护缺席者隐私；完成后只给eng-standup一条汇总，含核查日期、当前规则与是否需要升级。不改来源、不公开姓名或个人请假信息。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "now": "2026-03-20T09:00:00Z",
     "messages": [
       {
@@ -15881,7 +15881,7 @@
     ]
   },
   "hr-5086": {
-    "instruction": "根据Offer Negotiation Guidelines与最新来信处理Active Offers，严格区分相似姓名及Role。只回写有授权的变更，薪资申请交Comp Committee；Recruitee改candidate_tags飞书台账，company_id、candidate_id、tag关联源Directory。每位涉及协商结果均登记tag：薪资待委员会且截止不变为Salary Review Pending; Final Deadline，内部请求改开工日无效为Start Date Unchanged，接受为Accepted。不向候选人承诺未批准变化，不改原薪资、截止日或未经本人请求的开工日。",
+    "instruction": "根据Offer Negotiation Guidelines与最新来信处理Active Offers，严格区分相似姓名及Role。只回写有授权的变更，薪资申请交Comp Committee；Recruitee改candidate_tags飞书台账，company_id、candidate_id、tag关联源Directory。每位涉及协商结果均登记tag：薪资待委员会且截止不变为Salary Review Pending; Final Deadline，内部请求改开工日无效为Start Date Unchanged，接受为Accepted。不向候选人承诺未批准变化，不改原薪资、截止日或未经本人请求的开工日。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "creates": [
       {
         "collection": "candidate_tags",
@@ -15932,7 +15932,7 @@
     ]
   },
   "hr-5087": {
-    "instruction": "核对Pending Transfers的当前经理邮件、接收经理群批准、可用headcount与Notes。只有全部满足者Status=Approved、私聊员工确认，并将Employee ID/From Dept/To Dept/Receiving Manager交hris-admin@company.example.com；不自行改BambooHR或headcount，不把批准写成后端变更已执行。不合格或Hold请求保持Pending、无确认通知。",
+    "instruction": "核对Pending Transfers的当前经理邮件、接收经理群批准、可用headcount与Notes。只有全部满足者Status=Approved、私聊员工确认，并将Employee ID/From Dept/To Dept/Receiving Manager交hris-admin@company.example.com；不自行改BambooHR或headcount，不把批准写成后端变更已执行。不合格或Hold请求保持Pending、无确认通知。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "sheets": [
       {
         "book": "ss_transfers",
@@ -15972,7 +15972,7 @@
     ]
   },
   "hr-5088": {
-    "instruction": "今天2026-04-07，按最新培训日期、部门变更与暂停要求处理。最新Session A也已过去，不能伪造过去报名或完成；对仍欠此课者标Awaiting Makeup，并在通知保留最新April 1日期。未来适用课登记training_enrollments飞书台账employee、email、session、training、date、time原文、status=Enrolled；tracker合格者Status=Partially Enrolled，新增Anti-Harassment Status=Awaiting Makeup、Enrolled Sessions列本轮Session编号（逗号空格分隔），并回写有明确更正的Department/HIPAA Required/Required Training。暂停部门不改不通知。每人私聊所有课程的日期、时间和办理结果，既不创建过去报名也不猜补课日期。源未给时区，本题只登记原时间字面值、不创建日历。",
+    "instruction": "今天2026-04-07，按最新培训日期、部门变更与暂停要求处理。最新Session A也已过去，不能伪造过去报名或完成；对仍欠此课者标Awaiting Makeup，并在通知保留最新April 1日期。未来适用课登记training_enrollments飞书台账employee、email、session、training、date、time原文、status=Enrolled；tracker合格者Status=Partially Enrolled，新增Anti-Harassment Status=Awaiting Makeup、Enrolled Sessions列本轮Session编号（逗号空格分隔），并回写有明确更正的Department/HIPAA Required/Required Training。暂停部门不改不通知。每人私聊所有课程的日期、时间和办理结果，既不创建过去报名也不猜补课日期。源未给时区，本题只登记原时间字面值、不创建日历。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "now": "2026-04-07T09:00:00Z",
     "creates": [
       {
@@ -15981,7 +15981,7 @@
         "email": "alice.park@company.example.com",
         "session": "Session B",
         "training": "Data Privacy",
-        "date": "2026-04-08",
+        "date": "April 8, 2026",
         "time": "2 PM - 4 PM",
         "status": "Enrolled"
       },
@@ -15991,7 +15991,7 @@
         "email": "ravi.sundaram@company.example.com",
         "session": "Session B",
         "training": "Data Privacy",
-        "date": "2026-04-08",
+        "date": "April 8, 2026",
         "time": "2 PM - 4 PM",
         "status": "Enrolled"
       },
@@ -16001,7 +16001,7 @@
         "email": "ravi.sundaram@company.example.com",
         "session": "Session C",
         "training": "HIPAA",
-        "date": "2026-04-15",
+        "date": "April 15, 2026",
         "time": "9 AM - 12 PM",
         "status": "Enrolled"
       },
@@ -16011,7 +16011,7 @@
         "email": "carol.diaz@company.example.com",
         "session": "Session C",
         "training": "HIPAA",
-        "date": "2026-04-15",
+        "date": "April 15, 2026",
         "time": "9 AM - 12 PM",
         "status": "Enrolled"
       }
@@ -16060,7 +16060,7 @@
     "messages": [
       {
         "email": "alice.park@company.example.com",
-        "text": "Alice Park | Anti-Harassment | April 1, 2026 | 10 AM - 12 PM | Awaiting Makeup | Session B | Data Privacy | 2026-04-08 | April 8 | 2 PM - 4 PM | Enrolled",
+        "text": "Alice Park | Anti-Harassment | April 1, 2026 | 10 AM - 12 PM | Awaiting Makeup | Session B | Data Privacy | April 8, 2026 | 2 PM - 4 PM | Enrolled",
         "contains": [
           "Alice Park",
           "Anti-Harassment",
@@ -16069,7 +16069,7 @@
           "Awaiting Makeup",
           "Session B",
           "Data Privacy",
-          "2026-04-08",
+          "April 8, 2026",
           "April 8",
           "2 PM - 4 PM",
           "Enrolled"
@@ -16077,7 +16077,7 @@
       },
       {
         "email": "ravi.sundaram@company.example.com",
-        "text": "Ravi Sundaram | Anti-Harassment | April 1, 2026 | 10 AM - 12 PM | Awaiting Makeup | Session B | Data Privacy | 2026-04-08 | April 8 | 2 PM - 4 PM | Enrolled | Session C | HIPAA | 2026-04-15 | April 15 | 9 AM - 12 PM | Enrolled",
+        "text": "Ravi Sundaram | Anti-Harassment | April 1, 2026 | 10 AM - 12 PM | Awaiting Makeup | Session B | Data Privacy | April 8, 2026 | 2 PM - 4 PM | Enrolled | Session C | HIPAA | April 15, 2026 | 9 AM - 12 PM | Enrolled",
         "contains": [
           "Ravi Sundaram",
           "Anti-Harassment",
@@ -16086,13 +16086,13 @@
           "Awaiting Makeup",
           "Session B",
           "Data Privacy",
-          "2026-04-08",
+          "April 8, 2026",
           "April 8",
           "2 PM - 4 PM",
           "Enrolled",
           "Session C",
           "HIPAA",
-          "2026-04-15",
+          "April 15, 2026",
           "April 15",
           "9 AM - 12 PM",
           "Enrolled"
@@ -16100,7 +16100,7 @@
       },
       {
         "email": "carol.diaz@company.example.com",
-        "text": "Carol Diaz | Anti-Harassment | April 1, 2026 | 10 AM - 12 PM | Awaiting Makeup | Session C | HIPAA | 2026-04-15 | April 15 | 9 AM - 12 PM | Enrolled",
+        "text": "Carol Diaz | Anti-Harassment | April 1, 2026 | 10 AM - 12 PM | Awaiting Makeup | Session C | HIPAA | April 15, 2026 | 9 AM - 12 PM | Enrolled",
         "contains": [
           "Carol Diaz",
           "Anti-Harassment",
@@ -16109,7 +16109,7 @@
           "Awaiting Makeup",
           "Session C",
           "HIPAA",
-          "2026-04-15",
+          "April 15, 2026",
           "April 15",
           "9 AM - 12 PM",
           "Enrolled"
@@ -16118,7 +16118,7 @@
     ]
   },
   "hr-5089": {
-    "instruction": "按Severance Agreement Process及特殊授权发送允许的协议。DocuSign改signature_requests飞书台账加私聊签署请求；台账template_id、employee、employee_id、email、Severance Weeks数值、benefits_days=60、status=Sent。员工通知含姓名、周数、60 days及请求签署。诉讼件不发送；给Legal一条私聊转交诉讼详情及全部离职者non-compete作废请求，不自行作废（源无实际协议实体，不伪造ID）。不修改来源工资或状态。",
+    "instruction": "按Severance Agreement Process及特殊授权发送允许的协议。DocuSign改signature_requests飞书台账加私聊签署请求；台账template_id、employee、employee_id、email、Severance Weeks数值、benefits_days=60、status=Sent。员工通知含姓名、周数、60 days及请求签署。诉讼件不发送；给Legal一条私聊转交诉讼详情及全部离职者non-compete作废请求，不自行作废（源无实际协议实体，不伪造ID）。不修改来源工资或状态。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。消息包含与实际处理有关且统计对象明确的数量。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -16379,27 +16379,27 @@
     ]
   },
   "hr-5093": {
-    "instruction": "按最新career fair物流消息协调，先核对已有venue确认，勿重复预订或违反采购冻结。Trello源仅有Card ID，给现有卡的comment改为card_comments飞书台账card_id、comment，不创建新卡。每位comment列Recruiter、Booth、Role、活动日期时间和prep checklist；清单补定为准备岗位介绍、候选人登记及角色材料，休假者只注明leave/replacement needed，不当作已排班。向Facilities私聊复核现有venue、confirmation number、capacity、活动日期时间，不发swag采购。",
+    "instruction": "按最新career fair物流消息协调，先核对已有venue确认，勿重复预订或违反采购冻结。Trello源仅有Card ID，给现有卡的comment改为card_comments飞书台账card_id、comment，不创建新卡。每位comment列Recruiter、Booth、Role、活动日期时间和prep checklist；清单补定为准备岗位介绍、候选人登记及角色材料，休假者只注明leave/replacement needed，不当作已排班。向Facilities私聊复核现有venue、confirmation number、capacity、活动日期时间，不发swag采购。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。",
     "creates": [
       {
         "collection": "card_comments",
         "card_id": "card_cf_001",
-        "comment": "Priya Sharma | Engineering | Lead Recruiter | 2026-04-25 | 10 AM - 4 PM | 准备岗位介绍、候选人登记及角色材料"
+        "comment": "Priya Sharma | Engineering | Lead Recruiter | April 25, 2026 | 10 AM - 4 PM | 准备岗位介绍、候选人登记及角色材料"
       },
       {
         "collection": "card_comments",
         "card_id": "card_cf_002",
-        "comment": "Carlos Reyes | Marketing/Sales | Booth Coordinator | 2026-04-25 | 10 AM - 4 PM | 准备岗位介绍、候选人登记及角色材料"
+        "comment": "Carlos Reyes | Marketing/Sales | Booth Coordinator | April 25, 2026 | 10 AM - 4 PM | 准备岗位介绍、候选人登记及角色材料"
       },
       {
         "collection": "card_comments",
         "card_id": "card_cf_003",
-        "comment": "Mei-Ling Chow | Design | Portfolio Reviewer | 2026-04-25 | 10 AM - 4 PM | 准备岗位介绍、候选人登记及角色材料"
+        "comment": "Mei-Ling Chow | Design | Portfolio Reviewer | April 25, 2026 | 10 AM - 4 PM | 准备岗位介绍、候选人登记及角色材料"
       },
       {
         "collection": "card_comments",
         "card_id": "card_cf_004",
-        "comment": "Nina Okafor | General | Greeter/Registration | 2026-04-25 | 10 AM - 4 PM | ON LEAVE April 20-30 | leave / replacement needed"
+        "comment": "Nina Okafor | General | Greeter/Registration | April 25, 2026 | 10 AM - 4 PM | ON LEAVE April 20-30 - needs replacement | leave / replacement needed"
       }
     ],
     "creation_contains": {
@@ -16408,7 +16408,7 @@
           "Priya Sharma",
           "Engineering",
           "Lead Recruiter",
-          "2026-04-25",
+          "April 25, 2026",
           "10 AM - 4 PM",
           "准备岗位介绍、候选人登记及角色材料"
         ]
@@ -16418,7 +16418,7 @@
           "Carlos Reyes",
           "Marketing/Sales",
           "Booth Coordinator",
-          "2026-04-25",
+          "April 25, 2026",
           "10 AM - 4 PM",
           "准备岗位介绍、候选人登记及角色材料"
         ]
@@ -16428,7 +16428,7 @@
           "Mei-Ling Chow",
           "Design",
           "Portfolio Reviewer",
-          "2026-04-25",
+          "April 25, 2026",
           "10 AM - 4 PM",
           "准备岗位介绍、候选人登记及角色材料"
         ]
@@ -16438,20 +16438,20 @@
           "Nina Okafor",
           "General",
           "Greeter/Registration",
-          "2026-04-25",
+          "April 25, 2026",
           "10 AM - 4 PM",
-          "ON LEAVE April 20-30 | leave / replacement needed"
+          "ON LEAVE April 20-30 - needs replacement | leave / replacement needed"
         ]
       }
     },
     "messages": [
       {
         "email": "facilities@company.example.com",
-        "text": "复核已有场地：Grand Ballroom | Downtown Convention Center | 2026-04-25 | 10 AM - 4 PM | Capacity 300 | VEN-2026-0425 | Expected attendees 200+；请确认现场安排，无需重复预订。",
+        "text": "复核已有场地：Grand Ballroom | Downtown Convention Center | April 25, 2026 | 10 AM - 4 PM | Capacity 300 | VEN-2026-0425 | Expected attendees 200+；请确认现场安排，无需重复预订。",
         "contains": [
           "Grand Ballroom",
           "Downtown Convention Center",
-          "2026-04-25",
+          "April 25, 2026",
           "10 AM - 4 PM",
           "300",
           "VEN-2026-0425",
