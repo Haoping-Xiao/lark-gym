@@ -150,3 +150,7 @@ considers new records only, leaving existing source records unchanged.
 `schedule_fields` 用于只指定日期/时段的排期：程序要求严格有效且带时区的时间戳，业务日期/时段交给带 `schedule_window` 标记的独立评审；参考具体小时不是固定值。simple 3051–3060 明示相对排期按 UTC，这是适配约定而非上游原文规则；活动正文中原有 EST 等时区不改变。固定时刻任务仍用 `instant_fields`。
 
 `literal_creation_terms` 为指定创建项的文本字段保留明确要求的字面内容检查，同时将周围叙述转交语义真实性评审。仅在该字段已列入 `text_fields` 时使用；必须按来源确认字面义务，不得从参考措辞推导。
+
+`usd_result_columns.require_grouping` 仅在来源明确要求千分位时启用：绝对金额达到 1,000 美元必须使用含逗号的字符串；精确到分的等价写法及额外小数尾零可接受，非零的分以下数位不可接受。该规则同时用于新行匹配和最终单元格验收，不扩展到来源金额。
+
+`creation_one_of` 为指定创建项的字段声明经来源确认的有限别名。替代值只在其余业务字段完全匹配时归一化；既有记录、错客户 ID、错业务单号和未列出的名称不受放宽。

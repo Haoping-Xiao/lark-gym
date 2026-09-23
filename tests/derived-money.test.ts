@@ -57,11 +57,18 @@ for (const id of [4048, 4054, 4081, 4098])
         });
         return JSON.parse(await readFile(join(output, 'result.json'), 'utf8'));
       };
-      for (const mode of ['decimal', 'numeric']) {
+      for (const mode of ['decimal', 'numeric', 'trailing-zero']) {
         world = structuredClone(original);
         for (const c of cells) {
           const value = Number(c.value.replace(/[$,]/g, ''));
-          set(c, mode === 'decimal' ? `$${value}.00` : value);
+          set(
+            c,
+            mode === 'decimal'
+              ? `$${value}.00`
+              : mode === 'trailing-zero'
+                ? `$${value}.0000`
+                : value,
+          );
         }
         assert.equal((await verify(mode)).business_success, true);
       }

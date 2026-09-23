@@ -6,13 +6,13 @@ type Json = Record<string, any>;
 function usdCents(value: unknown): bigint | null {
   if (typeof value !== 'string' && typeof value !== 'number') return null;
   if (typeof value === 'number' && !Number.isFinite(value)) return null;
-  const match = /^(-?)(?:\$)?(\d+|\d{1,3}(?:,\d{3})+)(?:\.(\d{1,2}))?$/.exec(
+  const match = /^(-?)(?:\$)?(\d+|\d{1,3}(?:,\d{3})+)(?:\.(\d+))?$/.exec(
     String(value).trim(),
   );
-  if (!match) return null;
+  if (!match || /[1-9]/.test((match[3] || '').slice(2))) return null;
   return (
     (BigInt(match[2].replaceAll(',', '')) * 100n +
-      BigInt((match[3] || '').padEnd(2, '0'))) *
+      BigInt((match[3] || '').slice(0, 2).padEnd(2, '0'))) *
     (match[1] ? -1n : 1n)
   );
 }
@@ -156,16 +156,23 @@ export function prepareSemantic(
       ['usd_result_columns', usdCents],
       ['numeric_result_columns', decimalValue],
     ] as const) {
-      if (
-        (config[key] || []).some(
-          (rule: Json) =>
-            rule.spreadsheet_token === check.spreadsheet_token &&
-            rule.sheet_id === check.sheet_id &&
-            rule.columns.includes(check.column),
-        )
-      ) {
-        const value = parse(check.value);
-        return value !== null && value === parse(actual);
+      const rule = (config[key] || []).find(
+        (rule: Json) =>
+          rule.spreadsheet_token === check.spreadsheet_token &&
+          rule.sheet_id === check.sheet_id &&
+          rule.columns.includes(check.column),
+      );
+      if (rule) {
+        const value = parse(check.value),
+          actualValue = parse(actual);
+        if (value === null || value !== actualValue) return false;
+        if (key === 'usd_result_columns' && rule.require_grouping) {
+          if (typeof actual !== 'string') return false;
+          const cents = usdCents(actual)!;
+          if ((cents >= 100000n || cents <= -100000n) && !actual.includes(','))
+            return false;
+        }
+        return true;
       }
     }
     return null;
@@ -305,8 +312,11 @@ export function prepareSemantic(
     if (sameReviewedField(check.field, actual, check.value))
       check.value = actual;
   }
-  for (const record of expected.creates || []) {
-    const keys = Object.keys(record).filter((key) => reviewedField(key));
+  for (const [index, record] of (expected.creates || []).entries()) {
+    const options = config.creation_one_of?.[String(index)] || {};
+    const keys = Object.keys(record).filter(
+      (key) => reviewedField(key) || options[key],
+    );
     if (!keys.length) continue;
     if (keys.some((key) => config.schedule_fields?.includes(key)))
       deferred.push('creates.schedule_window');
@@ -316,9 +326,13 @@ export function prepareSemantic(
           (old: Json) => old.record_id === r.record_id,
         ) &&
         Object.entries(record).every(([key, value]) =>
-          reviewedField(key)
-            ? sameReviewedField(key, r.fields[key], value)
-            : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
+          options[key]
+            ? options[key].some((candidate: unknown) =>
+                isDeepStrictEqual(r.fields[key], candidate),
+              )
+            : reviewedField(key)
+              ? sameReviewedField(key, r.fields[key], value)
+              : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
         ),
     );
     if (actual) for (const key of keys) record[key] = actual.fields[key];

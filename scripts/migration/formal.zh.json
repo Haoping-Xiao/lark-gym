@@ -2280,7 +2280,7 @@
     ]
   },
   "finance-4023": {
-    "instruction": "按收入确认政策编制年约收入确认表。将合同总价均摊至期限月数，按政策明确的 January 2026 期间计算，将有效合同追加到 ss_revrec/ws_schedule，包含 Contract、Customer、Amount。取消合同排除，尚未开始的合同在源合同表中标记 Deferred。向 controller@company.example.com 私聊完整当月排期及总额，计算金额用千分位。",
+    "instruction": "按收入确认政策编制年约收入确认表。将合同总价均摊至期限月数，按政策明确的 January 2026 期间计算，将有效合同追加到 ss_revrec/ws_schedule，包含 Contract、Customer、Amount。取消合同排除，尚未开始的合同在源合同表中标记 Deferred。向 controller@company.example.com 私聊完整当月排期及总额，计算金额用千分位。通知或记录引用来源值时须原样保留，不得改写或舍入。计算金额保留千分位，可使用金额等价且精确到分的表示。",
     "sheets": [
       {
         "book": "ss_revrec",
@@ -9645,7 +9645,7 @@
     ]
   },
   "finance-4050": {
-    "instruction": "今天是 2026-02-01。依据 Active Subscriptions、2026 Rate Card 和最新业务来信/群消息处理本月续费，尊重专门定价、旧客户保价与取消要求。符合条件者创建 wave_invoices 飞书台账（customer_id、customer_name、period=2026-02、invoice_total 数值、memo），欠款者 memo 包含 Past due 与原欠款金额，否则 memo 留空。不删除或回写订阅者行。逐客户发飞书私聊，包含客户名及 Renewal amount: $X，不合格者不通知。",
+    "instruction": "今天是 2026-02-01。依据 Active Subscriptions、2026 Rate Card 和最新业务来信/群消息处理本月续费，尊重专门定价、旧客户保价与取消要求。符合条件者创建 wave_invoices 飞书台账（customer_id、customer_name、period=2026-02、invoice_total 数值、memo），欠款者 memo 应说明逾期欠款并保留原欠款金额；无欠款者不得虚构欠款，memo 可为空或填写准确的续费说明。不删除或回写订阅者行。逐客户发飞书私聊，包含客户名及 Renewal amount: $X，不合格者不通知。通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "now": "2026-02-01T09:00:00Z",
     "creates": [
       {
@@ -13025,7 +13025,7 @@
     ]
   },
   "finance-4041": {
-    "instruction": "今天2026-02-12，按 Refund Policy - Updated 2026 处理退款，每个Pending请求视为今天收到，以今天距Invoice Date判定天数。合格退款写 quickbooks_refunds 台账，字段case、invoice_number、customer_id、customer_name、amount数值、status=Processed，并将表Status写Refunded，新增Refund Amount美元千位逗号。超期只Offer credit memo，不实际退款或创建credit memo，Status写Credit memo offered；等待审批者来源行不改。每个客户私聊通知case、发票、原金额、处理结果及退款金额或待办原因。",
+    "instruction": "今天2026-02-12，按 Refund Policy - Updated 2026 处理退款，每个Pending请求视为今天收到，以今天距Invoice Date判定天数。合格退款写 quickbooks_refunds 台账，字段case、invoice_number、customer_id、customer_name、amount数值、status=Processed，并将表Status写Refunded，新增Refund Amount美元千位逗号。超期只Offer credit memo，不实际退款或创建credit memo，Status写Credit memo offered；等待审批者来源行不改。每个客户私聊通知case、发票、原金额、处理结果及退款金额或待办原因。通知或记录引用来源值时须原样保留，不得改写或舍入。customer_name 可采用对应申请表 Customer 或已正确匹配客户主档的 display_name 原文，客户ID、申请和发票的关联必须一致。",
     "now": "2026-02-12T09:00:00Z",
     "creates": [
       {
