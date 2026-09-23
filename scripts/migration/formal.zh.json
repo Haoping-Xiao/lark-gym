@@ -11833,7 +11833,7 @@
     ]
   },
   "finance-4092": {
-    "instruction": "按 Expense Allocation Policy、最新明确例外和 hr-updates 更新人数分摊 Shared Expenses。仍按本轮有效 Split Method 规则执行，特定费用的更新例外优先，明确不分摊/延期项完全排除。每费用每部门记录一行到 Allocations：Expense、Department、Amount（两位小数千位逗号，不带美元符号），按费用源顺序及部门源顺序追加。逐部门给 Head Email 发飞书私聊，Expense | $分项金额，最后 Total | $合计；每分项先四舍五入到分，再相加部门合计，不回写源人数表。",
+    "instruction": "按 Expense Allocation Policy、最新明确例外和 hr-updates 更新人数分摊 Shared Expenses。仍按本轮有效 Split Method 规则执行，特定费用的更新例外优先，明确不分摊/延期项完全排除。每费用每部门记录一行到 Allocations：Expense、Department、Amount（两位小数千位逗号，不带美元符号），按费用源顺序及部门源顺序追加。逐部门给 Head Email 发飞书私聊，Expense | 来源金额 | $分项金额，最后 Total | $合计；每分项先四舍五入到分，再相加部门合计，不回写源人数表。通知或记录引用来源值时须原样保留，不得改写或舍入；明确区分费用源金额与本部门分摊金额。",
     "sheets": [
       {
         "book": "ss_split",
@@ -11983,56 +11983,56 @@
     "messages": [
       {
         "email": "eng-lead@company.example.com",
-        "text": "Engineering\nAnnual software license | $16,363.64\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $5,000.00\nTotal | $28,613.64",
+        "text": "Engineering\nAnnual software license | 来源金额 $36,000 | 分摊 $16,363.64\nHoliday party | 来源金额 $9,000 | 分摊 $2,250.00\nBuilding security upgrade | 来源金额 $20,000 | 分摊 $5,000.00\nCompany-wide training | 来源金额 $11,000 | 分摊 $5,000.00\nTotal | $28,613.64",
         "contains": [
           "Engineering",
-          "Annual software license | $16,363.64",
-          "Holiday party | $2,250.00",
-          "Building security upgrade | $5,000.00",
-          "Company-wide training | $5,000.00",
+          "Annual software license | 来源金额 $36,000 | 分摊 $16,363.64",
+          "Holiday party | 来源金额 $9,000 | 分摊 $2,250.00",
+          "Building security upgrade | 来源金额 $20,000 | 分摊 $5,000.00",
+          "Company-wide training | 来源金额 $11,000 | 分摊 $5,000.00",
           "Total | $28,613.64"
         ]
       },
       {
         "email": "sales-lead@company.example.com",
-        "text": "Sales\nAnnual software license | $9,818.18\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $3,000.00\nTotal | $20,068.18",
+        "text": "Sales\nAnnual software license | 来源金额 $36,000 | 分摊 $9,818.18\nHoliday party | 来源金额 $9,000 | 分摊 $2,250.00\nBuilding security upgrade | 来源金额 $20,000 | 分摊 $5,000.00\nCompany-wide training | 来源金额 $11,000 | 分摊 $3,000.00\nTotal | $20,068.18",
         "contains": [
           "Sales",
-          "Annual software license | $9,818.18",
-          "Holiday party | $2,250.00",
-          "Building security upgrade | $5,000.00",
-          "Company-wide training | $3,000.00",
+          "Annual software license | 来源金额 $36,000 | 分摊 $9,818.18",
+          "Holiday party | 来源金额 $9,000 | 分摊 $2,250.00",
+          "Building security upgrade | 来源金额 $20,000 | 分摊 $5,000.00",
+          "Company-wide training | 来源金额 $11,000 | 分摊 $3,000.00",
           "Total | $20,068.18"
         ]
       },
       {
         "email": "mktg-lead@company.example.com",
-        "text": "Marketing\nAnnual software license | $6,545.45\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $2,000.00\nTotal | $15,795.45",
+        "text": "Marketing\nAnnual software license | 来源金额 $36,000 | 分摊 $6,545.45\nHoliday party | 来源金额 $9,000 | 分摊 $2,250.00\nBuilding security upgrade | 来源金额 $20,000 | 分摊 $5,000.00\nCompany-wide training | 来源金额 $11,000 | 分摊 $2,000.00\nTotal | $15,795.45",
         "contains": [
           "Marketing",
-          "Annual software license | $6,545.45",
-          "Holiday party | $2,250.00",
-          "Building security upgrade | $5,000.00",
-          "Company-wide training | $2,000.00",
+          "Annual software license | 来源金额 $36,000 | 分摊 $6,545.45",
+          "Holiday party | 来源金额 $9,000 | 分摊 $2,250.00",
+          "Building security upgrade | 来源金额 $20,000 | 分摊 $5,000.00",
+          "Company-wide training | 来源金额 $11,000 | 分摊 $2,000.00",
           "Total | $15,795.45"
         ]
       },
       {
         "email": "ops-lead@company.example.com",
-        "text": "Operations\nAnnual software license | $3,272.73\nHoliday party | $2,250.00\nBuilding security upgrade | $5,000.00\nCompany-wide training | $1,000.00\nTotal | $11,522.73",
+        "text": "Operations\nAnnual software license | 来源金额 $36,000 | 分摊 $3,272.73\nHoliday party | 来源金额 $9,000 | 分摊 $2,250.00\nBuilding security upgrade | 来源金额 $20,000 | 分摊 $5,000.00\nCompany-wide training | 来源金额 $11,000 | 分摊 $1,000.00\nTotal | $11,522.73",
         "contains": [
           "Operations",
-          "Annual software license | $3,272.73",
-          "Holiday party | $2,250.00",
-          "Building security upgrade | $5,000.00",
-          "Company-wide training | $1,000.00",
+          "Annual software license | 来源金额 $36,000 | 分摊 $3,272.73",
+          "Holiday party | 来源金额 $9,000 | 分摊 $2,250.00",
+          "Building security upgrade | 来源金额 $20,000 | 分摊 $5,000.00",
+          "Company-wide training | 来源金额 $11,000 | 分摊 $1,000.00",
           "Total | $11,522.73"
         ]
       }
     ]
   },
   "finance-4093": {
-    "instruction": "今天是 2026-02-12，按 Deposit Procedures 清理 quickbooks_payments。超过30日者保留未存、列调查；其余以今天为deposit_date，按支付方式分别创建 quickbooks_deposits（payment_method、deposit_date、payment_ids JSON数组、amount数值、memo），memo包括可用payment_number，缺少时用payment id作为来源引用，不编造支票号。同时给已存付款写 deposited=true（字符串）。向 controller@company.example.com 发飞书私聊报告按方式合计、Grand total及旧付款调查项。本轮是模拟存款记账。",
+    "instruction": "今天是 2026-02-12，按 Deposit Procedures 清理 quickbooks_payments。超过30日者保留未存、列调查；其余以今天为deposit_date，按支付方式分别创建 quickbooks_deposits（payment_method、deposit_date、payment_ids JSON数组、amount数值、memo），memo包括可用payment_number，缺少时用payment id作为来源引用，不编造支票号。同时给已存付款写 deposited=true（字符串）。向 controller@company.example.com 发飞书私聊报告按方式合计、Grand total及旧付款调查项。本轮是模拟存款记账。汇总中逐笔列出本轮已存付款的来源金额，并与按方式合计和Grand total区分；通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "now": "2026-02-12T09:00:00Z",
     "creates": [
       {
@@ -12075,12 +12075,15 @@
     "messages": [
       {
         "email": "controller@company.example.com",
-        "text": "Check | $5,200 | CHK-8801\nCredit Card | $13,350 | qp_202; qp_204\nGrand total | $18,550\nInvestigate | Vanguard Apparel | CHK-8765 | 3100 | 2026-01-05 | 未存入",
+        "text": "Check | $5,200 | CHK-8801\nCredit Card | $13,350 | qp_202; qp_204\nGrand total | $18,550\n原付款金额 | qp_201 | 5200\n原付款金额 | qp_202 | 8750\n原付款金额 | qp_204 | 4600\nInvestigate | Vanguard Apparel | CHK-8765 | 3100 | 2026-01-05 | 未存入",
         "contains": [
           "Check | $5,200 | CHK-8801",
           "Credit Card | $13,350 | qp_202; qp_204",
           "Grand total | $18,550",
-          "Investigate | Vanguard Apparel | CHK-8765 | 3100 | 2026-01-05 | 未存入"
+          "Investigate | Vanguard Apparel | CHK-8765 | 3100 | 2026-01-05 | 未存入",
+          "原付款金额 | qp_201 | 5200",
+          "原付款金额 | qp_202 | 8750",
+          "原付款金额 | qp_204 | 4600"
         ]
       }
     ]
