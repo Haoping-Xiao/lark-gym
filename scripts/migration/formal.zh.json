@@ -11088,7 +11088,7 @@
     ]
   },
   "finance-4069": {
-    "instruction": "处理 Pending Requests，类别上限为 Meals75、Lodging250、Transportation200、Supplies100。批准金额=min(Amount,cap)，Entertainment 不动、不入批次、不通知。其他项原位 Status=Approved，按源顺序向 Payroll Batch 追加 Employee、Amount（不带美元符号数字字符串），并逐员工发飞书私聊告知姓名、类别、Approved 和最终金额；本轮通知只列最终应付金额。",
+    "instruction": "处理 Pending Requests，类别上限为 Meals75、Lodging250、Transportation200、Supplies100。批准金额=min(Amount,cap)，Entertainment 不动、不入批次、不通知。其他项原位 Status=Approved，按源顺序向 Payroll Batch 追加 Employee、Amount（不带美元符号数字字符串），并逐员工发飞书私聊告知姓名、类别、Approved 和最终金额；通知须同时说明原申请金额及最终批准金额，引用来源值时原样保留，不得改写或舍入；不能将原申请金额误报为最终应付金额。",
     "sheets": [
       {
         "book": "ss_reimb",
@@ -11166,25 +11166,30 @@
     "messages": [
       {
         "email": "alice@company.example.com",
-        "text": "Alice Park | Meals | Approved | $62",
-        "contains": ["Alice Park | Meals | Approved | $62"]
+        "text": "Alice Park | Meals | 原申请金额 $62 | Approved | $62",
+        "contains": ["Alice Park | Meals | 原申请金额 $62 | Approved | $62"]
       },
       {
         "email": "bob@company.example.com",
-        "text": "Bob Chen | Lodging | Approved | $250",
-        "contains": ["Bob Chen | Lodging | Approved | $250"]
+        "text": "Bob Chen | Lodging | 原申请金额 $340 | Approved | $250",
+        "contains": ["Bob Chen | Lodging | 原申请金额 $340 | Approved | $250"]
       },
       {
         "email": "carol@company.example.com",
-        "text": "Carol Diaz | Transportation | Approved | $180",
-        "contains": ["Carol Diaz | Transportation | Approved | $180"]
+        "text": "Carol Diaz | Transportation | 原申请金额 $180 | Approved | $180",
+        "contains": [
+          "Carol Diaz | Transportation | 原申请金额 $180 | Approved | $180"
+        ]
       },
       {
         "email": "dave@company.example.com",
-        "text": "Dave Kim | Supplies | Approved | $100",
-        "contains": ["Dave Kim | Supplies | Approved | $100"]
+        "text": "Dave Kim | Supplies | 原申请金额 $125 | Approved | $100",
+        "contains": ["Dave Kim | Supplies | 原申请金额 $125 | Approved | $100"]
       }
-    ]
+    ],
+    "assertion_overrides": {
+      "6": "原请求要求通知包含相关来源金额并原样保留，但原断言6禁止Bob通知出现340，与说明原申请$340而批准$250冲突。本适配允许准确引用原申请金额，仍禁止把超上限金额报为批准/应付金额；Payroll Batch的250上限及Entertainment不处理不通知要求保持不变。"
+    }
   },
   "finance-4071": {
     "instruction": "今天是 2026-02-10。关联 quickbooks_customers 与 Credit Limits，依 AR Management Guidelines 只报告需关注的账户：负余额调查、超限建议暂停、零余额且90日以上无活动列 inactive candidate。向 ar-manager@company.example.com 发飛书私聊，保留账户名、原余额、相关阈值或活动日、原因及建议。源余额字符串照录并可附千位逗号展示；本轮只提建议，不直接停用客户或改余额。",
