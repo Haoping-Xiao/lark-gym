@@ -648,3 +648,20 @@ The generic structural regression now removes all new notifications to one
 recipient, preserving seeded messages. Removing only one message may remove
 content rather than a required destination after grouping becomes flexible;
 that distinction is covered by the two independent semantic omission cases.
+
+### Sales milestone, signal, SLA and ROI report grouping
+
+Sales831, 840, 1178 and 1200 now allow complete reports to be grouped by recipient.
+The source SLA procedure retains task creation, account annotation and alert order;
+combining its two complete alerts changes neither those actions nor their order.
+Buying signals retain one task per independent signal and truthful source details.
+Milestones retain both actual stage changes and notes. ROI uses the manager's
+$10,000-per-hour policy, external completed meetings and the required dollar format.
+Neither the source instructions nor these policies impose the old message counts.
+
+Actual CLI reference variants combine SLA alerts, split buying signals and
+milestones, and send one complete ROI account row per message. The old verifiers
+reject all four alternatives. A further ROI execution omits Initech only from the
+report, retaining its review task, to test recipient-level completeness. Task
+instructions, seeds, expected facts and references remain unchanged. These are
+reference-variant executions, not model-player trials or edited backend histories.
