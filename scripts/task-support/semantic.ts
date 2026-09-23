@@ -16,6 +16,25 @@ function usdCents(value: unknown): bigint | null {
     (match[1] ? -1n : 1n)
   );
 }
+// Reviewed derived ratios only; normalize decimal notation without float rounding.
+function decimalValue(value: unknown): string | null {
+  if (typeof value !== 'string' && typeof value !== 'number') return null;
+  const text = String(value)
+    .trim()
+    .replace(/^([+-]?)\./, (_, sign) => sign + '0.');
+  if (!Number.isFinite(Number(text))) return null;
+  const match = /^([+-]?)(\d+)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/.exec(text);
+  if (!match) return null;
+  let digits = (match[2] + (match[3] || '')).replace(/^0+/, '');
+  if (!digits) return '0';
+  const trailing = digits.length - digits.replace(/0+$/, '').length;
+  digits = digits.replace(/0+$/, '');
+  const exponent =
+    BigInt(match[4] || '0') -
+    BigInt((match[3] || '').length) +
+    BigInt(trailing);
+  return `${match[1] === '-' ? '-' : ''}${digits}e${exponent}`;
+}
 // Text-backed JSON keeps its field type while comparing the represented value.
 function sameJsonText(
   actual: unknown,
@@ -130,6 +149,26 @@ export function prepareSemantic(
     });
     deferred.push('messages.per_recipient_completeness_and_no_redundancy');
   }
+  const derivedCellEqual = (check: Json, actual: unknown): boolean | null => {
+    if (check.contains || check.one_of) return null;
+    for (const [key, parse] of [
+      ['usd_result_columns', usdCents],
+      ['numeric_result_columns', decimalValue],
+    ] as const) {
+      if (
+        (config[key] || []).some(
+          (rule: Json) =>
+            rule.spreadsheet_token === check.spreadsheet_token &&
+            rule.sheet_id === check.sheet_id &&
+            rule.columns.includes(check.column),
+        )
+      ) {
+        const value = parse(check.value);
+        return value !== null && value === parse(actual);
+      }
+    }
+    return null;
+  };
   if (seed && config.unordered_new_rows) {
     const groups = new Map<string, Json[]>();
     for (const cell of expected.cells || []) {
@@ -161,14 +200,16 @@ export function prepareSemantic(
         return (
           empty(before[index]) &&
           !used.has(key) &&
-          cells.every((c) =>
-            semanticCell(c)
-              ? true
-              : c.one_of
-                ? c.one_of.some((v: any) =>
-                    isDeepStrictEqual(values[c.column], v),
-                  )
-                : isDeepStrictEqual(values[c.column], c.value),
+          cells.every(
+            (c) =>
+              derivedCellEqual(c, values[c.column]) ??
+              (semanticCell(c)
+                ? true
+                : c.one_of
+                  ? c.one_of.some((v: any) =>
+                      isDeepStrictEqual(values[c.column], v),
+                    )
+                  : isDeepStrictEqual(values[c.column], c.value)),
           )
         );
       });
@@ -292,24 +333,15 @@ export function prepareSemantic(
       deferred.push(`updates[${i}].${check.field}`);
     }
   for (const [i, check] of (expected.cells || []).entries()) {
-    if (
-      !check.contains &&
-      !check.one_of &&
-      (config.usd_result_columns || []).some(
-        (rule: Json) =>
-          rule.spreadsheet_token === check.spreadsheet_token &&
-          rule.sheet_id === check.sheet_id &&
-          rule.columns.includes(check.column),
-      )
-    ) {
-      const actual = (
-        check.spreadsheet_token
-          ? world.spreadsheets?.[check.spreadsheet_token]?.sheets
-          : world.sheets
-      )?.[check.sheet_id]?.values[check.row]?.[check.column];
-      const cents = usdCents(check.value);
-      if (cents !== null && cents === usdCents(actual)) check.value = actual;
-      continue; // An explicit amount rule never falls back to semantic text.
+    const actual = (
+      check.spreadsheet_token
+        ? world.spreadsheets?.[check.spreadsheet_token]?.sheets
+        : world.sheets
+    )?.[check.sheet_id]?.values[check.row]?.[check.column];
+    const equivalent = derivedCellEqual(check, actual);
+    if (equivalent !== null) {
+      if (equivalent) check.value = actual;
+      continue; // Reviewed numbers never fall back to semantic text.
     }
     if (semanticCell(check)) {
       check.value = (
