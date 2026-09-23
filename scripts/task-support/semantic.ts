@@ -2,6 +2,20 @@ import { existsSync, readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 
 type Json = Record<string, any>;
+// Reviewed USD result columns only. Compare cents exactly, never via floats.
+function usdCents(value: unknown): bigint | null {
+  if (typeof value !== 'string' && typeof value !== 'number') return null;
+  if (typeof value === 'number' && !Number.isFinite(value)) return null;
+  const match = /^(-?)(?:\$)?(\d+|\d{1,3}(?:,\d{3})+)(?:\.(\d{1,2}))?$/.exec(
+    String(value).trim(),
+  );
+  if (!match) return null;
+  return (
+    (BigInt(match[2].replaceAll(',', '')) * 100n +
+      BigInt((match[3] || '').padEnd(2, '0'))) *
+    (match[1] ? -1n : 1n)
+  );
+}
 export function prepareSemantic(
   expected: Json,
   world: Json,
@@ -191,6 +205,25 @@ export function prepareSemantic(
       deferred.push(`updates[${i}].${check.field}`);
     }
   for (const [i, check] of (expected.cells || []).entries()) {
+    if (
+      !check.contains &&
+      !check.one_of &&
+      (config.usd_result_columns || []).some(
+        (rule: Json) =>
+          rule.spreadsheet_token === check.spreadsheet_token &&
+          rule.sheet_id === check.sheet_id &&
+          rule.columns.includes(check.column),
+      )
+    ) {
+      const actual = (
+        check.spreadsheet_token
+          ? world.spreadsheets?.[check.spreadsheet_token]?.sheets
+          : world.sheets
+      )?.[check.sheet_id]?.values[check.row]?.[check.column];
+      const cents = usdCents(check.value);
+      if (cents !== null && cents === usdCents(actual)) check.value = actual;
+      continue; // An explicit amount rule never falls back to semantic text.
+    }
     if (semanticCell(check)) {
       check.value = (
         check.spreadsheet_token

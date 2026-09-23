@@ -120,3 +120,12 @@ for reviewed recipients (currently finance-4094's embargo-only CFO notice). When
 present, the ordinary recipient, message-count and content checks still apply;
 absence never waives required records or forbidden disclosures. The original
 content facts and optional-recipient metadata are passed to the semantic judge.
+
+`usd_result_columns` opts reviewed derived-result columns into deterministic USD
+amount comparison. Plain numbers and numeric strings (optionally prefixed with
+`$`, correctly grouped commas and up to two decimal places) compare by exact
+integer cents. Other currencies, malformed strings and different amounts fail.
+Only declared expected result cells qualify; unchanged source values remain
+protected. Currently this covers finance 4048 remaining credit/bill balances and
+4054 updated accumulated depreciation, 4081 recommended credit limits and 4098
+recognized-to-date totals, not their source amounts or journal field types. It does not defer these amount checks to a language model.
