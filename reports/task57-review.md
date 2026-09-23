@@ -575,7 +575,7 @@ remain attached to their original message even when an earlier flexible recipien
 has more messages. The judge receives the scope explicitly.
 
 This distinction preserves HR5010's per-candidate confirmation requirements and
-HR5102's explicit single benefits-channel summary. HR5080 is unchanged: each
+HR5102's explicit single benefits-channel summary. At the earlier review, HR5080 was unchanged: each
 emergency notice still needs its complete location, date, reason and WFH directive.
 Task instructions, seeds, references and expected business facts are unchanged.
 
@@ -753,3 +753,23 @@ Real CLI variants request reapproval separately for LC-003, LC-005 and LC-006. A
 negative variant omits LC-006 only from content-team while preserving its status
 and launch-ops summary, testing the required delivery independently of those
 other records. These are reference variants, not model-player exploration.
+
+### Weather notification scope and an explicit historical batch
+
+HR5080's original request and assertions do not require all facts in every
+individual message. The translated instruction had added that restriction. It now
+requires complete information per recipient, and recipient-level grading permits
+consecutive parts. Office, consent, authorized recipients, tomorrow's date and
+work-from-home action remain required; source data and reference are unchanged.
+A real CLI negative omits the action only for one eligible employee; sending it
+to the other recipients does not compensate. This explicitly revises the earlier
+migration wording, rather than pretending its old fragmented example was valid.
+
+Marketing1185 is explicitly adapted as backlog processing of the January 27
+social queue. The dated batch directive's “today” therefore refers to that batch,
+not the later execution clock. This added historical scope is an adaptation of an
+underspecified source prompt, not text asserted to exist upstream. No batch label,
+escalation policy, expected result, reference, clock or source timestamp changes.
+This resolves applicability of the dated directive; it does not claim all
+upstream distractor timestamps form a historically consistent snapshot. Both
+instruction changes are reflected in the migration source and judge input.
