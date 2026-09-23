@@ -724,3 +724,17 @@ Actual CLI reference variants split both SEO destinations and the landing-page
 report, or merge the three PR alerts. A negative variant omits the VIP only from
 the PR briefing while retaining its ticket, so successful ticket creation cannot
 substitute for notification. These are reference variants, not model-player runs.
+
+### Newsletter and creative reminder tracking on each message
+
+Marketing1042 and 1079 accept complete report sections delivered across messages
+to their existing recipient. Every output retains its current batch code; the
+newsletter also retains Weekly Digest. Recipient-level literal rules run after
+semantic text delegation, so a second message without the required marker fails
+programmatic verification. Shared helper copies and regeneration overrides are
+synchronized. Editorial deduplication, source restrictions, subscriber consent
+updates, deadline exclusions and date formatting remain unchanged.
+
+Real CLI reference variants preserve all report lines and repeat required headers
+in each part. Missing-code variants remove the code only from the second output.
+These are collected executions, not model-player trials or edited backend states.
