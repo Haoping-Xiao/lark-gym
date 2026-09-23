@@ -16,6 +16,30 @@ function usdCents(value: unknown): bigint | null {
     (match[1] ? -1n : 1n)
   );
 }
+// Text-backed JSON keeps its field type while comparing the represented value.
+function sameJsonText(
+  actual: unknown,
+  expected: unknown,
+  mode: string,
+): boolean {
+  if (typeof actual !== 'string' || typeof expected !== 'string') return false;
+  try {
+    const a = JSON.parse(actual),
+      b = JSON.parse(expected);
+    if (mode === 'string_set') {
+      const tags = (value: unknown): value is string[] =>
+        Array.isArray(value) &&
+        value.every((v) => typeof v === 'string') &&
+        new Set(value).size === value.length;
+      return (
+        tags(a) && tags(b) && isDeepStrictEqual([...a].sort(), [...b].sort())
+      );
+    }
+    return mode === 'structure' && isDeepStrictEqual(a, b);
+  } catch {
+    return false;
+  }
+}
 export function prepareSemantic(
   expected: Json,
   world: Json,
@@ -33,6 +57,7 @@ export function prepareSemantic(
   );
   const literalFields = new Set<string>(config.literal_fields || []);
   const semanticField = (field: string) =>
+    !config.json_text_fields?.[field] &&
     !literalFields.has(field) &&
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
@@ -186,6 +211,28 @@ export function prepareSemantic(
       if (hasContent) deferred.push(`${key}[${i}].meaning`);
       return !hasContent;
     });
+  }
+  for (const check of expected.updates || []) {
+    const mode = config.json_text_fields?.[check.field];
+    if (!mode || check.mode !== 'equals') continue;
+    const actual = world.base.records.find(
+      (r: Json) => r.record_id === check.record_id,
+    )?.fields[check.field];
+    if (sameJsonText(actual, check.value, mode)) check.value = actual;
+  }
+  for (const record of expected.creates || []) {
+    const keys = Object.keys(record).filter(
+      (key) => config.json_text_fields?.[key],
+    );
+    if (!keys.length) continue;
+    const actual = world.base.records.find((r: Json) =>
+      Object.entries(record).every(([key, value]) =>
+        config.json_text_fields?.[key]
+          ? sameJsonText(r.fields[key], value, config.json_text_fields[key])
+          : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
+      ),
+    );
+    if (actual) for (const key of keys) record[key] = actual.fields[key];
   }
   for (const [i, record] of (expected.creates || []).entries()) {
     for (const key of Object.keys(record))

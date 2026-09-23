@@ -129,3 +129,10 @@ Only declared expected result cells qualify; unchanged source values remain
 protected. Currently this covers finance 4048 remaining credit/bill balances and
 4054 updated accumulated depreciation, 4081 recommended credit limits and 4098
 recognized-to-date totals, not their source amounts or journal field types. It does not defer these amount checks to a language model.
+
+`json_text_fields` compares reviewed text-backed JSON fields structurally without
+changing their stored field type. `string_set` requires unique string elements
+and compares the exact tag set; `structure` retains array order and all nested
+values while ignoring JSON whitespace and object key order. Missing, malformed,
+wrong-type or additional content fails. These fields cannot fall back to free
+text grading. Enabled only for support 1465/1473/1475 tags and 1476 source_threads.
