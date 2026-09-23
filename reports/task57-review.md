@@ -621,3 +621,30 @@ These executions retain collected backend history and are not model-player trial
 Independent Astra content judges accept both variants' combined report facts.
 The missing-code case is rejected by the deterministic per-message literal rule,
 not by the content judge; semantic approval cannot override that failure.
+
+### Operations notifications grouped by recipient
+
+Operations1302, 1334, 1339, 1346, 1351 and 1361 opt into equivalent grouping only
+for reviewed recipients: churn-watch, infra-alerts, shared badge contacts,
+shared perishable-goods contacts, Patricia Cole and safety-incidents respectively.
+The source workflows require each customer's, server's, badge's, lot's, employee's
+or incident's details to reach the correct destination, without mandating separate
+messages or a single combined alert. Other recipients keep their existing checks.
+
+The change preserves exclusion/hold policies, source values, badge and lot
+identity, severity routing, individual ticket creation and all state protections.
+Task instructions, seeds, reference solutions and expected business facts remain
+unchanged. Scoped semantic helpers and rubrics are synchronized from the shared
+installer so regenerated tasks retain the same recipient boundary.
+
+Real CLI reference variants merge complete notices to identical recipients;
+1334 instead sends one complete Critical alert per server. All six alternatives
+fail the old fixed-count checks. Negative executions omit prod-api-01 only from
+the alert channel, or BDG-3008 only from Wayne's phone notification, while leaving
+other deliveries intact. These are actual executions with collected backend
+history, not model-player trials or edited final states.
+
+The generic structural regression now removes all new notifications to one
+recipient, preserving seeded messages. Removing only one message may remove
+content rather than a required destination after grouping becomes flexible;
+that distinction is covered by the two independent semantic omission cases.

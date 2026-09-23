@@ -292,9 +292,15 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
               (r: { record_id: string }) => r.record_id !== created.record_id,
             );
           else if (newMessage)
+            // A missing recipient is structural even when complete report
+            // content can legitimately span or combine messages.
             backend.world.messages = backend.world.messages.filter(
-              (m: { message_id: string }) =>
-                m.message_id !== newMessage.message_id,
+              (m: { message_id: string; chat_id: string }) =>
+                m.chat_id !== newMessage.chat_id ||
+                seed.messages.some(
+                  (old: { message_id: string }) =>
+                    old.message_id === m.message_id,
+                ),
             );
           else if (newEvent)
             backend.world.events = backend.world.events.filter(
