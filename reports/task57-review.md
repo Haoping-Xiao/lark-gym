@@ -773,3 +773,18 @@ escalation policy, expected result, reference, clock or source timestamp changes
 This resolves applicability of the dated directive; it does not claim all
 upstream distractor timestamps form a historically consistent snapshot. Both
 instruction changes are reflected in the migration source and judge input.
+
+### International invoices and recognition schedule row order
+
+Finance4017 and 4023 now match complete new rows as an unordered set. Original
+assertions require row existence by invoice/contract and amount, not destination
+row position. Existing-row updates, including the deferred contract in 4023,
+remain coordinate-specific; source currency/amount text, USD conversion,
+recognition policy and computed amount requirements are unchanged. The separate
+4023 decimal-format candidate is not resolved by this change.
+
+Real CLI variants reverse destination rows while preserving complete records and
+notifications. Negative variants write duplicate invoice/contract IDs, ensuring
+missing or mismatched identities still fail. Unit tests also perturb complete
+rows and duplicate one; these post-state tests are distinct from the recorded
+real CLI variants and neither is a model-player trial.

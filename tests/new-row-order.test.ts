@@ -10,6 +10,8 @@ const exec = promisify(execFile);
 for (const task of [
   'automationbench-sales-1104',
   'automationbench-support-1571',
+  'automationbench-finance-4017',
+  'automationbench-finance-4023',
 ])
   test(`${task}: new row permutations pass and duplicate/missing identity fails`, async () => {
     const root = `tasks/${task}`;
@@ -31,7 +33,17 @@ for (const task of [
       });
       const world = structuredClone(backend.world),
         first = expected.cells[0];
-      const rows = [...new Set<number>(expected.cells.map((c: any) => c.row))];
+      const rows = [
+        ...new Set<number>(
+          expected.cells
+            .filter(
+              (c: any) =>
+                c.spreadsheet_token === first.spreadsheet_token &&
+                c.sheet_id === first.sheet_id,
+            )
+            .map((c: any) => c.row),
+        ),
+      ];
       const sheet =
         world.spreadsheets![first.spreadsheet_token].sheets[first.sheet_id];
       const before =
