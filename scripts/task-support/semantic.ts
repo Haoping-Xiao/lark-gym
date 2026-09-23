@@ -40,6 +40,33 @@ function sameJsonText(
     return false;
   }
 }
+// Strict RFC3339 calendar validation; Date.parse alone normalizes bad dates.
+function instant(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const m =
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?(Z|[+-]\d{2}:\d{2})$/.exec(
+      value,
+    );
+  if (!m) return null;
+  const [year, month, day, hour, minute, second] = m.slice(1, 7).map(Number);
+  if (hour > 23 || minute > 59 || second > 59) return null;
+  const date = new Date(0);
+  date.setUTCFullYear(year, month - 1, day);
+  date.setUTCHours(hour, minute, second, 0);
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  )
+    return null;
+  const zone = m[8];
+  const fraction = (m[7] || '').replace(/0+$/, '');
+  if (zone === 'Z') return `${date.getTime()}:${fraction}`;
+  const h = Number(zone.slice(1, 3)),
+    min = Number(zone.slice(4));
+  if (h > 23 || min > 59) return null;
+  return `${date.getTime() - (zone[0] === '+' ? 1 : -1) * (h * 60 + min) * 60000}:${fraction}`;
+}
 export function prepareSemantic(
   expected: Json,
   world: Json,
@@ -57,6 +84,7 @@ export function prepareSemantic(
   );
   const literalFields = new Set<string>(config.literal_fields || []);
   const semanticField = (field: string) =>
+    !config.instant_fields?.includes(field) &&
     !config.json_text_fields?.[field] &&
     !literalFields.has(field) &&
     (fields.has(field.toLowerCase()) ||
@@ -212,25 +240,37 @@ export function prepareSemantic(
       return !hasContent;
     });
   }
+  const reviewedField = (key: string) =>
+    config.json_text_fields?.[key] || config.instant_fields?.includes(key);
+  const sameReviewedField = (key: string, actual: unknown, value: unknown) => {
+    if (config.instant_fields?.includes(key)) {
+      const expectedTime = instant(value);
+      return expectedTime !== null && instant(actual) === expectedTime;
+    }
+    return sameJsonText(actual, value, config.json_text_fields[key]);
+  };
   for (const check of expected.updates || []) {
-    const mode = config.json_text_fields?.[check.field];
+    const mode = reviewedField(check.field);
     if (!mode || check.mode !== 'equals') continue;
     const actual = world.base.records.find(
       (r: Json) => r.record_id === check.record_id,
     )?.fields[check.field];
-    if (sameJsonText(actual, check.value, mode)) check.value = actual;
+    if (sameReviewedField(check.field, actual, check.value))
+      check.value = actual;
   }
   for (const record of expected.creates || []) {
-    const keys = Object.keys(record).filter(
-      (key) => config.json_text_fields?.[key],
-    );
+    const keys = Object.keys(record).filter((key) => reviewedField(key));
     if (!keys.length) continue;
-    const actual = world.base.records.find((r: Json) =>
-      Object.entries(record).every(([key, value]) =>
-        config.json_text_fields?.[key]
-          ? sameJsonText(r.fields[key], value, config.json_text_fields[key])
-          : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
-      ),
+    const actual = world.base.records.find(
+      (r: Json) =>
+        !seed?.base?.records.some(
+          (old: Json) => old.record_id === r.record_id,
+        ) &&
+        Object.entries(record).every(([key, value]) =>
+          reviewedField(key)
+            ? sameReviewedField(key, r.fields[key], value)
+            : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
+        ),
     );
     if (actual) for (const key of keys) record[key] = actual.fields[key];
   }

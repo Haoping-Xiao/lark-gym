@@ -136,3 +136,11 @@ and compares the exact tag set; `structure` retains array order and all nested
 values while ignoring JSON whitespace and object key order. Missing, malformed,
 wrong-type or additional content fails. These fields cannot fall back to free
 text grading. Enabled only for support 1465/1473/1475 tags and 1476 source_threads.
+
+`instant_fields` preserves an explicitly required instant while accepting
+RFC3339 offsets and fractional-second forms without losing submillisecond precision. Calendar dates, clock components and
+offsets are validated before comparing timestamps; timezone-free strings,
+invalid dates and different instants fail. Enabled only for marketing 1061
+scheduled_at, whose public instruction fixes 09:00 UTC. This does not establish
+fixed times for tasks asking only for a day or morning. Creation normalization
+considers new records only, leaving existing source records unchanged.

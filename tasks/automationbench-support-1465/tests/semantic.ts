@@ -155,12 +155,16 @@ export function prepareSemantic(
       (key) => config.json_text_fields?.[key],
     );
     if (!keys.length) continue;
-    const actual = world.base.records.find((r: Json) =>
-      Object.entries(record).every(([key, value]) =>
-        config.json_text_fields?.[key]
-          ? sameJsonText(r.fields[key], value, config.json_text_fields[key])
-          : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
-      ),
+    const actual = world.base.records.find(
+      (r: Json) =>
+        !seed?.base?.records.some(
+          (old: Json) => old.record_id === r.record_id,
+        ) &&
+        Object.entries(record).every(([key, value]) =>
+          config.json_text_fields?.[key]
+            ? sameJsonText(r.fields[key], value, config.json_text_fields[key])
+            : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
+        ),
     );
     if (actual) for (const key of keys) record[key] = actual.fields[key];
   }
