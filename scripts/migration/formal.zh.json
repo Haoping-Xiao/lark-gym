@@ -2347,7 +2347,7 @@
     ]
   },
   "finance-4025": {
-    "instruction": "以今日为基准生成应付账龄报告，按 Aging Policy 中的逾期天数区间归类所有未付账单。向 cfo@company.example.com 私聊各档总额，区间使用 Current、31-60、61-90、Over 90。每个有超 90 天余额的供应商分别向 accounts-payable 群发一条告警，注明供应商、账单号和金额。",
+    "instruction": "以今日为基准生成应付账龄报告，按 Aging Policy 中的逾期天数区间归类所有未付账单。向 cfo@company.example.com 私聊各档总额，区间使用 Current、31-60、61-90、Over 90。每个有逾期满 90 天（含 90 天）余额的供应商分别向 accounts-payable 群发一条告警，注明供应商、账单号和金额。告警门槛与分桶分开判断：第 90 天仍属 61-90 档，但已需告警；Over 90 档从第 91 天开始。引用来源中的供应商、账单号和金额时原样保留，不改写或四舍五入；各档汇总金额按实际计算。",
     "messages": [
       {
         "email": "cfo@company.example.com",
@@ -12919,7 +12919,7 @@
     ]
   },
   "finance-4033": {
-    "instruction": "今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者私聊确认项目和最终金额，包含估价号、客户全名和千位逗号美元金额。",
+    "instruction": "今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者私聊确认项目，包含估价号、客户全名、原估价金额与最终发票金额。引用来源值时原样保留，不改写或四舍五入；最终发票金额使用千位逗号美元格式。",
     "now": "2026-02-10T09:00:00Z",
     "creates": [
       {
@@ -12935,13 +12935,14 @@
     "messages": [
       {
         "email": "billing@brightideas.example.com",
-        "text": "Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | $21,000",
+        "text": "Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | 原估价金额 20000 | 最终发票金额 $21,000",
         "contains": [
           "Bright Ideas Studio",
           "EST-1001",
           "项目已确认",
           "发票已开具",
-          "21,000"
+          "21,000",
+          "20000"
         ]
       }
     ]

@@ -32,6 +32,22 @@ export function baseRoutes(
       has_more: offset + limit < entries.length,
     };
   }
+  if (
+    method === 'POST' &&
+    p === `/open-apis/base/v3/bases/${allBase.app_token}/blocks/list`
+  ) {
+    if (
+      Object.keys(body).some((key) => key !== 'parent_id') ||
+      (body.parent_id !== undefined && body.parent_id !== '')
+    )
+      fail(501, 990001, 'ENV_UNSUPPORTED: nested Base blocks or list options');
+    // These task bases contain flat tables only. Read their canonical catalog;
+    // do not invent documents, folders, dashboards or separate sidebar state.
+    const blocks = (
+      allBase.tables || [{ table_id: allBase.table_id, name: allBase.table_id }]
+    ).map(({ table_id, name }) => ({ id: table_id, type: 'table', name }));
+    return { blocks, total: blocks.length };
+  }
   const tableId = /\/tables\/([^/]+)/.exec(p)?.[1];
   const selected = allBase.tables?.find(
     (table) => table.table_id === tableId || table.name === tableId,

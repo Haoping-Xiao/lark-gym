@@ -41,7 +41,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_2',
     '--text',
-    'Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | $21,000',
+    'Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | 原估价金额 20000 | 最终发票金额 $21,000',
   ],
 ];
 for (const args of commands)
