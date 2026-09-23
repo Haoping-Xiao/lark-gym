@@ -326,7 +326,12 @@ export function prepareSemantic(
   for (const [i, record] of (expected.creates || []).entries()) {
     for (const key of Object.keys(record))
       if (semanticField(key) && typeof record[key] === 'string') {
-        delete record[key];
+        const terms = config.literal_creation_terms?.[String(i)]?.[key];
+        if (terms?.length) {
+          expected.creation_contains ||= {};
+          expected.creation_contains[String(i)] ||= {};
+          expected.creation_contains[String(i)][key] = terms;
+        } else delete record[key];
         deferred.push(`creates[${i}].${key}`);
       }
   }
