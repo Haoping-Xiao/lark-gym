@@ -708,3 +708,19 @@ that source assertion, even though the prose does not repeat the count. This is 
 retained source constraint, not a fixed defect or a claim about all future report
 workflows. Changing that task contract would require an explicit source-assertion
 adaptation rather than silently enabling generic report splitting.
+
+### Landing-page, SEO and brand-alert message grouping
+
+Marketing1023 and 1049 accept complete report sections across messages to each
+existing recipient; 1054 accepts one complete PR-team briefing combining the three
+alerts. The original prompts, policies and assertions contain no exact message
+count for these tasks. Threshold precedence, mandatory partner-page visibility,
+excluded pages, exact keyword matching and consolidation recommendations, combined
+impressions, escalation exceptions and urgency levels remain required. Each PR
+ticket still needs its own complete record. Inputs and reference solutions are
+unchanged.
+
+Actual CLI reference variants split both SEO destinations and the landing-page
+report, or merge the three PR alerts. A negative variant omits the VIP only from
+the PR briefing while retaining its ticket, so successful ticket creation cannot
+substitute for notification. These are reference variants, not model-player runs.
