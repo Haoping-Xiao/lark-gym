@@ -7,7 +7,7 @@ import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const n of [1041, 1043, 1047, 1075, 1045])
+for (const n of [1041, 1043, 1047, 1075, 1045, 1078, 1082, 1096])
   test(`marketing ${n}: complete report sections can span messages`, async () => {
     const root = `tasks/automationbench-marketing-${n}`,
       seed = JSON.parse(

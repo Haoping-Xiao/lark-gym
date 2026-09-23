@@ -687,3 +687,24 @@ omit one technical ticket only from its lead's briefing, or one urgent ticket on
 from the support lead's handoff, leaving the other deliveries and state changes
 intact. These are collected real executions, not model-player trials or edited
 backend states/history.
+
+### Further marketing reports and a retained source count
+
+Marketing1078, 1082 and 1096 allow complete report sections across messages to
+their existing recipient. Source guidelines retain validated/overridden campaign
+metrics and cost interpretation, strategic SEO exceptions and total search volume,
+and December win/loss scope with reason-level aggregation and exact money format.
+No source message-count constraint was found for these three tasks. Instructions,
+seeds, expected facts and references remain unchanged.
+
+Actual CLI reference partitions preserve all rows and order, with tracking headers
+on both campaign/SEO parts. An additional win/loss run omits the API-access loss
+reason while retaining the overall totals, testing completeness independently of
+message count. These are reference variants, not model-player trials.
+
+Marketing1087 is unchanged: its original assertion explicitly specifies
+`gmail_email_sent_count = 1`. The proposed split-report alternative conflicts with
+that source assertion, even though the prose does not repeat the count. This is a
+retained source constraint, not a fixed defect or a claim about all future report
+workflows. Changing that task contract would require an explicit source-assertion
+adaptation rather than silently enabling generic report splitting.
