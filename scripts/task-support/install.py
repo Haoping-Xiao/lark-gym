@@ -20,7 +20,7 @@ def install_environment(task):
     path.write_text(json.dumps(policy, ensure_ascii=False, indent=2) + '\n')
     (task / 'tests/unsupported-policy.json').write_text(path.read_text())
     docker = task / 'environment/mock.Dockerfile'
-    s = docker.read_text().replace('lark-gym-mock:0.2.0', 'lark-gym-mock:0.2.1')
+    s = docker.read_text().replace('lark-gym-mock:0.2.0', 'lark-gym-mock:0.2.2').replace('lark-gym-mock:0.2.1', 'lark-gym-mock:0.2.2')
     if 'unsupported.ts' not in s:
         s += 'COPY unsupported.ts unsupported-policy.json /opt/mock/\n'
     s = re.sub(r'^CMD .*\n?', '', s, flags=re.M)
@@ -28,7 +28,7 @@ def install_environment(task):
     docker.write_text(s)
     (task / 'environment/agent-lifetime.mjs').write_text(Path(__file__).with_name('agent-lifetime.mjs').read_text())
     docker = task / 'environment/Dockerfile'
-    s = docker.read_text()
+    s = docker.read_text().replace('lark-gym-cli:0.2.0', 'lark-gym-cli:0.2.1')
     if 'COPY agent-lifetime.mjs' not in s:
         s += 'COPY agent-lifetime.mjs /opt/task/agent-lifetime.mjs\n'
     docker.write_text(s)

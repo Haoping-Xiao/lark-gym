@@ -1,4 +1,5 @@
 import { filterRecords } from './query.ts';
+import { baseMetadata } from './metadata.ts';
 import type { BaseRecord, World } from '../../../types.ts';
 import { deleteRecords } from './records.ts';
 import { fail, requireValue } from '../../errors.ts';
@@ -10,6 +11,14 @@ export function baseRoutes(
   { method, path: p, query: q, body }: ApiRequest,
 ): ResponseData | undefined {
   const allBase = world.base;
+  const baseToken = /^\/open-apis\/base\/v3\/bases\/([^/]+)$/.exec(p)?.[1];
+  if (method === 'GET' && baseToken) {
+    if (baseToken !== allBase.app_token)
+      fail(404, 990004, 'Base not found in fixture');
+    if (q.size || Object.keys(body).length)
+      fail(501, 990001, 'ENV_UNSUPPORTED: Base metadata lookup options');
+    return baseMetadata(allBase);
+  }
   const tablesPath = `/open-apis/base/v3/bases/${allBase.app_token}/tables`;
   if (method === 'GET' && p === tablesPath) {
     const entries = (

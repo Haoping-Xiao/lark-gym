@@ -41,6 +41,7 @@ export interface World {
   calendars: ApiObject[];
   events: (ApiObject & { event_id: string; summary: string })[];
   base: {
+    name?: string;
     app_token: string;
     table_id: string;
     records: BaseRecord[];
@@ -58,6 +59,7 @@ export interface World {
   messages: (ApiObject & { message_id: string; chat_id: string })[];
 }
 export interface ApiCall {
+  identity?: 'user' | 'bot';
   seq: number;
   method: string;
   path: string;

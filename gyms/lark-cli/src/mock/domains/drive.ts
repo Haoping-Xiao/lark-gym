@@ -2,6 +2,7 @@ import type { World } from '../../types.ts';
 import type { ApiRequest } from '../types.ts';
 import { fail, requireValue } from '../errors.ts';
 import { page } from '../pagination.ts';
+import { baseMetadata } from './base/metadata.ts';
 
 // Derive the catalogue from live business objects; never from expected answers.
 function resources(world: World) {
@@ -23,7 +24,7 @@ function resources(world: World) {
       ? [
           {
             token: world.base.app_token,
-            name: '业务台账',
+            name: baseMetadata(world.base).name,
             type: 'bitable',
             text: JSON.stringify(world.base),
             url: `https://company.feishu.cn/base/${world.base.app_token}`,

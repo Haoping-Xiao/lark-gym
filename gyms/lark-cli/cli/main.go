@@ -19,7 +19,10 @@ func (mockCredentials) Priority() int { return 10000 }
 func (mockCredentials) ResolveAccount(context.Context) (*credential.Account, error) {
 	return &credential.Account{AppID: "cli_eval", Brand: credential.BrandFeishu, DefaultAs: credential.IdentityUser, OpenID: "ou_eval", SupportedIdentities: credential.SupportsAll}, nil
 }
-func (mockCredentials) ResolveToken(context.Context, credential.TokenSpec) (*credential.Token, error) {
+func (mockCredentials) ResolveToken(_ context.Context, spec credential.TokenSpec) (*credential.Token, error) {
+	if spec.Type == credential.TokenTypeTAT {
+		return &credential.Token{Value: "local-evaluation-only-bot", Source: "synthetic"}, nil
+	}
 	return &credential.Token{Value: "local-evaluation-only", Source: "synthetic"}, nil
 }
 

@@ -5,6 +5,7 @@ import { driveRoutes } from './domains/drive.ts';
 import { baseRoutes } from './domains/base/routes.ts';
 import { createCalendarRoutes } from './domains/calendar.ts';
 import { identityRoutes } from './domains/identity.ts';
+import { mailRoutes } from './domains/mail.ts';
 import { createImRoutes } from './domains/im/routes.ts';
 import { sheetsRoutes } from './domains/sheets.ts';
 import { fail } from './errors.ts';
@@ -32,6 +33,9 @@ export function createRouter(world: World) {
         break;
       case 'authen':
         result = identityRoutes(request);
+        break;
+      case 'mail':
+        result = mailRoutes(request);
         break;
       case 'sheets':
       case 'sheet_ai':
