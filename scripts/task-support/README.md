@@ -186,3 +186,7 @@ entity_order的record_before_message=false只要求指定登记与通知分别�
 `event_text_indices` selects reviewed events whose titles and optional descriptions are judged for business meaning; calendar, live status, exact time and attendees remain structural requirements. Selected events automatically enable the semantic rubric.
 
 Reviewed `usd_result_columns` may require a literal `prefix` and `require_currency_symbol`; only the remaining USD amount is compared as exact cents. This does not change source fields or notification literals.
+
+`record_state_before_messages` 在指定通知发送时回放成功的记录变更，检查每条目标记录当时是否具备要求字段。允许字段分多次写入；通知后补写不能补救提前通知。1155 用于确认所有联系人的取消状态与日期已完成，原有报名者通知先于 CRM 更新的顺序仍单独检查。
+
+`workflow_barriers` 显式约束两组业务事件之间的先后关系。消息按新发送、队列记录按新创建、指定单元格按实际值变化识别；各选择器都须有执行证据，全部前置事件须早于任一后置事件。1610 要求完整协调先于渠道执行，最终汇总晚于入队、发送、重审和状态更新；独立事项之间不增加顺序。两个配置均为逐题启用，默认行为不变。

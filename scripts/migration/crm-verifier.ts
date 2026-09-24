@@ -32,7 +32,24 @@ type Check = {
   contains?: string[];
   forbidden?: string[];
 };
+type WorkflowEventSelector = {
+  kind: string;
+  chat_id?: string;
+  collection?: string;
+  spreadsheet_token?: string;
+  sheet_id?: string;
+  row?: number;
+  column?: number;
+};
 const expected: {
+  workflow_barriers?: {
+    before: WorkflowEventSelector[];
+    after: WorkflowEventSelector[];
+  }[];
+  record_state_before_messages?: {
+    chat_id: string;
+    records: { record_id: string; equals: Fields }[];
+  }[];
   action_prerequisites?: {
     notification: { chat_id: string; contains: string[] };
     records: { collection: string; equals: Fields }[];
@@ -602,8 +619,102 @@ const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
     };
   },
 );
+const recordStateBeforeMessageChecks = (
+  expected.record_state_before_messages || []
+).map((rule) => {
+  const current = new Map<string, Fields>(
+    seed.base.records.map((row: RecordRow) => [
+      row.record_id,
+      structuredClone(row.fields),
+    ]),
+  );
+  const checkpoints: { seq: number; passed: boolean }[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || []) {
+      if (
+        mutation.kind === 'message' &&
+        mutation.after &&
+        !mutation.before &&
+        mutation.after.chat_id === rule.chat_id
+      ) {
+        checkpoints.push({
+          seq: call.seq,
+          passed: rule.records.every((record) =>
+            Object.entries(record.equals).every(([key, value]) =>
+              isDeepStrictEqual(current.get(record.record_id)?.[key], value),
+            ),
+          ),
+        });
+      }
+      if (mutation.kind === 'record') {
+        if (mutation.after)
+          current.set(mutation.id, structuredClone(mutation.after.fields));
+        else current.delete(mutation.id);
+      }
+    }
+  }
+  return {
+    rule,
+    checkpoints,
+    passed:
+      checkpoints.length > 0 && checkpoints.every((check) => check.passed),
+  };
+});
+const workflowEventSequences = (selector: WorkflowEventSelector): number[] => {
+  const result: number[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || []) {
+      if (!mutation.after) continue;
+      let matches = false;
+      if (selector.kind === 'message')
+        matches =
+          mutation.kind === 'message' &&
+          !mutation.before &&
+          mutation.after.chat_id === selector.chat_id;
+      if (selector.kind === 'record')
+        matches =
+          mutation.kind === 'record' &&
+          !mutation.before &&
+          mutation.after.fields?.collection === selector.collection;
+      if (
+        selector.kind === 'cell' &&
+        mutation.kind === 'spreadsheet' &&
+        mutation.id === selector.spreadsheet_token
+      ) {
+        const before =
+          mutation.before?.sheets?.[selector.sheet_id!]?.values?.[
+            selector.row!
+          ]?.[selector.column!];
+        const after =
+          mutation.after.sheets?.[selector.sheet_id!]?.values?.[
+            selector.row!
+          ]?.[selector.column!];
+        matches = !isDeepStrictEqual(before, after);
+      }
+      if (matches) result.push(call.seq);
+    }
+  }
+  return result;
+};
+const workflowBarrierChecks = (expected.workflow_barriers || []).map((rule) => {
+  const before = rule.before.map(workflowEventSequences),
+    after = rule.after.map(workflowEventSequences);
+  return {
+    rule,
+    before,
+    after,
+    passed:
+      before.every((events) => events.length > 0) &&
+      after.every((events) => events.length > 0) &&
+      Math.max(...before.flat()) < Math.min(...after.flat()),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  workflowBarrierChecks.every((check) => check.passed) &&
+  recordStateBeforeMessageChecks.every((check) => check.passed) &&
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
@@ -633,6 +744,8 @@ writeFileSync(
       membershipChecks,
       orderChecks,
       actionPrerequisiteChecks,
+      recordStateBeforeMessageChecks,
+      workflowBarrierChecks,
       entityOrderChecks,
       messageChecks,
       forbiddenMessageChecks,

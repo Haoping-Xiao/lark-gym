@@ -7,7 +7,7 @@ import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-const scopes: Record<number, string[]> = { 1610: ['oc_email_4'] };
+const scopes: Record<number, string[]> = { 1610: ['oc_email_4', 'oc_C_lnch'] };
 for (const n of [1610])
   test(`launch ${n}: equivalent recipient grouping`, async () => {
     const root = `tasks/automationbench-marketing-${n}`,

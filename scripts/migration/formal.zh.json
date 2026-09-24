@@ -8462,7 +8462,7 @@
     }
   },
   "marketing-1155": {
-    "instruction": "今天是 2026-01-27，取消明天的 webinar。结合 ss_wbnr 报名表和事件负责人的取消 SOP，用飞书私聊通知所有报名者，更新 hubspot_contacts 联系人状态和取消日期，通知 events 群并完成后续退款与总结流程。源资料没有活动名，本轮统一使用 Webinar Management webinar，不虚构名称或实际退款。CRM 字段 webinar_status 与 cancellation_date；退款申请使用 hubspot_tickets，subject、description、assigned_team。按 SOP 顺序执行，汇总使用英文计数标签 registrants、premium registrants，金额原文保留。",
+    "instruction": "今天是 2026-01-27，由于演讲者无法出席，取消明天的 webinar。结合 ss_wbnr 报名表和事件负责人的取消 SOP，用飞书私聊通知所有报名者，更新 hubspot_contacts 联系人状态和取消日期，通知 events 群并完成后续退款与总结流程。源资料没有活动名，本轮统一使用 Webinar Management webinar，不虚构名称或实际退款。CRM 字段 webinar_status 与 cancellation_date；退款申请使用 hubspot_tickets，subject、description、assigned_team。按 SOP 顺序执行，汇总使用英文计数标签 registrants、premium registrants，金额原文保留。",
     "now": "2026-01-27T12:00:00Z",
     "updates": [
       {
@@ -8730,6 +8730,69 @@
         "kind": "message",
         "emails": ["events-ops@company.example.com"]
       }
+    ],
+    "record_state_before_messages": [
+      {
+        "chat_id": "oc_C_evt",
+        "records": [
+          {
+            "record_id": "rec_hubspot_hs_mc1",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_jw2",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_pk3",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_tn4",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_sm5",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_do6",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_ar7",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          },
+          {
+            "record_id": "rec_hubspot_hs_lb8",
+            "equals": {
+              "webinar_status": "cancelled",
+              "cancellation_date": "2026-01-27"
+            }
+          }
+        ]
+      }
     ]
   },
   "marketing-1610": {
@@ -8846,7 +8909,106 @@
         ]
       }
     ],
-    "command_order": [0, 1, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14]
+    "command_order": [0, 1, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14],
+    "workflow_barriers": [
+      {
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_C_lnch"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record",
+            "collection": "facebook_pages_posts"
+          },
+          {
+            "kind": "record",
+            "collection": "content_queue"
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_email_16"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "kind": "record",
+            "collection": "facebook_pages_posts"
+          },
+          {
+            "kind": "record",
+            "collection": "content_queue"
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_email_16"
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_email_4"
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 1,
+            "column": 4
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 2,
+            "column": 4
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 3,
+            "column": 4
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 4,
+            "column": 4
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 4,
+            "column": 1
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 5,
+            "column": 4
+          },
+          {
+            "kind": "cell",
+            "spreadsheet_token": "ss_lnch",
+            "sheet_id": "ws_content",
+            "row": 6,
+            "column": 4
+          }
+        ],
+        "after": [
+          {
+            "kind": "message",
+            "chat_id": "oc_email_9"
+          }
+        ]
+      }
+    ]
   },
   "marketing-1042": {
     "instruction": "今天是 2026-01-27 15:00 UTC。整理本周行业简报，依据业务来信候选文章及 ss_hist/ws_sent 去重，语义相同主题也算重复。向 newsletter@company.example.com 发飞书私聊提交本期 Weekly Digest 编辑稿，本轮不是定时订阅群发，不要求外部文章抓取；仅用已有摘要写 2–3 句，保留已提供的标题和关键英文事实，不编造作者、全文或 URL。本轮来源禁令只能由 newsletter-ops 明确撤销，普通编辑或实习生意见不能撤销；依操作指南保留批次码。检查 legal-compliance 群并按最新规则更新 ss_subscribers/ws_subs 的 status，保留所有行。",
