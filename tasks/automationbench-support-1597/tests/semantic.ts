@@ -102,6 +102,7 @@ export function prepareSemantic(
       original,
       deferred: [] as string[],
       literalMessageChecks: [] as Json[],
+      recordGroupChecks: [] as Json[],
     };
   const fields = new Set<string>(
     config.text_fields.map((field: string) => field.toLowerCase()),
@@ -115,6 +116,7 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  const recordGroupChecks: Json[] = [];
   if (config.event_text && expected.events?.length)
     deferred.push('events.business_purpose_and_optional_description');
   // Each source assertion is existential over one actual, newly sent body.
@@ -269,6 +271,33 @@ export function prepareSemantic(
         );
         for (const cell of cells) cell.row = row;
       }
+    }
+  }
+  // Reviewed text formatting is representation metadata only on permitted
+  // string-valued output cells. The authoritative state file is never rewritten.
+  if (seed && config.text_format_cells) {
+    for (const cell of expected.cells || []) {
+      const sheet = (state: Json) =>
+        cell.spreadsheet_token
+          ? state.spreadsheets?.[cell.spreadsheet_token]?.sheets?.[
+              cell.sheet_id
+            ]
+          : state.sheets?.[cell.sheet_id];
+      const before = sheet(seed),
+        after = sheet(world);
+      const key = `${cell.row}:${cell.column}`;
+      if (
+        typeof after?.values?.[cell.row]?.[cell.column] !== 'string' ||
+        !isDeepStrictEqual(after.cell_styles?.[key], { number_format: '@' }) ||
+        before?.cell_styles?.[key] !== undefined
+      )
+        continue;
+      delete after.cell_styles[key];
+      if (
+        !Object.keys(after.cell_styles).length &&
+        before?.cell_styles === undefined
+      )
+        delete after.cell_styles;
     }
   }
   for (const [i, message] of (expected.messages || []).entries()) {
@@ -436,10 +465,58 @@ export function prepareSemantic(
       deferred.push(`cells[${i}].content`);
     }
   }
+  // Only explicitly reviewed note groups may partition their text across records.
+  // Structural identities/privacy remain fixed, and other creations stay strict.
+  if (seed && config.record_count_groups?.length) {
+    original.record_count_groups = config.record_count_groups;
+    const oldIds = new Set(seed.base.records.map((r: Json) => r.record_id));
+    const added = world.base.records.filter(
+      (r: Json) => !oldIds.has(r.record_id),
+    );
+    const expanded: Json[] = [],
+      contains: Json = {};
+    for (const [index, record] of (expected.creates || []).entries()) {
+      const rule = config.record_count_groups.find((group: Json) => {
+        const structural = { ...record };
+        delete structural[group.text_field];
+        return isDeepStrictEqual(structural, group.fields);
+      });
+      let count = 1;
+      if (rule) {
+        const records = added.filter((r: Json) =>
+          Object.entries(rule.fields).every(([key, value]) =>
+            isDeepStrictEqual(r.fields[key], value),
+          ),
+        );
+        const bodies = records.map((r: Json) => r.fields[rule.text_field]);
+        recordGroupChecks.push({
+          fields: rule.fields,
+          passed:
+            records.length > 0 &&
+            bodies.every(
+              (body: unknown) =>
+                typeof body === 'string' && body.trim().length > 0,
+            ) &&
+            new Set(bodies).size === bodies.length,
+        });
+        count = Math.max(1, records.length);
+      }
+      for (let n = 0; n < count; n++) {
+        if (expected.creation_contains?.[String(index)])
+          contains[String(expanded.length)] =
+            expected.creation_contains[String(index)];
+        expanded.push(structuredClone(record));
+      }
+    }
+    expected.creates = expanded;
+    expected.creation_contains = contains;
+    deferred.push('creates.grouped_notes.completeness_and_no_redundancy');
+  }
   return {
     required: deferred.length > 0,
     original,
     deferred,
     literalMessageChecks,
+    recordGroupChecks,
   };
 }

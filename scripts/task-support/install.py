@@ -64,6 +64,16 @@ writeFileSync(
         if marker not in s:
             raise ValueError(f"Missing message-check gate in {verifier}")
         s = s.replace(marker, marker + '\n  semantic.literalMessageChecks.every((c) => c.passed) &&')
+    if 'semantic.recordGroupChecks.every' not in s:
+        marker = '  semantic.literalMessageChecks.every((c) => c.passed) &&'
+        if marker not in s:
+            raise ValueError(f"Missing literal gate in {verifier}")
+        s = s.replace(marker, marker + '\n  semantic.recordGroupChecks.every((c) => c.passed) &&')
+    if 'semantic.literalCellChecks.every' not in s:
+        marker = '  semantic.recordGroupChecks.every((c) => c.passed) &&'
+        if marker not in s:
+            raise ValueError(f"Missing record gate in {verifier}")
+        s = s.replace(marker, marker + '\n  semantic.literalCellChecks.every((c) => c.passed) &&')
     verifier.write_text(s)
 
     expected_path = task / 'tests/expected.json'
