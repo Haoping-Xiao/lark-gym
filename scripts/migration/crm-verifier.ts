@@ -33,7 +33,12 @@ type Check = {
 };
 const expected: {
   entity_order?: {
-    record?: { collection: string; equals: Fields };
+    record?: {
+      collection: string;
+      equals: Fields;
+      contains?: Record<string, string[]>;
+    };
+    record_before_message?: boolean;
     message: { chat_id: string; contains: string[] };
     cell: {
       spreadsheet_token: string;
@@ -458,18 +463,35 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
   const records: number[] = [],
     messages: number[] = [],
     statuses: number[] = [];
+  const activeRecords = new Set<string>(),
+    recordReadyAtStatus: boolean[] = [];
+  const recordRule = rule.record;
+  const matchesRecord = (fields: Fields | undefined) =>
+    Boolean(
+      recordRule &&
+      fields &&
+      fields.collection === recordRule.collection &&
+      Object.entries(recordRule.equals).every(([key, value]) =>
+        isDeepStrictEqual(fields[key], value),
+      ) &&
+      Object.entries(recordRule.contains || {}).every(([key, parts]) => {
+        const value = fields[key];
+        return (
+          typeof value === 'string' &&
+          parts.every((part) => value.includes(part))
+        );
+      }),
+    );
   for (const call of calls) {
     if (call.status >= 400) continue;
     for (const mutation of call.mutations || []) {
+      if (rule.record_before_message === false && mutation.kind === 'record') {
+        activeRecords.delete(mutation.id);
+        if (matchesRecord(mutation.after?.fields))
+          activeRecords.add(mutation.id);
+      }
       if (!mutation.after) continue;
-      if (
-        rule.record &&
-        mutation.kind === 'record' &&
-        mutation.after.fields?.collection === rule.record.collection &&
-        Object.entries(rule.record.equals).every(([key, value]) =>
-          isDeepStrictEqual(mutation.after.fields[key], value),
-        )
-      )
+      if (mutation.kind === 'record' && matchesRecord(mutation.after.fields))
         records.push(call.seq);
       if (
         mutation.kind === 'message' &&
@@ -503,8 +525,12 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
           ],
           cell.value,
         )
-      )
+      ) {
         statuses.push(call.seq);
+        recordReadyAtStatus.push(
+          rule.record_before_message !== false || activeRecords.size > 0,
+        );
+      }
     }
   }
   return {
@@ -512,11 +538,16 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
     records,
     messages,
     statuses,
+    recordReadyAtStatus,
     passed:
       (!rule.record ||
-        (records.length > 0 && Math.min(...messages) > Math.min(...records))) &&
+        (records.length > 0 &&
+          (rule.record_before_message === false
+            ? Math.min(...statuses)
+            : Math.min(...messages)) > Math.min(...records))) &&
       messages.length > 0 &&
       statuses.length > 0 &&
+      recordReadyAtStatus.every(Boolean) &&
       Math.min(...statuses) > Math.max(...messages),
   };
 });

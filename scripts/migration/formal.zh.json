@@ -15335,7 +15335,7 @@
     ]
   },
   "hr-5070": {
-    "instruction": "今天2026-03-18，本周03-16至03-22。处理本周Pending离职者，源未提供分离类型细则，本批均Voluntary；PTO只按原天数交Payroll审核，不算金额。BambooHR改employee_departures台账employee_id、name、status=Departing、last_day；Jira改offboarding_tickets台账summary姓名、employee_id、action=Revoke access、effective_date=Last Day、status=Scheduled，不提前撤销访问。私聊payroll@company.example.com列全员姓名、Employee ID、Last Day、Type、PTO及本批人数。完成上述登记和通知后来源Status=Processed，仅表示离职准备已处理。",
+    "instruction": "今天2026-03-18，本周03-16至03-22。处理本周Pending离职者，源未提供分离类型细则，本批均Voluntary；PTO只按原天数交Payroll审核，不算金额。BambooHR改employee_departures台账employee_id、name、status=Departing、last_day；Jira改offboarding_tickets台账summary姓名、employee_id、action=Revoke access、effective_date=Last Day、status=Scheduled，不提前撤销访问。私聊payroll@company.example.com列全员姓名、Employee ID、Last Day、Type、PTO及本批人数。各员工所需登记及本批通知均完成后，再将该员工来源Status设为Processed，仅表示离职准备已处理。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算人数按实际含义与准确性验收。",
     "now": "2026-03-18T09:00:00Z",
     "creates": [
       {
@@ -15411,14 +15411,105 @@
       }
     ],
     "command_order": [0, 1, 2, 3, 4, 5, 8, 6, 7],
-    "order_groups": [
+    "order_groups": [],
+    "entity_order": [
       {
-        "kind": "message",
-        "emails": ["payroll@company.example.com"]
+        "record": {
+          "collection": "employee_departures",
+          "equals": {
+            "employee_id": "EMP-2001",
+            "name": "Greg Foster",
+            "status": "Departing",
+            "last_day": "2026-03-21"
+          }
+        },
+        "record_before_message": false,
+        "message": {
+          "contains": ["Greg Foster"],
+          "email": "payroll@company.example.com"
+        },
+        "cell": {
+          "spreadsheet_token": "ss_offboard_full",
+          "sheet_id": "ws_this_week",
+          "row": 1,
+          "column": 6,
+          "value": "Processed"
+        }
       },
       {
-        "kind": "spreadsheet",
-        "ids": ["ss_offboard_full"]
+        "record": {
+          "collection": "offboarding_tickets",
+          "equals": {
+            "employee_id": "EMP-2001",
+            "action": "Revoke access",
+            "effective_date": "2026-03-21",
+            "status": "Scheduled"
+          },
+          "contains": {
+            "summary": ["Greg Foster"]
+          }
+        },
+        "record_before_message": false,
+        "message": {
+          "contains": ["Greg Foster"],
+          "email": "payroll@company.example.com"
+        },
+        "cell": {
+          "spreadsheet_token": "ss_offboard_full",
+          "sheet_id": "ws_this_week",
+          "row": 1,
+          "column": 6,
+          "value": "Processed"
+        }
+      },
+      {
+        "record": {
+          "collection": "employee_departures",
+          "equals": {
+            "employee_id": "EMP-2004",
+            "name": "Ian Costa",
+            "status": "Departing",
+            "last_day": "2026-03-20"
+          }
+        },
+        "record_before_message": false,
+        "message": {
+          "contains": ["Ian Costa"],
+          "email": "payroll@company.example.com"
+        },
+        "cell": {
+          "spreadsheet_token": "ss_offboard_full",
+          "sheet_id": "ws_this_week",
+          "row": 2,
+          "column": 6,
+          "value": "Processed"
+        }
+      },
+      {
+        "record": {
+          "collection": "offboarding_tickets",
+          "equals": {
+            "employee_id": "EMP-2004",
+            "action": "Revoke access",
+            "effective_date": "2026-03-20",
+            "status": "Scheduled"
+          },
+          "contains": {
+            "summary": ["Ian Costa"]
+          }
+        },
+        "record_before_message": false,
+        "message": {
+          "contains": ["Ian Costa"],
+          "email": "payroll@company.example.com"
+        },
+        "cell": {
+          "spreadsheet_token": "ss_offboard_full",
+          "sheet_id": "ws_this_week",
+          "row": 2,
+          "column": 6,
+          "value": "Processed"
+        }
       }
     ]
   },
