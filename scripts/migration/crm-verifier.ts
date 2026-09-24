@@ -32,6 +32,11 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  action_prerequisites?: {
+    notification: { chat_id: string; contains: string[] };
+    records: { collection: string; equals: Fields }[];
+    messages: { chat_id: string; contains: string[] }[];
+  }[];
   entity_order?: {
     record?: {
       collection: string;
@@ -551,12 +556,57 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
       Math.min(...statuses) > Math.max(...messages),
   };
 });
+const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
+  (rule) => {
+    const notifications: number[] = [],
+      actions: number[] = [];
+    for (const call of calls) {
+      if (call.status >= 400) continue;
+      for (const mutation of call.mutations || []) {
+        if (!mutation.after) continue;
+        if (
+          mutation.kind === 'record' &&
+          rule.records.some(
+            (record) =>
+              mutation.after.fields?.collection === record.collection &&
+              Object.entries(record.equals).every(([key, value]) =>
+                isDeepStrictEqual(mutation.after.fields[key], value),
+              ),
+          )
+        )
+          actions.push(call.seq);
+        if (mutation.kind !== 'message' || mutation.before) continue;
+        try {
+          const text = JSON.parse(mutation.after.body.content).text;
+          const matches = (message: { chat_id: string; contains: string[] }) =>
+            mutation.after.chat_id === message.chat_id &&
+            typeof text === 'string' &&
+            message.contains.every((part) => text.includes(part));
+          if (matches(rule.notification)) notifications.push(call.seq);
+          if (rule.messages.some(matches)) actions.push(call.seq);
+        } catch {
+          /* A malformed message cannot establish delivery. */
+        }
+      }
+    }
+    return {
+      rule,
+      notifications,
+      actions,
+      passed:
+        notifications.length > 0 &&
+        actions.length > 0 &&
+        actions.every((seq) => seq > Math.min(...notifications)),
+    };
+  },
+);
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
+  actionPrerequisiteChecks.every((c) => c.passed) &&
   entityOrderChecks.every((c) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
@@ -580,6 +630,7 @@ writeFileSync(
       chatChecks,
       membershipChecks,
       orderChecks,
+      actionPrerequisiteChecks,
       entityOrderChecks,
       messageChecks,
       forbiddenMessageChecks,

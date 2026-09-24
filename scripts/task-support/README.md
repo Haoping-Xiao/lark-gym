@@ -180,3 +180,5 @@ considers new records only, leaving existing source records unchanged.
 `event_utc_date_windows` 按原expected.events索引选择可变时刻的会议：硬性核对参考UTC日期和精确时长，其他会议保留原固定时刻。通知中写出的时间必须与实际日程一致；题面仅要求日期时不额外要求小时。5108仅用于三个正常面谈，明确要求当天15:00的补排会议不适用。
 
 entity_order的record_before_message=false只要求指定登记与通知分别先于对应状态，不增加二者间的先后关系。此模式按记录变更回放有效登记集合，在每次进入目标状态时检查登记仍有效；删除或改坏后补回不能补救提前标记。默认仍保持既有登记→通知→状态要求。5070按员工分别配置两种登记，并保留来源姓名、ID、日期和PTO字面要求。
+
+`action_prerequisites` limits a complete notification prerequisite to selected record identities and message recipients/subjects. Every matching action must follow delivery; unrelated people may proceed independently.
