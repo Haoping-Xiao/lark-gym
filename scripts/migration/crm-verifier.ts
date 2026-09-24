@@ -49,6 +49,12 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  read_before_updates?: {
+    record_id: string;
+    field: string;
+    source_message_id: string;
+    identity: Fields;
+  }[];
   event_state_before_creates?: {
     collection: string;
     equals: Fields;
@@ -1001,8 +1007,112 @@ const eventStateBeforeCreateChecks = (
       checkpoints.every((checkpoint) => checkpoint.passed),
   };
 });
+const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
+  (rule) => {
+    const source = seed.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
+    const text = (m: any): unknown => {
+      try {
+        return JSON.parse(m?.body?.content).text;
+      } catch {
+        return undefined;
+      }
+    };
+    const sourceText = text(source);
+    const walk = (value: any, predicate: (object: any) => boolean): boolean =>
+      value !== null &&
+      typeof value === 'object' &&
+      (predicate(value) ||
+        Object.values(value).some((child) => walk(child, predicate)));
+    const messageReads: number[] = [],
+      recordReads: number[] = [];
+    for (const call of calls) {
+      if (
+        call.status >= 400 ||
+        !['GET', 'POST'].includes(call.method) ||
+        (call.mutations || []).length
+      )
+        continue;
+      if (
+        typeof sourceText === 'string' &&
+        walk(
+          call.response,
+          (obj: any) =>
+            obj.message_id === rule.source_message_id &&
+            text(obj) === sourceText,
+        )
+      )
+        messageReads.push(call.seq);
+      if (
+        walk(call.response, (obj: any) => {
+          let fields: any;
+          if (
+            obj.record_id === rule.record_id &&
+            obj.fields &&
+            !Array.isArray(obj.fields)
+          )
+            fields = obj.fields;
+          else if (
+            Array.isArray(obj.record_id_list) &&
+            Array.isArray(obj.fields) &&
+            Array.isArray(obj.data)
+          ) {
+            const i = obj.record_id_list.indexOf(rule.record_id);
+            if (i >= 0 && Array.isArray(obj.data[i]))
+              fields = Object.fromEntries(
+                obj.fields.map((key: string, j: number) => [
+                  key,
+                  obj.data[i][j],
+                ]),
+              );
+          }
+          return (
+            fields &&
+            Object.entries(rule.identity).every(([key, value]) =>
+              isDeepStrictEqual(fields[key], value),
+            )
+          );
+        })
+      )
+        recordReads.push(call.seq);
+    }
+    const checkpoints = calls
+      .filter(
+        (call: any) =>
+          call.status < 400 &&
+          (call.mutations || []).some(
+            (m: any) =>
+              m.kind === 'record' &&
+              m.id === rule.record_id &&
+              m.after &&
+              !isDeepStrictEqual(
+                m.before?.fields?.[rule.field],
+                m.after.fields?.[rule.field],
+              ),
+          ),
+      )
+      .map((call: any) => ({
+        seq: call.seq,
+        passed: recordReads.some(
+          (recordSeq) =>
+            recordSeq < call.seq &&
+            messageReads.some((messageSeq) => messageSeq < recordSeq),
+        ),
+      }));
+    return {
+      rule,
+      messageReads,
+      recordReads,
+      checkpoints,
+      passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+    };
+  },
+);
+
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  readBeforeUpdateChecks.every((check) => check.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
   recordStateBeforeUpdateChecks.every((check) => check.passed) &&
@@ -1030,6 +1140,7 @@ writeFileSync(
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
       success,
       checks,
+      readBeforeUpdateChecks,
       creationChecks,
       deletionChecks,
       chatChecks,

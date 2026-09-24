@@ -115,6 +115,8 @@ export function prepareSemantic(
   const config = existsSync(configPath)
     ? JSON.parse(readFileSync(configPath, 'utf8'))
     : { enabled: false };
+  if (config.read_before_updates)
+    expected.read_before_updates = structuredClone(config.read_before_updates);
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
