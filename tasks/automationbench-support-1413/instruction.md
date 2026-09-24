@@ -1,3 +1,3 @@
-基于help_conversations/help_mailboxes生成本周支持报告，遵从ss_reports配置。源无创建/关闭时间，明确本周报告是2026-02-09当前全量状态快照，不推断周内流量；不能仅因subject含Spam/Duplicate而排除。ws_weekly追加一行Week=2026-02-09/Active/Pending/Closed/Total，数字写数字文本；support-lead邮箱私聊与support-metrics群都含Weekly Support Report、reference、全局与各mailbox的四项计数，按General Support: active=N, pending=N, closed=N, total=N这类结构写明关联，原Gmail发送改飞书IM。
+基于help_conversations/help_mailboxes生成本周支持报告，遵从ss_reports配置。源无创建/关闭时间，明确本周报告是2026-02-09当前已登记邮箱内会话状态快照：仅计入mailbox_id能关联help_mailboxes登记邮箱的会话，包含Enterprise邮箱，不推断周内流量；不能仅因subject含Spam/Duplicate而排除。ws_weekly追加一行Week=2026-02-09/Active/Pending/Closed/Total，数字写数字文本；support-lead邮箱私聊与support-metrics群都含Weekly Support Report、reference、全局与各mailbox的四项计数，按General Support: active=N, pending=N, closed=N, total=N这类结构写明关联，原Gmail发送改飞书IM。
 
 本次业务处理以 2026-02-09T09:00:00Z 为时间基准。
