@@ -25241,14 +25241,75 @@
       }
     },
     "command_order": [0, 1, 4, 5, 6, 2, 3, 7],
-    "order_groups": [
+    "order_groups": [],
+    "record_state_before_updates": [
       {
-        "kind": "message",
-        "emails": ["r.kim@techco.example.com", "j.walsh@startup.example.com"]
+        "update": {
+          "record_id": "rec_003xx000004WP01",
+          "field": "description"
+        },
+        "records": [],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_111",
+            "contains": []
+          }
+        ]
       },
       {
-        "kind": "record",
-        "collection": "contacts"
+        "update": {
+          "record_id": "rec_003xx000004WP02",
+          "field": "description"
+        },
+        "records": [
+          {
+            "collection": "linkedin_invitations",
+            "equals": {
+              "profile_id": "li_marcus",
+              "profile_url": "https://linkedin.com/in/marcuslee",
+              "status": "Pending"
+            }
+          }
+        ]
+      }
+    ],
+    "workflow_barriers": [
+      {
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_email_111"
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_email_59"
+          },
+          {
+            "kind": "record",
+            "collection": "linkedin_invitations",
+            "equals": {
+              "profile_id": "li_marcus",
+              "profile_url": "https://linkedin.com/in/marcuslee",
+              "status": "Pending"
+            }
+          },
+          {
+            "kind": "record_field",
+            "record_id": "rec_003xx000004WP01",
+            "field": "description"
+          },
+          {
+            "kind": "record_field",
+            "record_id": "rec_003xx000004WP02",
+            "field": "description"
+          }
+        ],
+        "after": [
+          {
+            "kind": "message",
+            "chat_id": "oc_C_MKT_OUT"
+          }
+        ]
       }
     ]
   },

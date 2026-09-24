@@ -1,114 +1,123 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { tmpdir } from 'node:os';
 import vm from 'node:vm';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
-const exec = promisify(execFile);
-test('outreach logs follow their own contact notification across interleaved workflows', async () => {
-  const repo = process.cwd(),
-    task = path.resolve('tasks/automationbench-operations-1297'),
-    dir = await fs.mkdtemp(path.join(tmpdir(), 'outreach-order-'));
-  const seed = JSON.parse(
+import { tmpdir } from 'node:os';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+test('Webinar outreach permits per-contact order and requires completed outreach before marking', async () => {
+  const exec = promisify(execFile),
+    repo = process.cwd(),
+    a = await fs.mkdtemp(path.join(tmpdir(), 'outreach-order-')),
+    task = repo + '/tasks/automationbench-sales-816',
+    seed = JSON.parse(
       await fs.readFile(task + '/environment/seed.json', 'utf8'),
     ),
     src = await fs.readFile(task + '/solution/solve.ts', 'utf8'),
-    block = src
-      .slice(src.indexOf('const commands'), src.indexOf('for (const args'))
-      .replace('commands: string[][]', 'commands'),
     original = JSON.parse(
-      vm.runInNewContext(block + '\nJSON.stringify(commands)'),
+      vm.runInNewContext(
+        src
+          .slice(src.indexOf('const commands'), src.indexOf('for (const args'))
+          .replace('commands: string[][]', 'commands') +
+          '\nJSON.stringify(commands)',
+      ),
     );
-  const contacts = seed.base.records.filter(
-    (r) => r.fields.collection === 'hubspot_contacts',
-  );
-  assert.equal(contacts.length, 12);
-  for (const record of contacts)
-    assert.equal(record.record_id, 'rec_hubspot_' + record.fields.id);
-  assert.ok(
-    seed.base.tables
-      .find((t) => t.collection === 'hubspot_contacts')
-      .fields.some((f) => f.name === 'id'),
-  );
+  await fs.mkdir(a + '/states', { recursive: true });
   try {
     for (const mode of [
       'reference',
-      'interleaved',
-      'james_first',
-      'reverse_batch',
-      'early_sandra',
-      'early_james',
-      'crossed',
-      'missing_industry',
-      'wrong_contact',
-      'record_locator',
-      'missing_send',
+      'per_contact',
+      'marcus_first',
+      'marker_context',
+      'marcus_early',
+      'rachel_early',
+      'summary_early',
+      'missing_marker',
+      'missing_invite',
+      'wrong_profile',
+      'wrong_status',
+      'wrong_date',
+      'wrong_audience',
     ]) {
-      let commands = structuredClone(original),
-        reads = commands.filter(
-          (c) => !['+record-upsert', '+messages-send'].includes(c[1]),
+      let cs = structuredClone(original);
+      const inv = cs.find(
+          (c) => c[1] === '+record-upsert' && !c.includes('--record-id'),
         ),
-        messages = commands.filter((c) => c[1] === '+messages-send'),
-        records = commands.filter((c) => c[1] === '+record-upsert');
-      commands = [...reads, ...messages, ...records];
-      if (mode === 'interleaved')
-        commands = [...reads, messages[0], records[0], messages[1], records[1]];
-      if (mode === 'james_first')
-        commands = [...reads, messages[1], records[1], messages[0], records[0]];
-      if (mode === 'reverse_batch')
-        commands = [...reads, messages[1], messages[0], records[1], records[0]];
-      if (mode === 'early_sandra')
-        commands = [...reads, records[0], ...messages, records[1]];
-      if (mode === 'early_james')
-        commands = [...reads, messages[0], records[1], messages[1], records[0]];
-      if (mode === 'crossed')
-        commands = [...reads, messages[1], records[0], messages[0], records[1]];
-      if (mode === 'missing_send')
-        commands = commands.filter((c) => c !== messages[0]);
-      for (const c of records) {
-        const i = c.indexOf('--json') + 1,
-          p = JSON.parse(c[i]);
-        if (mode === 'missing_industry')
-          p.body = p.body.replace('Technology', '').replace('Retail |', '');
-        if (mode === 'wrong_contact' && p.contact_id === 'cont_hs_101')
-          p.contact_id = 'cont_hs_103';
-        if (mode === 'record_locator')
-          p.contact_id = 'rec_hubspot_' + p.contact_id;
-        c[i] = JSON.stringify(p);
-      }
-
+        updates = cs.filter((c) => c.includes('--record-id')),
+        msgs = cs.filter((c) => c[1] === '+messages-send'),
+        reads = cs.filter(
+          (c) => c[1] === '+record-list' || c[1] === '+chat-messages-list',
+        ),
+        change = (c, f) => {
+          let o = JSON.parse(c.at(-1));
+          f(o);
+          c[c.length - 1] = JSON.stringify(o);
+        };
+      if (mode === 'per_contact')
+        cs = [...reads, msgs[0], updates[0], msgs[1], inv, updates[1], msgs[2]];
+      if (mode === 'marcus_first')
+        cs = [...reads, inv, updates[1], msgs[0], updates[0], msgs[1], msgs[2]];
+      if (mode === 'marker_context')
+        updates.forEach((c) =>
+          change(
+            c,
+            (o) =>
+              (o.description =
+                '2026-02-24: Webinar invite sent — AI Transformation in Enterprise'),
+          ),
+        );
+      if (mode === 'marcus_early')
+        cs = [...reads, msgs[0], msgs[1], ...updates, inv, msgs[2]];
+      if (mode === 'rachel_early')
+        cs = [...reads, inv, updates[0], msgs[0], msgs[1], updates[1], msgs[2]];
+      if (mode === 'summary_early')
+        cs = [...reads, inv, msgs[0], msgs[1], msgs[2], ...updates];
+      if (mode === 'missing_marker')
+        change(updates[0], (o) => (o.description = '已发送研讨会邀请'));
+      if (mode === 'missing_invite') cs.splice(cs.indexOf(inv), 1);
+      if (mode === 'wrong_profile')
+        change(inv, (o) => (o.profile_id = 'li_rachel'));
+      if (mode === 'wrong_status') change(inv, (o) => (o.status = 'Accepted'));
+      if (mode === 'wrong_date')
+        msgs[0][msgs[0].length - 1] = msgs[0]
+          .at(-1)
+          .replace('March 5', 'March 6');
+      if (mode === 'wrong_audience')
+        msgs[0][msgs[0].indexOf('--chat-id') + 1] = 'oc_email_123';
       const b = await startMock(seed);
       try {
-        for (const x of commands)
-          await exec(repo + '/gyms/lark-cli/bin/lark-cli', x, {
+        for (const c of cs)
+          await exec(repo + '/gyms/lark-cli/bin/lark-cli', c, {
             env: { ...process.env, FEISHU_MOCK_URL: b.url },
             maxBuffer: 8e6,
           });
-        assert.equal(
-          b.calls.some((c) => c.status >= 400),
-          false,
-          mode,
-        );
-        const state = path.join(dir, mode + '.json'),
-          dest = path.join(dir, mode);
+        if (b.calls.some((c) => c.status >= 400)) throw Error(mode);
         await fs.writeFile(
-          state,
+          a + '/states/' + mode + '.json',
           JSON.stringify({ seed, world: b.world, calls: b.calls }),
         );
-        await exec('node', [task + '/tests/verify.ts'], {
-          env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: dest },
+        await exec(process.execPath, [task + '/tests/verify.ts'], {
+          env: {
+            ...process.env,
+            MOCK_STATE: a + '/states/' + mode + '.json',
+            VERIFIER_OUTPUT: a + '/' + mode,
+          },
+          maxBuffer: 8e6,
         });
-        const result = JSON.parse(
-          await fs.readFile(dest + '/result.json', 'utf8'),
+        const d = JSON.parse(
+          await fs.readFile(a + '/' + mode + '/result.json', 'utf8'),
         );
         assert.equal(
-          result.business_success,
-          ['reference', 'interleaved', 'james_first', 'reverse_batch'].includes(
-            mode,
-          ),
+          d.business_success,
+          [
+            'reference',
+            'per_contact',
+            'marcus_first',
+            'marker_context',
+            'wrong_date',
+          ].includes(mode),
           mode,
         );
       } finally {
@@ -116,6 +125,6 @@ test('outreach logs follow their own contact notification across interleaved wor
       }
     }
   } finally {
-    await fs.rm(dir, { recursive: true, force: true });
+    await fs.rm(a, { recursive: true, force: true });
   }
 });
