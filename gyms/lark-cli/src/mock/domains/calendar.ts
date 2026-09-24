@@ -7,6 +7,7 @@ export function createCalendarRoutes(
   world: Pick<World, 'calendars' | 'events'>,
 ): RouteHandler {
   let nextEvent = 1;
+  let nextAttendee = 1;
   function calendar(id: string, write = false) {
     const c = world.calendars.find((c) => c.calendar_id === id);
     if (!c) fail(404, 191001, 'Calendar not found');
@@ -72,7 +73,6 @@ export function createCalendarRoutes(
           Array.isArray(body.attendees) && body.attendees.length <= 1000,
           'attendees required',
         );
-        const added = [];
         for (const a of body.attendees) {
           if (a.type !== 'third_party')
             fail(501, 990001, 'ENV_UNSUPPORTED: attendee type');
@@ -86,18 +86,24 @@ export function createCalendarRoutes(
             (item: ApiObject) => item.third_party_email === a.third_party_email,
           );
           if (existing) {
-            added.push(structuredClone(existing));
             continue;
           }
+          while (
+            world.events.some((e) =>
+              (e.attendees || []).some(
+                (item: ApiObject) => item.attendee_id === `att_${nextAttendee}`,
+              ),
+            )
+          )
+            nextAttendee++;
           const attendee = {
             ...structuredClone(a),
-            attendee_id: `att_${event.attendees.length + 1}`,
+            attendee_id: `att_${nextAttendee++}`,
             rsvp_status: 'needs_action',
           };
           event.attendees.push(attendee);
-          added.push(structuredClone(attendee));
         }
-        return { attendees: added };
+        return { attendees: structuredClone(event.attendees || []) };
       }
       if (method === 'POST' && action === 'batch_delete') {
         requireValue(Array.isArray(body.attendee_ids), 'attendee_ids required');
