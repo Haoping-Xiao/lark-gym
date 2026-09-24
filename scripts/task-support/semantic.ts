@@ -163,6 +163,43 @@ export function prepareSemantic(
     }
   }
   const recordGroupChecks: Json[] = [];
+  if (seed && config.optional_cell_edits?.length) {
+    original.optional_cell_edits = structuredClone(config.optional_cell_edits);
+    for (const rule of config.optional_cell_edits) {
+      const read = (state: Json) =>
+        (rule.spreadsheet_token
+          ? state.spreadsheets?.[rule.spreadsheet_token]?.sheets
+          : state.sheets)?.[rule.sheet_id]?.values?.[rule.row]?.[rule.column];
+      const before = read(seed),
+        value = read(world);
+      if (
+        before === undefined ||
+        isDeepStrictEqual(before, value) ||
+        typeof value !== 'string' ||
+        !value.trim() ||
+        (expected.cells || []).some(
+          (c: Json) =>
+            c.spreadsheet_token === rule.spreadsheet_token &&
+            c.sheet_id === rule.sheet_id &&
+            c.row === rule.row &&
+            c.column === rule.column,
+        )
+      )
+        continue;
+      expected.cells ||= [];
+      // The value only exempts this cell from the unchanged-state guard.
+      // Its truth must be established from source evidence by the judge.
+      const { literal_terms, ...cell } = rule;
+      if (literal_terms?.length)
+        recordGroupChecks.push({
+          kind: 'optional_cell_source_literals',
+          ...cell,
+          passed: literal_terms.every((term: string) => value.includes(term)),
+        });
+      expected.cells.push({ ...cell, value });
+      deferred.push('optional_cell_edits.source_supported_correction');
+    }
+  }
   // Reviewed payment policies constrain the group, not a reference split.
   if (seed && config.payment_split_groups?.length) {
     original.payment_split_groups = structuredClone(
