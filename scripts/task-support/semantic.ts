@@ -266,6 +266,34 @@ export function prepareSemantic(
     }
     deferred.push('creates.payment_split.notifications_match_actual');
   }
+  if (config.event_utc_date_windows?.length) {
+    original.event_utc_date_windows = structuredClone(
+      config.event_utc_date_windows,
+    );
+    for (const index of config.event_utc_date_windows) {
+      const check = expected.events?.[index];
+      if (!check)
+        throw new Error('Configured event date window does not exist');
+      const start = Number(check.start_time?.timestamp),
+        end = Number(check.end_time?.timestamp);
+      if (
+        !Number.isSafeInteger(start) ||
+        !Number.isSafeInteger(end) ||
+        end <= start
+      )
+        throw new Error(
+          'Configured event date window requires valid reference timestamps',
+        );
+      check.utc_date_window = {
+        date: new Date(start * 1000).toISOString().slice(0, 10),
+        duration_seconds: end - start,
+      };
+      original.events[index].utc_date_window = structuredClone(
+        check.utc_date_window,
+      );
+    }
+    deferred.push('events.utc_date_window_and_notice_consistency');
+  }
   if (config.event_description_text && expected.events?.length) {
     for (const event of expected.events) delete event.description_contains;
     deferred.push('events.required_description_business_facts');

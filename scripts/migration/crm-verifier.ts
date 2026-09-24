@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 type Fields = Record<string, string | number>;
 type RecordRow = { record_id: string; fields: Fields };
 type EventCheck = {
+  utc_date_window?: { date: string; duration_seconds: number };
   description?: string;
   description_contains?: string[];
   vc_data?: {
@@ -224,6 +225,30 @@ const sameTime = (
     ? actual.date === expected.date
     : Number(actual.timestamp) === Number(expected.timestamp)) &&
   (!expected.timezone || actual.timezone === expected.timezone);
+const sameEventTimes = (
+  event: Pick<EventCheck, 'start_time' | 'end_time'>,
+  check: EventCheck,
+) => {
+  if (!check.utc_date_window)
+    return (
+      sameTime(event.start_time, check.start_time) &&
+      sameTime(event.end_time, check.end_time)
+    );
+  const start = Number(event.start_time?.timestamp),
+    end = Number(event.end_time?.timestamp);
+  if (
+    !Number.isSafeInteger(start) ||
+    !Number.isSafeInteger(end) ||
+    start < 0 ||
+    end - start !== check.utc_date_window.duration_seconds
+  )
+    return false;
+  const date = new Date(start * 1000);
+  return (
+    Number.isFinite(date.getTime()) &&
+    date.toISOString().slice(0, 10) === check.utc_date_window.date
+  );
+};
 const eventChecks = (expected.events || []).map((check) => ({
   ...check,
   passed: newEvents.some(
@@ -259,8 +284,7 @@ const eventChecks = (expected.events || []).map((check) => ({
         (check.summary_contains
           ? event.summary.includes(check.summary_contains)
           : event.summary === check.summary) &&
-        sameTime(event.start_time, check.start_time) &&
-        sameTime(event.end_time, check.end_time) &&
+        sameEventTimes(event, check) &&
         (!check.location || event.location?.name === check.location.name) &&
         (!check.recurrence ||
           rrule(event.recurrence || '') === rrule(check.recurrence)) &&

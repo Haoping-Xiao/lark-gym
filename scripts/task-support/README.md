@@ -176,3 +176,5 @@ considers new records only, leaving existing source records unchanged.
 `utc_clock_result_columns` 只比较经审查的派生UTC时刻，支持12小时制（AM/PM）和24小时制，可带秒及UTC/Z/+00:00标识，按秒精确比较。无AM/PM的写法必须包含分钟；非法时分秒、数值类型、含糊的单个小时和非UTC偏移均不接受。5095仅启用Eve的Break Time结果格，来源Shift和其他单元格仍按原规则保护。
 
 `usd_text_fields` 仅对任务配置的台账文本字段比较精确美元金额；实际与参考值均须为字符串，币种由经审查的USD字段上下文确定，可省略美元符号，仍拒绝错误币种、非法分组、非零分以下精度与类型变化。5101仅用于new_salary，通知中原始断言要求的金额字面值单独保留，不放宽来源表。
+
+`event_utc_date_windows` 按原expected.events索引选择可变时刻的会议：硬性核对参考UTC日期和精确时长，其他会议保留原固定时刻。通知中写出的时间必须与实际日程一致；题面仅要求日期时不额外要求小时。5108仅用于三个正常面谈，明确要求当天15:00的补排会议不适用。
