@@ -117,6 +117,12 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.source_read_before_create?.length) {
+    original.source_read_before_create = structuredClone(
+      config.source_read_before_create,
+    );
+    deferred.push('workflow.source_read_before_create');
+  }
   // Optional, source-supported enrichment is reviewed independently. Actual
   // values only unmask these edits from the unchanged-state guard; they are
   // never promoted into the judge's required reference facts.

@@ -232,7 +232,11 @@ for (const check of expected.updates) {
   const after = protectedWorld.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
   );
-  if (after) after.fields[check.field] = before.fields[check.field];
+  if (after) {
+    if (Object.hasOwn(before.fields, check.field))
+      after.fields[check.field] = before.fields[check.field];
+    else delete after.fields[check.field];
+  }
 }
 const cellChecks = (expected.cells || []).map((c) => ({
   ...c,
