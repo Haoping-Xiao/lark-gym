@@ -199,7 +199,8 @@ export function prepareSemantic(
         (rule: Json) =>
           rule.spreadsheet_token === check.spreadsheet_token &&
           rule.sheet_id === check.sheet_id &&
-          rule.columns.includes(check.column),
+          rule.columns.includes(check.column) &&
+          (!rule.rows || rule.rows.includes(check.row)),
       );
       if (rule) {
         const value = parse(check.value),

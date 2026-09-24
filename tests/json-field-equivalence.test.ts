@@ -7,10 +7,11 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const id of [1465, 1473, 1475, 1476])
-  test(`support ${id}: JSON whitespace is harmless; missing, malformed or changed content fails`, async () => {
-    const root = `tasks/automationbench-support-${id}`,
-      field = id === 1476 ? 'source_threads' : 'tags';
+for (const id of [1465, 1473, 1475, 1476, 4093])
+  test(`task ${id}: JSON whitespace is harmless; missing, malformed or changed content fails`, async () => {
+    const root = `tasks/automationbench-${id === 4093 ? 'finance' : 'support'}-${id}`,
+      field =
+        id === 4093 ? 'payment_ids' : id === 1476 ? 'source_threads' : 'tags';
     const seed = JSON.parse(
       await readFile(`${root}/environment/seed.json`, 'utf8'),
     );
@@ -30,11 +31,11 @@ for (const id of [1465, 1473, 1475, 1476])
       const original = structuredClone(backend.world);
       let world = structuredClone(original);
       const selected = () =>
-        id === 1476
+        id === 1476 || id === 4093
           ? world.base.records.filter((r) =>
               expected.creates.some(
                 (e: any) =>
-                  e.source_threads &&
+                  e[field] &&
                   e.source_id === r.fields.source_id &&
                   e.collection === r.fields.collection,
               ),
@@ -64,6 +65,13 @@ for (const id of [1465, 1473, 1475, 1476])
           2,
         );
       assert.equal((await verify('pretty')).business_success, true);
+      if (id === 4093) {
+        for (const row of selected())
+          row.fields[field] = JSON.stringify(
+            JSON.parse(String(row.fields[field])).reverse(),
+          );
+        assert.equal((await verify('reordered')).business_success, true);
+      }
       for (const [name, value] of [
         ['missing', '[]'],
         ['malformed', '['],

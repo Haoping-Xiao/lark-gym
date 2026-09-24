@@ -135,7 +135,7 @@ changing their stored field type. `string_set` requires unique string elements
 and compares the exact tag set; `structure` retains array order and all nested
 values while ignoring JSON whitespace and object key order. Missing, malformed,
 wrong-type or additional content fails. These fields cannot fall back to free
-text grading. Enabled only for support 1465/1473/1475 tags and 1476 source_threads.
+text grading. Enabled for support 1465/1473/1475 tags, 1476 source_threads, and finance 4093 payment_ids (exact unique payment ID set).
 
 `instant_fields` preserves an explicitly required instant while accepting
 RFC3339 offsets and fractional-second forms without losing submillisecond precision. Calendar dates, clock components and
@@ -160,3 +160,5 @@ considers new records only, leaving existing source records unchanged.
 `literal_message_groups_chat` 保留一个收件人的多项原始正文断言，每组词必须同时出现在某一条新消息中；不同组可共用一条消息，也可分别出现在多条消息中。`semantic.literalMessageChecks` 给出逐组结果，安装脚本将其接入程序通过条件，独立于参考报告条数。不得仅复制配置而遗漏该验收条件。
 
 `literal_forbidden_message_indices` 对经完整来源核对的正文禁词断言保留程序检查，同时仍做语义禁止事项评审。仅为明确的字面禁止启用，不从一般禁止动作推导禁词；例如 4060 原断言禁止税务正文包含被排除供应商名称。
+
+`usd_result_columns.rows` 可进一步限定指定结果行（与 expected 的零基行号一致）。4100 仅对 C10/C11 两个更正后的计算余额比较精确金额，C3 直接给出的来源余额仍按原值检查；同列不等于都可数值化。

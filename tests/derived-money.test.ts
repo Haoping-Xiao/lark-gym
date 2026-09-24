@@ -7,7 +7,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const id of [4048, 4054, 4081, 4098])
+for (const id of [4048, 4054, 4081, 4098, 4100])
   test(`finance ${id}: equivalent derived USD values pass; cents, currency and source changes fail`, async () => {
     const root = `tasks/automationbench-finance-${id}`;
     const seed = JSON.parse(
@@ -36,7 +36,8 @@ for (const id of [4048, 4054, 4081, 4098])
           (r: any) =>
             r.spreadsheet_token === c.spreadsheet_token &&
             r.sheet_id === c.sheet_id &&
-            r.columns.includes(c.column),
+            r.columns.includes(c.column) &&
+            (!r.rows || r.rows.includes(c.row)),
         ),
       );
       assert.ok(cells.length > 0);
@@ -83,6 +84,22 @@ for (const id of [4048, 4054, 4081, 4098])
         world = structuredClone(original);
         set(cells[0], value);
         assert.equal((await verify(name)).business_success, false, name);
+      }
+      if (id === 4100) {
+        world = structuredClone(original);
+        world.spreadsheets!.ss_yr_rollover.sheets.ws_year_end_tb.values[2][2] =
+          '$195,000.00';
+        assert.equal(
+          (await verify('source-same-column')).business_success,
+          false,
+        );
+        world = structuredClone(original);
+        const journal = world.base.records.find(
+          (r: any) => r.fields.collection === 'journal_entries',
+        )!;
+        journal.fields.amount = '150000';
+        assert.equal((await verify('typed-record')).business_success, false);
+        return;
       }
       world = structuredClone(original);
       const c = cells[0],
