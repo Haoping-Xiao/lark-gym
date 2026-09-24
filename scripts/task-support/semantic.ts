@@ -35,6 +35,11 @@ function decimalValue(value: unknown): string | null {
     BigInt(trailing);
   return `${match[1] === '-' ? '-' : ''}${digits}e${exponent}`;
 }
+// Explicit percentage-text results: keep the percent unit and exact decimal value.
+function percentValue(value: unknown): string | null {
+  if (typeof value !== 'string' || !value.trim().endsWith('%')) return null;
+  return decimalValue(value.trim().slice(0, -1));
+}
 // Reviewed UTC clock results only; keep source times and other cells literal.
 function utcClockSeconds(value: unknown): number | null {
   if (typeof value !== 'string') return null;
@@ -454,6 +459,7 @@ export function prepareSemantic(
     for (const [key, parse] of [
       ['usd_result_columns', usdCents],
       ['numeric_result_columns', decimalValue],
+      ['percent_result_columns', percentValue],
       ['utc_clock_result_columns', utcClockSeconds],
     ] as const) {
       const rule = (config[key] || []).find(
