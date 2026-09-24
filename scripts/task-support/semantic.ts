@@ -163,6 +163,56 @@ export function prepareSemantic(
     }
   }
   const recordGroupChecks: Json[] = [];
+  // Reviewed payment policies constrain the group, not a reference split.
+  if (seed && config.payment_split_groups?.length) {
+    original.payment_split_groups = structuredClone(
+      config.payment_split_groups,
+    );
+    const oldIds = new Set(seed.base.records.map((r: Json) => r.record_id));
+    for (const rule of config.payment_split_groups) {
+      const matches = (fields: Json) =>
+        Object.entries(rule.fields).every(([key, value]) =>
+          isDeepStrictEqual(fields[key], value),
+        );
+      const actual = world.base.records.filter(
+        (r: Json) => !oldIds.has(r.record_id) && matches(r.fields),
+      );
+      const references = (expected.creates || []).filter(matches);
+      const values = actual.map((r: Json) => r.fields[rule.amount_field]);
+      let passed =
+        actual.length === rule.count &&
+        references.length === rule.count &&
+        values.every(
+          (v: unknown) => typeof v === 'number' && Number.isFinite(v) && v > 0,
+        );
+      if (passed) {
+        // Align finite decimal representations exactly; avoid binary float sums.
+        const parts = [...values, rule.total, rule.maximum].map((v: number) => {
+          const [digits, exponent = '0'] = decimalValue(v)!.split('e');
+          return { digits: BigInt(digits), exponent: Number(exponent) };
+        });
+        const exponent = Math.min(...parts.map((p) => p.exponent));
+        const units = parts.map(
+          (p) => p.digits * 10n ** BigInt(p.exponent - exponent),
+        );
+        const maximum = units.pop()!,
+          total = units.pop()!;
+        passed =
+          units.every((v) => v <= maximum) &&
+          units.reduce((a, b) => a + b, 0n) === total;
+      }
+      recordGroupChecks.push({
+        kind: 'payment_split',
+        fields: rule.fields,
+        passed,
+      });
+      if (passed)
+        references.forEach((r: Json, i: number) => {
+          r[rule.amount_field] = values[i];
+        });
+    }
+    deferred.push('creates.payment_split.notifications_match_actual');
+  }
   if (config.event_text && expected.events?.length)
     deferred.push('events.business_purpose_and_optional_description');
   // Each source assertion is existential over one actual, newly sent body.
