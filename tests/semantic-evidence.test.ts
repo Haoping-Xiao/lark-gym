@@ -52,3 +52,54 @@ test('large evidence partitions complete ordered calls without dropping values o
     /seed\/world evidence/,
   );
 });
+
+test('decoded message evidence distinguishes real line breaks from literal escape text', () => {
+  const input = {
+    seed: { messages: [{ message_id: 'old' }] },
+    world: {
+      messages: [
+        {
+          message_id: 'old',
+          msg_type: 'text',
+          body: { content: JSON.stringify({ text: 'old' }) },
+        },
+        {
+          message_id: 'new',
+          chat_id: 'chat',
+          msg_type: 'text',
+          body: { content: JSON.stringify({ text: 'Subject\nBody' }) },
+        },
+        {
+          message_id: 'literal',
+          chat_id: 'chat',
+          msg_type: 'text',
+          body: { content: JSON.stringify({ text: 'Subject\\nBody' }) },
+        },
+        {
+          message_id: 'invalid',
+          msg_type: 'text',
+          body: { content: 'invalid JSON' },
+        },
+      ],
+    },
+    calls: [],
+  };
+  const before = structuredClone(input);
+  const evidence = JSON.parse(semanticEvidence(input)[0].data);
+  assert.deepEqual(evidence.decoded_new_text_messages, [
+    {
+      message_id: 'new',
+      chat_id: 'chat',
+      text: 'Subject\nBody',
+      lines: ['Subject', 'Body'],
+    },
+    {
+      message_id: 'literal',
+      chat_id: 'chat',
+      text: 'Subject\\nBody',
+      lines: ['Subject\\nBody'],
+    },
+  ]);
+  assert.deepEqual(evidence.world, input.world);
+  assert.deepEqual(input, before);
+});

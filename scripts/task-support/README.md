@@ -190,3 +190,9 @@ Reviewed `usd_result_columns` may require a literal `prefix` and `require_curren
 `record_state_before_messages` 在指定通知发送时回放成功的记录变更，检查每条目标记录当时是否具备要求字段。允许字段分多次写入；通知后补写不能补救提前通知。1155 用于确认所有联系人的取消状态与日期已完成，原有报名者通知先于 CRM 更新的顺序仍单独检查。
 
 `workflow_barriers` 显式约束两组业务事件之间的先后关系。消息按新发送、队列记录按新创建、指定单元格按实际值变化识别；各选择器都须有执行证据，全部前置事件须早于任一后置事件。1610 要求完整协调先于渠道执行，最终汇总晚于入队、发送、重审和状态更新；独立事项之间不增加顺序。两个配置均为逐题启用，默认行为不变。
+
+新建记录事件可通过`equals`筛选业务实体，例如1297分别约束各联系人的发送先于其engagement，不增加跨联系人屏障。
+
+语义证据附带从后端新增文本消息解析出的`decoded_new_text_messages`（文本及真实换行分割的lines），避免将嵌套JSON转义误认成正文；原始world与调用保留，它不是选手自述或额外完成证据。解析失败的消息仍保留在原始证据中。
+
+`workflow_barriers` 的 `record_field` 选择器通过 `record_id` 与 `field` 匹配已有记录的实际字段变化；同值写入不产生阶段事件。`preserve_hubspot_ids` 可为指定源集合保留业务 `id`，与用于 API 定位的 `record_id` 区分。

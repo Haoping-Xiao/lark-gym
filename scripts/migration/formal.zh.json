@@ -28027,7 +28027,8 @@
     ],
     "order_groups": [
       {
-        "kind": "message"
+        "kind": "message",
+        "all_messages": true
       },
       {
         "kind": "record",
@@ -28266,7 +28267,7 @@
     ]
   },
   "operations-1297": {
-    "instruction": "检查HubSpot联系人及Outreach Policy，本适配将未明确的stale定义为last_email_days_ago>=30，缺该字段不可判定。仅Lead、无opt-out、非受限行业；由agent自己撰写个性化飞书私聊（替代ChatGPT+邮件），首行公司名，正文firstname、company、industry及跟进意向，不虚构产品承诺。发送后创建engagements(contact_id/type=EMAIL/body含行业及跟进事实)，type仅保留原邮件业务类型，实际发送渠道是飞书IM，不直接改last_email_days_ago。",
+    "instruction": "检查HubSpot联系人及Outreach Policy，本适配将未明确的stale定义为last_email_days_ago>=30，缺该字段不可判定。仅Lead、无opt-out、非受限行业；由agent自己撰写个性化飞书私聊（替代ChatGPT+邮件），首行作为主题，须包含公司名，可带其他相关主题文字；正文firstname、company、industry及跟进意向，不虚构产品承诺。联系人表的id是原业务联系人标识，record_id是本环境的记录定位标识；engagements.contact_id填写联系人表的id。发送后创建engagements(contact_id/type=EMAIL/body含行业及跟进事实)，type仅保留原邮件业务类型，实际发送渠道是飞书IM，不直接改last_email_days_ago。",
     "creates": [
       {
         "collection": "engagements",
@@ -28302,15 +28303,44 @@
       }
     ],
     "command_order": [0, 1, 4, 5, 2, 3],
-    "order_groups": [
+    "order_groups": [],
+    "workflow_barriers": [
       {
-        "kind": "message"
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_email_6"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record",
+            "collection": "engagements",
+            "equals": {
+              "contact_id": "cont_hs_101"
+            }
+          }
+        ]
       },
       {
-        "kind": "record",
-        "collection": "engagements"
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_email_4"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record",
+            "collection": "engagements",
+            "equals": {
+              "contact_id": "cont_hs_102"
+            }
+          }
+        ]
       }
-    ]
+    ],
+    "preserve_hubspot_ids": ["contacts"]
   },
   "operations-1299": {
     "now": "2026-02-10T10:00:00Z",
@@ -28425,7 +28455,7 @@
     ]
   },
   "operations-1307": {
-    "instruction": "检查Billing Policy，只处理failed且retry<3的合格contact；VIP为lifetime_value严格>10000。VIP通知vip-support及success@company.example.com，普通客户私聊payment update提醒；所有通知保留姓名、邮箱、lifetime_value和处理后retry。随后contacts.payment_retry_count加1，并ss_billing/ws_failures追加Name/Email/Lifetime Value/Retry Count/Route。这里重试计数是通知流程次数，不实际扣款或声称支付成功；grace informational不阻断，取消/更新付款方式按政策排除。",
+    "instruction": "检查Billing Policy，只处理failed且retry<3的合格contact；VIP为lifetime_value严格>10000。VIP通知vip-support及success@company.example.com，普通客户私聊payment update提醒；所有通知保留姓名、邮箱、lifetime_value和处理后retry。随后contacts.payment_retry_count加1，并ss_billing/ws_failures追加Name/Email/Lifetime Value/Retry Count/Route。这里重试计数是通知流程次数，不实际扣款或声称支付成功；grace informational不阻断，取消/更新付款方式按政策排除。通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "updates": [
       {
         "id": "hubspot_cont_hs_301",
@@ -28531,13 +28561,56 @@
       0, 1, 20, 21, 22, 23, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
       17, 18, 19
     ],
-    "order_groups": [
+    "order_groups": [],
+    "workflow_barriers": [
       {
-        "kind": "message"
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_CVIPSUP"
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_email_38"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record_field",
+            "record_id": "rec_hubspot_cont_hs_301",
+            "field": "payment_retry_count"
+          }
+        ]
       },
       {
-        "kind": "record",
-        "collection": "hubspot_contacts"
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_email_42"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record_field",
+            "record_id": "rec_hubspot_cont_hs_302",
+            "field": "payment_retry_count"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "kind": "message",
+            "chat_id": "oc_email_16"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record_field",
+            "record_id": "rec_hubspot_cont_hs_306",
+            "field": "payment_retry_count"
+          }
+        ]
       }
     ]
   },

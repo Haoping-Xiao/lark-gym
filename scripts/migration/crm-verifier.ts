@@ -34,6 +34,9 @@ type Check = {
 };
 type WorkflowEventSelector = {
   kind: string;
+  record_id?: string;
+  field?: string;
+  equals?: Fields;
   chat_id?: string;
   collection?: string;
   spreadsheet_token?: string;
@@ -677,7 +680,19 @@ const workflowEventSequences = (selector: WorkflowEventSelector): number[] => {
         matches =
           mutation.kind === 'record' &&
           !mutation.before &&
-          mutation.after.fields?.collection === selector.collection;
+          mutation.after.fields?.collection === selector.collection &&
+          Object.entries(selector.equals || {}).every(([key, value]) =>
+            isDeepStrictEqual(mutation.after.fields?.[key], value),
+          );
+      if (selector.kind === 'record_field')
+        matches =
+          mutation.kind === 'record' &&
+          mutation.id === selector.record_id &&
+          Boolean(mutation.before) &&
+          !isDeepStrictEqual(
+            mutation.before.fields?.[selector.field!],
+            mutation.after.fields?.[selector.field!],
+          );
       if (
         selector.kind === 'cell' &&
         mutation.kind === 'spreadsheet' &&

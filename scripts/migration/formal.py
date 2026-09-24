@@ -97,6 +97,7 @@ for row in rows:
             properties=item.get('properties',{})
             assert isinstance(properties,dict),(key,'hubspot properties not object')
             flat={k:scalar(v) for k,v in item.items() if k not in ['id','properties']}
+            if collection in recipe.get('preserve_hubspot_ids',[]):flat['id']=scalar(item['id'])
             assert not (set(flat)&set(properties)),(key,'hubspot property collision')
             records.append({'record_id':'rec_hubspot_'+str(item['id']),'fields':{'collection':'hubspot_'+collection,**flat,**{k:scalar(v) for k,v in properties.items()}}})
     for collection,items in src.get('google_ads',{}).items():
