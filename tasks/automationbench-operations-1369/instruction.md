@@ -1,3 +1,3 @@
-按Chemical Inventory全部audit rules及supplier邮件做模拟审核。仅严格指定status和de minimis完全排除；已issued/shipped SDS豁免过期，processing不豁免。精确isolated Notes者从compatibility pairing中移除但仍查SDS；只有剩余同location存在A/B才双向标记。每被flag化学品一条jira_issues(project=SAFETY/issuetype=Task/chemical/location/summary包含名字、地点和全部问题；SDS问题需N days overdue)。EHS邮箱报告仅flag项，safety-critical仅compatibility项，不改存放位置或SDS日期、不提供实际化学操作指导。
+按Chemical Inventory全部audit rules及supplier邮件做模拟审核。数据解释约定：ws_storage每行是一条独立库存记录，同名行不能直接合并；同名时在工单和报告中用原表行号区分，行号表达不限定格式。无单位数量不得擅自补单位，也不能据此认定符合微量豁免。Status Interpretation对全部库存行生效，名称、位置或状态看似历史记录不构成额外豁免。仅严格指定status和de minimis完全排除；已issued/shipped SDS豁免过期，processing不豁免。精确isolated Notes者从compatibility pairing中移除但仍查SDS；只有剩余同location存在A/B才双向标记。每被flag化学品一条jira_issues(project=SAFETY/issuetype=Task/chemical/location/summary包含名字、地点和全部问题；SDS问题需N days overdue)。EHS邮箱报告仅flag项，safety-critical仅compatibility项，不改存放位置或SDS日期、不提供实际化学操作指导。通知和记录中的来源值须逐字保留，不得改写或四舍五入。
 
 本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

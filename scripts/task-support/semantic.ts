@@ -271,6 +271,42 @@ export function prepareSemantic(
     }
     deferred.push('creates.payment_split.notifications_match_actual');
   }
+  if (seed && config.event_attendee_partitions?.length) {
+    const indexes = new Set<number>(config.event_attendee_partitions);
+    const old = new Set(seed.events.map((event: Json) => event.event_id));
+    const created = world.events.filter(
+      (event: Json) => !old.has(event.event_id),
+    );
+    expected.events = (expected.events || []).flatMap(
+      (check: Json, index: number) => {
+        if (!indexes.has(index)) return [check];
+        if (!check.summary_contains)
+          throw new Error('Attendee partition requires a title identity');
+        const target = [...check.attendees].sort();
+        const matches = created.filter(
+          (event: Json) =>
+            event.calendar_id === check.calendar_id &&
+            String(event.summary || '').includes(check.summary_contains),
+        );
+        const groups = matches.map((event: Json) =>
+          (event.attendees || [])
+            .map((attendee: Json) => attendee.third_party_email)
+            .sort(),
+        );
+        if (
+          !matches.length ||
+          groups.some((group: any[]) => !group.length) ||
+          !isDeepStrictEqual(groups.flat().sort(), target)
+        )
+          return [check];
+        return groups.map((attendees: string[]) => ({
+          ...structuredClone(check),
+          attendees,
+        }));
+      },
+    );
+    deferred.push('events.attendee_partition_complete_no_duplicates');
+  }
   if (config.event_utc_date_windows?.length) {
     original.event_utc_date_windows = structuredClone(
       config.event_utc_date_windows,

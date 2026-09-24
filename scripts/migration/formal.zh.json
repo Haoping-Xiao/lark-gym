@@ -3041,7 +3041,7 @@
   },
   "operations-1356": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "检查 February 10, 2026 飞书日历中的会议室预约。标题以 [房间名] 开头，按精确房间名寻找两个定时事件的重叠；全天事件不与定时事件算冲突，类似 Room A 和 Room A1 必须区分。先读 Room Booking Policies 处理失效预约。每个冲突在 office-ops 群说明两个完整会议标题、房间和重叠时间，并汇报冲突总数与总分钟数。向后来创建事件（事件 ID 数字更大者）描述中的组织者发私聊请求 reschedule；不直接修改日程。",
+    "instruction": "检查 February 10, 2026 飞书日历中的会议室预约。标题以 [房间名] 开头，按精确房间名寻找两个定时事件的重叠；全天事件不与定时事件算冲突，类似 Room A 和 Room A1 必须区分。先读 Room Booking Policies 处理失效预约。每个冲突在 office-ops 群说明两个完整会议标题、房间和重叠时间，群通知须保留关键词 conflict，并汇报冲突总数与总分钟数，合计说明出现一次即可；不同冲突明细也可各自附带同一个全局合计，便于独立阅读，这不属于重复报告同一冲突。不得重复发送同一冲突的完整明细。向后来创建事件（事件 ID 数字更大者）描述中的组织者发私聊请求 reschedule；私聊首行承载原邮件主题，须包含 reschedule，可加其他相关文字，正文包含对应房间；不直接修改日程。通知或记录中的来源值须逐字保留，不得改写或四舍五入。",
     "messages": [
       {
         "channel": "office-ops",
@@ -30588,7 +30588,7 @@
   },
   "operations-1352": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按Holiday Staffing全部policy只统计Confirmed且无LEAVE/OT-HOLD者，仅Holiday Coverage Required=Yes部门；人数>=Min才排班，否则只私聊dept head缺口，不给不足部门部分排班。原未定时区明确UTC，Feb16 08–17每个够员部门创建一个cal_holiday日历<Department> Holiday Coverage，实际attendees包含所有合格confirmed员工。operations群报每部门eligible/min及short/covered、无需值班部门not required，不发hr。",
+    "instruction": "按Holiday Staffing全部policy只统计Confirmed且无LEAVE/OT-HOLD者，仅Holiday Coverage Required=Yes部门；人数>=Min才排班，否则只私聊dept head缺口，不给不足部门部分排班。原未定时区明确UTC，Feb16 08–17在cal_holiday为够员部门安排班次；可合并全员或分为多个日程，标题包含原部门名并表达假日值班用途，实际attendees完整覆盖所有合格confirmed员工且不得重复安排。operations群报每部门eligible/min及short/covered、无需值班部门not required，不发hr。通知及记录中引用来源值须逐字保留，不得改写或四舍五入。",
     "events": [
       {
         "calendar_id": "cal_holiday",
@@ -30600,7 +30600,7 @@
           "owen.hart@ourcompany.example.com"
         ],
         "description": "Security | Bella Cruz | Owen Hart",
-        "description_contains": ["Security", "Bella Cruz", "Owen Hart"]
+        "summary_contains": "Security"
       }
     ],
     "messages": [
@@ -30827,7 +30827,7 @@
   },
   "operations-1369": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按Chemical Inventory全部audit rules及supplier邮件做模拟审核。仅严格指定status和de minimis完全排除；已issued/shipped SDS豁免过期，processing不豁免。精确isolated Notes者从compatibility pairing中移除但仍查SDS；只有剩余同location存在A/B才双向标记。每被flag化学品一条jira_issues(project=SAFETY/issuetype=Task/chemical/location/summary包含名字、地点和全部问题；SDS问题需N days overdue)。EHS邮箱报告仅flag项，safety-critical仅compatibility项，不改存放位置或SDS日期、不提供实际化学操作指导。",
+    "instruction": "按Chemical Inventory全部audit rules及supplier邮件做模拟审核。数据解释约定：ws_storage每行是一条独立库存记录，同名行不能直接合并；同名时在工单和报告中用原表行号区分，行号表达不限定格式。无单位数量不得擅自补单位，也不能据此认定符合微量豁免。Status Interpretation对全部库存行生效，名称、位置或状态看似历史记录不构成额外豁免。仅严格指定status和de minimis完全排除；已issued/shipped SDS豁免过期，processing不豁免。精确isolated Notes者从compatibility pairing中移除但仍查SDS；只有剩余同location存在A/B才双向标记。每被flag化学品一条jira_issues(project=SAFETY/issuetype=Task/chemical/location/summary包含名字、地点和全部问题；SDS问题需N days overdue)。EHS邮箱报告仅flag项，safety-critical仅compatibility项，不改存放位置或SDS日期、不提供实际化学操作指导。通知和记录中的来源值须逐字保留，不得改写或四舍五入。",
     "creates": [
       {
         "collection": "jira_issues",
@@ -30884,6 +30884,126 @@
         "chemical": "Benzene",
         "location": "Cabinet-3",
         "summary": "Benzene | Cabinet-3 | SDS expired 192 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Carried over from prior cycle",
+        "location": "Decommissioned Annex",
+        "summary": "ws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Routine entry - no action",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Routine entry - no action",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Archived record",
+        "location": "Decommissioned Annex",
+        "summary": "ws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Historical reference only",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Archived record",
+        "location": "Decommissioned Annex",
+        "summary": "ws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Historical reference only",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Historical reference only",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Carried over from prior cycle",
+        "location": "Decommissioned Annex",
+        "summary": "ws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Routine entry - no action",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Carried over from prior cycle",
+        "location": "Decommissioned Annex",
+        "summary": "ws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Routine entry - no action",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Routine entry - no action",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Archived record",
+        "location": "Decommissioned Annex",
+        "summary": "ws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue"
+      },
+      {
+        "collection": "jira_issues",
+        "project": "SAFETY",
+        "issuetype": "Task",
+        "chemical": "Historical reference only",
+        "location": "Overflow Lot",
+        "summary": "ws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue"
       }
     ],
     "creation_contains": {
@@ -30924,12 +31044,117 @@
       },
       "6": {
         "summary": ["Benzene", "Cabinet-3", "SDS expired 192 days overdue"]
+      },
+      "7": {
+        "summary": [
+          "Carried over from prior cycle",
+          "Decommissioned Annex",
+          "ws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue"
+        ]
+      },
+      "8": {
+        "summary": [
+          "Routine entry - no action",
+          "Overflow Lot",
+          "ws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue"
+        ]
+      },
+      "9": {
+        "summary": [
+          "Routine entry - no action",
+          "Overflow Lot",
+          "ws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue"
+        ]
+      },
+      "10": {
+        "summary": [
+          "Archived record",
+          "Decommissioned Annex",
+          "ws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue"
+        ]
+      },
+      "11": {
+        "summary": [
+          "Historical reference only",
+          "Overflow Lot",
+          "ws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue"
+        ]
+      },
+      "12": {
+        "summary": [
+          "Archived record",
+          "Decommissioned Annex",
+          "ws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue"
+        ]
+      },
+      "13": {
+        "summary": [
+          "Historical reference only",
+          "Overflow Lot",
+          "ws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue"
+        ]
+      },
+      "14": {
+        "summary": [
+          "Historical reference only",
+          "Overflow Lot",
+          "ws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue"
+        ]
+      },
+      "15": {
+        "summary": [
+          "Carried over from prior cycle",
+          "Decommissioned Annex",
+          "ws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue"
+        ]
+      },
+      "16": {
+        "summary": [
+          "Routine entry - no action",
+          "Overflow Lot",
+          "ws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue"
+        ]
+      },
+      "17": {
+        "summary": [
+          "Carried over from prior cycle",
+          "Decommissioned Annex",
+          "ws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue"
+        ]
+      },
+      "18": {
+        "summary": [
+          "Routine entry - no action",
+          "Overflow Lot",
+          "ws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue"
+        ]
+      },
+      "19": {
+        "summary": [
+          "Routine entry - no action",
+          "Overflow Lot",
+          "ws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue"
+        ]
+      },
+      "20": {
+        "summary": [
+          "Archived record",
+          "Decommissioned Annex",
+          "ws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue"
+        ]
+      },
+      "21": {
+        "summary": [
+          "Historical reference only",
+          "Overflow Lot",
+          "ws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue"
+        ]
       }
     },
     "messages": [
       {
         "email": "ehs.manager@company.example.com",
-        "text": "Acetone | Cabinet-1 | SDS expired 71 days overdue; incompatible with Sodium Hydroxide\nSodium Hydroxide | Cabinet-1 | incompatible with Acetone\nMethanol | Cabinet-2 | SDS expired 56 days overdue\nSulfuric Acid | Cabinet-4 | incompatible with Isopropanol\nIsopropanol | Cabinet-4 | incompatible with Sulfuric Acid\nXylene | Cabinet-2 | SDS expired 131 days overdue\nBenzene | Cabinet-3 | SDS expired 192 days overdue",
+        "text": "Acetone | Cabinet-1 | SDS expired 71 days overdue; incompatible with Sodium Hydroxide\nSodium Hydroxide | Cabinet-1 | incompatible with Acetone\nMethanol | Cabinet-2 | SDS expired 56 days overdue\nSulfuric Acid | Cabinet-4 | incompatible with Isopropanol\nIsopropanol | Cabinet-4 | incompatible with Sulfuric Acid\nXylene | Cabinet-2 | SDS expired 131 days overdue\nBenzene | Cabinet-3 | SDS expired 192 days overdue\nws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue\nws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue\nws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue\nws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue\nws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue\nws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue\nws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue\nws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue\nws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue\nws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue\nws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue\nws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue\nws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue\nws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue\nws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue",
         "contains": [
           "Acetone",
           "Cabinet-1",
@@ -30952,7 +31177,22 @@
           "SDS expired 131 days overdue",
           "Benzene",
           "Cabinet-3",
-          "SDS expired 192 days overdue"
+          "SDS expired 192 days overdue",
+          "ws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue",
+          "ws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue",
+          "ws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue",
+          "ws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue",
+          "ws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue",
+          "ws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue",
+          "ws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue",
+          "ws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue",
+          "ws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue",
+          "ws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue",
+          "ws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue",
+          "ws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue",
+          "ws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue",
+          "ws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue",
+          "ws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue"
         ]
       },
       {
