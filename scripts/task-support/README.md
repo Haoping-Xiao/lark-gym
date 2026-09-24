@@ -18,13 +18,19 @@ independently reviewed or that the Mock matches production.
 
 ## Environment gaps
 
-The default policy preserves the previous behavior: a 501 returns to the agent,
-the agent may continue within its Harbor timeout, and the sample is excluded.
+The default policy aborts on the first 501 and excludes the sample. The backend
+seals subsequent operations, persists evidence, then writes an abort signal to a
+trial-local volume mounted read-only in the agent container. The task keepalive
+runs as PID 1 in the private Docker PID namespace and terminates its current
+agent processes once; the separate backend survives for independent grading.
+Native Harbor remains the entrypoint; neither CLI nor agent is wrapped.
 The hook runs after rollback. Every call retains its sequence, timestamp, request,
 original error, mutations and hook decision in the exported backend state.
 
 Task `environment/unsupported-policy.json` controls:
 
+- `execution`: `abort` (default) or `continue`. Continue returns feedback and
+  permits subsequent operations; scoring/exclusion settings remain independent.
 - `penalty_per_call`: nonnegative, default 0.
 - `max_penalty`: nonnegative cumulative cap, or null for no cap.
 - `score_floor`: default 0; a negative value or null allows negative reward.
@@ -33,8 +39,12 @@ Task `environment/unsupported-policy.json` controls:
 - `feedback`: factual text, without solution hints.
 
 After editing policy, run `install.py` to copy the same configuration to the
-separate verifier. A hook failure is an infrastructure error. There is no claim
-that a task-side error kills an external agent process.
+separate verifier. A hook failure is an infrastructure error. This lifecycle actuator applies to installed agents in the Docker main
+container, not host-side agents or other environment providers. Keep the task
+PID namespace private and `init: false`. Do not mount the Docker socket or
+backend state into main. Fresh trials require fresh control volumes; Harbor
+cleanup removes them. Agent exit 137 is an environment abort, not a business
+failure; the verifier still records exclusion and preserves its diagnostics.
 
 ## Semantic checks
 

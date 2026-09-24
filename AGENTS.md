@@ -16,7 +16,7 @@
 - Keep business logic and graders in TypeScript; retain the actual Go lark-cli. Do not add shell wrappers solely to inject a backend URL: install the CLI on PATH and configure the URL through the task environment.
 - Agents use normal CLI commands, never raw API escape hatches. CLI parsing and execution must run real code against the simulated backend.
 - Formal evaluation and training separate the agent from the Mock backend. Each trial gets independent state initialized from the same frozen seed. Never put backend state, reference solutions, or grading code into the agent image.
-- All endpoints operate on shared business state. Unknown endpoints always record environment coverage gaps; task policy decides sample eligibility and optional penalties, defaulting to exclusion and zero penalty. They are not automatically model failures. Record mutations and export backend state for verification.
+- All endpoints operate on shared business state. Unknown endpoints always record environment coverage gaps; task policy decides abort/continue execution, sample eligibility and optional penalties, defaulting to abort, exclusion and zero penalty. They are not automatically model failures. Record mutations and export backend state for verification.
 
 ## Evaluation and training
 

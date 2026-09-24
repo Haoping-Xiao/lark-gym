@@ -21,6 +21,7 @@ test('coverage facts survive optional exclusion and penalty bounds', () => {
   assert.equal(defaults.valid_sample, false);
   assert.equal(defaults.raw_reward, 1);
   assert.equal(defaults.reward, 1);
+  assert.equal(defaults.events[0].action, 'abort');
   const calls = [event, { ...event, seq: 2 }, { ...event, seq: 3 }];
   assert.equal(scoreUnsupported(1, calls, { penalty_per_call: 0.6 }).reward, 0);
   assert.equal(
@@ -53,7 +54,7 @@ test('unsupported requests invoke the task hook, preserve state, and allow the n
   const backend = await startMock(seed, {
     onUnsupported(call) {
       hookCalls.push(call.seq);
-      return onUnsupported(call);
+      return onUnsupported(call, { execution: 'continue' });
     },
   });
   try {
@@ -73,6 +74,49 @@ test('unsupported requests invoke the task hook, preserve state, and allow the n
     );
     assert.equal(valid.status, 200);
     assert.deepEqual(hookCalls, [1]);
+  } finally {
+    await backend.close();
+  }
+});
+test('default abort seals later operations without additional penalties', async () => {
+  const seed = JSON.parse(
+    await readFile(
+      'tasks/automationbench-simple-3151/environment/seed.json',
+      'utf8',
+    ),
+  );
+  const backend = await startMock(seed, { onUnsupported });
+  try {
+    const headers = {
+      authorization: 'Bearer local-evaluation-only',
+      'content-type': 'application/json',
+    };
+    assert.equal(
+      (await fetch(backend.url + '/open-apis/missing/v1/objects', { headers }))
+        .status,
+      501,
+    );
+    const result = await fetch(
+      backend.url + '/open-apis/im/v1/messages?receive_id_type=chat_id',
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          receive_id: seed.chats[0].chat_id,
+          msg_type: 'text',
+          content: JSON.stringify({ text: 'must not execute' }),
+        }),
+      },
+    );
+    assert.equal(result.status, 410);
+    assert.deepEqual(backend.world, seed);
+    assert.equal(backend.calls.length, 2);
+    assert.equal(backend.calls[0].unsupported?.action, 'abort');
+    assert.equal(backend.calls[1].changed, false);
+    assert.equal(
+      scoreUnsupported(1, backend.calls, { penalty_per_call: 0.25 }).penalty,
+      0.25,
+    );
   } finally {
     await backend.close();
   }

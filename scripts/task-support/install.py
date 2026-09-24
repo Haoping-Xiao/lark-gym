@@ -4,28 +4,48 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-POLICY = dict(version=1, penalty_per_call=0, max_penalty=None, score_floor=0,
+POLICY = dict(version=1, execution='abort', penalty_per_call=0, max_penalty=None, score_floor=0,
               exclude_from_valid_samples=True,
-              feedback='当前模拟环境尚未实现此操作，本次操作未执行。你可以尝试其他方式。')
+              feedback='当前模拟环境尚未实现此操作，本次操作未执行。')
+
+def install_environment(task):
+    """Install only task-owned lifecycle files; do not alter business graders."""
+    for directory in ('environment', 'tests'):
+        (task / directory / 'unsupported.ts').write_text(Path(__file__).with_name('unsupported.ts').read_text())
+    path = task / 'environment/unsupported-policy.json'
+    policy = json.loads(path.read_text()) if path.exists() else dict(POLICY)
+    policy.setdefault('execution', 'abort')
+    if policy.get('feedback') == '当前模拟环境尚未实现此操作，本次操作未执行。你可以尝试其他方式。':
+        policy['feedback'] = POLICY['feedback']
+    path.write_text(json.dumps(policy, ensure_ascii=False, indent=2) + '\n')
+    (task / 'tests/unsupported-policy.json').write_text(path.read_text())
+    docker = task / 'environment/mock.Dockerfile'
+    s = docker.read_text().replace('lark-gym-mock:0.2.0', 'lark-gym-mock:0.2.1')
+    if 'unsupported.ts' not in s:
+        s += 'COPY unsupported.ts unsupported-policy.json /opt/mock/\n'
+    s = re.sub(r'^CMD .*\n?', '', s, flags=re.M)
+    s += 'CMD ["--unsupported-hook", "/opt/mock/unsupported.ts", "--unsupported-policy", "/opt/mock/unsupported-policy.json", "--abort-signal", "/run/task-control/abort.json"]\n'
+    docker.write_text(s)
+    (task / 'environment/agent-lifetime.mjs').write_text(Path(__file__).with_name('agent-lifetime.mjs').read_text())
+    docker = task / 'environment/Dockerfile'
+    s = docker.read_text()
+    if 'COPY agent-lifetime.mjs' not in s:
+        s += 'COPY agent-lifetime.mjs /opt/task/agent-lifetime.mjs\n'
+    docker.write_text(s)
+    compose = task / 'environment/docker-compose.yaml'
+    s = compose.read_text()
+    if 'task-control' not in s:
+        s = s.replace('  main:\n', '  main:\n    init: false\n    entrypoint: ["node", "/opt/task/agent-lifetime.mjs"]\n    command: []\n    volumes:\n      - task-control:/run/task-control:ro\n', 1)
+        s = re.sub(r'^  mock:\n', '  mock:\n    volumes:\n      - task-control:/run/task-control\n', s, count=1, flags=re.M)
+        s += 'volumes:\n  task-control: {}\n'
+    compose.write_text(s)
 
 def install(task):
     task_config = task / 'task.toml'
     config = task_config.read_text().replace('version = "0.1.0"', 'version = "0.2.0"')
     config = re.sub(r'(\[verifier\]\s*timeout_sec\s*=\s*)([0-9.]+)', lambda match: match[1] + str(max(300.0, float(match[2]))), config)
     task_config.write_text(config)
-    for directory in ('environment', 'tests'):
-        (task / directory / 'unsupported.ts').write_text(Path(__file__).with_name('unsupported.ts').read_text())
-    policy = task / 'environment/unsupported-policy.json'
-    if not policy.exists():
-        policy.write_text(json.dumps(POLICY, ensure_ascii=False, indent=2) + '\n')
-    (task / 'tests/unsupported-policy.json').write_text(policy.read_text())
-    docker = task / 'environment/mock.Dockerfile'
-    s = docker.read_text()
-    if 'unsupported.ts' not in s:
-        s += '''COPY unsupported.ts unsupported-policy.json /opt/mock/
-CMD ["--unsupported-hook", "/opt/mock/unsupported.ts", "--unsupported-policy", "/opt/mock/unsupported-policy.json"]
-'''
-        docker.write_text(s)
+    install_environment(task)
     for name in ('semantic.ts', 'semantic.toml', 'evaluate.ts', 'semantic-evidence.ts'):
         (task / 'tests' / name).write_text(Path(__file__).with_name(name).read_text())
     (task / 'tests/task-instruction.md').write_text((task / 'instruction.md').read_text())

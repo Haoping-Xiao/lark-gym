@@ -1,5 +1,6 @@
 export interface UnsupportedPolicy {
   version: 1;
+  execution: 'abort' | 'continue';
   penalty_per_call: number;
   max_penalty: number | null;
   score_floor: number | null;
@@ -8,11 +9,12 @@ export interface UnsupportedPolicy {
 }
 export const defaultPolicy: UnsupportedPolicy = {
   version: 1,
+  execution: 'abort',
   penalty_per_call: 0,
   max_penalty: null,
   score_floor: 0,
   exclude_from_valid_samples: true,
-  feedback: '当前模拟环境尚未实现此操作，本次操作未执行。你可以尝试其他方式。',
+  feedback: '当前模拟环境尚未实现此操作，本次操作未执行。',
 };
 export function validatePolicy(
   input: Partial<UnsupportedPolicy>,
@@ -20,6 +22,7 @@ export function validatePolicy(
   const policy = { ...defaultPolicy, ...input };
   if (
     policy.version !== 1 ||
+    !['abort', 'continue'].includes(policy.execution) ||
     !Number.isFinite(policy.penalty_per_call) ||
     policy.penalty_per_call < 0 ||
     (policy.max_penalty !== null &&
@@ -55,9 +58,13 @@ export function onUnsupported(
     path: event.path,
     reason: event.response,
     executed: false,
-    action: 'continue',
+    action: policy.execution,
     penalty: policy.penalty_per_call,
-    feedback: policy.feedback,
+    feedback:
+      policy.feedback +
+      (policy.execution === 'abort'
+        ? '本次运行已中断。'
+        : '你可以尝试其他方式。'),
   };
 }
 export function scoreUnsupported(
@@ -80,6 +87,7 @@ export function scoreUnsupported(
     valid_sample: !(events.length > 0 && policy.exclude_from_valid_samples),
     raw_reward: rawReward,
     penalty,
+    applied_penalty: rawReward - reward,
     reward,
     policy,
     events,

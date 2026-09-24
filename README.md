@@ -50,7 +50,7 @@ harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-si
 harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracle.yaml
 ```
 
-任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表；任务内环境不足 hook 只处理工具错误与审计。
+任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表；任务内环境不足 hook 处理工具错误、审计和运行中断。
 
 Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足；默认排除样本，任务策略可以选择保留并扣分。
 
@@ -90,7 +90,7 @@ Mock 实现任务需要的共享业务状态和部分权限规则；尚未与真
 
 ## 业务与评分整理
 
-当前任务按业务实体分表，用户请求与操作环境说明分开。环境不足经 task 内 hook 留下请求与处置日志；默认继续执行、最终排除样本，扣分默认 0。策略支持累计扣分上限、负分下限及样本有效性配置。
+当前任务按业务实体分表，用户请求与操作环境说明分开。环境不足经 task 内 hook 留下请求与处置日志；默认 `execution: "abort"`：保存证据后封住业务接口，由任务容器内的 PID 1 终止当前选手进程，后端继续存活供独立评分；最终排除样本、扣分默认 0。设置 `execution: "continue"` 可继续探索并接收反馈。策略支持累计扣分上限、负分下限及样本有效性配置。该执行中断实现针对 Docker 中安装式 agent；不要配置共享/宿主 PID namespace 或 Docker init，环境保活程序要求自己是私有容器的 PID 1。
 
 评分保留对象、数量、数值状态、权限和无关数据保护等代码检查；文本含义交给 Reward Kit rubric，避免禁词或参考措辞误杀。`tests/test.sh` 执行完整评分；单独运行 `verify.ts` 只得到程序检查的中间结果。judge 失败不生成最终分数。需要在独立 verifier 中配置模型接入。
 
