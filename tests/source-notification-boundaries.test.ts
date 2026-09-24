@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const name of ['finance-4031', 'marketing-1068'])
+for (const name of ['finance-4031', 'marketing-1068', 'finance-4020'])
   test(`${name}: preserve explicit source notification literals`, async () => {
     const root = `tasks/automationbench-${name}`,
       seed = JSON.parse(
@@ -23,26 +23,33 @@ for (const name of ['finance-4031', 'marketing-1068'])
           LARK_CLI: resolve('gyms/lark-cli/bin/lark-cli'),
         },
       });
-      for (const mode of name === 'finance-4031'
-        ? ['reference', 'denied-cancel']
-        : ['minimal', 'missing-example', 'missing-batch', 'wrong-count']) {
+      for (const mode of name === 'finance-4020'
+        ? ['reference', 'exempt-in-cpa']
+        : name === 'finance-4031'
+          ? ['reference', 'denied-cancel']
+          : ['minimal', 'missing-example', 'missing-batch', 'wrong-count']) {
         const world = structuredClone(b.world),
           message = world.messages.at(-1)!;
         const text = JSON.parse(String(message.body.content)).text;
         message.body.content = JSON.stringify({
           text:
-            name === 'finance-4031'
+            name === 'finance-4020'
               ? text +
-                (mode === 'denied-cancel'
-                  ? '\nI did not cancel Metro Supply.'
+                (mode === 'exempt-in-cpa'
+                  ? '\nApex Solutions Group is excluded.'
                   : '')
-              : mode === 'minimal'
-                ? 'MOD-UGC-3847: 5 approved; includes UGC101.'
-                : mode === 'missing-example'
-                  ? 'MOD-UGC-3847: 5 approved.'
-                  : mode === 'missing-batch'
-                    ? '5 approved; includes UGC101.'
-                    : 'MOD-UGC-3847: 4 approved; includes UGC101.',
+              : name === 'finance-4031'
+                ? text +
+                  (mode === 'denied-cancel'
+                    ? '\nI did not cancel Metro Supply.'
+                    : '')
+                : mode === 'minimal'
+                  ? 'MOD-UGC-3847: 5 approved; includes UGC101.'
+                  : mode === 'missing-example'
+                    ? 'MOD-UGC-3847: 5 approved.'
+                    : mode === 'missing-batch'
+                      ? '5 approved; includes UGC101.'
+                      : 'MOD-UGC-3847: 4 approved; includes UGC101.',
         });
         const state = join(dir, mode + '.json'),
           output = join(dir, mode);
