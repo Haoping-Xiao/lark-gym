@@ -20,6 +20,7 @@ type EventCheck = {
   calendar_id: string;
   summary: string;
   summary_contains?: string;
+  summary_contains_case_insensitive?: boolean;
   start_time: Record<string, string>;
   end_time: Record<string, string>;
   location?: { name: string };
@@ -336,9 +337,19 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
           (check.join_meeting_permission ||
             check.vc_data?.meeting_settings?.join_meeting_permission),
       )) &&
+    (!check.summary_contains ||
+      (check.summary_contains_case_insensitive
+        ? String(event.summary || '')
+            .toLowerCase()
+            .includes(check.summary_contains.toLowerCase())
+        : String(event.summary || '').includes(check.summary_contains))) &&
     (check.semantic_text ||
       (check.summary_contains
-        ? event.summary.includes(check.summary_contains)
+        ? check.summary_contains_case_insensitive
+          ? event.summary
+              .toLowerCase()
+              .includes(check.summary_contains.toLowerCase())
+          : event.summary.includes(check.summary_contains)
         : event.summary === check.summary)) &&
     sameEventTimes(event, check) &&
     (!check.location || event.location?.name === check.location.name) &&

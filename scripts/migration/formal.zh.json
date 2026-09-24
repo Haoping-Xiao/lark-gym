@@ -2671,7 +2671,9 @@
         "summary": "Travel - ClientC",
         "start": "2026-01-22T14:30:00Z",
         "end": "2026-01-22T15:00:00Z",
-        "attendees": []
+        "attendees": [],
+        "summary_contains": "Travel",
+        "summary_contains_case_insensitive": true
       }
     ],
     "creates": [
@@ -24248,7 +24250,7 @@
     ]
   },
   "sales-1161": {
-    "instruction": "今天2026-01-21，为本周新入职业务联系人按NDA合规指南发送Mutual NDA。本次范围明确本周周一至今天，不因一封旧的经理转述擅自扩大为14日；实际已有envelope或CRM已Sent不重复，豁免、review hold与DO NOT contact按限制处理。DocuSign发送改signature_requests（contact_id/template_id/template_name/signer_name/email/status=Sent）及签署人私聊，成功后nda_status=Sent。只更新新发送者，不顺手回填其他历史记录；legal-ops报告本周发送数和本周already数量，不能混入窗口外联系人。",
+    "instruction": "今天2026-01-21，为本周新入职业务联系人按NDA合规指南发送Mutual NDA。本次范围明确本周周一至今天，不因一封旧的经理转述擅自扩大为14日；实际已有envelope或CRM已Sent不重复，豁免、review hold与DO NOT contact按限制处理。DocuSign发送改signature_requests（contact_id/template_id/template_name/signer_name/email/status=Sent）及签署人私聊，成功后nda_status=Sent。只更新新发送者，不顺手回填其他历史记录；legal-ops报告本周发送数和本周already数量，不能混入窗口外联系人。\n\n报告提供本次发送数和要求的 already 统计；若列举联系人，仅列举本次实际处理的联系人，不强制附加姓名清单。除用户或权威流程明确要求的通知外，不列举、点名或解释被跳过、排除或拒绝处理的联系人。",
     "updates": [
       {
         "id": "003xx000004BNS8",
@@ -24287,28 +24289,89 @@
       {
         "email": "new1@company1.example.com",
         "text": "New Contact1 | 请签署Mutual NDA | tmpl_nda",
-        "contains": ["New Contact1", "Mutual NDA", "tmpl_nda"]
+        "contains": ["New Contact1", "Mutual NDA"]
       },
       {
         "email": "new2@company2.example.com",
         "text": "New Contact2 | 请签署Mutual NDA | tmpl_nda",
-        "contains": ["New Contact2", "Mutual NDA", "tmpl_nda"]
+        "contains": ["New Contact2", "Mutual NDA"]
       },
       {
         "channel": "legal-ops",
-        "text": "本周Mutual NDA sent=2；already=0。本周窗口为2026-01-19至2026-01-21；其余按范围与合规限制跳过。",
+        "text": "本周Mutual NDA sent=2；already=0。本周窗口为2026-01-19至2026-01-21。",
         "contains": ["Mutual NDA", "sent=2", "already=0"]
       }
     ],
     "command_order": [0, 1, 4, 5, 6, 7, 2, 3, 8],
-    "order_groups": [
+    "order_groups": [],
+    "record_state_before_updates": [
       {
-        "kind": "message",
-        "emails": ["new1@company1.example.com", "new2@company2.example.com"]
+        "update": {
+          "record_id": "rec_003xx000004BNS8",
+          "field": "nda_status",
+          "value": "Sent"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "collection": "signature_requests",
+              "template_id": "tmpl_nda",
+              "template_name": "Mutual NDA",
+              "signer_name": "New Contact1",
+              "signer_email": "new1@company1.example.com",
+              "status": "Sent"
+            },
+            "one_of": [
+              {
+                "contact_id": "003xx000004BNS8"
+              },
+              {
+                "contact_id": "rec_003xx000004BNS8"
+              }
+            ]
+          }
+        ],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_60",
+            "contains": ["Mutual NDA"]
+          }
+        ]
       },
       {
-        "kind": "record",
-        "collection": "contacts"
+        "update": {
+          "record_id": "rec_003xx000004BNS9",
+          "field": "nda_status",
+          "value": "Sent"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "collection": "signature_requests",
+              "template_id": "tmpl_nda",
+              "template_name": "Mutual NDA",
+              "signer_name": "New Contact2",
+              "signer_email": "new2@company2.example.com",
+              "status": "Sent"
+            },
+            "one_of": [
+              {
+                "contact_id": "003xx000004BNS9"
+              },
+              {
+                "contact_id": "rec_003xx000004BNS9"
+              }
+            ]
+          }
+        ],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_61",
+            "contains": ["Mutual NDA"]
+          }
+        ]
       }
     ]
   },
@@ -25925,7 +25988,9 @@
         "end": "2026-02-25T09:30:00Z",
         "attendees": [],
         "description": "TechVentures | internal prep",
-        "description_contains": ["TechVentures", "internal prep"]
+        "description_contains": ["TechVentures", "internal prep"],
+        "summary_contains": "prep",
+        "summary_contains_case_insensitive": true
       },
       {
         "calendar_id": "primary",
@@ -25934,7 +25999,8 @@
         "end": "2026-02-25T10:45:00Z",
         "attendees": ["buyer@techventures.example.com"],
         "description": "TechVentures | 250000",
-        "description_contains": ["TechVentures", "250000"]
+        "description_contains": ["TechVentures", "250000"],
+        "summary_contains": "Pricing Discussion"
       },
       {
         "calendar_id": "primary",
@@ -25946,7 +26012,9 @@
         "description_contains": ["TechVentures", "technical lead"],
         "vc_data": {
           "vc_type": "vc"
-        }
+        },
+        "summary_contains": "Technical Q&A",
+        "summary_contains_case_insensitive": true
       }
     ],
     "messages": [
@@ -26033,7 +26101,12 @@
           "Discovery Call"
         ]
       }
-    ]
+    ],
+    "creation_contains": {
+      "2": {
+        "name": ["Big Enterprise Corp", "AI Innovation Summit"]
+      }
+    }
   },
   "sales-1181": {
     "instruction": "今天2026-01-21，处理未来60天内到期的已签合同，结合champion LinkedIn状态和open support cases判断健康。按原要求健康账户约Renewal Discussion并存Draft Renewal Agreement；风险账户只建内部CSM review和High task，无续约合同；auto-renew不动作。会议使用primary飞书日历，原题未给时刻与时长，固定明天10:00–10:30健康续约、11:00–11:30内部review；源材料未提供CSM身份时内部日程只留组织者，不编造参会人。signature_requests包含template_id/template_name/account_id/recipient_email/status=Draft/amount，tasks关联风险account、status=Not Started/priority=High。每个需处理账户建renewal_talking_points(account_id/body)记录金额、到期日、关系依据及讨论建议，renewals汇总；保留原合同和机会状态。",
