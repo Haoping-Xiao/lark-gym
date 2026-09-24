@@ -28664,7 +28664,7 @@
   },
   "operations-1313": {
     "now": "2026-01-29T09:00:00Z",
-    "instruction": "原Daily表没有Date，本适配把该表作为昨天Jan28的快照。遵从Ad Monitoring Policy，只分析Active，ROAS=Revenue/Spend。<1.0 CRITICAL发paid-social及paid-social-lead@company.example.com；>4.0 scaling仅发paid-social建议考虑加预算，不自动改预算。向ss_ad_anomalies/ws_roas按异常追加Campaign/Spend/Revenue/ROAS/Level；通知保留原Spend/Revenue。",
+    "instruction": "原Daily表没有Date，本适配把该表作为昨天Jan28的快照。遵从Ad Monitoring Policy，只分析Active，ROAS=Revenue/Spend。<1.0 CRITICAL发paid-social及paid-social-lead@company.example.com；>4.0 scaling仅发paid-social建议考虑加预算，不自动改预算。向ss_ad_anomalies/ws_roas按异常追加Campaign/Spend/Revenue/ROAS/Level；通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "sheets": [
       {
         "book": "ss_ad_anomalies",
@@ -29005,6 +29005,53 @@
           "低于最低$2,000,000"
         ]
       }
+    ],
+    "record_state_before_messages": [
+      {
+        "chat_id": "oc_email_53",
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "template_id": "tpl_ins_cert",
+              "template_name": "Insurance Certificate Request",
+              "signer_email": "marcus.webb@pinnaclesecgrp.com",
+              "vendor": "Pinnacle Security Group",
+              "status": "Sent"
+            }
+          }
+        ]
+      },
+      {
+        "chat_id": "oc_email_35",
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "template_id": "tpl_ins_cert",
+              "template_name": "Insurance Certificate Request",
+              "signer_email": "d.ortiz@greenfieldenv.com",
+              "vendor": "Greenfield Environmental",
+              "status": "Sent"
+            }
+          }
+        ]
+      },
+      {
+        "chat_id": "oc_email_60",
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "template_id": "tpl_ins_cert",
+              "template_name": "Insurance Certificate Request",
+              "signer_email": "ray.pham@summitpartners.com",
+              "vendor": "Summit Industrial Partners",
+              "status": "Sent"
+            }
+          }
+        ]
+      }
     ]
   },
   "operations-1323": {
@@ -29069,27 +29116,27 @@
   },
   "operations-1320": {
     "now": "2026-01-28T12:00:00Z",
-    "instruction": "按ss_social_analytics配置分析Buffer org_001，Organic精确匹配不含Boosted、Primary；21天lookback以日期边界Jan7 00:00UTC至当前时刻，避免把当天09时排除。来源day与published_at实际星期不一致，明确使用来源day/hour作业务时段标签，published_at仅过滤日期；聚合每个day/hour平均engagement_rate。分别选Top3与Low3，平分较早时间先，样本不足6时排名允许交集并注明，不把重合项同时当强制推荐与禁发。创建notion_pages(title=Posting Schedule Optimization/content)，ws_timing每时段追加Day/Hour/Rate/Rank，百分比整数带%。social-strategy报告两个排名、样本量、推荐每周最佳单一时段及avoid最差单一时段，不真正发布或改schedule。",
+    "instruction": "按ss_social_analytics配置分析Buffer org_001，Organic精确匹配不含Boosted、Primary；21天lookback以日期边界Jan7 00:00UTC至当前时刻，避免把当天09时排除。来源day与published_at实际星期不一致，明确使用来源day/hour作业务时段标签，published_at仅过滤日期；聚合每个day/hour平均engagement_rate。分别选Top3与Low3，平分较早时间先，样本不足6时排名允许交集并注明，不把重合项同时当强制推荐与禁发。创建notion_pages(title=Posting Schedule Optimization/content)，ws_timing每时段追加Day/Hour/Rate/Rank，Hour照录来源hour数值；Rank按Top/Low归属记录，可在同一行组合或按归属分行；可附正确名次，同一时段的同一归属不得重复，百分比整数带%。通知或记录引用来源值时须原样保留，不得改写或舍入（engagement_rate按要求转为整数百分比）。social-strategy报告两个排名、样本量、推荐每周最佳单一时段及avoid最差单一时段，不真正发布或改schedule。",
     "creates": [
       {
         "collection": "notion_pages",
         "title": "Posting Schedule Optimization",
-        "content": "Top3: Tuesday 09:00 9%; Tuesday 17:00 7%; Wednesday 12:00 2%. Low3: Friday 10:00 1%; Wednesday 12:00 2%; Tuesday 17:00 7%. 4 samples; Top/Low overlap. Weekly schedule: Tuesday 09:00 UTC. avoid Friday 10:00 UTC."
+        "content": "Top3: Tuesday hour=9 9%; Tuesday hour=17 7%; Wednesday hour=12 2%. Low3: Friday hour=10 1%; Wednesday hour=12 2%; Tuesday hour=17 7%. 4 samples; Top/Low overlap. Weekly schedule: Tuesday hour=9 UTC. avoid Friday hour=10 UTC."
       }
     ],
     "creation_contains": {
       "0": {
         "content": [
           "Tuesday",
-          "09:00",
+          "hour=9",
           "9%",
-          "17:00",
+          "hour=17",
           "7%",
           "Wednesday",
-          "12:00",
+          "hour=12",
           "2%",
           "Friday",
-          "10:00",
+          "hour=10",
           "1%",
           "overlap",
           "Weekly schedule",
@@ -29103,7 +29150,7 @@
         "sheet": "ws_timing",
         "append": {
           "Day": "Tuesday",
-          "Hour": "09:00",
+          "Hour": "9",
           "Rate": "9%",
           "Rank": "Top"
         }
@@ -29113,9 +29160,12 @@
         "sheet": "ws_timing",
         "append": {
           "Day": "Tuesday",
-          "Hour": "17:00",
+          "Hour": "17",
           "Rate": "7%",
           "Rank": "Top,Low"
+        },
+        "one_of": {
+          "Rank": ["Top,Low", "Low,Top"]
         }
       },
       {
@@ -29123,9 +29173,12 @@
         "sheet": "ws_timing",
         "append": {
           "Day": "Wednesday",
-          "Hour": "12:00",
+          "Hour": "12",
           "Rate": "2%",
           "Rank": "Top,Low"
+        },
+        "one_of": {
+          "Rank": ["Top,Low", "Low,Top"]
         }
       },
       {
@@ -29133,7 +29186,7 @@
         "sheet": "ws_timing",
         "append": {
           "Day": "Friday",
-          "Hour": "10:00",
+          "Hour": "10",
           "Rate": "1%",
           "Rank": "Low"
         }
@@ -29142,18 +29195,18 @@
     "messages": [
       {
         "channel": "social-strategy",
-        "text": "Top3: Tuesday 09:00 9%; Tuesday 17:00 7%; Wednesday 12:00 2%. Low3: Friday 10:00 1%; Wednesday 12:00 2%; Tuesday 17:00 7%. 4 samples; Top/Low overlap. Weekly schedule: Tuesday 09:00 UTC. avoid Friday 10:00 UTC.",
+        "text": "Top3: Tuesday hour=9 9%; Tuesday hour=17 7%; Wednesday hour=12 2%. Low3: Friday hour=10 1%; Wednesday hour=12 2%; Tuesday hour=17 7%. 4 samples; Top/Low overlap. Weekly schedule: Tuesday hour=9 UTC. avoid Friday hour=10 UTC.",
         "contains": [
           "Tuesday",
-          "09:00",
+          "hour=9",
           "9%",
-          "17:00",
+          "hour=17",
           "7%",
           "Wednesday",
-          "12:00",
+          "hour=12",
           "2%",
           "Friday",
-          "10:00",
+          "hour=10",
           "1%",
           "4 samples",
           "overlap",
@@ -30113,24 +30166,24 @@
   },
   "operations-1340": {
     "now": "2026-02-16T09:00:00Z",
-    "instruction": "在Feb15截止日结束后核对Training Tracker所有policies及role Requirements。Completion Date非空且<=Feb15才完成；源Equivalent Course列在必修课程行给等价课程名，查同员工该课程实际完成记录即认可，即使该等价课程本身为Optional。Optional无义务补修，transfer pending免检。为每位非合规员工建asana_tasks(name=原姓名/description含全部missing课程/deadline=2026-02-15)，源未给project不虚构。私聊hr-training@acmecorp.com首行training、报告姓名及missing课程，不列合规或免检人员，不修改完成日期。",
+    "instruction": "在Feb15截止日结束后核对Training Tracker所有policies及role Requirements。Completion Date非空且<=Feb15才完成；源Equivalent Course列在必修课程行给等价课程名，查同员工该课程实际完成记录即认可，即使该等价课程本身为Optional。Optional无义务补修，transfer pending免检。为每位非合规员工建asana_tasks(name包含原姓名/description含全部missing课程)，2026-02-15仅用于判定培训合规，不要求设为补修任务到期日；源未给project不虚构。私聊hr-training@acmecorp.com首行承载主题并包含training，可加其他相关主题文字；正文报告姓名及missing课程，不列合规或免检人员，不修改完成日期。",
     "creates": [
       {
         "collection": "asana_tasks",
         "name": "Bob Turner",
-        "description": "missing Product Knowledge 101",
-        "deadline": "2026-02-15"
+        "description": "missing Product Knowledge 101"
       }
     ],
     "creation_contains": {
       "0": {
-        "description": ["missing", "Product Knowledge 101"]
+        "description": ["missing", "Product Knowledge 101"],
+        "name": ["Bob Turner"]
       }
     },
     "messages": [
       {
         "email": "hr-training@acmecorp.com",
-        "text": "training\nnon-compliance report | Bob Turner | missing Product Knowledge 101 | deadline 2026-02-15",
+        "text": "training\nnon-compliance report | Bob Turner | missing Product Knowledge 101 | compliance cutoff 2026-02-15",
         "contains": [
           "training",
           "Bob Turner",

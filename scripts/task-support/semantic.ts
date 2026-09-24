@@ -505,6 +505,112 @@ export function prepareSemantic(
     }
     return null;
   };
+  // Task-scoped derived memberships may be stored together or as separate rows.
+  // Expand expectations only after exact, duplicate-free membership validation;
+  // raw backend state and source rows are never rewritten.
+  if (seed && config.split_set_rows) {
+    const expanded: Json[] = [];
+    const groups = new Map<string, Json[]>();
+    for (const cell of expected.cells || []) {
+      const key = JSON.stringify([
+        cell.spreadsheet_token,
+        cell.sheet_id,
+        cell.row,
+      ]);
+      groups.set(key, [...(groups.get(key) || []), cell]);
+    }
+    for (const cells of groups.values()) {
+      const first = cells[0];
+      const rule = config.split_set_rows.find(
+        (r: Json) =>
+          r.spreadsheet_token === first.spreadsheet_token &&
+          r.sheet_id === first.sheet_id,
+      );
+      const membership = rule && cells.find((c) => c.column === rule.column);
+      if (
+        !membership ||
+        typeof membership.value !== 'string' ||
+        typeof rule.separator !== 'string' ||
+        !rule.separator
+      ) {
+        expanded.push(...cells);
+        continue;
+      }
+      const parse = (v: unknown): string[] | null => {
+        if (typeof v !== 'string') return null;
+        const ranks = rule.rank_numbers?.[String(first.row)];
+        const rawParts = (
+          ranks ? v.split(/[,/;|]/) : v.split(rule.separator)
+        ).map((x) => x.trim());
+        const parts: string[] = [];
+        for (const raw of rawParts) {
+          if (!ranks) {
+            parts.push(raw);
+            continue;
+          }
+          const match = /^([A-Za-z]+)(?:\s*#?\s*(\d+))?$/.exec(raw);
+          if (!match) return null;
+          const label = Object.keys(ranks).find(
+            (k) => k.toLowerCase() === match[1].toLowerCase(),
+          );
+          if (
+            !label ||
+            (match[2] !== undefined && Number(match[2]) !== ranks[label])
+          )
+            return null;
+          parts.push(label);
+        }
+        return parts.every(Boolean) && new Set(parts).size === parts.length
+          ? parts
+          : null;
+      };
+      const wanted = parse(membership.value);
+      const sheet = (state: Json) =>
+        state.spreadsheets?.[first.spreadsheet_token]?.sheets?.[first.sheet_id]
+          ?.values || [];
+      const before = sheet(seed),
+        after = sheet(world);
+      const empty = (row: any[]) =>
+        !row || row.every((v) => v === '' || v === null);
+      if (!wanted || !empty(before[first.row])) {
+        expanded.push(...cells);
+        continue;
+      }
+      const matches = after.flatMap((values: any[], row: number) =>
+        empty(before[row]) &&
+        cells
+          .filter((c) => c.column !== rule.column)
+          .every(
+            (c) =>
+              derivedCellEqual(c, values[c.column]) ??
+              isDeepStrictEqual(values[c.column], c.value),
+          )
+          ? [{ row, values, parts: parse(values[rule.column]) }]
+          : [],
+      );
+      const parts = matches.flatMap((m: Json) => m.parts || []);
+      if (
+        !matches.length ||
+        matches.some((m: Json) => m.parts === null) ||
+        parts.length !== wanted.length ||
+        new Set(parts).size !== parts.length ||
+        !wanted.every((p: string) => parts.includes(p))
+      ) {
+        expanded.push(...cells);
+        continue;
+      }
+      for (const match of matches)
+        for (const cell of cells) {
+          const copy: Json = { ...cell, row: match.row };
+          if (cell.column === rule.column) {
+            copy.value = match.values[rule.column];
+            delete copy.one_of;
+          }
+          expanded.push(copy);
+        }
+    }
+    expected.cells = expanded;
+  }
   if (seed && config.unordered_new_rows) {
     const groups = new Map<string, Json[]>();
     for (const cell of expected.cells || []) {

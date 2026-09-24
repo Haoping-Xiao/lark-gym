@@ -51,7 +51,7 @@ const expected: {
   }[];
   record_state_before_messages?: {
     chat_id: string;
-    records: { record_id: string; equals: Fields }[];
+    records: { record_id?: string; collection?: string; equals: Fields }[];
   }[];
   action_prerequisites?: {
     notification: { chat_id: string; contains: string[] };
@@ -644,9 +644,21 @@ const recordStateBeforeMessageChecks = (
         checkpoints.push({
           seq: call.seq,
           passed: rule.records.every((record) =>
-            Object.entries(record.equals).every(([key, value]) =>
-              isDeepStrictEqual(current.get(record.record_id)?.[key], value),
-            ),
+            record.record_id
+              ? Object.entries(record.equals).every(([key, value]) =>
+                  isDeepStrictEqual(
+                    current.get(record.record_id!)?.[key],
+                    value,
+                  ),
+                )
+              : Boolean(record.collection) &&
+                [...current.values()].some(
+                  (fields) =>
+                    fields.collection === record.collection &&
+                    Object.entries(record.equals).every(([key, value]) =>
+                      isDeepStrictEqual(fields[key], value),
+                    ),
+                ),
           ),
         });
       }

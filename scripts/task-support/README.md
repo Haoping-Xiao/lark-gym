@@ -196,3 +196,7 @@ Reviewed `usd_result_columns` may require a literal `prefix` and `require_curren
 语义证据附带从后端新增文本消息解析出的`decoded_new_text_messages`（文本及真实换行分割的lines），避免将嵌套JSON转义误认成正文；原始world与调用保留，它不是选手自述或额外完成证据。解析失败的消息仍保留在原始证据中。
 
 `workflow_barriers` 的 `record_field` 选择器通过 `record_id` 与 `field` 匹配已有记录的实际字段变化；同值写入不产生阶段事件。`preserve_hubspot_ids` 可为指定源集合保留业务 `id`，与用于 API 定位的 `record_id` 区分。
+
+`split_set_rows` 按表和列限定派生集合成员：同一业务键可用一行组合或分行表达，集合必须精确且无重复；其他列与来源行仍严格保护。仅展开评分期望，不修改后端状态。
+
+集合行可按 `rank_numbers` 提供每个原始期望行的派生名次；如实际标签带名次，必须精确匹配，省略名次仍按归属验收。记录发送前状态检查可通过collection与equals定位业务对象，以支持先建草稿再更新Sent。
