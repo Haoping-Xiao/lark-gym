@@ -26587,7 +26587,7 @@
     ]
   },
   "operations-1232": {
-    "instruction": "核查frontdesk@company.example.com最新visitor NDA完成来信，准确区分提醒和签署事实。创建airtable_comments(applicationId=base_ops/tableName=Visitors/recordId取来信/commentText含visitor姓名、签署日期、NDA signed)，此表记录原Airtable comment，不伪造缺失visitor实体。私聊host-ops@company.example.com，主题NDA并含同一姓名/日期/记录ID，不替其他visitor标签署。",
+    "instruction": "核查frontdesk@company.example.com最新visitor NDA完成来信，准确区分提醒和签署事实。创建airtable_comments(applicationId=base_ops/tableName=Visitors/recordId取来信/commentText准确记录NDA签署完成事实，姓名和签署日期保留来源原文)，此表记录原Airtable comment，不伪造缺失visitor实体。私聊host-ops@company.example.com，主题NDA并含同一姓名/日期/记录ID，不替其他visitor标签署。",
     "creates": [
       {
         "collection": "airtable_comments",
@@ -26599,7 +26599,7 @@
     ],
     "creation_contains": {
       "0": {
-        "commentText": ["Chen", "NDA signed", "2026-01-28"]
+        "commentText": ["Chen", "2026-01-28"]
       }
     },
     "messages": [
@@ -26742,7 +26742,7 @@
     ]
   },
   "operations-1244": {
-    "instruction": "核对ss_escalations全部规则和相关Finance/CSM邮件，从可处理Pending Enterprise中选择最高有效ARR的客户问题。Salesforce改cases记录(account_id/subject/priority=High/status=New/reference)，Jira改jira_issues(project从Customer Escalations查、issuetype=Incident/summary/reference)，Confluence改confluence_pages(cloudId=cloud_ops/space_id=SP_ESCALATIONS/type=page/title/body)。页面和escalations、account-management通知需保留当前ARR与reference，页面和account-management还写正确CSM。不存在CRM账号不得自行补建，不修改来源政策、ARR表或客户账户。",
+    "instruction": "核对ss_escalations全部规则和相关Finance/CSM邮件，从可处理Pending Enterprise中选择最高有效ARR的客户问题。Salesforce改cases记录(account_id/subject/priority=High/status=New/reference)，Jira改jira_issues(project从Customer Escalations查、issuetype=Incident/summary/reference)，Confluence改confluence_pages(cloudId=cloud_ops/space_id=SP_ESCALATIONS/type=page/title/body)。页面和escalations、account-management通知需保留当前ARR与reference，页面和account-management还写正确CSM。不存在CRM账号不得自行补建，不修改来源政策、ARR表或客户账户。通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "creates": [
       {
         "collection": "cases",
@@ -26765,7 +26765,7 @@
         "space_id": "SP_ESCALATIONS",
         "type": "page",
         "title": "Escalation - Acme Corp",
-        "body": "Acme Corp | API Integration Failures | 275,000 | ESC-acct_001 | Rachel Torres"
+        "body": "Acme Corp | API Integration Failures | $275,000 | ESC-acct_001 | Rachel Torres"
       }
     ],
     "creation_contains": {
@@ -26773,31 +26773,31 @@
         "body": [
           "Acme Corp",
           "API Integration Failures",
-          "275,000",
+          "$275,000",
           "ESC-acct_001",
           "Rachel Torres"
-        ]
+        ],
+        "title": ["Acme Corp"]
       }
     },
     "messages": [
       {
         "channel": "escalations",
-        "text": "Acme Corp | API Integration Failures | 275,000 | ESC-acct_001 | Rachel Torres",
+        "text": "Acme Corp | API Integration Failures | $275,000 | ESC-acct_001 | Rachel Torres",
         "contains": [
           "Acme Corp",
           "API Integration Failures",
-          "275,000",
-          "ESC-acct_001",
-          "Rachel Torres"
+          "$275,000",
+          "ESC-acct_001"
         ]
       },
       {
         "channel": "account-management",
-        "text": "Acme Corp | API Integration Failures | 275,000 | ESC-acct_001 | Rachel Torres",
+        "text": "Acme Corp | API Integration Failures | $275,000 | ESC-acct_001 | Rachel Torres",
         "contains": [
           "Acme Corp",
           "API Integration Failures",
-          "275,000",
+          "$275,000",
           "ESC-acct_001",
           "Rachel Torres"
         ]
