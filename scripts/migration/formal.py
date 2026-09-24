@@ -244,9 +244,9 @@ for row in rows:
     for event in recipe.get('events',[]):
         cid=event['calendar_id']
         if not any(c['calendar_id']==cid for c in calendars):calendars.append({'calendar_id':cid,'summary':cid,'role':'owner'})
-        data={k:v for k,v in event.items() if k not in ['calendar_id','start','end','attendees','description_contains']}
+        data={k:v for k,v in event.items() if k not in ['calendar_id','start','end','attendees','description_contains','summary_contains']}
         data.update({'start_time':{'timestamp':str(int(int(millis(event['start']))/1000))},'end_time':{'timestamp':str(int(int(millis(event['end']))/1000))}})
-        eventChecks.append({**data,'calendar_id':cid,'attendees':event.get('attendees',[]),**({'description_contains':event['description_contains']} if event.get('description_contains') else {})})
+        eventChecks.append({**data,'calendar_id':cid,'attendees':event.get('attendees',[]),**({'description_contains':event['description_contains']} if event.get('description_contains') else {}),**({'summary_contains':event['summary_contains']} if event.get('summary_contains') else {})})
         commands.append(['calendar','events','create','--calendar-id',cid,'--data',json.dumps(data,ensure_ascii=False)])
         while 'evt_'+str(nextEvent) in allocated:nextEvent+=1
         eid='evt_'+str(nextEvent);allocated.add(eid);nextEvent+=1
