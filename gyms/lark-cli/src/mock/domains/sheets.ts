@@ -111,10 +111,26 @@ export function sheetsRoutes(
         sheet_id: sid,
         ranges: ranges.map((range: string) => {
           const v = values(`${sid}!${range}`, sheets);
+          const start = /^([A-Z]+)(\d+)?/.exec(range);
+          const column =
+            [...(start?.[1] || 'A')].reduce(
+              (n, c) => n * 26 + c.charCodeAt(0) - 64,
+              0,
+            ) - 1;
+          const row = Number(start?.[2] || 1) - 1;
           return {
             range,
             values: v.values,
-            cells: v.values.map((row) => row.map((value) => ({ value }))),
+            cells: v.values.map((line, y) =>
+              line.map((value, x) => {
+                const style =
+                  sheets[sid].cell_styles?.[`${row + y}:${column + x}`];
+                return {
+                  value,
+                  ...(style ? { cell_styles: structuredClone(style) } : {}),
+                };
+              }),
+            ),
             has_more: false,
           };
         }),
@@ -283,8 +299,29 @@ export function sheetsRoutes(
     );
     for (const row of input.cells)
       for (const cell of row) {
-        if (!cell || Object.keys(cell).some((key) => key !== 'value'))
+        if (
+          !cell ||
+          Object.keys(cell).some(
+            (key) => !['value', 'cell_styles'].includes(key),
+          )
+        )
           fail(501, 990001, 'ENV_UNSUPPORTED: only cell values are supported');
+        if (cell.cell_styles !== undefined) {
+          const style = cell.cell_styles;
+          if (
+            !style ||
+            typeof style !== 'object' ||
+            Array.isArray(style) ||
+            Object.keys(style).length !== 1 ||
+            style.number_format !== '@' ||
+            typeof cell.value !== 'string'
+          )
+            fail(
+              501,
+              990001,
+              'ENV_UNSUPPORTED: only string cells with text number format are supported',
+            );
+        }
         requireValue(
           ['string', 'number', 'boolean'].includes(typeof cell.value),
           'Invalid cell value',
@@ -307,6 +344,11 @@ export function sheetsRoutes(
       for (let x = left; x <= right; x++) {
         while (sheet.values[y].length <= x) sheet.values[y].push('');
         sheet.values[y][x] = input.cells[y - top][x - left].value;
+        const style = input.cells[y - top][x - left].cell_styles;
+        if (style) {
+          sheet.cell_styles ??= {};
+          sheet.cell_styles[`${y}:${x}`] = structuredClone(style);
+        }
       }
     }
     return {

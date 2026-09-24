@@ -26,7 +26,7 @@ def install(task):
 CMD ["--unsupported-hook", "/opt/mock/unsupported.ts", "--unsupported-policy", "/opt/mock/unsupported-policy.json"]
 '''
         docker.write_text(s)
-    for name in ('semantic.ts', 'semantic.toml', 'evaluate.ts'):
+    for name in ('semantic.ts', 'semantic.toml', 'evaluate.ts', 'semantic-evidence.ts'):
         (task / 'tests' / name).write_text(Path(__file__).with_name(name).read_text())
     (task / 'tests/task-instruction.md').write_text((task / 'instruction.md').read_text())
     semantic_config = task / 'tests/semantic-config.json'

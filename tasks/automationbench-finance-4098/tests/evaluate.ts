@@ -9,6 +9,7 @@ import {
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import { scoreUnsupported } from './unsupported.ts';
+import { semanticEvidence } from './semantic-evidence.ts';
 const root = dirname(fileURLToPath(import.meta.url));
 const output = resolve(process.env.VERIFIER_OUTPUT || '/logs/verifier');
 const rulesOutput = join(output, 'programmatic');
@@ -60,21 +61,25 @@ try {
   if (valid && rawReward && result.semantic?.required) {
     const semanticDir = join(output, 'semantic');
     mkdirSync(semanticDir, { recursive: true });
-    const input = join(semanticDir, 'input.json');
-    writeFileSync(
-      input,
-      JSON.stringify({
-        instruction: readFileSync(join(root, 'task-instruction.md'), 'utf8'),
-        deferred_checks: result.semantic.deferred,
-        expected_facts: result.semantic.original,
-        seed: state.seed,
-        world: state.world,
-        calls: state.calls,
-      }),
-    );
-    const rubric = readFileSync(join(root, 'semantic.toml'), 'utf8').replace(
-      '__INPUT_PATH__',
-      input.replaceAll('\\', '\\\\'),
+    const evidence = semanticEvidence({
+      instruction: readFileSync(join(root, 'task-instruction.md'), 'utf8'),
+      deferred_checks: result.semantic.deferred,
+      expected_facts: result.semantic.original,
+      seed: state.seed,
+      world: state.world,
+      calls: state.calls,
+    });
+    const paths = evidence.map(({ name, data }) => {
+      const path = join(semanticDir, name);
+      writeFileSync(path, data);
+      return path;
+    });
+    const template = readFileSync(join(root, 'semantic.toml'), 'utf8');
+    if (!template.includes('files = ["__INPUT_PATH__"]'))
+      throw new Error('Missing semantic evidence file placeholder');
+    const rubric = template.replace(
+      'files = ["__INPUT_PATH__"]',
+      `files = ${JSON.stringify(paths)}`,
     );
     writeFileSync(join(semanticDir, 'quality.toml'), rubric);
     execFileSync(

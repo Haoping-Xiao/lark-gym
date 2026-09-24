@@ -271,6 +271,33 @@ export function prepareSemantic(
       }
     }
   }
+  // Reviewed text formatting is representation metadata only on permitted
+  // string-valued output cells. The authoritative state file is never rewritten.
+  if (seed && config.text_format_cells) {
+    for (const cell of expected.cells || []) {
+      const sheet = (state: Json) =>
+        cell.spreadsheet_token
+          ? state.spreadsheets?.[cell.spreadsheet_token]?.sheets?.[
+              cell.sheet_id
+            ]
+          : state.sheets?.[cell.sheet_id];
+      const before = sheet(seed),
+        after = sheet(world);
+      const key = `${cell.row}:${cell.column}`;
+      if (
+        typeof after?.values?.[cell.row]?.[cell.column] !== 'string' ||
+        !isDeepStrictEqual(after.cell_styles?.[key], { number_format: '@' }) ||
+        before?.cell_styles?.[key] !== undefined
+      )
+        continue;
+      delete after.cell_styles[key];
+      if (
+        !Object.keys(after.cell_styles).length &&
+        before?.cell_styles === undefined
+      )
+        delete after.cell_styles;
+    }
+  }
   for (const [i, message] of (expected.messages || []).entries()) {
     if (message.contains?.length) {
       message.contains = literalMessageTerms.get(message) || [];

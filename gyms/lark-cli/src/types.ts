@@ -7,6 +7,8 @@ export interface BaseRecord {
 export interface Sheet {
   title: string;
   values: (string | number | boolean)[][];
+  // Reviewed text number format, keyed by zero-based row:column coordinates.
+  cell_styles?: Record<string, { number_format: '@' }>;
 }
 export interface World {
   [key: string]: any;

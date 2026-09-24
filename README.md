@@ -54,6 +54,8 @@ harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracl
 
 Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足；默认排除样本，任务策略可以选择保留并扣分。
 
+单元格写入支持普通值及字符串的 `cell_styles.number_format="@"` 文本格式，格式保存在共享状态并通过单元格/类型化表格读回，前导零和长编号保持原文。其他数字/日期/视觉格式与样式单独写入仍未支持。
+
 Sheet AI 批量写入目前仅支持所有子操作均可成功的普通 `set_cell_range` 值写入，按顺序处理且可跨同一工作簿内的子表。任何失败、未知选项或混合操作均在写入前返回 501 并排除样本；这不是对真实后端失败回滚语义的实现。失败批次的部分生效规则仍需后端证据确认。
 
 Base 的 `+base-block-list` 与 URL 定位可读取同一份平铺数据表目录；仅返回任务已有数据表，不虚构文件夹、文档或仪表盘。嵌套目录及未知选项继续记录 501。
