@@ -7,6 +7,7 @@ type EventCheck = {
   semantic_text?: boolean;
   utc_date_window?: { date: string; duration_seconds: number };
   description?: string;
+  description_rich?: string;
   description_contains?: string[];
   vc_data?: {
     vc_type: string;
@@ -294,9 +295,18 @@ const eventChecks = (expected.events || []).map((check) => ({
         .sort();
       return (
         (!check.description_contains ||
-          check.description_contains.every((part) =>
-            (event.description || '').includes(part),
-          )) &&
+          ([event.description, event.description_rich].some(
+            (text) => typeof text === 'string',
+          ) &&
+            [event.description, event.description_rich]
+              .filter((text) => text !== undefined)
+              .every(
+                (text) =>
+                  typeof text === 'string' &&
+                  check.description_contains!.every((part) =>
+                    text.includes(part),
+                  ),
+              ))) &&
         event.calendar_id === check.calendar_id &&
         event.status !== 'cancelled' &&
         (!(check.vc || check.vc_data?.vc_type === 'vc') ||

@@ -30194,7 +30194,7 @@
     ]
   },
   "operations-1341": {
-    "instruction": "采购三方匹配按PO Number，仅PO Date>=2026-01-01且无hold。Qty Received!=Qty Ordered则差异，Partial - Expected仅豁免数量差；Invoice Amount!=Qty Ordered*Unit Price仍检查。每一种差异独立创建monday_items(board=Procurement Issues/name=<PO> <Quantity或Amount> mismatch/description完整expected/actual/difference)，同PO两个差异两条而非混成一条。私聊procurement@supplychainco.com首行mismatch、列全部差异，不改原PO/receipt/invoice，不付款。",
+    "instruction": "采购三方匹配按PO Number，仅PO Date>=2026-01-01且无hold。Qty Received!=Qty Ordered则差异，Partial - Expected仅豁免数量差；Invoice Amount!=Qty Ordered*Unit Price仍检查。每一种差异独立创建monday_items(board=Procurement Issues/name包含原PO Number并说明差异用途/description完整expected/actual/difference)，同PO两个差异两条而非混成一条。私聊procurement@supplychainco.com首行承载主题且包含mismatch，可加其他相关主题文字；正文列全部差异，不改原PO/receipt/invoice，不付款。",
     "creates": [
       {
         "collection": "monday_items",
@@ -30400,7 +30400,7 @@
   },
   "operations-1347": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "读Fire Safety Inventory/Config/Hold Policy，按日期天数差严格>配置interval且Deployed Status=Active、无FSR hold才检查。Monthly/Quarterly使用30/90固定日，等于阈值不选，支持MM/DD/YYYY。为每unit在cal_fire创建Inspection: <ID>，Feb12 09–09:30UTC，description原Location，原无attendee不补。向Safety Officer私聊全部ID/Location及时间，不改Last Inspection。",
+    "instruction": "读Fire Safety Inventory/Config/Hold Policy，按日期天数差严格>配置interval且Deployed Status=Active、无FSR hold才检查。Monthly/Quarterly使用30/90固定日，等于阈值不选，支持MM/DD/YYYY。为每unit在cal_fire创建检查日程，标题包含原Unit ID并表达检查用途，Feb12 09–09:30UTC，description原Location，原无attendee不补。向Safety Officer私聊全部ID/Location及时间，不改Last Inspection。",
     "events": [
       {
         "calendar_id": "cal_fire",
@@ -30409,7 +30409,8 @@
         "end": "2026-02-12T09:30:00Z",
         "attendees": [],
         "description": "Lobby Floor 1",
-        "description_contains": ["Lobby Floor 1"]
+        "description_contains": ["Lobby Floor 1"],
+        "summary_contains": "FE-101"
       },
       {
         "calendar_id": "cal_fire",
@@ -30418,7 +30419,8 @@
         "end": "2026-02-12T09:30:00Z",
         "attendees": [],
         "description": "Server Room",
-        "description_contains": ["Server Room"]
+        "description_contains": ["Server Room"],
+        "summary_contains": "FE-103"
       },
       {
         "calendar_id": "cal_fire",
@@ -30427,7 +30429,8 @@
         "end": "2026-02-12T09:30:00Z",
         "attendees": [],
         "description": "Parking Garage B1",
-        "description_contains": ["Parking Garage B1"]
+        "description_contains": ["Parking Garage B1"],
+        "summary_contains": "FE-107"
       }
     ],
     "messages": [
@@ -30451,7 +30454,7 @@
   },
   "operations-1348": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "读Calibration所有policy和Lab Director来信，仅Active、Pending Order=No、无recall/认证撤销，due落在今天至Feb23含14天内。支持MM/DD/YYYY；每instrument创建asana_tasks(name=<ID> <Name>/dueDate=ISO日期/assignee_email=Technician Email/description含Assigned Technician和原due文本)。源无workspace/project不猜，向配置Lab Manager私聊全部ID、名称、原due、technician，不能把任务创建称校准完成，不改Pending Order。",
+    "instruction": "读Calibration所有policy和Lab Director来信，仅Active、Pending Order=No、无recall/认证撤销，due落在今天至Feb23含14天内。支持MM/DD/YYYY；每instrument创建asana_tasks(name包含原Instrument ID并清楚标识仪器，允许自然标题措辞，不要求额外写出“校准”一词/dueDate=ISO日期/assignee_email=Technician Email/description含Assigned Technician和原due文本)。源无workspace/project不猜，向配置Lab Manager私聊全部ID、名称、原due、technician，不能把任务创建称校准完成，不改Pending Order。",
     "creates": [
       {
         "collection": "asana_tasks",
