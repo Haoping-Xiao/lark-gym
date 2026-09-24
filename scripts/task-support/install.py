@@ -80,6 +80,12 @@ writeFileSync(
     s = s.replace("  new URL('./semantic-config.json', import.meta.url),\n);", "  new URL('./semantic-config.json', import.meta.url),\n  seed,\n);")
     s = s.replace("new URL('./semantic-config.json', import.meta.url));", "new URL('./semantic-config.json', import.meta.url), seed);")
     # Restore absent fields by removing them, not by leaving undefined keys.
+    # Only tasks explicitly reviewed against case-insensitive source assertions
+    # enable this mode; all other creation substring checks retain their behavior.
+    s = s.replace('contains[key].every((part) => String(r.fields[key]).includes(part))',
+        'contains[key].every((part) => semantic.creationContainsCaseInsensitive\n'
+        '  ? String(r.fields[key]).toLowerCase().includes(part.toLowerCase())\n'
+        '  : String(r.fields[key]).includes(part))')
     s = s.replace('if (after) after.fields[check.field] = before.fields[check.field];',
         'if (after) {\n    if (Object.hasOwn(before.fields, check.field)) after.fields[check.field] = before.fields[check.field];\n    else delete after.fields[check.field];\n  }')
     if 'semantic.literalMessageChecks.every' not in s:

@@ -99,6 +99,7 @@ export function prepareSemantic(
   if (!config.enabled)
     return {
       required: false,
+      creationContainsCaseInsensitive: false,
       original,
       deferred: [] as string[],
       literalMessageChecks: [] as Json[],
@@ -647,6 +648,8 @@ export function prepareSemantic(
   }
   return {
     required: deferred.length > 0,
+    creationContainsCaseInsensitive:
+      config.creation_contains_case_insensitive === true,
     original,
     deferred,
     literalMessageChecks,
