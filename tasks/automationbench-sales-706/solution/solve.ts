@@ -115,7 +115,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_C_DEAL_OPS',
     '--text',
-    'workspace Horizon Corp - Deal Room已建立：Horizon Corp - Platform Migration，450000，Negotiation；4位账户联系人加创建者，共5名成员。',
+    'workspace Horizon Corp - Deal Room已建立：Horizon Corp - Platform Migration，450000，Negotiation；已加入4位账户联系人。',
   ],
 ];
 for (const args of commands)
