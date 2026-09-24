@@ -99,7 +99,13 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) => String(r.fields[key]).includes(part))
+            contains[key].every((part) =>
+              semantic.creationContainsCaseInsensitive
+                ? String(r.fields[key])
+                    .toLowerCase()
+                    .includes(part.toLowerCase())
+                : String(r.fields[key]).includes(part),
+            )
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
@@ -248,7 +254,11 @@ for (const check of expected.updates) {
   const after = protectedWorld.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
   );
-  if (after) after.fields[check.field] = before.fields[check.field];
+  if (after) {
+    if (Object.hasOwn(before.fields, check.field))
+      after.fields[check.field] = before.fields[check.field];
+    else delete after.fields[check.field];
+  }
 }
 const sheetsFor = (
   state: typeof world,
@@ -302,6 +312,9 @@ const success =
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
+  semantic.recordGroupChecks.every((c) => c.passed) &&
+  semantic.literalCellChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&

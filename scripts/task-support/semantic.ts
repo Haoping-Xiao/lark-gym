@@ -574,7 +574,13 @@ export function prepareSemantic(
           Array.isArray(terms) &&
           typeof value === 'string' &&
           terms.every(
-            (term: unknown) => typeof term === 'string' && value.includes(term),
+            (term: unknown) =>
+              typeof term === 'string' &&
+              (config.literal_cell_token_boundaries
+                ? new RegExp(
+                    `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
+                  ).test(value)
+                : value.includes(term)),
           ),
       };
     },
