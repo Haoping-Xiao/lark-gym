@@ -35,6 +35,21 @@ function decimalValue(value: unknown): string | null {
     BigInt(trailing);
   return `${match[1] === '-' ? '-' : ''}${digits}e${exponent}`;
 }
+// Reviewed UTC clock results only; keep source times and other cells literal.
+function utcClockSeconds(value: unknown): number | null {
+  if (typeof value !== 'string') return null;
+  const m =
+    /^(\d{1,2})(?::([0-5]\d)(?::([0-5]\d))?)?\s*(AM|PM)?(?:\s*(UTC|Z|\+00:00))?$/i.exec(
+      value.trim(),
+    );
+  if (!m || (!m[2] && !m[4])) return null;
+  let hour = Number(m[1]);
+  if (m[4]) {
+    if (hour < 1 || hour > 12) return null;
+    hour = (hour % 12) + (m[4].toUpperCase() === 'PM' ? 12 : 0);
+  } else if (hour > 23) return null;
+  return hour * 3600 + Number(m[2] || 0) * 60 + Number(m[3] || 0);
+}
 // Text-backed JSON keeps its field type while comparing the represented value.
 function sameJsonText(
   actual: unknown,
@@ -401,6 +416,7 @@ export function prepareSemantic(
     for (const [key, parse] of [
       ['usd_result_columns', usdCents],
       ['numeric_result_columns', decimalValue],
+      ['utc_clock_result_columns', utcClockSeconds],
     ] as const) {
       const rule = (config[key] || []).find(
         (rule: Json) =>

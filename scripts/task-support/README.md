@@ -172,3 +172,5 @@ considers new records only, leaving existing source records unchanged.
 `literal_forbidden_message_indices` 对经完整来源核对的正文禁词断言保留程序检查，同时仍做语义禁止事项评审。仅为明确的字面禁止启用，不从一般禁止动作推导禁词；例如 4060 原断言禁止税务正文包含被排除供应商名称。
 
 `usd_result_columns.rows` 可进一步限定指定结果行（与 expected 的零基行号一致）。4100 仅对 C10/C11 两个更正后的计算余额比较精确金额，C3 直接给出的来源余额仍按原值检查；同列不等于都可数值化。
+
+`utc_clock_result_columns` 只比较经审查的派生UTC时刻，支持12小时制（AM/PM）和24小时制，可带秒及UTC/Z/+00:00标识，按秒精确比较。无AM/PM的写法必须包含分钟；非法时分秒、数值类型、含糊的单个小时和非UTC偏移均不接受。5095仅启用Eve的Break Time结果格，来源Shift和其他单元格仍按原规则保护。
