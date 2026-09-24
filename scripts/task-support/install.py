@@ -59,6 +59,9 @@ writeFileSync(
     s = verifier.read_text()
     s = s.replace("  new URL('./semantic-config.json', import.meta.url),\n);", "  new URL('./semantic-config.json', import.meta.url),\n  seed,\n);")
     s = s.replace("new URL('./semantic-config.json', import.meta.url));", "new URL('./semantic-config.json', import.meta.url), seed);")
+    # Restore absent fields by removing them, not by leaving undefined keys.
+    s = s.replace('if (after) after.fields[check.field] = before.fields[check.field];',
+        'if (after) {\n    if (Object.hasOwn(before.fields, check.field)) after.fields[check.field] = before.fields[check.field];\n    else delete after.fields[check.field];\n  }')
     if 'semantic.literalMessageChecks.every' not in s:
         marker = '  messageChecks.every((c) => c.passed) &&'
         if marker not in s:

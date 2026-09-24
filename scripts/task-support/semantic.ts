@@ -117,6 +117,44 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  // Optional, source-supported enrichment is reviewed independently. Actual
+  // values only unmask these edits from the unchanged-state guard; they are
+  // never promoted into the judge's required reference facts.
+  if (seed && config.optional_record_edits?.length) {
+    original.optional_record_edits = structuredClone(
+      config.optional_record_edits,
+    );
+    for (const rule of config.optional_record_edits) {
+      const before = seed.base.records.find(
+        (r: Json) => r.record_id === rule.record_id,
+      );
+      const after = world.base.records.find(
+        (r: Json) => r.record_id === rule.record_id,
+      );
+      if (!before || !after) continue;
+      for (const field of rule.fields) {
+        const value = after.fields[field];
+        if (
+          isDeepStrictEqual(value, before.fields[field]) ||
+          typeof value !== 'string' ||
+          !value.trim() ||
+          expected.updates.some(
+            (u: Json) => u.record_id === rule.record_id && u.field === field,
+          )
+        )
+          continue;
+        expected.updates.push({
+          record_id: rule.record_id,
+          field,
+          value,
+          mode: 'equals',
+        });
+        deferred.push(
+          `optional_record_edits.source_supported_enrichment:${rule.record_id}.${field}`,
+        );
+      }
+    }
+  }
   const recordGroupChecks: Json[] = [];
   if (config.event_text && expected.events?.length)
     deferred.push('events.business_purpose_and_optional_description');
