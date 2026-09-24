@@ -1,3 +1,5 @@
 把support_organizations同步intercom_companies，遵从ss_sync_config tag与override。全部非Hold org均同步，包括无映射tag者；只有表中映射可带入，不猜premium等价enterprise。既有company按完整name复用（来源无domain也可匹配），只追加映射tag；新company保存name/首domain/external_id=zendesk:<org id>/tags JSON数组，无映射为空。不改Zendesk来源，不新增重复公司。customer-ops汇总sync数量、created/updated及处理公司名，不提Hold者。
 
+组织记录 ID 的迁移规则为 rec_zendesk_ 加原始组织 ID；生成 external_id 时只移除 rec_zendesk_ 前缀，完整保留其余原始 ID（包括 org_ 等原有部分）。
+
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。
