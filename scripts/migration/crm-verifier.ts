@@ -13,6 +13,7 @@ type EventCheck = {
     vc_type: string;
     meeting_settings?: { password?: string; join_meeting_permission?: string };
   };
+  vchat?: EventCheck['vc_data'];
   vc?: boolean;
   password_required?: boolean;
   join_meeting_permission?: string;
@@ -49,6 +50,10 @@ const expected: {
   workflow_barriers?: {
     before: WorkflowEventSelector[];
     after: WorkflowEventSelector[];
+  }[];
+  record_state_before_updates?: {
+    update: { record_id: string; field: string; value: string | number };
+    records: { collection: string; equals: Fields }[];
   }[];
   record_state_before_messages?: {
     chat_id: string;
@@ -293,6 +298,17 @@ const eventChecks = (expected.events || []).map((check) => ({
       const actualAttendees = (event.attendees || [])
         .map((a: { third_party_email: string }) => a.third_party_email)
         .sort();
+      const videoSettings = [event.vc_data, event.vchat].filter(
+        (value) => value !== undefined,
+      );
+      const videoMatches = (
+        predicate: (value: NonNullable<EventCheck['vc_data']>) => boolean,
+      ) =>
+        videoSettings.length > 0 &&
+        videoSettings.every(
+          (value) =>
+            value !== null && typeof value === 'object' && predicate(value),
+        );
       return (
         (!check.description_contains ||
           ([event.description, event.description_rich].some(
@@ -310,18 +326,21 @@ const eventChecks = (expected.events || []).map((check) => ({
         event.calendar_id === check.calendar_id &&
         event.status !== 'cancelled' &&
         (!(check.vc || check.vc_data?.vc_type === 'vc') ||
-          event.vc_data?.vc_type === 'vc') &&
+          videoMatches((value) => value.vc_type === 'vc')) &&
         (!(
           check.password_required || check.vc_data?.meeting_settings?.password
         ) ||
-          Boolean(event.vc_data?.meeting_settings?.password)) &&
+          videoMatches((value) => Boolean(value.meeting_settings?.password))) &&
         (!(
           check.join_meeting_permission ||
           check.vc_data?.meeting_settings?.join_meeting_permission
         ) ||
-          event.vc_data?.meeting_settings?.join_meeting_permission ===
-            (check.join_meeting_permission ||
-              check.vc_data?.meeting_settings?.join_meeting_permission)) &&
+          videoMatches(
+            (value) =>
+              value.meeting_settings?.join_meeting_permission ===
+              (check.join_meeting_permission ||
+                check.vc_data?.meeting_settings?.join_meeting_permission),
+          )) &&
         (check.semantic_text ||
           (check.summary_contains
             ? event.summary.includes(check.summary_contains)
@@ -632,6 +651,61 @@ const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
     };
   },
 );
+const recordStateBeforeUpdateChecks = (
+  expected.record_state_before_updates || []
+).map((rule) => {
+  const current = new Map<string, Fields>(
+    seed.base.records.map((row: RecordRow) => [
+      row.record_id,
+      structuredClone(row.fields),
+    ]),
+  );
+  const checkpoints: { seq: number; passed: boolean }[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    // Read the state before the entire successful request, not after a sibling mutation.
+    for (const mutation of call.mutations || []) {
+      if (
+        mutation.kind === 'record' &&
+        mutation.id === rule.update.record_id &&
+        mutation.after &&
+        isDeepStrictEqual(
+          mutation.after.fields?.[rule.update.field],
+          rule.update.value,
+        ) &&
+        !isDeepStrictEqual(
+          mutation.before?.fields?.[rule.update.field],
+          rule.update.value,
+        )
+      ) {
+        checkpoints.push({
+          seq: call.seq,
+          passed: rule.records.every((record) =>
+            [...current.values()].some(
+              (fields) =>
+                fields.collection === record.collection &&
+                Object.entries(record.equals).every(([key, value]) =>
+                  isDeepStrictEqual(fields[key], value),
+                ),
+            ),
+          ),
+        });
+      }
+    }
+    for (const mutation of call.mutations || []) {
+      if (mutation.kind !== 'record') continue;
+      if (mutation.after)
+        current.set(mutation.id, structuredClone(mutation.after.fields));
+      else current.delete(mutation.id);
+    }
+  }
+  return {
+    rule,
+    checkpoints,
+    passed:
+      checkpoints.length > 0 && checkpoints.every((check) => check.passed),
+  };
+});
 const recordStateBeforeMessageChecks = (
   expected.record_state_before_messages || []
 ).map((rule) => {
@@ -751,6 +825,7 @@ const workflowBarrierChecks = (expected.workflow_barriers || []).map((rule) => {
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
   workflowBarrierChecks.every((check) => check.passed) &&
+  recordStateBeforeUpdateChecks.every((check) => check.passed) &&
   recordStateBeforeMessageChecks.every((check) => check.passed) &&
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
@@ -781,6 +856,7 @@ writeFileSync(
       membershipChecks,
       orderChecks,
       actionPrerequisiteChecks,
+      recordStateBeforeUpdateChecks,
       recordStateBeforeMessageChecks,
       workflowBarrierChecks,
       entityOrderChecks,

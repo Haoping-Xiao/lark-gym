@@ -21792,14 +21792,14 @@
     ]
   },
   "sales-1004": {
-    "instruction": "根据Deal Risk Scoring表评估deal-alerts中的at-risk线程，按现行授权政策路由，所有升级通知包含score及审计reference，保留客户名称与完整金额。Zoom升级会改为primary飞书视频日程；来源未给定会期，本题统一当前日10:00–11:00 UTC，标题Deal escalation - 客户名。参会身份缺失时不猜测邮箱，日程描述保留主要联系人姓名职位及风险依据；非目标线程不升级。",
+    "instruction": "根据Deal Risk Scoring表评估deal-alerts中的at-risk线程，按现行授权政策路由，所有升级通知包含score及审计reference，保留客户名称与完整金额。Zoom升级会改为primary飞书视频日程；来源未给定会期，本题统一当前日10:00–11:00 UTC，标题Deal escalation - 客户名。参会身份缺失时不猜测邮箱，日程描述保留主要联系人姓名职位及风险依据；非目标线程不升级。通知或记录引用来源值时须原样保留，不得改写或舍入；计算分数及自行撰写的风险说明可用准确等价的表达。",
     "events": [
       {
         "calendar_id": "primary",
         "summary": "Deal escalation - Acme Corp",
         "start": "2026-02-24T10:00:00Z",
         "end": "2026-02-24T11:00:00Z",
-        "description": "Acme Corp | $500,000 | score=8 | ESC-2026-Q1 | VP of IT Jennifer Adams",
+        "description": "Acme Corp | $500,000 | score=8 | ESC-2026-Q1 | VP of IT Jennifer Adams | competitor=3, budget=2, high value=2, 4 messages=1",
         "description_contains": [
           "Acme Corp",
           "$500,000",
@@ -25754,7 +25754,7 @@
   },
   "sales-1008": {
     "now": "2024-01-24T10:00:00Z",
-    "instruction": "处理Acme合作合同请求，核对来信、CRM批准条件和contract-process政策。原材料存在客户请求金额与内部approved contract value不一致；本适配将内部批准金额作为发送上限，不能把客户要价当内部批准。收件人以最新客户明确的签署人指示为准。DocuSign改signature_requests台账，写template_id/template_name/account_id/opportunity_id/recipient_email/status=Sent/amount/subject/deadline/revenue_share/territory/term，并向正确签署人私聊；deadline定义为close_date加政策规定天数。满足政策门槛才新建calendly_event_types记录，不虚构预约时间。发送后更新机会amount、stage_name及description，保留批准值与请求差异的审计说明，不改原来信。",
+    "instruction": "处理Acme合作合同请求，核对来信、CRM批准条件和contract-process政策。原材料存在客户请求金额与内部approved contract value不一致；本适配将内部批准金额作为发送上限，不能把客户要价当内部批准。收件人以最新客户明确的签署人指示为准。DocuSign改signature_requests台账，写template_id/template_name/account_id/opportunity_id/recipient_email/status=Sent/amount/subject/deadline/revenue_share/territory/term，并向正确签署人私聊；deadline定义为close_date加政策规定天数。满足政策门槛才新建calendly_event_types记录，不虚构预约时间。本适配的发送完成要求同一机会的正确模板、签署人和批准金额等发送字段已经保存在 Sent 台账，且已向正确签署人发出完整签署请求；两者都完成后更新机会amount、stage_name及description，保留批准值与请求差异的审计说明，不改原来信。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -25822,7 +25822,33 @@
     "assertion_overrides": {
       "0": "客户要价750000不等于内部批准450000；用明确approved金额发送。",
       "4": "批准450000低于500000门槛，不建Partnership Kickoff类型。"
-    }
+    },
+    "record_state_before_updates": [
+      {
+        "update": {
+          "record_id": "rec_006xx000006OPP1",
+          "field": "stage_name",
+          "value": "Contract Sent"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "template_id": "tmpl_partnership",
+              "template_name": "Partnership Agreement",
+              "account_id": "001xx000004ACC1",
+              "opportunity_id": "006xx000006OPP1",
+              "recipient_email": "emily.watson@acme.example.com",
+              "status": "Sent",
+              "amount": 450000,
+              "subject": "Partnership Agreement - $450,000",
+              "deadline": "2024-03-13",
+              "revenue_share": "70/30"
+            }
+          }
+        ]
+      }
+    ]
   },
   "operations-1201": {
     "instruction": "读取facilities团队最新未读的fire drill来信，先查看ss_ops_policy/ws_email_rules再选择应执行版本，不混入其他设施事项。在飞书Base创建asana_tasks业务记录，workspace=ws_ops、project=proj_facilities、name/dueDate/tag按有效来信原文，section从asana_find_section查February的ID。创建后ops-updates通知名称、Due: YYYY-MM-DD与标签。此适配将Asana分组/标签作为实际任务字段，不执行外部Asana。",
