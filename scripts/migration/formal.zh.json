@@ -31444,7 +31444,7 @@
   },
   "operations-1386": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按Outbound Shipments全部政策及制裁邮件处理hazmat申报。这里仅执行题内模拟政策，不代表现实贸易或运输合规判断。DocuSign替为signature_requests(template_id/template_name/shipment_id/destination/declared_value/signer_email/status=Sent)及实际shipper私聊申报签署请求。compliance私聊汇总已处理ID/目的地/金额、count、total declared value，并单列受制裁且禁止处理的shipment；logistics群只汇总实际已处理者的同样信息，不列跳过项。不改源Declaration Status，不声称已签署。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。计算合计允许准确且币种清楚的等价表达。",
+    "instruction": "按Outbound Shipments全部政策及制裁邮件处理hazmat申报。检查 ss_shipments 的 ws_outbound：仅处理 Classification 为 Hazardous、Destination Type 为 International、Declaration Status 为 Missing 且 Notes 不含 Reclassified 的货件；国内货件、已重分类及非 Missing 的货件跳过，仍须遵守待审暂缓、VOIDED 排除和制裁政策。使用 International Hazmat Declaration 模板，不使用 Domestic Hazmat Declaration。本次仅准备内部申报材料，不向监管机构提交。DocuSign替为signature_requests(template_id/template_name/shipment_id/destination/declared_value/signer_email/status=Sent)及实际shipper私聊申报签署请求。compliance私聊汇总已处理ID/目的地/金额、count、total declared value，并单列受制裁且禁止处理的shipment；logistics群只汇总实际已处理者的同样信息，不列跳过项。不改源Declaration Status，不声称已签署。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。计算合计允许准确且币种清楚的等价表达。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -31812,7 +31812,7 @@
   },
   "operations-1398": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按Generator各worksheet规则筛选到今天+14日已到/将到测试期限者，Monthly/Quarterly为30/90日，Emergency run重置日期，firmware hold及active fuel rationing优先排除。next available weekday明确指今天之后首个工作日06–08UTC；源无忙闲事件按各building可并行，不虚构技术员冲突。在cal_generators为每项创建Generator Load Test - [ID]，description含Building/kW Rating（保持原值），无attendee来源不补。向每个实际排期楼的engineer邮箱私聊ID/building/kW/time、本人任务数及所有楼总数，不给无安排者通知、不改Last Load Test。",
+    "instruction": "按Generator各worksheet规则筛选到今天+14日已到/将到测试期限者；Status 为 Under Repair 的机组跳过，Type 为 Portable 且 Assignment 为 Event 的机组跳过。Monthly/Quarterly为30/90日，Emergency run重置日期，firmware hold及active fuel rationing优先排除。next available weekday明确指今天之后首个工作日06–08UTC；源无忙闲事件按各building可并行，不虚构技术员冲突。在cal_generators为每项创建Generator Load Test - [ID]，description含Building/kW Rating（保持原值），无attendee来源不补。向每个实际排期楼的engineer邮箱私聊ID/building/kW/time、本人任务数及所有楼总数，不给无安排者通知、不改Last Load Test。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明按实际含义验收。",
     "events": [
       {
         "calendar_id": "cal_generators",
