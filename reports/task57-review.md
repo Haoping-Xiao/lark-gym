@@ -2305,3 +2305,15 @@ V230–231 联合全量验证：1143 项检查及 oracle 通过。27 份 CLI 对
 冻结任务的新 Harbor/Astra 运行 native-v233-outreach-order 共 14 次 HTTP 请求：第 13 次 POST 邮件搜索返回 501，之后一次请求因中止返回 410。结果 environment_incomplete、valid_sample=false，单列环境不足，不计自主成功或业务失败。合法处理顺序的证据来自实际 CLI 对照，不冒充此次自主运行。
 
 V232–233 最终 npm run check：1144 项通过；oracle 通过。
+
+### V234：合同重发的特殊条款允许准确改写
+
+完整核对 sales-821 的 15 条原始断言、全部邮件、DocuSign、CRM 来源及当前参考解。协商备注明确新金额 175000、三年和新增 premium support package；按最新政策选择 Premium Agreement，作废原 Apex 合同、重发给原签署人、更新 CRM 并通知销售，Beta 合同保持不变。
+
+仅对新签署记录的 special_terms 开启语义检查。旧程序把条款写成完整英文句子或等义中文就拒绝，新评分接受准确改写；原金额、期限、模板、签署人、关联和状态仍结构核对，不能用语义放宽结构字段。
+
+12 份真实 CLI 对照全部符合预期：参考、自然句子、中文条款 3 PASS；遗漏条款、只提供普通支持、捏造 24/7 专属工程师及五分钟 SLA、错金额、错期限、错模板、错签署人、错商机、作废 Beta 合同 9 FAIL。前三类条款错误由语义评分拒绝，其余结构错误由程序拒绝。重新生成复验全部状态，参考解 29 次请求通过，重复安装一致。
+
+新 Harbor/Astra 运行 native-v234-contract-terms 共 20 次 HTTP 请求；第 19 次文档搜索因 sort_type 过滤未实现返回 501，第 20 次用户信息请求因环境中止返回 410。结果 environment_incomplete、valid_sample=false，单列环境缺口，不计自主通过或业务失败。
+
+V234 最终 npm run check：1145 项通过；oracle 通过。
