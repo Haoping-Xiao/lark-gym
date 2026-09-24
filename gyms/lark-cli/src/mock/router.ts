@@ -1,5 +1,6 @@
 import { contactRoutes } from './domains/contact.ts';
 import type { World } from '../types.ts';
+import { wikiRoutes } from './domains/wiki.ts';
 import { driveRoutes } from './domains/drive.ts';
 import { baseRoutes } from './domains/base/routes.ts';
 import { createCalendarRoutes } from './domains/calendar.ts';
@@ -22,6 +23,9 @@ export function createRouter(world: World) {
       case 'drive':
       case 'search':
         result = driveRoutes(world, request);
+        break;
+      case 'wiki':
+        result = wikiRoutes(world, request);
         break;
       case 'contact':
         result = contactRoutes(world, request);

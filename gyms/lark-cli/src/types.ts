@@ -27,6 +27,15 @@ export interface World {
     is_whole: boolean;
     reply_list?: { replies: ApiObject[] };
   })[];
+  // Spaces accessible to this fixture's evaluation identity; absence means none.
+  wiki_spaces?: {
+    space_id: string;
+    name: string;
+    description: string;
+    space_type: 'team' | 'person' | 'my_library' | 'my_library_resigned';
+    visibility: 'public' | 'private';
+    open_sharing: 'open' | 'closed';
+  }[];
   calendars: ApiObject[];
   events: (ApiObject & { event_id: string; summary: string })[];
   base: {
