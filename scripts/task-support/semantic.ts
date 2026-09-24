@@ -298,7 +298,16 @@ export function prepareSemantic(
     for (const event of expected.events) delete event.description_contains;
     deferred.push('events.required_description_business_facts');
   }
-  if (config.event_text && expected.events?.length)
+  for (const index of config.event_text_indices || []) {
+    const check = expected.events?.[index];
+    if (!check) throw new Error('Configured semantic event does not exist');
+    check.semantic_text = true;
+    delete check.description_contains;
+  }
+  if (
+    (config.event_text || config.event_text_indices?.length) &&
+    expected.events?.length
+  )
     deferred.push('events.business_purpose_and_optional_description');
   // Each source assertion is existential over one actual, newly sent body.
   // Distinct assertions may share the same message or use different messages.

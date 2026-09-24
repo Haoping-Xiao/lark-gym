@@ -182,3 +182,5 @@ considers new records only, leaving existing source records unchanged.
 entity_order的record_before_message=false只要求指定登记与通知分别先于对应状态，不增加二者间的先后关系。此模式按记录变更回放有效登记集合，在每次进入目标状态时检查登记仍有效；删除或改坏后补回不能补救提前标记。默认仍保持既有登记→通知→状态要求。5070按员工分别配置两种登记，并保留来源姓名、ID、日期和PTO字面要求。
 
 `action_prerequisites` limits a complete notification prerequisite to selected record identities and message recipients/subjects. Every matching action must follow delivery; unrelated people may proceed independently.
+
+`event_text_indices` selects reviewed events whose titles and optional descriptions are judged for business meaning; calendar, live status, exact time and attendees remain structural requirements. Selected events automatically enable the semantic rubric.

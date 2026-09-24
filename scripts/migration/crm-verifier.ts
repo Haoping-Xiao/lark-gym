@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 type Fields = Record<string, string | number>;
 type RecordRow = { record_id: string; fields: Fields };
 type EventCheck = {
+  semantic_text?: boolean;
   utc_date_window?: { date: string; duration_seconds: number };
   description?: string;
   description_contains?: string[];
@@ -291,9 +292,10 @@ const eventChecks = (expected.events || []).map((check) => ({
           event.vc_data?.meeting_settings?.join_meeting_permission ===
             (check.join_meeting_permission ||
               check.vc_data?.meeting_settings?.join_meeting_permission)) &&
-        (check.summary_contains
-          ? event.summary.includes(check.summary_contains)
-          : event.summary === check.summary) &&
+        (check.semantic_text ||
+          (check.summary_contains
+            ? event.summary.includes(check.summary_contains)
+            : event.summary === check.summary)) &&
         sameEventTimes(event, check) &&
         (!check.location || event.location?.name === check.location.name) &&
         (!check.recurrence ||
