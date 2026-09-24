@@ -1,4 +1,4 @@
-import { openId } from '../contact.ts';
+import { directory, openId } from '../contact.ts';
 import { searchMessages } from './search.ts';
 import type { ApiObject, World } from '../../../types.ts';
 import { chatMembers, createChat } from './chats.ts';
@@ -13,7 +13,38 @@ export function createImRoutes(
   >,
 ): RouteHandler {
   let nextMessage = 1;
-  return ({ method, path: p, query: q, body }) => {
+  const sentByUuid = new Map<
+    string,
+    { time: number; fingerprint: string; message: ApiObject }
+  >();
+  return ({ method, path: p, query: q, body, identity = 'user' }) => {
+    if (method === 'POST' && p === '/open-apis/im/v1/chat_p2p/batch_query') {
+      if (identity !== 'user') fail(403, 99991672, 'User identity required');
+      if (
+        [...q.keys()].some((k) => k !== 'chatter_id_type') ||
+        Object.keys(body).some((k) => k !== 'chatter_ids') ||
+        q.get('chatter_id_type') !== 'open_id'
+      )
+        fail(501, 990001, 'ENV_UNSUPPORTED: P2P lookup option or ID namespace');
+      requireValue(
+        Array.isArray(body.chatter_ids) &&
+          body.chatter_ids.length > 0 &&
+          body.chatter_ids.every(
+            (id: unknown) => typeof id === 'string' && id.length > 0,
+          ),
+        'chatter_ids must contain user IDs',
+      );
+      const users = directory(world);
+      return {
+        p2p_chats: body.chatter_ids.flatMap((id: string) => {
+          const user = users.find((u) => u.open_id === id);
+          const chat = world.chats.find(
+            (c) => c.chat_id === user?.chat_id && c.chat_mode === 'p2p',
+          );
+          return chat ? [{ chat_id: chat.chat_id }] : [];
+        }),
+      };
+    }
     const searched = searchMessages(world, { method, path: p, query: q, body });
     if (searched !== undefined) return searched;
     if (
@@ -165,11 +196,45 @@ export function createImRoutes(
     if (method === 'GET' && p === '/open-apis/im/v1/chats')
       return page(world.chats, q);
     if (method === 'POST' && p === '/open-apis/im/v1/messages') {
+      if (
+        [...q.keys()].some((k) => k !== 'receive_id_type') ||
+        Object.keys(body).some(
+          (k) => !['receive_id', 'msg_type', 'content', 'uuid'].includes(k),
+        )
+      )
+        fail(501, 990001, 'ENV_UNSUPPORTED: message send option');
+      const type = q.get('receive_id_type');
+      if (type && !['chat_id', 'open_id'].includes(type))
+        fail(501, 990001, 'ENV_UNSUPPORTED: message receiver ID namespace');
+      const chatId =
+        type === 'chat_id'
+          ? body.receive_id
+          : type === 'open_id'
+            ? directory(world).find((u) => u.open_id === body.receive_id)
+                ?.chat_id
+            : undefined;
       requireValue(
-        q.get('receive_id_type') === 'chat_id' &&
-          world.chats.some((c) => c.chat_id === body.receive_id),
+        typeof chatId === 'string' &&
+          world.chats.some(
+            (c) =>
+              c.chat_id === chatId &&
+              (type === 'chat_id' || c.chat_mode === 'p2p'),
+          ),
         'Unknown chat or receive_id_type',
       );
+      if (
+        [
+          'post',
+          'image',
+          'file',
+          'audio',
+          'media',
+          'interactive',
+          'share_chat',
+          'share_user',
+        ].includes(body.msg_type)
+      )
+        fail(501, 990001, 'ENV_UNSUPPORTED: non-text message content');
       requireValue(
         body.msg_type === 'text',
         'Only text messages are supported in this case',
@@ -184,14 +249,43 @@ export function createImRoutes(
         typeof content.text === 'string' && content.text.length > 0,
         'text required',
       );
+      requireValue(
+        body.uuid === undefined ||
+          (typeof body.uuid === 'string' &&
+            body.uuid.length > 0 &&
+            body.uuid.length <= 50),
+        'uuid must contain 1..50 characters',
+      );
+      const now = Date.parse(world.now);
+      const fingerprint = JSON.stringify({
+        identity,
+        chatId,
+        content: body.content,
+      });
+      const cached = body.uuid && sentByUuid.get(body.uuid);
+      if (cached && now - cached.time < 60 * 60 * 1000) {
+        if (cached.fingerprint !== fingerprint)
+          fail(
+            501,
+            990001,
+            'ENV_UNSUPPORTED: conflicting payload or actor for an active message uuid',
+          );
+        return structuredClone(cached.message);
+      }
       const msg = {
         message_id: `om_${nextMessage++}`,
-        chat_id: body.receive_id,
+        chat_id: chatId,
         msg_type: 'text',
         body: { content: body.content },
         create_time: String(Date.parse(world.now)),
       };
       world.messages.push(msg);
+      if (body.uuid)
+        sentByUuid.set(body.uuid, {
+          time: now,
+          fingerprint,
+          message: structuredClone(msg),
+        });
       return structuredClone(msg);
     }
     if (method === 'GET' && p === '/open-apis/im/v1/messages')
