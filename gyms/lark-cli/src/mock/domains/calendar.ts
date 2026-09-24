@@ -32,7 +32,21 @@ export function createCalendarRoutes(
     );
   }
 
-  return ({ method, path: p, query: q, body }) => {
+  return ({ identity, method, path: p, query: q, body }) => {
+    if (method === 'POST' && p === '/open-apis/calendar/v4/calendars/primary') {
+      if (
+        identity !== 'user' ||
+        Object.keys(body).length ||
+        [...q.keys()].some((key) => key !== 'user_id_type') ||
+        (q.has('user_id_type') && q.get('user_id_type') !== 'open_id')
+      )
+        fail(501, 990001, 'ENV_UNSUPPORTED: primary calendar identity/options');
+      return {
+        calendars: world.calendars
+          .filter((c) => c.calendar_id === 'primary')
+          .map((c) => ({ calendar: structuredClone(c) })),
+      };
+    }
     if (method === 'GET' && p === '/open-apis/calendar/v4/calendars')
       return {
         calendar_list: page(world.calendars, q).items,

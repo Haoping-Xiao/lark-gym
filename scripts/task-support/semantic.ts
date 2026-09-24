@@ -250,6 +250,10 @@ export function prepareSemantic(
     }
     deferred.push('creates.payment_split.notifications_match_actual');
   }
+  if (config.event_description_text && expected.events?.length) {
+    for (const event of expected.events) delete event.description_contains;
+    deferred.push('events.required_description_business_facts');
+  }
   if (config.event_text && expected.events?.length)
     deferred.push('events.business_purpose_and_optional_description');
   // Each source assertion is existential over one actual, newly sent body.
