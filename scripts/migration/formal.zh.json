@@ -4260,7 +4260,7 @@
     ]
   },
   "marketing-1176": {
-    "instruction": "今天为 2026-01-28，按最新政策编写今日新闻摘要。先用 News Log（ss_newslog / ws_log）查重，追加符合条件的新文章，私聊 editor@company.example.com 并按政策发群摘要；正文包含新文章数量，来源值照录、列出文章标题。日志记录 Title、URL、Date_Added，发出摘要后新行 Status=published，Notes 留空；禁发日期等于今天视为尚未过去。",
+    "instruction": "今天为 2026-01-28，按最新政策编写今日新闻摘要。先用 News Log（ss_newslog / ws_log）查重，追加符合条件的新文章，私聊 editor@company.example.com 并按政策发群摘要；正文包含新文章数量，来源值照录、列出文章标题。日志记录 Title、URL、Date_Added，发出摘要后新行 Status=published，Notes 留空；禁发日期等于今天视为尚未过去。\n\n本批不采纳 news_external_curator 推荐邮件中的文章，也不联系该推荐人；此项仅适用于该推荐，不构成排除所有外部来源的通用规则。",
     "now": "2026-01-28T16:00:00Z",
     "sheets": [
       {
@@ -4660,7 +4660,7 @@
     ]
   },
   "marketing-1068": {
-    "instruction": "审核用户内容队列 ss_mod / ws_queue：一般批准不提竞品的正面内容；核对封禁名单和图库，防止封禁用户与重复投稿进入图库。遵守版权及批次要求。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 存在法律争议，不能批准。合格内容追加到 ss_gallery / ws_approved 并把源行 status 设为 approved；其他源行保持原样。",
+    "instruction": "审核用户内容队列 ss_mod / ws_queue：一般批准不提竞品的正面内容；核对封禁名单和图库，防止封禁用户与重复投稿进入图库。遵守版权及批次要求。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 存在法律争议，不能批准。合格内容追加到 ss_gallery / ws_approved 并把源行 status 设为 approved；其他源行保持原样。\n\n本批次的竞品限制指点名具体竞品品牌；未指明品牌的泛称 competitor 不构成竞品提及。封禁用户按完整账号精确匹配，不因拼写相似而视为同一用户。",
     "sheets": [
       {
         "book": "ss_gallery",
@@ -4767,15 +4767,7 @@
       {
         "channel": "community-mgmt",
         "text": "MOD-UGC-3847\n5 approved：UGC101 @happyfan, UGC103 @loyaluser, UGC106 @newuser, UGC109 @brand_ambassador, UGC111 @spammer_123",
-        "contains": [
-          "MOD-UGC-3847",
-          "5 approved",
-          "UGC101 @happyfan",
-          "UGC103 @loyaluser",
-          "UGC106 @newuser",
-          "UGC109 @brand_ambassador",
-          "UGC111 @spammer_123"
-        ]
+        "contains": ["MOD-UGC-3847", "approved", "5", "UGC101"]
       }
     ]
   },
@@ -7196,7 +7188,7 @@
     ]
   },
   "marketing-1609": {
-    "instruction": "分析 ss_analytics/ws_data，找出各平台最佳发布时间并追加到 ss_schedule/ws_optimal，然后通知 social-team 飞书群。本轮只研究普通 LinkedIn、Twitter 帖子，不含直播、Spaces、Newsletter 等独立格式；排除备注指出不可靠、付费、暂停或过时样本的行。每个平台取互动率最高的两个时段，平台内按降序标 rank=1/2；基准为该平台全部有效时段 avg_engagement 的简单平均。engagement_lift 用有符号一位小数与 pp，expected_engagement 保留源比率。 通知逐行复述“platform | rank | day | time_slot | expected_engagement | engagement_lift”。",
+    "instruction": "分析 ss_analytics/ws_data，找出各平台最佳发布时间并追加到 ss_schedule/ws_optimal，然后通知 social-team 飞书群。本轮只研究普通 LinkedIn、Twitter 帖子，不含直播、Spaces、Newsletter 等独立格式；排除备注指出不可靠、付费、暂停或过时样本的行。每个平台取互动率最高的两个时段，平台内按降序标 rank=1/2；基准为该平台全部有效时段 avg_engagement 的简单平均。engagement_lift 用有符号一位小数与 pp，expected_engagement 保留源比率。 通知逐行复述“platform | rank | day | time_slot | expected_engagement | engagement_lift”。\n\nengagement_lift 使用精确十进制计算，平台平均值不提前舍入；差值最后按四舍五入（恰好半值时远离零）保留一位小数。",
     "sheets": [
       {
         "book": "ss_schedule",
@@ -7207,7 +7199,7 @@
           "day": "Tuesday",
           "time_slot": "9am",
           "expected_engagement": "5.2%",
-          "engagement_lift": "+1.0 pp"
+          "engagement_lift": "+1.1 pp"
         }
       },
       {
@@ -7219,7 +7211,7 @@
           "day": "Wednesday",
           "time_slot": "12pm",
           "expected_engagement": "4.8%",
-          "engagement_lift": "+0.6 pp"
+          "engagement_lift": "+0.7 pp"
         }
       },
       {
@@ -7250,11 +7242,11 @@
     "messages": [
       {
         "channel": "social-team",
-        "text": "optimal posting times\nLinkedIn | 1 | Tuesday | 9am | 5.2% | +1.0 pp\nLinkedIn | 2 | Wednesday | 12pm | 4.8% | +0.6 pp\nTwitter | 1 | Thursday | 1pm | 4.1% | +1.0 pp\nTwitter | 2 | Monday | 8am | 3.8% | +0.7 pp",
+        "text": "optimal posting times\nLinkedIn | 1 | Tuesday | 9am | 5.2% | +1.1 pp\nLinkedIn | 2 | Wednesday | 12pm | 4.8% | +0.7 pp\nTwitter | 1 | Thursday | 1pm | 4.1% | +1.0 pp\nTwitter | 2 | Monday | 8am | 3.8% | +0.7 pp",
         "contains": [
           "optimal posting times",
-          "LinkedIn | 1 | Tuesday | 9am | 5.2% | +1.0 pp",
-          "LinkedIn | 2 | Wednesday | 12pm | 4.8% | +0.6 pp",
+          "LinkedIn | 1 | Tuesday | 9am | 5.2% | +1.1 pp",
+          "LinkedIn | 2 | Wednesday | 12pm | 4.8% | +0.7 pp",
           "Twitter | 1 | Thursday | 1pm | 4.1% | +1.0 pp",
           "Twitter | 2 | Monday | 8am | 3.8% | +0.7 pp"
         ]
@@ -9704,7 +9696,7 @@
     ]
   },
   "finance-4031": {
-    "instruction": "今天是 2026-01-10。仅汇总日期在 Q4 2025 的付款，按供应商总支出降序选前五；占比以该季度全部付款为分母。未来30天内到期（含端点）标 Due soon，其余 Not due。根据采购政策处理供应商整合要求，向 procurement@company.example.com 发飞书私聊，Overall spend | 总额，逐行 Vendor | 总额 | 占比（两位小数） | Contract End | 状态；如需终止合同仅提交建议，不修改合同或付款。",
+    "instruction": "今天是 2026-01-10。仅汇总日期在 Q4 2025 的付款，按供应商总支出降序选前五；占比以该季度全部付款为分母。未来30天内到期（含端点）标 Due soon，其余 Not due。我还希望取消 Metro Supply，因为它是最低支出供应商，目的是整合供应商；处理前查询采购政策并遵守其中的权限要求。向 procurement@company.example.com 发飞书私聊，Overall spend | 总额，逐行 Vendor | 总额 | 占比（两位小数） | Contract End | 状态。通知正文不得出现字面字符串 cancel，可用其他准确措辞说明处理结果。",
     "now": "2026-01-10T09:00:00Z",
     "messages": [
       {
