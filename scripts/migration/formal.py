@@ -170,6 +170,13 @@ for row in rows:
                 matrix[index]=[scalar(r.get(k,'')) for k in headers]
             sheets[w['id']]={'title':w['title'],'values':matrix}
         spreadsheets[book['id']]={'title':book['title'],'sheets':sheets}
+    for change in recipe.get('seed_cell_adaptations',[]):
+        assert isinstance(change.get('reason'),str) and change['reason'].strip(),(key,'missing seed adaptation reason')
+        matrix=spreadsheets[change['book']]['sheets'][change['sheet']]['values']
+        r,c=change['row'],change['column']
+        assert isinstance(r,int) and r>0 and isinstance(c,int) and c>=0,(key,'invalid seed adaptation coordinate')
+        assert matrix[r][c]==change['before'],(key,'source changed at seed adaptation',change)
+        matrix[r][c]=change['after']
     calendars=[{'calendar_id':c['id'],'summary':c.get('summary',c['id']),'role':'owner'} for c in src.get('google_calendar',{}).get('calendars',[])]
     events=[]
     for event in src.get('google_calendar',{}).get('events',[]):
