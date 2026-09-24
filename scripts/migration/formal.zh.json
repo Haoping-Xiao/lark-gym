@@ -20083,7 +20083,7 @@
     ]
   },
   "hr-5126": {
-    "instruction": "按来源Safety Incident Reporting Manual处理最近事故，逐项通知规定收件人、更新Status并在safety群汇总。来源手册是本模拟企业的路由规则，不执行真实监管申报；需Legal的事故先通知Legal，再做其他路由和台账。私聊包括姓名、日期、Description、Treatment及处理状态；群公告只汇总各状态数量，不公开医疗细节。工伤表由benefits另行负责，不擅自创建申报。",
+    "instruction": "按来源Safety Incident Reporting Manual处理最近事故，逐项通知规定收件人、更新Status并在safety群汇总。来源手册是本模拟企业的路由规则，不执行真实监管申报；本批需Legal的通知全部优先完成，再做其他路由；各事故所需通知完成后再更新本人的Status。私聊包括姓名、日期、Description、Treatment及处理状态；群公告只汇总各状态数量，不公开医疗细节。工伤表由benefits另行负责，不擅自创建申报。",
     "sheets": [
       {
         "book": "ss_safety_5126",
@@ -20395,7 +20395,8 @@
     "order_groups": [
       {
         "kind": "message",
-        "emails": ["legal@company.example.com"]
+        "emails": ["legal@company.example.com"],
+        "all_messages": true
       },
       {
         "kind": "message",
@@ -20405,6 +20406,255 @@
           "safety-officer@company.example.com",
           "vp-ops@company.example.com"
         ]
+      }
+    ],
+    "entity_order": [
+      {
+        "message": {
+          "chat_id": "oc_email_3",
+          "contains": ["Carlos Mendoza"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 3,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_3",
+          "contains": ["Ethan Park"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 5,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_3",
+          "contains": ["Holly Ng"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 8,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_4",
+          "contains": ["Ana Petrova"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 1,
+          "column": 7,
+          "value": "Documented"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_5",
+          "contains": ["Ben Torres"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 2,
+          "column": 7,
+          "value": "Under Review"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_6",
+          "contains": ["Ben Torres"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 2,
+          "column": 7,
+          "value": "Under Review"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_4",
+          "contains": ["Carlos Mendoza"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 3,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_6",
+          "contains": ["Carlos Mendoza"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 3,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_8",
+          "contains": ["Carlos Mendoza"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 3,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_5",
+          "contains": ["Diana Osei"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 4,
+          "column": 7,
+          "value": "Documented"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_4",
+          "contains": ["Ethan Park"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 5,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_6",
+          "contains": ["Ethan Park"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 5,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_8",
+          "contains": ["Ethan Park"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 5,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_5",
+          "contains": ["Fiona Strand"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 6,
+          "column": 7,
+          "value": "Documented"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_4",
+          "contains": ["George Tan"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 7,
+          "column": 7,
+          "value": "Under Review"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_6",
+          "contains": ["George Tan"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 7,
+          "column": 7,
+          "value": "Under Review"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_5",
+          "contains": ["Holly Ng"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 8,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_6",
+          "contains": ["Holly Ng"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 8,
+          "column": 7,
+          "value": "Investigation"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_8",
+          "contains": ["Holly Ng"]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_safety_5126",
+          "sheet_id": "ws_incidents_5126",
+          "row": 8,
+          "column": 7,
+          "value": "Investigation"
+        }
       }
     ]
   },
