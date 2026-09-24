@@ -858,6 +858,37 @@ export function prepareSemantic(
     if (sameReviewedField(check.field, actual, check.value))
       check.value = actual;
   }
+  // Joint alternatives are reviewed together; never form a cross product of fields.
+  for (const [index, variants] of Object.entries(
+    config.creation_field_variants || {},
+  )) {
+    const choices = variants as Json[];
+    const record = expected.creates?.[Number(index)];
+    if (!record || !choices.length) continue;
+    const keys = new Set(choices.flatMap((choice) => Object.keys(choice)));
+    const actual = world.base.records.find(
+      (row: Json) =>
+        !seed?.base?.records.some(
+          (old: Json) => old.record_id === row.record_id,
+        ) &&
+        Object.entries(record).every(
+          ([key, value]) =>
+            keys.has(key) ||
+            semanticField(key) ||
+            isDeepStrictEqual(row.fields[key], value),
+        ) &&
+        choices.some((choice) =>
+          Object.entries(choice).every(([key, value]) =>
+            isDeepStrictEqual(row.fields[key], value),
+          ),
+        ),
+    );
+    if (actual) for (const key of keys) record[key] = actual.fields[key];
+    original.creation_field_variants = structuredClone(
+      config.creation_field_variants,
+    );
+    deferred.push('creates.classification_variant_consistency');
+  }
   for (const [index, record] of (expected.creates || []).entries()) {
     const options = config.creation_one_of?.[String(index)] || {};
     const keys = Object.keys(record).filter(

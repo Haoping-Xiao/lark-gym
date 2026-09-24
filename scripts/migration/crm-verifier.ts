@@ -53,7 +53,9 @@ const expected: {
   }[];
   record_state_before_updates?: {
     update: { record_id: string; field: string; value: string | number };
-    records: { collection: string; equals: Fields }[];
+    records: { collection: string; equals: Fields; one_of?: Fields[] }[];
+    messages_before?: { chat_id: string; contains: string[] }[];
+    updated_json_sets?: Record<string, string[]>;
   }[];
   record_state_before_messages?: {
     chat_id: string;
@@ -680,15 +682,63 @@ const recordStateBeforeUpdateChecks = (
       ) {
         checkpoints.push({
           seq: call.seq,
-          passed: rule.records.every((record) =>
-            [...current.values()].some(
-              (fields) =>
-                fields.collection === record.collection &&
-                Object.entries(record.equals).every(([key, value]) =>
-                  isDeepStrictEqual(fields[key], value),
-                ),
+          passed:
+            (rule.messages_before || []).every((message) =>
+              calls.some(
+                (prior: any) =>
+                  prior.status < 400 &&
+                  prior.seq < call.seq &&
+                  (prior.mutations || []).some((item: any) => {
+                    if (
+                      item.kind !== 'message' ||
+                      item.before ||
+                      item.after?.chat_id !== message.chat_id
+                    )
+                      return false;
+                    try {
+                      const text = JSON.parse(item.after.body.content).text;
+                      return (
+                        typeof text === 'string' &&
+                        message.contains.every((part) => text.includes(part))
+                      );
+                    } catch {
+                      return false;
+                    }
+                  }),
+              ),
+            ) &&
+            Object.entries(rule.updated_json_sets || {}).every(
+              ([field, wanted]) => {
+                const value = mutation.after.fields?.[field];
+                if (typeof value !== 'string') return false;
+                try {
+                  const tags = JSON.parse(value);
+                  return (
+                    Array.isArray(tags) &&
+                    tags.every((tag) => typeof tag === 'string') &&
+                    new Set(tags).size === tags.length &&
+                    isDeepStrictEqual([...tags].sort(), [...wanted].sort())
+                  );
+                } catch {
+                  return false;
+                }
+              },
+            ) &&
+            rule.records.every((record) =>
+              [...current.values()].some(
+                (fields) =>
+                  fields.collection === record.collection &&
+                  Object.entries(record.equals).every(([key, value]) =>
+                    isDeepStrictEqual(fields[key], value),
+                  ) &&
+                  (!record.one_of ||
+                    record.one_of.some((choice) =>
+                      Object.entries(choice).every(([key, value]) =>
+                        isDeepStrictEqual(fields[key], value),
+                      ),
+                    )),
+              ),
             ),
-          ),
         });
       }
     }
