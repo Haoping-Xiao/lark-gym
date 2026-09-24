@@ -1,3 +1,5 @@
 今天是 2026-02-15。按 Bad Debt Write-Off Policy 筛选候选，所有条件必须满足，金额严格低于50000。合格项在源表新增 Write-Off Status=Written Off，并创建 bad_debt_writeoffs 飞书台账（invoice_number、customer、amount数值、date）；逐指定销售私聊，并在 finance-alerts 和 cfo@company.example.com 汇总。破产项向 legal@company.example.com 转交且不核销，不给其销售发通知。其他不合格行不动。汇总逐行 Customer | Invoice # | 原Amount，加 Total write-off | 合计。
 
 本次业务处理以 2026-02-15T09:00:00Z 为时间基准。
+
+仅汇报实际核销项和政策明确要求的破产法务转交，不向其他跳过项的销售发通知，也不汇总说明其他排除项。在通知或记录中引用来源数据的值时，须原样保留，不改写或舍入；通知须包含相关来源金额。

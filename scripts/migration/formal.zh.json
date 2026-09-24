@@ -10642,7 +10642,7 @@
     ]
   },
   "finance-4059": {
-    "instruction": "今天是 2026-02-15。按 Bad Debt Write-Off Policy 筛选候选，所有条件必须满足，金额严格低于50000。合格项在源表新增 Write-Off Status=Written Off，并创建 bad_debt_writeoffs 飞书台账（invoice_number、customer、amount数值、date）；逐指定销售私聊，并在 finance-alerts 和 cfo@company.example.com 汇总。破产项向 legal@company.example.com 转交且不核销，不给其销售发通知。其他不合格行不动。汇总逐行 Customer | Invoice # | 原Amount，加 Total write-off | 合计。",
+    "instruction": "今天是 2026-02-15。按 Bad Debt Write-Off Policy 筛选候选，所有条件必须满足，金额严格低于50000。合格项在源表新增 Write-Off Status=Written Off，并创建 bad_debt_writeoffs 飞书台账（invoice_number、customer、amount数值、date）；逐指定销售私聊，并在 finance-alerts 和 cfo@company.example.com 汇总。破产项向 legal@company.example.com 转交且不核销，不给其销售发通知。其他不合格行不动。汇总逐行 Customer | Invoice # | 原Amount，加 Total write-off | 合计。 仅汇报实际核销项和政策明确要求的破产法务转交，不向其他跳过项的销售发通知，也不汇总说明其他排除项。在通知或记录中引用来源数据的值时，须原样保留，不改写或舍入；通知须包含相关来源金额。",
     "now": "2026-02-15T09:00:00Z",
     "sheets": [
       {
@@ -10725,7 +10725,7 @@
     ]
   },
   "finance-4060": {
-    "instruction": "准备给定2025供应商的1099-NEC工作底稿。本模拟规则：Individual、Sole Proprietor、LLC (Single Member) 且年度付款≥600才纳入，C/S-Corporation和低于门槛者排除；这组规则仅为本题定义。tax_form_preparation 飞书台账记录 vendor、year=2025、amount数值、tax_id原文、status=Ready/Missing W-9；源中掩码税号视为已提供，不尝试补全。W-9或税号缺失者向供应商私聊索取，tax@company.example.com 收全部在范围项 Vendor | 原金额 | 状态摘要。只是底稿，不提交税表。",
+    "instruction": "准备给定2025供应商的1099-NEC工作底稿。本模拟规则：Individual、Sole Proprietor、LLC (Single Member) 且年度付款≥600才纳入，C/S-Corporation和低于门槛者排除；这组规则仅为本题定义。tax_form_preparation 飞书台账记录 vendor、year=2025、amount数值、tax_id原文、status=Ready/Missing W-9；源中掩码税号视为已提供，不尝试补全。W-9或税号缺失者向供应商私聊索取，tax@company.example.com 收全部在范围项 Vendor | 原金额 | 状态摘要。只是底稿，不提交税表。 税务摘要仅含本次纳入范围的供应商，不列举、提及或解释被排除的供应商。在通知或记录中引用来源数据的值时，须原样保留，不改写或舍入；通知须包含相关来源金额。",
     "creates": [
       {
         "collection": "tax_form_preparation",

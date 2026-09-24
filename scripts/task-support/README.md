@@ -156,3 +156,7 @@ considers new records only, leaving existing source records unchanged.
 `creation_one_of` 为指定创建项的字段声明经来源确认的有限别名。替代值只在其余业务字段完全匹配时归一化；既有记录、错客户 ID、错业务单号和未列出的名称不受放宽。
 
 `literal_terms_in_one_message_chat` 保留明确的同一正文要求：指定收件人至少有一条新消息同时包含全部字面值，与 `message_count=per_recipient` 共用时可以追加相关补充说明，但不能把该组值完全拆散。每个收件人只支持一组；消息检查先匹配这条完整正文，再匹配其他消息，补充说明先发也不误拒。所有消息仍接受完整性、关联和无冗余语义评审。
+
+`literal_message_groups_chat` 保留一个收件人的多项原始正文断言，每组词必须同时出现在某一条新消息中；不同组可共用一条消息，也可分别出现在多条消息中。`semantic.literalMessageChecks` 给出逐组结果，安装脚本将其接入程序通过条件，独立于参考报告条数。不得仅复制配置而遗漏该验收条件。
+
+`literal_forbidden_message_indices` 对经完整来源核对的正文禁词断言保留程序检查，同时仍做语义禁止事项评审。仅为明确的字面禁止启用，不从一般禁止动作推导禁词；例如 4060 原断言禁止税务正文包含被排除供应商名称。

@@ -59,6 +59,11 @@ writeFileSync(
     s = verifier.read_text()
     s = s.replace("  new URL('./semantic-config.json', import.meta.url),\n);", "  new URL('./semantic-config.json', import.meta.url),\n  seed,\n);")
     s = s.replace("new URL('./semantic-config.json', import.meta.url));", "new URL('./semantic-config.json', import.meta.url), seed);")
+    if 'semantic.literalMessageChecks.every' not in s:
+        marker = '  messageChecks.every((c) => c.passed) &&'
+        if marker not in s:
+            raise ValueError(f"Missing message-check gate in {verifier}")
+        s = s.replace(marker, marker + '\n  semantic.literalMessageChecks.every((c) => c.passed) &&')
     verifier.write_text(s)
 
 if __name__ == '__main__':

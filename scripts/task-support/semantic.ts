@@ -97,7 +97,12 @@ export function prepareSemantic(
     : { enabled: false };
   const original = structuredClone(expected);
   if (!config.enabled)
-    return { required: false, original, deferred: [] as string[] };
+    return {
+      required: false,
+      original,
+      deferred: [] as string[],
+      literalMessageChecks: [] as Json[],
+    };
   const fields = new Set<string>(
     config.text_fields.map((field: string) => field.toLowerCase()),
   );
@@ -110,6 +115,40 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  // Each source assertion is existential over one actual, newly sent body.
+  // Distinct assertions may share the same message or use different messages.
+  const literalMessageChecks: Json[] = [];
+  const initialMessageIds = new Set(
+    (seed?.messages || []).map((m: Json) => m.message_id),
+  );
+  for (const [chat_id, groups] of Object.entries(
+    config.literal_message_groups_chat || {},
+  )) {
+    for (const terms of groups as string[][]) {
+      const passed =
+        Boolean(seed) &&
+        world.messages.some((m: Json) => {
+          if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
+            return false;
+          try {
+            const text = JSON.parse(m.body.content).text;
+            return (
+              typeof text === 'string' &&
+              terms.every((term) =>
+                text
+                  .replace(/\s/g, '')
+                  .toLowerCase()
+                  .includes(term.replace(/\s/g, '').toLowerCase()),
+              )
+            );
+          } catch {
+            return false;
+          }
+        });
+      literalMessageChecks.push({ chat_id, contains: terms, passed });
+    }
+  }
+
   const semanticCell = (cell: Json) =>
     cell.contains?.length ||
     (typeof cell.value === 'string' && cell.value.length > 80) ||
@@ -295,7 +334,11 @@ export function prepareSemantic(
         ? check.contains.length > 0
         : Object.keys(check.contains || {}).length > 0;
       if (hasContent) deferred.push(`${key}[${i}].meaning`);
-      return !hasContent;
+      return (
+        !hasContent ||
+        (key === 'forbidden_messages' &&
+          config.literal_forbidden_message_indices?.includes(String(i)))
+      );
     });
   }
   const reviewedField = (key: string) =>
@@ -390,5 +433,10 @@ export function prepareSemantic(
       deferred.push(`cells[${i}].content`);
     }
   }
-  return { required: deferred.length > 0, original, deferred };
+  return {
+    required: deferred.length > 0,
+    original,
+    deferred,
+    literalMessageChecks,
+  };
 }
