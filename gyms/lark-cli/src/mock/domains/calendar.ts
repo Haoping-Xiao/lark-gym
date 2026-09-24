@@ -99,6 +99,10 @@ export function createCalendarRoutes(
     );
     if (m) {
       const [, cid, eid] = m;
+      // Search actions are not event IDs. Report the missing capability before
+      // resource lookup or write-permission checks can disguise it as 404/403.
+      if (eid === 'search' || eid === 'search_event')
+        fail(501, 990001, 'ENV_UNSUPPORTED: event search');
       calendar(cid, method !== 'GET');
       if (!p.includes('/events')) {
         if (method === 'GET')
@@ -108,7 +112,6 @@ export function createCalendarRoutes(
       const es = world.events.filter(
         (e) => e.calendar_id === cid && e.status !== 'cancelled',
       );
-      if (eid === 'search') fail(501, 990001, 'ENV_UNSUPPORTED: event search');
       if (eid === 'instance_view' && method !== 'GET')
         fail(501, 990001, 'ENV_UNSUPPORTED: instance view write');
       if (method === 'GET' && (!eid || eid === 'instance_view')) {

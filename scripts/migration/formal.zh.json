@@ -12072,14 +12072,15 @@
     ]
   },
   "finance-4094": {
-    "instruction": "按 Reporting Policy 处理财务比率评审。禁发期间只能在内部 ratio_workpapers 飞书台账准备底稿，不能在私聊或群里披露任何数值、契约分析或计算结果；可向 cfo@company.example.com 仅说明 embargo 阻止分发。本题财务原表 Current Assets 仍含需扣除的40000过时库存，先从Current Assets和Inventory同时扣除再计算；比率保留四位小数字符串，Net Profit Margin保留百分比四位。底稿字段 ratio、value、target_status=Meets/Below/Above/Unknown、covenant_status=Pass/Fail/Not applicable/Insufficient data。缺债务偿付材料的DSCR不猜测，value为空。只准备底稿，不变更贷款或通知群。",
+    "instruction": "按 Reporting Policy 处理财务比率评审。禁发期间只能在内部 ratio_workpapers 飞书台账准备底稿，不能在私聊或群里披露任何数值、契约分析或计算结果；可向 cfo@company.example.com 仅说明 embargo 阻止分发。本题财务原表 Current Assets 仍含需扣除的40000过时库存，先从Current Assets和Inventory同时扣除再计算；比率保留四位小数字符串，Net Profit Margin保留百分比四位。底稿字段 ratio、value、target_status=Meets/Below/Above/Unknown、covenant_status=Pass/Fail/Not applicable/Insufficient data。缺债务偿付材料的DSCR不猜测，value为空。只准备底稿，不变更贷款或通知群。 将有来源的行业基准及比较结论写在对应底稿的notes中，与目标范围和贷款契约判断区分；未提供的行业基准不得编造。引用来源值时逐字保留，不改写或取整。",
     "creates": [
       {
         "collection": "ratio_workpapers",
         "ratio": "Current Ratio",
         "value": "1.5577",
         "target_status": "Meets",
-        "covenant_status": "Fail"
+        "covenant_status": "Fail",
+        "notes": "Industry norm is 2.0; Current Ratio is below the industry norm."
       },
       {
         "collection": "ratio_workpapers",
@@ -12386,7 +12387,7 @@
     ]
   },
   "finance-4100": {
-    "instruction": "今天是 2026-01-05。按 Year-End Rollover Procedures 核对清单和最新数额纠正，准备2026期初包；不得修改Q3收入或做未经审批的跨期调整。先在原Trial Balance落实明确更正，再算净收益和拟结转Retained Earnings。若资产负债不平，仅保存待核对草案，不强凑平衡或正式结转：opening_balances保存非损益Account、type、amount数值、date=2026-01-01、status=Draft；结转分录在journal_entries保存period=2025、debit_account=Income Summary、credit_account=Retained Earnings、amount、status=Prepared。给CFO和controller分别私聊全部核对结果与差额，在finance-alerts同步状态。 收件地址为 cfo@company.example.com、controller@company.example.com；汇总使用 Closing checklist、Revenue、Operating Expenses、Tax Expense、Net income、Proposed Retained Earnings、Assets、Liabilities + Equity、Difference、Opening balances 标签。",
+    "instruction": "今天是 2026-01-05。按 Year-End Rollover Procedures 核对清单和最新数额纠正，准备2026期初包；不得修改Q3收入或做未经审批的跨期调整。先在原Trial Balance落实明确更正，再算净收益和拟结转Retained Earnings。若资产负债不平，仅保存待核对草案，不强凑平衡或正式结转：opening_balances保存非损益Account、type、amount数值、date=2026-01-01、status=Draft；结转分录在journal_entries保存period=2025、debit_account=Income Summary、credit_account=Retained Earnings、amount、status=Prepared。给CFO和controller分别私聊全部核对结果与差额，在finance-alerts同步状态。 收件地址为 cfo@company.example.com、controller@company.example.com；汇总使用 Closing checklist、Revenue、Operating Expenses、Tax Expense、Net income、Proposed Retained Earnings、Assets、Liabilities + Equity、Difference、Opening balances 标签。 引用来源已有值时逐字保留，不改写或取整；已明确要求数值类型的amount字段按数值存储，派生计算结果按字段要求记录。",
     "now": "2026-01-05T09:00:00Z",
     "sheets": [
       {
@@ -14278,21 +14279,46 @@
       }
     ],
     "command_order": [0, 1, 2, 3, 6, 7, 4, 5],
-    "order_groups": [
+    "entity_order": [
       {
-        "kind": "record",
-        "collection": "signature_requests"
+        "record": {
+          "collection": "signature_requests",
+          "equals": {
+            "candidate": "Elena Vasquez",
+            "email": "elena.vasquez@email.example.com"
+          }
+        },
+        "message": {
+          "email": "elena.vasquez@email.example.com",
+          "contains": []
+        },
+        "cell": {
+          "spreadsheet_token": "ss_offers_pending",
+          "sheet_id": "ws_offers",
+          "row": 1,
+          "column": 6,
+          "value": "DocuSign Sent"
+        }
       },
       {
-        "kind": "message",
-        "emails": [
-          "elena.vasquez@email.example.com",
-          "james.morton@email.example.com"
-        ]
-      },
-      {
-        "kind": "spreadsheet",
-        "ids": ["ss_offers_pending"]
+        "record": {
+          "collection": "signature_requests",
+          "equals": {
+            "candidate": "James Morton",
+            "email": "james.morton@email.example.com"
+          }
+        },
+        "message": {
+          "email": "james.morton@email.example.com",
+          "contains": []
+        },
+        "cell": {
+          "spreadsheet_token": "ss_offers_pending",
+          "sheet_id": "ws_offers",
+          "row": 2,
+          "column": 6,
+          "value": "DocuSign Sent"
+        }
       }
     ]
   },
@@ -14869,22 +14895,66 @@
       }
     ],
     "command_order": [0, 1, 2, 3, 4, 8, 9, 10, 5, 6, 7],
-    "order_groups": [
+    "entity_order": [
       {
-        "kind": "record",
-        "collection": "signature_requests"
+        "record": {
+          "collection": "signature_requests",
+          "equals": {
+            "employee": "Alicia Fernandez",
+            "email": "alicia.fernandez@company.example.com"
+          }
+        },
+        "message": {
+          "email": "alicia.fernandez@company.example.com",
+          "contains": []
+        },
+        "cell": {
+          "spreadsheet_token": "ss_nda_tracker",
+          "sheet_id": "ws_nda",
+          "row": 1,
+          "column": 2,
+          "value": "DocuSign Sent"
+        }
       },
       {
-        "kind": "message",
-        "emails": [
-          "alicia.fernandez@company.example.com",
-          "tyrone.washington@company.example.com",
-          "meiling.chow@company.example.com"
-        ]
+        "record": {
+          "collection": "signature_requests",
+          "equals": {
+            "employee": "Tyrone Washington",
+            "email": "tyrone.washington@company.example.com"
+          }
+        },
+        "message": {
+          "email": "tyrone.washington@company.example.com",
+          "contains": []
+        },
+        "cell": {
+          "spreadsheet_token": "ss_nda_tracker",
+          "sheet_id": "ws_nda",
+          "row": 2,
+          "column": 2,
+          "value": "DocuSign Sent"
+        }
       },
       {
-        "kind": "spreadsheet",
-        "ids": ["ss_nda_tracker"]
+        "record": {
+          "collection": "signature_requests",
+          "equals": {
+            "employee": "Mei-Ling Chow",
+            "email": "meiling.chow@company.example.com"
+          }
+        },
+        "message": {
+          "email": "meiling.chow@company.example.com",
+          "contains": []
+        },
+        "cell": {
+          "spreadsheet_token": "ss_nda_tracker",
+          "sheet_id": "ws_nda",
+          "row": 4,
+          "column": 2,
+          "value": "DocuSign Sent"
+        }
       }
     ]
   },

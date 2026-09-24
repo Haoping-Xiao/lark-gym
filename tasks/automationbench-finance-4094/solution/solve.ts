@@ -17,7 +17,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_b3eae60a9bac',
     '--json',
-    '{"ratio": "Current Ratio", "value": "1.5577", "target_status": "Meets", "covenant_status": "Fail"}',
+    '{"ratio": "Current Ratio", "value": "1.5577", "target_status": "Meets", "covenant_status": "Fail", "notes": "Industry norm is 2.0; Current Ratio is below the industry norm."}',
   ],
   [
     'base',
