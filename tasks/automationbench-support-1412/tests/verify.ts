@@ -1,3 +1,4 @@
+import { checkBookingOrder } from './booking-order.ts';
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
@@ -398,11 +399,13 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   return { group, passed };
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
+const bookingOrderChecks = checkBookingOrder(expected, calls);
 const success =
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
+  bookingOrderChecks.every((c: { passed: boolean }) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
@@ -434,6 +437,7 @@ writeFileSync(
       chatChecks,
       membershipChecks,
       orderChecks,
+      bookingOrderChecks,
       messageChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,

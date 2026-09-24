@@ -66,6 +66,20 @@ writeFileSync(
         s = s.replace(marker, marker + '\n  semantic.literalMessageChecks.every((c) => c.passed) &&')
     verifier.write_text(s)
 
+    expected_path = task / 'tests/expected.json'
+    if expected_path.exists() and json.loads(expected_path.read_text()).get('booking_order'):
+        (task / 'tests/booking-order.ts').write_text(Path(__file__).with_name('booking-order.ts').read_text())
+        s = verifier.read_text()
+        if 'checkBookingOrder' not in s:
+            s = "import { checkBookingOrder } from './booking-order.ts';\n" + s
+            s = s.replace('const success =', 'const bookingOrderChecks = checkBookingOrder(expected, calls);\nconst success =')
+            marker = '  orderChecks.every((c) => c.passed) &&'
+            if marker not in s:
+                raise ValueError(f"Missing ordering gate in {verifier}")
+            s = s.replace(marker, marker + '\n  bookingOrderChecks.every((c: { passed: boolean }) => c.passed) &&')
+            s = s.replace('      orderChecks,', '      orderChecks,\n      bookingOrderChecks,')
+            verifier.write_text(s)
+
 if __name__ == '__main__':
     for task in sorted((ROOT / 'tasks').glob('automationbench-*')):
         install(task)
