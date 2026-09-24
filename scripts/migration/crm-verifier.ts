@@ -32,7 +32,7 @@ type Check = {
 };
 const expected: {
   entity_order?: {
-    record: { collection: string; equals: Fields };
+    record?: { collection: string; equals: Fields };
     message: { chat_id: string; contains: string[] };
     cell: {
       spreadsheet_token: string;
@@ -428,7 +428,7 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   previousStageEnd = Math.max(previousStageEnd, ...sequences);
   return { group, passed };
 });
-// Each entity has its own record -> notification -> status dependency.
+// Each entity has its own notification -> status dependency, optionally preceded by a record.
 // Unrelated entities may interleave, and non-status cell corrections are not a barrier.
 const entityOrderChecks = (expected.entity_order || []).map((rule) => {
   const records: number[] = [],
@@ -439,6 +439,7 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
     for (const mutation of call.mutations || []) {
       if (!mutation.after) continue;
       if (
+        rule.record &&
         mutation.kind === 'record' &&
         mutation.after.fields?.collection === rule.record.collection &&
         Object.entries(rule.record.equals).every(([key, value]) =>
@@ -488,10 +489,10 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
     messages,
     statuses,
     passed:
-      records.length > 0 &&
+      (!rule.record ||
+        (records.length > 0 && Math.min(...messages) > Math.min(...records))) &&
       messages.length > 0 &&
       statuses.length > 0 &&
-      Math.min(...messages) > Math.min(...records) &&
       Math.min(...statuses) > Math.max(...messages),
   };
 });
