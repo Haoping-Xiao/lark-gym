@@ -139,6 +139,8 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.event_ready_before_create)
+    deferred.push('workflow.event_ready_before_create');
   if (config.source_read_before_create?.length) {
     original.source_read_before_create = structuredClone(
       config.source_read_before_create,

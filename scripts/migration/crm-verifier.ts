@@ -47,6 +47,11 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  event_state_before_creates?: {
+    collection: string;
+    equals: Fields;
+    event_index: number;
+  }[];
   workflow_barriers?: {
     before: WorkflowEventSelector[];
     after: WorkflowEventSelector[];
@@ -288,73 +293,63 @@ const sameEventTimes = (
     date.toISOString().slice(0, 10) === check.utc_date_window.date
   );
 };
+const eventMatches = (event: any, check: EventCheck): boolean => {
+  const actualAttendees = (event.attendees || [])
+    .map((a: { third_party_email: string }) => a.third_party_email)
+    .sort();
+  const videoSettings = [event.vc_data, event.vchat].filter(
+    (value) => value !== undefined,
+  );
+  const videoMatches = (
+    predicate: (value: NonNullable<EventCheck['vc_data']>) => boolean,
+  ) =>
+    videoSettings.length > 0 &&
+    videoSettings.every(
+      (value) =>
+        value !== null && typeof value === 'object' && predicate(value),
+    );
+  return (
+    (!check.description_contains ||
+      ([event.description, event.description_rich].some(
+        (text) => typeof text === 'string',
+      ) &&
+        [event.description, event.description_rich]
+          .filter((text) => text !== undefined)
+          .every(
+            (text) =>
+              typeof text === 'string' &&
+              check.description_contains!.every((part) => text.includes(part)),
+          ))) &&
+    event.calendar_id === check.calendar_id &&
+    event.status !== 'cancelled' &&
+    (!(check.vc || check.vc_data?.vc_type === 'vc') ||
+      videoMatches((value) => value.vc_type === 'vc')) &&
+    (!(check.password_required || check.vc_data?.meeting_settings?.password) ||
+      videoMatches((value) => Boolean(value.meeting_settings?.password))) &&
+    (!(
+      check.join_meeting_permission ||
+      check.vc_data?.meeting_settings?.join_meeting_permission
+    ) ||
+      videoMatches(
+        (value) =>
+          value.meeting_settings?.join_meeting_permission ===
+          (check.join_meeting_permission ||
+            check.vc_data?.meeting_settings?.join_meeting_permission),
+      )) &&
+    (check.semantic_text ||
+      (check.summary_contains
+        ? event.summary.includes(check.summary_contains)
+        : event.summary === check.summary)) &&
+    sameEventTimes(event, check) &&
+    (!check.location || event.location?.name === check.location.name) &&
+    (!check.recurrence ||
+      rrule(event.recurrence || '') === rrule(check.recurrence)) &&
+    isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
+  );
+};
 const eventChecks = (expected.events || []).map((check) => ({
   ...check,
-  passed: newEvents.some(
-    (
-      event: Omit<EventCheck, 'attendees'> & {
-        status: string;
-        attendees: { third_party_email: string }[];
-      },
-    ) => {
-      const actualAttendees = (event.attendees || [])
-        .map((a: { third_party_email: string }) => a.third_party_email)
-        .sort();
-      const videoSettings = [event.vc_data, event.vchat].filter(
-        (value) => value !== undefined,
-      );
-      const videoMatches = (
-        predicate: (value: NonNullable<EventCheck['vc_data']>) => boolean,
-      ) =>
-        videoSettings.length > 0 &&
-        videoSettings.every(
-          (value) =>
-            value !== null && typeof value === 'object' && predicate(value),
-        );
-      return (
-        (!check.description_contains ||
-          ([event.description, event.description_rich].some(
-            (text) => typeof text === 'string',
-          ) &&
-            [event.description, event.description_rich]
-              .filter((text) => text !== undefined)
-              .every(
-                (text) =>
-                  typeof text === 'string' &&
-                  check.description_contains!.every((part) =>
-                    text.includes(part),
-                  ),
-              ))) &&
-        event.calendar_id === check.calendar_id &&
-        event.status !== 'cancelled' &&
-        (!(check.vc || check.vc_data?.vc_type === 'vc') ||
-          videoMatches((value) => value.vc_type === 'vc')) &&
-        (!(
-          check.password_required || check.vc_data?.meeting_settings?.password
-        ) ||
-          videoMatches((value) => Boolean(value.meeting_settings?.password))) &&
-        (!(
-          check.join_meeting_permission ||
-          check.vc_data?.meeting_settings?.join_meeting_permission
-        ) ||
-          videoMatches(
-            (value) =>
-              value.meeting_settings?.join_meeting_permission ===
-              (check.join_meeting_permission ||
-                check.vc_data?.meeting_settings?.join_meeting_permission),
-          )) &&
-        (check.semantic_text ||
-          (check.summary_contains
-            ? event.summary.includes(check.summary_contains)
-            : event.summary === check.summary)) &&
-        sameEventTimes(event, check) &&
-        (!check.location || event.location?.name === check.location.name) &&
-        (!check.recurrence ||
-          rrule(event.recurrence || '') === rrule(check.recurrence)) &&
-        isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
-      );
-    },
-  ),
+  passed: newEvents.some((event: any) => eventMatches(event, check)),
 }));
 const membershipChecks = (expected.memberships || []).map((check) => ({
   ...check,
@@ -872,8 +867,56 @@ const workflowBarrierChecks = (expected.workflow_barriers || []).map((rule) => {
       Math.max(...before.flat()) < Math.min(...after.flat()),
   };
 });
+const eventStateBeforeCreateChecks = (
+  expected.event_state_before_creates || []
+).map((rule) => {
+  const current = new Map<string, any>(
+    seed.events.map((event: any) => [event.event_id, structuredClone(event)]),
+  );
+  const checkpoints: { seq: number; passed: boolean; events: any[] }[] = [];
+  const check = expected.events?.[rule.event_index];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || []) {
+      if (
+        mutation.kind === 'record' &&
+        !mutation.before &&
+        mutation.after?.fields?.collection === rule.collection &&
+        Object.entries(rule.equals).every(([key, value]) =>
+          isDeepStrictEqual(mutation.after.fields[key], value),
+        )
+      ) {
+        const events = [...current.values()].filter(
+          (event) =>
+            !originalEvents.has(event.event_id) &&
+            check &&
+            eventMatches(event, check),
+        );
+        checkpoints.push({
+          seq: call.seq,
+          passed: events.length === 1,
+          events: structuredClone(events),
+        });
+      }
+    }
+    for (const mutation of call.mutations || []) {
+      if (mutation.kind !== 'event') continue;
+      if (mutation.after)
+        current.set(mutation.id, structuredClone(mutation.after));
+      else current.delete(mutation.id);
+    }
+  }
+  return {
+    rule,
+    checkpoints,
+    passed:
+      checkpoints.length > 0 &&
+      checkpoints.every((checkpoint) => checkpoint.passed),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
   recordStateBeforeUpdateChecks.every((check) => check.passed) &&
   recordStateBeforeMessageChecks.every((check) => check.passed) &&
@@ -915,6 +958,7 @@ writeFileSync(
       forbiddenRecordChecks,
       cellChecks,
       eventChecks,
+      eventStateBeforeCreateChecks,
       unchanged,
       covered,
     },

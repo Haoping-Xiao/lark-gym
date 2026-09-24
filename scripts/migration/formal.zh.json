@@ -23295,7 +23295,7 @@
     ]
   },
   "sales-1142": {
-    "instruction": "找到最近完成的DocuSign合同，结合Pricing Adjustments、历史交易及最新Win Announcement Process处理其匹配商机。原ChatGPT摘要由agent完成，写入opportunity description，含合同ID、原金额、适用折扣、调整后金额、期限及special terms；只关闭这次触发的最新合同，不将其他历史completed合同一并处理。庆祝消息写商机名、实际金额和当前tier，金额以来源整数字面格式保留。DocuSign原envelopes只读，不能把旧公告或无关商机催办当作本轮触发。",
+    "instruction": "读取业务来信中的“本轮合同完成触发”上下文，按该事件的envelope_id找到对应DocuSign合同，结合Pricing Adjustments、历史交易及最新Win Announcement Process处理其匹配商机。原ChatGPT摘要由agent完成，写入opportunity description，含合同ID、原金额、适用折扣、调整后金额、期限及special terms；只关闭该事件对应的合同，不将其他历史completed合同一并处理。庆祝消息写商机名、实际金额和当前tier，金额以来源整数字面格式保留。DocuSign原envelopes只读，不能把旧公告或无关商机催办当作本轮触发。",
     "updates": [
       {
         "id": "opp_clientco",
@@ -23338,6 +23338,17 @@
       {
         "kind": "message",
         "channel": "big-wins"
+      }
+    ],
+    "seed_context_messages": [
+      {
+        "message_id": "om_adapter_contract_trigger",
+        "chat_id": "oc_mail",
+        "msg_type": "text",
+        "body": {
+          "content": "{\"text\": \"本轮合同完成触发\\n适配上下文：为原任务“a contract just completed”补充本轮请求关联，非原始历史邮件。\\nevent_type: envelope.completed\\nenvelope_id: env_contract\\noccurred_at: 2026-01-20T14:00:00Z\\n本轮处理该事件，其他合同的完成日期不改变本轮事件关联。\"}"
+        },
+        "create_time": "1771923600000"
       }
     ]
   },
@@ -25465,7 +25476,16 @@
         "status": "Not Started"
       }
     ],
-    "command_order": [0, 1, 3, 4, 2]
+    "command_order": [0, 1, 3, 4, 2],
+    "event_state_before_creates": [
+      {
+        "collection": "tasks",
+        "equals": {
+          "what_id": "opp_clientco"
+        },
+        "event_index": 0
+      }
+    ]
   },
   "sales-1145": {
     "instruction": "按EMEA expansion邮件线程识别GlobalTech的正确联系人，结合International Scheduling Policy与时区创建International Sales Call并私聊确认。原题未定时刻，本题统一选择冻结时间之后本周允许的最早日期、当地10:00，时长采用event type。使用primary飞书日程和attendee；确认需含人物/公司、EMEA、完整日期与当地时刻/时区、规则要求的追踪码，不因其他同事建议改变讨论对象。",
