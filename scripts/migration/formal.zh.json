@@ -6716,30 +6716,38 @@
     "now": "2026-01-27T09:00:00Z"
   },
   "marketing-1152": {
-    "instruction": "今天是 2026-01-27。审查 ss_campaigns，按团队最新 ROI 报告要求计算各活动回报和扩量建议，查预算余量并向规定收件人发送飞书私聊。沿用历史报告分组和 CAMPAIGNS ANALYZED 计数；每项按“campaign_name | spend | attributed_revenue | ROI | 分类”列出，扩量项再加“ | 预算余量或 budget data unavailable”。原始数值照录，ROI 舍入到整数百分比，保留零支出的特殊处理。",
+    "instruction": "今天是 2026-01-27。审查 ss_campaigns，按团队最新 ROI 报告要求计算各活动回报和扩量建议，查预算余量并向规定收件人发送飞书私聊。沿用历史报告分组；CAMPAIGNS ANALYZED 按本次实际分析项计数，筛选以 SOP 明确的日期边界为准；每项按“campaign_name | spend | attributed_revenue | ROI | 分类”列出，扩量项再加“ | 预算余量或 budget data unavailable”。原始数值照录，ROI 舍入到整数百分比，保留零支出的特殊处理。",
     "messages": [
       {
         "email": "marketing-ops@company.example.com",
-        "text": "ROI-CMP-2026-Q1\nCAMPAIGNS ANALYZED: 9\nTOP PERFORMERS (Recommend Scale):\nProduct Launch | 20000 | 85000 | 325% | PRIORITY SCALE | 40000\nRetargeting | 5000 | 22000 | 340% | PRIORITY SCALE | 10000\nContent Promo | 8000 | 12000 | 50% | Scale | budget data unavailable\nEmail Nurture | 2000 | 45000 | 2150% | PRIORITY SCALE | 8000\nUNDERPERFORMERS (Recommend Reduce):\nQ1 Brand Awareness | 15000 | 8000 | -47% | Underperformer - Recommend Reduce\nDisplay Banner | 12000 | 3000 | -75% | Underperformer - Recommend Reduce\nPodcast Sponsorship | 4000 | 3800 | -5% | Underperformer - Recommend Reduce\nOTHER CAMPAIGNS:\nOrganic Social | 0 | 5000 | N/A spend | N/A spend\nPrint Ads | 10000 | 10000 | 0% | Break-Even",
+        "text": "ROI-CMP-2026-Q1\nCAMPAIGNS ANALYZED: 14\nTOP PERFORMERS (Recommend Scale):\nProduct Launch | 20000 | 85000 | 325% | PRIORITY SCALE | 40000 (spend $20,000; remaining $40,000)\nRetargeting | 5000 | 22000 | 340% | PRIORITY SCALE | 10000\nContent Promo | 8000 | 12000 | 50% | Scale | budget data unavailable\nEmail Nurture | 2000 | 45000 | 2150% | PRIORITY SCALE | 8000 (remaining $8,000)\nUNDERPERFORMERS (Recommend Reduce):\nQ1 Brand Awareness | 15000 | 8000 | -47% | Underperformer - Recommend Reduce\nDisplay Banner | 12000 | 3000 | -75% | Underperformer - Recommend Reduce\nPodcast Sponsorship | 4000 | 3800 | -5% | Underperformer - Recommend Reduce (revenue $3,800)\nOTHER CAMPAIGNS:\nOrganic Social | 0 | 5000 | N/A spend | N/A spend\nPrint Ads | 10000 | 10000 | 0% | Break-Even\nLumena Technologies | 1200 | 1200 | 0% | Break-Even\nStratosphere Inc | 3400 | 3400 | 0% | Break-Even\nPeak Marketing | 2200 | 2200 | 0% | Break-Even\nAmplify Co | 7800 | 7800 | 0% | Break-Even\nCopperfield Group | 950 | 950 | 0% | Break-Even",
         "contains": [
           "ROI-CMP-2026-Q1",
-          "CAMPAIGNS ANALYZED: 9",
+          "CAMPAIGNS ANALYZED: 14",
           "TOP PERFORMERS (Recommend Scale):",
-          "Product Launch | 20000 | 85000 | 325% | PRIORITY SCALE | 40000",
+          "Product Launch | 20000 | 85000 | 325% | PRIORITY SCALE | 40000 (spend $20,000; remaining $40,000)",
           "Retargeting | 5000 | 22000 | 340% | PRIORITY SCALE | 10000",
           "Content Promo | 8000 | 12000 | 50% | Scale | budget data unavailable",
-          "Email Nurture | 2000 | 45000 | 2150% | PRIORITY SCALE | 8000",
+          "Email Nurture | 2000 | 45000 | 2150% | PRIORITY SCALE | 8000 (remaining $8,000)",
           "UNDERPERFORMERS (Recommend Reduce):",
           "Q1 Brand Awareness | 15000 | 8000 | -47% | Underperformer - Recommend Reduce",
           "Display Banner | 12000 | 3000 | -75% | Underperformer - Recommend Reduce",
-          "Podcast Sponsorship | 4000 | 3800 | -5% | Underperformer - Recommend Reduce",
+          "Podcast Sponsorship | 4000 | 3800 | -5% | Underperformer - Recommend Reduce (revenue $3,800)",
           "OTHER CAMPAIGNS:",
           "Organic Social | 0 | 5000 | N/A spend | N/A spend",
-          "Print Ads | 10000 | 10000 | 0% | Break-Even"
+          "Print Ads | 10000 | 10000 | 0% | Break-Even",
+          "Lumena Technologies | 1200 | 1200 | 0% | Break-Even",
+          "Stratosphere Inc | 3400 | 3400 | 0% | Break-Even",
+          "Peak Marketing | 2200 | 2200 | 0% | Break-Even",
+          "Amplify Co | 7800 | 7800 | 0% | Break-Even",
+          "Copperfield Group | 950 | 950 | 0% | Break-Even"
         ]
       }
     ],
-    "now": "2026-01-27T09:00:00Z"
+    "now": "2026-01-27T09:00:00Z",
+    "assertion_overrides": {
+      "21": "原断言9 campaign与SOP明确2025-10-01截止及完整已结束数据冲突；以具体日期边界纳入14项，保留原seed。"
+    }
   },
   "marketing-1158": {
     "instruction": "今天是 2026-01-28。根据 ss_lp 和最新 web-analytics 群说明、历史框架完成落地页分析，发送给 web-team@company.example.com 的飞书私聊。逐页按“page_name | visits | conversions | 原 conversion_rate | 重算 CVR | 分类”列出；全部重算 conversions/visits，计算百分比保留两位小数。分类用 Critical 表示零转化，Optimize 表示满足当前优化条件，其余用于对照为 Compare。总计使用“Total Visits | 数值”和“Total Conversions | 数值”，整数加千位逗号，保留报告追踪码。",
@@ -7930,12 +7938,12 @@
     ]
   },
   "marketing-1151": {
-    "instruction": "今天是 2026-01-27。按照现行报告要求为 ss_deals 近期成交数据生成渠道归因报告，发送飞书私聊，并把副本保存为 reports 台账（folder=analytics、title=ATTRIBUTION-JANUARY-2026、body=报告全文）。遵守规定的收件人、月份和数据质量规则；缺失 touchpoints 的记录不进入可归因收入和数量。渠道整数金额按政策格式四舍五入，总计使用 Total Revenue 和 Qualifying Deals；重复触点案例另用“deal_name | channel | N touchpoints | 归因金额”说明分摊。其他团队负责演示环境，不属于本任务。",
+    "instruction": "今天是 2026-01-27。按照现行报告要求为 ss_deals 近期成交数据生成渠道归因报告，发送飞书私聊，并把副本保存为 reports 台账（folder=analytics、title=ATTRIBUTION-JANUARY-2026、body=报告全文）。遵守规定的收件人、月份和数据质量规则；缺失 touchpoints 的记录不进入可归因收入和数量。渠道整数金额按政策格式四舍五入，总计使用 Total Revenue 和 Qualifying Deals；重复触点案例另用“deal_name | channel | N touchpoints | 归因金额”说明分摊。通知和记录引用来源值时须原样保留，不改写或四舍五入，并在报告中列出相关的来源金额。渠道分摊的计算结果仍按上述整数格式。其他团队负责演示环境，不属于本任务。",
     "now": "2026-01-27T10:00:00Z",
     "messages": [
       {
         "email": "marketing-leadership@company.example.com",
-        "text": "MATTR-714-JAN\nConference: $37,500\nContent Download: $24,167\nDemo: $37,500\nGoogle Ads: $28,333\nLinkedIn Ad: $12,500\nReferral: $20,000\nSales Email: $74,167\nWebinar: $105,833\nTotal Revenue: $340,000\nQualifying Deals: 6\nCascade Systems | Webinar | 2 touchpoints | $40,000\nCascade Systems | Sales Email | 1 touchpoint | $20,000",
+        "text": "MATTR-714-JAN\nConference: $37,500\nContent Download: $24,167\nDemo: $37,500\nGoogle Ads: $28,333\nLinkedIn Ad: $12,500\nReferral: $20,000\nSales Email: $74,167\nWebinar: $105,833\nNoise Value 1: $1,200\nNoise Value 2: $3,400\nNoise Value 8: $950\nTotal Revenue: $345,550\nQualifying Deals: 9\nCascade Systems | Webinar | 2 touchpoints | $40,000\nCascade Systems | Sales Email | 1 touchpoint | $20,000\nSource deal amounts\nAcme Corp: 50000\nTechStart: 25000\nZenith Corp: 150000\nAtlas Industries: 35000\nHorizon Digital: 20000\nCascade Systems: 60000\nLumena Technologies: 1200\nStratosphere Inc: 3400\nCopperfield Group: 950",
         "contains": [
           "MATTR-714-JAN",
           "Conference: $37,500",
@@ -7946,10 +7954,23 @@
           "Referral: $20,000",
           "Sales Email: $74,167",
           "Webinar: $105,833",
-          "Total Revenue: $340,000",
-          "Qualifying Deals: 6",
+          "Noise Value 1: $1,200",
+          "Noise Value 2: $3,400",
+          "Noise Value 8: $950",
+          "Total Revenue: $345,550",
+          "Qualifying Deals: 9",
           "Cascade Systems | Webinar | 2 touchpoints | $40,000",
-          "Cascade Systems | Sales Email | 1 touchpoint | $20,000"
+          "Cascade Systems | Sales Email | 1 touchpoint | $20,000",
+          "Source deal amounts",
+          "Acme Corp: 50000",
+          "TechStart: 25000",
+          "Zenith Corp: 150000",
+          "Atlas Industries: 35000",
+          "Horizon Digital: 20000",
+          "Cascade Systems: 60000",
+          "Lumena Technologies: 1200",
+          "Stratosphere Inc: 3400",
+          "Copperfield Group: 950"
         ]
       }
     ],
@@ -7958,7 +7979,7 @@
         "collection": "reports",
         "folder": "analytics",
         "title": "ATTRIBUTION-JANUARY-2026",
-        "body": "MATTR-714-JAN\nConference: $37,500\nContent Download: $24,167\nDemo: $37,500\nGoogle Ads: $28,333\nLinkedIn Ad: $12,500\nReferral: $20,000\nSales Email: $74,167\nWebinar: $105,833\nTotal Revenue: $340,000\nQualifying Deals: 6\nCascade Systems | Webinar | 2 touchpoints | $40,000\nCascade Systems | Sales Email | 1 touchpoint | $20,000"
+        "body": "MATTR-714-JAN\nConference: $37,500\nContent Download: $24,167\nDemo: $37,500\nGoogle Ads: $28,333\nLinkedIn Ad: $12,500\nReferral: $20,000\nSales Email: $74,167\nWebinar: $105,833\nNoise Value 1: $1,200\nNoise Value 2: $3,400\nNoise Value 8: $950\nTotal Revenue: $345,550\nQualifying Deals: 9\nCascade Systems | Webinar | 2 touchpoints | $40,000\nCascade Systems | Sales Email | 1 touchpoint | $20,000\nSource deal amounts\nAcme Corp: 50000\nTechStart: 25000\nZenith Corp: 150000\nAtlas Industries: 35000\nHorizon Digital: 20000\nCascade Systems: 60000\nLumena Technologies: 1200\nStratosphere Inc: 3400\nCopperfield Group: 950"
       }
     ],
     "create_contains": {
@@ -7972,11 +7993,27 @@
         "Referral: $20,000",
         "Sales Email: $74,167",
         "Webinar: $105,833",
-        "Total Revenue: $340,000",
-        "Qualifying Deals: 6",
+        "Noise Value 1: $1,200",
+        "Noise Value 2: $3,400",
+        "Noise Value 8: $950",
+        "Total Revenue: $345,550",
+        "Qualifying Deals: 9",
         "Cascade Systems | Webinar | 2 touchpoints | $40,000",
-        "Cascade Systems | Sales Email | 1 touchpoint | $20,000"
+        "Cascade Systems | Sales Email | 1 touchpoint | $20,000",
+        "Source deal amounts",
+        "Acme Corp: 50000",
+        "TechStart: 25000",
+        "Zenith Corp: 150000",
+        "Atlas Industries: 35000",
+        "Horizon Digital: 20000",
+        "Cascade Systems: 60000",
+        "Lumena Technologies: 1200",
+        "Stratosphere Inc: 3400",
+        "Copperfield Group: 950"
       ]
+    },
+    "assertion_overrides": {
+      "3": "原断言340,000漏计三笔符合一月且无排除标记的交易；按全部可见资格规则适配为345,550及9笔，保留原seed。"
     }
   },
   "marketing-1030": {
