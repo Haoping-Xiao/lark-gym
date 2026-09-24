@@ -130,13 +130,17 @@ export function prepareSemantic(
     config.text_fields.map((field: string) => field.toLowerCase()),
   );
   const literalFields = new Set<string>(config.literal_fields || []);
-  const semanticField = (field: string) =>
+  const semanticField = (field: string, creationIndex?: number) =>
     !config.instant_fields?.includes(field) &&
     !config.schedule_fields?.includes(field) &&
     !config.json_text_fields?.[field] &&
     !config.usd_text_fields?.includes(field) &&
     !literalFields.has(field) &&
     (fields.has(field.toLowerCase()) ||
+      (creationIndex !== undefined &&
+        config.creation_text_fields?.[String(creationIndex)]?.includes(
+          field,
+        )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
   if (config.event_ready_before_create)
@@ -876,7 +880,7 @@ export function prepareSemantic(
         Object.entries(record).every(
           ([key, value]) =>
             keys.has(key) ||
-            semanticField(key) ||
+            semanticField(key, Number(index)) ||
             isDeepStrictEqual(row.fields[key], value),
         ) &&
         choices.some((choice) =>
@@ -911,14 +915,15 @@ export function prepareSemantic(
               )
             : reviewedField(key)
               ? sameReviewedField(key, r.fields[key], value)
-              : semanticField(key) || isDeepStrictEqual(r.fields[key], value),
+              : semanticField(key, index) ||
+                isDeepStrictEqual(r.fields[key], value),
         ),
     );
     if (actual) for (const key of keys) record[key] = actual.fields[key];
   }
   for (const [i, record] of (expected.creates || []).entries()) {
     for (const key of Object.keys(record))
-      if (semanticField(key) && typeof record[key] === 'string') {
+      if (semanticField(key, i) && typeof record[key] === 'string') {
         const terms = config.literal_creation_terms?.[String(i)]?.[key];
         if (terms?.length) {
           expected.creation_contains ||= {};

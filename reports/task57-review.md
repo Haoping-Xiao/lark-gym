@@ -2247,3 +2247,15 @@ V217新的94次请求、无HTTP错误，因合同与谈话要点关联使用工�
 新 Harbor 原生运行第 15 次请求遇到邮件搜索 501，标记 environment_incomplete、valid_sample=false；保留原始轨迹，不报告业务成功。
 
 V227–228 联合全量验证：1140 项检查及 oracle 通过；20 份真实 CLI 对照为 6 PASS、14 FAIL，全部符合预期。原生运行均因环境缺口排除。
+
+### V229：备注标题与来源职位分开评分
+
+完整核对 sales-808 的 10 条原始断言及全部 LinkedIn、CRM、群消息来源。Jennifer 转入已有账户 Nexus Technologies，需要重新联系任务；Marcus 转入 Apex Innovations，需要新线索并保留来源职位 Director of Engineering；Amanda 不变。原要求备注记录去向，未限定备注标题。
+
+新增按创建项配置的 creation_text_fields，仅将两条 notes.title 转交语义评分，未把 title 全局放宽。旧程序拒绝中文和等义英文标题；新程序保留新线索职位、邮箱、账户及联系人关联的严格检查。来源职位改成 CTO 仍直接失败。
+
+11 份真实 CLI 状态经独立容器验证全部符合预期：参考、中文标题、等义标题 3 PASS；错关联、错公司、错职位、错邮箱、错后续账户、改 Amanda、错状态、矛盾标题 8 FAIL。错公司和矛盾标题由独立语义评分拒绝，其余由程序约束拦截。重新生成任务复验全部状态，参考解 36 次请求通过，重复安装一致。
+
+新的 Harbor 原生运行 84 次请求无 HTTP 错误且业务通过。实际创建两条自然标题备注、两条 Pending 邀请台账、Jennifer 的 Nexus 关联任务及 Marcus 的正确职位和新邮箱线索，原联系人旧公司和邮箱保持不变。此为新自主运行，非旧状态重评分。
+
+V229 全量验证：1141 项检查及 oracle 通过。
