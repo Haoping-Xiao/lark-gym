@@ -355,7 +355,14 @@ for row in rows:
     seed={'now':now,'spreadsheet_token':'ss_unused','sheets':{},'spreadsheets':spreadsheets,'calendars':calendars,'events':events,'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records,'fields':[{'name':k,'type':v} for k,v in fields.items()]},'chats':chats,'messages':messages}
     if newChatIds:seed['chat_creation_allowed']=True
     target=ROOT/'tasks'/('automationbench-'+key)
+    # A different task's semantic settings are not a generation template.
+    semantic_config=target/'tests/semantic-config.json'
+    existing_semantic=semantic_config.read_text() if semantic_config.exists() else None
     shutil.copytree(ROOT/'tasks/automationbench-simple-3001',target,dirs_exist_ok=True)
+    if existing_semantic is not None:
+        semantic_config.write_text(existing_semantic)
+    elif semantic_config.exists():
+        semantic_config.unlink()
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
     write('tests/expected.json',{**({'booking_order':recipe['booking_order']} if recipe.get('booking_order') else {}),'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,'order_groups':orderGroups,'entity_order':entityOrder,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
