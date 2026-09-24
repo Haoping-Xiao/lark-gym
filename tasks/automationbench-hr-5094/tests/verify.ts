@@ -406,6 +406,7 @@ const success =
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
