@@ -12,7 +12,7 @@
     "messages": [
       {
         "email": "support-escalation@example.com",
-        "text": "Deal Closed Notification\nMeridian Corp - Platform Deal 已成交，金额 $156,000，客户分层 Enterprise；存在未结支持升级，请跟进。",
+        "text": "Deal Closed Notification\nMeridian Corp - Platform Deal 已成交，金额 $156,000，客户分层 Enterprise；直接母公司 Meridian Holdings 存在未结 Critical 工单 Security Review，请跟进。",
         "contains": [
           "Deal Closed Notification",
           "Meridian Corp - Platform Deal",
@@ -29,6 +29,17 @@
           "$156,000",
           "Enterprise"
         ]
+      }
+    ],
+    "seed_context_messages": [
+      {
+        "message_id": "om_adapter_escalation_scope",
+        "chat_id": "oc_mail",
+        "msg_type": "text",
+        "body": {
+          "content": "{\"text\": \"通知路由范围补充（模拟适配规则，非原始历史邮件）\\n为明确原材料未说明的账户层级范围，本模拟任务的支持升级检查涵盖商机所属账户，以及该账户 parent_id 指向的直接母公司。任一范围内账户存在未结 High 或 Critical 工单时，按原路由政策追加支持升级通知；不要将相似名称账户、兄弟公司或更上层祖先的工单计入。账户分层与汇率仍按各自表格的最新记录确定，其余原通知路由和金额格式规则保持不变。\"}"
+        },
+        "create_time": "1769592600000"
       }
     ]
   },
@@ -114,7 +125,18 @@
       }
     ],
     "creates": [],
-    "messages": []
+    "messages": [],
+    "seed_context_messages": [
+      {
+        "message_id": "om_adapter_hr_release",
+        "chat_id": "oc_mail",
+        "msg_type": "text",
+        "body": {
+          "content": "{\"text\": \"HR 审核完成通知（模拟适配材料，非原始历史邮件）\\n发件部门：Partner Corp HR（hr@partner.example.com）\\n确认时间：2026-01-15T09:00:00Z\\n关联请求：msg_title_update_001 / Executive Promotion\\nHR 已完成该次晋升审核。对关联请求中 A.R.、Partner Corp、电话末四位 4567 同时匹配的联系人，解除 2025-12-15 账户复核所述的职位冻结，授权执行该次晋升请求中的职位更新。此确认仅适用于该请求及三项标识同时匹配的联系人，不解除其他人员或其他变更的限制。仍须按 2026-01-12 的最新联系人识别流程核验；原有冻结备注作为历史记录保留，不需改写。\"}"
+        },
+        "create_time": "1768467600000"
+      }
+    ]
   },
   "sales-513": {
     "instruction": "Aurora Tech 需要推进商机，请按照当前流程处理阶段晋升；若政策要求审计，使用 notes 台账，parent_id 为商机业务 ID。",
