@@ -129,6 +129,7 @@ export function prepareSemantic(
     !config.instant_fields?.includes(field) &&
     !config.schedule_fields?.includes(field) &&
     !config.json_text_fields?.[field] &&
+    !config.usd_text_fields?.includes(field) &&
     !literalFields.has(field) &&
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
@@ -616,9 +617,17 @@ export function prepareSemantic(
   }
   const reviewedField = (key: string) =>
     config.json_text_fields?.[key] ||
+    config.usd_text_fields?.includes(key) ||
     config.instant_fields?.includes(key) ||
     config.schedule_fields?.includes(key);
   const sameReviewedField = (key: string, actual: unknown, value: unknown) => {
+    if (config.usd_text_fields?.includes(key)) {
+      // The reviewed field has USD context; a currency symbol is optional.
+      if (typeof actual !== 'string' || typeof value !== 'string') return false;
+      const expectedCents = usdCents(value);
+      return expectedCents !== null && usdCents(actual) === expectedCents;
+    }
+
     if (config.schedule_fields?.includes(key)) return instant(actual) !== null;
     if (config.instant_fields?.includes(key)) {
       const expectedTime = instant(value);
