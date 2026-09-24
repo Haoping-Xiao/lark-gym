@@ -196,6 +196,23 @@ export function prepareSemantic(
   }
   const derivedCellEqual = (check: Json, actual: unknown): boolean | null => {
     if (check.contains || check.one_of) return null;
+    // Reviewed source columns keep their exact visible text. A numeric cell is
+    // equivalent only when its canonical text is identical, without rounding,
+    // stripping leading zeros, currency marks, grouping or fractional digits.
+    const literal = (config.literal_number_columns || []).find(
+      (rule: Json) =>
+        rule.spreadsheet_token === check.spreadsheet_token &&
+        rule.sheet_id === check.sheet_id &&
+        rule.columns.includes(check.column) &&
+        (!rule.rows || rule.rows.includes(check.row)),
+    );
+    if (literal)
+      return (
+        typeof check.value === 'string' &&
+        (typeof actual === 'string' ||
+          (typeof actual === 'number' && Number.isFinite(actual))) &&
+        String(actual) === check.value
+      );
     for (const [key, parse] of [
       ['usd_result_columns', usdCents],
       ['numeric_result_columns', decimalValue],
