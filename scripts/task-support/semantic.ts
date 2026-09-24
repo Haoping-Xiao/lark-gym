@@ -464,12 +464,33 @@ export function prepareSemantic(
           (!rule.rows || rule.rows.includes(check.row)),
       );
       if (rule) {
-        const value = parse(check.value),
-          actualValue = parse(actual);
+        let expectedInput = check.value,
+          actualInput = actual;
+        if (key === 'usd_result_columns' && rule.prefix !== undefined) {
+          if (typeof rule.prefix !== 'string' || !rule.prefix)
+            throw new Error('USD result prefix must be a non-empty string');
+          if (
+            typeof expectedInput !== 'string' ||
+            typeof actualInput !== 'string' ||
+            !expectedInput.startsWith(rule.prefix) ||
+            !actualInput.startsWith(rule.prefix)
+          )
+            return false;
+          expectedInput = expectedInput.slice(rule.prefix.length);
+          actualInput = actualInput.slice(rule.prefix.length);
+        }
+        if (
+          key === 'usd_result_columns' &&
+          rule.require_currency_symbol &&
+          (typeof actualInput !== 'string' || !actualInput.startsWith('$'))
+        )
+          return false;
+        const value = parse(expectedInput),
+          actualValue = parse(actualInput);
         if (value === null || value !== actualValue) return false;
         if (key === 'usd_result_columns' && rule.require_grouping) {
           if (typeof actual !== 'string') return false;
-          const cents = usdCents(actual)!;
+          const cents = usdCents(actualInput)!;
           if ((cents >= 100000n || cents <= -100000n) && !actual.includes(','))
             return false;
         }

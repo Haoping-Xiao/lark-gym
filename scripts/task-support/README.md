@@ -184,3 +184,5 @@ entity_order的record_before_message=false只要求指定登记与通知分别�
 `action_prerequisites` limits a complete notification prerequisite to selected record identities and message recipients/subjects. Every matching action must follow delivery; unrelated people may proceed independently.
 
 `event_text_indices` selects reviewed events whose titles and optional descriptions are judged for business meaning; calendar, live status, exact time and attendees remain structural requirements. Selected events automatically enable the semantic rubric.
+
+Reviewed `usd_result_columns` may require a literal `prefix` and `require_currency_symbol`; only the remaining USD amount is compared as exact cents. This does not change source fields or notification literals.
