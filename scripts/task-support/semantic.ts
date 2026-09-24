@@ -143,6 +143,24 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.optional_creation_text_fields) {
+    original.optional_creation_text_fields =
+      config.optional_creation_text_fields;
+    deferred.push('creates.optional_text_truthfulness');
+    for (const [index, keys] of Object.entries(
+      config.optional_creation_text_fields,
+    )) {
+      for (const key of keys as string[]) {
+        delete expected.creates?.[Number(index)]?.[key];
+        delete original.creates?.[Number(index)]?.[key];
+        delete expected.creation_contains?.[index]?.[key];
+        delete original.creation_contains?.[index]?.[key];
+      }
+    }
+  }
+
+  if (config.message_prerequisite_meaning)
+    deferred.push('workflow.message_prerequisite_meaning');
   if (config.event_ready_before_create)
     deferred.push('workflow.event_ready_before_create');
   if (config.source_read_before_create?.length) {

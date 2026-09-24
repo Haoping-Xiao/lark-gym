@@ -65,7 +65,13 @@ const expected: {
   }[];
   record_state_before_messages?: {
     chat_id: string;
-    records: { record_id?: string; collection?: string; equals: Fields }[];
+    message_contains?: string[];
+    records: {
+      record_id?: string;
+      collection?: string;
+      equals: Fields;
+      contains?: Record<string, string[]>;
+    }[];
   }[];
   action_prerequisites?: {
     notification: { chat_id: string; contains: string[] };
@@ -808,13 +814,30 @@ const recordStateBeforeMessageChecks = (
         mutation.kind === 'message' &&
         mutation.after &&
         !mutation.before &&
-        mutation.after.chat_id === rule.chat_id
+        mutation.after.chat_id === rule.chat_id &&
+        (() => {
+          try {
+            const text = JSON.parse(mutation.after.body.content).text;
+            return (rule.message_contains || []).every(
+              (part) => typeof text === 'string' && text.includes(part),
+            );
+          } catch {
+            return false;
+          }
+        })()
       ) {
         checkpoints.push({
           seq: call.seq,
           passed: rule.records.every((record) =>
             record.record_id
-              ? Object.entries(record.equals).every(([key, value]) =>
+              ? Object.entries(record.contains || {}).every(([key, parts]) =>
+                  parts.every((part) =>
+                    String(
+                      current.get(record.record_id!)?.[key] || '',
+                    ).includes(part),
+                  ),
+                ) &&
+                Object.entries(record.equals).every(([key, value]) =>
                   isDeepStrictEqual(
                     current.get(record.record_id!)?.[key],
                     value,
