@@ -245,7 +245,7 @@ for row in rows:
             assert len(matches)==1,(key,operation,matches)
             index=matches[0];changes=operation['fields']
         for field,value in changes.items():
-            column=headers.index(field);cellChecks.append({'spreadsheet_token':token,'sheet_id':sid,'row':index,'column':column,'value':value,**({'one_of':operation['one_of'][field]} if field in operation.get('one_of',{}) else {}),**({'contains':operation['contains'][field]} if field in operation.get('contains',{}) else {})})
+            column=headers.index(field);cellChecks.append({'spreadsheet_token':token,'sheet_id':sid,'row':index,'column':column,'value':value,**({'numeric_equivalent':True} if field in operation.get('numeric_equivalent',[]) else {}),**({'one_of':operation['one_of'][field]} if field in operation.get('one_of',{}) else {}),**({'contains':operation['contains'][field]} if field in operation.get('contains',{}) else {})})
             col='';n=column+1
             while n:n,rem=divmod(n-1,26);col=chr(65+rem)+col
             commands.append(['sheets','+cells-set','--spreadsheet-token',token,'--sheet-id',sid,'--range',col+str(index+1),'--cells',json.dumps([[{'value':value}]],ensure_ascii=False)])

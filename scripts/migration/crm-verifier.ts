@@ -104,6 +104,7 @@ const expected: {
   create_contains?: Record<string, string[]>;
   creation_contains?: Record<string, Record<string, string[]>>;
   cells?: {
+    numeric_equivalent?: boolean;
     one_of?: (string | number)[];
     contains?: string[];
     spreadsheet_token?: string;
@@ -449,25 +450,48 @@ const sheetsFor = (
   cell.spreadsheet_token
     ? state.spreadsheets[cell.spreadsheet_token].sheets
     : state.sheets;
+const numericCellEqual = (actual: unknown, expected: string | number) => {
+  const parse = (value: unknown): number | undefined => {
+    if (typeof value === 'number')
+      return Number.isFinite(value) ? value : undefined;
+    if (typeof value !== 'string') return undefined;
+    const raw = value
+      .trim()
+      .replace(/^[$€£¥₹]/, '')
+      .replace(/,/g, '');
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(raw))
+      return undefined;
+    const number = Number(raw);
+    return Number.isFinite(number) ? number : undefined;
+  };
+  const left = parse(actual),
+    right = parse(expected);
+  return left !== undefined && right !== undefined && left === right;
+};
 const cellChecks = (expected.cells || []).map((c) => ({
   ...c,
-  passed: c.one_of
-    ? c.one_of.some((value) =>
-        isDeepStrictEqual(
-          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-          value,
-        ),
+  passed: c.numeric_equivalent
+    ? numericCellEqual(
+        sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+        c.value,
       )
-    : c.contains
-      ? c.contains.every((part) =>
-          String(
-            sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ?? '',
-          ).includes(part),
+    : c.one_of
+      ? c.one_of.some((value) =>
+          isDeepStrictEqual(
+            sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+            value,
+          ),
         )
-      : isDeepStrictEqual(
-          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-          c.value,
-        ),
+      : c.contains
+        ? c.contains.every((part) =>
+            String(
+              sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ?? '',
+            ).includes(part),
+          )
+        : isDeepStrictEqual(
+            sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+            c.value,
+          ),
 }));
 for (const cell of expected.cells || []) {
   const before = sheetsFor(seed, cell)[cell.sheet_id].values;
