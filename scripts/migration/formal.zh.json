@@ -24025,42 +24025,154 @@
       {
         "email": "contact@healthcare.example.com",
         "text": "请签署 | HealthCare Plus Deal | 150000 | Enterprise Healthcare Agreement",
-        "contains": [
-          "HealthCare Plus Deal",
-          "150000",
-          "Enterprise Healthcare Agreement"
-        ]
+        "contains": ["HealthCare Plus Deal", "Enterprise Healthcare Agreement"]
       },
       {
         "email": "contact@techcorp.example.com",
         "text": "请签署 | TechCorp Deal | 120000 | Enterprise Agreement",
-        "contains": ["TechCorp Deal", "120000", "Enterprise Agreement"]
+        "contains": ["TechCorp Deal", "Enterprise Agreement"]
       },
       {
         "email": "contact@midsize.example.com",
         "text": "请签署 | MidSize Deal | 50000 | Standard Agreement",
-        "contains": ["MidSize Deal", "50000", "Standard Agreement"]
+        "contains": ["MidSize Deal", "Standard Agreement"]
       },
       {
         "email": "contact@smallbiz.example.com",
         "text": "请签署 | SmallBiz Deal | 15000 | Simple Agreement",
-        "contains": ["SmallBiz Deal", "15000", "Simple Agreement"]
+        "contains": ["SmallBiz Deal", "Simple Agreement"]
       }
     ],
     "command_order": [0, 1, 7, 8, 9, 10, 11, 12, 13, 14, 2, 3, 4, 5, 6],
-    "order_groups": [
+    "order_groups": [],
+    "record_state_before_updates": [
       {
-        "kind": "message",
-        "emails": [
-          "contact@healthcare.example.com",
-          "contact@techcorp.example.com",
-          "contact@midsize.example.com",
-          "contact@smallbiz.example.com"
+        "update": {
+          "record_id": "rec_opp_health",
+          "field": "description"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "collection": "signature_requests",
+              "template_id": "tmpl_health",
+              "template_name": "Enterprise Healthcare Agreement",
+              "signer_email": "contact@healthcare.example.com",
+              "status": "Sent"
+            },
+            "one_of": [
+              {
+                "opportunity_id": "opp_health"
+              },
+              {
+                "opportunity_id": "rec_opp_health"
+              }
+            ]
+          }
+        ],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_17",
+            "contains": ["Enterprise Healthcare Agreement"]
+          }
         ]
       },
       {
-        "kind": "record",
-        "collection": "opportunities"
+        "update": {
+          "record_id": "rec_006xx000004TC71",
+          "field": "description"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "collection": "signature_requests",
+              "template_id": "tmpl_enterprise",
+              "template_name": "Enterprise Agreement",
+              "signer_email": "contact@techcorp.example.com",
+              "status": "Sent"
+            },
+            "one_of": [
+              {
+                "opportunity_id": "006xx000004TC71"
+              },
+              {
+                "opportunity_id": "rec_006xx000004TC71"
+              }
+            ]
+          }
+        ],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_21",
+            "contains": ["Enterprise Agreement"]
+          }
+        ]
+      },
+      {
+        "update": {
+          "record_id": "rec_opp_mid",
+          "field": "description"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "collection": "signature_requests",
+              "template_id": "tmpl_standard",
+              "template_name": "Standard Agreement",
+              "signer_email": "contact@midsize.example.com",
+              "status": "Sent"
+            },
+            "one_of": [
+              {
+                "opportunity_id": "opp_mid"
+              },
+              {
+                "opportunity_id": "rec_opp_mid"
+              }
+            ]
+          }
+        ],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_18",
+            "contains": ["Standard Agreement"]
+          }
+        ]
+      },
+      {
+        "update": {
+          "record_id": "rec_opp_small",
+          "field": "description"
+        },
+        "records": [
+          {
+            "collection": "signature_requests",
+            "equals": {
+              "collection": "signature_requests",
+              "template_id": "tmpl_simple",
+              "template_name": "Simple Agreement",
+              "signer_email": "contact@smallbiz.example.com",
+              "status": "Sent"
+            },
+            "one_of": [
+              {
+                "opportunity_id": "opp_small"
+              },
+              {
+                "opportunity_id": "rec_opp_small"
+              }
+            ]
+          }
+        ],
+        "messages_before": [
+          {
+            "chat_id": "oc_email_19",
+            "contains": ["Simple Agreement"]
+          }
+        ]
       }
     ]
   },

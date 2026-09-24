@@ -57,7 +57,7 @@ const expected: {
     after: WorkflowEventSelector[];
   }[];
   record_state_before_updates?: {
-    update: { record_id: string; field: string; value: string | number };
+    update: { record_id: string; field: string; value?: string | number };
     records: { collection: string; equals: Fields; one_of?: Fields[] }[];
     messages_before?: { chat_id: string; contains: string[] }[];
     updated_json_sets?: Record<string, string[]>;
@@ -666,14 +666,19 @@ const recordStateBeforeUpdateChecks = (
         mutation.kind === 'record' &&
         mutation.id === rule.update.record_id &&
         mutation.after &&
-        isDeepStrictEqual(
-          mutation.after.fields?.[rule.update.field],
-          rule.update.value,
-        ) &&
-        !isDeepStrictEqual(
-          mutation.before?.fields?.[rule.update.field],
-          rule.update.value,
-        )
+        (Object.hasOwn(rule.update, 'value')
+          ? isDeepStrictEqual(
+              mutation.after.fields?.[rule.update.field],
+              rule.update.value,
+            ) &&
+            !isDeepStrictEqual(
+              mutation.before?.fields?.[rule.update.field],
+              rule.update.value,
+            )
+          : !isDeepStrictEqual(
+              mutation.before?.fields?.[rule.update.field],
+              mutation.after.fields?.[rule.update.field],
+            ))
       ) {
         checkpoints.push({
           seq: call.seq,

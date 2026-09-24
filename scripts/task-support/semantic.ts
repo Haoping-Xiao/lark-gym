@@ -934,8 +934,12 @@ export function prepareSemantic(
         (r: Json) => r.record_id === check.record_id,
       )?.fields[check.field];
       check.mode = 'equals';
-      delete check.contains;
-      delete check.forbidden;
+      const literalTerms = config.literal_update_terms?.[String(i)];
+      if (literalTerms?.length) check.contains = literalTerms;
+      else delete check.contains;
+      const forbiddenTerms = config.literal_update_forbidden?.[String(i)];
+      if (forbiddenTerms?.length) check.forbidden = forbiddenTerms;
+      else delete check.forbidden;
       deferred.push(`updates[${i}].${check.field}`);
     }
   for (const [i, check] of (expected.cells || []).entries()) {
