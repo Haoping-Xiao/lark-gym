@@ -26806,7 +26806,7 @@
   },
   "operations-1248": {
     "now": "2026-01-29T04:00:00Z",
-    "instruction": "当前2026-01-29 04:00 UTC，核对incident queue、全部政策、monitoring邮件和Current on-call，处理应响应的after-hours P1。SMS改为电话号码会话的飞书私聊，正文保留From: +15550001111作原流程审计，不声称实际发送短信；按政策决定是否升级secondary。创建jira_issues(project由Incident Management查/issuetype=Incident/summary/labels为JSON数组/description)及confluence_pages(cloudId=cloud_ops/space_id=SP_INCIDENTS/type=page/title/body)，并私聊incident-stakeholders；所有告警保留事件名、有效severity、detected原ISO时间和被通知on-call姓名。源Twilio历史保留为只读台账，不把历史噪声当本次发送。",
+    "instruction": "当前2026-01-29 04:00 UTC，核对incident queue、全部政策、monitoring邮件和Current on-call，处理应响应的after-hours P1。SMS改为电话号码会话的飞书私聊，正文保留From: +15550001111作原流程审计，不声称实际发送短信；按政策决定是否升级secondary。创建jira_issues(project由Incident Management查/issuetype=Incident/summary/labels为JSON数组/description)及confluence_pages(cloudId=cloud_ops/space_id=SP_INCIDENTS/type=page/title/body)，并私聊incident-stakeholders；所有告警保留事件名、有效severity、detected原ISO时间和被通知on-call姓名。源Twilio历史保留为只读台账，不把历史噪声当本次发送。通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "creates": [
       {
         "collection": "jira_issues",
@@ -26842,7 +26842,8 @@
           "2026-01-29T03:30:00Z",
           "Alex Rivera",
           "after-hours"
-        ]
+        ],
+        "title": ["API Gateway Timeout"]
       }
     },
     "messages": [
@@ -27180,7 +27181,7 @@
   },
   "operations-1262": {
     "now": "2026-01-29T09:00:00Z",
-    "instruction": "处理Jan27–Feb2到期、Active且NDA Signed=Yes的合同中End Date最早者，同日Security Clearance High>Standard>None。DocuSign替换signature_requests(template_id/template_name/signer_email/cc_emails JSON数组/status=Sent)，向本人发签署请求，HR/Legal分别私聊抄送。创建trello_cards(board=brd_hr/list=Offboarding/name=Offboard: <Name>)和notion_pages(parent_page=pg_offboarding/title=Offboarding: <Name>/content)。通知hr-ops及源Manager ID对应用户，正文和页面保留End Date、Security Clearance、Equipment List。只是开始offboarding，不终止账号或声称签署完成。",
+    "instruction": "处理Jan27–Feb2到期、Active且NDA Signed=Yes的合同中End Date最早者，同日Security Clearance High>Standard>None。DocuSign替换signature_requests(template_id/template_name/signer_email/cc_emails JSON数组/status=Sent)，向本人发签署请求，HR/Legal分别私聊抄送。创建trello_cards(board=brd_hr/list=Offboarding/name=Offboard: <Name>)和notion_pages(parent_page=pg_offboarding/title=Offboarding: <Name>/content)。通知hr-ops及源Manager ID对应用户，正文和页面保留End Date、Security Clearance、Equipment List。只是开始offboarding，不终止账号或声称签署完成。通知或记录引用来源值时须原样保留，不得改写或舍入。",
     "creates": [
       {
         "collection": "signature_requests",
