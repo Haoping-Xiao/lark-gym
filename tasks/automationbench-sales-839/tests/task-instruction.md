@@ -1,3 +1,5 @@
 按Lead Scoring Playbook与最新政策对当前leads计分和路由。Calendly历史在calendly_scheduled_events/invitees台账，以email关联线索；每个互斥区间只取对应档，不叠加within48h与within1week。写lead_score，按阈值改status或追加description审计；所有状态说明包含分数，低分保留原status。根据Rep Routing Matrix查正确Slack用户并用飞书user_id对应私聊，取消与排除项完全跳过。
 
+汇报中如列举处理事项，仅列实际处理的事项。不要列举、解释被跳过、排除或拒绝的对象，除非用户请求或权威流程明确要求；此时仅在指定位置给出所需解释，不另加排除事项汇总。
+
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

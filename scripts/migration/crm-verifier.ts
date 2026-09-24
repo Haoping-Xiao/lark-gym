@@ -28,6 +28,7 @@ type EventCheck = {
   attendees: string[];
 };
 type Check = {
+  required_url?: string;
   record_id: string;
   field: string;
   value: string | number;
@@ -136,6 +137,28 @@ const { seed, world, calls } = JSON.parse(
     'utf8',
   ),
 );
+// Compare actual URL targets, not substrings inside another host/path or link label.
+const includesSourceUrl = (text: unknown, source: string): boolean => {
+  if (typeof text !== 'string') return false;
+  const destinations: string[] = [];
+  const visible = text.replace(
+    /\[[^\]\n]*\]\(\s*<?(https?:\/\/[^\s)>]+)>?(?:\s+"[^"\n]*")?\s*\)/gi,
+    (_match, target: string) => {
+      destinations.push(target);
+      return ' ';
+    },
+  );
+  destinations.push(...(visible.match(/https?:\/\/[^\s<>"`\[\]]+/gi) || []));
+  return destinations.some((raw) => {
+    const candidate = raw.replace(/[).,;!?，。；！？？]+$/u, '');
+    try {
+      return new URL(candidate).href === new URL(source).href;
+    } catch {
+      return false;
+    }
+  });
+};
+
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
@@ -144,6 +167,7 @@ const checks = expected.updates.map((check) => {
     ...check,
     passed:
       !(check.forbidden || []).some((part) => String(value).includes(part)) &&
+      (!check.required_url || includesSourceUrl(value, check.required_url)) &&
       (check.contains
         ? check.contains.every((part) => String(value).includes(part))
         : check.mode === 'contains'

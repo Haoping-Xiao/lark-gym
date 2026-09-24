@@ -66,6 +66,7 @@ for row in rows:
         record=next(r for r in records if r['record_id']==rid)
         record['fields'].setdefault(a['field'],'')
         checks.append({'record_id':rid,'field':a['field'],'value':a['value'],'mode':'contains' if a['type'].endswith('contains') else 'equals'})
+        if number == '3006' and a['field'] == 'description': checks[-1]['required_url']='https://'+a['value']
         updates.setdefault(rid,{})[a['field']]=('https://'+a['value']) if number == '3006' else a['value']
     # Preserve evidence text and literal values. Email delivery becomes an IM
     # notification channel; this is a workflow adaptation, not official scoring.
