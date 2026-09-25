@@ -17,10 +17,11 @@ def millis(value):
     return str(int(parsed.timestamp()*1000))
 def calendar_time(value):
     return {'date':value} if re.fullmatch(r'\d{4}-\d{2}-\d{2}',value) else {'timestamp':str(int(int(millis(value))/1000))}
-def native_mail_seed(source, mailbox):
+def native_mail_seed(source, mailbox, unread_source="labels", id_encoding=None):
     # Opt in only after reviewing the full original state; unsupported material is never dropped.
     gmail=source.get('gmail',{})
-    assert not gmail.get('drafts') and not gmail.get('labels'), 'native mail draft/label fixtures need explicit adaptation'
+    assert not gmail.get('drafts'), 'native mail draft fixtures need explicit adaptation'
+    assert all(label=={'id':'INBOX','name':'INBOX'}for label in gmail.get('labels',[])), 'review custom source labels before adapting'
     def encode(value):return base64.urlsafe_b64encode(value.encode()).decode().rstrip('=')
     def address(value):
         assert isinstance(value,str), 'review structured source addresses before adapting'
@@ -30,7 +31,10 @@ def native_mail_seed(source, mailbox):
         assert m.get('date') and not m.get('attachments'), 'review missing source dates or attachments before adapting'
         assert set(m.get('label_ids',[])) <= {'INBOX','UNREAD'}, 'review additional source labels before adapting'
         body=m.get('body_plain',m.get('body',''))
-        result.append({'message_id':m['id'],'mailbox_id':mailbox,'thread_id':m.get('thread_id','thread_'+m['id']),'smtp_message_id':m['id']+'@fixture.invalid','subject':m.get('subject',''),'head_from':address(m.get('from_',m.get('from',''))),'to':[address(x)for x in m.get('to',[])],'cc':[address(x)for x in m.get('cc',[])],'bcc':[address(x)for x in m.get('bcc',[])],'body_plain_text':encode(body),'body_preview':encode(body[:120]),'body_html':encode(m.get('body_html','')),'internal_date':millis(m['date']),'message_state':1,'label_ids':['UNREAD']if 'UNREAD'in m.get('label_ids',[])else[],'folder_id':'INBOX','attachments':[]})
+        result.append({'message_id':m['id'],'mailbox_id':mailbox,'thread_id':m.get('thread_id','thread_'+m['id']),'smtp_message_id':m['id']+'@fixture.invalid','subject':m.get('subject',''),'head_from':address(m.get('from_',m.get('from',''))),'to':[address(x)for x in m.get('to',[])],'cc':[address(x)for x in m.get('cc',[])],'bcc':[address(x)for x in m.get('bcc',[])],'body_plain_text':encode(body),'body_preview':encode(body[:120]),'body_html':encode(m.get('body_html','')),'internal_date':millis(m['date']),'message_state':1,'label_ids':['UNREAD']if (not m.get('is_read',False) if unread_source=='is_read' else 'UNREAD'in m.get('label_ids',[]))else[],'folder_id':'INBOX','attachments':[]})
+    if id_encoding=='base64url':
+        for m in result:
+            m['message_id']=encode('fixture:'+m['message_id']);m['thread_id']=encode('fixture:'+m['thread_id'])
     return {'mailboxes':[{'email_address':mailbox,'email_type':'USER_PRIMARY'}],'messages':result,'drafts':[]}
 recipes=json.loads(Path(__file__).with_name('formal.zh.json').read_text())
 selected=set(sys.argv[2:])
@@ -378,6 +382,10 @@ for row in rows:
     for record in records:
         for field in recipe.get('text_fields',[]):
             if field in record['fields']:record['fields'][field]=str(record['fields'][field])
+    for record_id, values in recipe.get('seed_record_fields',{}).items():
+        matches=[r for r in records if r['record_id']==record_id]
+        assert len(matches)==1, 'seed record adaptation must name one source record'
+        matches[0]['fields'].update(values)
     fields={k:'number' if isinstance(v,(int,float)) else 'text' for r in records for k,v in r['fields'].items()}
     for r in recipe.get('creates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r.items()})
     for r in recipe.get('updates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r['fields'].items()})
@@ -398,11 +406,11 @@ for row in rows:
         removed={c['chat_id']for c in seed['chats']if c['chat_id']=='oc_mail' or c['chat_id'].startswith('oc_email_')}
         assert not any(m['chat_id']in removed for m in seed['messages']), 'native mail context needs explicit routing'
         seed['chats']=[c for c in seed['chats']if c['chat_id']not in removed]
-        seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'))
+        seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'),recipe.get('native_unread_source','labels'),recipe.get('native_mail_id_encoding'))
         forbidden=[f for f in forbidden if f.get('chat_id')not in removed]
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{**({'event_state_before_creates':recipe['event_state_before_creates']} if recipe.get('event_state_before_creates') else {}),**({'booking_order':recipe['booking_order']} if recipe.get('booking_order') else {}),'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,**({'record_state_before_updates':recipe['record_state_before_updates']} if recipe.get('record_state_before_updates') else {}),**({'record_state_before_messages':recipe['record_state_before_messages']} if recipe.get('record_state_before_messages') else {}),**({'workflow_barriers':recipe['workflow_barriers']} if recipe.get('workflow_barriers') else {}),'order_groups':orderGroups,'entity_order':entityOrder,**({'action_prerequisites':actionPrerequisites} if actionPrerequisites else {}),'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks,**({'mail':recipe.get('mail',[])}if recipe.get('native_mail')else{})})
+    write('tests/expected.json',{**({'event_state_before_creates':recipe['event_state_before_creates']} if recipe.get('event_state_before_creates') else {}),**({'booking_order':recipe['booking_order']} if recipe.get('booking_order') else {}),**({'mail_list_before_send':recipe['mail_list_before_send']}if recipe.get('mail_list_before_send')else{}),'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,**({'record_state_before_updates':recipe['record_state_before_updates']} if recipe.get('record_state_before_updates') else {}),**({'record_state_before_messages':recipe['record_state_before_messages']} if recipe.get('record_state_before_messages') else {}),**({'workflow_barriers':recipe['workflow_barriers']} if recipe.get('workflow_barriers') else {}),'order_groups':orderGroups,'entity_order':entityOrder,**({'action_prerequisites':actionPrerequisites} if actionPrerequisites else {}),'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks,**({'mail':recipe.get('mail',[])}if recipe.get('native_mail')else{})})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'

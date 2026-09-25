@@ -230,6 +230,10 @@ export function prepareSemantic(
   if (config.event_end_time_unspecified?.length)
     deferred.push('events.unspecified_duration_reasonableness');
   if (expected.mail?.length) deferred.push('mail.content');
+  if (expected.mail?.length && config.mail_delivery_count === 'unconstrained') {
+    original.mail_delivery_count = 'unconstrained';
+    deferred.push('mail.unconstrained_delivery_count');
+  }
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =
       config.optional_creation_text_fields;

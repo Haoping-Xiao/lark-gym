@@ -92,7 +92,10 @@ type WorkflowEventSelector = {
 };
 const expected: {
   cells_before_mail?: { to: string; cells: any[] }[];
+  mail_list_before_send?: { mailbox: string };
   mail?: {
+    aggregate?: boolean;
+    every_body_contains?: string[];
     attachments?: {
       filename: string;
       content_types: string[];
@@ -106,6 +109,7 @@ const expected: {
     subject?: string;
     subject_contains?: string[];
     body_contains?: string[];
+    body_not_contains?: string[];
   }[];
   creation_contains_guarded?: boolean;
   rrule_default_interval?: boolean;
@@ -845,10 +849,116 @@ const sheetBeforeMail = (mail: any, rule: any) => {
       inspect(c.response);
   return needed.every((c: number) => found.has(row + ':' + c));
 };
+const mailBodyText = (m: any) =>
+  ['body_plain_text', 'body_html']
+    .map((key) => Buffer.from(m[key] || '', 'base64url').toString('utf8'))
+    .join('\n');
+const unreadListBeforeMail = (mail: any) => {
+  const rule = expected.mail_list_before_send;
+  if (!rule) return true;
+  const required = (seed.mail?.messages || [])
+    .filter(
+      (m: any) =>
+        m.mailbox_id === rule.mailbox && m.label_ids?.includes('UNREAD'),
+    )
+    .map((m: any) => m.message_id);
+  const send = calls.findIndex((c: any) =>
+    (c.mutations || []).some(
+      (m: any) =>
+        m.kind === 'mail_message' &&
+        m.id === mail.message_id &&
+        m.after?.message_state === 2,
+    ),
+  );
+  if (send < 0) return false;
+  const observed = new Set<string>();
+  for (const c of calls.slice(0, send)) {
+    if (c.status >= 400) continue;
+    const url = new URL(c.path, 'http://mock');
+    if (
+      !decodeURIComponent(url.pathname).includes(
+        '/user_mailboxes/' + rule.mailbox + '/',
+      )
+    )
+      continue;
+    const listing =
+      c.method === 'GET' &&
+      url.pathname.endsWith('/messages') &&
+      (url.searchParams.get('only_unread') === 'true' ||
+        url.searchParams.get('label_id') === 'UNREAD');
+    const search =
+      c.method === 'POST' &&
+      url.pathname.endsWith('/search') &&
+      c.body?.filter?.is_unread === true;
+    if (!listing && !search) continue;
+    const data = c.response?.data || c.response;
+    for (const item of data?.items || []) {
+      const id =
+        typeof item === 'string' ? item : item.meta_data?.message_biz_id;
+      if (typeof id === 'string') observed.add(id);
+    }
+  }
+  return (
+    required.every((id: string) => observed.has(id)) &&
+    [...observed].every((id) => required.includes(id))
+  );
+};
 const mailChecks = (expected.mail || []).map((rule) => {
+  if (rule.aggregate) {
+    const allowed = new Set(
+      (expected.mail || []).flatMap((r) => r.to.map((a) => a.toLowerCase())),
+    );
+    const matches = sentMail.filter((m: any) => {
+      const recipients = [...(m.to || []), ...(m.cc || [])].map((a: any) =>
+        a.mail_address.toLowerCase(),
+      );
+      return (
+        rule.to.every((a) => recipients.includes(a.toLowerCase())) &&
+        recipients.every((a: string) => allowed.has(a)) &&
+        !(m.bcc || []).length
+      );
+    });
+    const bodies: string[] = matches.map((m: any) => mailBodyText(m));
+    const passed =
+      matches.length > 0 &&
+      (rule.body_contains || []).every((term) =>
+        bodies.some((body) => supportContains(body, term)),
+      ) &&
+      (rule.body_not_contains || []).every((term) =>
+        bodies.every((body) => !supportContains(body, term)),
+      ) &&
+      bodies.every((body) =>
+        (rule.every_body_contains || []).every((term) =>
+          supportContains(body, term),
+        ),
+      ) &&
+      matches.every(
+        (m: any) =>
+          unreadListBeforeMail(m) &&
+          calls.some(
+            (c: any) =>
+              c.status < 400 &&
+              (c.mutations || []).some(
+                (mutation: any) =>
+                  mutation.kind === 'mail_message' &&
+                  mutation.id === m.message_id &&
+                  mutation.after?.message_state === 2 &&
+                  mutation.before?.message_state === 3,
+              ),
+          ),
+      );
+    if (passed) for (const m of matches) consumedMail.add(m.message_id);
+    return {
+      ...rule,
+      message_ids: matches.map((m: any) => m.message_id),
+      passed,
+    };
+  }
+
   const match = sentMail.find(
     (m: any) =>
       !consumedMail.has(m.message_id) &&
+      unreadListBeforeMail(m) &&
       mailSourceProof(m, rule) &&
       sheetBeforeMail(m, rule) &&
       (!rule.attachments ||
@@ -874,11 +984,11 @@ const mailChecks = (expected.mail || []).map((rule) => {
       (rule.subject_contains || []).every((term) =>
         supportContains(m.subject, term),
       ) &&
+      (rule.body_not_contains || []).every(
+        (term) => !supportContains(mailBodyText(m), term),
+      ) &&
       (rule.body_contains || []).every((term) =>
-        supportContains(
-          Buffer.from(m.body_plain_text || '', 'base64url').toString('utf8'),
-          term,
-        ),
+        supportContains(mailBodyText(m), term),
       ) &&
       calls.some(
         (call: any) =>

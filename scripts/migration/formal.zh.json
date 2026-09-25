@@ -3476,7 +3476,7 @@
     ]
   },
   "marketing-1006": {
-    "instruction": "处理 Lead Tracking（ss_leads）的 New Leads（ws_new）中本次网络研讨会线索。按当前政策核对竞品、备注和重复报名，将合格联系人新增到飞书 CRM 的 hubspot_contacts，保留姓名、邮箱、公司、职务，并用适当的线索来源标记。新增后向 webinar-ops@company.example.com 发送确认摘要邮件，包含受影响联系人的姓名和实际新增数量。通知和记录中引用的原始值须照录，不改写或取整。\n\n政策与历史来信保留原文，位于 agent@company.example.com 邮箱；原 Gmail 收件人 me 在本场景映射为该账号。表中为空的文本字段表示未提供资料，可保留空字符串或省略字段，不得自行补值。",
+    "instruction": "处理 Lead Tracking（ss_leads）的 New Leads（ws_new）中本次网络研讨会线索。按当前政策核对竞品、备注和重复报名，将合格联系人新增到飞书 CRM 的 hubspot_contacts，保留姓名、邮箱、公司、职务，并用适当的线索来源标记。新增后向 webinar-ops@company.example.com 发送确认摘要邮件，包含受影响联系人的姓名和实际新增数量。通知和记录中引用的原始值须照录，不改写或取整。\n\n政策与历史来信保留原文，位于 agent@company.example.com 邮箱；原 Gmail 收件人 me 在本场景映射为该账号。表中为空的文本字段表示未提供资料，可保留空字符串或省略字段，不得自行补值。\n未读状态以原始 is_read 字段为准，与原工具的未读查询语义一致。",
     "creates": [
       {
         "collection": "hubspot_contacts",
@@ -3599,10 +3599,11 @@
         "--range",
         "A1:C6"
       ]
-    ]
+    ],
+    "native_unread_source": "is_read"
   },
   "marketing-1008": {
-    "instruction": "检查飞书 CRM 联系人数据质量，查阅最近的清理政策及 SOP；出现冲突时使用最新权威来源。本次不处理 CRM 迁移。把审计发现私聊发送到 marketing@company.example.com，附政策追踪码。根据政策更新联系人 audit_tag，不合并或删除联系人。报告中的来源值必须照录。系统账号的“不标记/不移除”备注视为该账号免于本次审计和写入。",
+    "instruction": "检查飞书 CRM 联系人数据质量，查阅最近的清理政策及 SOP；出现冲突时使用最新权威来源。本次不处理 CRM 迁移。把审计发现通过邮件发送到 marketing@company.example.com，附政策追踪码。根据政策更新联系人 audit_tag，不合并或删除联系人。报告中的来源值必须照录。系统账号的“不标记/不移除”备注视为该账号免于本次审计和写入。\n\n政策和历史来信位于 agent@company.example.com 邮箱，原收件人 me 映射为该账号；来源中的 Slack 频道对应同名飞书群，保留原作者和时间供判断。近似重复判定补充：只有来源明确说明为同一人的重复记录或提供确定的身份关联证据，才能将不同邮箱列为 Near Duplicate；仅同名、相同邮箱本地部分或相似域名不足以判定，不能据此标记问题或列入报告。联系人 contact_id 保留原始业务 ID，报告引用该字段；读写操作使用 CLI 返回的 record_id。\n未读状态以原始 is_read 字段为准，与原工具的未读查询语义一致。",
     "updates": [
       {
         "id": "hubspot_c2",
@@ -3710,26 +3711,132 @@
     "messages": [
       {
         "email": "marketing@company.example.com",
-        "text": "CLEAN-2026-Q1 CRM 数据审计\n政策 CDCL-456-Q1。\n无效邮箱 4 条：c3 broken@；c4 missing-domain；c8 bad email@company.example.com；c11 double@@company.example.com。\nExact Duplicate：1 组、2 条记录，c1 和 c9 均为 valid@company.example.com。\nLegacy Import Audit：1 条，c16 noemail.importfail，请数据运营人工复核。\n7 条问题记录 / 27 条联系人，超过 10%；请 Director of Marketing Operations 跟进。",
-        "contains": [
-          "CLEAN-2026-Q1",
+        "subject": "CLEAN-2026-Q1 CRM 数据审计",
+        "body": "CLEAN-2026-Q1 CRM 数据审计\n政策 CDCL-456-Q1。\n无效邮箱 4 条：c3 broken@；c4 missing-domain；c8 bad email@company.example.com；c11 double@@company.example.com。\nExact Duplicate：1 组、2 条记录，c1 和 c9 均为 valid@company.example.com。\nLegacy Import Audit：1 条，c16 noemail.importfail，请数据运营人工复核。\n7 条问题记录 / 27 条联系人，超过 10%；请 Director of Marketing Operations 跟进。"
+      }
+    ],
+    "now": "2026-01-28T09:00:00Z",
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["marketing@company.example.com"],
+        "subject_contains": ["CLEAN-2026-Q1"],
+        "body_contains": [
+          "broken@",
+          "missing-domain",
+          "bad email@",
+          "double@@",
+          "duplicate",
           "CDCL-456-Q1",
-          "c3 broken@",
-          "c4 missing-domain",
-          "c8 bad email@company.example.com",
-          "c11 double@@company.example.com",
-          "Exact Duplicate",
-          "c1",
-          "c9",
-          "valid@company.example.com",
-          "Legacy Import Audit",
-          "c16 noemail.importfail",
-          "Director of Marketing Operations",
-          "10%"
+          "noemail.importfail",
+          "Legacy Import Audit"
+        ],
+        "body_not_contains": [
+          "noreply@internal",
+          "company-global",
+          "legalhold@bigclient",
+          "donotprocess@partner"
         ]
       }
     ],
-    "now": "2026-01-28T09:00:00Z"
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "msg_cleanup_policy_old,msg_sop_dq",
+        "--as",
+        "user"
+      ],
+      ["im", "+chat-messages-list", "--chat-id", "oc_ch_data_ops"]
+    ],
+    "seed_record_fields": {
+      "rec_hubspot_c1": {
+        "contact_id": "c1"
+      },
+      "rec_hubspot_c2": {
+        "contact_id": "c2"
+      },
+      "rec_hubspot_c3": {
+        "contact_id": "c3"
+      },
+      "rec_hubspot_c4": {
+        "contact_id": "c4"
+      },
+      "rec_hubspot_c5": {
+        "contact_id": "c5"
+      },
+      "rec_hubspot_c6": {
+        "contact_id": "c6"
+      },
+      "rec_hubspot_c7": {
+        "contact_id": "c7"
+      },
+      "rec_hubspot_c8": {
+        "contact_id": "c8"
+      },
+      "rec_hubspot_c9": {
+        "contact_id": "c9"
+      },
+      "rec_hubspot_c10": {
+        "contact_id": "c10"
+      },
+      "rec_hubspot_c11": {
+        "contact_id": "c11"
+      },
+      "rec_hubspot_c12": {
+        "contact_id": "c12"
+      },
+      "rec_hubspot_c13": {
+        "contact_id": "c13"
+      },
+      "rec_hubspot_c14": {
+        "contact_id": "c14"
+      },
+      "rec_hubspot_c15": {
+        "contact_id": "c15"
+      },
+      "rec_hubspot_c16": {
+        "contact_id": "c16"
+      },
+      "rec_hubspot_c17": {
+        "contact_id": "c17"
+      },
+      "rec_hubspot_c18": {
+        "contact_id": "c18"
+      },
+      "rec_hubspot_c20": {
+        "contact_id": "c20"
+      },
+      "rec_hubspot_hs_noise_c017": {
+        "contact_id": "hs_noise_c017"
+      },
+      "rec_hubspot_hs_noise_c015": {
+        "contact_id": "hs_noise_c015"
+      },
+      "rec_hubspot_hs_noise_c011": {
+        "contact_id": "hs_noise_c011"
+      },
+      "rec_hubspot_hs_noise_c003": {
+        "contact_id": "hs_noise_c003"
+      },
+      "rec_hubspot_hs_noise_c004": {
+        "contact_id": "hs_noise_c004"
+      },
+      "rec_hubspot_hs_noise_c001": {
+        "contact_id": "hs_noise_c001"
+      },
+      "rec_hubspot_hs_noise_c018": {
+        "contact_id": "hs_noise_c018"
+      },
+      "rec_hubspot_hs_noise_c012": {
+        "contact_id": "hs_noise_c012"
+      }
+    },
+    "native_unread_source": "is_read"
   },
   "marketing-1024": {
     "instruction": "处理 Referral Program 的推荐提交（ss_referrals / ws_submissions）。遵循最新推荐政策，核对 CRM 特殊处理属性及表格备注；合格的新联系人加入 hubspot_contacts，并向推荐人私聊致谢，使用适用追踪码，完成后标 processed=Yes。原始值照录。重新激活的老客户保留原联系人，不创建重复记录；其处理完成由本次推荐表和通知记录体现。",
@@ -8232,59 +8339,123 @@
     ]
   },
   "marketing-1052": {
-    "instruction": "列出未读业务来信，将当前批次的行业新闻路由给相应团队：executives@company.example.com、legal@company.example.com、product@company.example.com。先检查 news-ops 群批次要求。资金与公司战略给高管、法规给法务、产品变化给产品团队；跨领域文章分别通知相关团队。飞书私聊中保留原标题、原发送地址、正文及跟踪码，不转发无关广告或受限稿件。",
+    "instruction": "列出未读业务来信，然后将当前批次的行业新闻通过邮件路由给相应团队：executives@company.example.com、legal@company.example.com、product@company.example.com。发送前检查 news-ops 群的批次要求。资金与公司战略给高管、法规给法务、产品变化给产品团队；跨领域文章分别通知相关团队。可以逐篇转发，也可以按团队完整汇总，引用来源值时须原样保留，并包含相关实体名称；不转发无关广告或受限稿件。\n\n原始来信位于 agent@company.example.com 邮箱，来源收件人 me 映射为该账号，未读状态以原始 is_read 字段为准。本题“列出”以 CLI 返回仅含未读邮件的完整清单为完成依据，可以分页检索；须在首次团队发送前完成，不必另发清单邮件。来源中的 Slack 频道对应同名飞书群，批次按其中明确指定的日期判断。",
     "now": "2026-01-28T09:00:00Z",
     "messages": [
       {
         "email": "executives@company.example.com",
-        "text": "Breaking: SaaS Startup Raises $50M Series B\nalerts@technews.example.com\nTechStartup Inc announced a $50M Series B round led by Top VC...\nNEWS-ROUTE-2026-0127",
-        "contains": [
-          "Breaking: SaaS Startup Raises $50M Series B",
-          "alerts@technews.example.com",
-          "TechStartup Inc announced a $50M Series B round led by Top VC...",
-          "NEWS-ROUTE-2026-0127"
-        ]
+        "subject": "Fwd: Breaking: SaaS Startup Raises $50M Series B",
+        "body": "Breaking: SaaS Startup Raises $50M Series B\nalerts@technews.example.com\nTechStartup Inc announced a $50M Series B round led by Top VC...\nNEWS-ROUTE-2026-0127"
       },
       {
         "email": "legal@company.example.com",
-        "text": "New EU Data Protection Rules Take Effect\ndigest@industry.example.com\nNew GDPR amendments require additional consent mechanisms...\nNEWS-ROUTE-2026-0127",
-        "contains": [
-          "New EU Data Protection Rules Take Effect",
-          "digest@industry.example.com",
-          "New GDPR amendments require additional consent mechanisms...",
-          "NEWS-ROUTE-2026-0127"
-        ]
+        "subject": "Fwd: New EU Data Protection Rules Take Effect",
+        "body": "New EU Data Protection Rules Take Effect\ndigest@industry.example.com\nNew GDPR amendments require additional consent mechanisms...\nNEWS-ROUTE-2026-0127"
       },
       {
         "email": "product@company.example.com",
-        "text": "RivalCo Launches New AI Feature\nupdates@competitor.example.com\nRivalCo today announced their new AI-powered analytics feature...\nNEWS-ROUTE-2026-0127",
-        "contains": [
-          "RivalCo Launches New AI Feature",
-          "updates@competitor.example.com",
-          "RivalCo today announced their new AI-powered analytics feature...",
-          "NEWS-ROUTE-2026-0127"
-        ]
+        "subject": "Fwd: RivalCo Launches New AI Feature",
+        "body": "RivalCo Launches New AI Feature\nupdates@competitor.example.com\nRivalCo today announced their new AI-powered analytics feature...\nNEWS-ROUTE-2026-0127"
       },
       {
         "email": "legal@company.example.com",
-        "text": "AI Regulation Impact on SaaS Product Design\nbriefing@lawtech.example.com\nNew AI transparency regulations will require SaaS companies to disclose AI usage in their products. Companies must update product features and terms of service by Q3 2026.\nNEWS-ROUTE-2026-0127",
-        "contains": [
-          "AI Regulation Impact on SaaS Product Design",
-          "briefing@lawtech.example.com",
-          "New AI transparency regulations will require SaaS companies to disclose AI usage in their products. Companies must update product features and terms of service by Q3 2026.",
-          "NEWS-ROUTE-2026-0127"
-        ]
+        "subject": "Fwd: AI Regulation Impact on SaaS Product Design",
+        "body": "AI Regulation Impact on SaaS Product Design\nbriefing@lawtech.example.com\nNew AI transparency regulations will require SaaS companies to disclose AI usage in their products. Companies must update product features and terms of service by Q3 2026.\nNEWS-ROUTE-2026-0127"
       },
       {
         "email": "product@company.example.com",
-        "text": "AI Regulation Impact on SaaS Product Design\nbriefing@lawtech.example.com\nNew AI transparency regulations will require SaaS companies to disclose AI usage in their products. Companies must update product features and terms of service by Q3 2026.\nNEWS-ROUTE-2026-0127",
-        "contains": [
-          "AI Regulation Impact on SaaS Product Design",
-          "briefing@lawtech.example.com",
-          "New AI transparency regulations will require SaaS companies to disclose AI usage in their products. Companies must update product features and terms of service by Q3 2026.",
-          "NEWS-ROUTE-2026-0127"
+        "subject": "Fwd: AI Regulation Impact on SaaS Product Design",
+        "body": "AI Regulation Impact on SaaS Product Design\nbriefing@lawtech.example.com\nNew AI transparency regulations will require SaaS companies to disclose AI usage in their products. Companies must update product features and terms of service by Q3 2026.\nNEWS-ROUTE-2026-0127"
+      }
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["executives@company.example.com"],
+        "aggregate": true,
+        "body_contains": [
+          "50M",
+          "Series B",
+          "NEWS-ROUTE-2026-0127",
+          "technews.example.com"
+        ],
+        "every_body_contains": ["NEWS-ROUTE-2026-0127"],
+        "body_not_contains": [
+          "offsite",
+          "SAVE50",
+          "50% off",
+          "DataCo",
+          "$200M",
+          "EMBARGOED",
+          "CRM Industry Report"
+        ]
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "aggregate": true,
+        "body_contains": [
+          "GDPR",
+          "AI Regulation",
+          "NEWS-ROUTE-2026-0127",
+          "industry.example.com"
+        ],
+        "every_body_contains": ["NEWS-ROUTE-2026-0127"],
+        "body_not_contains": [
+          "offsite",
+          "SAVE50",
+          "50% off",
+          "DataCo",
+          "$200M",
+          "EMBARGOED",
+          "CRM Industry Report"
+        ]
+      },
+      {
+        "to": ["product@company.example.com"],
+        "aggregate": true,
+        "body_contains": ["RivalCo", "NEWS-ROUTE-2026-0127", "transparency"],
+        "every_body_contains": ["NEWS-ROUTE-2026-0127"],
+        "body_not_contains": [
+          "offsite",
+          "SAVE50",
+          "50% off",
+          "DataCo",
+          "$200M",
+          "EMBARGOED",
+          "CRM Industry Report"
         ]
       }
+    ],
+    "mail_list_before_send": {
+      "mailbox": "agent@company.example.com"
+    },
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--is-unread",
+        "--max",
+        "100",
+        "--json",
+        "--as",
+        "user"
+      ],
+      ["im", "+chat-messages-list", "--chat-id", "oc_ch_news_ops"],
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTpuZXdzMQ,Zml4dHVyZTpuZXdzMg,Zml4dHVyZTpuZXdzMw,Zml4dHVyZTpuZXdzNA,Zml4dHVyZTpuZXdzNQ,Zml4dHVyZTpuZXdzNg,Zml4dHVyZTpwcm9tbzE",
+        "--as",
+        "user"
+      ]
     ]
   },
   "marketing-1202": {
@@ -29382,7 +29553,7 @@
   },
   "operations-1302": {
     "now": "2026-01-29T09:00:00Z",
-    "instruction": "读Churn Analysis Configuration及全部联系人，排除migration/transition及active renewal，非Customer不评估；对合格客户以login>=30、NPS<7、support_tickets_30d>3计信号，>=2 high、1 medium、0 low，VIP覆盖为high但不覆盖排除。回写contacts.churn_risk。high创建tickets(subject含全名/priority=HIGH/contact_id/assigned_to=csm_email/description含实际三个指标及风险依据)并发churn-watch；medium只私聊本人提供resources（无已知文档URL，使用可操作的登录/产品导览建议，不造链接）。low不发消息，不改任何原指标。",
+    "instruction": "先读取 Churn Analysis Configuration 的全部规则与覆盖项，以及全部联系人，再识别流失风险。只评估 lifecycle_stage 为 Customer 的联系人，先应用账户排除和保护政策；续约暂停对内部评分、通知和工单的具体范围按配置表中的场景澄清执行。警告信号为 last_login_days_ago >= 30、nps_score < 7、support_tickets_30d > 3；至少两个为 high、一个为 medium、零个为 low，并应用配置中的风险覆盖规则。为每名应评估的联系人回写 churn_risk，保留其他原始字段。未被通知保护暂停的 high 客户：在 churn-watch 发出姓名、风险和依据，并创建交给对应 CSM 的工单。medium 客户通过邮件发送有帮助的 check-in 和 resources，low 不触达。只汇报实际处理事项，不列举被排除者。\n\n本场景中，HubSpot 联系人位于 hubspot_contacts，工单写入 tickets（客服工单）：subject 含客户全名，priority=HIGH，contact_id 使用联系人可读业务标识，assigned_to 使用 csm_email，description 说明三个实际指标和风险依据。这是现有飞书工单字段映射。通知和记录引用来源值时须原样保留；资料没有给出资源 URL，可以提供可操作的登录或产品入门建议，不编造链接。使用 agent@company.example.com 原生邮箱，来源收件人 me 映射为该账号，未读状态以 is_read 为准。",
     "updates": [
       {
         "id": "hubspot_cont_hs_201",
@@ -29404,6 +29575,12 @@
       },
       {
         "id": "hubspot_cont_hs_207",
+        "fields": {
+          "churn_risk": "high"
+        }
+      },
+      {
+        "id": "hubspot_cont_hs_206",
         "fields": {
           "churn_risk": "high"
         }
@@ -29448,9 +29625,92 @@
       },
       {
         "email": "concerned@midclient.example.com",
-        "text": "James Whitfield，最近35天未登录，需要帮助吗？resources：可以先检查账号登录状态，再从产品首页的帮助入口查看入门导览；也欢迎告诉我们使用障碍。",
-        "contains": ["James Whitfield", "resources", "35", "登录", "导览"]
+        "subject": "Check-in and resources",
+        "body": "James Whitfield，最近35天未登录，需要帮助吗？resources：可以先检查账号登录状态，再从产品首页的帮助入口查看入门导览；也欢迎告诉我们使用障碍。"
       }
+    ],
+    "seed_cell_adaptations": [
+      {
+        "book": "ss_churn_config",
+        "sheet": "ws_exclusion_rules",
+        "row": 3,
+        "column": 1,
+        "before": "Customers with notes indicating they are in active contract renewal negotiations must be excluded from automated churn outreach. Outreach during renewal could undermine the sales process.",
+        "after": "Customers with notes indicating they are in active contract renewal negotiations must be excluded from automated churn outreach. Outreach during renewal could undermine the sales process. Scenario clarification: The renewal hold does not suppress internal risk assessment or churn_risk updates. It does suppress churn-watch alerts, customer check-in emails, and automated CSM outreach tickets; do not create those tickets during the hold.",
+        "reason": "Source distinguishes all-workflow migration exclusion from outreach-only renewal hold. Preserve internal risk updates and original forbidden renewal alerts/mail; explicitly resolve unspecified automated CSM outreach-ticket boundary for this adapted scenario."
+      }
+    ],
+    "seed_record_fields": {
+      "rec_hubspot_cont_hs_201": {
+        "contact_id": "cont_hs_201"
+      },
+      "rec_hubspot_cont_hs_202": {
+        "contact_id": "cont_hs_202"
+      },
+      "rec_hubspot_cont_hs_203": {
+        "contact_id": "cont_hs_203"
+      },
+      "rec_hubspot_cont_hs_204": {
+        "contact_id": "cont_hs_204"
+      },
+      "rec_hubspot_cont_hs_205": {
+        "contact_id": "cont_hs_205"
+      },
+      "rec_hubspot_cont_hs_206": {
+        "contact_id": "cont_hs_206"
+      },
+      "rec_hubspot_cont_hs_207": {
+        "contact_id": "cont_hs_207"
+      },
+      "rec_hubspot_hs_ops_ct_007": {
+        "contact_id": "hs_ops_ct_007"
+      },
+      "rec_hubspot_hs_ops_ct_005": {
+        "contact_id": "hs_ops_ct_005"
+      },
+      "rec_hubspot_hs_ops_ct_004": {
+        "contact_id": "hs_ops_ct_004"
+      },
+      "rec_hubspot_hs_ops_ct_001": {
+        "contact_id": "hs_ops_ct_001"
+      },
+      "rec_hubspot_hs_ops_ct_002": {
+        "contact_id": "hs_ops_ct_002"
+      },
+      "rec_hubspot_hs_ops_ct_008": {
+        "contact_id": "hs_ops_ct_008"
+      }
+    },
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["concerned@midclient.example.com"],
+        "body_contains": ["resources"]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_churn_config",
+        "--sheet-id",
+        "ws_exclusion_rules",
+        "--range",
+        "A1:B4"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_churn_config",
+        "--sheet-id",
+        "ws_churn_overrides",
+        "--range",
+        "A1:C2"
+      ]
     ]
   },
   "operations-1307": {
@@ -42023,7 +42283,7 @@
     ]
   },
   "support-1533": {
-    "instruction": "固定2025-01-15，按ss_campaigns/ws_rules活动日期含首尾、subject+messages原关键词大小写不敏感匹配；不得把winter或sale泛词扩展成winter-sale，也不排除配置明确支持的new year空格形式。对有效归因追加campaign tag、ws_tracking每会话campaign一行，过期/无匹配不动。marketing-ops仅报告本轮活动campaign及逐活动数量、会话ID/subject，不提过期campaign。",
+    "instruction": "固定2025-01-15，按ss_campaigns/ws_rules活动日期含首尾、subject+messages原关键词大小写不敏感匹配；不得把winter或sale泛词扩展成winter-sale，也不排除配置明确支持的new year空格形式。对有效归因追加campaign tag、ws_tracking每会话campaign一行，过期/无匹配不动。marketing-ops仅报告本轮活动campaign及逐活动数量、会话ID/subject，不提过期campaign。\n\ntags 为文本字段，写入表示标签数组的合法 JSON 字符串；标签名称保持原值，JSON 的空格、换行及转义形式不影响标签含义。",
     "updates": [
       {
         "id": "reamaze_conversations_rm_1301",
@@ -42134,6 +42394,28 @@
           "rm_1312 | New year gift card problem | campaign-newyear"
         ]
       }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_campaigns",
+        "--sheet-id",
+        "ws_rules",
+        "--range",
+        "A1:D6"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_campaigns",
+        "--sheet-id",
+        "ws_tracking",
+        "--range",
+        "A1:C100"
+      ]
     ]
   },
   "support-1536": {
@@ -45455,7 +45737,7 @@
     ]
   },
   "support-1577": {
-    "instruction": "仅open且order-issue，核对订单/客户/调查三表，Notes为HOLD、DO NOT process或Exempt的订单不动；既有Cleared/Under Review不重复调查，VIP不因频繁退货自动标记。按ws_fraud_rules公开解释：非VIP新账户(<New_Account_Days)且退货>=High_Fraud_Return_Count为High；否则订单>=Medium_Fraud_Order_Threshold且地址不一致或账户<Medium_New_Account_Days为Medium；多个指标合并记录，High优先。仅可疑票追加fraud-review和内部gorgias_replies(ticket_id/body_text含fraud、Severity与全部依据/sender_type=agent/public=false文本)，不向客户指控或发送通知。ws_fraud_log四列完整，fraud-alerts只汇报所标订单/邮箱/级别/依据。",
+    "instruction": "仅open且order-issue，核对订单/客户/调查三表，Notes为HOLD、DO NOT process或Exempt的订单不动；既有Cleared/Under Review不重复调查，VIP不因频繁退货自动标记。按ws_fraud_rules公开解释：非VIP新账户(<New_Account_Days)且退货>=High_Fraud_Return_Count为High；否则订单>=Medium_Fraud_Order_Threshold且地址不一致或账户<Medium_New_Account_Days为Medium；多个指标合并记录，High优先。仅可疑票追加fraud-review和内部gorgias_replies(ticket_id/body_text含fraud、Severity与全部依据/sender_type=agent/public=false文本)，不向客户指控或发送通知。ws_fraud_log四列完整，fraud-alerts只汇报所标订单/邮箱/级别/依据。\n\ntags 为文本字段，写入表示标签数组的合法 JSON 字符串；标签名称保持原值，JSON 的空格、换行及转义形式不影响标签含义。",
     "updates": [
       {
         "id": "gorgias_tickets_g_301",
@@ -45568,6 +45850,58 @@
         ],
         "forbidden": ["ORD-7708", "ORD-7713", "ORD-7714"]
       }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_fraud",
+        "--sheet-id",
+        "ws_orders",
+        "--range",
+        "A1:G30"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_fraud",
+        "--sheet-id",
+        "ws_profiles",
+        "--range",
+        "A1:E30"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_fraud",
+        "--sheet-id",
+        "ws_investigations",
+        "--range",
+        "A1:C3"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_fraud",
+        "--sheet-id",
+        "ws_fraud_rules",
+        "--range",
+        "A1:B5"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_fraud",
+        "--sheet-id",
+        "ws_fraud_log",
+        "--range",
+        "A1:D100"
+      ]
     ]
   },
   "support-1579": {

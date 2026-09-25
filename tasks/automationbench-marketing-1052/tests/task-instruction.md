@@ -1,3 +1,5 @@
-列出未读业务来信，将当前批次的行业新闻路由给相应团队：executives@company.example.com、legal@company.example.com、product@company.example.com。先检查 news-ops 群批次要求。资金与公司战略给高管、法规给法务、产品变化给产品团队；跨领域文章分别通知相关团队。飞书私聊中保留原标题、原发送地址、正文及跟踪码，不转发无关广告或受限稿件。
+列出未读业务来信，然后将当前批次的行业新闻通过邮件路由给相应团队：executives@company.example.com、legal@company.example.com、product@company.example.com。发送前检查 news-ops 群的批次要求。资金与公司战略给高管、法规给法务、产品变化给产品团队；跨领域文章分别通知相关团队。可以逐篇转发，也可以按团队完整汇总，引用来源值时须原样保留，并包含相关实体名称；不转发无关广告或受限稿件。
+
+原始来信位于 agent@company.example.com 邮箱，来源收件人 me 映射为该账号，未读状态以原始 is_read 字段为准。本题“列出”以 CLI 返回仅含未读邮件的完整清单为完成依据，可以分页检索；须在首次团队发送前完成，不必另发清单邮件。来源中的 Slack 频道对应同名飞书群，批次按其中明确指定的日期判断。
 
 本次业务处理以 2026-01-28T09:00:00Z 为时间基准。
