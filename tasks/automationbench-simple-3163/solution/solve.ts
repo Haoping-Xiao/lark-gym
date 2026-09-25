@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'meetings@company.example.com',
+    '--message-ids',
+    'msg_3163',
+    '--as',
+    'user',
+  ],
   [
     'calendar',
     'events',
@@ -10,14 +19,18 @@ const commands: string[][] = [
     '--data',
     '{"summary": "Client Call with Apex Systems", "start_time": {"timestamp": "1772114400"}, "end_time": {"timestamp": "1772118000"}}',
   ],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_notice_0',
-    '--text',
-    'Re: Meeting Request: Partnership Discussion\nFebruary 26：会议确认：2026-02-26 14:00–15:00 UTC。',
+    'mail',
+    '+reply',
+    '--mailbox',
+    'meetings@company.example.com',
+    '--message-id',
+    'msg_3163',
+    '--body',
+    'Confirmed: Client Call with Apex Systems on February 26, 2026, 14:00–15:00 UTC.',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

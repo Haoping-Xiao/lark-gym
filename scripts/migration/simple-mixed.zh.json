@@ -242,7 +242,7 @@
     "cells_source_mail_id": "msg_3162"
   },
   "3163": {
-    "instruction": "阅读客户预约来信，在飞书日历创建 Client Call with Apex Systems，2026-02-26 14:00–15:00 UTC；通过私聊回复发件人确认日期和时间，回复保留 February 26 日期标记（忽略大小写）（可附中文）。模拟适配约定：原邮件回复主题中的 Re: 对应为私聊正文包含 Re:（忽略大小写），不限位置，不要求完整原标题。",
+    "instruction": "客户发来会议请求邮件。请在 meetings@company.example.com 邮箱阅读来信，在飞书工作日历创建 Client Call with Apex Systems，时间为 2026 年 2 月 26 日下午 2 点，时长 1 小时，并邮件回复确认会议时间。\n\n本场景未注明时区的会议时间按 UTC 解释。",
     "calendar": {
       "summary": "Client Call with Apex Systems",
       "start": "2026-02-26T14:00:00Z",
@@ -252,13 +252,25 @@
     "notifications": [
       {
         "email": "lena.park@apexsys.example.com",
-        "text": "Re: Meeting Request: Partnership Discussion\nFebruary 26：会议确认：2026-02-26 14:00–15:00 UTC。",
-        "contains": ["Re:", "2026-02-26", "14:00", "UTC", "February 26"]
+        "reply_to": "msg_3163",
+        "body": "Confirmed: Client Call with Apex Systems on February 26, 2026, 14:00–15:00 UTC."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "meetings@company.example.com",
+    "mail": [
+      {
+        "to": ["lena.park@apexsys.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["February 26"],
+        "source_message_id": "msg_3163",
+        "reply_to_source": true
+      }
+    ],
+    "primary_calendar": true
   },
   "3164": {
-    "instruction": "阅读合作伙伴来信，在飞书 deals 台账创建 dealname 为 Vertex Labs Partnership、amount 为 75000 的商机，并向 partnerships 群通知该合作机会。",
+    "instruction": "收到合作伙伴的联系邮件。请在 partnerships@company.example.com 邮箱阅读来信，在飞书多维表格商机台账创建名为 Vertex Labs Partnership、amount 为 75000 的商机，并通知 partnerships 群。",
     "create": {
       "collection": "deals",
       "dealname": "Vertex Labs Partnership",
@@ -270,10 +282,15 @@
         "text": "已登记 Vertex Labs Partnership，合作预算 $75,000。",
         "contains": ["Vertex Labs"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "partnerships@company.example.com",
+    "mail": [],
+    "message_source_mail_id": "msg_3164",
+    "post_channels": ["oc_CPART01"]
   },
   "3165": {
-    "instruction": "阅读开发团队进度来信，在飞书电子表格 ss_projects / sheet1 追加一行：Project 为 Mobile App v2，Status 为 Phase 2 Complete。私聊回复发件人确认收到，并根据来信说明下一步，首行为 Re: 加原邮件标题。",
+    "instruction": "收到开发团队的项目进度邮件。请在 pm@company.example.com 邮箱阅读来信，在飞书电子表格 ss_projects 的 sheet1 工作表追加一行，Project 为 Mobile App v2，Status 为 Phase 2 Complete，然后邮件回复确认收到并说明下一步。\n\n来信中的相对日期按该邮件的发送时间解释。",
     "sheet": {
       "append": {
         "Project": "Mobile App v2",
@@ -283,10 +300,22 @@
     "notifications": [
       {
         "email": "dev.lead@company.example.com",
-        "text": "Re: Project Update: Mobile App v2 Phase 2 Complete\n已记录 Phase 2 Complete，来信表示已准备在其所说的“下周”（2026-02-23 至 2026-03-01）开始 Phase 3。",
-        "contains": ["Re:", "Phase 3"]
+        "reply_to": "msg_3165",
+        "body": "Acknowledged: Mobile App v2 Phase 2 Complete has been logged. The next step is Phase 3, which your February 21 email says is ready to begin the following week (February 23–March 1)."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "pm@company.example.com",
+    "mail": [
+      {
+        "to": ["dev.lead@company.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["next"],
+        "source_message_id": "msg_3165",
+        "reply_to_source": true
+      }
+    ],
+    "cells_source_mail_id": "msg_3165"
   },
   "3166": {
     "instruction": "将飞书 opportunities 台账中 NovaTech Enterprise Deal（opp_401）的 stage 改为 Closed Won，并向 sales 群发送成交庆祝消息。",

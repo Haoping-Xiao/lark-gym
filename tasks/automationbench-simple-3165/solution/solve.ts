@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'pm@company.example.com',
+    '--message-ids',
+    'msg_3165',
+    '--as',
+    'user',
+  ],
   [
     'sheets',
     '+cells-get',
@@ -35,14 +44,18 @@ const commands: string[][] = [
     '--cells',
     '[[{"value": "Phase 2 Complete"}]]',
   ],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_notice_0',
-    '--text',
-    'Re: Project Update: Mobile App v2 Phase 2 Complete\n已记录 Phase 2 Complete，来信表示已准备在其所说的“下周”（2026-02-23 至 2026-03-01）开始 Phase 3。',
+    'mail',
+    '+reply',
+    '--mailbox',
+    'pm@company.example.com',
+    '--message-id',
+    'msg_3165',
+    '--body',
+    'Acknowledged: Mobile App v2 Phase 2 Complete has been logged. The next step is Phase 3, which your February 21 email says is ready to begin the following week (February 23–March 1).',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

@@ -1,3 +1,37 @@
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 import { existsSync, readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 
@@ -115,6 +149,8 @@ export function prepareSemantic(
   const config = existsSync(configPath)
     ? JSON.parse(readFileSync(configPath, 'utf8'))
     : { enabled: false };
+  if (config.cells_before_mail)
+    expected.cells_before_mail = structuredClone(config.cells_before_mail);
   if (config.read_before_updates)
     expected.read_before_updates = structuredClone(config.read_before_updates);
   if (config.read_before_creates)
@@ -134,9 +170,16 @@ export function prepareSemantic(
     expected.events[index].summary_contains_case_insensitive = true;
   for (const [index, email] of Object.entries(config.event_host_users || {}))
     expected.events[Number(index)].host_user_email = email;
+  for (const index of config.event_end_time_unspecified || [])
+    expected.events[index].end_time_unspecified = true;
   if (config.rrule_byday_set) expected.rrule_byday_set = true;
   for (const [index, id] of Object.entries(config.event_source_messages || {}))
     expected.events[Number(index)].source_message_id = id;
+  if (config.event_mail_notification_order)
+    expected.order_groups = [
+      { kind: 'event' },
+      { kind: 'mail_message', sent_mail_only: true },
+    ];
   if (config.event_notification_order)
     expected.order_groups = [
       { kind: 'event' },
@@ -152,6 +195,10 @@ export function prepareSemantic(
     config.event_attendee_options || {},
   ))
     expected.events[Number(index)].attendee_options = options;
+  for (const [index, ids] of Object.entries(
+    config.message_mention_open_ids || {},
+  ))
+    expected.messages[Number(index)].mention_open_ids = ids;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
@@ -180,6 +227,9 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.event_end_time_unspecified?.length)
+    deferred.push('events.unspecified_duration_reasonableness');
+  if (expected.mail?.length) deferred.push('mail.content');
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =
       config.optional_creation_text_fields;
@@ -255,7 +305,7 @@ export function prepareSemantic(
       const before = read(seed),
         value = read(world);
       if (
-        before === undefined ||
+        (before === undefined && !rule.allow_new_cell) ||
         isDeepStrictEqual(before, value) ||
         typeof value !== 'string' ||
         !value.trim() ||
@@ -427,7 +477,7 @@ export function prepareSemantic(
           if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
             return false;
           try {
-            const text = JSON.parse(m.body.content).text;
+            const text = decodedMessageText(m.body.content);
             return (
               typeof text === 'string' &&
               terms.every((term) =>
@@ -473,7 +523,7 @@ export function prepareSemantic(
         if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
           return false;
         try {
-          const text = JSON.parse(m.body.content).text;
+          const text = decodedMessageText(m.body.content);
           return (
             typeof text === 'string' &&
             (terms as string[]).every((term) => contains(text, term))
@@ -511,7 +561,7 @@ export function prepareSemantic(
         if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
           return false;
         try {
-          const text = JSON.parse(m.body.content).text;
+          const text = decodedMessageText(m.body.content);
           return (
             typeof text === 'string' &&
             (terms as string[]).every((term) => contains(text, term))
@@ -554,7 +604,7 @@ export function prepareSemantic(
         if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
           return false;
         try {
-          const text = JSON.parse(m.body.content).text;
+          const text = decodedMessageText(m.body.content);
           if (typeof text !== 'string') return false;
           const [subject, ...body] = text.split(/\r?\n/);
           return (

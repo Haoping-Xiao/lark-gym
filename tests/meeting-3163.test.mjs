@@ -46,18 +46,22 @@ test('meeting 3163 permits only relevant optional attendees', async () => {
       'wrong_details',
     ]) {
       let cs = structuredClone(original);
-      const [mail, write, list, msg] = cs,
+      const [mail, write, msg] = cs,
+        bodyIndex = msg.indexOf('--body') + 1,
         mget = [
-          'im',
-          '+messages-mget',
+          'mail',
+          '+messages',
+          '--mailbox',
+          'meetings@company.example.com',
           '--message-ids',
-          'om_msg_3163',
-          '--no-reactions',
+          'msg_3163',
+          '--as',
+          'user',
         ];
       if (mode === 'mget') cs = [mget, write, msg];
       if (mode === 'no_read') cs = [write, msg];
       if (mode === 'read_late') cs = [write, mail, msg];
-      if (mode === 'send_early') cs = [mail, list, msg, write];
+      if (mode === 'send_early') cs = [mail, msg, write];
       if (['client', 'wrong_attendee', 'extra_attendee'].includes(mode)) {
         const emails =
           mode === 'client'
@@ -83,20 +87,23 @@ test('meeting 3163 permits only relevant optional attendees', async () => {
         ]);
       }
       if (mode === 'lowercase_date')
-        msg[msg.length - 1] = msg.at(-1).replace('February 26', 'february 26');
+        msg[bodyIndex] = msg[bodyIndex].replace('February 26', 'february 26');
       if (mode === 'marker_last')
-        msg[msg.length - 1] =
+        msg[bodyIndex] =
           '已安排 Client Call with Apex Systems：February 26，2026年2月26日14:00至15:00 UTC。回复标记 re:';
       if (mode === 'missing_date')
-        msg[msg.length - 1] = msg.at(-1).replace('February 26：', '');
+        msg[bodyIndex] = msg[bodyIndex].replace(
+          'February 26',
+          'the requested date',
+        );
       if (mode === 'date_prefix')
-        msg[msg.length - 1] = msg.at(-1).replace('February 26', 'xFebruary 26');
+        msg[bodyIndex] = msg[bodyIndex].replace('February 26', 'xFebruary 26');
       if (mode === 'date_suffix')
-        msg[msg.length - 1] = msg.at(-1).replace('February 26', 'February 260');
+        msg[bodyIndex] = msg[bodyIndex].replace('February 26', 'February 260');
       if (mode === 'missing_marker')
-        msg[msg.length - 1] = msg.at(-1).replace('Re:', '');
+        msg.splice(msg.indexOf('--confirm-send'), 1);
       if (mode === 'wrong_details')
-        msg[msg.length - 1] =
+        msg[bodyIndex] =
           'Re: February 26 的会议确认在2026-02-26 18:00至20:00 UTC举行。';
       if (mode === 'recurring' || mode === 'wrong_time') {
         const o = JSON.parse(write.at(-1));
@@ -111,11 +118,44 @@ test('meeting 3163 permits only relevant optional attendees', async () => {
       }
       const b = await startMock(seed);
       try {
-        for (const c of cs)
-          await exec(repo + '/gyms/lark-cli/bin/lark-cli', c, {
+        for (const c of cs) {
+          const result = await exec(repo + '/gyms/lark-cli/bin/lark-cli', c, {
             env: { ...process.env, FEISHU_MOCK_URL: b.url },
             maxBuffer: 8e6,
           });
+          if (mode === 'missing_marker' && c === msg) {
+            const d = JSON.parse(result.stdout).data,
+              id = d.draft_id ?? d.draft?.id ?? d.id;
+            assert.ok(id, 'reply draft ID from CLI');
+            await exec(
+              repo + '/gyms/lark-cli/bin/lark-cli',
+              [
+                'mail',
+                '+draft-edit',
+                '--mailbox',
+                'meetings@company.example.com',
+                '--draft-id',
+                id,
+                '--set-subject',
+                'Meeting Request: Partnership Discussion',
+              ],
+              { env: { ...process.env, FEISHU_MOCK_URL: b.url } },
+            );
+            await exec(
+              repo + '/gyms/lark-cli/bin/lark-cli',
+              [
+                'mail',
+                '+draft-send',
+                '--mailbox',
+                'meetings@company.example.com',
+                '--draft-id',
+                id,
+                '--yes',
+              ],
+              { env: { ...process.env, FEISHU_MOCK_URL: b.url } },
+            );
+          }
+        }
         await fs.writeFile(
           a + '/states/' + mode + '.json',
           JSON.stringify({ seed, world: b.world, calls: b.calls }),
