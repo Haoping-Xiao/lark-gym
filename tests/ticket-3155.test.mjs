@@ -46,11 +46,14 @@ test('ticket 3155 preserves literal and source-read requirements', async () => {
         write = cs[4],
         msg = cs.at(-1),
         mget = [
-          'im',
-          '+messages-mget',
+          'mail',
+          '+messages',
+          '--mailbox',
+          'support@company.example.com',
           '--message-ids',
-          'om_msg_3155',
-          '--no-reactions',
+          'msg_3155',
+          '--as',
+          'user',
         ];
       if (mode === 'mget') cs = [mget, write, msg];
       if (mode === 'no_read') cs = [write, msg];
@@ -68,23 +71,23 @@ test('ticket 3155 preserves literal and source-read requirements', async () => {
         o.subject = 'service outage — urgent';
         o.description =
           'David Chen（CTO）反馈整个团队均无法访问平台，全部工作受阻，请立即升级处理。';
-        msg[msg.length - 1] =
+        msg[msg.indexOf('--body') + 1] =
           'Re: 已收到您反馈的平台无法访问及工作受阻问题，将跟进处理。';
       }
-      if (mode === 'marker_last')
-        msg[msg.length - 1] =
-          '已收到您反馈的平台中断和全员工作受阻问题。\n回复标记：re:';
-      if (mode === 'missing_marker')
-        msg[msg.length - 1] = '已收到服务中断问题，已建立高优先级工单处理。';
-      if (mode === 'wrong_recipient')
-        msg[msg.indexOf('--chat-id') + 1] = 'oc_updates';
+      if (mode === 'marker_last') {
+        msg[msg.indexOf('--body') + 1] =
+          '已收到您反馈的平台中断和全员工作受阻问题。';
+        msg.push('--subject', '反馈确认（re:）');
+      }
+      if (mode === 'missing_marker') msg.push('--subject', '服务中断确认');
+      if (mode === 'wrong_recipient') msg.push('--to', 'wrong@example.com');
       if (mode === 'wrong_priority') o.priority = 'low';
       if (mode === 'wrong_prefix') o.subject = 'xservice outage';
       if (mode === 'missing_term') o.subject = '平台无法访问';
       if (mode === 'wrong_impact')
         o.description = '只有少数用户偶尔遇到轻微延迟，工作没有受到影响。';
       if (mode === 'false_resolution')
-        msg[msg.length - 1] =
+        msg[msg.indexOf('--body') + 1] =
           'Re: 服务中断已彻底修复，所有用户现在均可正常访问。';
       write[write.length - 1] = JSON.stringify(o);
       const b = await startMock(seed);

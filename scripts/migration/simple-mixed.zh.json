@@ -8,16 +8,19 @@
     }
   },
   "3153": {
-    "instruction": "客户反馈收到错误商品。请阅读来信并在飞书工单台账 tickets 创建工单，subject 须包含 wrong（忽略大小写），description 准确记录来信问题，可忠实概括，tags 设为 billing。",
+    "instruction": "客服邮箱 support@company.example.com 收到客户关于错误商品的邮件。请阅读来信并在飞书工单台账 tickets 创建工单，subject 须包含 wrong（忽略大小写），description 准确记录来信问题，可忠实概括，tags 设为 billing。",
     "create": {
       "collection": "tickets",
       "subject": "Wrong item received - Order #ORD-8847",
       "description": "Hi, I ordered a blue wireless keyboard but received a black mouse instead. My order number is ORD-8847. Please help resolve this. Thanks, Maria",
       "tags": "billing"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "support@company.example.com",
+    "mail": []
   },
   "3155": {
-    "instruction": "客户紧急反馈服务中断。请阅读来信并在飞书工单台账 tickets 创建 high 优先级工单，subject 包含 service（忽略大小写），description 忠实记录服务中断及其影响，可概括来信；通过飞书私聊回复客户，确认已收到服务中断问题。模拟适配约定：原邮件回复主题包含 Re:，在本题对应为私聊正文包含 Re:（忽略大小写），不限首行位置，也不要求完整原标题。",
+    "instruction": "客服邮箱 support@company.example.com 收到客户关于服务中断的紧急邮件。请阅读来信，在客服工单台账 tickets 创建 high 优先级工单，subject 包含 service（忽略大小写），description 忠实记录问题及影响，可概括来信；回复客户邮件，确认已收到问题，回复主题保留 Re:（忽略大小写）。",
     "create": {
       "collection": "tickets",
       "subject": "URGENT: Service completely down",
@@ -27,8 +30,17 @@
     "notifications": [
       {
         "email": "cto@bigclient.example.com",
-        "text": "Re: URGENT: Service completely down\n已收到服务中断问题，已建立高优先级工单处理。",
-        "contains": ["Re:", "服务中断"]
+        "reply_to": "msg_3155",
+        "body": "已收到你们全员无法使用平台的问题，已创建高优先级工单处理。"
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "support@company.example.com",
+    "mail": [
+      {
+        "to": ["cto@bigclient.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": []
       }
     ]
   },

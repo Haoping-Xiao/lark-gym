@@ -1304,6 +1304,9 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
 
 const readBeforeCreateChecks = (expected.read_before_creates || []).map(
   (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
     const source = seed.messages.find(
       (m: any) => m.message_id === rule.source_message_id,
     );
@@ -1318,9 +1321,16 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
     const walk = (value: any): boolean =>
       value !== null &&
       typeof value === 'object' &&
-      ((value.message_id === rule.source_message_id &&
-        typeof sourceText === 'string' &&
-        text(value) === sourceText) ||
+      ((sourceMail &&
+        (value.message_id === rule.source_message_id ||
+          value.message_biz_id === rule.source_message_id) &&
+        (value.subject === sourceMail.subject ||
+          value.title === sourceMail.subject) &&
+        value.body_plain_text === sourceMail.body_plain_text) ||
+        (!sourceMail &&
+          value.message_id === rule.source_message_id &&
+          typeof sourceText === 'string' &&
+          text(value) === sourceText) ||
         Object.values(value).some(walk));
     const reads = calls
       .filter(

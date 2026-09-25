@@ -45,11 +45,14 @@ test('ticket 3153 preserves literal and source-read requirements', async () => {
       const mail = cs[0],
         write = cs.at(-1),
         mget = [
-          'im',
-          '+messages-mget',
+          'mail',
+          '+messages',
+          '--mailbox',
+          'support@company.example.com',
           '--message-ids',
-          'om_msg_3153',
-          '--no-reactions',
+          'msg_3153',
+          '--as',
+          'user',
         ];
       if (mode === 'mget') cs = [mget, write];
       if (mode === 'no_read') cs = [write];

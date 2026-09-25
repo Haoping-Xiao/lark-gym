@@ -31,6 +31,7 @@ type EventCheck = {
   source_message_id?: string;
   single_occurrence?: boolean;
   attendees: string[];
+  attendee_options?: string[][];
 };
 type Check = {
   required_url?: string;
@@ -54,6 +55,12 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  mail?: {
+    to: string[];
+    subject?: string;
+    subject_contains?: string[];
+    body_contains?: string[];
+  }[];
   creation_contains_guarded?: boolean;
   rrule_default_interval?: boolean;
   rrule_byday_set?: boolean;
@@ -252,11 +259,7 @@ const creationChecks = expected.creates.map((fields, index) => {
                   supportContains(String(r.fields[key]), part),
                 )
               : contains[key].every((part) =>
-                  semantic.creationContainsCaseInsensitive
-                    ? String(r.fields[key])
-                        .toLowerCase()
-                        .includes(part.toLowerCase())
-                    : String(r.fields[key]).includes(part),
+                  String(r.fields[key]).includes(part),
                 ))
           : isDeepStrictEqual(r.fields[key], value),
       ),
@@ -540,7 +543,9 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
       event.recurrence === '') &&
     (!check.recurrence ||
       rrule(event.recurrence || '') === rrule(check.recurrence)) &&
-    isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
+    (check.attendee_options || [check.attendees]).some((option) =>
+      isDeepStrictEqual(actualAttendees, [...option].sort()),
+    )
   );
 };
 const eventChecks = (expected.events || []).map((check) => ({
@@ -584,7 +589,54 @@ const chatChecks = (expected.new_chats || []).map((check) => ({
         ),
     ).length === 1,
 }));
+const initialMailIDs = new Set(
+  (seed.mail?.messages || []).map((m: any) => m.message_id),
+);
+const sentMail = (world.mail?.messages || []).filter(
+  (m: any) => !initialMailIDs.has(m.message_id) && m.message_state === 2,
+);
+const consumedMail = new Set<string>();
+const mailChecks = (expected.mail || []).map((rule) => {
+  const match = sentMail.find(
+    (m: any) =>
+      !consumedMail.has(m.message_id) &&
+      isDeepStrictEqual(
+        (m.to || []).map((a: any) => a.mail_address.toLowerCase()).sort(),
+        rule.to.map((a) => a.toLowerCase()).sort(),
+      ) &&
+      !(m.cc || []).length &&
+      !(m.bcc || []).length &&
+      (rule.subject === undefined || m.subject === rule.subject) &&
+      (rule.subject_contains || []).every((term) =>
+        supportContains(m.subject, term),
+      ) &&
+      (rule.body_contains || []).every((term) =>
+        supportContains(
+          Buffer.from(m.body_plain_text || '', 'base64url').toString('utf8'),
+          term,
+        ),
+      ) &&
+      calls.some(
+        (call: any) =>
+          call.status < 400 &&
+          (call.mutations || []).some(
+            (mutation: any) =>
+              mutation.kind === 'mail_message' &&
+              mutation.id === m.message_id &&
+              mutation.after?.message_state === 2 &&
+              mutation.before?.message_state === 3,
+          ),
+      ),
+  );
+  if (match) consumedMail.add(match.message_id);
+  return { ...rule, message_id: match?.message_id, passed: !!match };
+});
 const protectedWorld = structuredClone(world);
+if (expected.mail && protectedWorld.mail)
+  protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
+    (m: any) => !consumedMail.has(m.message_id),
+  );
+
 protectedWorld.chats = protectedWorld.chats.filter((c: { chat_id: string }) =>
   originalChats.has(c.chat_id),
 );
@@ -1264,6 +1316,9 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
 
 const readBeforeCreateChecks = (expected.read_before_creates || []).map(
   (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
     const source = seed.messages.find(
       (m: any) => m.message_id === rule.source_message_id,
     );
@@ -1278,9 +1333,16 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
     const walk = (value: any): boolean =>
       value !== null &&
       typeof value === 'object' &&
-      ((value.message_id === rule.source_message_id &&
-        typeof sourceText === 'string' &&
-        text(value) === sourceText) ||
+      ((sourceMail &&
+        (value.message_id === rule.source_message_id ||
+          value.message_biz_id === rule.source_message_id) &&
+        (value.subject === sourceMail.subject ||
+          value.title === sourceMail.subject) &&
+        value.body_plain_text === sourceMail.body_plain_text) ||
+        (!sourceMail &&
+          value.message_id === rule.source_message_id &&
+          typeof sourceText === 'string' &&
+          text(value) === sourceText) ||
         Object.values(value).some(walk));
     const reads = calls
       .filter(
@@ -1467,6 +1529,8 @@ const readRecordsBeforeUpdateChecks = (
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  mailChecks.every((c) => c.passed) &&
+  sentMail.length === consumedMail.size &&
   readRecordsBeforeUpdateChecks.every((check) => check.passed) &&
   readRecordsBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeCreateChecks.every((check) => check.passed) &&
@@ -1526,6 +1590,7 @@ writeFileSync(
       workflowBarrierChecks,
       entityOrderChecks,
       messageChecks,
+      mailChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,
       cellChecks,

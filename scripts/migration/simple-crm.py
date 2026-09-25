@@ -2,7 +2,7 @@
 Usage: python scripts/migration/simple-crm.py /path/to/source-tasks.json
 The input must come from upstream 4a8e1061254004d9dac807054eed33fad7d1ff14.
 """
-import json, sys
+import json, sys, base64
 from datetime import datetime
 from pathlib import Path
 root=Path(__file__).resolve().parents[2]
@@ -71,12 +71,22 @@ for row in rows:
     # Preserve evidence text and literal values. Email delivery becomes an IM
     # notification channel; this is a workflow adaptation, not official scoring.
     messages=[]
-    for item in source.get('gmail',{}).get('messages',[]):
+    for item in ([] if extra.get(number,{}).get('native_mail') else source.get('gmail',{}).get('messages',[])):
         content=f"来源联系人：{item['from_']}\n主题：{item['subject']}\n日期：{item.get('date','')}\n{item['body_plain']}"
         messages.append({'message_id':'om_'+item['id'],'chat_id':'oc_updates','msg_type':'text','body':{'content':json.dumps({'text':content},ensure_ascii=False)},'create_time':str(int(datetime.fromisoformat(item['date'].replace('Z','+00:00')).timestamp()*1000))})
     seed={'now':'2026-02-24T09:00:00Z','spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
     if extra.get(number,{}).get('native_mail'):
-        seed['mail']={'mailboxes':[{'email_address':'agent@company.example.com'}],'messages':[],'drafts':[]}
+        mailbox=extra[number].get('native_mailbox','agent@company.example.com')
+        boxes=[{'email_address':'agent@company.example.com'}]
+        if mailbox != 'agent@company.example.com':
+            boxes[0]['email_type']='USER_PRIMARY'
+            boxes.append({'email_address':mailbox,'email_type':'PUBLIC_MAILBOX'})
+        encode=lambda text:base64.urlsafe_b64encode(text.encode()).decode().rstrip('=')
+        incoming=[]
+        for item in source.get('gmail',{}).get('messages',[]):
+            assert mailbox in item['to'], ('review mailbox owner', number, mailbox)
+            incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item['thread_id'],'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(item['date'].replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':[] if item.get('is_read') else ['UNREAD'],'folder_id':'INBOX','attachments':[]})
+        seed['mail']={'mailboxes':boxes,'messages':incoming,'drafts':[]}
     eventChecks=[]
     eventCommands=[]
     if calendarTask:
@@ -153,7 +163,10 @@ for row in rows:
         for channel in source.get('slack',{}).get('channels',[]):
             if not any(c['chat_id']=='oc_'+channel['id'] for c in seed['chats']):seed['chats'].append({'chat_id':'oc_'+channel['id'],'name':channel['name'],'chat_mode':'group'})
         if extra.get(number,{}).get('native_mail') and notice.get('email'):
-            notificationCommands.append(['mail','+send','--to',notice['email'],'--subject',notice['subject'],'--body',notice['body'],'--confirm-send','--as','user'])
+            if notice.get('reply_to'):
+                notificationCommands.append(['mail','+reply','--mailbox',extra[number]['native_mailbox'],'--message-id',notice['reply_to'],'--body',notice['body'],'--confirm-send','--as','user'])
+            else:
+                notificationCommands.append(['mail','+send','--to',notice['email'],'--subject',notice['subject'],'--body',notice['body'],'--confirm-send','--as','user'])
             continue
         if notice.get('channel'):
             destination=next(c['chat_id'] for c in seed['chats'] if c['name']==notice['channel'])
@@ -234,10 +247,12 @@ storage_mb = 10240
 ''')
     (target/'tests/Dockerfile').write_text('FROM node:24-bookworm-slim\nCOPY . /tests\nWORKDIR /tests\n')
     (target/'tests/test.sh').write_text('#!/bin/sh\nset -eu\nnode /tests/verify.ts\n')
-    (target/'tests/expected.json').write_text(json.dumps({'updates':checks,'creates':creates,'messages':messageChecks,'cells':sheetChecks,'events':eventChecks,'create_contains':extra.get(number,{}).get('create_contains',{}),**({'mail':extra[number]['mail']} if extra.get(number,{}).get('native_mail') else {})},ensure_ascii=False,indent=2)+'\n')
+    (target/'tests/expected.json').write_text(json.dumps({'updates':checks,'creates':creates,'messages':messageChecks,'cells':sheetChecks,'events':eventChecks,'create_contains':extra.get(number,{}).get('create_contains',{}),**({'mail':extra[number]['mail']} if extra.get(number,{}).get('native_mail') and extra[number].get('mail') else {})},ensure_ascii=False,indent=2)+'\n')
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     commands=[]
     if messages: commands.append(['im','+chat-messages-list','--chat-id','oc_updates'])
+    if extra.get(number,{}).get('native_mail') and seed['mail']['messages']:
+        commands.append(['mail','+messages','--mailbox',extra[number]['native_mailbox'],'--message-ids',','.join(m['message_id'] for m in seed['mail']['messages']),'--as','user'])
     commands.append(['base','+record-list','--base-token','base_crm','--table-id','tbl_crm'])
     for rid,fields in updates.items(): commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--record-id',rid,'--json',json.dumps(fields,ensure_ascii=False)])
     for fields in creates: commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
