@@ -25,6 +25,7 @@ type EventCheck = {
   end_time: Record<string, string>;
   location?: { name: string };
   recurrence?: string;
+  host_user_email?: string;
   single_occurrence?: boolean;
   attendees: string[];
 };
@@ -354,6 +355,35 @@ const sameEventTimes = (
     date.toISOString().slice(0, 10) === check.utc_date_window.date
   );
 };
+const eventHostProof = (event: any, email: string) => {
+  const creator = calls.find(
+    (call: any) =>
+      call.status < 400 &&
+      (call.mutations || []).some(
+        (m: any) =>
+          m.kind === 'event' && m.id === event.event_id && !m.before && m.after,
+      ),
+  );
+  const account =
+    creator &&
+    calls.find(
+      (call: any) =>
+        call.status < 400 &&
+        call.identity === 'user' &&
+        call.method === 'GET' &&
+        call.path.split('?')[0] === '/open-apis/authen/v1/user_info' &&
+        call.seq < creator.seq &&
+        call.response?.data?.email === email,
+    );
+  return {
+    event_id: event.event_id,
+    expected_email: email,
+    creator_seq: creator?.seq,
+    creator_identity: creator?.identity,
+    account_seq: account?.seq,
+    passed: !!creator && creator.identity === 'user' && !!account,
+  };
+};
 const eventMatches = (event: any, check: EventCheck): boolean => {
   const actualAttendees = (event.attendees || [])
     .map((a: { third_party_email: string }) => a.third_party_email)
@@ -382,6 +412,8 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
               check.description_contains!.every((part) => text.includes(part)),
           ))) &&
     event.calendar_id === check.calendar_id &&
+    (!check.host_user_email ||
+      eventHostProof(event, check.host_user_email).passed) &&
     event.status !== 'cancelled' &&
     (!(check.vc || check.vc_data?.vc_type === 'vc') ||
       videoMatches((value) => value.vc_type === 'vc')) &&
@@ -1396,6 +1428,13 @@ writeFileSync(
       forbiddenRecordChecks,
       cellChecks,
       eventChecks,
+      eventHostChecks: (expected.events || []).flatMap((check) =>
+        check.host_user_email
+          ? newEvents.map((event: any) =>
+              eventHostProof(event, check.host_user_email!),
+            )
+          : [],
+      ),
       eventStateBeforeCreateChecks,
       unchanged,
       covered,

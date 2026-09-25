@@ -132,6 +132,8 @@ export function prepareSemantic(
     expected.events[index].single_occurrence = true;
   for (const index of config.event_summary_contains_case_insensitive || [])
     expected.events[index].summary_contains_case_insensitive = true;
+  for (const [index, email] of Object.entries(config.event_host_users || {}))
+    expected.events[Number(index)].host_user_email = email;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
