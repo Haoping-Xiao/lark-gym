@@ -159,6 +159,91 @@ export function mailMessageRoutes(
       return {};
     }
   }
+  const threadPath = /^threads\/([^/]+)$/.exec(tail);
+  if (threadPath && method === 'GET') {
+    options(Object.fromEntries(query), ['format', 'include_spam_trash']);
+    options(body, []);
+    requireValue(
+      !query.has('include_spam_trash') ||
+        ['true', 'false'].includes(query.get('include_spam_trash')!),
+      'Invalid include_spam_trash',
+    );
+    const selected = messages()
+      .filter(
+        (m) =>
+          m.thread_id === threadPath[1] &&
+          (query.get('include_spam_trash') === 'true' ||
+            !['SPAM', 'TRASH'].includes(m.folder_id)),
+      )
+      .sort((a, b) => Number(a.internal_date) - Number(b.internal_date));
+    if (!selected.length) fail(404, 123002, 'Mail thread not found');
+    return {
+      thread: {
+        id: threadPath[1],
+        body_preview: selected.at(-1)!.body_preview,
+        messages: selected.map((m) =>
+          rendered(m, query.get('format') || 'full'),
+        ),
+      },
+    };
+  }
+  if (tail === 'threads' && method === 'GET') {
+    options(Object.fromEntries(query), [
+      'page_size',
+      'page_token',
+      'folder_id',
+      'label_id',
+      'only_unread',
+    ]);
+    options(body, []);
+    requireValue(
+      query.has('folder_id') !== query.has('label_id'),
+      'Exactly one folder_id or label_id required',
+    );
+    requireValue(
+      !query.has('only_unread') ||
+        ['true', 'false'].includes(query.get('only_unread')!),
+      'Invalid only_unread',
+    );
+    if (query.has('folder_id') && !folders.includes(query.get('folder_id')!))
+      fail(501, 990001, 'ENV_UNSUPPORTED: thread folder');
+    if (
+      query.has('label_id') &&
+      !['IMPORTANT', 'OTHER', 'FLAGGED'].includes(query.get('label_id')!)
+    )
+      fail(501, 990001, 'ENV_UNSUPPORTED: thread label');
+    const grouped = new Map<string, ApiObject[]>();
+    for (const m of messages()) {
+      if (query.has('folder_id') && m.folder_id !== query.get('folder_id'))
+        continue;
+      if (
+        query.has('label_id') &&
+        !m.label_ids.includes(query.get('label_id')!)
+      )
+        continue;
+      const items = grouped.get(m.thread_id) || [];
+      items.push(m);
+      grouped.set(m.thread_id, items);
+    }
+    const items = [...grouped.entries()]
+      .filter(
+        ([, ms]) =>
+          query.get('only_unread') !== 'true' ||
+          ms.some((m) => m.label_ids.includes('UNREAD')),
+      )
+      .map(([id, ms]) => ({
+        id,
+        latest: ms.sort(
+          (a, b) => Number(b.internal_date) - Number(a.internal_date),
+        )[0],
+      }))
+      .sort(
+        (a, b) =>
+          Number(b.latest.internal_date) - Number(a.latest.internal_date),
+      )
+      .map(({ id, latest }) => ({ id, body_preview: latest.body_preview }));
+    return pagination(items, 20);
+  }
   if (tail === 'settings/signatures' && method === 'GET') {
     options(Object.fromEntries(query), []);
     options(body, []);

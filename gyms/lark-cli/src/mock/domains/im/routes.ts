@@ -1,3 +1,4 @@
+import { mentionContent } from './mentions.ts';
 import { directory, openId } from '../contact.ts';
 import { searchMessages } from './search.ts';
 import type { ApiObject, World } from '../../../types.ts';
@@ -272,11 +273,13 @@ export function createImRoutes(
           );
         return structuredClone(cached.message);
       }
+      const normalized = mentionContent(world, chatId, body.content);
       const msg = {
         message_id: `om_${nextMessage++}`,
         chat_id: chatId,
         msg_type: 'text',
-        body: { content: body.content },
+        body: { content: normalized.content },
+        ...(normalized.mentions ? { mentions: normalized.mentions } : {}),
         create_time: String(Date.parse(world.now)),
       };
       world.messages.push(msg);

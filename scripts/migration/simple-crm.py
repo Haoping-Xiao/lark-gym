@@ -50,6 +50,9 @@ for row in rows:
         records.append({'record_id':'rec_'+channel['id'],'fields':{'collection':'channels',**{key:str(value).lower() if isinstance(value,bool) else value for key,value in channel.items()}}})
     for audience in source.get('mailchimp',{}).get('audiences',[]):
         records.append({'record_id':'rec_'+audience['id'],'fields':{'collection':'audiences','list_id':audience['id'],'name':audience['name']}})
+    records.extend(extra.get(number,{}).get('supplemental_records',[]))
+    for record in records:
+        record['fields'].update(extra.get(number,{}).get('seed_record_fields',{}).get(record['record_id'],{}))
     messageTask=messageTasks.get(number)
     sheetTask=sheetTasks.get(number)
     calendarTask=calendarTasks.get(number)
@@ -175,6 +178,10 @@ for row in rows:
             seed['chats'].append({'chat_id':destination,'name':notice['email'],'chat_mode':'p2p'})
         messageChecks.append({'chat_id':destination,'contains':notice['contains']})
         notificationCommands.append(['im','+messages-send','--chat-id',destination,'--text',notice['text']])
+    for calendar in seed['calendars']:
+        if extra.get(number,{}).get('primary_calendar') and calendar['calendar_id']=='cal_primary':calendar['type']='primary'
+    for chat in seed['chats']:
+        if chat['chat_id'] in extra.get(number,{}).get('mention_members',{}):chat.update(member_ids=extra[number]['mention_members'][chat['chat_id']],mention_support=True)
     fieldTypes={key:'number' if isinstance(value,(int,float)) else 'text' for record in records for key,value in record['fields'].items()}
     for fields in creates: fieldTypes.update({key:'number' if isinstance(value,(int,float)) else 'text' for key,value in fields.items()})
     seed['base']['fields']=[{'name':key,'type':value} for key,value in fieldTypes.items()]

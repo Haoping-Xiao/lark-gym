@@ -134,6 +134,7 @@ const expected: {
     ids?: string[];
     collection?: string;
     all_messages?: boolean;
+    sent_mail_only?: boolean;
   }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
@@ -153,7 +154,12 @@ const expected: {
     value: string | number;
   }[];
   creates: Fields[];
-  messages: { chat_id?: string; chat_name?: string; contains: string[] }[];
+  messages: {
+    chat_id?: string;
+    chat_name?: string;
+    contains: string[];
+    mention_open_ids?: string[];
+  }[];
 } = JSON.parse(
   readFileSync(
     fileURLToPath(new URL('./expected.json', import.meta.url)),
@@ -284,34 +290,53 @@ const sent = world.messages.filter(
 );
 const consumedMessages = new Set<string>();
 const messageChecks = (expected.messages || []).map((check) => {
-  const match = sent.find(
-    (m: { message_id: string; chat_id: string; body: { content: string } }) => {
-      if (
-        consumedMessages.has(m.message_id) ||
-        m.chat_id !==
-          (check.chat_name
-            ? world.chats.find(
-                (c: { name: string }) => c.name === check.chat_name,
-              )?.chat_id
-            : check.chat_id)
-      )
-        return false;
-      try {
-        const text = JSON.parse(m.body.content).text;
-        return (
-          typeof text === 'string' &&
-          check.contains.every((part) =>
-            text
-              .replace(/\s/g, '')
-              .toLowerCase()
-              .includes(part.replace(/\s/g, '').toLowerCase()),
-          )
-        );
-      } catch {
-        return false;
-      }
-    },
-  );
+  const match = sent.find((m: any) => {
+    if (
+      consumedMessages.has(m.message_id) ||
+      m.chat_id !==
+        (check.chat_name
+          ? world.chats.find(
+              (c: { name: string }) => c.name === check.chat_name,
+            )?.chat_id
+          : check.chat_id)
+    )
+      return false;
+    try {
+      const text = JSON.parse(m.body.content).text;
+      return (
+        typeof text === 'string' &&
+        (check.mention_open_ids || []).every(
+          (id) =>
+            (m.mentions || []).some(
+              (mention: any) =>
+                mention.id === id && mention.id_type === 'open_id',
+            ) &&
+            calls.some(
+              (call: any) =>
+                call.status < 400 &&
+                (call.mutations || []).some(
+                  (mutation: any) =>
+                    mutation.kind === 'message' &&
+                    mutation.id === m.message_id &&
+                    !mutation.before &&
+                    (mutation.after?.mentions || []).some(
+                      (mention: any) =>
+                        mention.id === id && mention.id_type === 'open_id',
+                    ),
+                ),
+            ),
+        ) &&
+        check.contains.every((part) =>
+          text
+            .replace(/\s/g, '')
+            .toLowerCase()
+            .includes(part.replace(/\s/g, '').toLowerCase()),
+        )
+      );
+    } catch {
+      return false;
+    }
+  });
   if (match) consumedMessages.add(match.message_id);
   return { ...check, passed: Boolean(match) };
 });
@@ -427,6 +452,9 @@ const eventHostProof = (event: any, email: string) => {
   };
 };
 const eventSourceProof = (event: any, messageId: string) => {
+  const sourceMail = seed.mail?.messages.find(
+    (m: any) => m.message_id === messageId,
+  );
   const source = seed.messages.find((m: any) => m.message_id === messageId);
   const text = (m: any): unknown => {
     try {
@@ -439,9 +467,15 @@ const eventSourceProof = (event: any, messageId: string) => {
   const walk = (value: any): boolean =>
     value !== null &&
     typeof value === 'object' &&
-    ((value.message_id === messageId &&
-      typeof sourceText === 'string' &&
-      text(value) === sourceText) ||
+    ((sourceMail &&
+      (value.message_id === messageId || value.message_biz_id === messageId) &&
+      (value.subject === sourceMail.subject ||
+        value.title === sourceMail.subject) &&
+      value.body_plain_text === sourceMail.body_plain_text) ||
+      (!sourceMail &&
+        value.message_id === messageId &&
+        typeof sourceText === 'string' &&
+        text(value) === sourceText) ||
       Object.values(value).some(walk));
   const reads = calls
     .filter(
@@ -749,6 +783,14 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   for (const call of calls) {
     for (const mutation of call.mutations || []) {
       if (mutation.kind !== group.kind || !mutation.after || call.status >= 400)
+        continue;
+      if (
+        group.sent_mail_only &&
+        !(
+          mutation.before?.message_state === 3 &&
+          mutation.after?.message_state === 2
+        )
+      )
         continue;
       const identity =
         group.kind === 'message' ? mutation.after.chat_id : mutation.id;

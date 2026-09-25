@@ -1,10 +1,11 @@
+import { searchCalendarEvents } from './calendar-search.ts';
 import type { ApiObject, World } from '../../types.ts';
 import { fail, requireValue } from '../errors.ts';
 import { page } from '../pagination.ts';
 import type { RouteHandler } from '../types.ts';
 
 export function createCalendarRoutes(
-  world: Pick<World, 'calendars' | 'events'>,
+  world: Pick<World, 'calendars' | 'events' | 'now'>,
 ): RouteHandler {
   let nextEvent = 1;
   let nextAttendee = 1;
@@ -13,6 +14,22 @@ export function createCalendarRoutes(
     if (!c) fail(404, 191001, 'Calendar not found');
     if (write && c.role === 'reader') fail(403, 99991672, 'Permission denied');
     return c;
+  }
+  function resolveCalendarId(id: string, identity: string | undefined) {
+    if (
+      id !== 'primary' ||
+      world.calendars.some((c) => c.calendar_id === 'primary')
+    )
+      return id;
+    const primary = world.calendars.filter((c) => c.type === 'primary');
+    if (!primary.length) return id;
+    if (identity !== 'user' || primary.length !== 1)
+      fail(
+        501,
+        990001,
+        'ENV_UNSUPPORTED: ambiguous or non-user primary calendar',
+      );
+    return primary[0].calendar_id;
   }
   const eventTime = (time: ApiObject) =>
     time?.timestamp !== undefined
@@ -44,7 +61,7 @@ export function createCalendarRoutes(
         fail(501, 990001, 'ENV_UNSUPPORTED: primary calendar identity/options');
       return {
         calendars: world.calendars
-          .filter((c) => c.calendar_id === 'primary')
+          .filter((c) => c.calendar_id === 'primary' || c.type === 'primary')
           .map((c) => ({ calendar: structuredClone(c) })),
       };
     }
@@ -61,7 +78,8 @@ export function createCalendarRoutes(
       /^\/open-apis\/calendar\/v4\/calendars\/([^/]+)\/events\/([^/]+)\/attendees(?:\/(batch_delete))?$/,
     );
     if (attendeePath) {
-      const [, cid, eid, action] = attendeePath;
+      const [, rawCid, eid, action] = attendeePath;
+      const cid = resolveCalendarId(rawCid, identity);
       calendar(cid, method !== 'GET');
       const event = world.events.find(
         (e) => e.calendar_id === cid && e.event_id === eid,
@@ -118,11 +136,14 @@ export function createCalendarRoutes(
       /^\/open-apis\/calendar\/v4\/calendars\/([^/]+)(?:\/events(?:\/([^/]+))?)?$/,
     );
     if (m) {
-      const [, cid, eid] = m;
+      const [, rawCid, eid] = m;
       // Search actions are not event IDs. Report the missing capability before
       // resource lookup or write-permission checks can disguise it as 404/403.
-      if (eid === 'search' || eid === 'search_event')
-        fail(501, 990001, 'ENV_UNSUPPORTED: event search');
+      if (eid === 'search' || (eid === 'search_event' && method !== 'POST'))
+        fail(501, 990001, 'ENV_UNSUPPORTED: event search operation');
+      const cid = resolveCalendarId(rawCid, identity);
+      if (eid === 'search_event')
+        return searchCalendarEvents(world, cid, q, body);
       calendar(cid, method !== 'GET');
       if (!p.includes('/events')) {
         if (method === 'GET')

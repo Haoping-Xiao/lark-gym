@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'escalations@company.example.com',
+    '--message-ids',
+    'msg_3187',
+    '--as',
+    'user',
+  ],
   [
     'base',
     '+record-list',
@@ -42,7 +51,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_CESC01',
     '--text',
-    '@Support Manager 客户发生 data sync 故障，影响 500+ 用户，已建立高优先级工单。',
+    '<at user_id="ou_mock_769d30f340f7ebd3585b828c">Support Manager</at> 客户发生 data sync 故障，影响 500+ 用户，已建立高优先级工单。',
   ],
 ];
 for (const args of commands)

@@ -21,7 +21,18 @@
           "collection": "lookup_users",
           "email": "support@company.example.com",
           "name": "Support Agent",
-          "role": "agent"
+          "role": "agent",
+          "id": "zd_user_1"
+        }
+      },
+      {
+        "record_id": "rec_support_manager",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "support_manager",
+          "name": "Support Manager",
+          "email": "support-manager@company.example.com",
+          "role": "support_manager"
         }
       }
     ],
@@ -52,6 +63,10 @@
       },
       {
         "name": "priority",
+        "type": "text"
+      },
+      {
+        "name": "id",
         "type": "text"
       }
     ],
@@ -84,6 +99,10 @@
           {
             "name": "role",
             "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
           }
         ],
         "read_only": true
@@ -112,24 +131,52 @@
   },
   "chats": [
     {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
       "chat_id": "oc_CESC01",
       "name": "escalations",
-      "chat_mode": "group"
+      "chat_mode": "group",
+      "member_ids": ["support_manager"],
+      "mention_support": true
     }
   ],
-  "messages": [
-    {
-      "message_id": "om_msg_3187",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：vp.eng@megacorp.example.com\\n主题：ESCALATION: Data sync failures in production\\n日期：2026-02-22T08:00:00Z\\nThis is our 3rd day experiencing intermittent data sync failures. This is impacting 500+ users. We need immediate resolution or will consider alternatives. - Rachel Kim, VP Engineering\"}"
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771747200000"
-    }
-  ]
+      {
+        "email_address": "escalations@company.example.com",
+        "email_type": "PUBLIC_MAILBOX"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3187",
+        "mailbox_id": "escalations@company.example.com",
+        "thread_id": "thr_3187",
+        "smtp_message_id": "msg_3187@fixture.invalid",
+        "subject": "ESCALATION: Data sync failures in production",
+        "head_from": {
+          "mail_address": "vp.eng@megacorp.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "escalations@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyBpcyBvdXIgM3JkIGRheSBleHBlcmllbmNpbmcgaW50ZXJtaXR0ZW50IGRhdGEgc3luYyBmYWlsdXJlcy4gVGhpcyBpcyBpbXBhY3RpbmcgNTAwKyB1c2Vycy4gV2UgbmVlZCBpbW1lZGlhdGUgcmVzb2x1dGlvbiBvciB3aWxsIGNvbnNpZGVyIGFsdGVybmF0aXZlcy4gLSBSYWNoZWwgS2ltLCBWUCBFbmdpbmVlcmluZw",
+        "body_preview": "VGhpcyBpcyBvdXIgM3JkIGRheSBleHBlcmllbmNpbmcgaW50ZXJtaXR0ZW50IGRhdGEgc3luYyBmYWlsdXJlcy4gVGhpcyBpcyBpbXBhY3RpbmcgNTAwKyB1c2Vycy4gV2Ugbg",
+        "body_html": "",
+        "internal_date": "1771747200000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

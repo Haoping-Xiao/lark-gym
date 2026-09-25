@@ -139,6 +139,11 @@ export function prepareSemantic(
   if (config.rrule_byday_set) expected.rrule_byday_set = true;
   for (const [index, id] of Object.entries(config.event_source_messages || {}))
     expected.events[Number(index)].source_message_id = id;
+  if (config.event_mail_notification_order)
+    expected.order_groups = [
+      { kind: 'event' },
+      { kind: 'mail_message', sent_mail_only: true },
+    ];
   if (config.event_notification_order)
     expected.order_groups = [
       { kind: 'event' },
@@ -154,6 +159,10 @@ export function prepareSemantic(
     config.event_attendee_options || {},
   ))
     expected.events[Number(index)].attendee_options = options;
+  for (const [index, ids] of Object.entries(
+    config.message_mention_open_ids || {},
+  ))
+    expected.messages[Number(index)].mention_open_ids = ids;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {

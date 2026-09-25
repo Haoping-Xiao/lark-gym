@@ -7,7 +7,7 @@ import { resolve } from 'node:path';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 
-test('real CLI calendar search reports coverage before resource or write authorization checks', async () => {
+test('unsupported calendar search filters report coverage before resource or write authorization checks', async () => {
   const original = JSON.parse(
     await readFile(
       'tasks/automationbench-sales-1172/environment/seed.json',
@@ -31,6 +31,8 @@ test('real CLI calendar search reports coverage before resource or write authori
             '+search-event',
             '--calendar-id',
             'primary',
+            '--attendee-ids',
+            'ou_missing',
             '--query',
             'Weekly',
             '--format',
