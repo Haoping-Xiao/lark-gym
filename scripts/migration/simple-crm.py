@@ -91,6 +91,7 @@ for row in rows:
             incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item.get('thread_id','thread_'+item['id']),'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(extra[number].get('native_mail_dates',{}).get(item['id'],item['date']).replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':(['UNREAD'] if 'UNREAD' in item['label_ids'] else []) if 'label_ids' in item else ([] if item.get('is_read') else ['UNREAD']),'folder_id':'INBOX','attachments':[]})
         seed['mail']={'mailboxes':boxes,'messages':incoming,'drafts':[]}
         if extra[number].get('native_mail_attachments'):seed['mail']['attachment_support']=True
+    if extra.get(number,{}).get('workspace_discovery'):seed['base']['workspace_discovery']=True
     eventChecks=[]
     eventCommands=[]
     if calendarTask:

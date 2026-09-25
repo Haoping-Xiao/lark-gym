@@ -10,11 +10,11 @@ import { tmpdir } from 'node:os';
 const exec = promisify(execFile),
   repo = process.cwd();
 for (const [v, n] of [
-  [330, 3098],
-  [331, 3102],
+  [334, 3108],
+  [339, 3112],
 ]) {
-  test('source mail before project action ' + n, async () => {
-    const a = await fs.mkdtemp(path.join(tmpdir(), 'mail-project-')),
+  test('native bug email before task creation ' + n, async () => {
+    const a = await fs.mkdtemp(path.join(tmpdir(), 'mail-bugs-')),
       t = repo + '/tasks/automationbench-simple-' + n,
       seed = JSON.parse(await fs.readFile(t + '/environment/seed.json')),
       src = await fs.readFile(t + '/solution/solve.ts', 'utf8'),
@@ -43,7 +43,13 @@ for (const [v, n] of [
         'wrong_target',
         ...(n === 3098
           ? ['full_row', 'changed_due_date']
-          : ['wrong_workspace', 'duplicate']),
+          : [
+              'wrong_workspace',
+              'duplicate',
+              ...(n === 3112
+                ? ['missing_type', 'equivalent_summary', 'extra_title_text']
+                : []),
+            ]),
       ]) {
         let cs = structuredClone(original),
           c = cs.at(-1),
@@ -100,9 +106,17 @@ for (const [v, n] of [
           }
         } else {
           const f = JSON.parse(c.at(-1));
-          if (mode === 'wrong_value') f.name = 'Add light mode feature';
+          if (mode === 'wrong_value')
+            f[n === 3112 ? 'summary' : 'name'] =
+              n === 3112 ? 'Password reset request' : 'Fix unrelated bug';
           if (mode === 'wrong_target') f.project = 'proj_other';
-          if (mode === 'wrong_workspace') f.workspace = 'ws_other';
+          if (mode === 'wrong_workspace')
+            f[n === 3112 ? 'issuetype' : 'workspace'] =
+              n === 3112 ? 'Task' : 'ws_other';
+          if (mode === 'equivalent_summary')
+            f.summary = 'Passwords containing special characters prevent login';
+          if (mode === 'extra_title_text') f.summary += ' - investigation';
+          if (mode === 'missing_type') delete f.issuetype;
           c[c.length - 1] = JSON.stringify(f);
           if (mode === 'duplicate') cs.push(structuredClone(c));
         }
@@ -130,12 +144,7 @@ for (const [v, n] of [
             JSON.parse(
               await fs.readFile(a + '/' + mode + '-program/result.json'),
             ).business_success,
-            [
-              'reference',
-              'thread',
-              'no_separate_lookup',
-              ...(n === 3098 ? ['full_row'] : []),
-            ].includes(mode),
+            ['reference', 'thread', 'no_separate_lookup'].includes(mode),
             mode,
           );
         } finally {
@@ -147,48 +156,3 @@ for (const [v, n] of [
     }
   });
 }
-
-test('invalid workspace discovery can recover into the task business write', async () => {
-  const task = repo + '/tasks/automationbench-simple-3102',
-    seed = JSON.parse(await fs.readFile(task + '/environment/seed.json'));
-  const b = await startMock(seed),
-    a = await fs.mkdtemp(path.join(tmpdir(), 'workspace-recovery-'));
-  try {
-    await assert.rejects(
-      exec(
-        repo + '/gyms/lark-cli/bin/lark-cli',
-        [
-          'base',
-          '+workspace-entity-list',
-          '--workspace-token',
-          'ws_prod',
-          '--as',
-          'user',
-        ],
-        { env: { ...process.env, FEISHU_MOCK_URL: b.url } },
-      ),
-    );
-    assert.equal(b.calls.at(-1).status, 404);
-    await exec(process.execPath, [task + '/solution/solve.ts'], {
-      env: {
-        ...process.env,
-        LARK_CLI: repo + '/gyms/lark-cli/bin/lark-cli',
-        FEISHU_MOCK_URL: b.url,
-      },
-    });
-    const f = a + '/state.json';
-    await fs.writeFile(
-      f,
-      JSON.stringify({ seed, world: b.world, calls: b.calls }),
-    );
-    await exec(process.execPath, [task + '/tests/verify.ts'], {
-      env: { ...process.env, MOCK_STATE: f, VERIFIER_OUTPUT: a },
-    });
-    const d = JSON.parse(await fs.readFile(a + '/result.json'));
-    assert.equal(d.business_success, true);
-    assert.equal(d.coverage.valid_sample, true);
-  } finally {
-    await b.close();
-    await fs.rm(a, { recursive: true, force: true });
-  }
-});

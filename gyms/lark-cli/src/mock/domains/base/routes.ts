@@ -11,6 +11,49 @@ export function baseRoutes(
   { method, path: p, query: q, body }: ApiRequest,
 ): ResponseData | undefined {
   const allBase = world.base;
+  const workspace =
+    /^\/open-apis\/base\/v3\/workspaces\/([^/]+)\/entities$/.exec(p);
+  if (method === 'GET' && workspace && allBase.workspace_discovery) {
+    if (
+      Object.keys(body).length ||
+      [...q.keys()].some(
+        (k) => !['page_size', 'page_token', 'entity_type'].includes(k),
+      )
+    )
+      fail(501, 990001, 'ENV_UNSUPPORTED: workspace entity query options');
+    if (decodeURIComponent(workspace[1]) !== allBase.workspace_token)
+      fail(404, 990004, 'Workspace not found in fixture');
+    const entityType = q.get('entity_type') || '';
+    requireValue(
+      ['', 'base', 'baseapp'].includes(entityType),
+      'Invalid entity type',
+    );
+    const size = Number(q.get('page_size') || 30);
+    requireValue(
+      Number.isInteger(size) && size > 0 && size <= 30,
+      'Invalid pagination',
+    );
+    const params = new URLSearchParams(q);
+    params.set('page_size', String(size));
+    const entities =
+      entityType === 'baseapp'
+        ? []
+        : [
+            {
+              token: allBase.app_token,
+              name: baseMetadata(allBase).name,
+              entity_type: 'base',
+              url: `https://company.feishu.cn/base/${allBase.app_token}`,
+            },
+          ];
+    const result = page(entities, params);
+    return {
+      entities: result.items,
+      has_more: result.has_more,
+      page_token: result.page_token,
+    };
+  }
+
   const baseToken = /^\/open-apis\/base\/v3\/bases\/([^/]+)$/.exec(p)?.[1];
   if (method === 'GET' && baseToken) {
     if (baseToken !== allBase.app_token)

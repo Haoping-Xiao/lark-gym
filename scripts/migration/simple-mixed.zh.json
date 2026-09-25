@@ -1252,6 +1252,42 @@
         "name": "Add dark mode feature",
         "project": "proj_backlog"
       }
-    ]
+    ],
+    "workspace_discovery": true
+  },
+  "3108": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读近期的缺陷报告邮件。随后在飞书多维表格项目台账的工作事项表创建任务，name 为 Fix checkout bug，workspace 为 ws_prod，project 为 Engineering（proj_eng）。",
+    "create": {
+      "collection": "tasks",
+      "workspace": "ws_prod",
+      "name": "Fix checkout bug",
+      "project": "proj_eng"
+    },
+    "seed_records": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "workspace_discovery": true
+  },
+  "3112": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读用户报告登录问题的邮件。随后在飞书多维表格研发工单台账的研发问题表创建一条问题，project 为 PROD，issuetype 为 Bug，summary 为 Login fails with special characters in password。",
+    "create": {
+      "collection": "issues",
+      "project": "PROD",
+      "issuetype": "Bug",
+      "summary": "Login fails with special characters in password"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_jira_proj_1",
+        "fields": {
+          "collection": "lookup_project",
+          "project": "PROD",
+          "project_id": "proj_prod",
+          "searchByParameter": "PROD"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
   }
 }
