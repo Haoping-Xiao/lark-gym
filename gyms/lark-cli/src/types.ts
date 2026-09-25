@@ -50,6 +50,7 @@ export interface World {
   calendars: ApiObject[];
   events: (ApiObject & { event_id: string; summary: string })[];
   base: {
+    resource_discovery?: boolean;
     workspace_discovery?: boolean;
     workspace_token?: string;
     name?: string;

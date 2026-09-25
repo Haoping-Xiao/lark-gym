@@ -1289,5 +1289,86 @@
     ],
     "native_mail": true,
     "native_mailbox": "agent@company.example.com"
+  },
+  "3118": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读客户报告数据同步问题的邮件。在飞书多维表格研发工单台账中创建问题，project 为 PROD，issuetype 为 Bug，summary 为 Data sync fails for accounts with more than 1000 records。",
+    "create": {
+      "collection": "issues",
+      "project": "PROD",
+      "issuetype": "Bug",
+      "summary": "Data sync fails for accounts with more than 1000 records"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_jira_proj_1",
+        "fields": {
+          "collection": "lookup_project",
+          "project": "PROD",
+          "project_id": "proj_prod",
+          "searchByParameter": "PROD"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3122": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读营销副总裁关于新代理机构的邮件。在飞书多维表格 Marketing 看板 brd_mktg 的 To Do 列表中创建卡片，name 为 Onboard new agency partner。先读取看板列表映射，找到目标列表，list 字段使用查到的列表 ID。",
+    "create": {
+      "collection": "cards",
+      "board": "brd_mktg",
+      "name": "Onboard new agency partner",
+      "list": "lst_todo"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_tr_rec_1",
+        "fields": {
+          "collection": "lookup_board_list",
+          "board": "brd_mktg",
+          "name": "To Do",
+          "list": "lst_todo"
+        }
+      },
+      {
+        "record_id": "rec_tr_rec_2",
+        "fields": {
+          "collection": "lookup_board_list",
+          "board": "brd_mktg",
+          "name": "In Progress",
+          "list": "lst_inprog"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "resource_discovery": true
+  },
+  "3128": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读经理发来的反馈邮件，在飞书多维表格 Marketing 看板 brd_mktg 的 To Do 列表中创建卡片。name 为 Action items from manager feedback，description 概述邮件中的行动事项。先查找目标列表，list 字段使用查到的列表 ID。",
+    "create": {
+      "collection": "cards",
+      "board": "brd_mktg",
+      "name": "Action items from manager feedback",
+      "list": "lst_todo",
+      "description": "更新3月社交媒体日历；修订邮件简报模板；安排与设计团队的评审会议。"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_tr_rec_1",
+        "fields": {
+          "collection": "lookup_board_list",
+          "board": "brd_mktg",
+          "name": "To Do",
+          "list": "lst_todo"
+        }
+      }
+    ],
+    "create_contains": {
+      "description": ["3月", "模板", "设计"]
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "resource_discovery": true
   }
 }

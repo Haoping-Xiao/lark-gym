@@ -40,11 +40,14 @@ test('Read customer sync report before creating Jira bug', async () => {
         list = cs[1],
         write = cs.at(-1),
         mget = [
-          'im',
-          '+messages-mget',
+          'mail',
+          '+messages',
+          '--mailbox',
+          seed.mail.messages[0].mailbox_id,
           '--message-ids',
-          'om_msg_4204',
-          '--no-reactions',
+          seed.mail.messages[0].message_id,
+          '--as',
+          'user',
         ];
       if (mode === 'mget') cs = [mget, write];
       if (mode === 'no_read') cs = [list, write];

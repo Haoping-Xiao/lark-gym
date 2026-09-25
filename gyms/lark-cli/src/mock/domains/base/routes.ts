@@ -62,6 +62,18 @@ export function baseRoutes(
       fail(501, 990001, 'ENV_UNSUPPORTED: Base metadata lookup options');
     return baseMetadata(allBase);
   }
+  const tableCatalog = /^\/open-apis\/base\/v3\/bases\/([^/]+)\/tables$/.exec(
+    p,
+  );
+  if (method === 'GET' && tableCatalog && allBase.resource_discovery) {
+    if (
+      Object.keys(body).length ||
+      [...q.keys()].some((k) => !['offset', 'limit'].includes(k))
+    )
+      fail(501, 990001, 'ENV_UNSUPPORTED: table catalog options');
+    if (decodeURIComponent(tableCatalog[1]) !== allBase.app_token)
+      fail(404, 990004, 'Base not found in fixture');
+  }
   const tablesPath = `/open-apis/base/v3/bases/${allBase.app_token}/tables`;
   if (method === 'GET' && p === tablesPath) {
     const entries = (

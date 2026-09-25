@@ -92,6 +92,7 @@ for row in rows:
         seed['mail']={'mailboxes':boxes,'messages':incoming,'drafts':[]}
         if extra[number].get('native_mail_attachments'):seed['mail']['attachment_support']=True
     if extra.get(number,{}).get('workspace_discovery'):seed['base']['workspace_discovery']=True
+    if extra.get(number,{}).get('resource_discovery'):seed['base']['resource_discovery']=True
     eventChecks=[]
     eventCommands=[]
     if calendarTask:

@@ -60,7 +60,7 @@ test('Board creation requires mapping and requested source reads across seven ca
       ];
       for (const mode of modes) {
         let cs = structuredClone(original);
-        const mail = cs.find((c) => c[0] === 'im'),
+        const mail = cs.find((c) => c[0] === 'im' || c[0] === 'mail'),
           lookup = cs.find(
             (c) => c[1] === '+record-list' && c.includes('tbl_4ff873f55e54'),
           ),
@@ -78,13 +78,24 @@ test('Board creation requires mapping and requested source reads across seven ca
             '--record-id',
             rid,
           ],
-          mget = [
-            'im',
-            '+messages-mget',
-            '--message-ids',
-            'om_msg_4205',
-            '--no-reactions',
-          ];
+          mget = seed.mail
+            ? [
+                'mail',
+                '+messages',
+                '--mailbox',
+                seed.mail.messages[0].mailbox_id,
+                '--message-ids',
+                seed.mail.messages[0].message_id,
+                '--as',
+                'user',
+              ]
+            : [
+                'im',
+                '+messages-mget',
+                '--message-ids',
+                'om_msg_4205',
+                '--no-reactions',
+              ];
         if (mode === 'wrong_label' || mode === 'missing_label') {
           const o = JSON.parse(write.at(-1));
           if (mode === 'wrong_label') o.label = 'label_nonurgent';
