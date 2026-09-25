@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 function decodedMessageText(content: string): string | undefined {
   const value = JSON.parse(content);
   if (typeof value?.text === 'string') return value.text;
@@ -89,6 +90,11 @@ type WorkflowEventSelector = {
 const expected: {
   cells_before_mail?: { to: string; cells: any[] }[];
   mail?: {
+    attachments?: {
+      filename: string;
+      content_types: string[];
+      sha256: string;
+    }[];
     source_message_id?: string;
     reply_to_source?: boolean;
     to: string[];
@@ -711,6 +717,19 @@ const mailChecks = (expected.mail || []).map((rule) => {
     (m: any) =>
       !consumedMail.has(m.message_id) &&
       mailSourceProof(m, rule) &&
+      (!rule.attachments ||
+        ((m.attachments || []).length === rule.attachments.length &&
+          rule.attachments.every((want) =>
+            (m.attachments || []).some(
+              (got: any) =>
+                got.filename === want.filename &&
+                want.content_types.includes(got.content_type) &&
+                typeof got.content_base64 === 'string' &&
+                createHash('sha256')
+                  .update(Buffer.from(got.content_base64, 'base64'))
+                  .digest('hex') === want.sha256,
+            ),
+          ))) &&
       isDeepStrictEqual(
         (m.to || []).map((a: any) => a.mail_address.toLowerCase()).sort(),
         rule.to.map((a) => a.toLowerCase()).sort(),

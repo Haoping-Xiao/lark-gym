@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import importedParser from 'emailjs-mime-parser';
 import { convert } from 'html-to-text';
 import { fail, requireValue } from '../errors.ts';
@@ -8,7 +9,7 @@ const parse =
   typeof importedParser === 'function'
     ? importedParser
     : importedParser.default;
-export function parseMail(raw: unknown): ApiObject {
+export function parseMail(raw: unknown, attachmentsAllowed = false): ApiObject {
   requireValue(
     typeof raw === 'string' &&
       raw.length > 0 &&
@@ -45,16 +46,53 @@ export function parseMail(raw: unknown): ApiObject {
     'text/plain': [],
     'text/html': [],
   };
+  const attachments: ApiObject[] = [];
   function visit(node: any, depth = 0) {
     requireValue(depth <= 30, 'MIME nesting too deep');
     const type = node.contentType?.value;
-    if (
-      node.headers['content-disposition']?.some(
-        (h: any) => h.value === 'attachment',
-      ) ||
-      node.headers['content-id']
-    )
-      fail(501, 990001, 'ENV_UNSUPPORTED: mail attachments');
+    if (node.headers['content-id'])
+      fail(501, 990001, 'ENV_UNSUPPORTED: inline mail images');
+    const disposition = node.headers['content-disposition']?.[0];
+    if (disposition?.value === 'attachment') {
+      if (!attachmentsAllowed)
+        fail(501, 990001, 'ENV_UNSUPPORTED: mail attachments');
+      const filename =
+        disposition.params?.filename || node.contentType?.params?.name;
+      requireValue(
+        typeof filename === 'string' &&
+          filename.length > 0 &&
+          filename.length <= 255 &&
+          !/[\\/\x00-\x1f]/.test(filename),
+        'Invalid attachment filename',
+      );
+      requireValue(
+        typeof type === 'string' &&
+          /^[a-z0-9!#$&^_.+-]+\/[a-z0-9!#$&^_.+-]+$/i.test(type),
+        'Invalid attachment content type',
+      );
+      if (type.startsWith('multipart/') || node.childNodes?.length)
+        fail(501, 990001, 'ENV_UNSUPPORTED: nested attachment MIME');
+      const bytes = Buffer.from(node.content || []);
+      requireValue(
+        bytes.length <= 1_000_000 && attachments.length < 20,
+        'Attachment limits exceeded',
+      );
+      const sha256 = createHash('sha256').update(bytes).digest('hex');
+      attachments.push({
+        id: createHash('sha256')
+          .update(filename + '\0' + attachments.length + '\0' + sha256)
+          .digest('hex')
+          .slice(0, 32),
+        filename,
+        content_type: type,
+        attachment_type: 1,
+        is_inline: false,
+        size: bytes.length,
+        content_base64: bytes.toString('base64'),
+        sha256,
+      });
+      return;
+    }
     if (type?.startsWith('multipart/')) {
       for (const child of node.childNodes) visit(child, depth + 1);
       return;
@@ -89,6 +127,6 @@ export function parseMail(raw: unknown): ApiObject {
     in_reply_to: String(header('in-reply-to') || '').replace(/^<|>$/g, ''),
     references: String(header('references') || ''),
     reply_to: addresses('reply-to')[0]?.mail_address || '',
-    attachments: [],
+    attachments,
   };
 }

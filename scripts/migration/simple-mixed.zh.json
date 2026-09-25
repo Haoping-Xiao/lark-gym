@@ -1034,5 +1034,144 @@
         "reply_to": "msg_4001"
       }
     ]
+  },
+  "3065": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "sales@brightpath.example.com",
+    "instruction": "Luis Moreno 发来价格咨询。请在 sales@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件：Starter 为每用户每月 $49，Professional 为每用户每月 $99，Enterprise 为定制报价。企业客户可通过 brightpath.example.com/pricing-call 预约沟通。",
+    "mail": [
+      {
+        "to": ["luis.moreno@andesconsulting.example.com"],
+        "body_contains": ["$49", "$99"],
+        "source_message_id": "msg_4002",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "luis.moreno@andesconsulting.example.com",
+        "body": "Hi Luis, Starter is $49/month per user, Professional is $99/month per user, and Enterprise has custom pricing. For Enterprise inquiries, book a call at https://brightpath.example.com/pricing-call .",
+        "reply_to": "msg_4002"
+      }
+    ]
+  },
+  "3068": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "James Whitfield 投诉仪表盘加载缓慢。请在 support@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件，表示歉意并承认问题，说明工程团队已找到原因、将在 48 小时（48 hours）内发布修复，同时提供下次续约 15% 的优惠。",
+    "mail": [
+      {
+        "to": ["james.whitfield@retailhub.example.com"],
+        "body_contains": ["48 hours", "15%"],
+        "source_message_id": "msg_4004",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "james.whitfield@retailhub.example.com",
+        "body": "Hi James, I apologize for the slow dashboard load times affecting your operations. Our engineering team has identified the cause and will deploy a fix within 48 hours. As a goodwill gesture, we offer a 15% discount on your next renewal.",
+        "reply_to": "msg_4004"
+      }
+    ]
+  },
+  "3069": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向新客户 Fatima Al-Hassan（fatima.alhassan@crescentlogistics.example.com）发送欢迎邮件，主题为 Welcome to BrightPath! Let's Get Started。说明账户已激活，可登录 app.brightpath.example.com；入职培训定于 3 月 3 日（March 3）美东标准时间 EST 上午 11 点，专属客户成功经理为 Olivia Park。",
+    "mail": [
+      {
+        "to": ["fatima.alhassan@crescentlogistics.example.com"],
+        "body_contains": ["March 3", "Olivia Park"],
+        "subject": "Welcome to BrightPath! Let's Get Started"
+      }
+    ],
+    "notifications": [
+      {
+        "email": "fatima.alhassan@crescentlogistics.example.com",
+        "body": "Welcome Fatima! Your account is active and you can log in at https://app.brightpath.example.com . Your onboarding session is scheduled for March 3 at 11 AM EST. Your dedicated success manager is Olivia Park.",
+        "subject": "Welcome to BrightPath! Let's Get Started"
+      }
+    ]
+  },
+  "3070": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 Ben Torres（ben.torres@summitretail.example.com）发送续约提醒邮件，主题为 Your BrightPath Contract Renewal - Action Required。告知年度合同于 2026 年 3 月 31 日（March 31）到期，3 月 15 日前签署可享 10% 提前续约优惠，并附链接 renewals.brightpath.example.com。",
+    "mail": [
+      {
+        "to": ["ben.torres@summitretail.example.com"],
+        "body_contains": ["March 31", "10%"],
+        "subject": "Your BrightPath Contract Renewal - Action Required"
+      }
+    ],
+    "notifications": [
+      {
+        "email": "ben.torres@summitretail.example.com",
+        "body": "Hi Ben, your annual BrightPath contract expires on March 31, 2026. Sign by March 15 to receive a 10% early renewal discount. Renew at https://renewals.brightpath.example.com .",
+        "subject": "Your BrightPath Contract Renewal - Action Required"
+      }
+    ]
+  },
+  "3067": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 Rachel Kim（rachel.kim@globexfin.example.com）发送邮件，主题为 Invoice #INV-2026-0342 - February Services。告知 2 月咨询服务账单 INV-2026-0342 金额为 $12,500，付款期限 Net 30，并附上工作目录中的 invoice_INV-2026-0342.pdf，在邮件中注明该附件。",
+    "mail": [
+      {
+        "to": ["rachel.kim@globexfin.example.com"],
+        "subject": "Invoice #INV-2026-0342 - February Services",
+        "body_contains": ["INV-2026-0342", "$12,500"],
+        "attachments": [
+          {
+            "filename": "invoice_INV-2026-0342.pdf",
+            "sha256": "f2b6754cdcb07bf2069a1b42901e850445506e521ae282c86611f3ccece0034f",
+            "content_types": ["application/pdf", "application/octet-stream"]
+          }
+        ]
+      }
+    ],
+    "notifications": [
+      {
+        "email": "rachel.kim@globexfin.example.com",
+        "body": "Hi Rachel, attached is invoice INV-2026-0342 for $12,500 for February consulting services. Payment terms are Net 30. Please see invoice_INV-2026-0342.pdf.",
+        "subject": "Invoice #INV-2026-0342 - February Services",
+        "attachments": ["invoice_INV-2026-0342.pdf"]
+      }
+    ],
+    "native_mail_attachments": true,
+    "agent_files": {
+      "invoice_INV-2026-0342.pdf": "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9GMSA0IDAgUiA+PiA+PiAvQ29udGVudHMgNSAwIFIgPj4KZW5kb2JqCjQgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggMjI4ID4+CnN0cmVhbQpCVCAvRjEgMTQgVGYgNTAgNzUwIFRkIChJTlZPSUNFIElOVi0yMDI2LTAzNDIpIFRqIDAgLTI0IFRkIChGZWJydWFyeSBjb25zdWx0aW5nIHNlcnZpY2VzKSBUaiAwIC0yNCBUZCAoQW1vdW50OiBVU0QgMTIsNTAwKSBUaiAwIC0yNCBUZCAoUGF5bWVudCB0ZXJtczogTmV0IDMwKSBUaiAwIC0yNCBUZCAoTW9jayBldmFsdWF0aW9uIGludm9pY2UgLSBubyBwYXltZW50IGluc3RydWN0aW9ucykgVGogRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA1OCAwMDAwMCBuIAowMDAwMDAwMTE1IDAwMDAwIG4gCjAwMDAwMDAyNDEgMDAwMDAgbiAKMDAwMDAwMDMxMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDYgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjU5MAolJUVPRgo="
+    }
+  },
+  "3066": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "me@brightpath.example.com",
+    "instruction": "Anika Patel 发来会议邀请。请在 me@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件，确认可以参加 2025 年 2 月 27 日（February 27，星期四）美东标准时间 EST 下午 3 点的会议，并会提前准备季度回顾（quarterly review）幻灯片。",
+    "mail": [
+      {
+        "to": ["anika.patel@brightpath.example.com"],
+        "body_contains": ["February 27", "quarterly review"],
+        "source_message_id": "msg_4003",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "anika.patel@brightpath.example.com",
+        "body": "Hi Anika, I can attend the meeting on Thursday, February 27 at 3 PM EST. I will prepare the quarterly review slides beforehand.",
+        "reply_to": "msg_4003"
+      }
+    ],
+    "now": "2025-02-24T09:00:00Z",
+    "native_mail_dates": {
+      "msg_4003": "2025-02-22T11:00:00Z"
+    }
   }
 }

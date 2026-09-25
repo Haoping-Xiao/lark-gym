@@ -14,6 +14,7 @@ export interface World {
   [key: string]: any;
   now: string;
   mail?: {
+    attachment_support?: boolean;
     mailboxes: {
       email_address: string;
       email_type?: 'USER_PRIMARY' | 'PUBLIC_MAILBOX';

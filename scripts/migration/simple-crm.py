@@ -88,8 +88,9 @@ for row in rows:
         incoming=[]
         for item in source.get('gmail',{}).get('messages',[]):
             assert mailbox in item['to'], ('review mailbox owner', number, mailbox)
-            incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item['thread_id'],'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(item['date'].replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':[] if item.get('is_read') else ['UNREAD'],'folder_id':'INBOX','attachments':[]})
+            incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item['thread_id'],'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(extra[number].get('native_mail_dates',{}).get(item['id'],item['date']).replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':[] if item.get('is_read') else ['UNREAD'],'folder_id':'INBOX','attachments':[]})
         seed['mail']={'mailboxes':boxes,'messages':incoming,'drafts':[]}
+        if extra[number].get('native_mail_attachments'):seed['mail']['attachment_support']=True
     eventChecks=[]
     eventCommands=[]
     if calendarTask:
@@ -169,7 +170,7 @@ for row in rows:
             if notice.get('reply_to'):
                 notificationCommands.append(['mail','+reply','--mailbox',extra[number]['native_mailbox'],'--message-id',notice['reply_to'],'--body',notice['body'],'--confirm-send','--as','user'])
             else:
-                notificationCommands.append(['mail','+send','--to',notice['email'],'--subject',notice['subject'],'--body',notice['body'],'--confirm-send','--as','user'])
+                notificationCommands.append(['mail','+send','--to',notice['email'],'--subject',notice['subject'],'--body',notice['body'],'--confirm-send','--as','user']+[value for filename in notice.get('attachments',[]) for value in ['--attach',filename]])
             continue
         if notice.get('channel'):
             destination=next(c['chat_id'] for c in seed['chats'] if c['name']==notice['channel'])
@@ -232,6 +233,13 @@ memory_mb = 2048
 storage_mb = 10240
 ''')
     (target/'environment/Dockerfile').write_text('FROM lark-gym-cli:0.2.0\nWORKDIR /workspace\n')
+    if extra.get(number,{}).get('agent_files'):
+        folder=target/'environment/input-files'
+        folder.mkdir(exist_ok=True)
+        for filename,encoded in extra[number]['agent_files'].items():
+            assert Path(filename).name==filename and filename not in ['.','..'], ('invalid input filename',filename)
+            (folder/filename).write_bytes(base64.b64decode(encoded,validate=True))
+        with (target/'environment/Dockerfile').open('a') as stream:stream.write('COPY input-files/ /workspace/\n')
     (target/'environment/mock.Dockerfile').write_text('FROM lark-gym-mock:0.2.0\nCOPY seed.json /opt/mock/seed.json\n')
     (target/'environment/docker-compose.yaml').write_text('''services:
   main:

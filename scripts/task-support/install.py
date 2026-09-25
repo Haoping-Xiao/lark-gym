@@ -30,6 +30,8 @@ def install_environment(task):
         s = s.replace('lark-gym-mock:0.2.7','lark-gym-mock:0.2.9').replace('lark-gym-mock:0.2.8','lark-gym-mock:0.2.9')
     if any(c.get('post_support') for c in seed.get('chats',[])):
         s = s.replace('lark-gym-mock:0.2.8','lark-gym-mock:0.2.10').replace('lark-gym-mock:0.2.9','lark-gym-mock:0.2.10')
+    if seed.get('mail',{}).get('attachment_support'):
+        s = re.sub(r'lark-gym-mock:0\.2\.\d+', 'lark-gym-mock:0.2.11', s)
     if 'unsupported.ts' not in s:
         s += 'COPY unsupported.ts unsupported-policy.json /opt/mock/\n'
     s = re.sub(r'^CMD .*\n?', '', s, flags=re.M)

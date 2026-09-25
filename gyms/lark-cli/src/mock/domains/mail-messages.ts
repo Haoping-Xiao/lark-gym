@@ -18,6 +18,9 @@ function rendered(message: ApiObject, format = 'full', draft = false) {
   );
   if (format === 'raw') return { raw: message.raw };
   const { mailbox_id, raw, ...result } = structuredClone(message);
+  result.attachments = (result.attachments || []).map(
+    ({ content_base64, sha256, ...metadata }: ApiObject) => metadata,
+  );
   if (format === 'metadata') {
     delete result.body_html;
     delete result.body_plain_text;
@@ -445,7 +448,7 @@ export function mailMessageRoutes(
       ? drafts().find((d) => d.id === draftPath[1])
       : undefined;
     if (draftPath && !previous) fail(404, 123002, 'Draft not found');
-    const parsed = parseMail(body.raw);
+    const parsed = parseMail(body.raw, store.attachment_support === true);
     requireValue(
       parsed.head_from.mail_address.toLowerCase() ===
         owner.email_address.toLowerCase(),

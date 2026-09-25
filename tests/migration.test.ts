@@ -1,6 +1,13 @@
 import test, { describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, writeFile, rm, readdir } from 'node:fs/promises';
+import {
+  mkdtemp,
+  readFile,
+  writeFile,
+  rm,
+  readdir,
+  cp,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { execFile } from 'node:child_process';
@@ -56,9 +63,21 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
             );
             assert.ok(initial.semantic.deferred.length > 0);
           } else assert.equal(initialGrade, '0');
-          await exec(process.execPath, [`tasks/${task}/solution/solve.ts`], {
-            env,
-          });
+          try {
+            await cp(`tasks/${task}/environment/input-files`, dir, {
+              recursive: true,
+            });
+          } catch (error) {
+            if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+          }
+          await exec(
+            process.execPath,
+            [resolve(`tasks/${task}/solution/solve.ts`)],
+            {
+              env,
+              cwd: dir,
+            },
+          );
           assert.equal(
             await grade(),
             '1',
