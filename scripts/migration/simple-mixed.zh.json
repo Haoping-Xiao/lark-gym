@@ -984,7 +984,7 @@
     ]
   },
   "3198": {
-    "instruction": "阅读客户定价咨询，私聊回复说明 Basic（$29/月）、Pro（$79/月）、Enterprise（定制价格）套餐，首行为 Re: 加原邮件标题。并在飞书 tickets 台账创建跟踪工单，subject 和 description 保留来信标题、正文。",
+    "instruction": "客户通过邮件咨询定价套餐。请在 sales@company.example.com 邮箱阅读来信，邮件回复说明 Basic（$29/月）、Pro（$79/月）和 Enterprise（定制价格），提供有帮助的回应，并在飞书客服工单台账创建跟踪该咨询的工单。",
     "create": {
       "collection": "tickets",
       "subject": "Question about pricing",
@@ -993,13 +993,27 @@
     "notifications": [
       {
         "email": "buyer@startupxyz.example.com",
-        "text": "Re: Question about pricing\nBasic：$29/月；Pro：$79/月；Enterprise：定制价格。",
-        "contains": ["Re:", "Basic", "29", "Pro", "79", "Enterprise", "定制"]
+        "reply_to": "msg_3198",
+        "body": "Our pricing is Basic at $29/month, Pro at $79/month, and Enterprise with custom pricing. To help your team of 30 choose, please share your required features and usage; no plan limits or feature differences were provided here."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "sales@company.example.com",
+    "mail": [
+      {
+        "to": ["buyer@startupxyz.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["pricing"],
+        "source_message_id": "msg_3198",
+        "reply_to_source": true
+      }
+    ],
+    "create_contains": {
+      "subject": ["pricing"]
+    }
   },
   "3199": {
-    "instruction": "Horizon Media 已签约。将飞书 opportunities 台账中 Horizon Media Deal（opp_601）的 stage 改为 Closed Won，并私聊 kelly.brooks@horizonmedia.example.com 欢迎其成为客户。",
+    "instruction": "Horizon Media 已签署合同。请将飞书商机台账中的 Horizon Media Deal（业务 ID：opp_601）的 stage 更新为 Closed Won，并向主要联系人 kelly.brooks@horizonmedia.example.com 发送入门欢迎邮件，欢迎其成为客户。",
     "update": {
       "id": "opp_601",
       "fields": {
@@ -1009,10 +1023,23 @@
     "notifications": [
       {
         "email": "kelly.brooks@horizonmedia.example.com",
-        "text": "欢迎 Horizon Media 成为我们的客户！",
-        "contains": ["欢迎", "Horizon Media"]
+        "subject": "Welcome, Horizon Media",
+        "body": "Welcome to our customer community, Kelly and Horizon Media! We look forward to helping you get started."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["kelly.brooks@horizonmedia.example.com"],
+        "body_contains": ["welcome"]
+      }
+    ],
+    "seed_record_fields": {
+      "rec_opp_601": {
+        "opportunity_id": "opp_601"
+      }
+    }
   },
   "3200": {
     "instruction": "阅读 partnerships@company.example.com 邮箱中的 QuantumLeap AI 合作提案，在飞书 deals 台账创建 dealname=QuantumLeap AI Partnership、amount=50000 的商机，并创建带视频会议的日历日程 Intro Call - QuantumLeap AI，2026-03-04 13:00–13:30 UTC。可不添加参会人，或仅邀请提案联系人。",
