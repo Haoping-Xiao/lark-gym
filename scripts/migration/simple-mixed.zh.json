@@ -787,38 +787,79 @@
     "post_channels": ["oc_CSUP01"]
   },
   "3191": {
-    "instruction": "阅读飞书电子表格 ss_digest / sheet1 的联系人名单，给名单中的每个人发送飞书私聊周报，首行为 Weekly Digest - Feb 23。正文简述本周亮点；本题未提供实际业务进展，可说明暂无可核实的亮点，不要虚构成果。",
-    "sheet": {},
+    "instruction": "请读取飞书电子表格 ss_digest 的 sheet1 工作表中的联系人名单，向每位联系人分别发送一封周报邮件，主题为 Weekly Digest - Feb 23，正文简述本周亮点。\n\n本场景未提供实际业务进展；可说明暂无可核实的亮点，不要虚构成果。",
+    "sheet": {
+      "read": true
+    },
     "notifications": [
       {
         "email": "alice.fernandez@company.example.com",
-        "text": "Weekly Digest - Feb 23\nAlice Fernandez，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Alice Fernandez, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "bob.nguyen@company.example.com",
-        "text": "Weekly Digest - Feb 23\nBob Nguyen，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Bob Nguyen, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "clara.singh@company.example.com",
-        "text": "Weekly Digest - Feb 23\nClara Singh，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Clara Singh, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "dan.mueller@company.example.com",
-        "text": "Weekly Digest - Feb 23\nDan Mueller，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Dan Mueller, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "eva.kowalski@company.example.com",
-        "text": "Weekly Digest - Feb 23\nEva Kowalski，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Eva Kowalski, this week's highlights: no verified business updates were provided for this digest."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["alice.fernandez@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": ["highlights"],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["bob.nguyen@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": ["highlights"],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["clara.singh@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": [],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["dan.mueller@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": [],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["eva.kowalski@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": [],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
       }
     ]
   },
   "3192": {
-    "instruction": "阅读账单来信，在飞书 Invoices 台账新增记录，Vendor 和 Amount 分别填写供应商名称和数字金额，collection 为 Invoices。然后向 finance 群通知该账单。",
+    "instruction": "收到一封账单邮件。请在 ap@company.example.com 邮箱阅读来信，在飞书 Invoices 台账创建记录，包含供应商 Vendor 和账单金额 Amount，并通知 finance 群。\n\n原来源的 base_finance / Invoices 映射为本环境的飞书 Invoices 表。来源数据只提供了邮件正文，没有提供实际附件。",
     "create": {
       "collection": "Invoices",
       "Vendor": "CloudHost",
@@ -827,10 +868,14 @@
     "notifications": [
       {
         "channel": "finance",
-        "text": "已登记 CloudHost 账单 CH-2026-0089，金额 $4,500。",
+        "text": "已登记 CloudHost invoice CH-2026-0089，金额 $4,500。",
         "contains": ["CloudHost", "4,500"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "ap@company.example.com",
+    "message_source_mail_id": "msg_3192",
+    "post_channels": ["oc_CFIN01"]
   },
   "3193": {
     "instruction": "合作伙伴 Zenith Analytics 的联系人为 Ravi Kapoor，邮箱 ravi.kapoor@zenithanalytics.example.com。在飞书 contacts 台账创建联系人，firstname、lastname、email、company 填入对应信息；再在 tasks 台账创建 name=Onboard Zenith Analytics、workspace=ws_partnerships 的入驻任务。",
@@ -850,7 +895,7 @@
     ]
   },
   "3194": {
-    "instruction": "阅读客户功能反馈来信，在飞书 issues 台账创建 PROD 项目的 Story，project=PROD，issue_type=Story；summary 保留原功能名称关键词，description 保留原来信正文。私聊回复客户致谢，首行为 Re: 加原邮件标题。",
+    "instruction": "收到客户的功能反馈邮件。请在 feedback@company.example.com 邮箱阅读来信，在飞书研发问题台账创建 PROD 项目的 Story，project 为 PROD、issue_type 为 Story，完整记录客户的功能反馈，可放在 summary 或 description 中，无需逐字复制邮件，并邮件回复客户感谢其建议。",
     "create": {
       "collection": "issues",
       "project": "PROD",
@@ -864,8 +909,19 @@
     "notifications": [
       {
         "email": "power.user@datadrive.example.com",
-        "text": "Re: Suggestion: Bulk export feature\n感谢您的功能反馈！",
-        "contains": ["Re:", "感谢"]
+        "reply_to": "msg_3194",
+        "body": "Thank you for your feature feedback. We have recorded your bulk export suggestion for review."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "feedback@company.example.com",
+    "mail": [
+      {
+        "to": ["power.user@datadrive.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["thank"],
+        "source_message_id": "msg_3194",
+        "reply_to_source": true
       }
     ]
   },

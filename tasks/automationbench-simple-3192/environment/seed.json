@@ -43,24 +43,51 @@
   },
   "chats": [
     {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
       "chat_id": "oc_CFIN01",
       "name": "finance",
-      "chat_mode": "group"
+      "chat_mode": "group",
+      "post_support": true
     }
   ],
-  "messages": [
-    {
-      "message_id": "om_msg_3192",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：billing@cloudhost.example.com\\n主题：Invoice #CH-2026-0089 - $4,500.00\\n日期：2026-02-22T10:00:00Z\\nPlease find attached invoice #CH-2026-0089 for cloud hosting services for February 2026. Amount: $4,500.00. Due: March 15, 2026. - CloudHost Billing\"}"
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771754400000"
-    }
-  ]
+      {
+        "email_address": "ap@company.example.com",
+        "email_type": "PUBLIC"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3192",
+        "mailbox_id": "ap@company.example.com",
+        "thread_id": "thr_3192",
+        "smtp_message_id": "msg_3192@fixture.invalid",
+        "subject": "Invoice #CH-2026-0089 - $4,500.00",
+        "head_from": {
+          "mail_address": "billing@cloudhost.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UGxlYXNlIGZpbmQgYXR0YWNoZWQgaW52b2ljZSAjQ0gtMjAyNi0wMDg5IGZvciBjbG91ZCBob3N0aW5nIHNlcnZpY2VzIGZvciBGZWJydWFyeSAyMDI2LiBBbW91bnQ6ICQ0LDUwMC4wMC4gRHVlOiBNYXJjaCAxNSwgMjAyNi4gLSBDbG91ZEhvc3QgQmlsbGluZw",
+        "body_preview": "UGxlYXNlIGZpbmQgYXR0YWNoZWQgaW52b2ljZSAjQ0gtMjAyNi0wMDg5IGZvciBjbG91ZCBob3N0aW5nIHNlcnZpY2VzIGZvciBGZWJydWFyeSAyMDI2LiBBbW91bnQ6ICQ0LA",
+        "body_html": "",
+        "internal_date": "1771754400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

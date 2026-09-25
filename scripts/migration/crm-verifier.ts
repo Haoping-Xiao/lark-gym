@@ -98,6 +98,7 @@ const expected: {
     }[];
     source_message_id?: string;
     source_sheet_id?: string;
+    source_sheet_recipient?: boolean;
     reply_to_source?: boolean;
     to: string[];
     subject?: string;
@@ -766,10 +767,18 @@ const sheetBeforeMail = (mail: any, rule: any) => {
   const headers = values[0],
     status = headers.indexOf('Status'),
     row = values.findIndex(
-      (v: any, i: number) => i > 0 && v[status] === 'Pending',
+      (v: any, i: number) =>
+        i > 0 &&
+        (rule.source_sheet_recipient
+          ? v[headers.indexOf('Email')] === rule.to[0]
+          : v[status] === 'Pending'),
     );
   if (row < 1) return false;
-  const needed = [headers.indexOf('Name'), headers.indexOf('Email'), status];
+  const needed = [
+    headers.indexOf('Name'),
+    headers.indexOf('Email'),
+    ...(rule.source_sheet_recipient ? [] : [status]),
+  ];
   if (needed.some((c: number) => c < 0)) return false;
   const found = new Set<string>();
   const sent = calls.find(

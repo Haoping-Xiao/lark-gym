@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'ap@company.example.com',
+    '--message-ids',
+    'msg_3192',
+    '--as',
+    'user',
+  ],
   [
     'base',
     '+record-list',
@@ -26,7 +35,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_CFIN01',
     '--text',
-    '已登记 CloudHost 账单 CH-2026-0089，金额 $4,500。',
+    '已登记 CloudHost invoice CH-2026-0089，金额 $4,500。',
   ],
 ];
 for (const args of commands)
