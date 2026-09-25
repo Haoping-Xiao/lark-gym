@@ -1,5 +1,40 @@
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
+import { createHash } from 'node:crypto';
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -30,7 +65,9 @@ type EventCheck = {
   host_user_email?: string;
   source_message_id?: string;
   single_occurrence?: boolean;
+  end_time_unspecified?: boolean;
   attendees: string[];
+  attendee_options?: string[][];
 };
 type Check = {
   required_url?: string;
@@ -54,6 +91,22 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  cells_before_mail?: { to: string; cells: any[] }[];
+  mail?: {
+    attachments?: {
+      filename: string;
+      content_types: string[];
+      sha256: string;
+    }[];
+    source_message_id?: string;
+    source_sheet_id?: string;
+    reply_to_source?: boolean;
+    to: string[];
+    subject?: string;
+    subject_contains?: string[];
+    body_contains?: string[];
+  }[];
+  creation_contains_guarded?: boolean;
   rrule_default_interval?: boolean;
   rrule_byday_set?: boolean;
   read_records_before_updates?: {
@@ -69,6 +122,8 @@ const expected: {
   }[];
   read_before_creates?: { create_index: number; source_message_id: string }[];
   read_before_updates?: {
+    require_record_read?: boolean;
+    record_after_source?: boolean;
     record_id: string;
     field: string;
     source_message_id: string;
@@ -102,7 +157,11 @@ const expected: {
   action_prerequisites?: {
     notification: { chat_id: string; contains: string[] };
     records: { collection: string; equals: Fields }[];
-    messages: { chat_id: string; contains: string[] }[];
+    messages: {
+      source_mail_id?: string;
+      chat_id: string;
+      contains: string[];
+    }[];
   }[];
   entity_order?: {
     record?: {
@@ -127,6 +186,7 @@ const expected: {
     ids?: string[];
     collection?: string;
     all_messages?: boolean;
+    sent_mail_only?: boolean;
   }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
@@ -137,6 +197,8 @@ const expected: {
   creation_contains?: Record<string, Record<string, string[]>>;
   cells?: {
     numeric_equivalent?: boolean;
+    date_equivalent?: boolean;
+    source_mail_id?: string;
     one_of?: (string | number)[];
     contains?: string[];
     spreadsheet_token?: string;
@@ -146,7 +208,13 @@ const expected: {
     value: string | number;
   }[];
   creates: Fields[];
-  messages: { chat_id?: string; chat_name?: string; contains: string[] }[];
+  messages: {
+    chat_id?: string;
+    chat_name?: string;
+    contains: string[];
+    mention_open_ids?: string[];
+    source_mail_id?: string;
+  }[];
 } = JSON.parse(
   readFileSync(
     fileURLToPath(new URL('./expected.json', import.meta.url)),
@@ -218,6 +286,22 @@ const originalIds = new Set(
 const created: RecordRow[] = world.base.records.filter(
   (r: RecordRow) => !originalIds.has(r.record_id),
 );
+const supportContains = (actual: string, needle: string) => {
+  const norm = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/(\d),(\d)/g, '$1$2')
+      .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+      .replace(/(\d)\.0+(?!\d)/g, '$1');
+  const n = norm(needle);
+  if (!n) return false;
+  const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(
+    (/^[a-z0-9]/.test(n) ? '(?<![a-z0-9])' : '') +
+      escaped +
+      (/\d$/.test(n) ? '(?!\\d|\\.\\d)' : ''),
+  ).test(norm(actual));
+};
 const consumed = new Set<string>();
 const creationChecks = expected.creates.map((fields, index) => {
   const contains = {
@@ -230,18 +314,18 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) =>
-              semantic.creationContainsCaseInsensitive
-                ? String(r.fields[key])
-                    .toLowerCase()
-                    .includes(part.toLowerCase())
-                : String(r.fields[key]).includes(part),
-            )
+            (expected.creation_contains_guarded
+              ? contains[key].every((part) =>
+                  supportContains(String(r.fields[key]), part),
+                )
+              : contains[key].every((part) =>
+                  String(r.fields[key]).includes(part),
+                ))
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
   if (match) consumed.add(match.record_id);
-  return { fields, passed: Boolean(match) };
+  return { fields, record_id: match?.record_id, passed: Boolean(match) };
 });
 const forbiddenRecordChecks = (expected.forbidden_records || []).map(
   (check) => ({
@@ -266,35 +350,85 @@ const sent = world.messages.filter(
   (m: { message_id: string }) => !originalMessages.has(m.message_id),
 );
 const consumedMessages = new Set<string>();
-const messageChecks = (expected.messages || []).map((check) => {
-  const match = sent.find(
-    (m: { message_id: string; chat_id: string; body: { content: string } }) => {
-      if (
-        consumedMessages.has(m.message_id) ||
-        m.chat_id !==
-          (check.chat_name
-            ? world.chats.find(
-                (c: { name: string }) => c.name === check.chat_name,
-              )?.chat_id
-            : check.chat_id)
-      )
-        return false;
-      try {
-        const text = JSON.parse(m.body.content).text;
-        return (
-          typeof text === 'string' &&
-          check.contains.every((part) =>
-            text
-              .replace(/\s/g, '')
-              .toLowerCase()
-              .includes(part.replace(/\s/g, '').toLowerCase()),
-          )
-        );
-      } catch {
-        return false;
-      }
-    },
+const sourceMailBeforeMessage = (message: any, id: string) => {
+  const source = seed.mail?.messages.find((m: any) => m.message_id === id);
+  if (!source) return false;
+  const walk = (v: any): boolean =>
+    v !== null &&
+    typeof v === 'object' &&
+    (((v.message_id === id || v.message_biz_id === id) &&
+      (v.subject === source.subject || v.title === source.subject) &&
+      v.body_plain_text === source.body_plain_text) ||
+      Object.values(v).some(walk));
+  const reads = calls
+    .filter(
+      (c: any) =>
+        c.status < 400 &&
+        ['GET', 'POST'].includes(c.method) &&
+        !(c.mutations || []).length &&
+        walk(c.response),
+    )
+    .map((c: any) => c.seq);
+  const sent = calls.find(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          m.kind === 'message' && m.id === message.message_id && !m.before,
+      ),
   );
+  return !!sent && reads.some((seq: number) => seq < sent.seq);
+};
+const messageChecks = (expected.messages || []).map((check) => {
+  const match = sent.find((m: any) => {
+    if (
+      consumedMessages.has(m.message_id) ||
+      m.chat_id !==
+        (check.chat_name
+          ? world.chats.find(
+              (c: { name: string }) => c.name === check.chat_name,
+            )?.chat_id
+          : check.chat_id)
+    )
+      return false;
+    try {
+      const text = decodedMessageText(m.body.content);
+      return (
+        typeof text === 'string' &&
+        (!check.source_mail_id ||
+          sourceMailBeforeMessage(m, check.source_mail_id)) &&
+        (check.mention_open_ids || []).every(
+          (id) =>
+            (m.mentions || []).some(
+              (mention: any) =>
+                mention.id === id && mention.id_type === 'open_id',
+            ) &&
+            calls.some(
+              (call: any) =>
+                call.status < 400 &&
+                (call.mutations || []).some(
+                  (mutation: any) =>
+                    mutation.kind === 'message' &&
+                    mutation.id === m.message_id &&
+                    !mutation.before &&
+                    (mutation.after?.mentions || []).some(
+                      (mention: any) =>
+                        mention.id === id && mention.id_type === 'open_id',
+                    ),
+                ),
+            ),
+        ) &&
+        check.contains.every((part) =>
+          text
+            .replace(/\s/g, '')
+            .toLowerCase()
+            .includes(part.replace(/\s/g, '').toLowerCase()),
+        )
+      );
+    } catch {
+      return false;
+    }
+  });
   if (match) consumedMessages.add(match.message_id);
   return { ...check, passed: Boolean(match) };
 });
@@ -304,7 +438,7 @@ const forbiddenMessageChecks = (expected.forbidden_messages || []).map(
     passed: !sent.some((m: { chat_id: string; body: { content: string } }) => {
       if (check.chat_id && m.chat_id !== check.chat_id) return false;
       try {
-        const text = JSON.parse(m.body.content).text;
+        const text = decodedMessageText(m.body.content);
         return (
           typeof text === 'string' &&
           check.contains.every((part) =>
@@ -360,6 +494,12 @@ const sameEventTimes = (
   event: Pick<EventCheck, 'start_time' | 'end_time'>,
   check: EventCheck,
 ) => {
+  if (check.end_time_unspecified)
+    return (
+      sameTime(event.start_time, check.start_time) &&
+      Number.isSafeInteger(Number(event.end_time?.timestamp)) &&
+      Number(event.end_time.timestamp) > Number(event.start_time.timestamp)
+    );
   if (!check.utc_date_window)
     return (
       sameTime(event.start_time, check.start_time) &&
@@ -410,10 +550,13 @@ const eventHostProof = (event: any, email: string) => {
   };
 };
 const eventSourceProof = (event: any, messageId: string) => {
+  const sourceMail = seed.mail?.messages.find(
+    (m: any) => m.message_id === messageId,
+  );
   const source = seed.messages.find((m: any) => m.message_id === messageId);
   const text = (m: any): unknown => {
     try {
-      return JSON.parse(m?.body?.content).text;
+      return decodedMessageText(m?.body?.content);
     } catch {
       return undefined;
     }
@@ -422,9 +565,15 @@ const eventSourceProof = (event: any, messageId: string) => {
   const walk = (value: any): boolean =>
     value !== null &&
     typeof value === 'object' &&
-    ((value.message_id === messageId &&
-      typeof sourceText === 'string' &&
-      text(value) === sourceText) ||
+    ((sourceMail &&
+      (value.message_id === messageId || value.message_biz_id === messageId) &&
+      (value.subject === sourceMail.subject ||
+        value.title === sourceMail.subject) &&
+      value.body_plain_text === sourceMail.body_plain_text) ||
+      (!sourceMail &&
+        value.message_id === messageId &&
+        typeof sourceText === 'string' &&
+        text(value) === sourceText) ||
       Object.values(value).some(walk));
   const reads = calls
     .filter(
@@ -519,7 +668,9 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
       event.recurrence === '') &&
     (!check.recurrence ||
       rrule(event.recurrence || '') === rrule(check.recurrence)) &&
-    isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
+    (check.attendee_options || [check.attendees]).some((option) =>
+      isDeepStrictEqual(actualAttendees, [...option].sort()),
+    )
   );
 };
 const eventChecks = (expected.events || []).map((check) => ({
@@ -563,7 +714,184 @@ const chatChecks = (expected.new_chats || []).map((check) => ({
         ),
     ).length === 1,
 }));
+const initialMailIDs = new Set(
+  (seed.mail?.messages || []).map((m: any) => m.message_id),
+);
+const sentMail = (world.mail?.messages || []).filter(
+  (m: any) => !initialMailIDs.has(m.message_id) && m.message_state === 2,
+);
+const consumedMail = new Set<string>();
+const mailSourceProof = (
+  message: any,
+  rule: { source_message_id?: string; reply_to_source?: boolean },
+) => {
+  if (!rule.source_message_id) return true;
+  const source = seed.mail?.messages.find(
+    (m: any) => m.message_id === rule.source_message_id,
+  );
+  if (
+    !source ||
+    (rule.reply_to_source &&
+      (message.thread_id !== source.thread_id ||
+        message.mailbox_id !== source.mailbox_id))
+  )
+    return false;
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    (((value.message_id === source.message_id ||
+      value.message_biz_id === source.message_id) &&
+      (value.subject === source.subject || value.title === source.subject) &&
+      value.body_plain_text === source.body_plain_text) ||
+      Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (c: any) =>
+        c.status < 400 &&
+        ['GET', 'POST'].includes(c.method) &&
+        !(c.mutations || []).length &&
+        walk(c.response),
+    )
+    .map((c: any) => c.seq);
+  const sent = calls.find(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          m.kind === 'mail_message' &&
+          m.id === message.message_id &&
+          m.after?.message_state === 2 &&
+          m.before?.message_state === 3,
+      ),
+  );
+  return !!sent && reads.some((seq: number) => seq < sent.seq);
+};
+const sheetBeforeMail = (mail: any, rule: any) => {
+  if (!rule.source_sheet_id) return true;
+  const sid = rule.source_sheet_id,
+    values = seed.sheets?.[sid]?.values;
+  if (!values) return false;
+  const headers = values[0],
+    status = headers.indexOf('Status'),
+    row = values.findIndex(
+      (v: any, i: number) => i > 0 && v[status] === 'Pending',
+    );
+  if (row < 1) return false;
+  const needed = [headers.indexOf('Name'), headers.indexOf('Email'), status];
+  if (needed.some((c: number) => c < 0)) return false;
+  const found = new Set<string>();
+  const sent = calls.find(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          m.kind === 'mail_message' &&
+          m.id === mail.message_id &&
+          m.after?.message_state === 2 &&
+          m.before?.message_state !== 2,
+      ),
+  );
+  if (!sent) return false;
+  const inspect = (v: any, inSheet = false) => {
+    if (typeof v === 'string') {
+      try {
+        inspect(JSON.parse(v), inSheet);
+      } catch {}
+      return;
+    }
+    if (!v || typeof v !== 'object') return;
+    const own =
+      inSheet ||
+      v.sheet_id === sid ||
+      (typeof v.range === 'string' && v.range.startsWith(sid + '!'));
+    if (own && typeof v.range === 'string' && Array.isArray(v.values)) {
+      const match = /^(?:[^!]+!)?([A-Z]+)([1-9][0-9]*)/.exec(v.range);
+      if (match) {
+        const col =
+            [...match[1]].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) -
+            1,
+          rr = Number(match[2]) - 1;
+        for (let i = 0; i < v.values.length; i++)
+          for (let j = 0; j < v.values[i].length; j++) {
+            const x = rr + i,
+              y = col + j;
+            if (
+              x === row &&
+              needed.includes(y) &&
+              isDeepStrictEqual(v.values[i][j], values[x][y])
+            )
+              found.add(x + ':' + y);
+          }
+      }
+    }
+    for (const item of Object.values(v)) inspect(item, own);
+  };
+  for (const c of calls)
+    if (
+      c.seq < sent.seq &&
+      c.status < 400 &&
+      !(c.mutations || []).length &&
+      c.path.includes('/spreadsheets/' + seed.spreadsheet_token + '/')
+    )
+      inspect(c.response);
+  return needed.every((c: number) => found.has(row + ':' + c));
+};
+const mailChecks = (expected.mail || []).map((rule) => {
+  const match = sentMail.find(
+    (m: any) =>
+      !consumedMail.has(m.message_id) &&
+      mailSourceProof(m, rule) &&
+      sheetBeforeMail(m, rule) &&
+      (!rule.attachments ||
+        ((m.attachments || []).length === rule.attachments.length &&
+          rule.attachments.every((want) =>
+            (m.attachments || []).some(
+              (got: any) =>
+                got.filename === want.filename &&
+                want.content_types.includes(got.content_type) &&
+                typeof got.content_base64 === 'string' &&
+                createHash('sha256')
+                  .update(Buffer.from(got.content_base64, 'base64'))
+                  .digest('hex') === want.sha256,
+            ),
+          ))) &&
+      isDeepStrictEqual(
+        (m.to || []).map((a: any) => a.mail_address.toLowerCase()).sort(),
+        rule.to.map((a) => a.toLowerCase()).sort(),
+      ) &&
+      !(m.cc || []).length &&
+      !(m.bcc || []).length &&
+      (rule.subject === undefined || m.subject === rule.subject) &&
+      (rule.subject_contains || []).every((term) =>
+        supportContains(m.subject, term),
+      ) &&
+      (rule.body_contains || []).every((term) =>
+        supportContains(
+          Buffer.from(m.body_plain_text || '', 'base64url').toString('utf8'),
+          term,
+        ),
+      ) &&
+      calls.some(
+        (call: any) =>
+          call.status < 400 &&
+          (call.mutations || []).some(
+            (mutation: any) =>
+              mutation.kind === 'mail_message' &&
+              mutation.id === m.message_id &&
+              mutation.after?.message_state === 2 &&
+              mutation.before?.message_state === 3,
+          ),
+      ),
+  );
+  if (match) consumedMail.add(match.message_id);
+  return { ...rule, message_id: match?.message_id, passed: !!match };
+});
 const protectedWorld = structuredClone(world);
+if (expected.mail && protectedWorld.mail)
+  protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
+    (m: any) => !consumedMail.has(m.message_id),
+  );
+
 protectedWorld.chats = protectedWorld.chats.filter((c: { chat_id: string }) =>
   originalChats.has(c.chat_id),
 );
@@ -635,30 +963,95 @@ const numericCellEqual = (actual: unknown, expected: string | number) => {
     right = parse(expected);
   return left !== undefined && right !== undefined && left === right;
 };
+const sourceMailBeforeCell = (cell: any) => {
+  const source = seed.mail?.messages.find(
+    (m: any) => m.message_id === cell.source_mail_id,
+  );
+  if (!source) return false;
+  const walk = (v: any): boolean =>
+    v !== null &&
+    typeof v === 'object' &&
+    (((v.message_id === source.message_id ||
+      v.message_biz_id === source.message_id) &&
+      v.body_plain_text === source.body_plain_text &&
+      v.subject === source.subject) ||
+      Object.values(v).some(walk));
+  const reads = calls
+    .filter(
+      (c: any) =>
+        c.status < 400 && !(c.mutations || []).length && walk(c.response),
+    )
+    .map((c: any) => c.seq);
+  const writes = calls.filter(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          (m.kind === 'sheet' &&
+            m.id === cell.sheet_id &&
+            !isDeepStrictEqual(
+              m.before?.values[cell.row]?.[cell.column],
+              m.after?.values[cell.row]?.[cell.column],
+            )) ||
+          (m.kind === 'spreadsheet' &&
+            m.id === (cell.spreadsheet_token || seed.spreadsheet_token) &&
+            !isDeepStrictEqual(
+              m.before?.sheets?.[cell.sheet_id]?.values[cell.row]?.[
+                cell.column
+              ],
+              m.after?.sheets?.[cell.sheet_id]?.values[cell.row]?.[cell.column],
+            )),
+      ),
+  );
+  return (
+    writes.length > 0 &&
+    reads.some((seq: number) => writes.every((c: any) => seq < c.seq))
+  );
+};
+const dateCellEqual = (actual: unknown, expected: string | number) => {
+  if (typeof actual !== 'string' || typeof expected !== 'string') return false;
+  const raw = actual.trim();
+  const zoned = /(?:Z|[+-]\d{2}:?\d{2}|GMT|UTC)$/i.test(raw);
+  const parsed = Date.parse(
+    zoned ? raw : /^\d{4}-\d{2}-\d{2}T/.test(raw) ? raw + 'Z' : raw + ' UTC',
+  );
+  return (
+    Number.isFinite(parsed) &&
+    new Date(parsed).toISOString().slice(0, 10) === expected
+  );
+};
 const cellChecks = (expected.cells || []).map((c) => ({
   ...c,
-  passed: c.numeric_equivalent
-    ? numericCellEqual(
-        sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-        c.value,
-      )
-    : c.one_of
-      ? c.one_of.some((value) =>
-          isDeepStrictEqual(
-            sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-            value,
-          ),
+  passed:
+    (!c.source_mail_id || sourceMailBeforeCell(c)) &&
+    (c.date_equivalent
+      ? dateCellEqual(
+          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+          c.value,
         )
-      : c.contains
-        ? c.contains.every((part) =>
-            String(
-              sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ?? '',
-            ).includes(part),
-          )
-        : isDeepStrictEqual(
+      : c.numeric_equivalent
+        ? numericCellEqual(
             sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
             c.value,
-          ),
+          )
+        : c.one_of
+          ? c.one_of.some((value) =>
+              isDeepStrictEqual(
+                sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+                value,
+              ),
+            )
+          : c.contains
+            ? c.contains.every((part) =>
+                String(
+                  sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ??
+                    '',
+                ).includes(part),
+              )
+            : isDeepStrictEqual(
+                sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+                c.value,
+              )),
 }));
 for (const cell of expected.cells || []) {
   const before = sheetsFor(seed, cell)[cell.sheet_id].values;
@@ -687,6 +1080,14 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   for (const call of calls) {
     for (const mutation of call.mutations || []) {
       if (mutation.kind !== group.kind || !mutation.after || call.status >= 400)
+        continue;
+      if (
+        group.sent_mail_only &&
+        !(
+          mutation.before?.message_state === 3 &&
+          mutation.after?.message_state === 2
+        )
+      )
         continue;
       const identity =
         group.kind === 'message' ? mutation.after.chat_id : mutation.id;
@@ -754,7 +1155,7 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
         mutation.after.chat_id === rule.message.chat_id
       ) {
         try {
-          const text = JSON.parse(mutation.after.body.content).text;
+          const text = decodedMessageText(mutation.after.body.content);
           if (
             typeof text === 'string' &&
             rule.message.contains.every((part) => text.includes(part))
@@ -827,7 +1228,7 @@ const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
           actions.push(call.seq);
         if (mutation.kind !== 'message' || mutation.before) continue;
         try {
-          const text = JSON.parse(mutation.after.body.content).text;
+          const text = decodedMessageText(mutation.after.body.content);
           const matches = (message: { chat_id: string; contains: string[] }) =>
             mutation.after.chat_id === message.chat_id &&
             typeof text === 'string' &&
@@ -898,7 +1299,7 @@ const recordStateBeforeUpdateChecks = (
                     )
                       return false;
                     try {
-                      const text = JSON.parse(item.after.body.content).text;
+                      const text = decodedMessageText(item.after.body.content);
                       return (
                         typeof text === 'string' &&
                         message.contains.every((part) => text.includes(part))
@@ -978,7 +1379,7 @@ const recordStateBeforeMessageChecks = (
         mutation.after.chat_id === rule.chat_id &&
         (() => {
           try {
-            const text = JSON.parse(mutation.after.body.content).text;
+            const text = decodedMessageText(mutation.after.body.content);
             return (rule.message_contains || []).every(
               (part) => typeof text === 'string' && text.includes(part),
             );
@@ -1140,12 +1541,15 @@ const eventStateBeforeCreateChecks = (
 });
 const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
   (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
     const source = seed.messages.find(
       (m: any) => m.message_id === rule.source_message_id,
     );
     const text = (m: any): unknown => {
       try {
-        return JSON.parse(m?.body?.content).text;
+        return decodedMessageText(m?.body?.content);
       } catch {
         return undefined;
       }
@@ -1166,12 +1570,16 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
       )
         continue;
       if (
-        typeof sourceText === 'string' &&
-        walk(
-          call.response,
-          (obj: any) =>
-            obj.message_id === rule.source_message_id &&
-            text(obj) === sourceText,
+        walk(call.response, (obj: any) =>
+          sourceMail
+            ? (obj.message_id === rule.source_message_id ||
+                obj.message_biz_id === rule.source_message_id) &&
+              (obj.subject === sourceMail.subject ||
+                obj.title === sourceMail.subject) &&
+              obj.body_plain_text === sourceMail.body_plain_text
+            : typeof sourceText === 'string' &&
+              obj.message_id === rule.source_message_id &&
+              text(obj) === sourceText,
         )
       )
         messageReads.push(call.seq);
@@ -1225,11 +1633,20 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
       )
       .map((call: any) => ({
         seq: call.seq,
-        passed: recordReads.some(
-          (recordSeq) =>
-            recordSeq < call.seq &&
-            messageReads.some((messageSeq) => messageSeq < recordSeq),
-        ),
+        passed:
+          rule.require_record_read === false
+            ? messageReads.some((messageSeq) => messageSeq < call.seq)
+            : recordReads.some(
+                (recordSeq) =>
+                  recordSeq < call.seq &&
+                  messageReads.some(
+                    (messageSeq) =>
+                      messageSeq <
+                      (rule.record_after_source === false
+                        ? call.seq
+                        : recordSeq),
+                  ),
+              ),
       }));
     return {
       rule,
@@ -1243,12 +1660,15 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
 
 const readBeforeCreateChecks = (expected.read_before_creates || []).map(
   (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
     const source = seed.messages.find(
       (m: any) => m.message_id === rule.source_message_id,
     );
     const text = (m: any): unknown => {
       try {
-        return JSON.parse(m?.body?.content).text;
+        return decodedMessageText(m?.body?.content);
       } catch {
         return undefined;
       }
@@ -1257,9 +1677,16 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
     const walk = (value: any): boolean =>
       value !== null &&
       typeof value === 'object' &&
-      ((value.message_id === rule.source_message_id &&
-        typeof sourceText === 'string' &&
-        text(value) === sourceText) ||
+      ((sourceMail &&
+        (value.message_id === rule.source_message_id ||
+          value.message_biz_id === rule.source_message_id) &&
+        (value.subject === sourceMail.subject ||
+          value.title === sourceMail.subject) &&
+        value.body_plain_text === sourceMail.body_plain_text) ||
+        (!sourceMail &&
+          value.message_id === rule.source_message_id &&
+          typeof sourceText === 'string' &&
+          text(value) === sourceText) ||
         Object.values(value).some(walk));
     const reads = calls
       .filter(
@@ -1270,14 +1697,9 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
           walk(call.response),
       )
       .map((call: any) => call.seq);
-    const desired = expected.creates[rule.create_index];
     const created = world.base.records.filter(
       (record: any) =>
-        !originalIds.has(record.record_id) &&
-        desired &&
-        Object.entries(desired).every(([key, value]) =>
-          isDeepStrictEqual(record.fields[key], value),
-        ),
+        record.record_id === creationChecks[rule.create_index]?.record_id,
     );
     const checkpoints = created.map((record: any) => {
       const call = calls.find(
@@ -1449,8 +1871,82 @@ const readRecordsBeforeUpdateChecks = (
     passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
   };
 });
+function mailCheckpointNumber(value: unknown): string | null {
+  if (typeof value !== 'string' && typeof value !== 'number') return null;
+  const text = String(value)
+    .trim()
+    .replace(/^([+-]?)\./, (_, sign) => sign + '0.');
+  if (!Number.isFinite(Number(text))) return null;
+  const match = /^([+-]?)(\d+)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/.exec(text);
+  if (!match) return null;
+  let digits = (match[2] + (match[3] || '')).replace(/^0+/, '');
+  if (!digits) return '0';
+  const trailing = digits.length - digits.replace(/0+$/, '').length;
+  digits = digits.replace(/0+$/, '');
+  const exponent =
+    BigInt(match[4] || '0') -
+    BigInt((match[3] || '').length) +
+    BigInt(trailing);
+  return `${match[1] === '-' ? '-' : ''}${digits}e${exponent}`;
+}
+const cellsBeforeMailChecks = (expected.cells_before_mail || []).map((rule) => {
+  const state = structuredClone(seed);
+  const checkpoints: any[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || [])
+      if (
+        mutation.kind === 'mail_message' &&
+        mutation.before?.message_state === 3 &&
+        mutation.after?.message_state === 2 &&
+        mutation.after.to.some(
+          (a: any) => a.mail_address.toLowerCase() === rule.to.toLowerCase(),
+        )
+      ) {
+        const cells = rule.cells.map((cell: any) => {
+          const actual = sheetsFor(state, cell)[cell.sheet_id]?.values[
+            cell.row
+          ]?.[cell.column];
+          return {
+            ...cell,
+            passed: cell.numeric_equivalent
+              ? mailCheckpointNumber(actual) !== null &&
+                mailCheckpointNumber(actual) ===
+                  mailCheckpointNumber(cell.value)
+              : isDeepStrictEqual(actual, cell.value),
+          };
+        });
+        checkpoints.push({
+          seq: call.seq,
+          cells,
+          passed: cells.every((c: any) => c.passed),
+        });
+      }
+    for (const mutation of call.mutations || []) {
+      if (mutation.kind === 'sheet') {
+        if (mutation.after)
+          state.sheets[mutation.id] = structuredClone(mutation.after);
+        else delete state.sheets[mutation.id];
+      }
+      if (mutation.kind === 'spreadsheet') {
+        state.spreadsheets ||= {};
+        if (mutation.after)
+          state.spreadsheets[mutation.id] = structuredClone(mutation.after);
+        else delete state.spreadsheets[mutation.id];
+      }
+    }
+  }
+  return {
+    rule,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((c) => c.passed),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  cellsBeforeMailChecks.every((c) => c.passed) &&
+  mailChecks.every((c) => c.passed) &&
+  sentMail.length === consumedMail.size &&
   readRecordsBeforeUpdateChecks.every((check) => check.passed) &&
   readRecordsBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeCreateChecks.every((check) => check.passed) &&
@@ -1510,9 +2006,11 @@ writeFileSync(
       workflowBarrierChecks,
       entityOrderChecks,
       messageChecks,
+      mailChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,
       cellChecks,
+      cellsBeforeMailChecks,
       eventChecks,
       eventSourceChecks: (expected.events || []).flatMap((check) =>
         check.source_message_id

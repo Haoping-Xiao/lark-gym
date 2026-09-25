@@ -63,6 +63,7 @@ type EventCheck = {
   host_user_email?: string;
   source_message_id?: string;
   single_occurrence?: boolean;
+  end_time_unspecified?: boolean;
   attendees: string[];
   attendee_options?: string[][];
 };
@@ -485,6 +486,12 @@ const sameEventTimes = (
   event: Pick<EventCheck, 'start_time' | 'end_time'>,
   check: EventCheck,
 ) => {
+  if (check.end_time_unspecified)
+    return (
+      sameTime(event.start_time, check.start_time) &&
+      Number.isSafeInteger(Number(event.end_time?.timestamp)) &&
+      Number(event.end_time.timestamp) > Number(event.start_time.timestamp)
+    );
   if (!check.utc_date_window)
     return (
       sameTime(event.start_time, check.start_time) &&

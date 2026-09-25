@@ -42,11 +42,14 @@ test('event-source verifies actual CLI effects', async () => {
       let cs = structuredClone(original);
       const [mail, write] = cs,
         mget = [
-          'im',
-          '+messages-mget',
+          'mail',
+          '+messages',
+          '--mailbox',
+          'agent@company.example.com',
           '--message-ids',
-          'om_msg_4209',
-          '--no-reactions',
+          'msg_4209',
+          '--as',
+          'user',
         ];
       if (mode === 'mget') cs = [mget, write];
       if (mode === 'no_read') cs = [write];

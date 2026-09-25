@@ -170,6 +170,8 @@ export function prepareSemantic(
     expected.events[index].summary_contains_case_insensitive = true;
   for (const [index, email] of Object.entries(config.event_host_users || {}))
     expected.events[Number(index)].host_user_email = email;
+  for (const index of config.event_end_time_unspecified || [])
+    expected.events[index].end_time_unspecified = true;
   if (config.rrule_byday_set) expected.rrule_byday_set = true;
   for (const [index, id] of Object.entries(config.event_source_messages || {}))
     expected.events[Number(index)].source_message_id = id;
@@ -225,6 +227,8 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.event_end_time_unspecified?.length)
+    deferred.push('events.unspecified_duration_reasonableness');
   if (expected.mail?.length) deferred.push('mail.content');
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =

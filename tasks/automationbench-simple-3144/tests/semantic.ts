@@ -1,3 +1,37 @@
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 import { existsSync, readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 
@@ -115,6 +149,8 @@ export function prepareSemantic(
   const config = existsSync(configPath)
     ? JSON.parse(readFileSync(configPath, 'utf8'))
     : { enabled: false };
+  if (config.cells_before_mail)
+    expected.cells_before_mail = structuredClone(config.cells_before_mail);
   if (config.read_before_updates)
     expected.read_before_updates = structuredClone(config.read_before_updates);
   if (config.read_before_creates)
@@ -134,9 +170,16 @@ export function prepareSemantic(
     expected.events[index].summary_contains_case_insensitive = true;
   for (const [index, email] of Object.entries(config.event_host_users || {}))
     expected.events[Number(index)].host_user_email = email;
+  for (const index of config.event_end_time_unspecified || [])
+    expected.events[index].end_time_unspecified = true;
   if (config.rrule_byday_set) expected.rrule_byday_set = true;
   for (const [index, id] of Object.entries(config.event_source_messages || {}))
     expected.events[Number(index)].source_message_id = id;
+  if (config.event_mail_notification_order)
+    expected.order_groups = [
+      { kind: 'event' },
+      { kind: 'mail_message', sent_mail_only: true },
+    ];
   if (config.event_notification_order)
     expected.order_groups = [
       { kind: 'event' },
@@ -146,6 +189,16 @@ export function prepareSemantic(
         all_messages: true,
       },
     ];
+  if (config.creation_contains_guarded)
+    expected.creation_contains_guarded = true;
+  for (const [index, options] of Object.entries(
+    config.event_attendee_options || {},
+  ))
+    expected.events[Number(index)].attendee_options = options;
+  for (const [index, ids] of Object.entries(
+    config.message_mention_open_ids || {},
+  ))
+    expected.messages[Number(index)].mention_open_ids = ids;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
@@ -174,6 +227,9 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.event_end_time_unspecified?.length)
+    deferred.push('events.unspecified_duration_reasonableness');
+  if (expected.mail?.length) deferred.push('mail.content');
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =
       config.optional_creation_text_fields;
@@ -421,7 +477,7 @@ export function prepareSemantic(
           if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
             return false;
           try {
-            const text = JSON.parse(m.body.content).text;
+            const text = decodedMessageText(m.body.content);
             return (
               typeof text === 'string' &&
               terms.every((term) =>
@@ -437,6 +493,46 @@ export function prepareSemantic(
         });
       literalMessageChecks.push({ chat_id, contains: terms, passed });
     }
+  }
+
+  // Source Gmail assertion normalization and guarded substring matching.
+  for (const [chat_id, terms] of Object.entries(
+    config.gmail_message_terms_chat || {},
+  )) {
+    const normalize = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\d+)\.0+%/g, '$1%')
+        .replace(/\s*->\s*/g, '->')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const contains = (text: string, part: string) => {
+      const needle = normalize(part);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d)` : ''),
+      ).test(normalize(text));
+    };
+    const passed =
+      Boolean(seed) &&
+      world.messages.some((m: Json) => {
+        if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
+          return false;
+        try {
+          const text = decodedMessageText(m.body.content);
+          return (
+            typeof text === 'string' &&
+            (terms as string[]).every((term) => contains(text, term))
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ chat_id, contains: terms, passed });
   }
 
   // Source Slack assertions normalize case, bold markers, and numeric formatting.
@@ -465,7 +561,7 @@ export function prepareSemantic(
         if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
           return false;
         try {
-          const text = JSON.parse(m.body.content).text;
+          const text = decodedMessageText(m.body.content);
           return (
             typeof text === 'string' &&
             (terms as string[]).every((term) => contains(text, term))
@@ -508,7 +604,7 @@ export function prepareSemantic(
         if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
           return false;
         try {
-          const text = JSON.parse(m.body.content).text;
+          const text = decodedMessageText(m.body.content);
           if (typeof text !== 'string') return false;
           const [subject, ...body] = text.split(/\r?\n/);
           return (
