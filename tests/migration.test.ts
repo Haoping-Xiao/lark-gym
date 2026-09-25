@@ -281,6 +281,14 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
                   old.message_id === m.message_id,
               ),
           );
+          const newMail = backend.world.mail?.messages.find(
+            (m) =>
+              m.message_state === 2 &&
+              !(seed.mail?.messages || []).some(
+                (old: { message_id: string }) =>
+                  old.message_id === m.message_id,
+              ),
+          );
           const newEvent = backend.world.events.find(
             (e: { event_id: string }) =>
               !seed.events.some(
@@ -301,6 +309,10 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
                   (old: { message_id: string }) =>
                     old.message_id === m.message_id,
                 ),
+            );
+          else if (newMail)
+            backend.world.mail!.messages = backend.world.mail!.messages.filter(
+              (m) => m.message_id !== newMail.message_id,
             );
           else if (newEvent)
             backend.world.events = backend.world.events.filter(

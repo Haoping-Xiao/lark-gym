@@ -89,6 +89,8 @@ type WorkflowEventSelector = {
 const expected: {
   cells_before_mail?: { to: string; cells: any[] }[];
   mail?: {
+    source_message_id?: string;
+    reply_to_source?: boolean;
     to: string[];
     subject?: string;
     subject_contains?: string[];
@@ -659,10 +661,56 @@ const sentMail = (world.mail?.messages || []).filter(
   (m: any) => !initialMailIDs.has(m.message_id) && m.message_state === 2,
 );
 const consumedMail = new Set<string>();
+const mailSourceProof = (
+  message: any,
+  rule: { source_message_id?: string; reply_to_source?: boolean },
+) => {
+  if (!rule.source_message_id) return true;
+  const source = seed.mail?.messages.find(
+    (m: any) => m.message_id === rule.source_message_id,
+  );
+  if (
+    !source ||
+    (rule.reply_to_source &&
+      (message.thread_id !== source.thread_id ||
+        message.mailbox_id !== source.mailbox_id))
+  )
+    return false;
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    (((value.message_id === source.message_id ||
+      value.message_biz_id === source.message_id) &&
+      (value.subject === source.subject || value.title === source.subject) &&
+      value.body_plain_text === source.body_plain_text) ||
+      Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (c: any) =>
+        c.status < 400 &&
+        ['GET', 'POST'].includes(c.method) &&
+        !(c.mutations || []).length &&
+        walk(c.response),
+    )
+    .map((c: any) => c.seq);
+  const sent = calls.find(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          m.kind === 'mail_message' &&
+          m.id === message.message_id &&
+          m.after?.message_state === 2 &&
+          m.before?.message_state === 3,
+      ),
+  );
+  return !!sent && reads.some((seq: number) => seq < sent.seq);
+};
 const mailChecks = (expected.mail || []).map((rule) => {
   const match = sentMail.find(
     (m: any) =>
       !consumedMail.has(m.message_id) &&
+      mailSourceProof(m, rule) &&
       isDeepStrictEqual(
         (m.to || []).map((a: any) => a.mail_address.toLowerCase()).sort(),
         rule.to.map((a) => a.toLowerCase()).sort(),

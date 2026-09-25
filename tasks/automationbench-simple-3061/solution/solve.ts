@@ -1,13 +1,17 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_recipient',
-    '--text',
-    'Meeting Confirmed - Tuesday Feb 25th\nMaya，你的会议已确认，时间为2月25日美东时间上午10点。',
+    'mail',
+    '+send',
+    '--to',
+    'maya.rodriguez@clientco.example.com',
+    '--subject',
+    'Meeting Confirmed - Tuesday Feb 25th',
+    '--body',
+    'Dear Maya, your meeting request is confirmed for February 25 at 10 AM EST.',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

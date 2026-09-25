@@ -53,7 +53,7 @@ for row in rows:
     records.extend(extra.get(number,{}).get('supplemental_records',[]))
     for record in records:
         record['fields'].update(extra.get(number,{}).get('seed_record_fields',{}).get(record['record_id'],{}))
-    messageTask=messageTasks.get(number)
+    messageTask=None if extra.get(number,{}).get('native_mail_only') else messageTasks.get(number)
     sheetTask=sheetTasks.get(number)
     calendarTask=calendarTasks.get(number)
     checks=[]
@@ -77,7 +77,7 @@ for row in rows:
     for item in ([] if extra.get(number,{}).get('native_mail') else source.get('gmail',{}).get('messages',[])):
         content=f"来源联系人：{item['from_']}\n主题：{item['subject']}\n日期：{item.get('date','')}\n{item['body_plain']}"
         messages.append({'message_id':'om_'+item['id'],'chat_id':'oc_updates','msg_type':'text','body':{'content':json.dumps({'text':content},ensure_ascii=False)},'create_time':str(int(datetime.fromisoformat(item['date'].replace('Z','+00:00')).timestamp()*1000))})
-    seed={'now':'2026-02-24T09:00:00Z','spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
+    seed={'now':extra.get(number,{}).get('now','2026-02-24T09:00:00Z'),'spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
     if extra.get(number,{}).get('native_mail'):
         mailbox=extra[number].get('native_mailbox','agent@company.example.com')
         boxes=[{'email_address':'agent@company.example.com'}]
