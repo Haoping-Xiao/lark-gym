@@ -96,6 +96,7 @@ const expected: {
       sha256: string;
     }[];
     source_message_id?: string;
+    source_sheet_id?: string;
     reply_to_source?: boolean;
     to: string[];
     subject?: string;
@@ -153,7 +154,11 @@ const expected: {
   action_prerequisites?: {
     notification: { chat_id: string; contains: string[] };
     records: { collection: string; equals: Fields }[];
-    messages: { chat_id: string; contains: string[] }[];
+    messages: {
+      source_mail_id?: string;
+      chat_id: string;
+      contains: string[];
+    }[];
   }[];
   entity_order?: {
     record?: {
@@ -189,6 +194,8 @@ const expected: {
   creation_contains?: Record<string, Record<string, string[]>>;
   cells?: {
     numeric_equivalent?: boolean;
+    date_equivalent?: boolean;
+    source_mail_id?: string;
     one_of?: (string | number)[];
     contains?: string[];
     spreadsheet_token?: string;
@@ -203,6 +210,7 @@ const expected: {
     chat_name?: string;
     contains: string[];
     mention_open_ids?: string[];
+    source_mail_id?: string;
   }[];
 } = JSON.parse(
   readFileSync(
@@ -333,6 +341,35 @@ const sent = world.messages.filter(
   (m: { message_id: string }) => !originalMessages.has(m.message_id),
 );
 const consumedMessages = new Set<string>();
+const sourceMailBeforeMessage = (message: any, id: string) => {
+  const source = seed.mail?.messages.find((m: any) => m.message_id === id);
+  if (!source) return false;
+  const walk = (v: any): boolean =>
+    v !== null &&
+    typeof v === 'object' &&
+    (((v.message_id === id || v.message_biz_id === id) &&
+      (v.subject === source.subject || v.title === source.subject) &&
+      v.body_plain_text === source.body_plain_text) ||
+      Object.values(v).some(walk));
+  const reads = calls
+    .filter(
+      (c: any) =>
+        c.status < 400 &&
+        ['GET', 'POST'].includes(c.method) &&
+        !(c.mutations || []).length &&
+        walk(c.response),
+    )
+    .map((c: any) => c.seq);
+  const sent = calls.find(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          m.kind === 'message' && m.id === message.message_id && !m.before,
+      ),
+  );
+  return !!sent && reads.some((seq: number) => seq < sent.seq);
+};
 const messageChecks = (expected.messages || []).map((check) => {
   const match = sent.find((m: any) => {
     if (
@@ -349,6 +386,8 @@ const messageChecks = (expected.messages || []).map((check) => {
       const text = decodedMessageText(m.body.content);
       return (
         typeof text === 'string' &&
+        (!check.source_mail_id ||
+          sourceMailBeforeMessage(m, check.source_mail_id)) &&
         (check.mention_open_ids || []).every(
           (id) =>
             (m.mentions || []).some(
@@ -712,11 +751,82 @@ const mailSourceProof = (
   );
   return !!sent && reads.some((seq: number) => seq < sent.seq);
 };
+const sheetBeforeMail = (mail: any, rule: any) => {
+  if (!rule.source_sheet_id) return true;
+  const sid = rule.source_sheet_id,
+    values = seed.sheets?.[sid]?.values;
+  if (!values) return false;
+  const headers = values[0],
+    status = headers.indexOf('Status'),
+    row = values.findIndex(
+      (v: any, i: number) => i > 0 && v[status] === 'Pending',
+    );
+  if (row < 1) return false;
+  const needed = [headers.indexOf('Name'), headers.indexOf('Email'), status];
+  if (needed.some((c: number) => c < 0)) return false;
+  const found = new Set<string>();
+  const sent = calls.find(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          m.kind === 'mail_message' &&
+          m.id === mail.message_id &&
+          m.after?.message_state === 2 &&
+          m.before?.message_state !== 2,
+      ),
+  );
+  if (!sent) return false;
+  const inspect = (v: any, inSheet = false) => {
+    if (typeof v === 'string') {
+      try {
+        inspect(JSON.parse(v), inSheet);
+      } catch {}
+      return;
+    }
+    if (!v || typeof v !== 'object') return;
+    const own =
+      inSheet ||
+      v.sheet_id === sid ||
+      (typeof v.range === 'string' && v.range.startsWith(sid + '!'));
+    if (own && typeof v.range === 'string' && Array.isArray(v.values)) {
+      const match = /^(?:[^!]+!)?([A-Z]+)([1-9][0-9]*)/.exec(v.range);
+      if (match) {
+        const col =
+            [...match[1]].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) -
+            1,
+          rr = Number(match[2]) - 1;
+        for (let i = 0; i < v.values.length; i++)
+          for (let j = 0; j < v.values[i].length; j++) {
+            const x = rr + i,
+              y = col + j;
+            if (
+              x === row &&
+              needed.includes(y) &&
+              isDeepStrictEqual(v.values[i][j], values[x][y])
+            )
+              found.add(x + ':' + y);
+          }
+      }
+    }
+    for (const item of Object.values(v)) inspect(item, own);
+  };
+  for (const c of calls)
+    if (
+      c.seq < sent.seq &&
+      c.status < 400 &&
+      !(c.mutations || []).length &&
+      c.path.includes('/spreadsheets/' + seed.spreadsheet_token + '/')
+    )
+      inspect(c.response);
+  return needed.every((c: number) => found.has(row + ':' + c));
+};
 const mailChecks = (expected.mail || []).map((rule) => {
   const match = sentMail.find(
     (m: any) =>
       !consumedMail.has(m.message_id) &&
       mailSourceProof(m, rule) &&
+      sheetBeforeMail(m, rule) &&
       (!rule.attachments ||
         ((m.attachments || []).length === rule.attachments.length &&
           rule.attachments.every((want) =>
@@ -834,30 +944,95 @@ const numericCellEqual = (actual: unknown, expected: string | number) => {
     right = parse(expected);
   return left !== undefined && right !== undefined && left === right;
 };
+const sourceMailBeforeCell = (cell: any) => {
+  const source = seed.mail?.messages.find(
+    (m: any) => m.message_id === cell.source_mail_id,
+  );
+  if (!source) return false;
+  const walk = (v: any): boolean =>
+    v !== null &&
+    typeof v === 'object' &&
+    (((v.message_id === source.message_id ||
+      v.message_biz_id === source.message_id) &&
+      v.body_plain_text === source.body_plain_text &&
+      v.subject === source.subject) ||
+      Object.values(v).some(walk));
+  const reads = calls
+    .filter(
+      (c: any) =>
+        c.status < 400 && !(c.mutations || []).length && walk(c.response),
+    )
+    .map((c: any) => c.seq);
+  const writes = calls.filter(
+    (c: any) =>
+      c.status < 400 &&
+      (c.mutations || []).some(
+        (m: any) =>
+          (m.kind === 'sheet' &&
+            m.id === cell.sheet_id &&
+            !isDeepStrictEqual(
+              m.before?.values[cell.row]?.[cell.column],
+              m.after?.values[cell.row]?.[cell.column],
+            )) ||
+          (m.kind === 'spreadsheet' &&
+            m.id === (cell.spreadsheet_token || seed.spreadsheet_token) &&
+            !isDeepStrictEqual(
+              m.before?.sheets?.[cell.sheet_id]?.values[cell.row]?.[
+                cell.column
+              ],
+              m.after?.sheets?.[cell.sheet_id]?.values[cell.row]?.[cell.column],
+            )),
+      ),
+  );
+  return (
+    writes.length > 0 &&
+    reads.some((seq: number) => writes.every((c: any) => seq < c.seq))
+  );
+};
+const dateCellEqual = (actual: unknown, expected: string | number) => {
+  if (typeof actual !== 'string' || typeof expected !== 'string') return false;
+  const raw = actual.trim();
+  const zoned = /(?:Z|[+-]\d{2}:?\d{2}|GMT|UTC)$/i.test(raw);
+  const parsed = Date.parse(
+    zoned ? raw : /^\d{4}-\d{2}-\d{2}T/.test(raw) ? raw + 'Z' : raw + ' UTC',
+  );
+  return (
+    Number.isFinite(parsed) &&
+    new Date(parsed).toISOString().slice(0, 10) === expected
+  );
+};
 const cellChecks = (expected.cells || []).map((c) => ({
   ...c,
-  passed: c.numeric_equivalent
-    ? numericCellEqual(
-        sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-        c.value,
-      )
-    : c.one_of
-      ? c.one_of.some((value) =>
-          isDeepStrictEqual(
-            sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
-            value,
-          ),
+  passed:
+    (!c.source_mail_id || sourceMailBeforeCell(c)) &&
+    (c.date_equivalent
+      ? dateCellEqual(
+          sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+          c.value,
         )
-      : c.contains
-        ? c.contains.every((part) =>
-            String(
-              sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ?? '',
-            ).includes(part),
-          )
-        : isDeepStrictEqual(
+      : c.numeric_equivalent
+        ? numericCellEqual(
             sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
             c.value,
-          ),
+          )
+        : c.one_of
+          ? c.one_of.some((value) =>
+              isDeepStrictEqual(
+                sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+                value,
+              ),
+            )
+          : c.contains
+            ? c.contains.every((part) =>
+                String(
+                  sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column] ??
+                    '',
+                ).includes(part),
+              )
+            : isDeepStrictEqual(
+                sheetsFor(world, c)[c.sheet_id]?.values[c.row]?.[c.column],
+                c.value,
+              )),
 }));
 for (const cell of expected.cells || []) {
   const before = sheetsFor(seed, cell)[cell.sheet_id].values;

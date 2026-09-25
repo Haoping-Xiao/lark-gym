@@ -125,7 +125,10 @@ test('Message literals survive JSON text inputs and unsupported formats remain e
             a + '/states-' + num + '/' + mode + '.json',
             JSON.stringify({ seed, world: b.world, calls: b.calls }),
           );
-          if (['markdown', 'post', 'card'].includes(mode)) {
+          if (
+            mode === 'card' ||
+            (num !== 3077 && ['markdown', 'post'].includes(mode))
+          ) {
             assert.ok(b.calls.some((c) => c.status === 501));
             assert.equal(b.world.messages.length, seed.messages.length);
             continue;
@@ -146,13 +149,15 @@ test('Message literals survive JSON text inputs and unsupported formats remain e
           );
           assert.equal(
             d.business_success,
-            ['reference', 'json_text', 'upper_term', 'bold_term'].includes(
-              mode,
-            ),
+            [
+              'reference',
+              'json_text',
+              'upper_term',
+              'bold_term',
+              ...(num === 3077 ? ['markdown', 'post'] : []),
+            ].includes(mode),
             num + ':' + mode,
           );
-          if (['markdown', 'post', 'card'].includes(mode))
-            assert.ok(b.calls.some((c) => c.status === 501));
         } finally {
           await b.close();
         }

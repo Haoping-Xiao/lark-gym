@@ -80,7 +80,7 @@ for row in rows:
     seed={'now':extra.get(number,{}).get('now','2026-02-24T09:00:00Z'),'spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
     if extra.get(number,{}).get('native_mail'):
         mailbox=extra[number].get('native_mailbox','agent@company.example.com')
-        boxes=[{'email_address':'agent@company.example.com'}]
+        boxes=[{'email_address':'agent@company.example.com','email_type':'USER_PRIMARY'}]
         if mailbox != 'agent@company.example.com':
             boxes[0]['email_type']='USER_PRIMARY'
             boxes.append({'email_address':mailbox,'email_type':'PUBLIC_MAILBOX'})
@@ -88,7 +88,7 @@ for row in rows:
         incoming=[]
         for item in source.get('gmail',{}).get('messages',[]):
             assert mailbox in item['to'], ('review mailbox owner', number, mailbox)
-            incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item['thread_id'],'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(extra[number].get('native_mail_dates',{}).get(item['id'],item['date']).replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':[] if item.get('is_read') else ['UNREAD'],'folder_id':'INBOX','attachments':[]})
+            incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item.get('thread_id','thread_'+item['id']),'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(extra[number].get('native_mail_dates',{}).get(item['id'],item['date']).replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':(['UNREAD'] if 'UNREAD' in item['label_ids'] else []) if 'label_ids' in item else ([] if item.get('is_read') else ['UNREAD']),'folder_id':'INBOX','attachments':[]})
         seed['mail']={'mailboxes':boxes,'messages':incoming,'drafts':[]}
         if extra[number].get('native_mail_attachments'):seed['mail']['attachment_support']=True
     eventChecks=[]
@@ -143,6 +143,9 @@ for row in rows:
                 sheetChecks.append({'sheet_id':sid,'row':rowIndex,'column':column,'value':value})
                 cell=chr(65+column)+str(rowIndex+1)
                 sheetCommands.append(['sheets','+cells-set','--spreadsheet-token',token,'--sheet-id',sid,'--range',cell,'--cells',json.dumps([[{'value':value}]],ensure_ascii=False)])
+    for cell in sheetChecks:
+        if extra.get(number,{}).get('cells_source_mail_id'):cell['source_mail_id']=extra[number]['cells_source_mail_id']
+        if cell['column'] in extra.get(number,{}).get('date_columns',[]):cell['date_equivalent']=True
     messageChecks=[]
     if messageTask:
         for channel in source.get('slack',{}).get('channels',[]):
@@ -162,6 +165,7 @@ for row in rows:
         elif assertion['type']=='slack_message_in_channel': destination=next(c['chat_id'] for c in seed['chats'] if c['name']==assertion['channel_name'])
         else: raise ValueError(assertion)
         messageChecks=[{'chat_id':destination,'contains':messageTask['contains']}]
+        if extra.get(number,{}).get('message_source_mail_id'):messageChecks[0]['source_mail_id']=extra[number]['message_source_mail_id']
     notificationCommands=[]
     for index, notice in enumerate(extra.get(number,{}).get('notifications',[])):
         for channel in source.get('slack',{}).get('channels',[]):

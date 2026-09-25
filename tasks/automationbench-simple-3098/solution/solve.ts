@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'pm@brightpath.example.com',
+    '--message-ids',
+    'msg_8002',
+    '--as',
+    'user',
+  ],
   [
     'sheets',
     '+cells-get',

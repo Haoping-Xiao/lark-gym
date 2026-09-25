@@ -41,13 +41,24 @@ test('Feature and bug tasks require actual source reads before creation', async 
       ]) {
         let cs = structuredClone(original);
         const [mail, list, write] = cs,
-          mget = [
-            'im',
-            '+messages-mget',
-            '--message-ids',
-            num === 3102 ? 'om_msg_4201' : 'om_msg_4202',
-            '--no-reactions',
-          ];
+          mget = seed.mail?.messages?.length
+            ? [
+                'mail',
+                '+messages',
+                '--mailbox',
+                seed.mail.messages[0].mailbox_id,
+                '--message-ids',
+                seed.mail.messages[0].message_id,
+                '--as',
+                'user',
+              ]
+            : [
+                'im',
+                '+messages-mget',
+                '--message-ids',
+                num === 3102 ? 'om_msg_4201' : 'om_msg_4202',
+                '--no-reactions',
+              ];
         if (mode === 'mget') cs = [mget, write];
         if (mode === 'no_read') cs = [list, write];
         if (mode === 'read_late') cs = [list, write, mail];

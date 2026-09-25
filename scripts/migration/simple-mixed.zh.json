@@ -1173,5 +1173,85 @@
     "native_mail_dates": {
       "msg_4003": "2025-02-22T11:00:00Z"
     }
+  },
+  "3073": {
+    "native_mail": true,
+    "native_mailbox": "all-managers@brightpath.example.com",
+    "instruction": "CEO Nathan Drake 发来公司公告邮件。请在 all-managers@brightpath.example.com 邮箱找到并阅读来信，然后在飞书 all-hands 群发布公告摘要。",
+    "message_source_mail_id": "msg_5001",
+    "post_channels": ["oc_CALLHANDS", "oc_CGENERAL"]
+  },
+  "3077": {
+    "native_mail": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "Veronica Steele 发来紧急客户升级邮件。请在 support@brightpath.example.com 邮箱找到并阅读来信，然后在飞书 support 群发布告警并概述问题。来信中的相对时间以邮件发送时间为准。",
+    "message_source_mail_id": "msg_5002",
+    "post_channels": ["oc_CSUPPORT", "oc_CGENERAL"]
+  },
+  "3082": {
+    "native_mail": true,
+    "native_mailbox": "marketing@brightpath.example.com",
+    "instruction": "Dana Okafor 发来邮件要求订阅简报。请在 marketing@brightpath.example.com 邮箱找到并阅读来信，使用她的发件地址，在飞书多维表格订阅台账中创建 subscribers 记录，加入 Newsletter 列表 list_001，填写 email 和 list_id。",
+    "creates": [
+      {
+        "collection": "subscribers",
+        "email": "dana.okafor@crestfieldmedia.example.com",
+        "list_id": "list_001"
+      }
+    ]
+  },
+  "3087": {
+    "native_mail": true,
+    "native_mailbox": "info@brightpath.example.com",
+    "instruction": "Kwame Asante 发来客户咨询邮件。请在 info@brightpath.example.com 邮箱找到并阅读来信，在飞书电子表格 Contact Log（ss_contacts / ws_log）新增一行，记录来信的发件人姓名 Name、发件地址 Email、主题 Subject 和发送日期 Date。",
+    "cells_source_mail_id": "msg_7001",
+    "date_columns": [3]
+  },
+  "3095": {
+    "native_mail": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "Ingrid Svensson 发来支持请求邮件。请在 support@brightpath.example.com 邮箱找到并阅读来信，在飞书电子表格 Support Log（ss_support / ws_tickets）新增一行，记录来信的发件人姓名 Name、发件地址 Email、主题 Subject 和发送日期 Date，并将 Priority 设为 Medium。",
+    "cells_source_mail_id": "msg_8001",
+    "date_columns": [3]
+  },
+  "3091": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请读取飞书电子表格 Outreach Tracker（ss_outreach / ws_pending），找到第一位 Status 为 Pending 的联系人。使用表中的 Name 和 Email 向其发送介绍 BrightPath 自动化平台的邮件，主题为 Introducing BrightPath - Workflow Automation。",
+    "native_mail_only": true,
+    "mail": [
+      {
+        "to": ["nina.patel@clearviewsoftware.example.com"],
+        "subject": "Introducing BrightPath - Workflow Automation",
+        "source_sheet_id": "ws_pending",
+        "body_contains": ["BrightPath"]
+      }
+    ],
+    "notifications": [
+      {
+        "email": "nina.patel@clearviewsoftware.example.com",
+        "subject": "Introducing BrightPath - Workflow Automation",
+        "body": "Nina，你好！BrightPath 自动化平台帮助团队连接工作流程，减少重复操作。期待与你交流。"
+      }
+    ]
+  },
+  "3098": {
+    "native_mail": true,
+    "native_mailbox": "pm@brightpath.example.com",
+    "instruction": "Mike Chen 发来项目进展邮件。请在 pm@brightpath.example.com 邮箱找到并阅读来信，根据内容更新飞书电子表格 Project Status（ss_project_status / ws_projects）中对应项目的 Status 及其他有依据的相关字段。",
+    "cells_source_mail_id": "msg_8002"
+  },
+  "3102": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读客户近期提出新功能需求的邮件。随后在飞书多维表格项目台账的工作事项表创建任务，name 为 Add dark mode feature，workspace 为 ws_prod，project 为 Product Backlog（proj_backlog）。",
+    "creates": [
+      {
+        "collection": "tasks",
+        "workspace": "ws_prod",
+        "name": "Add dark mode feature",
+        "project": "proj_backlog"
+      }
+    ]
   }
 }

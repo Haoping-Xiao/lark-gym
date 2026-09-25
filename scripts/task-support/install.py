@@ -20,18 +20,17 @@ def install_environment(task):
     path.write_text(json.dumps(policy, ensure_ascii=False, indent=2) + '\n')
     (task / 'tests/unsupported-policy.json').write_text(path.read_text())
     docker = task / 'environment/mock.Dockerfile'
-    s = docker.read_text().replace('lark-gym-mock:0.2.0', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.1', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.2', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.3', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.4', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.5', 'lark-gym-mock:0.2.6')
-    if json.loads((task / 'environment/seed.json').read_text()).get('mail') is not None:
-        s = s.replace('lark-gym-mock:0.2.6', 'lark-gym-mock:0.2.7')
     seed = json.loads((task / 'environment/seed.json').read_text())
-    if any(c.get('mention_support') for c in seed.get('chats',[])) or any(c.get('type')=='primary' for c in seed.get('calendars',[])):
-        s = s.replace('lark-gym-mock:0.2.6','lark-gym-mock:0.2.8').replace('lark-gym-mock:0.2.7','lark-gym-mock:0.2.8')
+    version = '0.2.6'
+    if any(c.get('mention_support') for c in seed.get('chats', [])) or any(c.get('type') == 'primary' for c in seed.get('calendars', [])):
+        version = '0.2.8'
     if seed.get('mail') is not None:
-        s = s.replace('lark-gym-mock:0.2.7','lark-gym-mock:0.2.9').replace('lark-gym-mock:0.2.8','lark-gym-mock:0.2.9')
-    if any(c.get('post_support') for c in seed.get('chats',[])):
-        s = s.replace('lark-gym-mock:0.2.8','lark-gym-mock:0.2.10').replace('lark-gym-mock:0.2.9','lark-gym-mock:0.2.10')
-    if seed.get('mail',{}).get('attachment_support'):
-        s = re.sub(r'lark-gym-mock:0\.2\.\d+', 'lark-gym-mock:0.2.11', s)
+        version = '0.2.9'
+    if any(c.get('post_support') for c in seed.get('chats', [])):
+        version = '0.2.10'
+    if seed.get('mail', {}).get('attachment_support'):
+        version = '0.2.11'
+    s = re.sub(r'(?m)^(FROM\s+)lark-gym-mock:0\.2\.\d+\b', lambda m: m[1] + 'lark-gym-mock:' + version, docker.read_text())
     if 'unsupported.ts' not in s:
         s += 'COPY unsupported.ts unsupported-policy.json /opt/mock/\n'
     s = re.sub(r'^CMD .*\n?', '', s, flags=re.M)
