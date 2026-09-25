@@ -165,7 +165,7 @@
     ]
   },
   "3160": {
-    "instruction": "阅读新同事欢迎来信，在飞书 contacts 台账创建联系人，first_name、last_name、email、title 从来信提取，company 使用 Acme Corp。",
+    "instruction": "收到一封新同事的欢迎邮件。请在 team@company.example.com 邮箱阅读来信，按照邮件提供的信息在飞书多维表格联系人台账创建新同事的联系人，公司使用 Acme Corp。",
     "create": {
       "collection": "contacts",
       "first_name": "Casey",
@@ -173,10 +173,13 @@
       "email": "casey.morgan@company.example.com",
       "title": "Senior Developer",
       "company": "Acme Corp"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "team@company.example.com",
+    "mail": []
   },
   "3161": {
-    "instruction": "阅读客户合同咨询来信，在飞书 tickets 工单台账创建工单，subject 和 description 分别保留原来信标题、正文，group_id 选择 Legal Team 的业务 ID。私聊回复客户确认已收到咨询，首行为 Re: 加原邮件标题。",
+    "instruction": "客户发来合同问题邮件。请在 contracts@company.example.com 邮箱阅读来信，在飞书多维表格客服工单台账中为法务团队创建工单，并邮件回复确认已收到咨询。",
     "create": {
       "collection": "tickets",
       "subject": "Contract renewal terms",
@@ -186,13 +189,32 @@
     "notifications": [
       {
         "email": "legal@partnerco.example.com",
-        "text": "Re: Contract renewal terms\n已收到合同续约咨询，已交法律团队处理。",
-        "contains": ["Re:", "已收到"]
+        "reply_to": "msg_3161",
+        "body": "We have received your contract inquiry and created a ticket for our legal team."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "contracts@company.example.com",
+    "mail": [
+      {
+        "to": ["legal@partnerco.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["received"],
+        "source_message_id": "msg_3161",
+        "reply_to_source": true
+      }
+    ],
+    "seed_record_fields": {
+      "rec_grp_support": {
+        "group_id": "grp_support"
+      },
+      "rec_grp_legal": {
+        "group_id": "grp_legal"
+      }
+    }
   },
   "3162": {
-    "instruction": "阅读客户反馈来信，在飞书电子表格 ss_feedback / sheet1 末尾追加客户姓名 Name 和反馈摘要 Feedback。摘要保留原来信正文，随后私聊回复发件人表示感谢，首行为 Re: 加原邮件标题。",
+    "instruction": "收到客户反馈邮件。请在 feedback@company.example.com 邮箱阅读来信，在飞书电子表格 ss_feedback 的 sheet1 工作表追加客户姓名和反馈摘要，并邮件回复表示感谢。",
     "sheet": {
       "append": {
         "Name": "Tom Brennan",
@@ -202,10 +224,22 @@
     "notifications": [
       {
         "email": "tom.brennan@userfirst.example.com",
-        "text": "Re: Customer Feedback: Great experience with your product\n感谢您的反馈！",
-        "contains": ["Re:", "感谢"]
+        "reply_to": "msg_3162",
+        "body": "Thank you for sharing your feedback, Tom. We are glad the reporting feature saves your team time."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "feedback@company.example.com",
+    "mail": [
+      {
+        "to": ["tom.brennan@userfirst.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["thank"],
+        "source_message_id": "msg_3162",
+        "reply_to_source": true
+      }
+    ],
+    "cells_source_mail_id": "msg_3162"
   },
   "3163": {
     "instruction": "阅读客户预约来信，在飞书日历创建 Client Call with Apex Systems，2026-02-26 14:00–15:00 UTC；通过私聊回复发件人确认日期和时间，回复保留 February 26 日期标记（忽略大小写）（可附中文）。模拟适配约定：原邮件回复主题中的 Re: 对应为私聊正文包含 Re:（忽略大小写），不限位置，不要求完整原标题。",

@@ -12,14 +12,16 @@
         "record_id": "rec_grp_support",
         "fields": {
           "collection": "lookup_groups",
-          "name": "Support Team"
+          "name": "Support Team",
+          "group_id": "grp_support"
         }
       },
       {
         "record_id": "rec_grp_legal",
         "fields": {
           "collection": "lookup_groups",
-          "name": "Legal Team"
+          "name": "Legal Team",
+          "group_id": "grp_legal"
         }
       },
       {
@@ -71,6 +73,10 @@
           {
             "name": "name",
             "type": "text"
+          },
+          {
+            "name": "group_id",
+            "type": "text"
           }
         ],
         "read_only": true
@@ -117,26 +123,46 @@
       }
     ]
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
-      "chat_id": "oc_notice_0",
-      "name": "legal@partnerco.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_3161",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：legal@partnerco.example.com\\n主题：Contract renewal terms\\n日期：2026-02-19T16:30:00Z\\nHi, our contract is up for renewal next month. We'd like to discuss modifying the SLA terms. Can someone from your legal team reach out? Thanks, Patricia Delgado\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771518600000"
-    }
-  ]
+      {
+        "email_address": "contracts@company.example.com",
+        "email_type": "PUBLIC"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3161",
+        "mailbox_id": "contracts@company.example.com",
+        "thread_id": "thr_3161",
+        "smtp_message_id": "msg_3161@fixture.invalid",
+        "subject": "Contract renewal terms",
+        "head_from": {
+          "mail_address": "legal@partnerco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "contracts@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIG91ciBjb250cmFjdCBpcyB1cCBmb3IgcmVuZXdhbCBuZXh0IG1vbnRoLiBXZSdkIGxpa2UgdG8gZGlzY3VzcyBtb2RpZnlpbmcgdGhlIFNMQSB0ZXJtcy4gQ2FuIHNvbWVvbmUgZnJvbSB5b3VyIGxlZ2FsIHRlYW0gcmVhY2ggb3V0PyBUaGFua3MsIFBhdHJpY2lhIERlbGdhZG8",
+        "body_preview": "SGksIG91ciBjb250cmFjdCBpcyB1cCBmb3IgcmVuZXdhbCBuZXh0IG1vbnRoLiBXZSdkIGxpa2UgdG8gZGlzY3VzcyBtb2RpZnlpbmcgdGhlIFNMQSB0ZXJtcy4gQ2FuIHNvbQ",
+        "body_html": "",
+        "internal_date": "1771518600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

@@ -305,7 +305,7 @@ export function prepareSemantic(
       const before = read(seed),
         value = read(world);
       if (
-        before === undefined ||
+        (before === undefined && !rule.allow_new_cell) ||
         isDeepStrictEqual(before, value) ||
         typeof value !== 'string' ||
         !value.trim() ||

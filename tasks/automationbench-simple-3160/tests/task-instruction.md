@@ -1,5 +1,3 @@
-阅读新同事欢迎来信，在飞书 contacts 台账创建联系人，first_name、last_name、email、title 从来信提取，company 使用 Acme Corp。
-
-客户资料更新通知位于飞书群 oc_updates，请从消息中读取信息。
+收到一封新同事的欢迎邮件。请在 team@company.example.com 邮箱阅读来信，按照邮件提供的信息在飞书多维表格联系人台账创建新同事的联系人，公司使用 Acme Corp。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。
