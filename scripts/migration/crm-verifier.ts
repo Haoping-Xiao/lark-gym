@@ -49,6 +49,7 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  read_before_creates?: { create_index: number; source_message_id: string }[];
   read_before_updates?: {
     record_id: string;
     field: string;
@@ -1110,8 +1111,73 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
   },
 );
 
+const readBeforeCreateChecks = (expected.read_before_creates || []).map(
+  (rule) => {
+    const source = seed.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
+    const text = (m: any): unknown => {
+      try {
+        return JSON.parse(m?.body?.content).text;
+      } catch {
+        return undefined;
+      }
+    };
+    const sourceText = text(source);
+    const walk = (value: any): boolean =>
+      value !== null &&
+      typeof value === 'object' &&
+      ((value.message_id === rule.source_message_id &&
+        typeof sourceText === 'string' &&
+        text(value) === sourceText) ||
+        Object.values(value).some(walk));
+    const reads = calls
+      .filter(
+        (call: any) =>
+          call.status < 400 &&
+          ['GET', 'POST'].includes(call.method) &&
+          !(call.mutations || []).length &&
+          walk(call.response),
+      )
+      .map((call: any) => call.seq);
+    const desired = expected.creates[rule.create_index];
+    const created = world.base.records.filter(
+      (record: any) =>
+        !originalIds.has(record.record_id) &&
+        desired &&
+        Object.entries(desired).every(([key, value]) =>
+          isDeepStrictEqual(record.fields[key], value),
+        ),
+    );
+    const checkpoints = created.map((record: any) => {
+      const call = calls.find(
+        (call: any) =>
+          call.status < 400 &&
+          (call.mutations || []).some(
+            (m: any) =>
+              m.kind === 'record' &&
+              m.id === record.record_id &&
+              !m.before &&
+              m.after,
+          ),
+      );
+      return {
+        record_id: record.record_id,
+        seq: call?.seq,
+        passed: !!call && reads.some((seq: number) => seq < call.seq),
+      };
+    });
+    return {
+      rule,
+      reads,
+      checkpoints,
+      passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+    };
+  },
+);
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  readBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeUpdateChecks.every((check) => check.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
@@ -1140,6 +1206,7 @@ writeFileSync(
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
       success,
       checks,
+      readBeforeCreateChecks,
       readBeforeUpdateChecks,
       creationChecks,
       deletionChecks,
