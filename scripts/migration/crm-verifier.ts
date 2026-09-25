@@ -49,6 +49,17 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  read_records_before_updates?: {
+    record_id: string;
+    field: string;
+    source_record_id: string;
+    identity: Fields;
+  }[];
+  read_records_before_creates?: {
+    create_index: number;
+    record_id: string;
+    identity: Fields;
+  }[];
   read_before_creates?: { create_index: number; source_message_id: string }[];
   read_before_updates?: {
     record_id: string;
@@ -1175,8 +1186,154 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
     };
   },
 );
+const readRecordsBeforeCreateChecks = (
+  expected.read_records_before_creates || []
+).map((rule) => {
+  const matches = (obj: any) => {
+    let fields: any;
+    if (
+      obj.record_id === rule.record_id &&
+      obj.fields &&
+      !Array.isArray(obj.fields)
+    )
+      fields = obj.fields;
+    else if (
+      Array.isArray(obj.record_id_list) &&
+      Array.isArray(obj.fields) &&
+      Array.isArray(obj.data)
+    ) {
+      const i = obj.record_id_list.indexOf(rule.record_id);
+      if (i >= 0 && Array.isArray(obj.data[i]))
+        fields = Object.fromEntries(
+          obj.fields.map((key: string, j: number) => [key, obj.data[i][j]]),
+        );
+    }
+    return (
+      fields &&
+      Object.entries(rule.identity).every(([key, value]) =>
+        isDeepStrictEqual(fields[key], value),
+      )
+    );
+  };
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    (matches(value) || Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        ['GET', 'POST'].includes(call.method) &&
+        !(call.mutations || []).length &&
+        walk(call.response),
+    )
+    .map((call: any) => call.seq);
+  const desired = expected.creates[rule.create_index];
+  const created = world.base.records.filter(
+    (record: any) =>
+      !originalIds.has(record.record_id) &&
+      desired &&
+      Object.entries(desired).every(([key, value]) =>
+        isDeepStrictEqual(record.fields[key], value),
+      ),
+  );
+  const checkpoints = created.map((record: any) => {
+    const call = calls.find(
+      (call: any) =>
+        call.status < 400 &&
+        (call.mutations || []).some(
+          (m: any) =>
+            m.kind === 'record' &&
+            m.id === record.record_id &&
+            !m.before &&
+            m.after,
+        ),
+    );
+    return {
+      record_id: record.record_id,
+      seq: call?.seq,
+      passed: !!call && reads.some((seq: number) => seq < call.seq),
+    };
+  });
+  return {
+    rule,
+    reads,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+  };
+});
+const readRecordsBeforeUpdateChecks = (
+  expected.read_records_before_updates || []
+).map((rule) => {
+  const matches = (obj: any) => {
+    let fields: any;
+    if (
+      obj.record_id === rule.source_record_id &&
+      obj.fields &&
+      !Array.isArray(obj.fields)
+    )
+      fields = obj.fields;
+    else if (
+      Array.isArray(obj.record_id_list) &&
+      Array.isArray(obj.fields) &&
+      Array.isArray(obj.data)
+    ) {
+      const i = obj.record_id_list.indexOf(rule.source_record_id);
+      if (i >= 0 && Array.isArray(obj.data[i]))
+        fields = Object.fromEntries(
+          obj.fields.map((key: string, j: number) => [key, obj.data[i][j]]),
+        );
+    }
+    return (
+      fields &&
+      Object.entries(rule.identity).every(([key, value]) =>
+        isDeepStrictEqual(fields[key], value),
+      )
+    );
+  };
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    (matches(value) || Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        ['GET', 'POST'].includes(call.method) &&
+        !(call.mutations || []).length &&
+        walk(call.response),
+    )
+    .map((call: any) => call.seq);
+  const checkpoints = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        (call.mutations || []).some(
+          (m: any) =>
+            m.kind === 'record' &&
+            m.id === rule.record_id &&
+            m.after &&
+            !isDeepStrictEqual(
+              m.before?.fields?.[rule.field],
+              m.after.fields?.[rule.field],
+            ),
+        ),
+    )
+    .map((call: any) => ({
+      seq: call.seq,
+      passed: reads.some((seq: number) => seq < call.seq),
+    }));
+  return {
+    rule,
+    reads,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  readRecordsBeforeUpdateChecks.every((check) => check.passed) &&
+  readRecordsBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeUpdateChecks.every((check) => check.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
@@ -1206,6 +1363,8 @@ writeFileSync(
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
       success,
       checks,
+      readRecordsBeforeUpdateChecks,
+      readRecordsBeforeCreateChecks,
       readBeforeCreateChecks,
       readBeforeUpdateChecks,
       creationChecks,

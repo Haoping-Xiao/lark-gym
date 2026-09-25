@@ -119,6 +119,14 @@ export function prepareSemantic(
     expected.read_before_updates = structuredClone(config.read_before_updates);
   if (config.read_before_creates)
     expected.read_before_creates = structuredClone(config.read_before_creates);
+  if (config.read_records_before_creates)
+    expected.read_records_before_creates = structuredClone(
+      config.read_records_before_creates,
+    );
+  if (config.read_records_before_updates)
+    expected.read_records_before_updates = structuredClone(
+      config.read_records_before_updates,
+    );
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
