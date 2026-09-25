@@ -29,6 +29,7 @@ type EventCheck = {
   source_message_id?: string;
   single_occurrence?: boolean;
   attendees: string[];
+  attendee_options?: string[][];
 };
 type Check = {
   required_url?: string;
@@ -528,7 +529,9 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
       event.recurrence === '') &&
     (!check.recurrence ||
       rrule(event.recurrence || '') === rrule(check.recurrence)) &&
-    isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
+    (check.attendee_options || [check.attendees]).some((option) =>
+      isDeepStrictEqual(actualAttendees, [...option].sort()),
+    )
   );
 };
 const eventChecks = (expected.events || []).map((check) => ({

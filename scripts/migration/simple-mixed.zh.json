@@ -166,7 +166,7 @@
     ]
   },
   "3163": {
-    "instruction": "阅读客户预约来信，在飞书日历创建 Client Call with Apex Systems，2026-02-26 14:00–15:00 UTC；通过私聊回复发件人确认日期和时间，首行为 Re: 加原邮件标题。",
+    "instruction": "阅读客户预约来信，在飞书日历创建 Client Call with Apex Systems，2026-02-26 14:00–15:00 UTC；通过私聊回复发件人确认日期和时间，回复保留 February 26 日期标记（忽略大小写）（可附中文）。模拟适配约定：原邮件回复主题中的 Re: 对应为私聊正文包含 Re:（忽略大小写），不限位置，不要求完整原标题。",
     "calendar": {
       "summary": "Client Call with Apex Systems",
       "start": "2026-02-26T14:00:00Z",
@@ -176,8 +176,8 @@
     "notifications": [
       {
         "email": "lena.park@apexsys.example.com",
-        "text": "Re: Meeting Request: Partnership Discussion\n会议确认：2026-02-26 14:00–15:00 UTC。",
-        "contains": ["Re:", "2026-02-26", "14:00", "UTC"]
+        "text": "Re: Meeting Request: Partnership Discussion\nFebruary 26：会议确认：2026-02-26 14:00–15:00 UTC。",
+        "contains": ["Re:", "2026-02-26", "14:00", "UTC", "February 26"]
       }
     ]
   },
@@ -244,7 +244,7 @@
     ]
   },
   "3168": {
-    "instruction": "使用当前账号 agent@company.example.com 在飞书日历安排带视频会议的 Quarterly Review with Orion Corp，时间为 2026-02-27 10:00–11:00 UTC。私聊 marco.reeves@orioncorp.example.com 发送会议邀请，包含主题、时间和时长。",
+    "instruction": "使用当前账号 agent@company.example.com 在飞书日历安排带视频会议的 Quarterly Review with Orion Corp，时间为 2026-02-27 10:00–11:00 UTC。私聊 marco.reeves@orioncorp.example.com 发送会议邀请，包含主题、时间和时长。\n\n模拟适配约定：本题将视频会议主持人映射为创建会议的当前用户。请以 agent@company.example.com 的用户身份创建；以应用（bot）身份创建不满足指定主持人的要求。原邮件邀请映射为私聊，邮件主题中的 Quarterly Review 对应为邀请正文包含 Quarterly Review（忽略大小写），不限制位置。",
     "calendar": {
       "summary": "Quarterly Review with Orion Corp",
       "start": "2026-02-27T10:00:00Z",

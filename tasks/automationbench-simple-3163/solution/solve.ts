@@ -17,7 +17,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_notice_0',
     '--text',
-    'Re: Meeting Request: Partnership Discussion\n会议确认：2026-02-26 14:00–15:00 UTC。',
+    'Re: Meeting Request: Partnership Discussion\nFebruary 26：会议确认：2026-02-26 14:00–15:00 UTC。',
   ],
 ];
 for (const args of commands)
