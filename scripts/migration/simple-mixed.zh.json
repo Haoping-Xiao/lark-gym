@@ -574,12 +574,14 @@
     }
   },
   "3180": {
-    "instruction": "阅读新项目来信，在飞书 Projects 台账登记项目名称 Name 和状态 Status，collection 为 Projects。",
+    "instruction": "收到包含新项目详情的邮件。请在 ops@company.example.com 邮箱阅读来信，并在飞书 Projects 台账创建记录，包含邮件中的项目名称 Name 和状态 Status。\n\n原来源的 base_pm / Projects 在本环境映射为飞书多维表格中的 Projects 表。",
     "create": {
       "collection": "Projects",
       "Name": "Data Migration Phase 1",
       "Status": "Planning"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "ops@company.example.com"
   },
   "3181": {
     "instruction": "在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。",
@@ -721,7 +723,7 @@
     "post_channels": ["oc_CESC01"]
   },
   "3188": {
-    "instruction": "阅读新订阅者通知，在飞书 contacts 台账新增联系人，firstname、lastname、email 从通知提取；私聊订阅者表示欢迎订阅。",
+    "instruction": "收到新的订阅者通知邮件。请在 marketing@company.example.com 邮箱阅读通知，在飞书联系人台账为订阅者创建联系人，并向该订阅者发送欢迎邮件。",
     "create": {
       "collection": "contacts",
       "firstname": "Mia",
@@ -731,8 +733,18 @@
     "notifications": [
       {
         "email": "mia.torres@creative.example.com",
-        "text": "欢迎订阅，Mia Torres！",
-        "contains": ["欢迎", "订阅"]
+        "subject": "Welcome to our newsletter",
+        "body": "Welcome, Mia! Thank you for subscribing to our newsletter."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "marketing@company.example.com",
+    "mail": [
+      {
+        "to": ["mia.torres@creative.example.com"],
+        "subject_contains": ["welcome"],
+        "body_contains": ["subscri"],
+        "source_message_id": "msg_3188"
       }
     ]
   },
@@ -754,7 +766,7 @@
     ]
   },
   "3190": {
-    "instruction": "阅读满意度反馈来信，在飞书电子表格 ss_csat / sheet1 追加客户姓名 Customer 和分数 Score。评分为 4/10，低于 7，因此向 support 群提醒跟进。",
+    "instruction": "收到客户满意度调查邮件，评分为 4/10。请在 cs@company.example.com 邮箱阅读来信，在飞书电子表格 ss_csat 的 sheet1 工作表追加客户姓名 Customer 和评分 Score；由于评分低于 7，请向 support 群发送提醒。\n\nDate 和 Comment 不要求填写。如填写 Date，可记录来信日期或本次处理日期；填写 Comment 则须忠实于来信。",
     "sheet": {
       "append": {
         "Customer": "Ben Ortiz",
@@ -767,7 +779,12 @@
         "text": "Ben Ortiz 的满意度为 4/10，低于 7，请跟进。",
         "contains": ["Ben Ortiz", "4"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "cs@company.example.com",
+    "cells_source_mail_id": "msg_3190",
+    "message_source_mail_id": "msg_3190",
+    "post_channels": ["oc_CSUP01"]
   },
   "3191": {
     "instruction": "阅读飞书电子表格 ss_digest / sheet1 的联系人名单，给名单中的每个人发送飞书私聊周报，首行为 Weekly Digest - Feb 23。正文简述本周亮点；本题未提供实际业务进展，可说明暂无可核实的亮点，不要虚构成果。",
