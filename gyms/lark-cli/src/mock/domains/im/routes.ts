@@ -1,3 +1,4 @@
+import { postContent } from './post-content.ts';
 import { mentionContent } from './mentions.ts';
 import { directory, openId } from '../contact.ts';
 import { searchMessages } from './search.ts';
@@ -233,11 +234,15 @@ export function createImRoutes(
           'interactive',
           'share_chat',
           'share_user',
-        ].includes(body.msg_type)
+        ].includes(body.msg_type) &&
+        !(
+          body.msg_type === 'post' &&
+          world.chats.find((c) => c.chat_id === chatId)?.post_support
+        )
       )
         fail(501, 990001, 'ENV_UNSUPPORTED: non-text message content');
       requireValue(
-        body.msg_type === 'text',
+        ['text', 'post'].includes(body.msg_type),
         'Only text messages are supported in this case',
       );
       let content;
@@ -247,7 +252,8 @@ export function createImRoutes(
         fail(400, 99992402, 'content must be JSON-encoded text');
       }
       requireValue(
-        typeof content.text === 'string' && content.text.length > 0,
+        body.msg_type === 'post' ||
+          (typeof content.text === 'string' && content.text.length > 0),
         'text required',
       );
       requireValue(
@@ -262,6 +268,7 @@ export function createImRoutes(
         identity,
         chatId,
         content: body.content,
+        msg_type: body.msg_type,
       });
       const cached = body.uuid && sentByUuid.get(body.uuid);
       if (cached && now - cached.time < 60 * 60 * 1000) {
@@ -273,11 +280,14 @@ export function createImRoutes(
           );
         return structuredClone(cached.message);
       }
-      const normalized = mentionContent(world, chatId, body.content);
+      const normalized =
+        body.msg_type === 'post'
+          ? postContent(world, chatId, body.content)
+          : mentionContent(world, chatId, body.content);
       const msg = {
         message_id: `om_${nextMessage++}`,
         chat_id: chatId,
-        msg_type: 'text',
+        msg_type: body.msg_type,
         body: { content: normalized.content },
         ...(normalized.mentions ? { mentions: normalized.mentions } : {}),
         create_time: String(Date.parse(world.now)),

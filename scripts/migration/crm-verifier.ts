@@ -1,3 +1,37 @@
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -76,6 +110,8 @@ const expected: {
   }[];
   read_before_creates?: { create_index: number; source_message_id: string }[];
   read_before_updates?: {
+    require_record_read?: boolean;
+    record_after_source?: boolean;
     record_id: string;
     field: string;
     source_message_id: string;
@@ -302,7 +338,7 @@ const messageChecks = (expected.messages || []).map((check) => {
     )
       return false;
     try {
-      const text = JSON.parse(m.body.content).text;
+      const text = decodedMessageText(m.body.content);
       return (
         typeof text === 'string' &&
         (check.mention_open_ids || []).every(
@@ -346,7 +382,7 @@ const forbiddenMessageChecks = (expected.forbidden_messages || []).map(
     passed: !sent.some((m: { chat_id: string; body: { content: string } }) => {
       if (check.chat_id && m.chat_id !== check.chat_id) return false;
       try {
-        const text = JSON.parse(m.body.content).text;
+        const text = decodedMessageText(m.body.content);
         return (
           typeof text === 'string' &&
           check.contains.every((part) =>
@@ -458,7 +494,7 @@ const eventSourceProof = (event: any, messageId: string) => {
   const source = seed.messages.find((m: any) => m.message_id === messageId);
   const text = (m: any): unknown => {
     try {
-      return JSON.parse(m?.body?.content).text;
+      return decodedMessageText(m?.body?.content);
     } catch {
       return undefined;
     }
@@ -858,7 +894,7 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
         mutation.after.chat_id === rule.message.chat_id
       ) {
         try {
-          const text = JSON.parse(mutation.after.body.content).text;
+          const text = decodedMessageText(mutation.after.body.content);
           if (
             typeof text === 'string' &&
             rule.message.contains.every((part) => text.includes(part))
@@ -931,7 +967,7 @@ const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
           actions.push(call.seq);
         if (mutation.kind !== 'message' || mutation.before) continue;
         try {
-          const text = JSON.parse(mutation.after.body.content).text;
+          const text = decodedMessageText(mutation.after.body.content);
           const matches = (message: { chat_id: string; contains: string[] }) =>
             mutation.after.chat_id === message.chat_id &&
             typeof text === 'string' &&
@@ -1002,7 +1038,7 @@ const recordStateBeforeUpdateChecks = (
                     )
                       return false;
                     try {
-                      const text = JSON.parse(item.after.body.content).text;
+                      const text = decodedMessageText(item.after.body.content);
                       return (
                         typeof text === 'string' &&
                         message.contains.every((part) => text.includes(part))
@@ -1082,7 +1118,7 @@ const recordStateBeforeMessageChecks = (
         mutation.after.chat_id === rule.chat_id &&
         (() => {
           try {
-            const text = JSON.parse(mutation.after.body.content).text;
+            const text = decodedMessageText(mutation.after.body.content);
             return (rule.message_contains || []).every(
               (part) => typeof text === 'string' && text.includes(part),
             );
@@ -1244,12 +1280,15 @@ const eventStateBeforeCreateChecks = (
 });
 const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
   (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
     const source = seed.messages.find(
       (m: any) => m.message_id === rule.source_message_id,
     );
     const text = (m: any): unknown => {
       try {
-        return JSON.parse(m?.body?.content).text;
+        return decodedMessageText(m?.body?.content);
       } catch {
         return undefined;
       }
@@ -1270,12 +1309,16 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
       )
         continue;
       if (
-        typeof sourceText === 'string' &&
-        walk(
-          call.response,
-          (obj: any) =>
-            obj.message_id === rule.source_message_id &&
-            text(obj) === sourceText,
+        walk(call.response, (obj: any) =>
+          sourceMail
+            ? (obj.message_id === rule.source_message_id ||
+                obj.message_biz_id === rule.source_message_id) &&
+              (obj.subject === sourceMail.subject ||
+                obj.title === sourceMail.subject) &&
+              obj.body_plain_text === sourceMail.body_plain_text
+            : typeof sourceText === 'string' &&
+              obj.message_id === rule.source_message_id &&
+              text(obj) === sourceText,
         )
       )
         messageReads.push(call.seq);
@@ -1329,11 +1372,20 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
       )
       .map((call: any) => ({
         seq: call.seq,
-        passed: recordReads.some(
-          (recordSeq) =>
-            recordSeq < call.seq &&
-            messageReads.some((messageSeq) => messageSeq < recordSeq),
-        ),
+        passed:
+          rule.require_record_read === false
+            ? messageReads.some((messageSeq) => messageSeq < call.seq)
+            : recordReads.some(
+                (recordSeq) =>
+                  recordSeq < call.seq &&
+                  messageReads.some(
+                    (messageSeq) =>
+                      messageSeq <
+                      (rule.record_after_source === false
+                        ? call.seq
+                        : recordSeq),
+                  ),
+              ),
       }));
     return {
       rule,
@@ -1355,7 +1407,7 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
     );
     const text = (m: any): unknown => {
       try {
-        return JSON.parse(m?.body?.content).text;
+        return decodedMessageText(m?.body?.content);
       } catch {
         return undefined;
       }

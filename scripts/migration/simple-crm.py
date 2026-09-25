@@ -60,7 +60,7 @@ for row in rows:
     updates={}
     create=extra.get(number,{}).get('create')
     creates=extra.get(number,{}).get('creates',[create] if create else [])
-    if number in extra:
+    if number in extra and not extra[number].get('preserve_source_assertions'):
         update=extra[number].get('update')
         assertions=[{'type':'salesforce_field_equals','record_id':update['id'],'field':key,'value':value} for key,value in update['fields'].items()] if update else []
     for a in assertions:
@@ -182,6 +182,8 @@ for row in rows:
         if extra.get(number,{}).get('primary_calendar') and calendar['calendar_id']=='cal_primary':calendar['type']='primary'
     for chat in seed['chats']:
         if chat['chat_id'] in extra.get(number,{}).get('mention_members',{}):chat.update(member_ids=extra[number]['mention_members'][chat['chat_id']],mention_support=True)
+    for chat in seed['chats']:
+        if chat['chat_id'] in extra.get(number,{}).get('post_channels',[]):chat['post_support']=True
     fieldTypes={key:'number' if isinstance(value,(int,float)) else 'text' for record in records for key,value in record['fields'].items()}
     for fields in creates: fieldTypes.update({key:'number' if isinstance(value,(int,float)) else 'text' for key,value in fields.items()})
     seed['base']['fields']=[{'name':key,'type':value} for key,value in fieldTypes.items()]
