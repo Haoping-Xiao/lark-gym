@@ -82,7 +82,7 @@
     ]
   },
   "3157": {
-    "instruction": "阅读客户功能需求来信，在飞书 tasks 台账为产品团队创建评审任务，name 保留需求关键词 PDF，description 保留原来信正文。通过私聊回复发件人确认已收到需求，首行为 Re: 加原邮件标题。",
+    "instruction": "客户发来功能需求邮件。请在 product@company.example.com 邮箱阅读来信，在飞书多维表格的产品工作事项台账创建供产品团队评审的任务，并邮件回复发件人确认已收到需求。",
     "create": {
       "collection": "tasks",
       "name": "评审 PDF 导出需求",
@@ -94,13 +94,24 @@
     "notifications": [
       {
         "email": "nina.kowalski@techstart.example.com",
-        "text": "Re: Feature Request: Export to PDF\n已收到 PDF 导出需求，已创建产品评审任务。",
-        "contains": ["Re:", "PDF"]
+        "reply_to": "msg_3157",
+        "body": "Thanks for your feature request. We have received it and created a product review task."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "product@company.example.com",
+    "mail": [
+      {
+        "to": ["nina.kowalski@techstart.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": [],
+        "source_message_id": "msg_3157",
+        "reply_to_source": true
       }
     ]
   },
   "3158": {
-    "instruction": "阅读客户报障来信，在飞书研发工单台账 issues 的 PLAT 项目创建 Bug；project 为 PLAT，issue_type 为 Bug，summary 保留原问题关键词，description 保留原来信正文。向 engineering 群通报该故障。",
+    "instruction": "客户通过邮件报告了故障。请在 bugs@company.example.com 邮箱阅读来信，在飞书多维表格研发工单台账的 PLAT 项目创建 Bug 问题，并向 engineering 群通报。",
     "create": {
       "collection": "issues",
       "project": "PLAT",
@@ -117,10 +128,15 @@
         "text": "已创建 PLAT Bug：CSV upload 超过 50MB 时挂起并超时。",
         "contains": ["CSV upload", "50MB"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "bugs@company.example.com",
+    "mail": [],
+    "message_source_mail_id": "msg_3158",
+    "post_channels": ["oc_CENG001"]
   },
   "3159": {
-    "instruction": "阅读销售咨询来信，把发件人的姓名、邮箱、职位、公司分别写入飞书 contacts 台账的 firstname、lastname、email、jobtitle、company 字段。私聊回复发件人，感谢其对产品的兴趣，首行为 Re: 加原邮件标题。",
+    "instruction": "收到一封销售咨询邮件。请在 sales@company.example.com 邮箱阅读来信，在飞书多维表格联系人台账中为发件人创建联系人，并邮件回复感谢其兴趣。",
     "create": {
       "collection": "contacts",
       "firstname": "Jordan",
@@ -132,8 +148,19 @@
     "notifications": [
       {
         "email": "jordan.blake@innovate.example.com",
-        "text": "Re: Interested in your Enterprise plan\n感谢您对 Enterprise 产品的兴趣。",
-        "contains": ["Re:", "Enterprise"]
+        "reply_to": "msg_3159",
+        "body": "Thank you for your interest in our Enterprise plan, Jordan. We have added your contact details."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "sales@company.example.com",
+    "mail": [
+      {
+        "to": ["jordan.blake@innovate.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["interest"],
+        "source_message_id": "msg_3159",
+        "reply_to_source": true
       }
     ]
   },

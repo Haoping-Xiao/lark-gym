@@ -59,24 +59,51 @@
   },
   "chats": [
     {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
       "chat_id": "oc_CENG001",
       "name": "engineering",
-      "chat_mode": "group"
+      "chat_mode": "group",
+      "post_support": true
     }
   ],
-  "messages": [
-    {
-      "message_id": "om_msg_3158",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：dev.ops@clientcorp.example.com\\n主题：Bug: CSV upload fails for large files\\n日期：2026-02-20T11:45:00Z\\nHi, when we try to upload CSV files larger than 50MB, the upload hangs and eventually times out. Browser: Chrome 120. OS: macOS. Regards, Sam\"}"
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771587900000"
-    }
-  ]
+      {
+        "email_address": "bugs@company.example.com",
+        "email_type": "PUBLIC"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3158",
+        "mailbox_id": "bugs@company.example.com",
+        "thread_id": "thr_3158",
+        "smtp_message_id": "msg_3158@fixture.invalid",
+        "subject": "Bug: CSV upload fails for large files",
+        "head_from": {
+          "mail_address": "dev.ops@clientcorp.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "bugs@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIHdoZW4gd2UgdHJ5IHRvIHVwbG9hZCBDU1YgZmlsZXMgbGFyZ2VyIHRoYW4gNTBNQiwgdGhlIHVwbG9hZCBoYW5ncyBhbmQgZXZlbnR1YWxseSB0aW1lcyBvdXQuIEJyb3dzZXI6IENocm9tZSAxMjAuIE9TOiBtYWNPUy4gUmVnYXJkcywgU2Ft",
+        "body_preview": "SGksIHdoZW4gd2UgdHJ5IHRvIHVwbG9hZCBDU1YgZmlsZXMgbGFyZ2VyIHRoYW4gNTBNQiwgdGhlIHVwbG9hZCBoYW5ncyBhbmQgZXZlbnR1YWxseSB0aW1lcyBvdXQuIEJybw",
+        "body_html": "",
+        "internal_date": "1771587900000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

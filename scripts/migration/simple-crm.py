@@ -183,7 +183,7 @@ for row in rows:
         else:
             destination=f'oc_notice_{index}'
             seed['chats'].append({'chat_id':destination,'name':notice['email'],'chat_mode':'p2p'})
-        messageChecks.append({'chat_id':destination,'contains':notice['contains']})
+        messageChecks.append({'chat_id':destination,'contains':notice['contains'],**({'source_mail_id':extra[number]['message_source_mail_id']} if extra.get(number,{}).get('message_source_mail_id') else {})})
         notificationCommands.append(['im','+messages-send','--chat-id',destination,'--text',notice['text']])
     for calendar in seed['calendars']:
         if extra.get(number,{}).get('primary_calendar') and calendar['calendar_id']=='cal_primary':calendar['type']='primary'
