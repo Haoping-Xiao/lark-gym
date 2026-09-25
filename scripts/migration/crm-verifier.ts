@@ -52,6 +52,7 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  creation_contains_guarded?: boolean;
   rrule_default_interval?: boolean;
   rrule_byday_set?: boolean;
   read_records_before_updates?: {
@@ -210,6 +211,22 @@ const originalIds = new Set(
 const created: RecordRow[] = world.base.records.filter(
   (r: RecordRow) => !originalIds.has(r.record_id),
 );
+const supportContains = (actual: string, needle: string) => {
+  const norm = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/(\d),(\d)/g, '$1$2')
+      .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+      .replace(/(\d)\.0+(?!\d)/g, '$1');
+  const n = norm(needle);
+  if (!n) return false;
+  const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(
+    (/^[a-z0-9]/.test(n) ? '(?<![a-z0-9])' : '') +
+      escaped +
+      (/\d$/.test(n) ? '(?!\\d|\\.\\d)' : ''),
+  ).test(norm(actual));
+};
 const consumed = new Set<string>();
 const creationChecks = expected.creates.map((fields, index) => {
   const contains = {
@@ -222,12 +239,18 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) => String(r.fields[key]).includes(part))
+            (expected.creation_contains_guarded
+              ? contains[key].every((part) =>
+                  supportContains(String(r.fields[key]), part),
+                )
+              : contains[key].every((part) =>
+                  String(r.fields[key]).includes(part),
+                ))
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
   if (match) consumed.add(match.record_id);
-  return { fields, passed: Boolean(match) };
+  return { fields, record_id: match?.record_id, passed: Boolean(match) };
 });
 const forbiddenRecordChecks = (expected.forbidden_records || []).map(
   (check) => ({
@@ -1252,14 +1275,9 @@ const readBeforeCreateChecks = (expected.read_before_creates || []).map(
           walk(call.response),
       )
       .map((call: any) => call.seq);
-    const desired = expected.creates[rule.create_index];
     const created = world.base.records.filter(
       (record: any) =>
-        !originalIds.has(record.record_id) &&
-        desired &&
-        Object.entries(desired).every(([key, value]) =>
-          isDeepStrictEqual(record.fields[key], value),
-        ),
+        record.record_id === creationChecks[rule.create_index]?.record_id,
     );
     const checkpoints = created.map((record: any) => {
       const call = calls.find(

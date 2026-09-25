@@ -146,6 +146,8 @@ export function prepareSemantic(
         all_messages: true,
       },
     ];
+  if (config.creation_contains_guarded)
+    expected.creation_contains_guarded = true;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {

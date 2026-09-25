@@ -4874,5 +4874,71 @@
       "0": "agent@company.example.com"
     },
     "event_notification_order": true
+  },
+  "automationbench-simple-3153": {
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {},
+    "literal_creation_terms": {
+      "0": {
+        "subject": ["wrong"]
+      }
+    },
+    "creation_contains_guarded": true,
+    "read_before_creates": [
+      {
+        "create_index": 0,
+        "source_message_id": "om_msg_3153"
+      }
+    ]
+  },
+  "automationbench-simple-3155": {
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {
+      "0": ["Re:"]
+    },
+    "literal_creation_terms": {
+      "0": {
+        "subject": ["service"]
+      }
+    },
+    "creation_contains_guarded": true,
+    "read_before_creates": [
+      {
+        "create_index": 0,
+        "source_message_id": "om_msg_3155"
+      }
+    ]
   }
 }
