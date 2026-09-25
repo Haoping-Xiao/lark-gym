@@ -28,6 +28,23 @@ export function semanticEvidence(
     });
     input = { ...input, decoded_new_text_messages: decoded };
   }
+  if (input.world?.mail) {
+    const decode = (m: any) => ({
+      ...m,
+      body_plain_text: Buffer.from(
+        m.body_plain_text || '',
+        'base64url',
+      ).toString('utf8'),
+      body_html: Buffer.from(m.body_html || '', 'base64url').toString('utf8'),
+    });
+    input = {
+      ...input,
+      decoded_mail: {
+        seed: (input.seed?.mail?.messages || []).map(decode),
+        world: input.world.mail.messages.map(decode),
+      },
+    };
+  }
   const data = JSON.stringify(input);
   if (Buffer.byteLength(data) <= maxBytes)
     return [{ name: 'input.json', data }];

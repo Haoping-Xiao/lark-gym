@@ -13,6 +13,14 @@ export interface Sheet {
 export interface World {
   [key: string]: any;
   now: string;
+  mail?: {
+    mailboxes: {
+      email_address: string;
+      email_type?: 'USER_PRIMARY' | 'PUBLIC_MAILBOX';
+    }[];
+    messages: (ApiObject & { message_id: string; mailbox_id: string })[];
+    drafts: { id: string; message_id: string; mailbox_id: string }[];
+  };
   spreadsheet_token: string;
   spreadsheet_title?: string;
   sheets: Record<string, Sheet>;

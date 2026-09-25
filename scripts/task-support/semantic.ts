@@ -180,6 +180,7 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (expected.mail?.length) deferred.push('mail.content');
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =
       config.optional_creation_text_fields;

@@ -360,7 +360,7 @@
     ]
   },
   "3175": {
-    "instruction": "CloudSync Pro 今天发布。在飞书 general 群发布上线公告，并私聊 team@company.example.com，首行标题为 CloudSync Pro Launch，正文说明今天发布。",
+    "instruction": "CloudSync Pro 今天发布。请在飞书 general 群发布上线公告，并向 team@company.example.com 发送邮件，主题为 CloudSync Pro Launch，正文介绍今天的产品发布（launch）。",
     "notifications": [
       {
         "channel": "general",
@@ -369,8 +369,17 @@
       },
       {
         "email": "team@company.example.com",
-        "text": "CloudSync Pro Launch\nCloudSync Pro 今天正式发布！",
-        "contains": ["CloudSync Pro Launch"]
+        "subject": "CloudSync Pro Launch",
+        "body": "CloudSync Pro 今天正式发布（launch）。"
+      }
+    ],
+    "native_mail": true,
+    "mail": [
+      {
+        "to": ["team@company.example.com"],
+        "subject": "CloudSync Pro Launch",
+        "subject_contains": ["CloudSync Pro"],
+        "body_contains": ["launch"]
       }
     ]
   },

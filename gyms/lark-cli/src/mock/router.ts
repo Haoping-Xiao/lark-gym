@@ -5,7 +5,7 @@ import { driveRoutes } from './domains/drive.ts';
 import { baseRoutes } from './domains/base/routes.ts';
 import { createCalendarRoutes } from './domains/calendar.ts';
 import { identityRoutes } from './domains/identity.ts';
-import { mailRoutes } from './domains/mail.ts';
+import { createMailRoutes } from './domains/mail.ts';
 import { createImRoutes } from './domains/im/routes.ts';
 import { sheetsRoutes } from './domains/sheets.ts';
 import { fail } from './errors.ts';
@@ -13,6 +13,7 @@ import type { ApiRequest, ResponseData } from './types.ts';
 
 export function createRouter(world: World) {
   // Keep the world reference: rollback replaces its contents, not the object.
+  const mailRoutes = createMailRoutes(world);
   const calendarRoutes = createCalendarRoutes(world);
   const imRoutes = createImRoutes(world);
 

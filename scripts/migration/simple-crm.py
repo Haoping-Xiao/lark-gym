@@ -75,6 +75,8 @@ for row in rows:
         content=f"来源联系人：{item['from_']}\n主题：{item['subject']}\n日期：{item.get('date','')}\n{item['body_plain']}"
         messages.append({'message_id':'om_'+item['id'],'chat_id':'oc_updates','msg_type':'text','body':{'content':json.dumps({'text':content},ensure_ascii=False)},'create_time':str(int(datetime.fromisoformat(item['date'].replace('Z','+00:00')).timestamp()*1000))})
     seed={'now':'2026-02-24T09:00:00Z','spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
+    if extra.get(number,{}).get('native_mail'):
+        seed['mail']={'mailboxes':[{'email_address':'agent@company.example.com'}],'messages':[],'drafts':[]}
     eventChecks=[]
     eventCommands=[]
     if calendarTask:
@@ -150,6 +152,9 @@ for row in rows:
     for index, notice in enumerate(extra.get(number,{}).get('notifications',[])):
         for channel in source.get('slack',{}).get('channels',[]):
             if not any(c['chat_id']=='oc_'+channel['id'] for c in seed['chats']):seed['chats'].append({'chat_id':'oc_'+channel['id'],'name':channel['name'],'chat_mode':'group'})
+        if extra.get(number,{}).get('native_mail') and notice.get('email'):
+            notificationCommands.append(['mail','+send','--to',notice['email'],'--subject',notice['subject'],'--body',notice['body'],'--confirm-send','--as','user'])
+            continue
         if notice.get('channel'):
             destination=next(c['chat_id'] for c in seed['chats'] if c['name']==notice['channel'])
         else:
@@ -229,7 +234,7 @@ storage_mb = 10240
 ''')
     (target/'tests/Dockerfile').write_text('FROM node:24-bookworm-slim\nCOPY . /tests\nWORKDIR /tests\n')
     (target/'tests/test.sh').write_text('#!/bin/sh\nset -eu\nnode /tests/verify.ts\n')
-    (target/'tests/expected.json').write_text(json.dumps({'updates':checks,'creates':creates,'messages':messageChecks,'cells':sheetChecks,'events':eventChecks,'create_contains':extra.get(number,{}).get('create_contains',{})},ensure_ascii=False,indent=2)+'\n')
+    (target/'tests/expected.json').write_text(json.dumps({'updates':checks,'creates':creates,'messages':messageChecks,'cells':sheetChecks,'events':eventChecks,'create_contains':extra.get(number,{}).get('create_contains',{}),**({'mail':extra[number]['mail']} if extra.get(number,{}).get('native_mail') else {})},ensure_ascii=False,indent=2)+'\n')
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     commands=[]
     if messages: commands.append(['im','+chat-messages-list','--chat-id','oc_updates'])

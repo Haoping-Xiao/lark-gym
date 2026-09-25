@@ -21,6 +21,8 @@ def install_environment(task):
     (task / 'tests/unsupported-policy.json').write_text(path.read_text())
     docker = task / 'environment/mock.Dockerfile'
     s = docker.read_text().replace('lark-gym-mock:0.2.0', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.1', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.2', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.3', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.4', 'lark-gym-mock:0.2.6').replace('lark-gym-mock:0.2.5', 'lark-gym-mock:0.2.6')
+    if json.loads((task / 'environment/seed.json').read_text()).get('mail') is not None:
+        s = s.replace('lark-gym-mock:0.2.6', 'lark-gym-mock:0.2.7')
     if 'unsupported.ts' not in s:
         s += 'COPY unsupported.ts unsupported-policy.json /opt/mock/\n'
     s = re.sub(r'^CMD .*\n?', '', s, flags=re.M)
