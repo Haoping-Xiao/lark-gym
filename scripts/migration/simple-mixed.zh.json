@@ -456,7 +456,7 @@
     }
   },
   "3181": {
-    "instruction": "在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。collection 为 Contacts，原记录保持不变。",
+    "instruction": "在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。",
     "create": {
       "collection": "Contacts",
       "Name": "Jordan Lee",
@@ -486,7 +486,7 @@
     }
   },
   "3183": {
-    "instruction": "阅读新客户入驻来信，在飞书 Customers 台账登记 Name 和 Company，collection 为 Customers；从来信找到客户本人邮箱，通过私聊表示欢迎。",
+    "instruction": "cs@company.example.com 邮箱收到新客户入驻通知。请阅读来信，在 Customers 台账登记客户姓名和公司（Name、Company），并向新客户发送欢迎邮件；邮件主题包含 welcome，正文提到客户公司并表达欢迎。",
     "create": {
       "collection": "Customers",
       "Name": "Lucas Grant",
@@ -495,8 +495,17 @@
     "notifications": [
       {
         "email": "lucas.grant@pinnacle.example.com",
-        "text": "欢迎 Pinnacle Dynamics 的 Lucas Grant！",
-        "contains": ["欢迎", "Pinnacle"]
+        "subject": "Welcome to our service",
+        "body": "欢迎 Pinnacle Dynamics 的 Lucas Grant！"
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "cs@company.example.com",
+    "mail": [
+      {
+        "to": ["lucas.grant@pinnacle.example.com"],
+        "subject_contains": ["welcome"],
+        "body_contains": ["Pinnacle"]
       }
     ]
   },
@@ -537,7 +546,7 @@
     }
   },
   "3186": {
-    "instruction": "使用当前账号 agent@company.example.com 创建 Onboarding Call with Helix Corp，时间 2026-03-02 09:00–09:45 UTC，同时确保视频会议与日历安排一致。在飞书中用一个带视频会议的日历日程承载这两部分，不创建两份重复日程。",
+    "instruction": "使用当前账号 agent@company.example.com 创建 Onboarding Call with Helix Corp，时间 2026-03-02 09:00–09:45 UTC，同时确保视频会议与日历安排一致。在飞书中用一个带视频会议的日历日程承载这两部分，不创建两份重复日程。\n\n模拟适配约定：本题将视频会议主持人映射为创建会议的当前用户。请以 agent@company.example.com 的用户身份创建；以应用（bot）身份创建不满足指定主持人的要求。",
     "calendar": {
       "summary": "Onboarding Call with Helix Corp",
       "start": "2026-03-02T09:00:00Z",

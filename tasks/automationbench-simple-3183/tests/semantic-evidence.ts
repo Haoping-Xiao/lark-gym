@@ -3,6 +3,48 @@ export function semanticEvidence(
   input: Record<string, any>,
   maxBytes = 512 * 1024,
 ): { name: string; data: string }[] {
+  if (
+    Array.isArray(input.world?.messages) &&
+    Array.isArray(input.seed?.messages)
+  ) {
+    const old = new Set(input.seed.messages.map((m: any) => m.message_id));
+    const decoded = input.world.messages.flatMap((m: any) => {
+      if (old.has(m.message_id) || m.msg_type !== 'text') return [];
+      try {
+        const text = JSON.parse(m.body?.content).text;
+        return typeof text === 'string'
+          ? [
+              {
+                message_id: m.message_id,
+                chat_id: m.chat_id,
+                text,
+                lines: text.split('\n'),
+              },
+            ]
+          : [];
+      } catch {
+        return [];
+      }
+    });
+    input = { ...input, decoded_new_text_messages: decoded };
+  }
+  if (input.world?.mail) {
+    const decode = (m: any) => ({
+      ...m,
+      body_plain_text: Buffer.from(
+        m.body_plain_text || '',
+        'base64url',
+      ).toString('utf8'),
+      body_html: Buffer.from(m.body_html || '', 'base64url').toString('utf8'),
+    });
+    input = {
+      ...input,
+      decoded_mail: {
+        seed: (input.seed?.mail?.messages || []).map(decode),
+        world: input.world.mail.messages.map(decode),
+      },
+    };
+  }
   const data = JSON.stringify(input);
   if (Buffer.byteLength(data) <= maxBytes)
     return [{ name: 'input.json', data }];
