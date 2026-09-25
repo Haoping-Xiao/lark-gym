@@ -85,6 +85,9 @@ test('default abort seals later operations without additional penalties', async 
       'utf8',
     ),
   );
+  seed.chats = [
+    { chat_id: 'oc_abort_test', name: 'Abort test group', chat_mode: 'group' },
+  ];
   const backend = await startMock(seed, { onUnsupported });
   try {
     const headers = {

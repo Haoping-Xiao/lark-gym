@@ -1,11 +1,14 @@
 {
   "3151": {
-    "instruction": "客户发来账单问题。请阅读通知群中的来信，在飞书多维表格创建 tickets 工单，subject 和 description 分别保留来信标题和正文。",
+    "instruction": "客服邮箱 support@company.example.com 收到客户关于账单的邮件。请阅读来信，在客服工单台账 tickets 新建工单，subject 包含 invoice（忽略大小写），description 忠实记录账单问题，可概括来信。",
     "create": {
       "collection": "tickets",
       "subject": "Question about my invoice",
       "description": "Hi, I was charged twice for my March subscription (Invoice #INV-2026-031). Can you help fix this? Thanks, Alex"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "support@company.example.com",
+    "mail": []
   },
   "3153": {
     "instruction": "客服邮箱 support@company.example.com 收到客户关于错误商品的邮件。请阅读来信并在飞书工单台账 tickets 创建工单，subject 须包含 wrong（忽略大小写），description 准确记录来信问题，可忠实概括，tags 设为 billing。",
@@ -288,7 +291,7 @@
     ]
   },
   "3170": {
-    "instruction": "在飞书电子表格 ss_reports / sheet1 追加本周业绩：Week 为 Week of Feb 23，Deals Closed 为 12，Revenue 为 340K。私聊 manager@company.example.com 发送周报，包含上述业绩。",
+    "instruction": "在电子表格 ss_reports 的工作表 sheet1 追加本周业绩：Week 为 Week of Feb 23，Deals Closed 为 12，Revenue 按报表约定写为 340K，单位为美元。完成追加后，向 manager@company.example.com 发送周报邮件，主题包含 weekly，正文报告本周成交和美元收入，并保留金额标记 340K（忽略大小写）。",
     "sheet": {
       "append": {
         "Week": "Week of Feb 23",
@@ -299,8 +302,17 @@
     "notifications": [
       {
         "email": "manager@company.example.com",
-        "text": "周报 Week of Feb 23：成交 12 单，收入 340K。",
-        "contains": ["Feb 23", "12", "340K"]
+        "subject": "weekly report",
+        "body": "Week of Feb 23：成交12单，收入340K美元。"
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["manager@company.example.com"],
+        "subject_contains": ["weekly"],
+        "body_contains": ["340K"]
       }
     ]
   },
@@ -406,13 +418,16 @@
     }
   },
   "3177": {
-    "instruction": "阅读潜在客户咨询来信，在飞书 Leads 台账新增记录，将姓名、邮箱和咨询主题填入 Name、Email、Topic，Topic 保留原邮件标题。collection 为 Leads。",
+    "instruction": "info@company.example.com 邮箱收到潜在客户的咨询邮件。请阅读来信，在 Leads 台账新建记录，把发件人的姓名、邮箱和咨询主题填入 Name、Email、Topic；Topic 应准确表达咨询内容，可概括来信。",
     "create": {
       "collection": "Leads",
       "Name": "Sara Chen",
       "Email": "sara.chen@bluewave.example.com",
       "Topic": "Inquiry about API integration"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "info@company.example.com",
+    "mail": []
   },
   "3178": {
     "instruction": "在飞书 Deals 台账新增成交记录，Name=Acme Corp Deal，Status=Won，用来登记原商机 rec_001 的成交结果。collection 为 Deals。本题要求新增，不是修改已有记录。",

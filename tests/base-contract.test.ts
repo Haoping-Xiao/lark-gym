@@ -13,6 +13,10 @@ test('real CLI projection, pagination, write/read and group search share state',
       'utf8',
     ),
   );
+  // This environment contract owns its discovery fixture independently of tasks.
+  seed.chats = [
+    { chat_id: 'oc_updates', name: 'Contract test group', chat_mode: 'group' },
+  ];
   delete seed.base.tables;
   seed.base.records = [
     {

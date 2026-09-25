@@ -53,6 +53,7 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  cells_before_mail?: { to: string; cells: any[] }[];
   mail?: {
     to: string[];
     subject?: string;
@@ -1515,8 +1516,80 @@ const readRecordsBeforeUpdateChecks = (
     passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
   };
 });
+function mailCheckpointNumber(value: unknown): string | null {
+  if (typeof value !== 'string' && typeof value !== 'number') return null;
+  const text = String(value)
+    .trim()
+    .replace(/^([+-]?)\./, (_, sign) => sign + '0.');
+  if (!Number.isFinite(Number(text))) return null;
+  const match = /^([+-]?)(\d+)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/.exec(text);
+  if (!match) return null;
+  let digits = (match[2] + (match[3] || '')).replace(/^0+/, '');
+  if (!digits) return '0';
+  const trailing = digits.length - digits.replace(/0+$/, '').length;
+  digits = digits.replace(/0+$/, '');
+  const exponent =
+    BigInt(match[4] || '0') -
+    BigInt((match[3] || '').length) +
+    BigInt(trailing);
+  return `${match[1] === '-' ? '-' : ''}${digits}e${exponent}`;
+}
+const cellsBeforeMailChecks = (expected.cells_before_mail || []).map((rule) => {
+  const state = structuredClone(seed);
+  const checkpoints: any[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || [])
+      if (
+        mutation.kind === 'mail_message' &&
+        mutation.before?.message_state === 3 &&
+        mutation.after?.message_state === 2 &&
+        mutation.after.to.some(
+          (a: any) => a.mail_address.toLowerCase() === rule.to.toLowerCase(),
+        )
+      ) {
+        const cells = rule.cells.map((cell: any) => {
+          const actual = sheetsFor(state, cell)[cell.sheet_id]?.values[
+            cell.row
+          ]?.[cell.column];
+          return {
+            ...cell,
+            passed: cell.numeric_equivalent
+              ? mailCheckpointNumber(actual) !== null &&
+                mailCheckpointNumber(actual) ===
+                  mailCheckpointNumber(cell.value)
+              : isDeepStrictEqual(actual, cell.value),
+          };
+        });
+        checkpoints.push({
+          seq: call.seq,
+          cells,
+          passed: cells.every((c: any) => c.passed),
+        });
+      }
+    for (const mutation of call.mutations || []) {
+      if (mutation.kind === 'sheet') {
+        if (mutation.after)
+          state.sheets[mutation.id] = structuredClone(mutation.after);
+        else delete state.sheets[mutation.id];
+      }
+      if (mutation.kind === 'spreadsheet') {
+        state.spreadsheets ||= {};
+        if (mutation.after)
+          state.spreadsheets[mutation.id] = structuredClone(mutation.after);
+        else delete state.spreadsheets[mutation.id];
+      }
+    }
+  }
+  return {
+    rule,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((c) => c.passed),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  cellsBeforeMailChecks.every((c) => c.passed) &&
   mailChecks.every((c) => c.passed) &&
   sentMail.length === consumedMail.size &&
   readRecordsBeforeUpdateChecks.every((check) => check.passed) &&
@@ -1569,6 +1642,7 @@ writeFileSync(
       forbiddenMessageChecks,
       forbiddenRecordChecks,
       cellChecks,
+      cellsBeforeMailChecks,
       eventChecks,
       eventSourceChecks: (expected.events || []).flatMap((check) =>
         check.source_message_id

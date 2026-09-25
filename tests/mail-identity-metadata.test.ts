@@ -7,13 +7,17 @@ import { resolve } from 'node:path';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 
 const exec = promisify(execFile);
-const seed = async () =>
-  JSON.parse(
+const seed = async () => {
+  const fixture = JSON.parse(
     await readFile(
       'tasks/automationbench-simple-3151/environment/seed.json',
       'utf8',
     ),
   );
+  // Identity-only coverage deliberately has no message environment enabled.
+  delete fixture.mail;
+  return fixture;
+};
 const cli = async (url: string, ...args: string[]) =>
   JSON.parse(
     (
