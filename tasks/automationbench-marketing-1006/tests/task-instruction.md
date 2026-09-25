@@ -1,3 +1,5 @@
-处理 Lead Tracking（ss_leads）的 New Leads（ws_new）中本次网络研讨会线索。按当前政策核对竞品、备注和重复报名，将合格联系人新增到飞书 CRM 的 hubspot_contacts，保留姓名、邮箱、公司、职务，并用 lead_source=webinar 标记来源。新增后私聊 webinar-ops@company.example.com 确认，首行作为标题，包含政策要求的批次码、实际新增数量与联系人姓名；原始值照录。
+处理 Lead Tracking（ss_leads）的 New Leads（ws_new）中本次网络研讨会线索。按当前政策核对竞品、备注和重复报名，将合格联系人新增到飞书 CRM 的 hubspot_contacts，保留姓名、邮箱、公司、职务，并用适当的线索来源标记。新增后向 webinar-ops@company.example.com 发送确认摘要邮件，包含受影响联系人的姓名和实际新增数量。通知和记录中引用的原始值须照录，不改写或取整。
+
+政策与历史来信保留原文，位于 agent@company.example.com 邮箱；原 Gmail 收件人 me 在本场景映射为该账号。表中为空的文本字段表示未提供资料，可保留空字符串或省略字段，不得自行补值。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

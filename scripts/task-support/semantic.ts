@@ -1047,6 +1047,31 @@ export function prepareSemantic(
     if (sameReviewedField(check.field, actual, check.value))
       check.value = actual;
   }
+  // Only explicitly reviewed source-empty fields admit alternate absence encodings.
+  for (const [index, fields] of Object.entries(
+    config.empty_creation_fields || {},
+  )) {
+    const record = expected.creates?.[Number(index)];
+    const keys = (fields as string[]).filter((key) => record?.[key] === '');
+    if (!record || !keys.length) continue;
+    const actual = world.base.records.find(
+      (row: Json) =>
+        !seed?.base?.records.some(
+          (old: Json) => old.record_id === row.record_id,
+        ) &&
+        Object.entries(record).every(([key, value]) =>
+          keys.includes(key)
+            ? row.fields[key] === '' || row.fields[key] === undefined
+            : semanticField(key, Number(index)) ||
+              isDeepStrictEqual(row.fields[key], value),
+        ),
+    );
+    if (actual)
+      for (const key of keys) {
+        if (actual.fields[key] === undefined) delete record[key];
+        else record[key] = actual.fields[key];
+      }
+  }
   // Joint alternatives are reviewed together; never form a cross product of fields.
   for (const [index, variants] of Object.entries(
     config.creation_field_variants || {},

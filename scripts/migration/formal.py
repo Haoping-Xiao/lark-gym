@@ -1,5 +1,5 @@
 """Build individually adapted formal tasks; unresolved tasks remain in the manifest."""
-import json,sys,shutil,re
+import json,sys,shutil,re,base64
 from pathlib import Path
 from datetime import datetime,timezone
 ROOT=Path(__file__).resolve().parents[2]
@@ -17,6 +17,21 @@ def millis(value):
     return str(int(parsed.timestamp()*1000))
 def calendar_time(value):
     return {'date':value} if re.fullmatch(r'\d{4}-\d{2}-\d{2}',value) else {'timestamp':str(int(int(millis(value))/1000))}
+def native_mail_seed(source, mailbox):
+    # Opt in only after reviewing the full original state; unsupported material is never dropped.
+    gmail=source.get('gmail',{})
+    assert not gmail.get('drafts') and not gmail.get('labels'), 'native mail draft/label fixtures need explicit adaptation'
+    def encode(value):return base64.urlsafe_b64encode(value.encode()).decode().rstrip('=')
+    def address(value):
+        assert isinstance(value,str), 'review structured source addresses before adapting'
+        return {'mail_address':mailbox if value=='me' else value}
+    result=[]
+    for m in gmail.get('messages',[]):
+        assert m.get('date') and not m.get('attachments'), 'review missing source dates or attachments before adapting'
+        assert set(m.get('label_ids',[])) <= {'INBOX','UNREAD'}, 'review additional source labels before adapting'
+        body=m.get('body_plain',m.get('body',''))
+        result.append({'message_id':m['id'],'mailbox_id':mailbox,'thread_id':m.get('thread_id','thread_'+m['id']),'smtp_message_id':m['id']+'@fixture.invalid','subject':m.get('subject',''),'head_from':address(m.get('from_',m.get('from',''))),'to':[address(x)for x in m.get('to',[])],'cc':[address(x)for x in m.get('cc',[])],'bcc':[address(x)for x in m.get('bcc',[])],'body_plain_text':encode(body),'body_preview':encode(body[:120]),'body_html':encode(m.get('body_html','')),'internal_date':millis(m['date']),'message_state':1,'label_ids':['UNREAD']if 'UNREAD'in m.get('label_ids',[])else[],'folder_id':'INBOX','attachments':[]})
+    return {'mailboxes':[{'email_address':mailbox,'email_type':'USER_PRIMARY'}],'messages':result,'drafts':[]}
 recipes=json.loads(Path(__file__).with_name('formal.zh.json').read_text())
 selected=set(sys.argv[2:])
 assert not selected-set(recipes),('unknown task keys',selected-set(recipes))
@@ -211,6 +226,7 @@ for row in rows:
     assert len({m['message_id'] for m in messages})==len(messages),(key,'duplicate seed message IDs')
     assert len({r['record_id'] for r in records})==len(records),(key,'duplicate mapped record IDs')
     updates=[];commands=[['im','+chat-messages-list','--chat-id','oc_mail'],['base','+record-list','--base-token','base_crm','--table-id','tbl_crm']]
+    if recipe.get('native_mail'):commands=[c for c in commands if c[0]!='im']
     commands=recipe.get('reference_read_commands',[])+commands
     newChatIds={}
     for index,chat in enumerate(recipe.get('new_chats',[]),1):
@@ -263,6 +279,10 @@ for row in rows:
         if event.get('attendees'):commands.append(['calendar','event.attendees','create','--calendar-id',cid,'--event-id',eid,'--data',json.dumps({'attendees':[{'type':'third_party','third_party_email':a} for a in event['attendees']]})])
     messageChecks=[]
     for m in recipe.get('messages',[]):
+        if recipe.get('native_mail') and m.get('email'):
+            assert 'mail' in recipe, 'native mail criteria must be independently reviewed'
+            commands.append(['mail','+send','--mailbox',recipe.get('native_mailbox','agent@company.example.com'),'--to',m['email'],'--subject',m['subject'],'--body',m['body'],'--confirm-send','--as','user'])
+            continue
         cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else newChatIds[m['channel']] if m.get('channel') in newChatIds else next(c['chat_id'] for c in chats if c['name']==m['channel'])
         messageChecks.append({**({'chat_name':m['channel']} if m.get('channel') in newChatIds else {'chat_id':cid}),'contains':m['contains']})
         commands.append(['im','+messages-send','--chat-id',cid,'--text',m['text']])
@@ -372,12 +392,22 @@ for row in rows:
         semantic_config.write_text(existing_semantic)
     elif semantic_config.exists():
         semantic_config.unlink()
+    if recipe.get('native_mail'):
+        sourceIds={'om_'+m['id']for m in src.get('gmail',{}).get('messages',[])}
+        seed['messages']=[m for m in seed['messages']if m['message_id']not in sourceIds]
+        removed={c['chat_id']for c in seed['chats']if c['chat_id']=='oc_mail' or c['chat_id'].startswith('oc_email_')}
+        assert not any(m['chat_id']in removed for m in seed['messages']), 'native mail context needs explicit routing'
+        seed['chats']=[c for c in seed['chats']if c['chat_id']not in removed]
+        seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'))
+        forbidden=[f for f in forbidden if f.get('chat_id')not in removed]
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{**({'event_state_before_creates':recipe['event_state_before_creates']} if recipe.get('event_state_before_creates') else {}),**({'booking_order':recipe['booking_order']} if recipe.get('booking_order') else {}),'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,**({'record_state_before_updates':recipe['record_state_before_updates']} if recipe.get('record_state_before_updates') else {}),**({'record_state_before_messages':recipe['record_state_before_messages']} if recipe.get('record_state_before_messages') else {}),**({'workflow_barriers':recipe['workflow_barriers']} if recipe.get('workflow_barriers') else {}),'order_groups':orderGroups,'entity_order':entityOrder,**({'action_prerequisites':actionPrerequisites} if actionPrerequisites else {}),'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
+    write('tests/expected.json',{**({'event_state_before_creates':recipe['event_state_before_creates']} if recipe.get('event_state_before_creates') else {}),**({'booking_order':recipe['booking_order']} if recipe.get('booking_order') else {}),'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,**({'record_state_before_updates':recipe['record_state_before_updates']} if recipe.get('record_state_before_updates') else {}),**({'record_state_before_messages':recipe['record_state_before_messages']} if recipe.get('record_state_before_messages') else {}),**({'workflow_barriers':recipe['workflow_barriers']} if recipe.get('workflow_barriers') else {}),'order_groups':orderGroups,'entity_order':entityOrder,**({'action_prerequisites':actionPrerequisites} if actionPrerequisites else {}),'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks,**({'mail':recipe.get('mail',[])}if recipe.get('native_mail')else{})})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'
+    if recipe.get('native_mail'):
+        context='\n\n使用本环境的 Mock 版 lark-cli。政策和历史来信保留原文，位于 '+recipe.get('native_mailbox','agent@company.example.com')+' 邮箱；原收件人 me 映射为该账号。使用真实 mail 命令读取、发送邮件，Slack 通知使用对应飞书群。不要改动无关数据。\n'
     if 'mailchimp' in src:context+='\n邮件列表实体存放在 mailchimp_audiences / mailchimp_subscribers 等集合，以 list_id 关联，订阅状态直接写 status；归档写 archived，退订写 unsubscribed，保留记录用于审计。通过 Base 查询实际 record_id。\n'
     if 'hubspot' in src:context+='\nHubSpot 集合对应 hubspot_ 加原集合名，记录 ID 为 rec_hubspot_ 加原 ID；properties 内属性展开为同名台账字段。\n'
     if calendars:context+='\n日程使用飞书 calendar 命令，日历 ID：'+', '.join(c['calendar_id'] for c in calendars)+'。使用来源明确时区；未标时区按 UTC。\n'
