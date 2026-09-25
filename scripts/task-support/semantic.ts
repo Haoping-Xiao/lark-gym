@@ -127,6 +127,11 @@ export function prepareSemantic(
     expected.read_records_before_updates = structuredClone(
       config.read_records_before_updates,
     );
+  if (config.rrule_default_interval) expected.rrule_default_interval = true;
+  for (const index of config.non_recurring_events || [])
+    expected.events[index].single_occurrence = true;
+  for (const index of config.event_summary_contains_case_insensitive || [])
+    expected.events[index].summary_contains_case_insensitive = true;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {

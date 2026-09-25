@@ -25,6 +25,7 @@ type EventCheck = {
   end_time: Record<string, string>;
   location?: { name: string };
   recurrence?: string;
+  single_occurrence?: boolean;
   attendees: string[];
 };
 type Check = {
@@ -49,6 +50,7 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  rrule_default_interval?: boolean;
   read_records_before_updates?: {
     record_id: string;
     field: string;
@@ -304,12 +306,21 @@ const originalEvents = new Set(
 const newEvents = world.events.filter(
   (e: { event_id: string }) => !originalEvents.has(e.event_id),
 );
-const rrule = (rule: string) =>
-  rule
-    .replace(/^RRULE:/, '')
-    .split(';')
+const rrule = (rule: string) => {
+  const parts = rule.replace(/^RRULE:/, '').split(';');
+  if (!expected.rrule_default_interval) return parts.sort().join(';');
+  const parsed = new Map<string, string>();
+  for (const part of parts) {
+    const match = /^([A-Z]+)=([^;]+)$/.exec(part);
+    if (!match || parsed.has(match[1])) return 'INVALID:' + rule;
+    parsed.set(match[1], match[2]);
+  }
+  if (/^0*1$/.test(parsed.get('INTERVAL') || '')) parsed.delete('INTERVAL');
+  return [...parsed]
+    .map(([key, value]) => key + '=' + value)
     .sort()
     .join(';');
+};
 const sameTime = (
   actual: Record<string, string>,
   expected: Record<string, string>,
@@ -402,6 +413,9 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
         : event.summary === check.summary)) &&
     sameEventTimes(event, check) &&
     (!check.location || event.location?.name === check.location.name) &&
+    (!check.single_occurrence ||
+      event.recurrence === undefined ||
+      event.recurrence === '') &&
     (!check.recurrence ||
       rrule(event.recurrence || '') === rrule(check.recurrence)) &&
     isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
