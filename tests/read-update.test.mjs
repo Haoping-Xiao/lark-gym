@@ -42,11 +42,12 @@ test('Read source then identify lead before updating rating, allowing alternativ
       let cs = structuredClone(original);
       const [mail, lead, write] = cs,
         mget = [
-          'im',
-          '+messages-mget',
+          'mail',
+          '+messages',
           '--message-ids',
-          'om_msg_3037',
-          '--no-reactions',
+          'msg_3037',
+          '--as',
+          'user',
         ],
         get = [
           'base',

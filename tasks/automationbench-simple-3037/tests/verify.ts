@@ -1,5 +1,39 @@
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -27,7 +61,11 @@ type EventCheck = {
   end_time: Record<string, string>;
   location?: { name: string };
   recurrence?: string;
+  host_user_email?: string;
+  source_message_id?: string;
+  single_occurrence?: boolean;
   attendees: string[];
+  attendee_options?: string[][];
 };
 type Check = {
   required_url?: string;
@@ -51,7 +89,31 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  cells_before_mail?: { to: string; cells: any[] }[];
+  mail?: {
+    to: string[];
+    subject?: string;
+    subject_contains?: string[];
+    body_contains?: string[];
+  }[];
+  creation_contains_guarded?: boolean;
+  rrule_default_interval?: boolean;
+  rrule_byday_set?: boolean;
+  read_records_before_updates?: {
+    record_id: string;
+    field: string;
+    source_record_id: string;
+    identity: Fields;
+  }[];
+  read_records_before_creates?: {
+    create_index: number;
+    record_id: string;
+    identity: Fields;
+  }[];
+  read_before_creates?: { create_index: number; source_message_id: string }[];
   read_before_updates?: {
+    require_record_read?: boolean;
+    record_after_source?: boolean;
     record_id: string;
     field: string;
     source_message_id: string;
@@ -110,6 +172,7 @@ const expected: {
     ids?: string[];
     collection?: string;
     all_messages?: boolean;
+    sent_mail_only?: boolean;
   }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
@@ -129,7 +192,12 @@ const expected: {
     value: string | number;
   }[];
   creates: Fields[];
-  messages: { chat_id?: string; chat_name?: string; contains: string[] }[];
+  messages: {
+    chat_id?: string;
+    chat_name?: string;
+    contains: string[];
+    mention_open_ids?: string[];
+  }[];
 } = JSON.parse(
   readFileSync(
     fileURLToPath(new URL('./expected.json', import.meta.url)),
@@ -201,6 +269,22 @@ const originalIds = new Set(
 const created: RecordRow[] = world.base.records.filter(
   (r: RecordRow) => !originalIds.has(r.record_id),
 );
+const supportContains = (actual: string, needle: string) => {
+  const norm = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/(\d),(\d)/g, '$1$2')
+      .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+      .replace(/(\d)\.0+(?!\d)/g, '$1');
+  const n = norm(needle);
+  if (!n) return false;
+  const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(
+    (/^[a-z0-9]/.test(n) ? '(?<![a-z0-9])' : '') +
+      escaped +
+      (/\d$/.test(n) ? '(?!\\d|\\.\\d)' : ''),
+  ).test(norm(actual));
+};
 const consumed = new Set<string>();
 const creationChecks = expected.creates.map((fields, index) => {
   const contains = {
@@ -213,18 +297,18 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) =>
-              semantic.creationContainsCaseInsensitive
-                ? String(r.fields[key])
-                    .toLowerCase()
-                    .includes(part.toLowerCase())
-                : String(r.fields[key]).includes(part),
-            )
+            (expected.creation_contains_guarded
+              ? contains[key].every((part) =>
+                  supportContains(String(r.fields[key]), part),
+                )
+              : contains[key].every((part) =>
+                  String(r.fields[key]).includes(part),
+                ))
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
   if (match) consumed.add(match.record_id);
-  return { fields, passed: Boolean(match) };
+  return { fields, record_id: match?.record_id, passed: Boolean(match) };
 });
 const forbiddenRecordChecks = (expected.forbidden_records || []).map(
   (check) => ({
@@ -250,34 +334,53 @@ const sent = world.messages.filter(
 );
 const consumedMessages = new Set<string>();
 const messageChecks = (expected.messages || []).map((check) => {
-  const match = sent.find(
-    (m: { message_id: string; chat_id: string; body: { content: string } }) => {
-      if (
-        consumedMessages.has(m.message_id) ||
-        m.chat_id !==
-          (check.chat_name
-            ? world.chats.find(
-                (c: { name: string }) => c.name === check.chat_name,
-              )?.chat_id
-            : check.chat_id)
-      )
-        return false;
-      try {
-        const text = JSON.parse(m.body.content).text;
-        return (
-          typeof text === 'string' &&
-          check.contains.every((part) =>
-            text
-              .replace(/\s/g, '')
-              .toLowerCase()
-              .includes(part.replace(/\s/g, '').toLowerCase()),
-          )
-        );
-      } catch {
-        return false;
-      }
-    },
-  );
+  const match = sent.find((m: any) => {
+    if (
+      consumedMessages.has(m.message_id) ||
+      m.chat_id !==
+        (check.chat_name
+          ? world.chats.find(
+              (c: { name: string }) => c.name === check.chat_name,
+            )?.chat_id
+          : check.chat_id)
+    )
+      return false;
+    try {
+      const text = decodedMessageText(m.body.content);
+      return (
+        typeof text === 'string' &&
+        (check.mention_open_ids || []).every(
+          (id) =>
+            (m.mentions || []).some(
+              (mention: any) =>
+                mention.id === id && mention.id_type === 'open_id',
+            ) &&
+            calls.some(
+              (call: any) =>
+                call.status < 400 &&
+                (call.mutations || []).some(
+                  (mutation: any) =>
+                    mutation.kind === 'message' &&
+                    mutation.id === m.message_id &&
+                    !mutation.before &&
+                    (mutation.after?.mentions || []).some(
+                      (mention: any) =>
+                        mention.id === id && mention.id_type === 'open_id',
+                    ),
+                ),
+            ),
+        ) &&
+        check.contains.every((part) =>
+          text
+            .replace(/\s/g, '')
+            .toLowerCase()
+            .includes(part.replace(/\s/g, '').toLowerCase()),
+        )
+      );
+    } catch {
+      return false;
+    }
+  });
   if (match) consumedMessages.add(match.message_id);
   return { ...check, passed: Boolean(match) };
 });
@@ -287,7 +390,7 @@ const forbiddenMessageChecks = (expected.forbidden_messages || []).map(
     passed: !sent.some((m: { chat_id: string; body: { content: string } }) => {
       if (check.chat_id && m.chat_id !== check.chat_id) return false;
       try {
-        const text = JSON.parse(m.body.content).text;
+        const text = decodedMessageText(m.body.content);
         return (
           typeof text === 'string' &&
           check.contains.every((part) =>
@@ -306,12 +409,30 @@ const originalEvents = new Set(
 const newEvents = world.events.filter(
   (e: { event_id: string }) => !originalEvents.has(e.event_id),
 );
-const rrule = (rule: string) =>
-  rule
-    .replace(/^RRULE:/, '')
-    .split(';')
+const rrule = (rule: string) => {
+  const parts = rule.replace(/^RRULE:/, '').split(';');
+  if (!expected.rrule_default_interval) return parts.sort().join(';');
+  const parsed = new Map<string, string>();
+  for (const part of parts) {
+    const match = /^([A-Z]+)=([^;]+)$/.exec(part);
+    if (!match || parsed.has(match[1])) return 'INVALID:' + rule;
+    parsed.set(match[1], match[2]);
+  }
+  if (/^0*1$/.test(parsed.get('INTERVAL') || '')) parsed.delete('INTERVAL');
+  if (expected.rrule_byday_set && parsed.has('BYDAY')) {
+    const days = parsed.get('BYDAY')!.split(',');
+    if (
+      days.some((day) => !/^(MO|TU|WE|TH|FR|SA|SU)$/.test(day)) ||
+      new Set(days).size !== days.length
+    )
+      return 'INVALID:' + rule;
+    parsed.set('BYDAY', days.sort().join(','));
+  }
+  return [...parsed]
+    .map(([key, value]) => key + '=' + value)
     .sort()
     .join(';');
+};
 const sameTime = (
   actual: Record<string, string>,
   expected: Record<string, string>,
@@ -345,6 +466,86 @@ const sameEventTimes = (
     date.toISOString().slice(0, 10) === check.utc_date_window.date
   );
 };
+const eventHostProof = (event: any, email: string) => {
+  const creator = calls.find(
+    (call: any) =>
+      call.status < 400 &&
+      (call.mutations || []).some(
+        (m: any) =>
+          m.kind === 'event' && m.id === event.event_id && !m.before && m.after,
+      ),
+  );
+  const account =
+    creator &&
+    calls.find(
+      (call: any) =>
+        call.status < 400 &&
+        call.identity === 'user' &&
+        call.method === 'GET' &&
+        call.path.split('?')[0] === '/open-apis/authen/v1/user_info' &&
+        call.seq < creator.seq &&
+        call.response?.data?.email === email,
+    );
+  return {
+    event_id: event.event_id,
+    expected_email: email,
+    creator_seq: creator?.seq,
+    creator_identity: creator?.identity,
+    account_seq: account?.seq,
+    passed: !!creator && creator.identity === 'user' && !!account,
+  };
+};
+const eventSourceProof = (event: any, messageId: string) => {
+  const sourceMail = seed.mail?.messages.find(
+    (m: any) => m.message_id === messageId,
+  );
+  const source = seed.messages.find((m: any) => m.message_id === messageId);
+  const text = (m: any): unknown => {
+    try {
+      return decodedMessageText(m?.body?.content);
+    } catch {
+      return undefined;
+    }
+  };
+  const sourceText = text(source);
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    ((sourceMail &&
+      (value.message_id === messageId || value.message_biz_id === messageId) &&
+      (value.subject === sourceMail.subject ||
+        value.title === sourceMail.subject) &&
+      value.body_plain_text === sourceMail.body_plain_text) ||
+      (!sourceMail &&
+        value.message_id === messageId &&
+        typeof sourceText === 'string' &&
+        text(value) === sourceText) ||
+      Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        ['GET', 'POST'].includes(call.method) &&
+        !(call.mutations || []).length &&
+        walk(call.response),
+    )
+    .map((call: any) => call.seq);
+  const creation = calls.find(
+    (call: any) =>
+      call.status < 400 &&
+      (call.mutations || []).some(
+        (m: any) =>
+          m.kind === 'event' && m.id === event.event_id && !m.before && m.after,
+      ),
+  );
+  return {
+    event_id: event.event_id,
+    message_id: messageId,
+    reads,
+    creation_seq: creation?.seq,
+    passed: !!creation && reads.some((seq: number) => seq < creation.seq),
+  };
+};
 const eventMatches = (event: any, check: EventCheck): boolean => {
   const actualAttendees = (event.attendees || [])
     .map((a: { third_party_email: string }) => a.third_party_email)
@@ -373,6 +574,10 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
               check.description_contains!.every((part) => text.includes(part)),
           ))) &&
     event.calendar_id === check.calendar_id &&
+    (!check.source_message_id ||
+      eventSourceProof(event, check.source_message_id).passed) &&
+    (!check.host_user_email ||
+      eventHostProof(event, check.host_user_email).passed) &&
     event.status !== 'cancelled' &&
     (!(check.vc || check.vc_data?.vc_type === 'vc') ||
       videoMatches((value) => value.vc_type === 'vc')) &&
@@ -404,9 +609,14 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
         : event.summary === check.summary)) &&
     sameEventTimes(event, check) &&
     (!check.location || event.location?.name === check.location.name) &&
+    (!check.single_occurrence ||
+      event.recurrence === undefined ||
+      event.recurrence === '') &&
     (!check.recurrence ||
       rrule(event.recurrence || '') === rrule(check.recurrence)) &&
-    isDeepStrictEqual(actualAttendees, [...check.attendees].sort())
+    (check.attendee_options || [check.attendees]).some((option) =>
+      isDeepStrictEqual(actualAttendees, [...option].sort()),
+    )
   );
 };
 const eventChecks = (expected.events || []).map((check) => ({
@@ -450,7 +660,54 @@ const chatChecks = (expected.new_chats || []).map((check) => ({
         ),
     ).length === 1,
 }));
+const initialMailIDs = new Set(
+  (seed.mail?.messages || []).map((m: any) => m.message_id),
+);
+const sentMail = (world.mail?.messages || []).filter(
+  (m: any) => !initialMailIDs.has(m.message_id) && m.message_state === 2,
+);
+const consumedMail = new Set<string>();
+const mailChecks = (expected.mail || []).map((rule) => {
+  const match = sentMail.find(
+    (m: any) =>
+      !consumedMail.has(m.message_id) &&
+      isDeepStrictEqual(
+        (m.to || []).map((a: any) => a.mail_address.toLowerCase()).sort(),
+        rule.to.map((a) => a.toLowerCase()).sort(),
+      ) &&
+      !(m.cc || []).length &&
+      !(m.bcc || []).length &&
+      (rule.subject === undefined || m.subject === rule.subject) &&
+      (rule.subject_contains || []).every((term) =>
+        supportContains(m.subject, term),
+      ) &&
+      (rule.body_contains || []).every((term) =>
+        supportContains(
+          Buffer.from(m.body_plain_text || '', 'base64url').toString('utf8'),
+          term,
+        ),
+      ) &&
+      calls.some(
+        (call: any) =>
+          call.status < 400 &&
+          (call.mutations || []).some(
+            (mutation: any) =>
+              mutation.kind === 'mail_message' &&
+              mutation.id === m.message_id &&
+              mutation.after?.message_state === 2 &&
+              mutation.before?.message_state === 3,
+          ),
+      ),
+  );
+  if (match) consumedMail.add(match.message_id);
+  return { ...rule, message_id: match?.message_id, passed: !!match };
+});
 const protectedWorld = structuredClone(world);
+if (expected.mail && protectedWorld.mail)
+  protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
+    (m: any) => !consumedMail.has(m.message_id),
+  );
+
 protectedWorld.chats = protectedWorld.chats.filter((c: { chat_id: string }) =>
   originalChats.has(c.chat_id),
 );
@@ -575,6 +832,14 @@ const orderChecks = (expected.order_groups || []).map((group) => {
     for (const mutation of call.mutations || []) {
       if (mutation.kind !== group.kind || !mutation.after || call.status >= 400)
         continue;
+      if (
+        group.sent_mail_only &&
+        !(
+          mutation.before?.message_state === 3 &&
+          mutation.after?.message_state === 2
+        )
+      )
+        continue;
       const identity =
         group.kind === 'message' ? mutation.after.chat_id : mutation.id;
       if (group.ids && !group.ids.includes(identity)) continue;
@@ -641,7 +906,7 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
         mutation.after.chat_id === rule.message.chat_id
       ) {
         try {
-          const text = JSON.parse(mutation.after.body.content).text;
+          const text = decodedMessageText(mutation.after.body.content);
           if (
             typeof text === 'string' &&
             rule.message.contains.every((part) => text.includes(part))
@@ -714,7 +979,7 @@ const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
           actions.push(call.seq);
         if (mutation.kind !== 'message' || mutation.before) continue;
         try {
-          const text = JSON.parse(mutation.after.body.content).text;
+          const text = decodedMessageText(mutation.after.body.content);
           const matches = (message: { chat_id: string; contains: string[] }) =>
             mutation.after.chat_id === message.chat_id &&
             typeof text === 'string' &&
@@ -785,7 +1050,7 @@ const recordStateBeforeUpdateChecks = (
                     )
                       return false;
                     try {
-                      const text = JSON.parse(item.after.body.content).text;
+                      const text = decodedMessageText(item.after.body.content);
                       return (
                         typeof text === 'string' &&
                         message.contains.every((part) => text.includes(part))
@@ -865,7 +1130,7 @@ const recordStateBeforeMessageChecks = (
         mutation.after.chat_id === rule.chat_id &&
         (() => {
           try {
-            const text = JSON.parse(mutation.after.body.content).text;
+            const text = decodedMessageText(mutation.after.body.content);
             return (rule.message_contains || []).every(
               (part) => typeof text === 'string' && text.includes(part),
             );
@@ -1025,15 +1290,17 @@ const eventStateBeforeCreateChecks = (
       checkpoints.every((checkpoint) => checkpoint.passed),
   };
 });
-
 const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
   (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
     const source = seed.messages.find(
       (m: any) => m.message_id === rule.source_message_id,
     );
     const text = (m: any): unknown => {
       try {
-        return JSON.parse(m?.body?.content).text;
+        return decodedMessageText(m?.body?.content);
       } catch {
         return undefined;
       }
@@ -1054,12 +1321,16 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
       )
         continue;
       if (
-        typeof sourceText === 'string' &&
-        walk(
-          call.response,
-          (obj: any) =>
-            obj.message_id === rule.source_message_id &&
-            text(obj) === sourceText,
+        walk(call.response, (obj: any) =>
+          sourceMail
+            ? (obj.message_id === rule.source_message_id ||
+                obj.message_biz_id === rule.source_message_id) &&
+              (obj.subject === sourceMail.subject ||
+                obj.title === sourceMail.subject) &&
+              obj.body_plain_text === sourceMail.body_plain_text
+            : typeof sourceText === 'string' &&
+              obj.message_id === rule.source_message_id &&
+              text(obj) === sourceText,
         )
       )
         messageReads.push(call.seq);
@@ -1113,11 +1384,20 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
       )
       .map((call: any) => ({
         seq: call.seq,
-        passed: recordReads.some(
-          (recordSeq) =>
-            recordSeq < call.seq &&
-            messageReads.some((messageSeq) => messageSeq < recordSeq),
-        ),
+        passed:
+          rule.require_record_read === false
+            ? messageReads.some((messageSeq) => messageSeq < call.seq)
+            : recordReads.some(
+                (recordSeq) =>
+                  recordSeq < call.seq &&
+                  messageReads.some(
+                    (messageSeq) =>
+                      messageSeq <
+                      (rule.record_after_source === false
+                        ? call.seq
+                        : recordSeq),
+                  ),
+              ),
       }));
     return {
       rule,
@@ -1129,8 +1409,298 @@ const readBeforeUpdateChecks = (expected.read_before_updates || []).map(
   },
 );
 
+const readBeforeCreateChecks = (expected.read_before_creates || []).map(
+  (rule) => {
+    const sourceMail = seed.mail?.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
+    const source = seed.messages.find(
+      (m: any) => m.message_id === rule.source_message_id,
+    );
+    const text = (m: any): unknown => {
+      try {
+        return decodedMessageText(m?.body?.content);
+      } catch {
+        return undefined;
+      }
+    };
+    const sourceText = text(source);
+    const walk = (value: any): boolean =>
+      value !== null &&
+      typeof value === 'object' &&
+      ((sourceMail &&
+        (value.message_id === rule.source_message_id ||
+          value.message_biz_id === rule.source_message_id) &&
+        (value.subject === sourceMail.subject ||
+          value.title === sourceMail.subject) &&
+        value.body_plain_text === sourceMail.body_plain_text) ||
+        (!sourceMail &&
+          value.message_id === rule.source_message_id &&
+          typeof sourceText === 'string' &&
+          text(value) === sourceText) ||
+        Object.values(value).some(walk));
+    const reads = calls
+      .filter(
+        (call: any) =>
+          call.status < 400 &&
+          ['GET', 'POST'].includes(call.method) &&
+          !(call.mutations || []).length &&
+          walk(call.response),
+      )
+      .map((call: any) => call.seq);
+    const created = world.base.records.filter(
+      (record: any) =>
+        record.record_id === creationChecks[rule.create_index]?.record_id,
+    );
+    const checkpoints = created.map((record: any) => {
+      const call = calls.find(
+        (call: any) =>
+          call.status < 400 &&
+          (call.mutations || []).some(
+            (m: any) =>
+              m.kind === 'record' &&
+              m.id === record.record_id &&
+              !m.before &&
+              m.after,
+          ),
+      );
+      return {
+        record_id: record.record_id,
+        seq: call?.seq,
+        passed: !!call && reads.some((seq: number) => seq < call.seq),
+      };
+    });
+    return {
+      rule,
+      reads,
+      checkpoints,
+      passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+    };
+  },
+);
+const readRecordsBeforeCreateChecks = (
+  expected.read_records_before_creates || []
+).map((rule) => {
+  const matches = (obj: any) => {
+    let fields: any;
+    if (
+      obj.record_id === rule.record_id &&
+      obj.fields &&
+      !Array.isArray(obj.fields)
+    )
+      fields = obj.fields;
+    else if (
+      Array.isArray(obj.record_id_list) &&
+      Array.isArray(obj.fields) &&
+      Array.isArray(obj.data)
+    ) {
+      const i = obj.record_id_list.indexOf(rule.record_id);
+      if (i >= 0 && Array.isArray(obj.data[i]))
+        fields = Object.fromEntries(
+          obj.fields.map((key: string, j: number) => [key, obj.data[i][j]]),
+        );
+    }
+    return (
+      fields &&
+      Object.entries(rule.identity).every(([key, value]) =>
+        isDeepStrictEqual(fields[key], value),
+      )
+    );
+  };
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    (matches(value) || Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        ['GET', 'POST'].includes(call.method) &&
+        !(call.mutations || []).length &&
+        walk(call.response),
+    )
+    .map((call: any) => call.seq);
+  const desired = expected.creates[rule.create_index];
+  const created = world.base.records.filter(
+    (record: any) =>
+      !originalIds.has(record.record_id) &&
+      desired &&
+      Object.entries(desired).every(([key, value]) =>
+        isDeepStrictEqual(record.fields[key], value),
+      ),
+  );
+  const checkpoints = created.map((record: any) => {
+    const call = calls.find(
+      (call: any) =>
+        call.status < 400 &&
+        (call.mutations || []).some(
+          (m: any) =>
+            m.kind === 'record' &&
+            m.id === record.record_id &&
+            !m.before &&
+            m.after,
+        ),
+    );
+    return {
+      record_id: record.record_id,
+      seq: call?.seq,
+      passed: !!call && reads.some((seq: number) => seq < call.seq),
+    };
+  });
+  return {
+    rule,
+    reads,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+  };
+});
+const readRecordsBeforeUpdateChecks = (
+  expected.read_records_before_updates || []
+).map((rule) => {
+  const matches = (obj: any) => {
+    let fields: any;
+    if (
+      obj.record_id === rule.source_record_id &&
+      obj.fields &&
+      !Array.isArray(obj.fields)
+    )
+      fields = obj.fields;
+    else if (
+      Array.isArray(obj.record_id_list) &&
+      Array.isArray(obj.fields) &&
+      Array.isArray(obj.data)
+    ) {
+      const i = obj.record_id_list.indexOf(rule.source_record_id);
+      if (i >= 0 && Array.isArray(obj.data[i]))
+        fields = Object.fromEntries(
+          obj.fields.map((key: string, j: number) => [key, obj.data[i][j]]),
+        );
+    }
+    return (
+      fields &&
+      Object.entries(rule.identity).every(([key, value]) =>
+        isDeepStrictEqual(fields[key], value),
+      )
+    );
+  };
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    (matches(value) || Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        ['GET', 'POST'].includes(call.method) &&
+        !(call.mutations || []).length &&
+        walk(call.response),
+    )
+    .map((call: any) => call.seq);
+  const checkpoints = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        (call.mutations || []).some(
+          (m: any) =>
+            m.kind === 'record' &&
+            m.id === rule.record_id &&
+            m.after &&
+            !isDeepStrictEqual(
+              m.before?.fields?.[rule.field],
+              m.after.fields?.[rule.field],
+            ),
+        ),
+    )
+    .map((call: any) => ({
+      seq: call.seq,
+      passed: reads.some((seq: number) => seq < call.seq),
+    }));
+  return {
+    rule,
+    reads,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((x: any) => x.passed),
+  };
+});
+function mailCheckpointNumber(value: unknown): string | null {
+  if (typeof value !== 'string' && typeof value !== 'number') return null;
+  const text = String(value)
+    .trim()
+    .replace(/^([+-]?)\./, (_, sign) => sign + '0.');
+  if (!Number.isFinite(Number(text))) return null;
+  const match = /^([+-]?)(\d+)(?:\.(\d*))?(?:[eE]([+-]?\d+))?$/.exec(text);
+  if (!match) return null;
+  let digits = (match[2] + (match[3] || '')).replace(/^0+/, '');
+  if (!digits) return '0';
+  const trailing = digits.length - digits.replace(/0+$/, '').length;
+  digits = digits.replace(/0+$/, '');
+  const exponent =
+    BigInt(match[4] || '0') -
+    BigInt((match[3] || '').length) +
+    BigInt(trailing);
+  return `${match[1] === '-' ? '-' : ''}${digits}e${exponent}`;
+}
+const cellsBeforeMailChecks = (expected.cells_before_mail || []).map((rule) => {
+  const state = structuredClone(seed);
+  const checkpoints: any[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || [])
+      if (
+        mutation.kind === 'mail_message' &&
+        mutation.before?.message_state === 3 &&
+        mutation.after?.message_state === 2 &&
+        mutation.after.to.some(
+          (a: any) => a.mail_address.toLowerCase() === rule.to.toLowerCase(),
+        )
+      ) {
+        const cells = rule.cells.map((cell: any) => {
+          const actual = sheetsFor(state, cell)[cell.sheet_id]?.values[
+            cell.row
+          ]?.[cell.column];
+          return {
+            ...cell,
+            passed: cell.numeric_equivalent
+              ? mailCheckpointNumber(actual) !== null &&
+                mailCheckpointNumber(actual) ===
+                  mailCheckpointNumber(cell.value)
+              : isDeepStrictEqual(actual, cell.value),
+          };
+        });
+        checkpoints.push({
+          seq: call.seq,
+          cells,
+          passed: cells.every((c: any) => c.passed),
+        });
+      }
+    for (const mutation of call.mutations || []) {
+      if (mutation.kind === 'sheet') {
+        if (mutation.after)
+          state.sheets[mutation.id] = structuredClone(mutation.after);
+        else delete state.sheets[mutation.id];
+      }
+      if (mutation.kind === 'spreadsheet') {
+        state.spreadsheets ||= {};
+        if (mutation.after)
+          state.spreadsheets[mutation.id] = structuredClone(mutation.after);
+        else delete state.spreadsheets[mutation.id];
+      }
+    }
+  }
+  return {
+    rule,
+    checkpoints,
+    passed: checkpoints.length > 0 && checkpoints.every((c) => c.passed),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  cellsBeforeMailChecks.every((c) => c.passed) &&
+  mailChecks.every((c) => c.passed) &&
+  sentMail.length === consumedMail.size &&
+  readRecordsBeforeUpdateChecks.every((check) => check.passed) &&
+  readRecordsBeforeCreateChecks.every((check) => check.passed) &&
+  readBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeUpdateChecks.every((check) => check.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
@@ -1172,6 +1742,9 @@ writeFileSync(
       semantic,
       coverage,
       checks,
+      readRecordsBeforeUpdateChecks,
+      readRecordsBeforeCreateChecks,
+      readBeforeCreateChecks,
       readBeforeUpdateChecks,
       creationChecks,
       deletionChecks,
@@ -1184,10 +1757,26 @@ writeFileSync(
       workflowBarrierChecks,
       entityOrderChecks,
       messageChecks,
+      mailChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,
       cellChecks,
+      cellsBeforeMailChecks,
       eventChecks,
+      eventSourceChecks: (expected.events || []).flatMap((check) =>
+        check.source_message_id
+          ? newEvents.map((event: any) =>
+              eventSourceProof(event, check.source_message_id!),
+            )
+          : [],
+      ),
+      eventHostChecks: (expected.events || []).flatMap((check) =>
+        check.host_user_email
+          ? newEvents.map((event: any) =>
+              eventHostProof(event, check.host_user_email!),
+            )
+          : [],
+      ),
       eventStateBeforeCreateChecks,
       unchanged,
       covered,

@@ -1480,6 +1480,7 @@
     ]
   },
   "automationbench-simple-3042": {
+    "enabled": true,
     "text_fields": [
       "subject",
       "description",
@@ -1497,10 +1498,11 @@
       "requirements",
       "jobtitle"
     ],
-    "source_read_before_create": [
+    "literal_message_terms": {},
+    "read_before_creates": [
       {
-        "source_message_id": "om_msg_3042",
-        "collection": "contacts"
+        "create_index": 0,
+        "source_message_id": "msg_3042"
       }
     ]
   },
@@ -1538,6 +1540,7 @@
     }
   },
   "automationbench-simple-3040": {
+    "enabled": true,
     "text_fields": [
       "subject",
       "description",
@@ -1555,10 +1558,11 @@
       "requirements",
       "title"
     ],
-    "source_read_before_create": [
+    "literal_message_terms": {},
+    "read_before_creates": [
       {
-        "source_message_id": "om_msg_3040",
-        "collection": "contacts"
+        "create_index": 0,
+        "source_message_id": "msg_3040"
       }
     ]
   },
@@ -4194,7 +4198,7 @@
       {
         "record_id": "rec_00Q007",
         "field": "rating",
-        "source_message_id": "om_msg_3037",
+        "source_message_id": "msg_3037",
         "identity": {
           "email": "ben.archer@swiftedge.example.com"
         }
@@ -5596,6 +5600,68 @@
         },
         "record_after_source": false,
         "require_record_read": false
+      }
+    ]
+  },
+  "automationbench-simple-3023": {
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {},
+    "read_before_creates": [
+      {
+        "create_index": 0,
+        "source_message_id": "msg_3023"
+      }
+    ],
+    "optional_creation_text_fields": {
+      "0": ["description"]
+    },
+    "literal_creation_terms": {
+      "0": {
+        "subject": ["Email received from client"]
+      }
+    },
+    "creation_contains_guarded": true
+  },
+  "automationbench-simple-3047": {
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements",
+      "jobtitle"
+    ],
+    "literal_message_terms": {},
+    "read_before_creates": [
+      {
+        "create_index": 0,
+        "source_message_id": "msg_3047"
       }
     ]
   }
