@@ -26,6 +26,7 @@ type EventCheck = {
   location?: { name: string };
   recurrence?: string;
   host_user_email?: string;
+  source_message_id?: string;
   single_occurrence?: boolean;
   attendees: string[];
 };
@@ -52,6 +53,7 @@ type WorkflowEventSelector = {
 };
 const expected: {
   rrule_default_interval?: boolean;
+  rrule_byday_set?: boolean;
   read_records_before_updates?: {
     record_id: string;
     field: string;
@@ -317,6 +319,15 @@ const rrule = (rule: string) => {
     parsed.set(match[1], match[2]);
   }
   if (/^0*1$/.test(parsed.get('INTERVAL') || '')) parsed.delete('INTERVAL');
+  if (expected.rrule_byday_set && parsed.has('BYDAY')) {
+    const days = parsed.get('BYDAY')!.split(',');
+    if (
+      days.some((day) => !/^(MO|TU|WE|TH|FR|SA|SU)$/.test(day)) ||
+      new Set(days).size !== days.length
+    )
+      return 'INVALID:' + rule;
+    parsed.set('BYDAY', days.sort().join(','));
+  }
   return [...parsed]
     .map(([key, value]) => key + '=' + value)
     .sort()
@@ -384,6 +395,48 @@ const eventHostProof = (event: any, email: string) => {
     passed: !!creator && creator.identity === 'user' && !!account,
   };
 };
+const eventSourceProof = (event: any, messageId: string) => {
+  const source = seed.messages.find((m: any) => m.message_id === messageId);
+  const text = (m: any): unknown => {
+    try {
+      return JSON.parse(m?.body?.content).text;
+    } catch {
+      return undefined;
+    }
+  };
+  const sourceText = text(source);
+  const walk = (value: any): boolean =>
+    value !== null &&
+    typeof value === 'object' &&
+    ((value.message_id === messageId &&
+      typeof sourceText === 'string' &&
+      text(value) === sourceText) ||
+      Object.values(value).some(walk));
+  const reads = calls
+    .filter(
+      (call: any) =>
+        call.status < 400 &&
+        ['GET', 'POST'].includes(call.method) &&
+        !(call.mutations || []).length &&
+        walk(call.response),
+    )
+    .map((call: any) => call.seq);
+  const creation = calls.find(
+    (call: any) =>
+      call.status < 400 &&
+      (call.mutations || []).some(
+        (m: any) =>
+          m.kind === 'event' && m.id === event.event_id && !m.before && m.after,
+      ),
+  );
+  return {
+    event_id: event.event_id,
+    message_id: messageId,
+    reads,
+    creation_seq: creation?.seq,
+    passed: !!creation && reads.some((seq: number) => seq < creation.seq),
+  };
+};
 const eventMatches = (event: any, check: EventCheck): boolean => {
   const actualAttendees = (event.attendees || [])
     .map((a: { third_party_email: string }) => a.third_party_email)
@@ -412,6 +465,8 @@ const eventMatches = (event: any, check: EventCheck): boolean => {
               check.description_contains!.every((part) => text.includes(part)),
           ))) &&
     event.calendar_id === check.calendar_id &&
+    (!check.source_message_id ||
+      eventSourceProof(event, check.source_message_id).passed) &&
     (!check.host_user_email ||
       eventHostProof(event, check.host_user_email).passed) &&
     event.status !== 'cancelled' &&
@@ -1428,6 +1483,13 @@ writeFileSync(
       forbiddenRecordChecks,
       cellChecks,
       eventChecks,
+      eventSourceChecks: (expected.events || []).flatMap((check) =>
+        check.source_message_id
+          ? newEvents.map((event: any) =>
+              eventSourceProof(event, check.source_message_id!),
+            )
+          : [],
+      ),
       eventHostChecks: (expected.events || []).flatMap((check) =>
         check.host_user_email
           ? newEvents.map((event: any) =>

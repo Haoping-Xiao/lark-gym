@@ -134,6 +134,18 @@ export function prepareSemantic(
     expected.events[index].summary_contains_case_insensitive = true;
   for (const [index, email] of Object.entries(config.event_host_users || {}))
     expected.events[Number(index)].host_user_email = email;
+  if (config.rrule_byday_set) expected.rrule_byday_set = true;
+  for (const [index, id] of Object.entries(config.event_source_messages || {}))
+    expected.events[Number(index)].source_message_id = id;
+  if (config.event_notification_order)
+    expected.order_groups = [
+      { kind: 'event' },
+      {
+        kind: 'message',
+        ids: [...new Set((expected.messages || []).map((m: any) => m.chat_id))],
+        all_messages: true,
+      },
+    ];
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
