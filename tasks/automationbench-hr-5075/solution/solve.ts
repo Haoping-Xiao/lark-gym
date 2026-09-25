@@ -1,16 +1,13 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
   [
     'base',
-    '+record-upsert',
+    '+record-list',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
-    '--json',
-    '{"collection": "account_reactivations", "employee": "Lisa Wang", "email": "lisa.wang@company.example.com", "effective_date": "2026-03-18", "status": "Reactivated"}',
+    'tbl_9d4e741b48b2',
   ],
   [
     'base',
@@ -18,9 +15,19 @@ const commands: string[][] = [
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_9d4e741b48b2',
     '--json',
-    '{"collection": "account_reactivations", "employee": "Tom Bradford", "email": "tom.bradford@company.example.com", "effective_date": "2026-03-20", "status": "Scheduled"}',
+    '{"employee": "Lisa Wang", "email": "lisa.wang@company.example.com", "effective_date": "2026-03-18", "status": "Reactivated"}',
+  ],
+  [
+    'base',
+    '+record-upsert',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_9d4e741b48b2',
+    '--json',
+    '{"employee": "Tom Bradford", "email": "tom.bradford@company.example.com", "effective_date": "2026-03-20", "status": "Scheduled"}',
   ],
   [
     'sheets',

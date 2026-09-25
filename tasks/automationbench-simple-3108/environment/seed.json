@@ -25,23 +25,67 @@
         "name": "project",
         "type": "text"
       }
-    ]
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_085154084c74",
+        "name": "工作事项",
+        "collection": "tasks",
+        "fields": [
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "project",
+            "type": "text"
+          },
+          {
+            "name": "workspace",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      }
+    ],
+    "workspace_discovery": true
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_4202",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：qa-team@company.example.com\\n主题：Bug Report: Checkout page crashes on mobile\\n日期：2026-02-21T09:15:00Z\\nWe found a critical bug where the checkout page crashes on mobile devices when applying a discount code. Steps to reproduce: 1) Add item to cart 2) Apply code SAVE20 3) Page crashes.\"}"
-      },
-      "create_time": "1771665300000"
-    }
-  ]
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_4202",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "thread_msg_4202",
+        "smtp_message_id": "msg_4202@fixture.invalid",
+        "subject": "Bug Report: Checkout page crashes on mobile",
+        "head_from": {
+          "mail_address": "qa-team@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "V2UgZm91bmQgYSBjcml0aWNhbCBidWcgd2hlcmUgdGhlIGNoZWNrb3V0IHBhZ2UgY3Jhc2hlcyBvbiBtb2JpbGUgZGV2aWNlcyB3aGVuIGFwcGx5aW5nIGEgZGlzY291bnQgY29kZS4gU3RlcHMgdG8gcmVwcm9kdWNlOiAxKSBBZGQgaXRlbSB0byBjYXJ0IDIpIEFwcGx5IGNvZGUgU0FWRTIwIDMpIFBhZ2UgY3Jhc2hlcy4",
+        "body_preview": "V2UgZm91bmQgYSBjcml0aWNhbCBidWcgd2hlcmUgdGhlIGNoZWNrb3V0IHBhZ2UgY3Jhc2hlcyBvbiBtb2JpbGUgZGV2aWNlcyB3aGVuIGFwcGx5aW5nIGEgZGlzY291bnQgYw",
+        "body_html": "",
+        "internal_date": "1771665300000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

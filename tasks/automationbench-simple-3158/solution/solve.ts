@@ -1,16 +1,32 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'bugs@company.example.com',
+    '--message-ids',
+    'msg_3158',
+    '--as',
+    'user',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_02e3fe5aad80',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_02e3fe5aad80',
     '--json',
-    '{"collection": "issues", "project": "PLAT", "issue_type": "Bug", "summary": "CSV upload 大文件超时", "description": "Hi, when we try to upload CSV files larger than 50MB, the upload hangs and eventually times out. Browser: Chrome 120. OS: macOS. Regards, Sam"}',
+    '{"project": "PLAT", "issue_type": "Bug", "summary": "CSV upload 大文件超时", "description": "Hi, when we try to upload CSV files larger than 50MB, the upload hangs and eventually times out. Browser: Chrome 120. OS: macOS. Regards, Sam"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

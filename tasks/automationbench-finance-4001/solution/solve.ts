@@ -108,7 +108,7 @@ const commands: string[][] = [
     '--range',
     'E3',
     '--cells',
-    '[[{"value": "2026-01-30"}]]',
+    '[[{"value": "January 30, 2026"}]]',
   ],
   [
     'sheets',

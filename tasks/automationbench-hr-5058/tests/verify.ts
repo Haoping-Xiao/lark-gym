@@ -1,3 +1,5 @@
+import { prepareSemantic } from './semantic.ts';
+import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -29,7 +31,12 @@ type Check = {
   mode: string;
 };
 const expected: {
-  order_groups?: { kind: string; ids?: string[]; collection?: string }[];
+  order_groups?: {
+    kind: string;
+    ids?: string[];
+    collection?: string;
+    all_messages?: boolean;
+  }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
   updates: Check[];
@@ -61,6 +68,12 @@ const { seed, world, calls } = JSON.parse(
     process.env.MOCK_STATE || '/var/lib/feishu-mock/state.json',
     'utf8',
   ),
+);
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
 );
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
@@ -306,7 +319,11 @@ const orderChecks = (expected.order_groups || []).map((group) => {
         mutation.after.fields?.collection !== group.collection
       )
         continue;
-      if (found.has(identity)) continue;
+      // This opt-in stage ends after every distinct new notification, not
+      // after the first notification to each recipient. Edits are not sends.
+      if (group.all_messages && group.kind === 'message') {
+        if (mutation.before) continue;
+      } else if (found.has(identity)) continue;
       found.add(identity);
       sequences.push(call.seq);
     }
@@ -328,14 +345,24 @@ const success =
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
+const coverage = scoreUnsupported(
+  success ? 1 : 0,
+  calls,
+  JSON.parse(
+    readFileSync(new URL('./unsupported-policy.json', import.meta.url), 'utf8'),
+  ),
+);
+writeFileSync(`${output}/unsupported.json`, JSON.stringify(coverage, null, 2));
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
-      success,
+      success: coverage.valid_sample && success,
+      business_success: success,
+      semantic,
+      coverage,
       checks,
       creationChecks,
       orderChecks,
@@ -351,10 +378,10 @@ writeFileSync(
     2,
   ),
 );
-if (!covered) {
+if (!coverage.valid_sample) {
   rmSync(`${output}/reward.txt`);
   throw new Error(
     'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
   );
 }
-writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');
+writeFileSync(`${output}/reward.txt`, `${coverage.reward}\n`);

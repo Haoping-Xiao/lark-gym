@@ -1259,6 +1259,140 @@
         "name": "close_date",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_bc62a3c14fec",
+        "name": "客户公司",
+        "collection": "accounts",
+        "fields": [
+          {
+            "name": "account_name",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "industry",
+            "type": "text"
+          },
+          {
+            "name": "parent_id",
+            "type": "text"
+          },
+          {
+            "name": "tier",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_8e838d8ac54d",
+        "name": "docusign_envelopes",
+        "collection": "docusign_envelopes",
+        "fields": [
+          {
+            "name": "completed_date_time",
+            "type": "text"
+          },
+          {
+            "name": "custom_fields",
+            "type": "text"
+          },
+          {
+            "name": "email_subject",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "sent_date_time",
+            "type": "text"
+          },
+          {
+            "name": "signers",
+            "type": "text"
+          },
+          {
+            "name": "status",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_67e8f5b89016",
+        "name": "docusign_templates",
+        "collection": "docusign_templates",
+        "fields": [
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "email_subject",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "is_active",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "template_id",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_9be34f3e549c",
+        "name": "商机",
+        "collection": "opportunities",
+        "fields": [
+          {
+            "name": "account_id",
+            "type": "text"
+          },
+          {
+            "name": "amount",
+            "type": "number"
+          },
+          {
+            "name": "close_date",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "stage",
+            "type": "text"
+          },
+          {
+            "name": "stage_name",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      }
     ]
   },
   "chats": [
@@ -2522,6 +2656,15 @@
         "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990037.000037\\\", \\\"user_id\\\": \\\"U_noise_37\\\", \\\"channel_id\\\": \\\"C_WINS\\\"}\\nUpdated security questionnaire template posted in Google Drive. Check #sales-enablement.\"}"
       },
       "create_time": "1740990037.000037"
+    },
+    {
+      "message_id": "om_adapter_contract_trigger",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"本轮合同完成触发\\n适配上下文：为原任务“a contract just completed”补充本轮请求关联，非原始历史邮件。\\nevent_type: envelope.completed\\nenvelope_id: env_contract\\noccurred_at: 2026-01-20T14:00:00Z\\n本轮处理该事件，其他合同的完成日期不改变本轮事件关联。\"}"
+      },
+      "create_time": "1771923600000"
     }
   ]
 }

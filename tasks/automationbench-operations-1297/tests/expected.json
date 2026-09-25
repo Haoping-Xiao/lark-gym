@@ -2,15 +2,7 @@
   "new_chats": [],
   "memberships": [],
   "source_assertion_overrides": {},
-  "order_groups": [
-    {
-      "kind": "message"
-    },
-    {
-      "kind": "record",
-      "collection": "engagements"
-    }
-  ],
+  "order_groups": [],
   "forbidden_records": [],
   "forbidden_messages": [
     {
@@ -69,5 +61,41 @@
     }
   ],
   "events": [],
-  "cells": []
+  "cells": [],
+  "workflow_barriers": [
+    {
+      "before": [
+        {
+          "kind": "message",
+          "chat_id": "oc_email_6"
+        }
+      ],
+      "after": [
+        {
+          "kind": "record",
+          "collection": "engagements",
+          "equals": {
+            "contact_id": "cont_hs_101"
+          }
+        }
+      ]
+    },
+    {
+      "before": [
+        {
+          "kind": "message",
+          "chat_id": "oc_email_4"
+        }
+      ],
+      "after": [
+        {
+          "kind": "record",
+          "collection": "engagements",
+          "equals": {
+            "contact_id": "cont_hs_102"
+          }
+        }
+      ]
+    }
+  ]
 }

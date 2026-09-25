@@ -1,13 +1,17 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_recipient',
-    '--text',
-    'Your BrightPath Contract Renewal - Action Required\nBen，你的年度合同于2026年3月31日到期，3月15日前签署可享10%提前续约优惠。办理地址：renewals.brightpath.example.com。',
+    'mail',
+    '+send',
+    '--to',
+    'ben.torres@summitretail.example.com',
+    '--subject',
+    'Your BrightPath Contract Renewal - Action Required',
+    '--body',
+    'Hi Ben, your annual BrightPath contract expires on March 31, 2026. Sign by March 15 to receive a 10% early renewal discount. Renew at https://renewals.brightpath.example.com .',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

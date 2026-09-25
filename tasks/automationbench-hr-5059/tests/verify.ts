@@ -1,3 +1,5 @@
+import { prepareSemantic } from './semantic.ts';
+import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -31,11 +33,28 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  entity_order?: {
+    record: { collection: string; equals: Fields };
+    message: { chat_id: string; contains: string[] };
+    cell: {
+      spreadsheet_token: string;
+      sheet_id: string;
+      row: number;
+      column: number;
+      value: string | number;
+    };
+  }[];
   new_chats?: { name: string; description: string; user_ids: string[] }[];
   memberships?: { chat_id: string; user_ids: string[] }[];
-  order_groups?: { kind: string; ids?: string[]; collection?: string }[];
+  order_groups?: {
+    kind: string;
+    ids?: string[];
+    collection?: string;
+    all_messages?: boolean;
+  }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
   forbidden_messages?: { chat_id?: string; contains: string[] }[];
+  deletes?: string[];
   updates: Check[];
   events?: EventCheck[];
   create_contains?: Record<string, string[]>;
@@ -66,6 +85,12 @@ const { seed, world, calls } = JSON.parse(
     'utf8',
   ),
 );
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
+);
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
@@ -81,6 +106,12 @@ const checks = expected.updates.map((check) => {
           : isDeepStrictEqual(value, check.value)),
   };
 });
+const deletionChecks = (expected.deletes || []).map((id) => ({
+  id,
+  passed:
+    seed.base.records.some((r: RecordRow) => r.record_id === id) &&
+    !world.base.records.some((r: RecordRow) => r.record_id === id),
+}));
 const originalIds = new Set(
   seed.base.records.map((r: RecordRow) => r.record_id),
 );
@@ -99,7 +130,13 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) => String(r.fields[key]).includes(part))
+            contains[key].every((part) =>
+              semantic.creationContainsCaseInsensitive
+                ? String(r.fields[key])
+                    .toLowerCase()
+                    .includes(part.toLowerCase())
+                : String(r.fields[key]).includes(part),
+            )
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
@@ -305,6 +342,18 @@ protectedWorld.messages = protectedWorld.messages.filter(
 protectedWorld.base.records = protectedWorld.base.records.filter(
   (r: RecordRow) => originalIds.has(r.record_id),
 );
+for (const id of expected.deletes || []) {
+  if (!protectedWorld.base.records.some((r: RecordRow) => r.record_id === id)) {
+    const index = seed.base.records.findIndex(
+      (r: RecordRow) => r.record_id === id,
+    );
+    protectedWorld.base.records.splice(
+      index,
+      0,
+      structuredClone(seed.base.records[index]),
+    );
+  }
+}
 for (const check of expected.updates) {
   const before = seed.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
@@ -312,7 +361,11 @@ for (const check of expected.updates) {
   const after = protectedWorld.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
   );
-  if (after) after.fields[check.field] = before.fields[check.field];
+  if (after) {
+    if (Object.hasOwn(before.fields, check.field))
+      after.fields[check.field] = before.fields[check.field];
+    else delete after.fields[check.field];
+  }
 }
 const sheetsFor = (
   state: typeof world,
@@ -377,7 +430,11 @@ const orderChecks = (expected.order_groups || []).map((group) => {
         mutation.after.fields?.collection !== group.collection
       )
         continue;
-      if (found.has(identity)) continue;
+      // This opt-in stage ends after every distinct new notification, not
+      // after the first notification to each recipient. Edits are not sends.
+      if (group.all_messages && group.kind === 'message') {
+        if (mutation.before) continue;
+      } else if (found.has(identity)) continue;
       found.add(identity);
       sequences.push(call.seq);
     }
@@ -389,32 +446,116 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   previousStageEnd = Math.max(previousStageEnd, ...sequences);
   return { group, passed };
 });
+// Each entity has its own record -> notification -> status dependency.
+// Unrelated entities may interleave, and non-status cell corrections are not a barrier.
+const entityOrderChecks = (expected.entity_order || []).map((rule) => {
+  const records: number[] = [],
+    messages: number[] = [],
+    statuses: number[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || []) {
+      if (!mutation.after) continue;
+      if (
+        mutation.kind === 'record' &&
+        mutation.after.fields?.collection === rule.record.collection &&
+        Object.entries(rule.record.equals).every(([key, value]) =>
+          isDeepStrictEqual(mutation.after.fields[key], value),
+        )
+      )
+        records.push(call.seq);
+      if (
+        mutation.kind === 'message' &&
+        !mutation.before &&
+        mutation.after.chat_id === rule.message.chat_id
+      ) {
+        try {
+          const text = JSON.parse(mutation.after.body.content).text;
+          if (
+            typeof text === 'string' &&
+            rule.message.contains.every((part) => text.includes(part))
+          )
+            messages.push(call.seq);
+        } catch {
+          /* Malformed content cannot establish notification delivery. */
+        }
+      }
+      const cell = rule.cell;
+      if (
+        mutation.kind === 'spreadsheet' &&
+        mutation.id === cell.spreadsheet_token &&
+        isDeepStrictEqual(
+          mutation.after.sheets?.[cell.sheet_id]?.values[cell.row]?.[
+            cell.column
+          ],
+          cell.value,
+        ) &&
+        !isDeepStrictEqual(
+          mutation.before?.sheets?.[cell.sheet_id]?.values[cell.row]?.[
+            cell.column
+          ],
+          cell.value,
+        )
+      )
+        statuses.push(call.seq);
+    }
+  }
+  return {
+    rule,
+    records,
+    messages,
+    statuses,
+    passed:
+      records.length > 0 &&
+      messages.length > 0 &&
+      statuses.length > 0 &&
+      Math.min(...messages) > Math.min(...records) &&
+      Math.min(...statuses) > Math.max(...messages),
+  };
+});
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
+  entityOrderChecks.every((c) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
+  semantic.recordGroupChecks.every((c) => c.passed) &&
+  semantic.literalCellChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
+  deletionChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
+const coverage = scoreUnsupported(
+  success ? 1 : 0,
+  calls,
+  JSON.parse(
+    readFileSync(new URL('./unsupported-policy.json', import.meta.url), 'utf8'),
+  ),
+);
+writeFileSync(`${output}/unsupported.json`, JSON.stringify(coverage, null, 2));
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
-      success,
+      success: coverage.valid_sample && success,
+      business_success: success,
+      semantic,
+      coverage,
       checks,
       creationChecks,
+      deletionChecks,
       chatChecks,
       membershipChecks,
       orderChecks,
+      entityOrderChecks,
       messageChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,
@@ -427,10 +568,10 @@ writeFileSync(
     2,
   ),
 );
-if (!covered) {
+if (!coverage.valid_sample) {
   rmSync(`${output}/reward.txt`);
   throw new Error(
     'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
   );
 }
-writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');
+writeFileSync(`${output}/reward.txt`, `${coverage.reward}\n`);

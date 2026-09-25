@@ -115,5 +115,104 @@
       "column": 4,
       "value": "Needs Re-approval"
     }
+  ],
+  "workflow_barriers": [
+    {
+      "before": [
+        {
+          "kind": "message",
+          "chat_id": "oc_C_lnch"
+        }
+      ],
+      "after": [
+        {
+          "kind": "record",
+          "collection": "facebook_pages_posts"
+        },
+        {
+          "kind": "record",
+          "collection": "content_queue"
+        },
+        {
+          "kind": "message",
+          "chat_id": "oc_email_16"
+        }
+      ]
+    },
+    {
+      "before": [
+        {
+          "kind": "record",
+          "collection": "facebook_pages_posts"
+        },
+        {
+          "kind": "record",
+          "collection": "content_queue"
+        },
+        {
+          "kind": "message",
+          "chat_id": "oc_email_16"
+        },
+        {
+          "kind": "message",
+          "chat_id": "oc_email_4"
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 1,
+          "column": 4
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 3,
+          "column": 4
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 4,
+          "column": 4
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 4,
+          "column": 1
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 5,
+          "column": 4
+        },
+        {
+          "kind": "cell",
+          "spreadsheet_token": "ss_lnch",
+          "sheet_id": "ws_content",
+          "row": 6,
+          "column": 4
+        }
+      ],
+      "after": [
+        {
+          "kind": "message",
+          "chat_id": "oc_email_9"
+        }
+      ]
+    }
   ]
 }

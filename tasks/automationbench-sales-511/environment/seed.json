@@ -1182,6 +1182,72 @@
         "name": "parent_id",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_bc62a3c14fec",
+        "name": "客户公司",
+        "collection": "accounts",
+        "fields": [
+          {
+            "name": "account_name",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "industry",
+            "type": "text"
+          },
+          {
+            "name": "parent_id",
+            "type": "text"
+          },
+          {
+            "name": "tier",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_aa5af4084f37",
+        "name": "联系人",
+        "collection": "contacts",
+        "fields": [
+          {
+            "name": "account_id",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "first_name",
+            "type": "text"
+          },
+          {
+            "name": "last_name",
+            "type": "text"
+          },
+          {
+            "name": "phone",
+            "type": "text"
+          },
+          {
+            "name": "title",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      }
     ]
   },
   "chats": [
@@ -2315,6 +2381,15 @@
         "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_012\\\", \\\"thread_id\\\": \\\"th_noise_012\\\", \\\"from_\\\": \\\"hr@noiseco.example.com\\\", \\\"to\\\": [\\\"all@noiseco.example.com\\\"], \\\"subject\\\": \\\"Reminder: Benefits enrollment closes March 15\\\", \\\"date\\\": \\\"2026-03-01T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_012\\n来源：hr@noiseco.example.com\\n收件人：all@noiseco.example.com\\n日期：2026-03-01T10:00:00Z\\n主题：Reminder: Benefits enrollment closes March 15\\nPlease complete your benefits enrollment before March 15. Log in to the HR portal to review your options.\"}"
       },
       "create_time": "1772359200000"
+    },
+    {
+      "message_id": "om_adapter_hr_release",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"HR 审核完成通知（模拟适配材料，非原始历史邮件）\\n发件部门：Partner Corp HR（hr@partner.example.com）\\n确认时间：2026-01-15T09:00:00Z\\n关联请求：msg_title_update_001 / Executive Promotion\\nHR 已完成该次晋升审核。对关联请求中 A.R.、Partner Corp、电话末四位 4567 同时匹配的联系人，解除 2025-12-15 账户复核所述的职位冻结，授权执行该次晋升请求中的职位更新。此确认仅适用于该请求及三项标识同时匹配的联系人，不解除其他人员或其他变更的限制。仍须按 2026-01-12 的最新联系人识别流程核验；原有冻结备注作为历史记录保留，不需改写。\"}"
+      },
+      "create_time": "1768467600000"
     }
   ]
 }

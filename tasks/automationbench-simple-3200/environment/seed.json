@@ -6,7 +6,8 @@
     {
       "calendar_id": "cal_primary",
       "summary": "工作日历",
-      "role": "owner"
+      "role": "owner",
+      "type": "primary"
     }
   ],
   "events": [],
@@ -27,23 +28,66 @@
         "name": "amount",
         "type": "number"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_146879387a6c",
+        "name": "成交记录",
+        "collection": "deals",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "number"
+          },
+          {
+            "name": "dealname",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      }
     ]
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_3200",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：partnerships@quantumleap.example.com\\n主题：Partnership Proposal - QuantumLeap AI\\n日期：2026-02-22T15:00:00Z\\nHi, QuantumLeap AI is interested in an integration partnership. We have a $50K budget for the initial pilot. We'd love to set up an intro call to discuss. Best, Sanjay Mehta, Head of Partnerships\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771772400000"
-    }
-  ]
+      {
+        "email_address": "partnerships@company.example.com",
+        "email_type": "PUBLIC_MAILBOX"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3200",
+        "mailbox_id": "partnerships@company.example.com",
+        "thread_id": "thr_3200",
+        "smtp_message_id": "msg_3200@fixture.invalid",
+        "subject": "Partnership Proposal - QuantumLeap AI",
+        "head_from": {
+          "mail_address": "partnerships@quantumleap.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "partnerships@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIFF1YW50dW1MZWFwIEFJIGlzIGludGVyZXN0ZWQgaW4gYW4gaW50ZWdyYXRpb24gcGFydG5lcnNoaXAuIFdlIGhhdmUgYSAkNTBLIGJ1ZGdldCBmb3IgdGhlIGluaXRpYWwgcGlsb3QuIFdlJ2QgbG92ZSB0byBzZXQgdXAgYW4gaW50cm8gY2FsbCB0byBkaXNjdXNzLiBCZXN0LCBTYW5qYXkgTWVodGEsIEhlYWQgb2YgUGFydG5lcnNoaXBz",
+        "body_preview": "SGksIFF1YW50dW1MZWFwIEFJIGlzIGludGVyZXN0ZWQgaW4gYW4gaW50ZWdyYXRpb24gcGFydG5lcnNoaXAuIFdlIGhhdmUgYSAkNTBLIGJ1ZGdldCBmb3IgdGhlIGluaXRpYQ",
+        "body_html": "",
+        "internal_date": "1771772400000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

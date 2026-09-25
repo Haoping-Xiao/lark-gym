@@ -1,3 +1,5 @@
+import { prepareSemantic } from './semantic.ts';
+import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -64,6 +66,12 @@ const { seed, world, calls } = JSON.parse(
     process.env.MOCK_STATE || '/var/lib/feishu-mock/state.json',
     'utf8',
   ),
+);
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
 );
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
@@ -358,18 +366,29 @@ const success =
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
+const coverage = scoreUnsupported(
+  success ? 1 : 0,
+  calls,
+  JSON.parse(
+    readFileSync(new URL('./unsupported-policy.json', import.meta.url), 'utf8'),
+  ),
+);
+writeFileSync(`${output}/unsupported.json`, JSON.stringify(coverage, null, 2));
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
-      success,
+      success: coverage.valid_sample && success,
+      business_success: success,
+      semantic,
+      coverage,
       checks,
       creationChecks,
       membershipChecks,
@@ -386,10 +405,10 @@ writeFileSync(
     2,
   ),
 );
-if (!covered) {
+if (!coverage.valid_sample) {
   rmSync(`${output}/reward.txt`);
   throw new Error(
     'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
   );
 }
-writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');
+writeFileSync(`${output}/reward.txt`, `${coverage.reward}\n`);

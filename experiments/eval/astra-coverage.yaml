@@ -1,0 +1,13 @@
+# Run only on an authorized Harbor/Docker host with agent and verifier model access.
+# Supply verifier credentials with Harbor --ve; do not commit credentials here.
+job_name: automationbench-astra-coverage
+jobs_dir: runs/harbor
+n_concurrent_trials: 1
+agents:
+  - name: codex
+    model_name: openai/gpt-6-astra
+environment:
+  type: docker
+datasets:
+  - path: tasks
+    task_names: ['automationbench-*']

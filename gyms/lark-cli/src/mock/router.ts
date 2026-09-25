@@ -1,7 +1,11 @@
+import { contactRoutes } from './domains/contact.ts';
 import type { World } from '../types.ts';
+import { wikiRoutes } from './domains/wiki.ts';
+import { driveRoutes } from './domains/drive.ts';
 import { baseRoutes } from './domains/base/routes.ts';
 import { createCalendarRoutes } from './domains/calendar.ts';
 import { identityRoutes } from './domains/identity.ts';
+import { createMailRoutes } from './domains/mail.ts';
 import { createImRoutes } from './domains/im/routes.ts';
 import { sheetsRoutes } from './domains/sheets.ts';
 import { fail } from './errors.ts';
@@ -9,6 +13,7 @@ import type { ApiRequest, ResponseData } from './types.ts';
 
 export function createRouter(world: World) {
   // Keep the world reference: rollback replaces its contents, not the object.
+  const mailRoutes = createMailRoutes(world);
   const calendarRoutes = createCalendarRoutes(world);
   const imRoutes = createImRoutes(world);
 
@@ -17,8 +22,21 @@ export function createRouter(world: World) {
     const family = /^\/open-apis\/([^/]+)\//.exec(request.path)?.[1];
     let result: ResponseData | undefined;
     switch (family) {
+      case 'drive':
+      case 'search':
+        result = driveRoutes(world, request);
+        break;
+      case 'wiki':
+        result = wikiRoutes(world, request);
+        break;
+      case 'contact':
+        result = contactRoutes(world, request);
+        break;
       case 'authen':
         result = identityRoutes(request);
+        break;
+      case 'mail':
+        result = mailRoutes(request);
         break;
       case 'sheets':
       case 'sheet_ai':

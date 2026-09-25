@@ -152,7 +152,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_0',
     '--text',
-    'Alice Park | Meals | Approved | $62',
+    'Alice Park | Meals | 原申请金额 $62 | Approved | $62',
   ],
   [
     'im',
@@ -160,7 +160,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_1',
     '--text',
-    'Bob Chen | Lodging | Approved | $250',
+    'Bob Chen | Lodging | 原申请金额 $340 | Approved | $250',
   ],
   [
     'im',
@@ -168,7 +168,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_2',
     '--text',
-    'Carol Diaz | Transportation | Approved | $180',
+    'Carol Diaz | Transportation | 原申请金额 $180 | Approved | $180',
   ],
   [
     'im',
@@ -176,7 +176,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_email_3',
     '--text',
-    'Dave Kim | Supplies | Approved | $100',
+    'Dave Kim | Supplies | 原申请金额 $125 | Approved | $100',
   ],
 ];
 for (const args of commands)

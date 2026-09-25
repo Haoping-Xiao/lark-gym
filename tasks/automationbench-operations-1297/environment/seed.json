@@ -59,7 +59,8 @@
           "company_size": "50-100",
           "lifecycle_stage": "Lead",
           "last_email_days_ago": 45,
-          "notes": ""
+          "notes": "",
+          "id": "cont_hs_101"
         }
       },
       {
@@ -74,7 +75,8 @@
           "company_size": "100-500",
           "lifecycle_stage": "Lead",
           "last_email_days_ago": 60,
-          "notes": ""
+          "notes": "",
+          "id": "cont_hs_102"
         }
       },
       {
@@ -89,7 +91,8 @@
           "company_size": "10-50",
           "lifecycle_stage": "Lead",
           "last_email_days_ago": 5,
-          "notes": ""
+          "notes": "",
+          "id": "cont_hs_103"
         }
       },
       {
@@ -104,7 +107,8 @@
           "company_size": "500-1000",
           "lifecycle_stage": "Lead",
           "last_email_days_ago": 90,
-          "notes": ""
+          "notes": "",
+          "id": "cont_hs_104"
         }
       },
       {
@@ -119,7 +123,8 @@
           "company_size": "200-500",
           "lifecycle_stage": "Lead",
           "last_email_days_ago": 55,
-          "notes": "opted out of marketing emails 2026-01-15"
+          "notes": "opted out of marketing emails 2026-01-15",
+          "id": "cont_hs_105"
         }
       },
       {
@@ -134,7 +139,8 @@
           "company_size": "100-500",
           "lifecycle_stage": "Customer",
           "last_email_days_ago": 40,
-          "notes": ""
+          "notes": "",
+          "id": "cont_hs_106"
         }
       },
       {
@@ -145,7 +151,8 @@
           "firstname": "Nina",
           "lastname": "Patel",
           "jobtitle": "Warehouse Supervisor",
-          "company": "Harbor Warehousing"
+          "company": "Harbor Warehousing",
+          "id": "hs_ops_ct_006"
         }
       },
       {
@@ -156,7 +163,8 @@
           "firstname": "Martin",
           "lastname": "Reeves",
           "jobtitle": "Facilities Director",
-          "company": "Pinnacle Logistics"
+          "company": "Pinnacle Logistics",
+          "id": "hs_ops_ct_001"
         }
       },
       {
@@ -167,7 +175,8 @@
           "firstname": "Grant",
           "lastname": "Thompson",
           "jobtitle": "IT Operations Manager",
-          "company": "Keystone IT Services"
+          "company": "Keystone IT Services",
+          "id": "hs_ops_ct_005"
         }
       },
       {
@@ -178,7 +187,8 @@
           "firstname": "Sandra",
           "lastname": "Chen",
           "jobtitle": "Operations Manager",
-          "company": "Granite Supply Co"
+          "company": "Granite Supply Co",
+          "id": "hs_ops_ct_002"
         }
       },
       {
@@ -189,7 +199,8 @@
           "firstname": "Victor",
           "lastname": "Lindgren",
           "jobtitle": "Fleet Manager",
-          "company": "Coastal Fleet Services"
+          "company": "Coastal Fleet Services",
+          "id": "hs_ops_ct_007"
         }
       },
       {
@@ -200,7 +211,8 @@
           "firstname": "Diana",
           "lastname": "Okafor",
           "jobtitle": "Compliance Officer",
-          "company": "Crestfield Manufacturing"
+          "company": "Crestfield Manufacturing",
+          "id": "hs_ops_ct_008"
         }
       },
       {
@@ -442,6 +454,156 @@
       {
         "name": "body",
         "type": "text"
+      },
+      {
+        "name": "id",
+        "type": "text"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_f9569d418119",
+        "name": "engagements",
+        "collection": "engagements",
+        "fields": [
+          {
+            "name": "body",
+            "type": "text"
+          },
+          {
+            "name": "contact_id",
+            "type": "text"
+          },
+          {
+            "name": "type",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_3616546dc9c9",
+        "name": "hubspot_companies",
+        "collection": "hubspot_companies",
+        "fields": [
+          {
+            "name": "domain",
+            "type": "text"
+          },
+          {
+            "name": "industry",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_12c992d3771f",
+        "name": "hubspot_contacts",
+        "collection": "hubspot_contacts",
+        "fields": [
+          {
+            "name": "company",
+            "type": "text"
+          },
+          {
+            "name": "company_size",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "firstname",
+            "type": "text"
+          },
+          {
+            "name": "industry",
+            "type": "text"
+          },
+          {
+            "name": "jobtitle",
+            "type": "text"
+          },
+          {
+            "name": "last_email_days_ago",
+            "type": "number"
+          },
+          {
+            "name": "lastname",
+            "type": "text"
+          },
+          {
+            "name": "lifecycle_stage",
+            "type": "text"
+          },
+          {
+            "name": "notes",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_7c76ad427795",
+        "name": "hubspot_deals",
+        "collection": "hubspot_deals",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "number"
+          },
+          {
+            "name": "dealname",
+            "type": "text"
+          },
+          {
+            "name": "dealstage",
+            "type": "text"
+          },
+          {
+            "name": "pipeline",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_a23c0edc2143",
+        "name": "hubspot_tickets",
+        "collection": "hubspot_tickets",
+        "fields": [
+          {
+            "name": "content",
+            "type": "text"
+          },
+          {
+            "name": "hs_pipeline",
+            "type": "text"
+          },
+          {
+            "name": "hs_pipeline_stage",
+            "type": "text"
+          },
+          {
+            "name": "hs_ticket_priority",
+            "type": "text"
+          },
+          {
+            "name": "subject",
+            "type": "text"
+          }
+        ],
+        "read_only": false
       }
     ]
   },

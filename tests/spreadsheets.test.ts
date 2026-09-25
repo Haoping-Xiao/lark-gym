@@ -90,3 +90,59 @@ test('Two spreadsheet tokens with identical sheet IDs remain isolated and record
     await backend.close();
   }
 });
+
+test('CLI no-overwrite writes empty cells and rejects an occupied range atomically', async () => {
+  const seed = JSON.parse(
+    await readFile(
+      'tasks/automationbench-simple-3086/environment/seed.json',
+      'utf8',
+    ),
+  );
+  seed.spreadsheets = {
+    book: {
+      title: 'Book',
+      sheets: { s: { title: 'Data', values: [['', 'occupied']] } },
+    },
+  };
+  const backend = await startMock(seed);
+  const args = [
+    'sheets',
+    '+cells-set',
+    '--spreadsheet-token',
+    'book',
+    '--sheet-id',
+    's',
+    '--allow-overwrite=false',
+  ];
+  const cli = (tail: string[]) =>
+    exec(resolve('gyms/lark-cli/bin/lark-cli'), [...args, ...tail], {
+      env: { ...process.env, FEISHU_MOCK_URL: backend.url },
+    });
+  try {
+    await assert.rejects(
+      cli([
+        '--range',
+        'A1:B1',
+        '--cells',
+        JSON.stringify([[{ value: 'first' }, { value: 'second' }]]),
+      ]),
+    );
+    assert.deepEqual(backend.world.spreadsheets!.book.sheets.s.values, [
+      ['', 'occupied'],
+    ]);
+    assert.equal(backend.calls.at(-1)?.changed, false);
+    assert.equal(backend.calls.at(-1)?.status, 400);
+    await cli([
+      '--range',
+      'A2:B2',
+      '--cells',
+      JSON.stringify([[{ value: 'first' }, { value: 'second' }]]),
+    ]);
+    assert.deepEqual(backend.world.spreadsheets!.book.sheets.s.values, [
+      ['', 'occupied'],
+      ['first', 'second'],
+    ]);
+  } finally {
+    await backend.close();
+  }
+});

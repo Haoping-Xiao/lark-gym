@@ -1,16 +1,32 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'partnerships@company.example.com',
+    '--message-ids',
+    'msg_3164',
+    '--as',
+    'user',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_146879387a6c',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_146879387a6c',
     '--json',
-    '{"collection": "deals", "dealname": "Vertex Labs Partnership", "amount": 75000}',
+    '{"dealname": "Vertex Labs Partnership", "amount": 75000}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

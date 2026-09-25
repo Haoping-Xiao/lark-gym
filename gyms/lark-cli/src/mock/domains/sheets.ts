@@ -1,5 +1,6 @@
 import type { ApiObject, World, Sheet } from '../../types.ts';
-import { fail, requireValue } from '../errors.ts';
+import { ApiError, fail, requireValue } from '../errors.ts';
+import { parseCsv, formatCsv } from '../csv.ts';
 import type { ApiRequest, ResponseData } from '../types.ts';
 
 function values(range: string, sheets: Record<string, Sheet>) {
@@ -110,10 +111,26 @@ export function sheetsRoutes(
         sheet_id: sid,
         ranges: ranges.map((range: string) => {
           const v = values(`${sid}!${range}`, sheets);
+          const start = /^([A-Z]+)(\d+)?/.exec(range);
+          const column =
+            [...(start?.[1] || 'A')].reduce(
+              (n, c) => n * 26 + c.charCodeAt(0) - 64,
+              0,
+            ) - 1;
+          const row = Number(start?.[2] || 1) - 1;
           return {
             range,
             values: v.values,
-            cells: v.values.map((row) => row.map((value) => ({ value }))),
+            cells: v.values.map((line, y) =>
+              line.map((value, x) => {
+                const style =
+                  sheets[sid].cell_styles?.[`${row + y}:${column + x}`];
+                return {
+                  value,
+                  ...(style ? { cell_styles: structuredClone(style) } : {}),
+                };
+              }),
+            ),
             has_more: false,
           };
         }),
@@ -121,11 +138,7 @@ export function sheetsRoutes(
       };
       if (body.tool_name === 'get_range_as_csv')
         output = {
-          csv: output.ranges[0].values
-            .map((row: unknown[]) =>
-              row.map((v) => JSON.stringify(v)).join(','),
-            )
-            .join('\n'),
+          csv: formatCsv(output.ranges[0].values),
           has_more: false,
         };
     } else fail(501, 990001, `ENV_UNSUPPORTED: sheet tool ${body.tool_name}`);
@@ -142,17 +155,120 @@ export function sheetsRoutes(
     } catch {
       fail(400, 99992402, 'Invalid tool input');
     }
-    if (body.tool_name !== 'set_cell_range')
+    if (body.tool_name === 'batch_update') {
+      // Only the all-success cell-write subset is established by both upstream
+      // contracts. Failed/mixed batches remain coverage gaps: never guess which
+      // earlier writes survive a backend failure.
+      const unsupported = () =>
+        fail(
+          501,
+          990001,
+          'ENV_UNSUPPORTED: batch requires successful cell-only operations',
+        );
+      if (
+        Object.keys(input).some(
+          (key) =>
+            !['excel_id', 'operations', 'continue_on_error'].includes(key),
+        ) ||
+        (input.excel_id !== undefined && input.excel_id !== spreadsheetToken) ||
+        (input.continue_on_error !== undefined &&
+          typeof input.continue_on_error !== 'boolean') ||
+        !Array.isArray(input.operations) ||
+        !input.operations.length ||
+        input.operations.length > 1000
+      )
+        unsupported();
+      const staged = structuredClone(world);
+      for (const operation of input.operations) {
+        if (
+          !operation ||
+          operation.tool_name !== 'set_cell_range' ||
+          Object.keys(operation).some(
+            (key) => !['tool_name', 'input'].includes(key),
+          ) ||
+          !operation.input ||
+          typeof operation.input !== 'object' ||
+          Array.isArray(operation.input) ||
+          (operation.input.excel_id !== undefined &&
+            operation.input.excel_id !== spreadsheetToken)
+        )
+          unsupported();
+        try {
+          sheetsRoutes(staged, {
+            method,
+            path: p,
+            query: q,
+            body: {
+              tool_name: 'set_cell_range',
+              input: JSON.stringify(operation.input),
+            },
+          });
+        } catch (error) {
+          if (
+            error instanceof ApiError &&
+            [400, 404, 501].includes(error.status)
+          )
+            unsupported();
+          throw error;
+        }
+      }
+      world.sheets = staged.sheets;
+      world.spreadsheets = staged.spreadsheets;
+      return {
+        output: JSON.stringify({
+          total: input.operations.length,
+          succeeded: input.operations.length,
+          failed: 0,
+          results: input.operations.map(
+            (operation: ApiObject, index: number) => ({
+              index,
+              tool_name: operation.tool_name,
+              success: true,
+            }),
+          ),
+        }),
+      };
+    }
+    const csvWrite = body.tool_name === 'set_range_from_csv';
+    if (body.tool_name !== 'set_cell_range' && !csvWrite)
       fail(501, 990001, `ENV_UNSUPPORTED: sheet tool ${body.tool_name}`);
     if (
       Object.keys(input).some(
         (key) =>
-          !['excel_id', 'sheet_id', 'sheet_name', 'range', 'cells'].includes(
-            key,
-          ),
+          ![
+            'excel_id',
+            'sheet_id',
+            'sheet_name',
+            ...(csvWrite ? ['start_cell', 'csv'] : ['range', 'cells']),
+            'allow_overwrite',
+          ].includes(key),
       )
     )
       fail(501, 990001, 'ENV_UNSUPPORTED: sheet write options');
+    if (csvWrite) {
+      const start = /^([A-Z]+)([1-9][0-9]*)$/.exec(input.start_cell || '');
+      requireValue(start, 'Finite start_cell required');
+      const rows = parseCsv(input.csv);
+      if (rows.some((row) => row.some((value) => value.startsWith('='))))
+        fail(501, 990001, 'ENV_UNSUPPORTED: CSV formula evaluation');
+      const firstColumn = [...start[1]].reduce(
+        (n, c) => n * 26 + c.charCodeAt(0) - 64,
+        0,
+      );
+      let lastColumn = firstColumn + rows[0].length - 1,
+        letters = '';
+      requireValue(
+        lastColumn <= 1000 && Number(start[2]) + rows.length - 1 <= 100000,
+        'Invalid write range',
+      );
+      while (lastColumn > 0) {
+        lastColumn--;
+        letters = String.fromCharCode(65 + (lastColumn % 26)) + letters;
+        lastColumn = Math.floor(lastColumn / 26);
+      }
+      input.range = `${input.start_cell}:${letters}${Number(start[2]) + rows.length - 1}`;
+      input.cells = rows.map((row) => row.map((value) => ({ value })));
+    }
     const sid =
       input.sheet_id ||
       Object.keys(sheets).find((id) => sheets[id].title === input.sheet_name);
@@ -183,18 +299,56 @@ export function sheetsRoutes(
     );
     for (const row of input.cells)
       for (const cell of row) {
-        if (!cell || Object.keys(cell).some((key) => key !== 'value'))
+        if (
+          !cell ||
+          Object.keys(cell).some(
+            (key) => !['value', 'cell_styles'].includes(key),
+          )
+        )
           fail(501, 990001, 'ENV_UNSUPPORTED: only cell values are supported');
+        if (cell.cell_styles !== undefined) {
+          const style = cell.cell_styles;
+          if (
+            !style ||
+            typeof style !== 'object' ||
+            Array.isArray(style) ||
+            Object.keys(style).length !== 1 ||
+            style.number_format !== '@' ||
+            typeof cell.value !== 'string'
+          )
+            fail(
+              501,
+              990001,
+              'ENV_UNSUPPORTED: only string cells with text number format are supported',
+            );
+        }
         requireValue(
           ['string', 'number', 'boolean'].includes(typeof cell.value),
           'Invalid cell value',
         );
       }
+    requireValue(
+      input.allow_overwrite === undefined ||
+        typeof input.allow_overwrite === 'boolean',
+      'allow_overwrite must be boolean',
+    );
+    if (input.allow_overwrite === false)
+      for (let y = top; y <= bottom; y++)
+        for (let x = left; x <= right; x++)
+          requireValue(
+            sheet.values[y]?.[x] === undefined || sheet.values[y][x] === '',
+            'Write would overwrite a nonempty cell',
+          );
     for (let y = top; y <= bottom; y++) {
       while (sheet.values.length <= y) sheet.values.push([]);
       for (let x = left; x <= right; x++) {
         while (sheet.values[y].length <= x) sheet.values[y].push('');
         sheet.values[y][x] = input.cells[y - top][x - left].value;
+        const style = input.cells[y - top][x - left].cell_styles;
+        if (style) {
+          sheet.cell_styles ??= {};
+          sheet.cell_styles[`${y}:${x}`] = structuredClone(style);
+        }
       }
     }
     return {

@@ -1,3 +1,5 @@
+import { prepareSemantic } from './semantic.ts';
+import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -61,6 +63,12 @@ const { seed, world, calls } = JSON.parse(
     'utf8',
   ),
 );
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
+);
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
@@ -91,7 +99,13 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) => String(r.fields[key]).includes(part))
+            contains[key].every((part) =>
+              semantic.creationContainsCaseInsensitive
+                ? String(r.fields[key])
+                    .toLowerCase()
+                    .includes(part.toLowerCase())
+                : String(r.fields[key]).includes(part),
+            )
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
@@ -240,7 +254,11 @@ for (const check of expected.updates) {
   const after = protectedWorld.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
   );
-  if (after) after.fields[check.field] = before.fields[check.field];
+  if (after) {
+    if (Object.hasOwn(before.fields, check.field))
+      after.fields[check.field] = before.fields[check.field];
+    else delete after.fields[check.field];
+  }
 }
 const sheetsFor = (
   state: typeof world,
@@ -294,18 +312,31 @@ const success =
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
+  semantic.recordGroupChecks.every((c) => c.passed) &&
+  semantic.literalCellChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
+const coverage = scoreUnsupported(
+  success ? 1 : 0,
+  calls,
+  JSON.parse(
+    readFileSync(new URL('./unsupported-policy.json', import.meta.url), 'utf8'),
+  ),
+);
+writeFileSync(`${output}/unsupported.json`, JSON.stringify(coverage, null, 2));
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
-      success,
+      success: coverage.valid_sample && success,
+      business_success: success,
+      semantic,
+      coverage,
       checks,
       creationChecks,
       messageChecks,
@@ -320,10 +351,10 @@ writeFileSync(
     2,
   ),
 );
-if (!covered) {
+if (!coverage.valid_sample) {
   rmSync(`${output}/reward.txt`);
   throw new Error(
     'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
   );
 }
-writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');
+writeFileSync(`${output}/reward.txt`, `${coverage.reward}\n`);

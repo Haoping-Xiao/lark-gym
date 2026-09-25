@@ -41,6 +41,25 @@ test('Membership CLI writes are readable, idempotent, permission checked and run
     );
     assert.match((await cli(a, 'get')).stdout, /U_SARAH/);
     assert.doesNotMatch((await cli(b, 'get')).stdout, /U_SARAH/);
+    const search = async (backend: typeof a) => {
+      const response = await fetch(
+        `${backend.url}/open-apis/im/v2/chats/search`,
+        {
+          method: 'POST',
+          headers: {
+            authorization: 'Bearer local-evaluation-only',
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({ filter: { member_ids: ['U_SARAH'] } }),
+        },
+      );
+      assert.equal(response.status, 200);
+      return (await response.json()).data.items.map(
+        (item: { meta_data: { chat_id: string } }) => item.meta_data.chat_id,
+      );
+    };
+    assert.ok((await search(a)).includes('oc_C_ENG'));
+    assert.ok(!(await search(b)).includes('oc_C_ENG'));
     await assert.rejects(cli(a, 'create', ['U_MARCUS', 'missing']));
     assert.doesNotMatch((await cli(a, 'get')).stdout, /U_MARCUS/);
     a.world.chats.find(
@@ -53,6 +72,7 @@ test('Membership CLI writes are readable, idempotent, permission checked and run
     )!.can_manage_members = true;
     await cli(a, 'delete', ['U_SARAH']);
     assert.doesNotMatch((await cli(a, 'get')).stdout, /U_SARAH/);
+    assert.ok(!(await search(a)).includes('oc_C_ENG'));
     assert.ok(
       a.calls.some((c: { mutations: { kind: string }[] }) =>
         c.mutations.some((m) => m.kind === 'chat'),

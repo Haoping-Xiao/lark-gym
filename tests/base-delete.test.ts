@@ -19,8 +19,14 @@ test('Record deletion is atomic, visible across interfaces, isolated and audited
     exec(resolve('gyms/lark-cli/bin/lark-cli'), args, {
       env: { ...process.env, FEISHU_MOCK_URL: backend.url },
     });
-  const base = ['--base-token', 'base_crm', '--table-id', 'tbl_crm'];
   const id = 'rec_zendesk_usr_701';
+  const collection = seed.base.records.find(
+    (record: any) => record.record_id === id,
+  ).fields.collection;
+  const tableId = seed.base.tables.find(
+    (table: any) => table.collection === collection,
+  ).table_id;
+  const base = ['--base-token', 'base_crm', '--table-id', tableId];
   try {
     await assert.rejects(
       cli(a, [
@@ -51,7 +57,7 @@ test('Record deletion is atomic, visible across interfaces, isolated and audited
     // The v1 endpoint must read the same state as v3 CLI record operations.
     const response = await fetch(
       a.url +
-        '/open-apis/bitable/v1/apps/base_crm/tables/tbl_crm/records/' +
+        `/open-apis/bitable/v1/apps/base_crm/tables/${tableId}/records/` +
         id,
       { headers },
     );

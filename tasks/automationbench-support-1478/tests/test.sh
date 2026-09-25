@@ -1,3 +1,3 @@
 #!/bin/sh
 set -eu
-node /tests/verify.ts
+node /tests/evaluate.ts

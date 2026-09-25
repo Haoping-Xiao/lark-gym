@@ -1,3 +1,4 @@
+import { openId } from '../contact.ts';
 import { fail } from '../../errors.ts';
 import { page } from '../../pagination.ts';
 
@@ -22,11 +23,12 @@ export function chatMembers(
   const chat = world.chats.find((c) => c.chat_id === chatId);
   if (!chat) return fail(404, 232001, 'Chat not found');
   if (chat.chat_mode === 'p2p') return fail(400, 232002, 'Group chat required');
-  if (query.get('member_id_type') !== 'user_id')
+  const idType = query.get('member_id_type') || 'open_id';
+  if (!['user_id', 'open_id'].includes(idType))
     return fail(
       501,
       990001,
-      'ENV_UNSUPPORTED: membership fixture requires member_id_type=user_id',
+      'ENV_UNSUPPORTED: unsupported membership ID namespace',
     );
   const users = world.base.records.filter(
     (r) => r.fields.collection === 'lookup_users',
@@ -35,8 +37,8 @@ export function chatMembers(
   if (method === 'GET')
     return page(
       members.map((id) => ({
-        member_id: id,
-        member_id_type: 'user_id',
+        member_id: idType === 'open_id' ? openId(id) : id,
+        member_id_type: idType,
         name: users.find((r) => r.fields.id === id)?.fields.real_name || id,
       })),
       query,
@@ -52,13 +54,21 @@ export function chatMembers(
     ids.some((id) => typeof id !== 'string')
   )
     return fail(400, 232003, 'id_list requires 1..50 user IDs');
-  const invalid = ids.filter((id) => !users.some((r) => r.fields.id === id));
+  const resolveId = (id: string) =>
+    users.find(
+      (r) =>
+        (idType === 'open_id' ? openId(String(r.fields.id)) : r.fields.id) ===
+        id,
+    )?.fields.id;
+  const invalid = ids.filter((id) => !resolveId(id));
   const mode = query.get('succeed_type') || '0';
   if (!['0', '1', '2'].includes(mode))
     return fail(400, 232003, 'Invalid succeed_type');
   if (invalid.length && mode !== '1')
     return fail(400, 232004, 'Unknown user ID; no membership changed');
-  const valid = ids.filter((id) => !invalid.includes(id));
+  const valid = ids
+    .filter((id) => !invalid.includes(id))
+    .map((id) => String(resolveId(id)));
   chat.member_ids =
     method === 'POST'
       ? [...new Set([...members, ...valid])]

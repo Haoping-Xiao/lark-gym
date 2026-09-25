@@ -160,7 +160,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_C_SAF_5126',
     '--text',
-    '已处理8起：Documented 3；Under Review 2；Investigation 3。需监管报告的事故已优先通知Legal。',
+    'Documented 3；Under Review 2；Investigation 3。',
   ],
   [
     'sheets',

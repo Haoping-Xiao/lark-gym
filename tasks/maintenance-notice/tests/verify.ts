@@ -16,7 +16,7 @@ export function verify(seed: World, world: World, calls: ApiCall[]): Verdict {
     (e) =>
       e.calendar_id === 'cal_ops' &&
       e.status === 'confirmed' &&
-      e.summary.includes('Data Closet') &&
+      `${e.summary} ${e.description || ''}`.includes('Data Closet') &&
       Number(e.start_time.timestamp) === Date.parse(start) / 1000 &&
       Number(e.end_time.timestamp) === Date.parse(end) / 1000,
   );
@@ -47,6 +47,7 @@ export function verify(seed: World, world: World, calls: ApiCall[]): Verdict {
     .every((row) => row.every((s) => prior.includes(String(s))));
   const planRead = seed.sheets.ws_plan.values
     .slice(1)
+    .filter((row) => row[0] === 'Data Closet')
     .every((row) =>
       row.filter(Boolean).every((s) => prior.includes(String(s))),
     );

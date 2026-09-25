@@ -24,7 +24,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_C_HROPS_5103',
     '--text',
-    'Q2已发起6名员工评审，截止2026-05-15。',
+    'Q2已发起6名员工评审。',
   ],
 ];
 for (const args of commands)
