@@ -44,7 +44,9 @@ test('meeting 3168 permits only relevant optional attendees', async () => {
       'missing_term',
     ]) {
       let cs = structuredClone(original);
-      const [write, list, msg] = cs;
+      const [write, msg] = cs,
+        bodyIndex = msg.indexOf('--body') + 1,
+        subjectIndex = msg.indexOf('--subject') + 1;
       if (
         [
           'client',
@@ -76,27 +78,30 @@ test('meeting 3168 permits only relevant optional attendees', async () => {
         ]);
       }
       if (mode === 'natural')
-        msg[msg.length - 1] =
+        msg[bodyIndex] =
           'Marco，邀请您参加 Quarterly Review with Orion Corp，2026年2月27日 UTC 10点至11点，共一小时。';
       if (mode === 'uppercase')
-        msg[msg.length - 1] = msg
-          .at(-1)
-          .replace('Quarterly Review', 'QUARTERLY REVIEW');
+        msg[subjectIndex] = msg[subjectIndex].replace(
+          'Quarterly Review',
+          'QUARTERLY REVIEW',
+        );
       if (mode === 'no_invite') cs = [write];
-      if (mode === 'client_no_invite') cs = cs.filter((c) => c[0] !== 'im');
+      if (mode === 'client_no_invite') cs = cs.filter((c) => c[0] !== 'mail');
       if (mode === 'bot') write.push('--as', 'bot');
-      if (mode === 'send_early') cs = [list, msg, write];
+      if (mode === 'send_early') cs = [msg, write];
       if (mode === 'wrong_details')
-        msg[msg.length - 1] =
+        msg[bodyIndex] =
           'Quarterly Review with Orion Corp 将于2026-02-27 16:00 UTC举行，时长3小时。';
       if (mode === 'wrong_prefix')
-        msg[msg.length - 1] = msg
-          .at(-1)
-          .replace('Quarterly Review', 'xQuarterly Review');
+        msg[subjectIndex] = msg[subjectIndex].replace(
+          'Quarterly Review',
+          'xQuarterly Review',
+        );
       if (mode === 'missing_term')
-        msg[msg.length - 1] = msg
-          .at(-1)
-          .replace('Quarterly Review', '季度回顾');
+        msg[subjectIndex] = msg[subjectIndex].replace(
+          'Quarterly Review',
+          '季度回顾',
+        );
       if (mode === 'wrong_time' || mode === 'no_video') {
         const o = JSON.parse(write.at(-1));
         if (mode === 'wrong_time') {

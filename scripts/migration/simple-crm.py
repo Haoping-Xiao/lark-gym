@@ -294,5 +294,7 @@ storage_mb = 10240
         commands.append(['im','+chat-list','--types=p2p,group'])
         commands.extend(notificationCommands)
     (target/'solution/solve.sh').write_text('#!/bin/sh\nset -eu\nnode /solution/solve.ts\n')
-    (target/'solution/solve.ts').write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(commands,ensure_ascii=False,indent=2)+";\nfor (const args of commands) execFileSync(process.env.LARK_CLI || 'lark-cli', args, {stdio: 'inherit'});\n")
+    tail = "for (const args of commands) execFileSync(process.env.LARK_CLI || 'lark-cli', args, {stdio: 'inherit'});\n"
+    if extra.get(number,{}).get('notification_meeting_url'): tail = "let meetingUrl = '';\nfor (const args of commands) {\n  const output = execFileSync(process.env.LARK_CLI || 'lark-cli', args.map(value => value.replace('{{MEETING_URL}}', meetingUrl)), { encoding: 'utf8' });\n  process.stdout.write(output);\n  if (args[0] === 'calendar' && args[2] === 'create') {\n    const data = JSON.parse(output);\n    meetingUrl = data.data?.event?.vc_data?.meeting_url ?? data.event?.vc_data?.meeting_url ?? '';\n    if (!meetingUrl) throw new Error('Created video meeting did not return joining information');\n  }\n}\n"
+    (target/'solution/solve.ts').write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(commands,ensure_ascii=False,indent=2)+';\n'+tail)
 print('Generated',len(translations),'adapted simple task packages')

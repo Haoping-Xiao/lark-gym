@@ -334,7 +334,7 @@
     ]
   },
   "3167": {
-    "instruction": "Priya Sharma 将于 2026-03-03 入职。在飞书 tasks 台账创建 name 为 Onboard Priya Sharma、workspace 为 ws_hr 的入职任务，并私聊 priya.sharma@company.example.com 表示欢迎。",
+    "instruction": "新同事 Priya Sharma 将于 2026 年 3 月 3 日入职。请在飞书多维表格工作事项台账的 ws_hr 工作区创建名为 Onboard Priya Sharma 的入职任务，并向 priya.sharma@company.example.com 发送欢迎邮件。",
     "create": {
       "collection": "tasks",
       "name": "Onboard Priya Sharma",
@@ -343,13 +343,24 @@
     "notifications": [
       {
         "email": "priya.sharma@company.example.com",
-        "text": "欢迎 Priya Sharma！期待您 2026-03-03 入职。",
-        "contains": ["欢迎", "Priya"]
+        "subject": "Welcome, Priya Sharma!",
+        "body": "Welcome to the team, Priya! We look forward to your start on March 3, 2026."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["priya.sharma@company.example.com"],
+        "subject_contains": ["welcome"],
+        "body_contains": ["Priya"]
+      }
+    ],
+    "workspace_discovery": true,
+    "resource_discovery": true
   },
   "3168": {
-    "instruction": "使用当前账号 agent@company.example.com 在飞书日历安排带视频会议的 Quarterly Review with Orion Corp，时间为 2026-02-27 10:00–11:00 UTC。私聊 marco.reeves@orioncorp.example.com 发送会议邀请，包含主题、时间和时长。\n\n模拟适配约定：本题将视频会议主持人映射为创建会议的当前用户。请以 agent@company.example.com 的用户身份创建；以应用（bot）身份创建不满足指定主持人的要求。原邮件邀请映射为私聊，邮件主题中的 Quarterly Review 对应为邀请正文包含 Quarterly Review（忽略大小写），不限制位置。",
+    "instruction": "请安排名为 Quarterly Review with Orion Corp 的飞书视频会议，时间为 2026 年 2 月 27 日上午 10 点，时长 60 分钟，并向 marco.reeves@orioncorp.example.com 发送包含会议详情的邮件邀请。主持账号使用 agent@company.example.com。\n\n本场景未注明时区的会议时间按 UTC 解释。视频会议主持人映射为创建会议的当前用户，请以指定账号的用户身份创建。",
     "calendar": {
       "summary": "Quarterly Review with Orion Corp",
       "start": "2026-02-27T10:00:00Z",
@@ -360,10 +371,21 @@
     "notifications": [
       {
         "email": "marco.reeves@orioncorp.example.com",
-        "text": "Quarterly Review with Orion Corp\n邀请您参加 2026-02-27 10:00 UTC 会议，时长 60 分钟。",
-        "contains": ["Quarterly Review", "2026-02-27", "10:00", "60"]
+        "subject": "Quarterly Review with Orion Corp",
+        "body": "You are invited to Quarterly Review with Orion Corp on February 27, 2026, 10:00–11:00 UTC (60 minutes), hosted by agent@company.example.com. Join: {{MEETING_URL}}"
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["marco.reeves@orioncorp.example.com"],
+        "subject_contains": ["Quarterly Review"],
+        "body_contains": []
+      }
+    ],
+    "primary_calendar": true,
+    "notification_meeting_url": true
   },
   "3169": {
     "instruction": "新的 analytics dashboard 已上线。向飞书 product 群发布上线公告，并在 tasks 台账创建 name 为 Monitor analytics dashboard launch、workspace 为 ws_prod 的监控任务。",
@@ -407,7 +429,7 @@
     ]
   },
   "3171": {
-    "instruction": "密码重置问题已解决。将飞书 tickets 台账中 ZD-501 的 status 更新为 solved，并私聊 elena.voss@retail.example.com 告知密码重置问题已解决。",
+    "instruction": "支持工单 ZD-501 的密码重置问题已解决。请将飞书多维表格客服工单台账中该工单的 status 更新为 solved，并向 elena.voss@retail.example.com 发送问题解决通知邮件。",
     "update": {
       "id": "ZD-501",
       "fields": {
@@ -417,10 +439,24 @@
     "notifications": [
       {
         "email": "elena.voss@retail.example.com",
-        "text": "密码重置问题已解决。",
-        "contains": ["密码", "解决"]
+        "subject": "Password reset issue resolved — ZD-501",
+        "body": "Your password reset issue has been resolved. Ticket ZD-501 is marked solved."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["elena.voss@retail.example.com"],
+        "subject_contains": ["resolved"],
+        "body_contains": ["password"]
+      }
+    ],
+    "seed_record_fields": {
+      "rec_ZD-501": {
+        "ticket_id": "ZD-501"
+      }
+    }
   },
   "3172": {
     "instruction": "为 BrightPath Solutions 的 Derek Huang 在飞书 leads 台账新增线索，first_name、last_name、email、company 分别填写姓名、derek.huang@brightpath.example.com 和公司。再在 issues 台账创建 SALES 项目的 Task 跟进工单，summary 包含完整姓名。",
