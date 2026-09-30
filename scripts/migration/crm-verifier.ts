@@ -89,6 +89,18 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  mail_before_outreach?: {
+    to: string;
+    record_id?: string;
+    tag?: string;
+    spreadsheet_token: string;
+    sheet_id: string;
+    email_column: number;
+    entity_value?: string;
+    value_column?: number;
+    value?: string;
+  }[];
+  trim_optional_columns?: boolean;
   cells_before_mail?: { to: string; cells: any[] }[];
   mail_list_before_send?: { mailbox: string };
   mail?: {
@@ -1175,6 +1187,17 @@ for (const cell of expected.cells || []) {
   )
     after.pop();
 }
+if (expected.trim_optional_columns) {
+  for (const cell of expected.cells || []) {
+    const before =
+      sheetsFor(seed, cell)[cell.sheet_id]?.values?.[cell.row] || [];
+    const after = sheetsFor(protectedWorld, cell)[cell.sheet_id]?.values?.[
+      cell.row
+    ];
+    if (after)
+      while (after.length > before.length && after.at(-1) === '') after.pop();
+  }
+}
 const unchanged =
   isDeepStrictEqual(seed, protectedWorld) &&
   created.length === consumed.size &&
@@ -2049,8 +2072,85 @@ const cellsBeforeMailChecks = (expected.cells_before_mail || []).map((rule) => {
     passed: checkpoints.length > 0 && checkpoints.every((c) => c.passed),
   };
 });
+// Outbound delivery is a prerequisite for each customer's sent tag and log.
+// Resolve log rows by full email rather than the reference solution row position.
+const mailBeforeOutreachChecks = (expected.mail_before_outreach || []).map(
+  (rule) => {
+    let delivered = false;
+    const checkpoints: { kind: string; seq: number; passed: boolean }[] = [];
+    const hasTag = (fields: any): boolean => {
+      try {
+        const tags = JSON.parse(fields?.tags || '[]');
+        return Array.isArray(tags) && tags.includes(rule.tag);
+      } catch {
+        return false;
+      }
+    };
+    for (const call of calls) {
+      if (call.status >= 400) continue;
+      const mutations = call.mutations || [];
+      for (const mutation of mutations) {
+        if (
+          mutation.kind === 'record' &&
+          mutation.id === rule.record_id &&
+          hasTag(mutation.after?.fields) &&
+          !hasTag(mutation.before?.fields)
+        )
+          checkpoints.push({ kind: 'tag', seq: call.seq, passed: delivered });
+        if (
+          mutation.kind === 'spreadsheet' &&
+          mutation.id === rule.spreadsheet_token
+        ) {
+          const before = mutation.before?.sheets?.[rule.sheet_id]?.values || [];
+          const after = mutation.after?.sheets?.[rule.sheet_id]?.values || [];
+          for (let i = 1; i < after.length; i++) {
+            const row = after[i];
+            if (
+              String(row[rule.email_column] || '').toLowerCase() ===
+                (rule.entity_value || rule.to).toLowerCase() &&
+              (rule.value_column === undefined
+                ? !isDeepStrictEqual(before[i], row)
+                : row[rule.value_column] === rule.value &&
+                  (before[i]?.[rule.value_column] !== rule.value ||
+                    before[i]?.[rule.email_column] !== row[rule.email_column]))
+            )
+              checkpoints.push({
+                kind: 'log',
+                seq: call.seq,
+                passed: delivered,
+              });
+          }
+        }
+      }
+      if (
+        mutations.some(
+          (m: any) =>
+            m.kind === 'mail_message' &&
+            m.before?.message_state === 3 &&
+            m.after?.message_state === 2 &&
+            (m.after.to || []).some(
+              (a: any) =>
+                a.mail_address.toLowerCase() === rule.to.toLowerCase(),
+            ),
+        )
+      )
+        delivered = true;
+    }
+    return {
+      rule,
+      checkpoints,
+      passed:
+        delivered &&
+        (rule.record_id ? ['tag', 'log'] : ['log']).every((kind) =>
+          checkpoints.some((c) => c.kind === kind),
+        ) &&
+        checkpoints.every((c) => c.passed),
+    };
+  },
+);
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  mailBeforeOutreachChecks.every((c) => c.passed) &&
   cellsBeforeMailChecks.every((c) => c.passed) &&
   mailChecks.every((c) => c.passed) &&
   sentMail.length === consumedMail.size &&
@@ -2101,6 +2201,7 @@ writeFileSync(
       entityOrderChecks,
       messageChecks,
       mailChecks,
+      mailBeforeOutreachChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,
       cellChecks,

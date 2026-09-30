@@ -227,6 +227,10 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.cell_source_context) {
+    original.cell_source_context = structuredClone(config.cell_source_context);
+    deferred.push('cells.optional_source_references_verbatim');
+  }
   if (config.event_end_time_unspecified?.length)
     deferred.push('events.unspecified_duration_reasonableness');
   if (expected.mail?.length) deferred.push('mail.content');
@@ -335,6 +339,61 @@ export function prepareSemantic(
       expected.cells.push({ ...cell, value });
       deferred.push('optional_cell_edits.source_supported_correction');
     }
+  }
+  // A reviewed outreach log may include optional source-supported columns.
+  // Resolve each new row by its stable identity before unordered-row matching.
+  if (seed && config.optional_outreach_columns?.length) {
+    expected.trim_optional_columns = true;
+    original.optional_outreach_columns = structuredClone(
+      config.optional_outreach_columns,
+    );
+    for (const rule of config.optional_outreach_columns) {
+      const before =
+        seed.spreadsheets?.[rule.spreadsheet_token]?.sheets?.[rule.sheet_id]
+          ?.values || [];
+      const after =
+        world.spreadsheets?.[rule.spreadsheet_token]?.sheets?.[rule.sheet_id]
+          ?.values || [];
+      const headers = after[0] || [];
+      const columns = headers.flatMap((header: unknown, column: number) =>
+        column >= (before[0]?.length || 0) &&
+        typeof header === 'string' &&
+        rule.columns.includes(header) &&
+        headers.indexOf(header) === column
+          ? [{ header, column }]
+          : [],
+      );
+      const identityChecks = (expected.cells || []).filter(
+        (c: Json) =>
+          c.spreadsheet_token === rule.spreadsheet_token &&
+          c.sheet_id === rule.sheet_id &&
+          c.column === rule.identity_column,
+      );
+      for (const { header, column } of columns) {
+        expected.cells.push({
+          spreadsheet_token: rule.spreadsheet_token,
+          sheet_id: rule.sheet_id,
+          row: 0,
+          column,
+          value: header,
+        });
+        for (let row = before.length; row < after.length; row++) {
+          const identity = identityChecks.find(
+            (c: Json) => c.value === after[row]?.[rule.identity_column],
+          );
+          const value = after[row]?.[column];
+          if (!identity || typeof value !== 'string' || !value.trim()) continue;
+          expected.cells.push({
+            spreadsheet_token: rule.spreadsheet_token,
+            sheet_id: rule.sheet_id,
+            row: identity.row,
+            column,
+            value,
+          });
+        }
+      }
+    }
+    deferred.push('cells.optional_outreach_columns_truthfulness');
   }
   // Reviewed payment policies constrain the group, not a reference split.
   if (seed && config.payment_split_groups?.length) {
@@ -690,6 +749,18 @@ export function prepareSemantic(
       ['numeric_result_columns', decimalValue],
       ['percent_result_columns', percentValue],
       ['utc_clock_result_columns', utcClockSeconds],
+      [
+        'utc_date_result_columns',
+        (value: unknown): string | null => {
+          if (typeof value !== 'string') return null;
+          const parsed = instant(
+            /^\d{4}-\d{2}-\d{2}$/.test(value) ? value + 'T00:00:00Z' : value,
+          );
+          return parsed === null
+            ? null
+            : new Date(Number(parsed.split(':')[0])).toISOString().slice(0, 10);
+        },
+      ],
     ] as const) {
       const rule = (config[key] || []).find(
         (rule: Json) =>

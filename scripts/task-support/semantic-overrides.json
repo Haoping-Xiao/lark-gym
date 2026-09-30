@@ -1036,7 +1036,47 @@
     "unordered_new_rows": true
   },
   "automationbench-support-1419": {
-    "unordered_new_rows": true
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {},
+    "unordered_new_rows": true,
+    "json_text_fields": {
+      "tags": "string_set"
+    },
+    "utc_date_result_columns": [
+      {
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "columns": [3]
+      }
+    ],
+    "optional_outreach_columns": [
+      {
+        "spreadsheet_token": "ss_history",
+        "sheet_id": "ws_outreach",
+        "identity_column": 0,
+        "columns": ["Total Spend", "Offer"],
+        "meaning": {
+          "Total Spend": "Original source spend for this exact customer email",
+          "Offer": "Correct configured win-back offer actually sent to this email"
+        }
+      }
+    ]
   },
   "automationbench-support-1425": {
     "unordered_new_rows": true
@@ -1051,7 +1091,32 @@
     }
   },
   "automationbench-support-1438": {
-    "unordered_new_rows": true
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {},
+    "unordered_new_rows": true,
+    "numeric_result_columns": [
+      {
+        "spreadsheet_token": "ss_churn",
+        "sheet_id": "ws_churn",
+        "columns": [1]
+      }
+    ]
   },
   "automationbench-support-1448": {
     "unordered_new_rows": true
@@ -1248,7 +1313,36 @@
     "unordered_new_rows": true
   },
   "automationbench-support-1600": {
-    "unordered_new_rows": true
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {},
+    "unordered_new_rows": true,
+    "literal_cell_terms": {
+      "49": ["resolved", "open"]
+    },
+    "literal_cell_token_boundaries": true,
+    "cell_source_context": {
+      "49": {
+        "subject": "Billing dispute",
+        "reamaze_id": "ra_06",
+        "intercom_id": "ic_s06"
+      }
+    }
   },
   "automationbench-support-1574": {
     "unordered_new_rows": true,
