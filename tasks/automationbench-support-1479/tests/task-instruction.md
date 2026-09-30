@@ -1,3 +1,3 @@
-固定今天2026-02-07 09:00 UTC。按ss_engagement给全部helpcrunch_customers计算activity score，7天内事件乘Recency_Multiplier，旧事件仍计基础分，不只算最近7天。替换旧tier标签但保留其他tags。首次成为engaged/highly-engaged或已有tier下降才新增helpcrunch_events(customer_id/event_name取Engagement_Event/score数值/tier/previous_tier首次为空/created_at当前时间)，不改原始events。Alert_Email映射邮箱IM，只报告disengaged公司/姓名/分值。growth-metrics含Batch_Reference、全部客户姓名/公司/分值/tier和各tier人数。
+固定今天2026-02-07 09:00 UTC。按ss_engagement给全部helpcrunch_customers计算activity score，只统计created_at不晚于当前基准时间的事件，未来事件不计分；过去7天内含两个边界的事件乘Recency_Multiplier，更早事件仍计基础分，不只算最近7天。替换旧tier标签但保留其他tags。首次成为engaged/highly-engaged或已有tier下降才新增helpcrunch_events(customer_id/event_name取Engagement_Event/score数值/tier/previous_tier首次为空/created_at当前时间)，不改原始events。通过真实mail向Alert_Email发邮件，只报告disengaged公司/姓名/分值。growth-metrics含Batch_Reference、全部客户姓名/公司/分值/tier和各tier人数。只汇报实际处理事项，不列举、统计或解释排除的事件或未处理对象。
 
 本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

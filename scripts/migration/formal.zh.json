@@ -39442,7 +39442,7 @@
     ]
   },
   "support-1479": {
-    "instruction": "固定今天2026-02-07 09:00 UTC。按ss_engagement给全部helpcrunch_customers计算activity score，7天内事件乘Recency_Multiplier，旧事件仍计基础分，不只算最近7天。替换旧tier标签但保留其他tags。首次成为engaged/highly-engaged或已有tier下降才新增helpcrunch_events(customer_id/event_name取Engagement_Event/score数值/tier/previous_tier首次为空/created_at当前时间)，不改原始events。Alert_Email映射邮箱IM，只报告disengaged公司/姓名/分值。growth-metrics含Batch_Reference、全部客户姓名/公司/分值/tier和各tier人数。",
+    "instruction": "固定今天2026-02-07 09:00 UTC。按ss_engagement给全部helpcrunch_customers计算activity score，只统计created_at不晚于当前基准时间的事件，未来事件不计分；过去7天内含两个边界的事件乘Recency_Multiplier，更早事件仍计基础分，不只算最近7天。替换旧tier标签但保留其他tags。首次成为engaged/highly-engaged或已有tier下降才新增helpcrunch_events(customer_id/event_name取Engagement_Event/score数值/tier/previous_tier首次为空/created_at当前时间)，不改原始events。通过真实mail向Alert_Email发邮件，只报告disengaged公司/姓名/分值。growth-metrics含Batch_Reference、全部客户姓名/公司/分值/tier和各tier人数。只汇报实际处理事项，不列举、统计或解释排除的事件或未处理对象。",
     "updates": [
       {
         "id": "helpcrunch_customers_eng_hc1",
@@ -39552,19 +39552,21 @@
     "messages": [
       {
         "email": "growth-team@company.example.com",
-        "text": "ENG-SCORE-W06 | disengaged\nGina Nakamura | GhostCo | score=2 | disengaged\nHiro Sato | OldActivity Inc | score=7 | disengaged\nQuinn Donovan | Echo Valley Software | score=2 | disengaged\nMarcus Daly | Silverline Systems | score=2 | disengaged\nTariq Osman | Sunridge Partners | score=2 | disengaged",
+        "text": "ENG-SCORE-W06 | disengaged\nGina Nakamura | GhostCo | score=2 | disengaged\nHiro Sato | OldActivity Inc | score=7 | disengaged\nQuinn Donovan | Echo Valley Software | score=0 | disengaged\nMarcus Daly | Silverline Systems | score=0 | disengaged\nTariq Osman | Sunridge Partners | score=0 | disengaged",
         "contains": [
           "ENG-SCORE-W06",
           "Gina Nakamura | GhostCo | score=2 | disengaged",
           "Hiro Sato | OldActivity Inc | score=7 | disengaged",
-          "Quinn Donovan | Echo Valley Software | score=2 | disengaged",
-          "Marcus Daly | Silverline Systems | score=2 | disengaged",
-          "Tariq Osman | Sunridge Partners | score=2 | disengaged"
-        ]
+          "Quinn Donovan | Echo Valley Software | score=0 | disengaged",
+          "Marcus Daly | Silverline Systems | score=0 | disengaged",
+          "Tariq Osman | Sunridge Partners | score=0 | disengaged"
+        ],
+        "subject": "ENG-SCORE-W06 engagement alert",
+        "body": "ENG-SCORE-W06 | disengaged\nGina Nakamura | GhostCo | score=2 | disengaged\nHiro Sato | OldActivity Inc | score=7 | disengaged\nQuinn Donovan | Echo Valley Software | score=0 | disengaged\nMarcus Daly | Silverline Systems | score=0 | disengaged\nTariq Osman | Sunridge Partners | score=0 | disengaged"
       },
       {
         "channel": "growth-metrics",
-        "text": "ENG-SCORE-W06 | engagement\nAva Powers | PowerUser Inc | score=68 | highly-engaged\nBen Torres | SuperActive | score=60 | highly-engaged\nCara Lee | MidRange LLC | score=35 | engaged\nDan Wright | SteadyCo | score=35 | engaged\nElena Ruiz | QuietCo | score=15 | passive\nFrank Shah | DecliningCo | score=14 | passive\nGina Nakamura | GhostCo | score=2 | disengaged\nHiro Sato | OldActivity Inc | score=7 | disengaged\nQuinn Donovan | Echo Valley Software | score=2 | disengaged\nMarcus Daly | Silverline Systems | score=2 | disengaged\nTariq Osman | Sunridge Partners | score=2 | disengaged\n2 highly-engaged | 2 engaged | 2 passive | 5 disengaged",
+        "text": "ENG-SCORE-W06 | engagement\nAva Powers | PowerUser Inc | score=68 | highly-engaged\nBen Torres | SuperActive | score=60 | highly-engaged\nCara Lee | MidRange LLC | score=35 | engaged\nDan Wright | SteadyCo | score=35 | engaged\nElena Ruiz | QuietCo | score=15 | passive\nFrank Shah | DecliningCo | score=14 | passive\nGina Nakamura | GhostCo | score=2 | disengaged\nHiro Sato | OldActivity Inc | score=7 | disengaged\nQuinn Donovan | Echo Valley Software | score=0 | disengaged\nMarcus Daly | Silverline Systems | score=0 | disengaged\nTariq Osman | Sunridge Partners | score=0 | disengaged\n2 highly-engaged | 2 engaged | 2 passive | 5 disengaged",
         "contains": [
           "ENG-SCORE-W06",
           "engagement",
@@ -39576,15 +39578,57 @@
           "Frank Shah | DecliningCo | score=14 | passive",
           "Gina Nakamura | GhostCo | score=2 | disengaged",
           "Hiro Sato | OldActivity Inc | score=7 | disengaged",
-          "Quinn Donovan | Echo Valley Software | score=2 | disengaged",
-          "Marcus Daly | Silverline Systems | score=2 | disengaged",
-          "Tariq Osman | Sunridge Partners | score=2 | disengaged",
+          "Quinn Donovan | Echo Valley Software | score=0 | disengaged",
+          "Marcus Daly | Silverline Systems | score=0 | disengaged",
+          "Tariq Osman | Sunridge Partners | score=0 | disengaged",
           "2 highly-engaged",
           "2 engaged",
           "2 passive",
           "5 disengaged"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["growth-team@company.example.com"],
+        "aggregate": true,
+        "body_contains": ["disengaged", "GhostCo"],
+        "body_not_contains": ["ava@poweruser.com"]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_engagement",
+        "--sheet-id",
+        "ws_scoring",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_engagement",
+        "--sheet-id",
+        "ws_tiers",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_engagement",
+        "--sheet-id",
+        "ws_config",
+        "--range",
+        "A1:D100"
+      ]
     ]
   },
   "support-1480": {
