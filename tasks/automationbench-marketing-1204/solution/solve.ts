@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'agent@company.example.com',
+    '--message-ids',
+    'Zml4dHVyZTptc2dfcGhvdG9fcG9saWN5,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzNQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwOQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyOQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyOA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxOA',
+    '--as',
+    'user',
+  ],
   [
     'base',
     '+record-list',

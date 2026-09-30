@@ -1,3 +1,5 @@
 读取facilities团队最新未读的fire drill来信，先查看ss_ops_policy/ws_email_rules再选择应执行版本，不混入其他设施事项。在飞书Base创建asana_tasks业务记录，workspace=ws_ops、project=proj_facilities、name/dueDate/tag按有效来信原文，section从asana_find_section查February的ID。创建后ops-updates通知名称、Due: YYYY-MM-DD与标签。此适配将Asana分组/标签作为实际任务字段，不执行外部Asana。
 
+相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
+
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

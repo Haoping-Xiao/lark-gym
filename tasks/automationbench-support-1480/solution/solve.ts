@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
+  ['mail', '+triage', '--mailbox', 'agent@company.example.com', '--as', 'user'],
   [
     'base',
     '+record-list',

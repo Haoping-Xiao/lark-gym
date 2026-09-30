@@ -1,7 +1,59 @@
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 import { existsSync, readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 
 type Json = Record<string, any>;
+// Opt-in parity with the reviewed source sheet matcher: case-insensitive,
+// numeric normalization, word-start guards, and permitted word prefixes.
+function sourceCellContains(value: string, term: string): boolean {
+  const normalize = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/(\d),(?=\d)/g, '$1')
+      .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+      .replace(/(\d)\.0+(?!\d)/g, '$1');
+  const needle = normalize(term);
+  if (!needle) return false;
+  return new RegExp(
+    (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+      needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+      (/\d$/.test(needle) ? '(?!\\d|\\.\\d)' : ''),
+  ).test(normalize(value));
+}
+
 // Reviewed USD result columns only. Compare cents exactly, never via floats.
 function usdCents(value: unknown): bigint | null {
   if (typeof value !== 'string' && typeof value !== 'number') return null;
@@ -115,6 +167,56 @@ export function prepareSemantic(
   const config = existsSync(configPath)
     ? JSON.parse(readFileSync(configPath, 'utf8'))
     : { enabled: false };
+  if (config.cells_before_mail)
+    expected.cells_before_mail = structuredClone(config.cells_before_mail);
+  if (config.read_before_updates)
+    expected.read_before_updates = structuredClone(config.read_before_updates);
+  if (config.read_before_creates)
+    expected.read_before_creates = structuredClone(config.read_before_creates);
+  if (config.read_records_before_creates)
+    expected.read_records_before_creates = structuredClone(
+      config.read_records_before_creates,
+    );
+  if (config.read_records_before_updates)
+    expected.read_records_before_updates = structuredClone(
+      config.read_records_before_updates,
+    );
+  if (config.rrule_default_interval) expected.rrule_default_interval = true;
+  for (const index of config.non_recurring_events || [])
+    expected.events[index].single_occurrence = true;
+  for (const index of config.event_summary_contains_case_insensitive || [])
+    expected.events[index].summary_contains_case_insensitive = true;
+  for (const [index, email] of Object.entries(config.event_host_users || {}))
+    expected.events[Number(index)].host_user_email = email;
+  for (const index of config.event_end_time_unspecified || [])
+    expected.events[index].end_time_unspecified = true;
+  if (config.rrule_byday_set) expected.rrule_byday_set = true;
+  for (const [index, id] of Object.entries(config.event_source_messages || {}))
+    expected.events[Number(index)].source_message_id = id;
+  if (config.event_mail_notification_order)
+    expected.order_groups = [
+      { kind: 'event' },
+      { kind: 'mail_message', sent_mail_only: true },
+    ];
+  if (config.event_notification_order)
+    expected.order_groups = [
+      { kind: 'event' },
+      {
+        kind: 'message',
+        ids: [...new Set((expected.messages || []).map((m: any) => m.chat_id))],
+        all_messages: true,
+      },
+    ];
+  if (config.creation_contains_guarded)
+    expected.creation_contains_guarded = true;
+  for (const [index, options] of Object.entries(
+    config.event_attendee_options || {},
+  ))
+    expected.events[Number(index)].attendee_options = options;
+  for (const [index, ids] of Object.entries(
+    config.message_mention_open_ids || {},
+  ))
+    expected.messages[Number(index)].mention_open_ids = ids;
   const original = structuredClone(expected);
   if (!config.enabled)
     return {
@@ -143,6 +245,17 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  if (config.cell_source_context) {
+    original.cell_source_context = structuredClone(config.cell_source_context);
+    deferred.push('cells.optional_source_references_verbatim');
+  }
+  if (config.event_end_time_unspecified?.length)
+    deferred.push('events.unspecified_duration_reasonableness');
+  if (expected.mail?.length) deferred.push('mail.content');
+  if (expected.mail?.length && config.mail_delivery_count === 'unconstrained') {
+    original.mail_delivery_count = 'unconstrained';
+    deferred.push('mail.unconstrained_delivery_count');
+  }
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =
       config.optional_creation_text_fields;
@@ -218,7 +331,7 @@ export function prepareSemantic(
       const before = read(seed),
         value = read(world);
       if (
-        before === undefined ||
+        (before === undefined && !rule.allow_new_cell) ||
         isDeepStrictEqual(before, value) ||
         typeof value !== 'string' ||
         !value.trim() ||
@@ -244,6 +357,61 @@ export function prepareSemantic(
       expected.cells.push({ ...cell, value });
       deferred.push('optional_cell_edits.source_supported_correction');
     }
+  }
+  // A reviewed outreach log may include optional source-supported columns.
+  // Resolve each new row by its stable identity before unordered-row matching.
+  if (seed && config.optional_outreach_columns?.length) {
+    expected.trim_optional_columns = true;
+    original.optional_outreach_columns = structuredClone(
+      config.optional_outreach_columns,
+    );
+    for (const rule of config.optional_outreach_columns) {
+      const before =
+        seed.spreadsheets?.[rule.spreadsheet_token]?.sheets?.[rule.sheet_id]
+          ?.values || [];
+      const after =
+        world.spreadsheets?.[rule.spreadsheet_token]?.sheets?.[rule.sheet_id]
+          ?.values || [];
+      const headers = after[0] || [];
+      const columns = headers.flatMap((header: unknown, column: number) =>
+        column >= (before[0]?.length || 0) &&
+        typeof header === 'string' &&
+        rule.columns.includes(header) &&
+        headers.indexOf(header) === column
+          ? [{ header, column }]
+          : [],
+      );
+      const identityChecks = (expected.cells || []).filter(
+        (c: Json) =>
+          c.spreadsheet_token === rule.spreadsheet_token &&
+          c.sheet_id === rule.sheet_id &&
+          c.column === rule.identity_column,
+      );
+      for (const { header, column } of columns) {
+        expected.cells.push({
+          spreadsheet_token: rule.spreadsheet_token,
+          sheet_id: rule.sheet_id,
+          row: 0,
+          column,
+          value: header,
+        });
+        for (let row = before.length; row < after.length; row++) {
+          const identity = identityChecks.find(
+            (c: Json) => c.value === after[row]?.[rule.identity_column],
+          );
+          const value = after[row]?.[column];
+          if (!identity || typeof value !== 'string' || !value.trim()) continue;
+          expected.cells.push({
+            spreadsheet_token: rule.spreadsheet_token,
+            sheet_id: rule.sheet_id,
+            row: identity.row,
+            column,
+            value,
+          });
+        }
+      }
+    }
+    deferred.push('cells.optional_outreach_columns_truthfulness');
   }
   // Reviewed payment policies constrain the group, not a reference split.
   if (seed && config.payment_split_groups?.length) {
@@ -390,7 +558,7 @@ export function prepareSemantic(
           if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
             return false;
           try {
-            const text = JSON.parse(m.body.content).text;
+            const text = decodedMessageText(m.body.content);
             return (
               typeof text === 'string' &&
               terms.every((term) =>
@@ -406,6 +574,84 @@ export function prepareSemantic(
         });
       literalMessageChecks.push({ chat_id, contains: terms, passed });
     }
+  }
+
+  // Source Gmail assertion normalization and guarded substring matching.
+  for (const [chat_id, terms] of Object.entries(
+    config.gmail_message_terms_chat || {},
+  )) {
+    const normalize = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\d+)\.0+%/g, '$1%')
+        .replace(/\s*->\s*/g, '->')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const contains = (text: string, part: string) => {
+      const needle = normalize(part);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d)` : ''),
+      ).test(normalize(text));
+    };
+    const passed =
+      Boolean(seed) &&
+      world.messages.some((m: Json) => {
+        if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
+          return false;
+        try {
+          const text = decodedMessageText(m.body.content);
+          return (
+            typeof text === 'string' &&
+            (terms as string[]).every((term) => contains(text, term))
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ chat_id, contains: terms, passed });
+  }
+
+  // Source Slack assertions normalize case, bold markers, and numeric formatting.
+  for (const [chat_id, terms] of Object.entries(
+    config.slack_message_terms_chat || {},
+  )) {
+    const normalize = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/\*\*|__/g, '')
+        .replace(/(\d+)\.0+%/g, '$1%');
+    const contains = (text: string, part: string) => {
+      const needle = normalize(part);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d|[kmb]\b)` : ''),
+      ).test(normalize(text));
+    };
+    const passed =
+      Boolean(seed) &&
+      world.messages.some((m: Json) => {
+        if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
+          return false;
+        try {
+          const text = decodedMessageText(m.body.content);
+          return (
+            typeof text === 'string' &&
+            (terms as string[]).every((term) => contains(text, term))
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ chat_id, contains: terms, passed });
   }
 
   // Adapted email tasks can declare first-line subject / remaining-body
@@ -439,7 +685,7 @@ export function prepareSemantic(
         if (initialMessageIds.has(m.message_id) || m.chat_id !== chat_id)
           return false;
         try {
-          const text = JSON.parse(m.body.content).text;
+          const text = decodedMessageText(m.body.content);
           if (typeof text !== 'string') return false;
           const [subject, ...body] = text.split(/\r?\n/);
           return (
@@ -521,6 +767,18 @@ export function prepareSemantic(
       ['numeric_result_columns', decimalValue],
       ['percent_result_columns', percentValue],
       ['utc_clock_result_columns', utcClockSeconds],
+      [
+        'utc_date_result_columns',
+        (value: unknown): string | null => {
+          if (typeof value !== 'string') return null;
+          const parsed = instant(
+            /^\d{4}-\d{2}-\d{2}$/.test(value) ? value + 'T00:00:00Z' : value,
+          );
+          return parsed === null
+            ? null
+            : new Date(Number(parsed.split(':')[0])).toISOString().slice(0, 10);
+        },
+      ],
     ] as const) {
       const rule = (config[key] || []).find(
         (rule: Json) =>
@@ -742,11 +1000,13 @@ export function prepareSemantic(
           terms.every(
             (term: unknown) =>
               typeof term === 'string' &&
-              (config.literal_cell_token_boundaries
-                ? new RegExp(
-                    `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
-                  ).test(value)
-                : value.includes(term)),
+              (config.literal_cell_source_contains
+                ? sourceCellContains(value, term)
+                : config.literal_cell_token_boundaries
+                  ? new RegExp(
+                      `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
+                    ).test(value)
+                  : value.includes(term)),
           ),
       };
     },
@@ -881,6 +1141,31 @@ export function prepareSemantic(
     )?.fields[check.field];
     if (sameReviewedField(check.field, actual, check.value))
       check.value = actual;
+  }
+  // Only explicitly reviewed source-empty fields admit alternate absence encodings.
+  for (const [index, fields] of Object.entries(
+    config.empty_creation_fields || {},
+  )) {
+    const record = expected.creates?.[Number(index)];
+    const keys = (fields as string[]).filter((key) => record?.[key] === '');
+    if (!record || !keys.length) continue;
+    const actual = world.base.records.find(
+      (row: Json) =>
+        !seed?.base?.records.some(
+          (old: Json) => old.record_id === row.record_id,
+        ) &&
+        Object.entries(record).every(([key, value]) =>
+          keys.includes(key)
+            ? row.fields[key] === '' || row.fields[key] === undefined
+            : semanticField(key, Number(index)) ||
+              isDeepStrictEqual(row.fields[key], value),
+        ),
+    );
+    if (actual)
+      for (const key of keys) {
+        if (actual.fields[key] === undefined) delete record[key];
+        else record[key] = actual.fields[key];
+      }
   }
   // Joint alternatives are reviewed together; never form a cross product of fields.
   for (const [index, variants] of Object.entries(

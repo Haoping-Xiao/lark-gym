@@ -1,3 +1,5 @@
 今天2026-01-21，处理prospect@newco.example.com明天的demo请求，查邮件和Demo Routing Rules，核对CRM员工限制和现有预约。选择正确rep，在该rep邮箱为calendar_id的飞书日历创建Sales Demo并添加prospect参会，按event type时长。原题未给时刻，本题选09:00–17:00 UTC内最早完整空档；把lead owner_id更新为对应Salesforce user ID，其他lead资料和已有预约保留。
 
+相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
+
 本次业务处理以 2026-01-21T09:00:00Z 为时间基准。
