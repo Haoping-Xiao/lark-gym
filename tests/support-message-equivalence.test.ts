@@ -13,7 +13,7 @@ const scopes: Record<number, string[]> = {
   '1463': ['oc_C_WAR'],
   '1468': ['oc_C_SS'],
   '1475': ['oc_C_REV'],
-  '1488': ['oc_email_4', 'oc_email_3'],
+  '1488': ['oc_C_WKND'],
   '1495': ['oc_C_ESC'],
 };
 for (const n of [1446, 1447, 1463, 1468, 1475, 1488, 1495])

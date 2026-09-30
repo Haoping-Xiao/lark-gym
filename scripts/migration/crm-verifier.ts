@@ -950,6 +950,11 @@ const mailChecks = (expected.mail || []).map((rule) => {
     const bodies: string[] = matches.map((m: any) => mailBodyText(m));
     const passed =
       matches.length > 0 &&
+      (rule.subject === undefined ||
+        matches.some((m: any) => m.subject === rule.subject)) &&
+      (rule.subject_contains || []).every((term) =>
+        matches.some((m: any) => supportContains(m.subject, term)),
+      ) &&
       (rule.body_contains || []).every((term) =>
         bodies.some((body) => supportContains(body, term)),
       ) &&

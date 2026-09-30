@@ -36,6 +36,24 @@ import { existsSync, readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 
 type Json = Record<string, any>;
+// Opt-in parity with the reviewed source sheet matcher: case-insensitive,
+// numeric normalization, word-start guards, and permitted word prefixes.
+function sourceCellContains(value: string, term: string): boolean {
+  const normalize = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/(\d),(?=\d)/g, '$1')
+      .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+      .replace(/(\d)\.0+(?!\d)/g, '$1');
+  const needle = normalize(term);
+  if (!needle) return false;
+  return new RegExp(
+    (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+      needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+      (/\d$/.test(needle) ? '(?!\\d|\\.\\d)' : ''),
+  ).test(normalize(value));
+}
+
 // Reviewed USD result columns only. Compare cents exactly, never via floats.
 function usdCents(value: unknown): bigint | null {
   if (typeof value !== 'string' && typeof value !== 'number') return null;
@@ -982,11 +1000,13 @@ export function prepareSemantic(
           terms.every(
             (term: unknown) =>
               typeof term === 'string' &&
-              (config.literal_cell_token_boundaries
-                ? new RegExp(
-                    `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
-                  ).test(value)
-                : value.includes(term)),
+              (config.literal_cell_source_contains
+                ? sourceCellContains(value, term)
+                : config.literal_cell_token_boundaries
+                  ? new RegExp(
+                      `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
+                    ).test(value)
+                  : value.includes(term)),
           ),
       };
     },

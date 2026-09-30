@@ -39245,7 +39245,7 @@
     ]
   },
   "support-1478": {
-    "instruction": "按ss_templates为new support_tickets分类，subject关键词大小写不敏感，多个模板命中按ws_templates行顺序，均不匹配default。先检查ws_conditions（组织以ticket organization_id为准），命中转Human Review组并加human-review，不回复。Auto_Send=true创建公开support_comments(ticket_id/body=模板原文/public=true/template_id)作为实际自动回复，并追加auto-responded；false仅内部comment(public=false)，不自动发送也不加该tag。按非空Group_ID分组，默认空组不造值。auto-response报告Batch_Reference、总数、公开auto response数、内部draft数及human review数。模板处理数包含内部draft，不能当作已发送数。",
+    "instruction": "按ss_templates为new support_tickets分类，subject关键词大小写不敏感，多个模板命中按ws_templates行顺序，均不匹配default。先检查ws_conditions（组织以ticket organization_id为准），命中转Human Review组并加human-review，不回复。Auto_Send=true创建公开support_comments(ticket_id/body=模板原文/public=true/template_id)作为实际自动回复，并追加auto-responded；false仅内部comment(public=false)，不自动发送也不加该tag。按非空Group_ID分组，默认空组不造值。auto-response报告Batch_Reference、总数、公开auto response数、内部draft数及human review数。模板处理数包含内部draft，不能当作已发送数。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理的对象；已转人工审核的工单属于实际处理事项，按要求计入统计。",
     "creates": [
       {
         "collection": "support_comments",
@@ -40063,7 +40063,7 @@
     ]
   },
   "support-1488": {
-    "instruction": "准备周末handoff：仅open且priority high/urgent需要coverage，已有weekend-watch完全排除本轮。将合格票加入ss_handoff/ws_weekend，原Ticket ID/Subject/Priority/Status，追加weekend-watch。按ws_oncall给Support Lead与Senior Engineer邮箱IM完整清单/总数/紧急数，Engineering Escalation单独收到urgent票及技术升级说明。不通知客户。support-weekend汇总handoff/数量/priority/本轮subject，不重报已处理票。",
+    "instruction": "准备周末handoff：仅open且priority high/urgent需要coverage，已有weekend-watch完全排除本轮。将合格票加入ss_handoff/ws_weekend，原Ticket ID/Subject/Priority/Status，追加weekend-watch。通过 agent@company.example.com 原生邮箱，按ws_oncall给Support Lead与Senior Engineer发送完整清单/总数/紧急数，Engineering Escalation邮箱单独收到urgent票及技术升级说明。不通知客户。support-weekend汇总handoff/数量/priority/本轮subject，不重报已处理票。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理对象。",
     "updates": [
       {
         "id": "zendesk_tkt_w01",
@@ -40135,39 +40135,18 @@
     "messages": [
       {
         "email": "sarah-oncall@company.example.com",
-        "text": "weekend handoff | 4 tickets | 2 urgent\ntkt_w01 | Dashboard outage for enterprise | high\ntkt_w02 | Data loss after migration | urgent\ntkt_w03 | Payment gateway errors | high\ntkt_w08 | Database corruption detected | urgent",
-        "contains": [
-          "handoff",
-          "4 tickets",
-          "2 urgent",
-          "tkt_w01 | Dashboard outage for enterprise | high",
-          "tkt_w02 | Data loss after migration | urgent",
-          "tkt_w03 | Payment gateway errors | high",
-          "tkt_w08 | Database corruption detected | urgent"
-        ]
+        "subject": "Weekend handoff",
+        "body": "weekend handoff | 4 tickets | 2 urgent\ntkt_w01 | Dashboard outage for enterprise | high\ntkt_w02 | Data loss after migration | urgent\ntkt_w03 | Payment gateway errors | high\ntkt_w08 | Database corruption detected | urgent"
       },
       {
         "email": "mike-oncall@company.example.com",
-        "text": "weekend handoff | 4 tickets | 2 urgent\ntkt_w01 | Dashboard outage for enterprise | high\ntkt_w02 | Data loss after migration | urgent\ntkt_w03 | Payment gateway errors | high\ntkt_w08 | Database corruption detected | urgent",
-        "contains": [
-          "handoff",
-          "4 tickets",
-          "2 urgent",
-          "tkt_w01 | Dashboard outage for enterprise | high",
-          "tkt_w02 | Data loss after migration | urgent",
-          "tkt_w03 | Payment gateway errors | high",
-          "tkt_w08 | Database corruption detected | urgent"
-        ]
+        "subject": "Weekend handoff",
+        "body": "weekend handoff | 4 tickets | 2 urgent\ntkt_w01 | Dashboard outage for enterprise | high\ntkt_w02 | Data loss after migration | urgent\ntkt_w03 | Payment gateway errors | high\ntkt_w08 | Database corruption detected | urgent"
       },
       {
         "email": "engineering-oncall@company.example.com",
-        "text": "urgent escalation | 2 tickets\ntkt_w02 | Data loss after migration | urgent\ntkt_w08 | Database corruption detected | urgent",
-        "contains": [
-          "urgent escalation",
-          "2 tickets",
-          "tkt_w02 | Data loss after migration | urgent",
-          "tkt_w08 | Database corruption detected | urgent"
-        ]
+        "subject": "Weekend handoff",
+        "body": "urgent escalation | 2 tickets\ntkt_w02 | Data loss after migration | urgent\ntkt_w08 | Database corruption detected | urgent\nEngineering escalation: investigate data loss after migration and database corruption urgently; assess data integrity and coordinate technical mitigation with the support on-call team."
       },
       {
         "channel": "support-weekend",
@@ -40182,6 +40161,52 @@
           "tkt_w08 | Database corruption detected | urgent"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "native_mail_contacts": [],
+    "mail": [
+      {
+        "to": ["sarah-oncall@company.example.com"],
+        "subject_contains": ["handoff"],
+        "body_contains": [],
+        "aggregate": true
+      },
+      {
+        "to": ["mike-oncall@company.example.com"],
+        "subject_contains": ["handoff"],
+        "body_contains": [],
+        "aggregate": true
+      },
+      {
+        "to": ["engineering-oncall@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [],
+        "aggregate": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_handoff",
+        "--sheet-id",
+        "ws_weekend",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_handoff",
+        "--sheet-id",
+        "ws_oncall",
+        "--range",
+        "A1:D100"
+      ]
     ]
   },
   "support-1489": {
@@ -47305,7 +47330,7 @@
     ]
   },
   "support-1588": {
-    "instruction": "2026-02-13，分析Open实际故障，先读工单comments排除预期行为、独立问题、例行维护和Feature Request。同组件>=2条故障视待调查cluster，不能把相似关键词直接当已证实根因。匹配14天内已解决known issue仅引用现有Jira_Reference，过期known issue要新建issues；缺失Jira项目配置不造project。新issue字段external_key=RCA-组件短名-20260213（组件短名search或email）、issuetype=Bug、summary含root cause和组件、description列全部票ID说明待调查。所有cluster票新增内部zoho_desk_comments(ticket_id/content含root cause、组件与同一引用/is_public=false文本)。ws_log每cluster一行、Affected_Tickets按数字ID升序用逗号空格拼，Jira_Issue存既有引用或external_key。工程群报告全部cluster/数量/票ID/引用，保留原票历史、不改status。",
+    "instruction": "2026-02-13，分析Open实际故障，先读工单comments排除预期行为、独立问题、例行维护和Feature Request。同组件>=2条故障视待调查cluster，不能把相似关键词直接当已证实根因。匹配14天内已解决known issue仅引用现有Jira_Reference，过期known issue要新建issues；缺失Jira项目配置不造project。新issue字段external_key=RCA-组件短名-20260213（组件短名search或email）、issuetype=Bug、summary含root cause和组件、description列全部票ID说明待调查。所有cluster票新增内部zoho_desk_comments(ticket_id/content含root cause、组件与同一引用/is_public=false文本)。ws_log每cluster一行、Affected_Tickets按数字ID升序用逗号空格拼，Jira_Issue存既有引用或external_key。工程群报告全部cluster/数量/票ID/引用，保留原票历史、不改status。只汇报实际处理事项，不列举、统计或解释未处理、跳过或排除的对象。",
     "creates": [
       {
         "collection": "zoho_desk_comments",
