@@ -650,9 +650,71 @@
     }
   },
   "automationbench-support-1476": {
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
     "literal_message_terms": {},
     "json_text_fields": {
-      "source_threads": "structure"
+      "source_threads": "structure",
+      "source_tags": "structure"
+    },
+    "message_count": "per_recipient",
+    "message_count_chats": ["oc_C_MIG"],
+    "gmail_message_terms_chat": {
+      "oc_C_MIG": ["migration"]
+    },
+    "creation_contains_guarded": true,
+    "literal_creation_terms": {
+      "1": {
+        "subject": ["Invoice correction needed"]
+      },
+      "2": {
+        "body": ["migrated", "Re:amaze"]
+      },
+      "3": {
+        "subject": ["API rate limiting errors"]
+      },
+      "4": {
+        "body": ["migrated", "Re:amaze"]
+      },
+      "6": {
+        "subject": ["Account inquiry"]
+      },
+      "7": {
+        "body": ["migrated", "Re:amaze"]
+      },
+      "9": {
+        "subject": ["Refund status update"]
+      },
+      "10": {
+        "body": ["migrated", "Re:amaze"]
+      },
+      "12": {
+        "subject": ["SSO integration broken"]
+      },
+      "13": {
+        "body": ["migrated", "Re:amaze"]
+      },
+      "14": {
+        "subject": ["Subscription change request"]
+      },
+      "15": {
+        "body": ["migrated", "Re:amaze"]
+      }
     }
   },
   "automationbench-marketing-1061": {
@@ -1236,7 +1298,70 @@
     "unordered_new_rows": true
   },
   "automationbench-support-1450": {
-    "unordered_new_rows": true
+    "enabled": true,
+    "text_fields": [
+      "subject",
+      "description",
+      "body",
+      "text",
+      "notes",
+      "note",
+      "summary",
+      "reason",
+      "comment",
+      "content",
+      "body_text",
+      "message",
+      "caption",
+      "requirements"
+    ],
+    "literal_message_terms": {},
+    "unordered_new_rows": true,
+    "event_text_indices": [0],
+    "creation_contains_guarded": true,
+    "literal_creation_terms": {
+      "3": {
+        "body": ["onboarding"]
+      },
+      "5": {
+        "body": ["onboarding"]
+      },
+      "6": {
+        "body": ["onboarding"]
+      },
+      "7": {
+        "body": ["onboarding"]
+      }
+    },
+    "gmail_message_terms_chat": {
+      "oc_C_OB": ["Acme", "StartupCo", "SmallBiz"]
+    },
+    "optional_cell_edits": [
+      {
+        "spreadsheet_token": "ss_playbook",
+        "sheet_id": "ws_customer_tiers",
+        "row": 4,
+        "column": 0,
+        "allow_new_cell": true,
+        "literal_terms": ["dan@mysteryinc.com"]
+      },
+      {
+        "spreadsheet_token": "ss_playbook",
+        "sheet_id": "ws_customer_tiers",
+        "row": 4,
+        "column": 1,
+        "allow_new_cell": true,
+        "literal_terms": ["default"]
+      },
+      {
+        "spreadsheet_token": "ss_playbook",
+        "sheet_id": "ws_customer_tiers",
+        "row": 4,
+        "column": 2,
+        "allow_new_cell": true,
+        "literal_terms": ["onboarding@company.example.com"]
+      }
+    ]
   },
   "automationbench-support-1452": {
     "unordered_new_rows": true

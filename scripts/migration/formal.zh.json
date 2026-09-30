@@ -37286,7 +37286,7 @@
   },
   "support-1450": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "处理freshdesk status=2且精确new-customer票，按requester邮箱连接playbook tiers，未知走default。缺default CSM补定共享onboarding@company.example.com，不猜个人；未知客户也做默认介绍。Enterprise kickoff缺日期补Feb10 10–11UTC/cal_onboarding，客户与CSM实际attendee；technical setup/data migration/training各freshdesk_tickets(subject=<公司> - <步骤英文>/requester_email/status=2/priority=2/parent_ticket_id)。Growth仅setup guide票及客户CSM introduction，Starter/default仅客户intro；各CSM另IM通知客户姓名/email/tier和安排。每票新增freshdesk_notes(ticket_id/private=true文本/body含onboarding/company/tier)，逐step追加log，Status分别Scheduled/Ticket Created/Introduction Sent，表示已安排非已完成实施。群只发一条含每个已启动客户公司名。",
+    "instruction": "处理freshdesk status=2且精确new-customer票，按requester邮箱连接playbook tiers，未知走default。缺default CSM补定共享onboarding@company.example.com，不猜个人；未知客户也做默认介绍。Enterprise kickoff缺日期补Feb10 10–11UTC/cal_onboarding，客户与CSM实际attendee；technical setup/data migration/training各freshdesk_tickets(subject=<公司> - <步骤英文>/requester_email/status=2/priority=2/parent_ticket_id)。Growth仅setup guide票及客户CSM introduction，Starter/default仅客户intro；各CSM另发邮件通知客户姓名/email/tier和安排。每票新增freshdesk_notes(ticket_id/private=true文本/body含onboarding/company/tier)，逐step追加log，Status分别Scheduled/Ticket Created/Introduction Sent，表示已安排非已完成实施。群只发一条含每个已启动客户公司名。客户介绍及CSM通知使用真实mail邮件。每条日志应在对应动作成功后记录，安排或介绍已完成的通知须与当时实际状态一致；不同客户可交错处理。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理对象。",
     "creates": [
       {
         "collection": "freshdesk_tickets",
@@ -37447,13 +37447,14 @@
         "summary": "Onboarding Kickoff - Acme Corp",
         "start": "2026-02-10T10:00:00Z",
         "end": "2026-02-10T11:00:00Z",
-        "attendees": ["alice@acmecorp.com", "csm1@company.example.com"]
+        "attendees": ["alice@acmecorp.com", "csm1@company.example.com"],
+        "summary_contains": "Acme Corp"
       }
     ],
     "messages": [
       {
         "email": "csm1@company.example.com",
-        "text": "onboarding | Acme Corp | Alice Park | alice@acmecorp.com | Enterprise | kickoff 2026-02-10 10:00–11:00 UTC",
+        "text": "onboarding | Acme Corp | Alice Park | alice@acmecorp.com | Enterprise | kickoff 2026-02-10 10:00–11:00 UTC | 已创建 technical setup、data migration、training 三项工单。",
         "contains": [
           "onboarding",
           "Acme Corp",
@@ -37463,18 +37464,22 @@
           "2026-02-10",
           "10:00",
           "11:00"
-        ]
+        ],
+        "subject": "Onboarding - Acme Corp",
+        "body": "onboarding | Acme Corp | Alice Park | alice@acmecorp.com | Enterprise | kickoff 2026-02-10 10:00–11:00 UTC | 已创建 technical setup、data migration、training 三项工单。"
       },
       {
         "email": "csm2@company.example.com",
-        "text": "onboarding | StartupCo | Bob Lee | bob@startupco.io | Growth | CSM introduction已发送给客户",
+        "text": "onboarding | StartupCo | Bob Lee | bob@startupco.io | Growth | CSM introduction已发送给客户 | 已创建 setup guide 工单。",
         "contains": [
           "onboarding",
           "StartupCo",
           "Bob Lee",
           "bob@startupco.io",
           "Growth"
-        ]
+        ],
+        "subject": "Onboarding - StartupCo",
+        "body": "onboarding | StartupCo | Bob Lee | bob@startupco.io | Growth | CSM introduction已发送给客户 | 已创建 setup guide 工单。"
       },
       {
         "email": "bob@startupco.io",
@@ -37484,7 +37489,9 @@
           "Bob Lee",
           "CSM introduction",
           "csm2@company.example.com"
-        ]
+        ],
+        "subject": "Onboarding - Bob Lee",
+        "body": "StartupCo | Bob Lee | CSM introduction | 您的支持联系人：csm2@company.example.com"
       },
       {
         "email": "csm3@company.example.com",
@@ -37495,7 +37502,9 @@
           "Carol Wu",
           "carol@smallbiz.com",
           "Starter"
-        ]
+        ],
+        "subject": "Onboarding - SmallBiz",
+        "body": "onboarding | SmallBiz | Carol Wu | carol@smallbiz.com | Starter | CSM introduction已发送给客户"
       },
       {
         "email": "carol@smallbiz.com",
@@ -37505,7 +37514,9 @@
           "Carol Wu",
           "CSM introduction",
           "csm3@company.example.com"
-        ]
+        ],
+        "subject": "Onboarding - Carol Wu",
+        "body": "SmallBiz | Carol Wu | CSM introduction | 您的支持联系人：csm3@company.example.com"
       },
       {
         "email": "onboarding@company.example.com",
@@ -37516,7 +37527,9 @@
           "Dan Torres",
           "dan@mysteryinc.com",
           "default"
-        ]
+        ],
+        "subject": "Onboarding - MysteryInc",
+        "body": "onboarding | MysteryInc | Dan Torres | dan@mysteryinc.com | default | CSM introduction已发送给客户"
       },
       {
         "email": "dan@mysteryinc.com",
@@ -37526,7 +37539,9 @@
           "Dan Torres",
           "CSM introduction",
           "onboarding@company.example.com"
-        ]
+        ],
+        "subject": "Onboarding - Dan Torres",
+        "body": "MysteryInc | Dan Torres | CSM introduction | 您的支持联系人：onboarding@company.example.com"
       },
       {
         "channel": "onboarding",
@@ -37534,18 +37549,288 @@
         "contains": ["4", "Acme Corp", "StartupCo", "SmallBiz", "MysteryInc"]
       }
     ],
-    "command_order": [
-      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 42, 43, 44, 46, 45, 48, 47, 50, 49, 10, 11,
-      12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-      30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 51
-    ],
-    "order_groups": [
+    "order_groups": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
       {
-        "kind": "event"
+        "to": ["csm1@company.example.com"],
+        "body_contains": []
       },
       {
-        "kind": "message",
-        "emails": [
+        "to": ["csm2@company.example.com"],
+        "body_contains": []
+      },
+      {
+        "to": ["bob@startupco.io"],
+        "body_contains": [],
+        "optional_cc": ["csm2@company.example.com"]
+      },
+      {
+        "to": ["csm3@company.example.com"],
+        "body_contains": []
+      },
+      {
+        "to": ["carol@smallbiz.com"],
+        "body_contains": [],
+        "optional_cc": ["csm3@company.example.com"]
+      },
+      {
+        "to": ["onboarding@company.example.com"],
+        "body_contains": []
+      },
+      {
+        "to": ["dan@mysteryinc.com"],
+        "body_contains": [],
+        "optional_cc": ["onboarding@company.example.com"]
+      }
+    ],
+    "state_before_actions": [
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "alice@acmecorp.com",
+            "1": "Enterprise",
+            "2": "1",
+            "3": "Scheduled"
+          }
+        },
+        "events": [0]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "alice@acmecorp.com",
+            "1": "Enterprise",
+            "2": "2",
+            "3": "Ticket Created"
+          }
+        },
+        "records": [
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "Acme Corp - technical setup",
+              "requester_email": "alice@acmecorp.com",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t1"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "alice@acmecorp.com",
+            "1": "Enterprise",
+            "2": "3",
+            "3": "Ticket Created"
+          }
+        },
+        "records": [
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "Acme Corp - data migration",
+              "requester_email": "alice@acmecorp.com",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t1"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "alice@acmecorp.com",
+            "1": "Enterprise",
+            "2": "4",
+            "3": "Ticket Created"
+          }
+        },
+        "records": [
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "Acme Corp - training",
+              "requester_email": "alice@acmecorp.com",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t1"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "bob@startupco.io",
+            "1": "Growth",
+            "2": "1",
+            "3": "Ticket Created"
+          }
+        },
+        "records": [
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "StartupCo - setup guide",
+              "requester_email": "bob@startupco.io",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t2"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "bob@startupco.io",
+            "1": "Growth",
+            "2": "2",
+            "3": "Introduction Sent"
+          }
+        },
+        "mail_to": ["bob@startupco.io"]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "carol@smallbiz.com",
+            "1": "Starter",
+            "2": "1",
+            "3": "Introduction Sent"
+          }
+        },
+        "mail_to": ["carol@smallbiz.com"]
+      },
+      {
+        "trigger": {
+          "kind": "sheet_row",
+          "spreadsheet_token": "ss_playbook",
+          "sheet_id": "ws_onboarding_log",
+          "equals": {
+            "0": "dan@mysteryinc.com",
+            "1": "default",
+            "2": "1",
+            "3": "Introduction Sent"
+          }
+        },
+        "mail_to": ["dan@mysteryinc.com"]
+      },
+      {
+        "trigger": {
+          "kind": "message",
+          "chat_id": "oc_C_OB"
+        },
+        "events": [0],
+        "records": [
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "Acme Corp - technical setup",
+              "requester_email": "alice@acmecorp.com",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t1"
+            }
+          },
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "Acme Corp - data migration",
+              "requester_email": "alice@acmecorp.com",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t1"
+            }
+          },
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "Acme Corp - training",
+              "requester_email": "alice@acmecorp.com",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t1"
+            }
+          },
+          {
+            "collection": "freshdesk_notes",
+            "equals": {
+              "ticket_id": "ob_t1",
+              "private": "true"
+            },
+            "contains": {
+              "body": ["onboarding", "Acme Corp", "Enterprise"]
+            }
+          },
+          {
+            "collection": "freshdesk_tickets",
+            "equals": {
+              "subject": "StartupCo - setup guide",
+              "requester_email": "bob@startupco.io",
+              "status": 2,
+              "priority": 2,
+              "parent_ticket_id": "ob_t2"
+            }
+          },
+          {
+            "collection": "freshdesk_notes",
+            "equals": {
+              "ticket_id": "ob_t2",
+              "private": "true"
+            },
+            "contains": {
+              "body": ["onboarding", "StartupCo", "Growth"]
+            }
+          },
+          {
+            "collection": "freshdesk_notes",
+            "equals": {
+              "ticket_id": "ob_t3",
+              "private": "true"
+            },
+            "contains": {
+              "body": ["onboarding", "SmallBiz", "Starter"]
+            }
+          },
+          {
+            "collection": "freshdesk_notes",
+            "equals": {
+              "ticket_id": "ob_t4",
+              "private": "true"
+            },
+            "contains": {
+              "body": ["onboarding", "MysteryInc", "default"]
+            }
+          }
+        ],
+        "mail_to": [
           "csm1@company.example.com",
           "csm2@company.example.com",
           "bob@startupco.io",
@@ -37553,15 +37838,137 @@
           "carol@smallbiz.com",
           "onboarding@company.example.com",
           "dan@mysteryinc.com"
+        ],
+        "rows": [
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "alice@acmecorp.com",
+              "1": "Enterprise",
+              "2": "1",
+              "3": "Scheduled"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "alice@acmecorp.com",
+              "1": "Enterprise",
+              "2": "2",
+              "3": "Ticket Created"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "alice@acmecorp.com",
+              "1": "Enterprise",
+              "2": "3",
+              "3": "Ticket Created"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "alice@acmecorp.com",
+              "1": "Enterprise",
+              "2": "4",
+              "3": "Ticket Created"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "bob@startupco.io",
+              "1": "Growth",
+              "2": "1",
+              "3": "Ticket Created"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "bob@startupco.io",
+              "1": "Growth",
+              "2": "2",
+              "3": "Introduction Sent"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "carol@smallbiz.com",
+              "1": "Starter",
+              "2": "1",
+              "3": "Introduction Sent"
+            }
+          },
+          {
+            "spreadsheet_token": "ss_playbook",
+            "sheet_id": "ws_onboarding_log",
+            "equals": {
+              "0": "dan@mysteryinc.com",
+              "1": "default",
+              "2": "1",
+              "3": "Introduction Sent"
+            }
+          }
         ]
-      },
-      {
-        "kind": "spreadsheet"
-      },
-      {
-        "kind": "message",
-        "channel": "onboarding"
       }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_playbook",
+        "--sheet-id",
+        "ws_onboarding_steps",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_playbook",
+        "--sheet-id",
+        "ws_customer_tiers",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_playbook",
+        "--sheet-id",
+        "ws_onboarding_log",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "calendar",
+        "+agenda",
+        "--calendar-id",
+        "cal_onboarding",
+        "--start",
+        "2026-02-10T00:00:00Z",
+        "--end",
+        "2026-02-11T00:00:00Z"
+      ]
+    ],
+    "command_order": [
+      0, 1, 2, 3, 4, 45, 46, 5, 6, 7, 8, 9, 10, 11, 12, 49, 51, 53, 47, 48, 50,
+      52, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+      30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 54
     ]
   },
   "support-1451": {
@@ -39099,7 +39506,7 @@
     ]
   },
   "support-1476": {
-    "instruction": "按ss_migration状态/类别映射，将受支持且未关闭的help_conversations迁入reamaze_conversations；同邮箱contact复用，不重复建。新会话source_id/subject/status/contact_email/category/created_at，完整保留source_threads/source_tags JSON与source_mailbox_id，不丢原始历史。迁好再建help_notes(conversation_id/body含migrated to Re:amaze/public=false)，最后close原会话；原threads/tags不改。migration-status报告migration进度、会话数/新增联系人数量和涉及姓名/subject。这里只迁飞书台账，不接外部系统。",
+    "instruction": "按ss_migration状态/类别映射，将受支持且未关闭的help_conversations迁入reamaze_conversations；同邮箱contact复用，不重复建。新会话source_id/subject/status/contact_email/category/created_at，完整保留source_threads/source_tags JSON与source_mailbox_id，不丢原始历史。迁好再建help_notes(conversation_id/body含migrated to Re:amaze/public=false)，最后close原会话；原threads/tags不改。migration-status报告migration进度、会话数/新增联系人数量和涉及姓名/subject。这里只迁飞书台账，不接外部系统。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理对象。",
     "creates": [
       {
         "collection": "reamaze_contacts",
@@ -39272,8 +39679,8 @@
       "body": ["migrated", "Re:amaze"]
     },
     "command_order": [
-      0, 1, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 2, 3,
-      4, 5, 6, 7, 24
+      0, 1, 2, 3, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+      25, 4, 5, 6, 7, 8, 9, 26
     ],
     "messages": [
       {
@@ -39289,6 +39696,492 @@
           "Sam Johnson | Refund status update",
           "Lily Chen | SSO integration broken",
           "Raj Mehta | Subscription change request"
+        ]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_migration",
+        "--sheet-id",
+        "ws_status_map",
+        "--range",
+        "A1:B100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_migration",
+        "--sheet-id",
+        "ws_category_map",
+        "--range",
+        "A1:B100"
+      ]
+    ],
+    "state_before_actions": [
+      {
+        "trigger": {
+          "kind": "record",
+          "collection": "help_notes",
+          "equals": {
+            "conversation_id": "mig_hs1"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs1",
+              "subject": "Invoice correction needed",
+              "status": "unresolved",
+              "contact_email": "yuki@financeplus.com",
+              "category": "billing",
+              "created_at": "2026-02-01T09:00:00Z",
+              "source_threads": "[{\"id\": \"thr_1\", \"type\": \"customer\", \"body\": \"My last invoice was incorrect.\"}]",
+              "source_tags": "[\"billing\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "yuki@financeplus.com",
+              "name": "Yuki Tanaka"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "record_id": "rec_helpscout_mig_hs1",
+          "collection": "help_conversations",
+          "equals": {
+            "status": "closed"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs1",
+              "subject": "Invoice correction needed",
+              "status": "unresolved",
+              "contact_email": "yuki@financeplus.com",
+              "category": "billing",
+              "created_at": "2026-02-01T09:00:00Z",
+              "source_threads": "[{\"id\": \"thr_1\", \"type\": \"customer\", \"body\": \"My last invoice was incorrect.\"}]",
+              "source_tags": "[\"billing\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "yuki@financeplus.com",
+              "name": "Yuki Tanaka"
+            }
+          },
+          {
+            "collection": "help_notes",
+            "equals": {
+              "conversation_id": "mig_hs1",
+              "public": "false"
+            },
+            "contains": {
+              "body": ["migrated", "Re:amaze"]
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "collection": "help_notes",
+          "equals": {
+            "conversation_id": "mig_hs2"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs2",
+              "subject": "API rate limiting errors",
+              "status": "unresolved",
+              "contact_email": "raj@devstudio.io",
+              "category": "tech-support",
+              "created_at": "2026-02-02T11:00:00Z",
+              "source_threads": "[{\"id\": \"thr_2\", \"type\": \"customer\", \"body\": \"Getting 429 errors on our API calls.\"}]",
+              "source_tags": "[\"technical\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "raj@devstudio.io",
+              "name": "Raj Mehta"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "record_id": "rec_helpscout_mig_hs2",
+          "collection": "help_conversations",
+          "equals": {
+            "status": "closed"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs2",
+              "subject": "API rate limiting errors",
+              "status": "unresolved",
+              "contact_email": "raj@devstudio.io",
+              "category": "tech-support",
+              "created_at": "2026-02-02T11:00:00Z",
+              "source_threads": "[{\"id\": \"thr_2\", \"type\": \"customer\", \"body\": \"Getting 429 errors on our API calls.\"}]",
+              "source_tags": "[\"technical\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "raj@devstudio.io",
+              "name": "Raj Mehta"
+            }
+          },
+          {
+            "collection": "help_notes",
+            "equals": {
+              "conversation_id": "mig_hs2",
+              "public": "false"
+            },
+            "contains": {
+              "body": ["migrated", "Re:amaze"]
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "collection": "help_notes",
+          "equals": {
+            "conversation_id": "mig_hs3"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs3",
+              "subject": "Account inquiry",
+              "status": "unresolved",
+              "contact_email": "maria@designhub.com",
+              "category": "general",
+              "created_at": "2026-02-03T14:00:00Z",
+              "source_threads": "[{\"id\": \"thr_3\", \"type\": \"customer\", \"body\": \"I have some questions about my account.\"}]",
+              "source_tags": "[]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "maria@designhub.com",
+              "name": "Maria Gonzalez"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "record_id": "rec_helpscout_mig_hs3",
+          "collection": "help_conversations",
+          "equals": {
+            "status": "closed"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs3",
+              "subject": "Account inquiry",
+              "status": "unresolved",
+              "contact_email": "maria@designhub.com",
+              "category": "general",
+              "created_at": "2026-02-03T14:00:00Z",
+              "source_threads": "[{\"id\": \"thr_3\", \"type\": \"customer\", \"body\": \"I have some questions about my account.\"}]",
+              "source_tags": "[]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "maria@designhub.com",
+              "name": "Maria Gonzalez"
+            }
+          },
+          {
+            "collection": "help_notes",
+            "equals": {
+              "conversation_id": "mig_hs3",
+              "public": "false"
+            },
+            "contains": {
+              "body": ["migrated", "Re:amaze"]
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "collection": "help_notes",
+          "equals": {
+            "conversation_id": "mig_hs4"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs4",
+              "subject": "Refund status update",
+              "status": "pending",
+              "contact_email": "sam@retailplus.com",
+              "category": "billing",
+              "created_at": "2026-01-28T10:00:00Z",
+              "source_threads": "[{\"id\": \"thr_4\", \"type\": \"customer\", \"body\": \"Still waiting on my refund.\"}]",
+              "source_tags": "[\"billing\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "sam@retailplus.com",
+              "name": "Sam Johnson"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "record_id": "rec_helpscout_mig_hs4",
+          "collection": "help_conversations",
+          "equals": {
+            "status": "closed"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs4",
+              "subject": "Refund status update",
+              "status": "pending",
+              "contact_email": "sam@retailplus.com",
+              "category": "billing",
+              "created_at": "2026-01-28T10:00:00Z",
+              "source_threads": "[{\"id\": \"thr_4\", \"type\": \"customer\", \"body\": \"Still waiting on my refund.\"}]",
+              "source_tags": "[\"billing\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "sam@retailplus.com",
+              "name": "Sam Johnson"
+            }
+          },
+          {
+            "collection": "help_notes",
+            "equals": {
+              "conversation_id": "mig_hs4",
+              "public": "false"
+            },
+            "contains": {
+              "body": ["migrated", "Re:amaze"]
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "collection": "help_notes",
+          "equals": {
+            "conversation_id": "mig_hs5"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs5",
+              "subject": "SSO integration broken",
+              "status": "pending",
+              "contact_email": "lily@cloudops.io",
+              "category": "tech-support",
+              "created_at": "2026-01-30T16:00:00Z",
+              "source_threads": "[{\"id\": \"thr_5\", \"type\": \"customer\", \"body\": \"SSO stopped working after the update.\"}]",
+              "source_tags": "[\"technical\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "lily@cloudops.io",
+              "name": "Lily Chen"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "record_id": "rec_helpscout_mig_hs5",
+          "collection": "help_conversations",
+          "equals": {
+            "status": "closed"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs5",
+              "subject": "SSO integration broken",
+              "status": "pending",
+              "contact_email": "lily@cloudops.io",
+              "category": "tech-support",
+              "created_at": "2026-01-30T16:00:00Z",
+              "source_threads": "[{\"id\": \"thr_5\", \"type\": \"customer\", \"body\": \"SSO stopped working after the update.\"}]",
+              "source_tags": "[\"technical\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "lily@cloudops.io",
+              "name": "Lily Chen"
+            }
+          },
+          {
+            "collection": "help_notes",
+            "equals": {
+              "conversation_id": "mig_hs5",
+              "public": "false"
+            },
+            "contains": {
+              "body": ["migrated", "Re:amaze"]
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "collection": "help_notes",
+          "equals": {
+            "conversation_id": "mig_hs8"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs8",
+              "subject": "Subscription change request",
+              "status": "unresolved",
+              "contact_email": "raj@devstudio.io",
+              "category": "billing",
+              "created_at": "2026-02-05T10:00:00Z",
+              "source_threads": "[{\"id\": \"thr_8\", \"type\": \"customer\", \"body\": \"I'd like to change my subscription tier.\"}]",
+              "source_tags": "[\"billing\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "raj@devstudio.io",
+              "name": "Raj Mehta"
+            }
+          }
+        ]
+      },
+      {
+        "trigger": {
+          "kind": "record",
+          "record_id": "rec_helpscout_mig_hs8",
+          "collection": "help_conversations",
+          "equals": {
+            "status": "closed"
+          }
+        },
+        "records": [
+          {
+            "collection": "reamaze_conversations",
+            "equals": {
+              "source_id": "mig_hs8",
+              "subject": "Subscription change request",
+              "status": "unresolved",
+              "contact_email": "raj@devstudio.io",
+              "category": "billing",
+              "created_at": "2026-02-05T10:00:00Z",
+              "source_threads": "[{\"id\": \"thr_8\", \"type\": \"customer\", \"body\": \"I'd like to change my subscription tier.\"}]",
+              "source_tags": "[\"billing\"]",
+              "source_mailbox_id": "mb_main"
+            },
+            "json_fields": ["source_threads", "source_tags"]
+          },
+          {
+            "collection": "reamaze_contacts",
+            "equals": {
+              "email": "raj@devstudio.io",
+              "name": "Raj Mehta"
+            }
+          },
+          {
+            "collection": "help_notes",
+            "equals": {
+              "conversation_id": "mig_hs8",
+              "public": "false"
+            },
+            "contains": {
+              "body": ["migrated", "Re:amaze"]
+            }
+          }
         ]
       }
     ]

@@ -1,5 +1,25 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
+  [
+    'sheets',
+    '+cells-get',
+    '--spreadsheet-token',
+    'ss_migration',
+    '--sheet-id',
+    'ws_status_map',
+    '--range',
+    'A1:B100',
+  ],
+  [
+    'sheets',
+    '+cells-get',
+    '--spreadsheet-token',
+    'ss_migration',
+    '--sheet-id',
+    'ws_category_map',
+    '--range',
+    'A1:B100',
+  ],
   ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
   [
     'base',

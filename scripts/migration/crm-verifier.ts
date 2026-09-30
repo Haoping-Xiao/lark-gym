@@ -106,6 +106,7 @@ const expected: {
   mail_list_before_send?: { mailbox: string };
   mail?: {
     from?: string;
+    optional_cc?: string[];
     aggregate?: boolean;
     every_body_contains?: string[];
     attachments?: {
@@ -164,6 +165,13 @@ const expected: {
     collection: string;
     equals: Fields;
     records: { record_id: string; equals: Fields }[];
+  }[];
+  state_before_actions?: {
+    trigger: any;
+    records?: any[];
+    events?: number[];
+    mail_to?: string[];
+    rows?: any[];
   }[];
   event_state_before_creates?: {
     collection: string;
@@ -1040,7 +1048,12 @@ const mailChecks = (expected.mail || []).map((rule) => {
         (m.to || []).map((a: any) => a.mail_address.toLowerCase()).sort(),
         rule.to.map((a) => a.toLowerCase()).sort(),
       ) &&
-      !(m.cc || []).length &&
+      (m.cc || []).every((address: any) =>
+        (rule.optional_cc || []).some(
+          (allowed) =>
+            allowed.toLowerCase() === address.mail_address.toLowerCase(),
+        ),
+      ) &&
       !(m.bcc || []).length &&
       (rule.subject === undefined || m.subject === rule.subject) &&
       (rule.subject_contains || []).every((term) =>
@@ -1849,6 +1862,157 @@ const recordStateBeforeCreateChecks = (
       checkpoints.length > 0 && checkpoints.every((check) => check.passed),
   };
 });
+const statePrerequisiteChecks = (expected.state_before_actions || []).map(
+  (rule) => {
+    const records = new Map<string, Fields>(
+      seed.base.records.map((row: RecordRow) => [
+        row.record_id,
+        structuredClone(row.fields),
+      ]),
+    );
+    const events = new Map<string, any>(
+      seed.events.map((event: any) => [event.event_id, structuredClone(event)]),
+    );
+    const mail = new Map<string, any>(
+      (seed.mail?.messages || []).map((message: any) => [
+        message.message_id,
+        structuredClone(message),
+      ]),
+    );
+    const books = new Map<string, any>(
+      Object.entries(seed.spreadsheets || {}).map(([id, book]) => [
+        id,
+        structuredClone(book),
+      ]),
+    );
+    const checkpoints: { seq: number; passed: boolean }[] = [];
+    const recordMatches = (fields: any, requirement: any): boolean =>
+      Boolean(fields) &&
+      fields.collection === requirement.collection &&
+      Object.entries(requirement.equals || {}).every(([key, value]) =>
+        (requirement.json_fields || []).includes(key)
+          ? (() => {
+              try {
+                return isDeepStrictEqual(
+                  JSON.parse(fields[key]),
+                  JSON.parse(String(value)),
+                );
+              } catch {
+                return false;
+              }
+            })()
+          : isDeepStrictEqual(fields[key], value),
+      ) &&
+      Object.entries(requirement.contains || {}).every(([key, terms]) =>
+        (terms as string[]).every(
+          (term) =>
+            typeof fields[key] === 'string' &&
+            supportContains(fields[key], term),
+        ),
+      );
+    const rowPresent = (book: any, requirement: any): boolean =>
+      (book?.sheets?.[requirement.sheet_id]?.values || []).some((row: any[]) =>
+        Object.entries(requirement.equals).every(([column, value]) =>
+          isDeepStrictEqual(row[Number(column)], value),
+        ),
+      );
+    const mailTo = (message: any, to: string): boolean =>
+      message?.message_state === 2 &&
+      (message.to || []).some(
+        (address: any) =>
+          address.mail_address?.toLowerCase() === to.toLowerCase(),
+      );
+    const ready = (): boolean =>
+      (rule.records || []).every((requirement: any) =>
+        [...records.values()].some((fields) =>
+          recordMatches(fields, requirement),
+        ),
+      ) &&
+      (rule.events || []).every(
+        (index: number) =>
+          expected.events?.[index] &&
+          [...events.values()].some(
+            (event) =>
+              !originalEvents.has(event.event_id) &&
+              eventMatches(event, expected.events![index]),
+          ),
+      ) &&
+      (rule.mail_to || []).every((to: string) =>
+        [...mail.values()].some(
+          (message) =>
+            !initialMailIDs.has(message.message_id) && mailTo(message, to),
+        ),
+      ) &&
+      (rule.rows || []).every((requirement: any) =>
+        rowPresent(books.get(requirement.spreadsheet_token), requirement),
+      );
+    for (const call of calls) {
+      if (call.status >= 400) continue;
+      const trigger = rule.trigger;
+      const matched = (call.mutations || []).some((mutation: any) => {
+        if (trigger.kind === 'record')
+          return (
+            mutation.kind === 'record' &&
+            (!trigger.record_id || mutation.id === trigger.record_id) &&
+            recordMatches(mutation.after?.fields, trigger) &&
+            !recordMatches(mutation.before?.fields, trigger)
+          );
+        if (trigger.kind === 'message')
+          return (
+            mutation.kind === 'message' &&
+            !mutation.before &&
+            mutation.after?.chat_id === trigger.chat_id
+          );
+        if (trigger.kind === 'mail')
+          return (
+            mutation.kind === 'mail_message' &&
+            mailTo(mutation.after, trigger.to) &&
+            !mailTo(mutation.before, trigger.to)
+          );
+        if (trigger.kind === 'sheet_row')
+          return (
+            mutation.kind === 'spreadsheet' &&
+            mutation.id === trigger.spreadsheet_token &&
+            rowPresent(mutation.after, trigger) &&
+            !rowPresent(mutation.before, trigger)
+          );
+        return false;
+      });
+      if (matched) checkpoints.push({ seq: call.seq, passed: ready() });
+      // Only successful state before a whole request may justify its effects.
+      for (const mutation of call.mutations || []) {
+        const map =
+          mutation.kind === 'record'
+            ? records
+            : mutation.kind === 'event'
+              ? events
+              : mutation.kind === 'mail_message'
+                ? mail
+                : mutation.kind === 'spreadsheet'
+                  ? books
+                  : undefined;
+        if (!map) continue;
+        if (mutation.after)
+          map.set(
+            mutation.id,
+            structuredClone(
+              mutation.kind === 'record'
+                ? mutation.after.fields
+                : mutation.after,
+            ),
+          );
+        else map.delete(mutation.id);
+      }
+    }
+    return {
+      rule,
+      checkpoints,
+      passed:
+        checkpoints.length > 0 && checkpoints.every((check) => check.passed),
+    };
+  },
+);
+
 const eventStateBeforeCreateChecks = (
   expected.event_state_before_creates || []
 ).map((rule) => {
@@ -2387,6 +2551,7 @@ const success =
   readBeforeUpdateChecks.every((check) => check.passed) &&
   transferBeforeDeleteChecks.every((c) => c.passed) &&
   recordStateBeforeCreateChecks.every((check) => check.passed) &&
+  statePrerequisiteChecks.every((check) => check.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
   recordStateBeforeUpdateChecks.every((check) => check.passed) &&
@@ -2451,6 +2616,7 @@ writeFileSync(
           : [],
       ),
       recordStateBeforeCreateChecks,
+      statePrerequisiteChecks,
       eventStateBeforeCreateChecks,
       transferBeforeDeleteChecks,
       unchanged,
