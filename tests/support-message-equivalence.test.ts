@@ -9,7 +9,7 @@ import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 const scopes: Record<number, string[]> = {
   '1446': ['oc_C_MIG'],
-  '1447': ['oc_email_9'],
+  '1447': ['oc_C_SOPS'],
   '1463': ['oc_C_WAR'],
   '1468': ['oc_C_SS'],
   '1475': ['oc_C_REV'],

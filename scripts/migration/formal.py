@@ -1,5 +1,5 @@
 """Build individually adapted formal tasks; unresolved tasks remain in the manifest."""
-import json,sys,shutil,re,base64
+import json,sys,shutil,re,base64,copy
 from pathlib import Path
 from datetime import datetime,timezone
 ROOT=Path(__file__).resolve().parents[2]
@@ -407,6 +407,8 @@ for row in rows:
         assert not any(m['chat_id']in removed for m in seed['messages']), 'native mail context needs explicit routing'
         seed['chats']=[c for c in seed['chats']if c['chat_id']not in removed]
         seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'),recipe.get('native_unread_source','labels'),recipe.get('native_mail_id_encoding'))
+        if 'native_mail_contacts' in recipe:
+            seed['mail']['contacts']=copy.deepcopy(recipe['native_mail_contacts'])
         forbidden=[f for f in forbidden if f.get('chat_id')not in removed]
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)

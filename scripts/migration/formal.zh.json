@@ -36969,7 +36969,7 @@
     ]
   },
   "support-1447": {
-    "instruction": "按ss_categories只处理Open票，subject+description忽略大小写匹配关键词子串，多类命中按最小Precedence，非最多keyword。写classification、priority override、department逻辑类名（源无department实体ID），无匹配保留原字段只写unclassified内部备注。每处理票新增zoho_desk_comments(ticket_id/is_public=false文本/content含最终category)，不要罗列落选category。按Department_Lead邮箱IM各自原ID/subject，support-ops汇总categoriz结果、计数、实际subject；不改Closed票或旧comments。",
+    "instruction": "按ss_categories只处理Open票，subject+description忽略大小写匹配关键词子串，多类命中按最小Precedence，非最多keyword。写classification、priority override、department逻辑类名（源无department实体ID），无匹配保留原字段只写unclassified内部备注。每处理票新增zoho_desk_comments(ticket_id/is_public=false文本/content含最终category)，不要罗列落选category。通过 agent@company.example.com 原生邮箱向各 Department_Lead 发送各自的原ID/subject，support-ops汇总categoriz结果、计数、实际subject；不改Closed票或旧comments。",
     "updates": [
       {
         "id": "zoho_desk_tickets_cat_t1",
@@ -37090,24 +37090,18 @@
     "messages": [
       {
         "email": "billing-lead@company.example.com",
-        "text": "billing | cat_t1 | Payment failed",
-        "contains": ["billing", "Payment failed"]
+        "subject": "Ticket categorization: billing",
+        "body": "billing | cat_t1 | Payment failed"
       },
       {
         "email": "tech-lead@company.example.com",
-        "text": "technical | cat_t2 | App crashes on startup\ncat_t4 | Invoice payment error\ncat_t6 | Bug in API endpoint\ncat_t7 | Install wizard broken",
-        "contains": [
-          "technical",
-          "App crashes on startup",
-          "Invoice payment error",
-          "Bug in API endpoint",
-          "Install wizard broken"
-        ]
+        "subject": "Ticket categorization: technical",
+        "body": "technical | cat_t2 | App crashes on startup\ncat_t4 | Invoice payment error\ncat_t6 | Bug in API endpoint\ncat_t7 | Install wizard broken"
       },
       {
         "email": "onboarding-lead@company.example.com",
-        "text": "onboarding | cat_t3 | How to set up SSO",
-        "contains": ["onboarding", "How to set up SSO"]
+        "subject": "Ticket categorization: onboarding",
+        "body": "onboarding | cat_t3 | How to set up SSO"
       },
       {
         "channel": "support-ops",
@@ -37127,7 +37121,50 @@
           "Install wizard broken"
         ]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["billing-lead@company.example.com"],
+        "aggregate": true,
+        "body_contains": []
+      },
+      {
+        "to": ["tech-lead@company.example.com"],
+        "aggregate": true,
+        "body_contains": []
+      },
+      {
+        "to": ["onboarding-lead@company.example.com"],
+        "aggregate": true,
+        "body_contains": []
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_categories",
+        "--sheet-id",
+        "ws_keyword_rules",
+        "--range",
+        "A1:D100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_categories",
+        "--sheet-id",
+        "ws_department_routing",
+        "--range",
+        "A1:D100"
+      ]
+    ],
+    "native_mail_contacts": []
   },
   "support-1448": {
     "instruction": "按CSAT Data配置及roster邮箱关联hiver用户、conversation与survey，仅closed且有有效response者计分；无response不按0、未知conversation不猜，非roster不列。源无survey日期，将现有responses视Report_Period快照。按原始平均严格低于个人threshold才flagged，其他ok；Average_CSAT写一位小数文本、Response_Count数字文本，所有roster各一行。只发Report_Recipient邮箱IM及support-metrics，不通知客户或被评agent。两处含Report_Reference/period、每人平均/response count/threshold/status和flag总数，格式Name: average=N.N, responses=N, threshold=N.N, status=...以明确归属。",

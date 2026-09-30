@@ -371,6 +371,7 @@
         "table_id": "tbl_281832285f98",
         "name": "成员资料",
         "collection": "lookup_users",
+        "read_only": true,
         "fields": [
           {
             "name": "id",
@@ -388,13 +389,13 @@
             "name": "username",
             "type": "text"
           }
-        ],
-        "read_only": true
+        ]
       },
       {
         "table_id": "tbl_0bcae886f817",
         "name": "zoho_desk_comments",
         "collection": "zoho_desk_comments",
+        "read_only": false,
         "fields": [
           {
             "name": "content",
@@ -408,13 +409,13 @@
             "name": "ticket_id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_8d0d5ae16ba6",
         "name": "zoho_desk_contacts",
         "collection": "zoho_desk_contacts",
+        "read_only": false,
         "fields": [
           {
             "name": "email",
@@ -432,13 +433,13 @@
             "name": "last_name",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_13c706bfa9d5",
         "name": "zoho_desk_tickets",
         "collection": "zoho_desk_tickets",
+        "read_only": false,
         "fields": [
           {
             "name": "classification",
@@ -476,70 +477,14 @@
             "name": "subject",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "ana@techco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "awilliams@springdale.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "ben@startco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "billing-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "cary@bigcorp.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "dee@newco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "eli@smallco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "mds@silveroak.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "onboarding-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "tech-lead@company.example.com",
       "chat_mode": "p2p"
     },
     {
@@ -548,5 +493,16 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": [],
+    "contacts": []
+  }
 }

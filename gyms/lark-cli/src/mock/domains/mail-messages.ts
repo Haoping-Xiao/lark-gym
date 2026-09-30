@@ -68,6 +68,23 @@ export function mailMessageRoutes(
     return page(items, q);
   };
   const folders = ['INBOX', 'SENT', 'DRAFT', 'TRASH', 'SPAM', 'ARCHIVED'];
+  if (tail === 'mail_contacts' && method === 'GET' && store.contacts) {
+    options(Object.fromEntries(query), ['page_size', 'page_token']);
+    options(body, []);
+    requireValue(
+      /^\d+$/.test(query.get('page_size') || '') &&
+        Number(query.get('page_size')) >= 1 &&
+        Number(query.get('page_size')) <= 20,
+      'page_size must be an integer between 1 and 20',
+    );
+    const contacts = store.contacts
+      .filter(
+        (c) => c.mailbox_id.toLowerCase() === owner.email_address.toLowerCase(),
+      )
+      .map(({ mailbox_id, ...contact }) => contact);
+    const { page_token, ...result } = pagination(contacts, 20);
+    return page_token ? { ...result, page_token } : result;
+  }
   if (tail === 'folders' && method === 'GET') {
     options(Object.fromEntries(query), ['folder_type']);
     options(body, []);

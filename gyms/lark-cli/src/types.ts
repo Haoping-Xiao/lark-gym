@@ -15,6 +15,12 @@ export interface World {
   now: string;
   mail?: {
     attachment_support?: boolean;
+    // Explicit task opt-in: [] is an empty address book; absence is unsupported.
+    contacts?: (ApiObject & {
+      id: string;
+      mailbox_id: string;
+      name: string;
+    })[];
     mailboxes: {
       email_address: string;
       email_type?: 'USER_PRIMARY' | 'PUBLIC_MAILBOX';
