@@ -57,10 +57,15 @@ test('Overdue flags preserve each original owner and subject', async () => {
             (c) =>
               c[1] !== 'impossible' &&
               c[1] !== '+record-upsert' &&
-              c[1] !== '+messages-send',
+              c[1] !== '+messages-send' &&
+              !(c[0] === 'mail' && c[1] === '+send'),
           ),
           ...rs.reverse(),
-          cs.at(-1),
+          ...cs.filter(
+            (c) =>
+              c[1] === '+messages-send' ||
+              (c[0] === 'mail' && c[1] === '+send'),
+          ),
         ];
       if (mode === 'natural_description')
         for (const c of rs)

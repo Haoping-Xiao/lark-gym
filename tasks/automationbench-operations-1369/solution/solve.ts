@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'agent@company.example.com',
+    '--message-ids',
+    'Zml4dHVyZTptc2dfc2RzXzAwMQ,Zml4dHVyZTptc2dfc2RzXzAwMg,Zml4dHVyZTptc2dfb3BzXzAzOA,Zml4dHVyZTptc2dfb3BzXzAxOQ,Zml4dHVyZTptc2dfb3BzXzAyMA,Zml4dHVyZTptc2dfb3BzXzAwNw,Zml4dHVyZTptc2dfb3BzXzAxOA,Zml4dHVyZTptc2dfb3BzXzAyOQ,Zml4dHVyZTptc2dfb3BzXzAwMQ,Zml4dHVyZTptc2dfb3BzXzA0MA,Zml4dHVyZTptc2dfb3BzXzAzNA,Zml4dHVyZTptc2dfb3BzXzAzNg,Zml4dHVyZTptc2dfb3BzXzAzNQ,Zml4dHVyZTptc2dfb3BzXzAyNA,Zml4dHVyZTptc2dfb3BzXzAwNA,Zml4dHVyZTptc2dfb3BzXzAwNQ,Zml4dHVyZTptc2dfb3BzXzAyNw,Zml4dHVyZTptc2dfb3BzXzAxMg,Zml4dHVyZTptc2dfb3BzXzAyMw,Zml4dHVyZTptc2dfb3BzXzAxMw,Zml4dHVyZTptc2dfb3BzXzAyMQ,Zml4dHVyZTptc2dfb3BzXzAzMA,Zml4dHVyZTptc2dfb3BzXzAxNw,Zml4dHVyZTptc2dfb3BzXzAyOA,Zml4dHVyZTptc2dfb3BzXzAwMg,Zml4dHVyZTptc2dfb3BzXzAxMQ,Zml4dHVyZTptc2dfb3BzXzAwMw,Zml4dHVyZTptc2dfb3BzXzAwNg,Zml4dHVyZTptc2dfb3BzXzAyNQ,Zml4dHVyZTptc2dfb3BzXzAzNw,Zml4dHVyZTptc2dfb3BzXzAxNg,Zml4dHVyZTptc2dfb3BzXzAyNg',
+    '--as',
+    'user',
+  ],
   [
     'base',
     '+record-list',
@@ -87,7 +96,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Carried over from prior cycle","location":"Decommissioned Annex","summary":"ws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Carried over from prior cycle", "location": "Decommissioned Annex", "summary": "ws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue"}',
   ],
   [
     'base',
@@ -97,7 +106,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Routine entry - no action","location":"Overflow Lot","summary":"ws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Routine entry - no action", "location": "Overflow Lot", "summary": "ws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue"}',
   ],
   [
     'base',
@@ -107,7 +116,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Routine entry - no action","location":"Overflow Lot","summary":"ws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Routine entry - no action", "location": "Overflow Lot", "summary": "ws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue"}',
   ],
   [
     'base',
@@ -117,7 +126,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Archived record","location":"Decommissioned Annex","summary":"ws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Archived record", "location": "Decommissioned Annex", "summary": "ws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue"}',
   ],
   [
     'base',
@@ -127,7 +136,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Historical reference only","location":"Overflow Lot","summary":"ws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Historical reference only", "location": "Overflow Lot", "summary": "ws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue"}',
   ],
   [
     'base',
@@ -137,7 +146,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Archived record","location":"Decommissioned Annex","summary":"ws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Archived record", "location": "Decommissioned Annex", "summary": "ws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue"}',
   ],
   [
     'base',
@@ -147,7 +156,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Historical reference only","location":"Overflow Lot","summary":"ws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Historical reference only", "location": "Overflow Lot", "summary": "ws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue"}',
   ],
   [
     'base',
@@ -157,7 +166,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Historical reference only","location":"Overflow Lot","summary":"ws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Historical reference only", "location": "Overflow Lot", "summary": "ws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue"}',
   ],
   [
     'base',
@@ -167,7 +176,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Carried over from prior cycle","location":"Decommissioned Annex","summary":"ws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Carried over from prior cycle", "location": "Decommissioned Annex", "summary": "ws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue"}',
   ],
   [
     'base',
@@ -177,7 +186,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Routine entry - no action","location":"Overflow Lot","summary":"ws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Routine entry - no action", "location": "Overflow Lot", "summary": "ws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue"}',
   ],
   [
     'base',
@@ -187,7 +196,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Carried over from prior cycle","location":"Decommissioned Annex","summary":"ws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Carried over from prior cycle", "location": "Decommissioned Annex", "summary": "ws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue"}',
   ],
   [
     'base',
@@ -197,7 +206,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Routine entry - no action","location":"Overflow Lot","summary":"ws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Routine entry - no action", "location": "Overflow Lot", "summary": "ws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue"}',
   ],
   [
     'base',
@@ -207,7 +216,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Routine entry - no action","location":"Overflow Lot","summary":"ws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Routine entry - no action", "location": "Overflow Lot", "summary": "ws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue"}',
   ],
   [
     'base',
@@ -217,7 +226,7 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Archived record","location":"Decommissioned Annex","summary":"ws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Archived record", "location": "Decommissioned Annex", "summary": "ws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue"}',
   ],
   [
     'base',
@@ -227,15 +236,22 @@ const commands: string[][] = [
     '--table-id',
     'tbl_1d4750d4390a',
     '--json',
-    '{"project":"SAFETY","issuetype":"Task","chemical":"Historical reference only","location":"Overflow Lot","summary":"ws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue"}',
+    '{"project": "SAFETY", "issuetype": "Task", "chemical": "Historical reference only", "location": "Overflow Lot", "summary": "ws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue"}',
   ],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_email_6',
-    '--text',
+    'mail',
+    '+send',
+    '--mailbox',
+    'agent@company.example.com',
+    '--to',
+    'ehs.manager@company.example.com',
+    '--subject',
+    'Acetone | Cabinet-1 | SDS expired 71 days overdue; incompatible with Sodium Hydroxide',
+    '--body',
     'Acetone | Cabinet-1 | SDS expired 71 days overdue; incompatible with Sodium Hydroxide\nSodium Hydroxide | Cabinet-1 | incompatible with Acetone\nMethanol | Cabinet-2 | SDS expired 56 days overdue\nSulfuric Acid | Cabinet-4 | incompatible with Isopropanol\nIsopropanol | Cabinet-4 | incompatible with Sulfuric Acid\nXylene | Cabinet-2 | SDS expired 131 days overdue\nBenzene | Cabinet-3 | SDS expired 192 days overdue\nws_storage row 13 | Carried over from prior cycle | Decommissioned Annex | Inactive | SDS expired 25 days overdue\nws_storage row 14 | Routine entry - no action | Overflow Lot | Archived | SDS expired 6 days overdue\nws_storage row 18 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 81 days overdue\nws_storage row 19 | Archived record | Decommissioned Annex | Inactive | SDS expired 66 days overdue\nws_storage row 20 | Historical reference only | Overflow Lot | Archived | SDS expired 12 days overdue\nws_storage row 23 | Archived record | Decommissioned Annex | Superseded | SDS expired 25 days overdue\nws_storage row 24 | Historical reference only | Overflow Lot | Deactivated | SDS expired 6 days overdue\nws_storage row 28 | Historical reference only | Overflow Lot | Cancelled | SDS expired 81 days overdue\nws_storage row 29 | Carried over from prior cycle | Decommissioned Annex | Superseded | SDS expired 66 days overdue\nws_storage row 30 | Routine entry - no action | Overflow Lot | Deactivated | SDS expired 12 days overdue\nws_storage row 33 | Carried over from prior cycle | Decommissioned Annex | Void | SDS expired 25 days overdue\nws_storage row 34 | Routine entry - no action | Overflow Lot | Cancelled | SDS expired 6 days overdue\nws_storage row 38 | Routine entry - no action | Overflow Lot | Archived | SDS expired 81 days overdue\nws_storage row 39 | Archived record | Decommissioned Annex | Void | SDS expired 66 days overdue\nws_storage row 40 | Historical reference only | Overflow Lot | Cancelled | SDS expired 12 days overdue',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
   [
     'im',

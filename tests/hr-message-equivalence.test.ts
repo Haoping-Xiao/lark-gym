@@ -18,7 +18,7 @@ for (const n of [5120, 5121, 5129, 5132])
       backend = await startMock(seed);
     try {
       const file = join(dir, 'solve.ts');
-      const transform = `const seen=new Map();const grouped=[];for(const a of commands){if(a[0]==='im'&&a[1]==='+messages-send'){const id=a[a.indexOf('--chat-id')+1],pos=a.indexOf('--text')+1;if(seen.has(id)){const previous=seen.get(id);previous[previous.indexOf('--text')+1]+='\\n\\n'+a[pos];continue;}seen.set(id,a);}grouped.push(a);}`;
+      const transform = `const seen=new Map();const grouped=[];for(const a of commands){const mail=a[0]==='mail'&&a[1]==='+send';if(mail||(a[0]==='im'&&a[1]==='+messages-send')){const id=(mail?'mail:':'im:')+a[a.indexOf(mail?'--to':'--chat-id')+1],pos=a.indexOf(mail?'--body':'--text')+1;if(seen.has(id)){const previous=seen.get(id);previous[previous.indexOf(mail?'--body':'--text')+1]+='\\n\\n'+a[pos];continue;}seen.set(id,a);}grouped.push(a);}`;
       await writeFile(
         file,
         source.replace(
@@ -47,13 +47,35 @@ for (const n of [5120, 5121, 5129, 5132])
       assert.equal(result.business_success, true);
       assert.ok(
         result.semantic.deferred.includes(
-          'messages.per_recipient_completeness_and_no_redundancy',
+          n === 5120
+            ? 'messages.per_recipient_completeness_and_no_redundancy'
+            : 'mail.per_recipient_completeness_and_no_redundancy',
         ),
       );
-      const old = new Set(seed.messages.map((m: any) => m.message_id));
-      const sent = backend.world.messages.filter((m) => !old.has(m.message_id));
-      assert.ok(sent.length < result.semantic.original.messages.length);
-      assert.equal(new Set(sent.map((m) => m.chat_id)).size, sent.length);
+      if (n === 5120) {
+        const old = new Set(seed.messages.map((m: any) => m.message_id));
+        const sent = backend.world.messages.filter(
+          (m) => !old.has(m.message_id),
+        );
+        assert.ok(sent.length < result.semantic.original.messages.length);
+        assert.equal(new Set(sent.map((m) => m.chat_id)).size, sent.length);
+      } else {
+        const old = new Set(seed.mail.messages.map((m: any) => m.message_id));
+        const sent = backend.world.mail!.messages.filter(
+          (m) => !old.has(m.message_id),
+        );
+        assert.ok(sent.length < result.semantic.original.mail.length);
+        assert.equal(
+          new Set(
+            sent.map((m) =>
+              m.to
+                .map((a: { mail_address: string }) => a.mail_address)
+                .join(','),
+            ),
+          ).size,
+          sent.length,
+        );
+      }
     } finally {
       await backend.close();
       await rm(dir, { recursive: true, force: true });

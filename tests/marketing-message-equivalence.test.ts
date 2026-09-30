@@ -22,7 +22,7 @@ for (const n of [
       const transform =
         n === 1054
           ? `const changed=commands.filter(a=>a[0]!=='im'||a[1]!=='+messages-send');const notices=commands.filter(a=>a[0]==='im'&&a[1]==='+messages-send');const merged=[...notices[0]];merged[merged.indexOf('--text')+1]=notices.map(a=>a[a.indexOf('--text')+1]).join('\\n');changed.push(merged);`
-          : `const changed=commands.flatMap(a=>{if(a[0]!=='im'||a[1]!=='+messages-send')return[a];const p=a.indexOf('--text')+1,lines=a[p].split('\\n'),k=Math.ceil(lines.length/2);return[lines.slice(0,k).join('\\n'),lines.slice(k).join('\\n')].map(t=>{const b=[...a];b[p]=${n === 1045 ? "'CGAP-2026-Q1\\\\n'+" : ''}t;return b;});});`;
+          : `const changed=commands.flatMap(a=>{const mail=a[0]==='mail'&&a[1]==='+send';if(!mail&&(a[0]!=='im'||a[1]!=='+messages-send'))return[a];const p=a.indexOf(mail?'--body':'--text')+1,lines=a[p].split('\\n'),k=Math.ceil(lines.length/2);return[lines.slice(0,k).join('\\n'),lines.slice(k).join('\\n')].map(t=>{const b=[...a];b[p]=${n === 1045 ? "'CGAP-2026-Q1\\\\n'+" : ''}t;return b;});});`;
       const file = join(dir, 'solve.ts');
       await writeFile(
         file,
@@ -51,12 +51,16 @@ for (const n of [
       );
       assert.equal(result.business_success, true);
       assert.ok(
-        result.semantic.deferred.includes(
-          'messages.per_recipient_completeness_and_no_redundancy',
+        result.semantic.deferred.some((d: string) =>
+          [
+            'messages.per_recipient_completeness_and_no_redundancy',
+            'mail.per_recipient_completeness_and_no_redundancy',
+          ].includes(d),
         ),
       );
       assert.equal(
-        result.semantic.original.messages.length,
+        (result.semantic.original.messages?.length || 0) +
+          (result.semantic.original.mail?.length || 0),
         n === 1054 ? 3 : n === 1049 ? 2 : 1,
       );
       if (n === 1045) {
@@ -101,8 +105,14 @@ for (const n of [
         }
       }
       const old = new Set(seed.messages.map((m: any) => m.message_id));
+      const oldMail = new Set(
+        (seed.mail?.messages || []).map((m: any) => m.message_id),
+      );
       assert.equal(
-        backend.world.messages.filter((m) => !old.has(m.message_id)).length,
+        backend.world.messages.filter((m) => !old.has(m.message_id)).length +
+          (backend.world.mail?.messages || []).filter(
+            (m) => !oldMail.has(m.message_id),
+          ).length,
         n === 1054 ? 1 : n === 1049 ? 4 : 2,
       );
     } finally {

@@ -1,3 +1,5 @@
-以HelpScout active会话完整email匹配hubspot_contacts再查associated_contact_ids关联deal；closedwon/closedlost排除，不能按邮箱域猜deal。未来0..30日含边界且amount>10000为critical，否则active deal为info。按配置critical才创建tasks(subject含dealname/deal_id/conversation_id/owner_email/priority=High/status=Not Started/amount原数字/description原会话subject)，并AE邮箱IM；无SF account不虚构。sales-support包含全部有效deal的name/原amount/close date/subject/level、critical/info计数及batch_id，不联系客户。
+以HelpScout active会话完整email匹配hubspot_contacts再查associated_contact_ids关联deal；closedwon/closedlost排除，不能按邮箱域猜deal。未来0..30日含边界且amount>10000为critical，否则active deal为info。按配置critical才创建tasks(subject含dealname/deal_id/conversation_id/owner_email/priority=High/status=Not Started/amount原数字/description原会话subject)，并AE飞书邮件；无SF account不虚构。sales-support包含全部有效deal的name/原amount/close date/subject/level、critical/info计数及batch_id，不联系客户。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

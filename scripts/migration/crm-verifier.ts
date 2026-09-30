@@ -90,6 +90,15 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  mail_drafts?: {
+    to: string[];
+    subject?: string;
+    literal_body_contains?: string[];
+    body_contains?: string[];
+    semantic_content?: boolean;
+    business_context?: any;
+  }[];
+  forbidden_mail?: { to: string[]; contains: string[]; literal?: boolean }[];
   mail_updates?: {
     message_id: string;
     remove_labels: string[];
@@ -113,6 +122,7 @@ const expected: {
     from?: string;
     optional_cc?: string[];
     aggregate?: boolean;
+    aggregate_recipient_scope?: 'exact';
     every_body_contains?: string[];
     attachments?: {
       filename: string;
@@ -970,6 +980,27 @@ const unreadListBeforeMail = (mail: any) => {
     [...observed].every((id) => required.includes(id))
   );
 };
+const forbiddenMailChecks = (expected.forbidden_mail || []).map((rule) => ({
+  ...rule,
+  passed: !(world.mail?.messages || []).some(
+    (m: any) =>
+      m.message_state === 2 &&
+      !(seed.mail?.messages || []).some(
+        (old: any) => old.message_id === m.message_id,
+      ) &&
+      (!rule.to.length ||
+        rule.to.some((to) =>
+          [...(m.to || []), ...(m.cc || []), ...(m.bcc || [])].some(
+            (a: any) => a.mail_address.toLowerCase() === to.toLowerCase(),
+          ),
+        )) &&
+      rule.contains.every((part) =>
+        (m.subject + '\n' + mailBodyText(m))
+          .toLowerCase()
+          .includes(part.toLowerCase()),
+      ),
+  ),
+}));
 const mailChecks = (expected.mail || []).map((rule) => {
   if (rule.aggregate) {
     const allowed = new Set(
@@ -984,8 +1015,13 @@ const mailChecks = (expected.mail || []).map((rule) => {
           (m.mailbox_id?.toLowerCase() === rule.from.toLowerCase() &&
             m.head_from?.mail_address?.toLowerCase() ===
               rule.from.toLowerCase())) &&
-        rule.to.every((a) => recipients.includes(a.toLowerCase())) &&
-        recipients.every((a: string) => allowed.has(a)) &&
+        (rule.aggregate_recipient_scope === 'exact'
+          ? isDeepStrictEqual(
+              [...new Set(recipients)].sort(),
+              [...new Set(rule.to.map((a) => a.toLowerCase()))].sort(),
+            )
+          : rule.to.every((a) => recipients.includes(a.toLowerCase())) &&
+            recipients.every((a: string) => allowed.has(a))) &&
         !(m.bcc || []).length
       );
     });
@@ -1072,6 +1108,12 @@ const mailChecks = (expected.mail || []).map((rule) => {
       (rule.body_not_contains || []).every(
         (term) => !supportContains(mailBodyText(m), term),
       ) &&
+      (rule.literal_body_contains || []).every((term) =>
+        mailBodyText(m)
+          .replace(/\s/g, '')
+          .toLowerCase()
+          .includes(term.replace(/\s/g, '').toLowerCase()),
+      ) &&
       (rule.body_contains || []).every((term) =>
         supportContains(mailBodyText(m), term),
       ) &&
@@ -1089,6 +1131,52 @@ const mailChecks = (expected.mail || []).map((rule) => {
   );
   if (match) consumedMail.add(match.message_id);
   return { ...rule, message_id: match?.message_id, passed: !!match };
+});
+const consumedDraftMessages = new Set<string>();
+const consumedDraftIDs = new Set<string>();
+const draftChecks = (expected.mail_drafts || []).map((rule) => {
+  const draft = (world.mail?.drafts || []).find((d: any) => {
+    if (
+      consumedDraftIDs.has(d.id) ||
+      (seed.mail?.drafts || []).some((old: any) => old.id === d.id)
+    )
+      return false;
+    const m = world.mail?.messages.find(
+      (m: any) =>
+        m.message_id === d.message_id && m.mailbox_id === d.mailbox_id,
+    );
+    return (
+      m &&
+      !initialMailIDs.has(m.message_id) &&
+      m.message_state === 3 &&
+      isDeepStrictEqual(
+        m.to.map((a: any) => a.mail_address.toLowerCase()).sort(),
+        rule.to.map((a) => a.toLowerCase()).sort(),
+      ) &&
+      !m.cc.length &&
+      !m.bcc.length &&
+      (rule.subject === undefined || m.subject === rule.subject) &&
+      (rule.body_contains || []).every((t) =>
+        supportContains(mailBodyText(m), t),
+      ) &&
+      calls.some(
+        (c: any) =>
+          c.status < 400 &&
+          (c.mutations || []).some(
+            (mu: any) =>
+              mu.kind === 'mail_message' &&
+              mu.id === m.message_id &&
+              !mu.before &&
+              mu.after?.message_state === 3,
+          ),
+      )
+    );
+  });
+  if (draft) {
+    consumedDraftIDs.add(draft.id);
+    consumedDraftMessages.add(draft.message_id);
+  }
+  return { ...rule, draft_id: draft?.id, passed: !!draft };
 });
 const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
   const before = seed.mail?.messages.find(
@@ -1116,6 +1204,15 @@ const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
   };
 });
 const protectedWorld = structuredClone(world);
+if (protectedWorld.mail) {
+  protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
+    (m: any) => !consumedDraftMessages.has(m.message_id),
+  );
+  protectedWorld.mail.drafts = protectedWorld.mail.drafts.filter(
+    (d: any) => !consumedDraftIDs.has(d.id),
+  );
+}
+
 for (const rule of expected.mail_updates || []) {
   const before = seed.mail?.messages.find(
     (m: any) => m.message_id === rule.message_id,
@@ -2595,6 +2692,8 @@ const mailBeforeOutreachChecks = (expected.mail_before_outreach || []).map(
 );
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  draftChecks.every((c) => c.passed) &&
+  forbiddenMailChecks.every((c) => c.passed) &&
   mailUpdateChecks.every((c) => c.passed) &&
   mailBeforeOutreachChecks.every((c) => c.passed) &&
   cellsBeforeMailChecks.every((c) => c.passed) &&
@@ -2651,6 +2750,8 @@ writeFileSync(
       entityOrderChecks,
       messageChecks,
       mailChecks,
+      draftChecks,
+      forbiddenMailChecks,
       mailBeforeOutreachChecks,
       forbiddenMessageChecks,
       forbiddenRecordChecks,

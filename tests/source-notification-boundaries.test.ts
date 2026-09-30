@@ -29,28 +29,34 @@ for (const name of ['finance-4031', 'marketing-1068', 'finance-4020'])
           ? ['reference', 'denied-cancel']
           : ['minimal', 'missing-example', 'missing-batch', 'wrong-count']) {
         const world = structuredClone(b.world),
-          message = world.messages.at(-1)!;
-        const text = JSON.parse(String(message.body.content)).text;
-        message.body.content = JSON.stringify({
-          text:
-            name === 'finance-4020'
+          native = name.startsWith('finance-'),
+          message: any = native
+            ? world.mail!.messages.at(-1)!
+            : world.messages.at(-1)!;
+        const text = native
+          ? Buffer.from(message.body_plain_text, 'base64url').toString()
+          : JSON.parse(String(message.body.content)).text;
+        const updated =
+          name === 'finance-4020'
+            ? text +
+              (mode === 'exempt-in-cpa'
+                ? '\nApex Solutions Group is excluded.'
+                : '')
+            : name === 'finance-4031'
               ? text +
-                (mode === 'exempt-in-cpa'
-                  ? '\nApex Solutions Group is excluded.'
+                (mode === 'denied-cancel'
+                  ? '\nI did not cancel Metro Supply.'
                   : '')
-              : name === 'finance-4031'
-                ? text +
-                  (mode === 'denied-cancel'
-                    ? '\nI did not cancel Metro Supply.'
-                    : '')
-                : mode === 'minimal'
-                  ? 'MOD-UGC-3847: 5 approved; includes UGC101.'
-                  : mode === 'missing-example'
-                    ? 'MOD-UGC-3847: 5 approved.'
-                    : mode === 'missing-batch'
-                      ? '5 approved; includes UGC101.'
-                      : 'MOD-UGC-3847: 4 approved; includes UGC101.',
-        });
+              : mode === 'minimal'
+                ? 'MOD-UGC-3847: 5 approved; includes UGC101.'
+                : mode === 'missing-example'
+                  ? 'MOD-UGC-3847: 5 approved.'
+                  : mode === 'missing-batch'
+                    ? '5 approved; includes UGC101.'
+                    : 'MOD-UGC-3847: 4 approved; includes UGC101.';
+        if (native)
+          message.body_plain_text = Buffer.from(updated).toString('base64url');
+        else message.body.content = JSON.stringify({ text: updated });
         const state = join(dir, mode + '.json'),
           output = join(dir, mode);
         await writeFile(state, JSON.stringify({ seed, world, calls: b.calls }));

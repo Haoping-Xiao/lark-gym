@@ -55,6 +55,7 @@
         "table_id": "tbl_77a5313f0483",
         "name": "invoice_archive",
         "collection": "invoice_archive",
+        "read_only": false,
         "fields": [
           {
             "name": "content",
@@ -72,159 +73,247 @@
             "name": "source_message_id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       }
     ]
   },
-  "chats": [
-    {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "all-staff@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "ap-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "ap@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "ar@globalfreight.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "ar@techserve.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "billing@acme.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "controller@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "hr@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "invoices@brightideas.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "newsletter@accountingtoday.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_11",
-      "name": "procurement@company.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_vinv_001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vinv_001\\\", \\\"thread_id\\\": \\\"th_vinv_001\\\", \\\"from_\\\": \\\"billing@acme.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Invoice ACM-2026-0088\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-02-06T09:00:00Z\\\"}\\n消息 ID：msg_vinv_001\\n来源：billing@acme.example.com\\n收件人：ap@company.example.com\\n日期：2026-02-06T09:00:00Z\\n主题：Invoice ACM-2026-0088\\nInvoice ACM-2026-0088 from Acme Supplies, dated 2026-02-05, amount $3,400. February materials.\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfdmludl8wMDE",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF92aW52XzAwMQ",
+        "smtp_message_id": "msg_vinv_001@fixture.invalid",
+        "subject": "Invoice ACM-2026-0088",
+        "head_from": {
+          "mail_address": "billing@acme.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SW52b2ljZSBBQ00tMjAyNi0wMDg4IGZyb20gQWNtZSBTdXBwbGllcywgZGF0ZWQgMjAyNi0wMi0wNSwgYW1vdW50ICQzLDQwMC4gRmVicnVhcnkgbWF0ZXJpYWxzLg",
+        "body_preview": "SW52b2ljZSBBQ00tMjAyNi0wMDg4IGZyb20gQWNtZSBTdXBwbGllcywgZGF0ZWQgMjAyNi0wMi0wNSwgYW1vdW50ICQzLDQwMC4gRmVicnVhcnkgbWF0ZXJpYWxzLg",
+        "body_html": "",
+        "internal_date": "1770368400000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1770368400000"
-    },
-    {
-      "message_id": "om_msg_vinv_002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vinv_002\\\", \\\"thread_id\\\": \\\"th_vinv_002\\\", \\\"from_\\\": \\\"ar@techserve.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"TechServe Invoice TS-22104\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-02-08T10:00:00Z\\\"}\\n消息 ID：msg_vinv_002\\n来源：ar@techserve.example.com\\n收件人：ap@company.example.com\\n日期：2026-02-08T10:00:00Z\\n主题：TechServe Invoice TS-22104\\nInvoice TS-22104, TechServe Solutions, dated 2026-02-07, $11,200. February managed services.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfdmludl8wMDI",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF92aW52XzAwMg",
+        "smtp_message_id": "msg_vinv_002@fixture.invalid",
+        "subject": "TechServe Invoice TS-22104",
+        "head_from": {
+          "mail_address": "ar@techserve.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SW52b2ljZSBUUy0yMjEwNCwgVGVjaFNlcnZlIFNvbHV0aW9ucywgZGF0ZWQgMjAyNi0wMi0wNywgJDExLDIwMC4gRmVicnVhcnkgbWFuYWdlZCBzZXJ2aWNlcy4",
+        "body_preview": "SW52b2ljZSBUUy0yMjEwNCwgVGVjaFNlcnZlIFNvbHV0aW9ucywgZGF0ZWQgMjAyNi0wMi0wNywgJDExLDIwMC4gRmVicnVhcnkgbWFuYWdlZCBzZXJ2aWNlcy4",
+        "body_html": "",
+        "internal_date": "1770544800000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1770544800000"
-    },
-    {
-      "message_id": "om_msg_vinv_003",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vinv_003\\\", \\\"thread_id\\\": \\\"th_vinv_003\\\", \\\"from_\\\": \\\"invoices@brightideas.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Bright Ideas - Invoice BI-5501\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-02-07T11:00:00Z\\\"}\\n消息 ID：msg_vinv_003\\n来源：invoices@brightideas.example.com\\n收件人：ap@company.example.com\\n日期：2026-02-07T11:00:00Z\\n主题：Bright Ideas - Invoice BI-5501\\nInvoice BI-5501, Bright Ideas Studio, dated 2026-02-06, $2,750. Creative services.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfdmludl8wMDM",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF92aW52XzAwMw",
+        "smtp_message_id": "msg_vinv_003@fixture.invalid",
+        "subject": "Bright Ideas - Invoice BI-5501",
+        "head_from": {
+          "mail_address": "invoices@brightideas.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SW52b2ljZSBCSS01NTAxLCBCcmlnaHQgSWRlYXMgU3R1ZGlvLCBkYXRlZCAyMDI2LTAyLTA2LCAkMiw3NTAuIENyZWF0aXZlIHNlcnZpY2VzLg",
+        "body_preview": "SW52b2ljZSBCSS01NTAxLCBCcmlnaHQgSWRlYXMgU3R1ZGlvLCBkYXRlZCAyMDI2LTAyLTA2LCAkMiw3NTAuIENyZWF0aXZlIHNlcnZpY2VzLg",
+        "body_html": "",
+        "internal_date": "1770462000000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1770462000000"
-    },
-    {
-      "message_id": "om_msg_vinv_stale",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vinv_stale\\\", \\\"thread_id\\\": \\\"th_vinv_stale\\\", \\\"from_\\\": \\\"ar@globalfreight.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Global Freight Invoice GF-9102\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-16T09:00:00Z\\\"}\\n消息 ID：msg_vinv_stale\\n来源：ar@globalfreight.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-16T09:00:00Z\\n主题：Global Freight Invoice GF-9102\\nInvoice GF-9102, Global Freight Partners, dated 2026-01-15, $5,800. January shipping.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfdmludl9zdGFsZQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF92aW52X3N0YWxl",
+        "smtp_message_id": "msg_vinv_stale@fixture.invalid",
+        "subject": "Global Freight Invoice GF-9102",
+        "head_from": {
+          "mail_address": "ar@globalfreight.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SW52b2ljZSBHRi05MTAyLCBHbG9iYWwgRnJlaWdodCBQYXJ0bmVycywgZGF0ZWQgMjAyNi0wMS0xNSwgJDUsODAwLiBKYW51YXJ5IHNoaXBwaW5nLg",
+        "body_preview": "SW52b2ljZSBHRi05MTAyLCBHbG9iYWwgRnJlaWdodCBQYXJ0bmVycywgZGF0ZWQgMjAyNi0wMS0xNSwgJDUsODAwLiBKYW51YXJ5IHNoaXBwaW5nLg",
+        "body_html": "",
+        "internal_date": "1768554000000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768554000000"
-    },
-    {
-      "message_id": "om_msg_vinv_decoy",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vinv_decoy\\\", \\\"thread_id\\\": \\\"th_vinv_decoy\\\", \\\"from_\\\": \\\"procurement@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Re: Invoice question from vendor\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-09T08:00:00Z\\\"}\\n消息 ID：msg_vinv_decoy\\n来源：procurement@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-02-09T08:00:00Z\\n主题：Re: Invoice question from vendor\\nHi AP, just a heads up that the Acme vendor asked about their January invoice status. No action needed from your side, I already replied to them.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfdmludl9kZWNveQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF92aW52X2RlY295",
+        "smtp_message_id": "msg_vinv_decoy@fixture.invalid",
+        "subject": "Re: Invoice question from vendor",
+        "head_from": {
+          "mail_address": "procurement@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGkgQVAsIGp1c3QgYSBoZWFkcyB1cCB0aGF0IHRoZSBBY21lIHZlbmRvciBhc2tlZCBhYm91dCB0aGVpciBKYW51YXJ5IGludm9pY2Ugc3RhdHVzLiBObyBhY3Rpb24gbmVlZGVkIGZyb20geW91ciBzaWRlLCBJIGFscmVhZHkgcmVwbGllZCB0byB0aGVtLg",
+        "body_preview": "SGkgQVAsIGp1c3QgYSBoZWFkcyB1cCB0aGF0IHRoZSBBY21lIHZlbmRvciBhc2tlZCBhYm91dCB0aGVpciBKYW51YXJ5IGludm9pY2Ugc3RhdHVzLiBObyBhY3Rpb24gbmVlZGVkIGZyb20geW91ciBzaWRlLCBJ",
+        "body_html": "",
+        "internal_date": "1770624000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1770624000000"
-    },
-    {
-      "message_id": "om_msg_prev_filing",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_prev_filing\\\", \\\"thread_id\\\": \\\"th_prev_filing\\\", \\\"from_\\\": \\\"ap@company.example.com\\\", \\\"to\\\": [\\\"ap-lead@company.example.com\\\"], \\\"subject\\\": \\\"January Invoice Filing Summary\\\", \\\"label_ids\\\": [\\\"SENT\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T16:00:00Z\\\"}\\n消息 ID：msg_prev_filing\\n来源：ap@company.example.com\\n收件人：ap-lead@company.example.com\\n日期：2026-02-01T16:00:00Z\\n主题：January Invoice Filing Summary\\nJanuary filing complete. Here's the summary:\\n\\nInvoices filed: 4, Total amount: $18,350.00\\n\\nFiled invoices:\\n- Acme Supplies | ACM-2026-0055 | $4,200 | 2026-01-05\\n- TechServe Solutions | TS-22090 | $11,200 | 2026-01-07\\n- Meridian Corp | MER-3301 | $1,450 | 2026-01-12\\n- Global Freight Partners | GF-9088 | $1,500 | 2026-01-15\\n\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfcHJldl9maWxpbmc",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9wcmV2X2ZpbGluZw",
+        "smtp_message_id": "msg_prev_filing@fixture.invalid",
+        "subject": "January Invoice Filing Summary",
+        "head_from": {
+          "mail_address": "ap@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap-lead@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SmFudWFyeSBmaWxpbmcgY29tcGxldGUuIEhlcmUncyB0aGUgc3VtbWFyeToKCkludm9pY2VzIGZpbGVkOiA0LCBUb3RhbCBhbW91bnQ6ICQxOCwzNTAuMDAKCkZpbGVkIGludm9pY2VzOgotIEFjbWUgU3VwcGxpZXMgfCBBQ00tMjAyNi0wMDU1IHwgJDQsMjAwIHwgMjAyNi0wMS0wNQotIFRlY2hTZXJ2ZSBTb2x1dGlvbnMgfCBUUy0yMjA5MCB8ICQxMSwyMDAgfCAyMDI2LTAxLTA3Ci0gTWVyaWRpYW4gQ29ycCB8IE1FUi0zMzAxIHwgJDEsNDUwIHwgMjAyNi0wMS0xMgotIEdsb2JhbCBGcmVpZ2h0IFBhcnRuZXJzIHwgR0YtOTA4OCB8ICQxLDUwMCB8IDIwMjYtMDEtMTUK",
+        "body_preview": "SmFudWFyeSBmaWxpbmcgY29tcGxldGUuIEhlcmUncyB0aGUgc3VtbWFyeToKCkludm9pY2VzIGZpbGVkOiA0LCBUb3RhbCBhbW91bnQ6ICQxOCwzNTAuMDAKCkZpbGVkIGludm9pY2VzOgotIEFjbWUgU3VwcGxp",
+        "body_html": "",
+        "internal_date": "1769961600000",
+        "message_state": 2,
+        "label_ids": [],
+        "folder_id": "SENT",
+        "attachments": []
       },
-      "create_time": "1769961600000"
-    },
-    {
-      "message_id": "om_msg_filing_conv",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_filing_conv\\\", \\\"thread_id\\\": \\\"th_filing_conv\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Invoice Filing Conventions\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-15T08:00:00Z\\\"}\\n消息 ID：msg_filing_conv\\n来源：controller@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-15T08:00:00Z\\n主题：Invoice Filing Conventions\\nFile naming: YYYY-MM_VendorName_InvoiceNumber\\nRegistry columns: Date Filed, Vendor, Invoice #, Amount, Drive Link\\n\\nImportant: Only file invoices received in the current processing week. Invoices from prior months should have been filed in their respective periods.\\n\\n- Controller\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfZmlsaW5nX2NvbnY",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9maWxpbmdfY29udg",
+        "smtp_message_id": "msg_filing_conv@fixture.invalid",
+        "subject": "Invoice Filing Conventions",
+        "head_from": {
+          "mail_address": "controller@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "RmlsZSBuYW1pbmc6IFlZWVktTU1fVmVuZG9yTmFtZV9JbnZvaWNlTnVtYmVyClJlZ2lzdHJ5IGNvbHVtbnM6IERhdGUgRmlsZWQsIFZlbmRvciwgSW52b2ljZSAjLCBBbW91bnQsIERyaXZlIExpbmsKCkltcG9ydGFudDogT25seSBmaWxlIGludm9pY2VzIHJlY2VpdmVkIGluIHRoZSBjdXJyZW50IHByb2Nlc3Npbmcgd2Vlay4gSW52b2ljZXMgZnJvbSBwcmlvciBtb250aHMgc2hvdWxkIGhhdmUgYmVlbiBmaWxlZCBpbiB0aGVpciByZXNwZWN0aXZlIHBlcmlvZHMuCgotIENvbnRyb2xsZXI",
+        "body_preview": "RmlsZSBuYW1pbmc6IFlZWVktTU1fVmVuZG9yTmFtZV9JbnZvaWNlTnVtYmVyClJlZ2lzdHJ5IGNvbHVtbnM6IERhdGUgRmlsZWQsIFZlbmRvciwgSW52b2ljZSAjLCBBbW91bnQsIERyaXZlIExpbmsKCkltcG9y",
+        "body_html": "",
+        "internal_date": "1768464000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768464000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDE",
+        "smtp_message_id": "noise_fin_msg001@fixture.invalid",
+        "subject": "Weekly Tax Update: New IRS Guidance",
+        "head_from": {
+          "mail_address": "newsletter@accountingtoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "finance@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_preview": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_html": "",
+        "internal_date": "1768896000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768896000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
-      },
-      "create_time": "1768986000000"
-    }
-  ]
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDI",
+        "smtp_message_id": "noise_fin_msg002@fixture.invalid",
+        "subject": "Reminder: Expense Reports Due Friday",
+        "head_from": {
+          "mail_address": "hr@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all-staff@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGkgdGVhbSwgcGxlYXNlIHN1Ym1pdCBhbGwgb3V0c3RhbmRpbmcgZXhwZW5zZSByZXBvcnRzIGJ5IGVuZCBvZiBkYXkgRnJpZGF5Lg",
+        "body_preview": "SGkgdGVhbSwgcGxlYXNlIHN1Ym1pdCBhbGwgb3V0c3RhbmRpbmcgZXhwZW5zZSByZXBvcnRzIGJ5IGVuZCBvZiBkYXkgRnJpZGF5Lg",
+        "body_html": "",
+        "internal_date": "1768986000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": [],
+    "labels": []
+  }
 }

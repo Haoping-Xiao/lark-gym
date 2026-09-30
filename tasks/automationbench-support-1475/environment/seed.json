@@ -1268,6 +1268,7 @@
         "table_id": "tbl_bc62a3c14fec",
         "name": "客户公司",
         "collection": "accounts",
+        "read_only": false,
         "fields": [
           {
             "name": "account_name",
@@ -1293,13 +1294,13 @@
             "name": "tier",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_f838e95de93a",
         "name": "intercom_companies",
         "collection": "intercom_companies",
+        "read_only": false,
         "fields": [
           {
             "name": "company_id",
@@ -1317,13 +1318,13 @@
             "name": "plan",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_340d8a319d78",
         "name": "intercom_contacts",
         "collection": "intercom_contacts",
+        "read_only": false,
         "fields": [
           {
             "name": "company_ids",
@@ -1353,13 +1354,13 @@
             "name": "tags",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_466e562074c2",
         "name": "intercom_conversations",
         "collection": "intercom_conversations",
+        "read_only": false,
         "fields": [
           {
             "name": "contact_ids",
@@ -1385,13 +1386,13 @@
             "name": "title",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_aab4246ab7fa",
         "name": "intercom_notes",
         "collection": "intercom_notes",
+        "read_only": false,
         "fields": [
           {
             "name": "body",
@@ -1401,13 +1402,13 @@
             "name": "contact_id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_281832285f98",
         "name": "成员资料",
         "collection": "lookup_users",
+        "read_only": true,
         "fields": [
           {
             "name": "id",
@@ -1425,13 +1426,13 @@
             "name": "username",
             "type": "text"
           }
-        ],
-        "read_only": true
+        ]
       },
       {
         "table_id": "tbl_9be34f3e549c",
         "name": "商机",
         "collection": "opportunities",
+        "read_only": false,
         "fields": [
           {
             "name": "account_id",
@@ -1465,13 +1466,13 @@
             "name": "stage_name",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_085154084c74",
         "name": "工作事项",
         "collection": "tasks",
+        "read_only": false,
         "fields": [
           {
             "name": "account_id",
@@ -1505,13 +1506,13 @@
             "name": "what_id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_7dfb4cf67742",
         "name": "users",
         "collection": "users",
+        "read_only": false,
         "fields": [
           {
             "name": "email",
@@ -1521,85 +1522,14 @@
             "name": "name",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "ava@acmecorp.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "ben@techstartup.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "clara@bigenterprise.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "drew@noopp.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "elena@midmarket.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "finn@smallbiz.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "grace@acmecorp.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "hugo@midmarket.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "jblake@quartzlabs.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "rep1@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "rep2@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_11",
-      "name": "rep3@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_12",
-      "name": "tjennings@prismdata.example.com",
       "chat_mode": "p2p"
     },
     {
@@ -1608,5 +1538,16 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": [],
+    "labels": []
+  }
 }

@@ -51,7 +51,7 @@ for (const n of [5004, 5010, 5069, 5102])
       const dir = await mkdtemp(join(tmpdir(), 'scoped-split-')),
         backend = await startMock(seed);
       try {
-        const transform = `const partition=${partition.toString()}; const changed=commands.flatMap(a=>{if(a[0]!=='im'||a[1]!=='+messages-send')return[a];const p=a.indexOf('--text')+1,id=a[a.indexOf('--chat-id')+1];return partition(${n},${JSON.stringify(mode)},id,a[p]).map(t=>{const b=[...a];b[p]=t;return b;});});`;
+        const transform = `const partition=${partition.toString()}; const changed=commands.flatMap(a=>{const mail=a[0]==='mail'&&a[1]==='+send';if(!mail&&(a[0]!=='im'||a[1]!=='+messages-send'))return[a];const p=a.indexOf(mail?'--body':'--text')+1,raw=a[a.indexOf(mail?'--to':'--chat-id')+1],id=mail?(({"5004": {"it-ops@company.example.com": "oc_email_6", "payroll@company.example.com": "oc_email_8"}, "5010": {"elena.vasquez@email.example.com": "oc_email_3", "recruiting-coordinator@company.example.com": "oc_email_9"}, "5069": {"recruiter1@company.example.com": "oc_email_3", "recruiter2@company.example.com": "oc_email_4"}, "5102": {"diana.torres@company.example.com": "oc_email_5"}})[${n}][raw]||raw):raw;return partition(${n},${JSON.stringify(mode)},id,a[p]).map(t=>{const b=[...a];b[p]=t;return b;});});`;
         const solver = join(dir, 'solve.ts');
         await writeFile(
           solver,
@@ -79,10 +79,10 @@ for (const n of [5004, 5010, 5069, 5102])
           await readFile(join(output, 'result.json'), 'utf8'),
         );
         assert.equal(result.business_success, mode === 'split');
-        assert.ok(result.semantic.original.message_count_chats.length > 0);
+        assert.ok(result.semantic.original.mail.some((m: any) => m.aggregate));
         assert.ok(
           result.semantic.deferred.includes(
-            'messages.per_recipient_completeness_and_no_redundancy',
+            'mail.per_recipient_completeness_and_no_redundancy',
           ),
         );
       } finally {

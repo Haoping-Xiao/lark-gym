@@ -252,11 +252,26 @@ export function prepareSemantic(
   if (config.event_end_time_unspecified?.length)
     deferred.push('events.unspecified_duration_reasonableness');
   if (expected.mail?.length) deferred.push('mail.content');
+  if (expected.mail_drafts?.length) {
+    deferred.push('mail_drafts.content');
+    for (const d of expected.mail_drafts) {
+      if (d.semantic_content) {
+        delete d.subject;
+        delete d.body_contains;
+      }
+    }
+  }
+
+  if (expected.mail?.length && config.mail_delivery_count === 'per_recipient') {
+    original.mail_delivery_count = 'per_recipient';
+    deferred.push('mail.per_recipient_completeness_and_no_redundancy');
+  }
+
   // These task migrations retain their former semantic body grading. Keep the
   // original facts for the judge; delivery and recipient checks stay structural.
   for (const mail of expected.mail || []) {
     if (!mail.semantic_content) continue;
-    delete mail.body_contains;
+    mail.body_contains = mail.literal_body_contains || [];
     delete mail.body_not_contains;
     if (mail.semantic_subject) {
       delete mail.subject;
@@ -1090,6 +1105,31 @@ export function prepareSemantic(
       return recipients.has(message.chat_id);
     });
   }
+  if (seed && config.optional_mail_requests?.length) {
+    original.optional_mail_requests = config.optional_mail_requests;
+    const old = new Set(
+      (seed.mail?.messages || []).map((m: Json) => m.message_id),
+    );
+    const allowed = new Set(
+      config.optional_mail_requests.map((r: Json) => r.to.toLowerCase()),
+    );
+    const requests = (world.mail?.messages || []).filter(
+      (m: Json) =>
+        m.message_state === 2 &&
+        !old.has(m.message_id) &&
+        m.to?.length === 1 &&
+        allowed.has(m.to[0].mail_address.toLowerCase()),
+    );
+    expected.mail = [
+      ...(expected.mail || []),
+      ...requests.map((m: Json) => ({
+        to: [m.to[0].mail_address],
+        body_contains: [],
+      })),
+    ];
+    if (requests.length)
+      deferred.push('mail.optional_requests.business_scope_and_no_redundancy');
+  }
   // Reviewed, optional follow-up requests are graded for purpose, not an
   // invented fixed count. Required deliveries and all other recipients remain strict.
   if (seed && config.optional_requests?.length) {
@@ -1114,6 +1154,7 @@ export function prepareSemantic(
     'forbidden_messages',
     'forbidden_records',
     'forbidden_mail',
+    'forbidden_mail_drafts',
   ]) {
     expected[key] = (expected[key] || []).filter((check: Json, i: number) => {
       const hasContent = Array.isArray(check.contains)
@@ -1122,6 +1163,7 @@ export function prepareSemantic(
       if (hasContent) deferred.push(`${key}[${i}].meaning`);
       return (
         !hasContent ||
+        (key === 'forbidden_mail' && check.literal) ||
         (key === 'forbidden_messages' &&
           config.literal_forbidden_message_indices?.includes(String(i)))
       );

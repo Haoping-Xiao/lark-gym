@@ -41,35 +41,52 @@ test('Monthly recap reaches all historical recipients', async () => {
       'wrong_month',
     ]) {
       let cs = structuredClone(original),
-        ms = cs.filter((c) => c[1] === '+messages-send');
-      const maria = ms.find((c) => c.includes('oc_email_27'));
+        ms = cs.filter((c) => c[0] === 'mail' && c[1] === '+send');
+      const maria = ms.find((c) =>
+        c.includes('m.delgado@atlasdynamics.example.com'),
+      );
       if (mode === 'reverse_order')
-        cs = [...cs.filter((c) => c[1] !== '+messages-send'), ...ms.reverse()];
+        cs = [
+          ...cs.filter((c) => !(c[0] === 'mail' && c[1] === '+send')),
+          ...ms.reverse(),
+        ];
       if (mode === 'natural_text')
         for (const c of ms)
-          c[c.length - 1] = c
-            .at(-1)
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1]
             .replace('Won total:', '成交合计：')
             .replace('Lost total:', '丢单合计：')
             .replace('Win rate:', '胜率：');
       if (mode === 'missing_maria') cs = cs.filter((c) => c !== maria);
       if (mode === 'wrong_recipient')
-        maria[maria.indexOf('--chat-id') + 1] = 'oc_email_24';
+        maria[maria.indexOf('--to') + 1] = 'kwalsh@starling.example.com';
       if (mode === 'duplicate_recipient')
-        maria[maria.indexOf('--chat-id') + 1] = 'oc_email_43';
+        maria[maria.indexOf('--to') + 1] =
+          'sales-all@atlasdynamics.example.com';
       for (const c of ms) {
         if (mode === 'wrong_amount')
-          c[c.length - 1] = c.at(-1).replace('$185,000', '$185,100');
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1].replace(
+            '$185,000',
+            '$185,100',
+          );
         if (mode === 'missing_total')
-          c[c.length - 1] = c.at(-1).replace('Won total: $267,000\n', '');
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1].replace(
+            'Won total: $267,000\n',
+            '',
+          );
         if (mode === 'excluded_pilot')
-          c[c.length - 1] += '\nSandbox Labs: $30,000';
+          c[c.indexOf('--body') + 1] += '\nSandbox Labs: $30,000';
         if (mode === 'excluded_summary')
-          c[c.length - 1] += '\n其余不符合范围的商机已排除。';
+          c[c.indexOf('--body') + 1] += '\n其余不符合范围的商机已排除。';
         if (mode === 'missing_entity')
-          c[c.length - 1] = c.at(-1).replace('Quorum Systems', '第二家公司');
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1].replace(
+            'Quorum Systems',
+            '第二家公司',
+          );
         if (mode === 'wrong_month')
-          c[c.length - 1] = c.at(-1).replace('February 2026', 'January 2026');
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1].replace(
+            'February 2026',
+            'January 2026',
+          );
       }
       const b = await startMock(seed);
       try {

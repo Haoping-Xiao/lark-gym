@@ -11,12 +11,13 @@ function regroup(commands: string[][], n: number, mode: string) {
   const result = [],
     seen = new Map();
   for (const a of commands) {
-    if (a[0] !== 'im' || a[1] !== '+messages-send') {
+    const mail = a[0] === 'mail' && a[1] === '+send';
+    if (!mail && (a[0] !== 'im' || a[1] !== '+messages-send')) {
       result.push(a);
       continue;
     }
-    const p = a.indexOf('--text') + 1,
-      id = a[a.indexOf('--chat-id') + 1],
+    const p = a.indexOf(mail ? '--body' : '--text') + 1,
+      id = a[a.indexOf(mail ? '--to' : '--chat-id') + 1],
       t = a[p];
     if (n === 831) {
       if (seen.has(id)) {
@@ -93,7 +94,17 @@ for (const n of [831, 840, 1178, 1200])
 
       const old = new Set(seed.messages.map((m: any) => m.message_id));
       const sent = backend.world.messages.filter((m) => !old.has(m.message_id));
-      assert.notEqual(sent.length, result.semantic.original.messages.length);
+      const oldMail = new Set(
+        (seed.mail?.messages || []).map((m: any) => m.message_id),
+      );
+      const sentMail = (backend.world.mail?.messages || []).filter(
+        (m) => !oldMail.has(m.message_id),
+      );
+      assert.notEqual(
+        sent.length + sentMail.length,
+        (result.semantic.original.messages?.length || 0) +
+          (result.semantic.original.mail?.length || 0),
+      );
     } finally {
       await backend.close();
       await rm(dir, { recursive: true, force: true });

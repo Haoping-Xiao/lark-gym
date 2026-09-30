@@ -1,3 +1,7 @@
-处理 Referral Program 的推荐提交（ss_referrals / ws_submissions）。遵循最新推荐政策，核对 CRM 特殊处理属性及表格备注；合格的新联系人加入 hubspot_contacts，并向推荐人私聊致谢，使用适用追踪码，完成后标 processed=Yes。原始值照录。重新激活的老客户保留原联系人，不创建重复记录；其处理完成由本次推荐表和通知记录体现。
+处理 Referral Program 的推荐提交（ss_referrals / ws_submissions）。遵循最新推荐政策，核对 CRM 特殊处理属性及表格备注；合格的新联系人加入 hubspot_contacts，并向推荐人邮件致谢，使用适用追踪码，完成后标 processed=Yes。原始值照录。重新激活的老客户保留原联系人，不创建重复记录；其处理完成由本次推荐表和通知记录体现。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。
+
+邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。

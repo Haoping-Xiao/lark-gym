@@ -12,11 +12,23 @@ test('intern manager approval requests are optional and semantic, while unrelate
   const seed = JSON.parse(
     await readFile(`${root}/environment/seed.json`, 'utf8'),
   );
+  const expected = JSON.parse(
+    await readFile(`${root}/tests/expected.json`, 'utf8'),
+  );
+  const forbidden = expected.forbidden_mail.find(
+    (r: any) => r.to.includes('derek.huang@company.example.com') && r.literal,
+  );
+  assert.ok(forbidden);
   const dir = await mkdtemp(join(tmpdir(), 'manager-request-'));
   const variants = [
     { name: 'none', chat: null, pass: true },
-    { name: 'manager', chat: 'oc_email_3', pass: true },
-    { name: 'unrelated', chat: 'oc_email_7', pass: false },
+    { name: 'manager', chat: 'derek.huang@company.example.com', pass: true },
+    {
+      name: 'manager_forbidden',
+      chat: 'derek.huang@company.example.com',
+      pass: false,
+    },
+    { name: 'unrelated', chat: 'it-director@company.example.com', pass: false },
   ];
   try {
     for (const variant of variants) {
@@ -32,12 +44,22 @@ test('intern manager approval requests are optional and semantic, while unrelate
           await exec(
             env.LARK_CLI,
             [
-              'im',
-              '+messages-send',
-              '--chat-id',
+              'mail',
+              '+send',
+              '--mailbox',
+              'agent@company.example.com',
+              '--to',
               variant.chat,
-              '--text',
-              '请为 Amara Blake 的企业邮箱提供书面批准并提交 IT Service Desk，当前待审批。',
+              '--subject',
+              'Mailbox provisioning approval request',
+              '--body',
+              '请为 Amara Blake 的企业邮箱提供书面批准并提交 IT Service Desk，当前待审批。' +
+                (variant.name === 'manager_forbidden'
+                  ? forbidden.contains.join(' ')
+                  : ''),
+              '--confirm-send',
+              '--as',
+              'user',
             ],
             { env },
           );
@@ -54,13 +76,17 @@ test('intern manager approval requests are optional and semantic, while unrelate
           await readFile(join(output, 'result.json'), 'utf8'),
         );
         assert.equal(result.business_success, variant.pass, variant.name);
-        assert.equal(result.semantic.original.messages.length, 6);
-        assert.equal(result.semantic.original.optional_requests.length, 3);
+        assert.equal(
+          result.semantic.original.messages.length +
+            result.semantic.original.mail.length,
+          6,
+        );
+        assert.equal(result.semantic.original.optional_mail_requests.length, 3);
         assert.equal(
           result.semantic.deferred.includes(
-            'messages.optional_requests.business_scope_and_no_redundancy',
+            'mail.optional_requests.business_scope_and_no_redundancy',
           ),
-          variant.name === 'manager',
+          variant.name.startsWith('manager'),
         );
       } finally {
         await backend.close();

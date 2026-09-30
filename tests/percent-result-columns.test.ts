@@ -79,8 +79,11 @@ test('SEO backlog row identity and percentage units survive alternate row orderi
               range.slice(1)
             ];
       }
-      if (mode === 'message_literal' && c[1] === '+messages-send') {
-        const i = c.indexOf('--text') + 1;
+      if (
+        mode === 'message_literal' &&
+        (c[1] === '+messages-send' || (c[0] === 'mail' && c[1] === '+send'))
+      ) {
+        const i = c.indexOf(c[0] === 'mail' ? '--body' : '--text') + 1;
         c[i] = c[i].replace('140%', '140.0%');
       }
     }

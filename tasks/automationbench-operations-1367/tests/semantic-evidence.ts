@@ -1,8 +1,85 @@
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 // Keep every authoritative call while staying below the judge's per-file limit.
 export function semanticEvidence(
   input: Record<string, any>,
   maxBytes = 512 * 1024,
 ): { name: string; data: string }[] {
+  if (
+    Array.isArray(input.world?.messages) &&
+    Array.isArray(input.seed?.messages)
+  ) {
+    const old = new Set(input.seed.messages.map((m: any) => m.message_id));
+    const decoded = input.world.messages.flatMap((m: any) => {
+      if (old.has(m.message_id) || !['text', 'post'].includes(m.msg_type))
+        return [];
+      try {
+        const text = decodedMessageText(m.body?.content);
+        return typeof text === 'string'
+          ? [
+              {
+                message_id: m.message_id,
+                chat_id: m.chat_id,
+                text,
+                lines: text.split('\n'),
+              },
+            ]
+          : [];
+      } catch {
+        return [];
+      }
+    });
+    input = { ...input, decoded_new_text_messages: decoded };
+  }
+  if (input.world?.mail) {
+    const decode = (m: any) => ({
+      ...m,
+      body_plain_text: Buffer.from(
+        m.body_plain_text || '',
+        'base64url',
+      ).toString('utf8'),
+      body_html: Buffer.from(m.body_html || '', 'base64url').toString('utf8'),
+    });
+    input = {
+      ...input,
+      decoded_mail: {
+        seed: (input.seed?.mail?.messages || []).map(decode),
+        world: input.world.mail.messages.map(decode),
+      },
+    };
+  }
   const data = JSON.stringify(input);
   if (Buffer.byteLength(data) <= maxBytes)
     return [{ name: 'input.json', data }];

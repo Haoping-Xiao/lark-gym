@@ -308,6 +308,12 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
                   old.message_id === m.message_id,
               ),
           );
+          const newDraft = backend.world.mail?.drafts.find(
+            (d) =>
+              !(seed.mail?.drafts || []).some(
+                (old: { id: string }) => old.id === d.id,
+              ),
+          );
           const newEvent = backend.world.events.find(
             (e: { event_id: string }) =>
               !seed.events.some(
@@ -333,7 +339,14 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
             backend.world.mail!.messages = backend.world.mail!.messages.filter(
               (m) => m.message_id !== newMail.message_id,
             );
-          else if (newEvent)
+          else if (newDraft) {
+            backend.world.mail!.drafts = backend.world.mail!.drafts.filter(
+              (d) => d.id !== newDraft.id,
+            );
+            backend.world.mail!.messages = backend.world.mail!.messages.filter(
+              (m) => m.message_id !== newDraft.message_id,
+            );
+          } else if (newEvent)
             backend.world.events = backend.world.events.filter(
               (e: { event_id: string }) => e.event_id !== newEvent.event_id,
             );

@@ -1,4 +1,5 @@
 import test from 'node:test';
+import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -23,13 +24,43 @@ for (const id of [
     const backend = await startMock(seed);
     const dir = await mkdtemp(join(tmpdir(), 'business-equivalence-'));
     try {
-      await exec(process.execPath, [`${root}/solution/solve.ts`], {
-        env: {
-          ...process.env,
-          FEISHU_MOCK_URL: backend.url,
-          LARK_CLI: resolve('gyms/lark-cli/bin/lark-cli'),
-        },
-      });
+      const nativeOnly =
+        id !== 4001 &&
+        !expected.messages?.length &&
+        expected.mail?.some((m: any) => m.aggregate);
+      if (nativeOnly) {
+        const code = await readFile(`${root}/solution/solve.ts`, 'utf8');
+        const commands = vm.runInNewContext(
+          code.match(/const commands: string\[\]\[\] = ([\s\S]*?);\nfor/)![1],
+        );
+        let split = false;
+        for (const original of commands) {
+          const args = [...original];
+          if (!split && args[0] === 'mail' && args[1] === '+send') {
+            const i = args.indexOf('--body') + 1,
+              body = args[i],
+              mid = Math.floor(body.length / 2);
+            args[i] = body.slice(0, mid);
+            await exec(resolve('gyms/lark-cli/bin/lark-cli'), args, {
+              env: { ...process.env, FEISHU_MOCK_URL: backend.url },
+            });
+            args[i] = body.slice(mid);
+            split = true;
+          }
+          await exec(resolve('gyms/lark-cli/bin/lark-cli'), args, {
+            env: { ...process.env, FEISHU_MOCK_URL: backend.url },
+          });
+        }
+        assert.ok(split);
+      } else {
+        await exec(process.execPath, [`${root}/solution/solve.ts`], {
+          env: {
+            ...process.env,
+            FEISHU_MOCK_URL: backend.url,
+            LARK_CLI: resolve('gyms/lark-cli/bin/lark-cli'),
+          },
+        });
+      }
       const world = structuredClone(backend.world);
       if (id === 4001) {
         const first = expected.cells[0];
@@ -49,7 +80,7 @@ for (const id of [
           sheet.values[rows[1]],
           sheet.values[rows[0]],
         ];
-      } else {
+      } else if (!nativeOnly) {
         const old = new Set(seed.messages.map((m: any) => m.message_id));
         const message = world.messages.find((m) => !old.has(m.message_id))!;
         const text = JSON.parse(message.body.content).text;
@@ -87,6 +118,10 @@ for (const id of [
           ? bad.spreadsheets![first.spreadsheet_token].sheets[first.sheet_id]
           : bad.sheets[first.sheet_id];
         sheet.values[first.row][first.column] = 'wrong-vendor';
+      } else if (nativeOnly) {
+        bad.mail!.messages.at(-1)!.to = [
+          { mail_address: 'wrong@company.example.com' },
+        ];
       } else {
         bad.messages.at(-1)!.chat_id = 'wrong-recipient';
       }

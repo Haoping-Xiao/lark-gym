@@ -67,10 +67,11 @@ test('Reviewed event text is flexible while time, attendees and source notices s
           });
         c[i] = JSON.stringify(d);
       }
-      if (c[1] === '+messages-send') {
-        const i = c.indexOf('--text') + 1;
+      if (c[1] === '+messages-send' || (c[0] === 'mail' && c[1] === '+send')) {
+        const i = c.indexOf(c[0] === 'mail' ? '--body' : '--text') + 1;
         if (
-          (mode === 'alice_literal' && c.includes('oc_email_0')) ||
+          (mode === 'alice_literal' &&
+            c.includes('alice.park@company.example.com')) ||
           (mode === 'group_literal' && c.includes('oc_C_AH_5124'))
         )
           c[i] = c[i].replace('April 22', '2026-04-22');

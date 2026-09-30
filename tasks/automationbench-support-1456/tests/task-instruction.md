@@ -1,3 +1,5 @@
-按ws_goals roster邮箱关联hiver assignee_id，统计全部状态作为conversations，closed作分子，close rate百分比向下截断整数。达到min_conversations与个人goal且close rate达标、并达到Recognition_Threshold才recognized；任一基准或个人goal不足为coaching。每roster结果行写数字文本和带%截断率、Status recognized/coaching；每standout邮箱IM表扬name/计数/率；每需辅导者单独mail_drafts(to=manager/subject/body/agent_email)，不发manager消息。support-team带tracking code和performance leaderboard，按closed数降序、同分name排序，列每人数字与状态、benchmark。
+按ws_goals roster邮箱关联hiver assignee_id，统计全部状态作为conversations，closed作分子，close rate百分比向下截断整数。达到min_conversations与个人goal且close rate达标、并达到Recognition_Threshold才recognized；任一基准或个人goal不足为coaching。每roster结果行写数字文本和带%截断率、Status recognized/coaching；每standout发送飞书邮件表扬name/计数/率；每需辅导者单独保存给其manager的飞书邮件草稿，在主题和正文中明确对应的agent；不要发送给manager。support-team带tracking code和performance leaderboard，按closed数降序、同分name排序，列每人数字与状态、benchmark。
+
+来信、发信和邮件草稿均使用飞书邮件。草稿保存在邮箱中，不能发送；不得以多维表格记录替代真实草稿。群通知仍使用飞书消息。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。
