@@ -46521,7 +46521,7 @@
     ]
   },
   "support-1580": {
-    "instruction": "处理open loyalty票，按ss_loyalty逐邮箱累计Order Value减Return Value，以1净美元=1历史积分；Tier Benefits倍率不追溯应用历史消费。tier由累计earned积分确定，兑换只扣available余额不降低已获tier，核实缺失订单若已计入不得重复充值。源无账户余额/履约系统，新增loyalty_balances每位已处理客户一条(customer_email/earned_points/available_points/tier)，合格兑换新增loyalty_redemptions(customer_email/ticket_id/reward/points_cost/status=Approved/batch_reference)，作为本地奖励批准台账，不声称外部发券。每票gorgias_replies公开回复积分/等级；退货说明扣减，兑换说明奖励/花费/余量。ws_loyalty_log逐票Action=Balance review或Redeem，Details含票ID与处理详情。群及Loyalty_Team_Email邮箱IM包含Batch_Reference、姓名及各项金额/积分/处理。",
+    "instruction": "处理open loyalty票，按ss_loyalty逐邮箱累计Order Value减Return Value，以1净美元=1历史积分；Tier Benefits倍率不追溯应用历史消费。tier由累计earned积分确定，兑换只扣available余额不降低已获tier，核实缺失订单若已计入不得重复充值。源无账户余额/履约系统，新增loyalty_balances每位已处理客户一条(customer_email/earned_points/available_points/tier)，合格兑换新增loyalty_redemptions(customer_email/ticket_id/reward/points_cost/status=Approved/batch_reference)，作为本地奖励批准台账，不声称外部发券。每票gorgias_replies公开回复积分/等级；退货说明扣减，兑换说明奖励/花费/余量。ws_loyalty_log逐票Action=Balance review或Redeem，Details含票ID与处理详情。群汇总与使用 agent@company.example.com 原生邮箱发给 Loyalty_Team_Email 的邮件均包含Batch_Reference、姓名及各项金额/积分/处理。",
     "creates": [
       {
         "collection": "loyalty_balances",
@@ -46655,7 +46655,7 @@
         "collection": "loyalty_redemptions",
         "customer_email": "cole.brennan@outlook.com",
         "ticket_id": "g_610",
-        "reward": "free shipping for a year",
+        "reward": "Free shipping for a year",
         "points_cost": 500,
         "status": "Approved",
         "batch_reference": "LOYAL-OPS-20260214"
@@ -46763,21 +46763,8 @@
     "messages": [
       {
         "email": "loyalty@peakvista.com",
-        "text": "LOYAL-OPS-20260214 | loyalty report\ng_601 | Ada Strong | earned points: 700 | Current Tier: Gold\ng_602 | Cole Brennan | earned points: 1850 | Current Tier: Platinum\ng_603 | Mei Lin | earned points: 750 | Current Tier: Gold\ng_604 | Raj Anand | earned points: 250 | Current Tier: Silver | return deductions: $550\ng_605 | Sara Voss | earned points: 150 | Current Tier: Bronze | return deductions: $550\ng_606 | Leo Marsh | earned points: 120 | Current Tier: Bronze\ng_607 | Nina Cruz | earned points: 75 | Current Tier: Bronze\ng_608 | Tom Hall | earned points: 200 | Current Tier: Silver | ORD-L808 verified $200 already included; no duplicate credit\ng_609 | Ada Strong | earned points: 700 | Current Tier: Gold | $25 store credit | points cost: 250 | remaining balance: 450\ng_610 | Cole Brennan | earned points: 1850 | Current Tier: Platinum | free shipping for a year | points cost: 500 | remaining balance: 1350",
-        "contains": [
-          "LOYAL-OPS-20260214",
-          "loyalty",
-          "g_601 | Ada Strong | earned points: 700 | Current Tier: Gold",
-          "g_602 | Cole Brennan | earned points: 1850 | Current Tier: Platinum",
-          "g_603 | Mei Lin | earned points: 750 | Current Tier: Gold",
-          "g_604 | Raj Anand | earned points: 250 | Current Tier: Silver | return deductions: $550",
-          "g_605 | Sara Voss | earned points: 150 | Current Tier: Bronze | return deductions: $550",
-          "g_606 | Leo Marsh | earned points: 120 | Current Tier: Bronze",
-          "g_607 | Nina Cruz | earned points: 75 | Current Tier: Bronze",
-          "g_608 | Tom Hall | earned points: 200 | Current Tier: Silver | ORD-L808 verified $200 already included; no duplicate credit",
-          "g_609 | Ada Strong | earned points: 700 | Current Tier: Gold | $25 store credit | points cost: 250 | remaining balance: 450",
-          "g_610 | Cole Brennan | earned points: 1850 | Current Tier: Platinum | free shipping for a year | points cost: 500 | remaining balance: 1350"
-        ]
+        "subject": "loyalty report",
+        "body": "LOYAL-OPS-20260214 | loyalty report\ng_601 | Ada Strong | earned points: 700 | Current Tier: Gold\ng_602 | Cole Brennan | earned points: 1850 | Current Tier: Platinum\ng_603 | Mei Lin | earned points: 750 | Current Tier: Gold\ng_604 | Raj Anand | earned points: 250 | Current Tier: Silver | return deductions: $550\ng_605 | Sara Voss | earned points: 150 | Current Tier: Bronze | return deductions: $550\ng_606 | Leo Marsh | earned points: 120 | Current Tier: Bronze\ng_607 | Nina Cruz | earned points: 75 | Current Tier: Bronze\ng_608 | Tom Hall | earned points: 200 | Current Tier: Silver | ORD-L808 verified $200 already included; no duplicate credit\ng_609 | Ada Strong | earned points: 700 | Current Tier: Gold | $25 store credit | points cost: 250 | remaining balance: 450\ng_610 | Cole Brennan | earned points: 1850 | Current Tier: Platinum | free shipping for a year | points cost: 500 | remaining balance: 1350"
       },
       {
         "channel": "loyalty-ops",
@@ -46797,6 +46784,69 @@
           "g_610 | Cole Brennan | earned points: 1850 | Current Tier: Platinum | free shipping for a year | points cost: 500 | remaining balance: 1350"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "native_mail_contacts": [],
+    "mail": [
+      {
+        "to": ["loyalty@peakvista.com"],
+        "subject_contains": ["loyalty"],
+        "body_contains": ["LOYAL-OPS-20260214", "Ada Strong", "Cole Brennan"]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_loyalty",
+        "--sheet-id",
+        "ws_order_history",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_loyalty",
+        "--sheet-id",
+        "ws_tiers",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_loyalty",
+        "--sheet-id",
+        "ws_rewards",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_loyalty",
+        "--sheet-id",
+        "ws_config",
+        "--range",
+        "A1:E100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_loyalty",
+        "--sheet-id",
+        "ws_loyalty_log",
+        "--range",
+        "A1:E100"
+      ]
     ]
   },
   "support-1584": {
