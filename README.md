@@ -50,6 +50,8 @@ harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-si
 harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracle.yaml
 ```
 
+构建脚本会将当前 Mock 镜像标记为仓库任务引用的所有兼容版本，避免干净机器尝试从 Docker Hub 拉取不存在的本地镜像。这些标签指向当前代码构建，不是历史代码快照；复现实验仍需保存仓库提交和镜像摘要。脚本参数透传给每次 `docker build`，可用 `--build-arg HTTP_PROXY --build-arg HTTPS_PROXY` 传入当前环境的构建代理。
+
 任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表；任务内环境不足 hook 处理工具错误、审计和运行中断。
 
 Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足；默认排除样本，任务策略可以选择保留并扣分。
@@ -139,3 +141,5 @@ Formal webinar task `marketing-1006` restores all 17 source emails and native co
 Formal cleanup, news routing and churn check-ins now use native mail. Source unread flags, HTML assertions, renewal scope and JSON tag-set comparison are covered by 152 independent controls. Cleanup, news, campaign attribution and fraud review pass their final frozen native runs; webinar confirmation and churn check-in retain original body-literal failures. Full checks: 1264 plus oracle. Six historical candidates close, leaving 26; remaining formal mail and environment coverage are unfinished.
 
 Win-back mail now enforces per-customer delivery before tags and logs; related optional log columns and UTC date representations retain source fidelity. Sync notes may omit repeated row identities but must quote source identities faithfully when included. Churn counts accept numeric equivalents and CSM notifications use native mail. All 70 controls meet expectations; 51 valid outcomes were reused and only 19 missing evaluations resumed. Full checks: 1267 plus oracle. Three historical candidates close, leaving 23; broader migration work remains unfinished.
+
+Quality-audit Issue descriptions accept faithful Chinese or English while preserving ticket/rule identity. All 12 controls match expectations, with 1268 checks and oracle passing. The fresh autonomous run remains a valid failure: it logged record IDs instead of source ticket IDs (48 requests, no HTTP errors). Historical candidates remaining: 22.
