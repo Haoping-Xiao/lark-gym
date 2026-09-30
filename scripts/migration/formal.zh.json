@@ -41680,7 +41680,7 @@
     ]
   },
   "support-1514": {
-    "instruction": "按ss_health/ws_activity与HelpScout客户精确邮箱连接SF contacts，不按姓名合并、不创建缺失联系人。匹配到的SF contact更新support_ticket_count数值、support_last_interaction原日期；按ws_rules符合者新增tasks(subject含at-risk/description含姓名邮箱组织原票数及日期/who_id/status=Not Started)。源无进度表，公开以sync_log(batch_reference/source_customer_id/contact_id/email/ticket_count/last_interaction/status=Synced)每成功同步一条。support-sync含Batch_Reference、成功sync人数及at-risk任务数，仅详列at-risk姓名/邮箱/组织/票数/日期，不列其他人的身份；不发general。",
+    "instruction": "按ss_health/ws_activity与HelpScout客户精确邮箱连接SF contacts，不按姓名合并、不创建缺失联系人。匹配到的SF contact更新support_ticket_count数值、support_last_interaction原日期；按ws_rules符合者新增tasks(subject含at-risk/description含姓名邮箱组织原票数及日期/who_id/status=Not Started)。源无进度表，公开以sync_log(batch_reference/source_customer_id/contact_id/email/ticket_count/last_interaction/status=Synced)每成功同步一条。support-sync含Batch_Reference、成功sync人数及at-risk任务数，仅详列at-risk姓名/邮箱/组织/票数/日期，不列其他人的身份；不发general。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理对象。",
     "updates": [
       {
         "id": "sf_h1",
@@ -41763,6 +41763,94 @@
           "Cora Davis | cora@startup.com | StartupCo | 12 tickets | 2026-02-06"
         ]
       }
+    ],
+    "record_state_before_creates": [
+      {
+        "collection": "sync_log",
+        "equals": {
+          "batch_reference": "HLTH-SYNC-7X2Q",
+          "contact_id": "sf_h1",
+          "email": "anna@acme.com",
+          "status": "Synced"
+        },
+        "records": [
+          {
+            "record_id": "rec_sf_h1",
+            "equals": {
+              "support_ticket_count": 7,
+              "support_last_interaction": "2026-02-05"
+            }
+          }
+        ]
+      },
+      {
+        "collection": "sync_log",
+        "equals": {
+          "batch_reference": "HLTH-SYNC-7X2Q",
+          "contact_id": "sf_h2",
+          "email": "ben@techfirm.io",
+          "status": "Synced"
+        },
+        "records": [
+          {
+            "record_id": "rec_sf_h2",
+            "equals": {
+              "support_ticket_count": 3,
+              "support_last_interaction": "2026-02-01"
+            }
+          }
+        ]
+      },
+      {
+        "collection": "sync_log",
+        "equals": {
+          "batch_reference": "HLTH-SYNC-7X2Q",
+          "contact_id": "sf_h3",
+          "email": "cora@startup.com",
+          "status": "Synced"
+        },
+        "records": [
+          {
+            "record_id": "rec_sf_h3",
+            "equals": {
+              "support_ticket_count": 12,
+              "support_last_interaction": "2026-02-06"
+            }
+          }
+        ]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_health",
+        "--sheet-id",
+        "ws_activity",
+        "--range",
+        "A1:C100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_health",
+        "--sheet-id",
+        "ws_rules",
+        "--range",
+        "A1:C100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_health",
+        "--sheet-id",
+        "ws_config",
+        "--range",
+        "A1:C100"
+      ]
     ]
   },
   "support-1515": {

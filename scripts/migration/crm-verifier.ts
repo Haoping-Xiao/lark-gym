@@ -159,6 +159,11 @@ const expected: {
       contains: Record<string, string[]>;
     };
   }[];
+  record_state_before_creates?: {
+    collection: string;
+    equals: Fields;
+    records: { record_id: string; equals: Fields }[];
+  }[];
   event_state_before_creates?: {
     collection: string;
     equals: Fields;
@@ -1776,6 +1781,65 @@ const transferBeforeDeleteChecks = (expected.transfer_before_deletes || []).map(
     };
   },
 );
+// Check each successful matching creation against state before the request.
+const recordStateBeforeCreateChecks = (
+  expected.record_state_before_creates || []
+).map((rule) => {
+  const current = new Map<string, Fields>(
+    seed.base.records.map((row: RecordRow) => [
+      row.record_id,
+      structuredClone(row.fields),
+    ]),
+  );
+  const changed = new Map<string, Set<string>>();
+  const checkpoints: { seq: number; passed: boolean }[] = [];
+  for (const call of calls) {
+    if (call.status >= 400) continue;
+    for (const mutation of call.mutations || []) {
+      if (
+        mutation.kind !== 'record' ||
+        mutation.before ||
+        !mutation.after ||
+        mutation.after.fields?.collection !== rule.collection ||
+        !Object.entries(rule.equals).every(([key, value]) =>
+          isDeepStrictEqual(mutation.after.fields?.[key], value),
+        )
+      )
+        continue;
+      checkpoints.push({
+        seq: call.seq,
+        passed: rule.records.every((record) =>
+          Object.entries(record.equals).every(
+            ([key, value]) =>
+              changed.get(record.record_id)?.has(key) &&
+              isDeepStrictEqual(current.get(record.record_id)?.[key], value),
+          ),
+        ),
+      });
+    }
+    for (const mutation of call.mutations || []) {
+      if (mutation.kind !== 'record') continue;
+      if (mutation.after) {
+        const keys = changed.get(mutation.id) || new Set<string>();
+        for (const [key, value] of Object.entries(mutation.after.fields))
+          if (!isDeepStrictEqual(mutation.before?.fields?.[key], value))
+            keys.add(key);
+        changed.set(mutation.id, keys);
+        current.set(mutation.id, structuredClone(mutation.after.fields));
+      } else {
+        current.delete(mutation.id);
+        changed.delete(mutation.id);
+      }
+    }
+  }
+  return {
+    collection: rule.collection,
+    equals: rule.equals,
+    checkpoints,
+    passed:
+      checkpoints.length > 0 && checkpoints.every((check) => check.passed),
+  };
+});
 const eventStateBeforeCreateChecks = (
   expected.event_state_before_creates || []
 ).map((rule) => {
@@ -2313,6 +2377,7 @@ const success =
   readBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeUpdateChecks.every((check) => check.passed) &&
   transferBeforeDeleteChecks.every((c) => c.passed) &&
+  recordStateBeforeCreateChecks.every((check) => check.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
   recordStateBeforeUpdateChecks.every((check) => check.passed) &&
@@ -2376,6 +2441,7 @@ writeFileSync(
             )
           : [],
       ),
+      recordStateBeforeCreateChecks,
       eventStateBeforeCreateChecks,
       transferBeforeDeleteChecks,
       unchanged,
