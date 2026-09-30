@@ -92,6 +92,7 @@ type WorkflowEventSelector = {
 const expected: {
   mail_drafts?: {
     to: string[];
+    reply_to_message_id?: string;
     subject?: string;
     literal_body_contains?: string[];
     body_contains?: string[];
@@ -137,6 +138,7 @@ const expected: {
     subject?: string;
     subject_contains?: string[];
     body_contains?: string[];
+    literal_body_contains?: string[];
     body_not_contains?: string[];
   }[];
   creation_contains_guarded?: boolean;
@@ -1147,6 +1149,13 @@ const draftChecks = (expected.mail_drafts || []).map((rule) => {
     );
     return (
       m &&
+      (!rule.reply_to_message_id ||
+        (seed.mail?.messages || []).some(
+          (original: any) =>
+            original.message_id === rule.reply_to_message_id &&
+            original.thread_id === m.thread_id &&
+            original.smtp_message_id === m.in_reply_to,
+        )) &&
       !initialMailIDs.has(m.message_id) &&
       m.message_state === 3 &&
       isDeepStrictEqual(
@@ -1422,6 +1431,27 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   const found = new Set<string>();
   for (const call of calls) {
     for (const mutation of call.mutations || []) {
+      if (group.kind === 'notification') {
+        if (call.status >= 400 || !mutation.after) continue;
+        const recipients =
+          mutation.kind === 'message' && !mutation.before
+            ? [mutation.after.chat_id]
+            : mutation.kind === 'mail_message' &&
+                mutation.before?.message_state === 3 &&
+                mutation.after.message_state === 2
+              ? (mutation.after.to || []).map(
+                  (a: any) => 'mail:' + a.mail_address.toLowerCase(),
+                )
+              : [];
+        for (const identity of recipients) {
+          if (group.ids && !group.ids.includes(identity)) continue;
+          if (!group.all_messages && found.has(identity)) continue;
+          found.add(identity);
+          sequences.push(call.seq);
+        }
+        continue;
+      }
+
       if (mutation.kind !== group.kind || !mutation.after || call.status >= 400)
         continue;
       if (

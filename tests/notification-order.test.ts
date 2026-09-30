@@ -19,7 +19,7 @@ test('every required disciplinary notice must precede status updates, including 
       const backend = await startMock(seed);
       try {
         const insertion = late
-          ? `const index=commands.findIndex(a=>a.includes('oc_email_4')&&a.some(v=>v.includes('Tom Bradford')));if(index<0)throw Error('missing notice');commands.push(...commands.splice(index,1));\n`
+          ? `const index=commands.findIndex(a=>a.includes('hr-director@company.example.com')&&a.some(v=>v.includes('Tom Bradford')));if(index<0)throw Error('missing notice');commands.push(...commands.splice(index,1));\n`
           : '';
         const solver = join(dir, `solve-${late}.ts`);
         await writeFile(
@@ -49,9 +49,10 @@ test('every required disciplinary notice must precede status updates, including 
           await readFile(join(output, 'result.json'), 'utf8'),
         );
         assert.equal(result.business_success, !late);
-        const old = new Set(seed.messages.map((m: any) => m.message_id));
+        const old = new Set(seed.mail.messages.map((m: any) => m.message_id));
         assert.equal(
-          backend.world.messages.filter((m) => !old.has(m.message_id)).length,
+          backend.world.mail!.messages.filter((m) => !old.has(m.message_id))
+            .length,
           6,
         );
         assert.ok(result.orderChecks.some((c: any) => !c.passed) === late);

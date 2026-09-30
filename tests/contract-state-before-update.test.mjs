@@ -39,7 +39,7 @@ test('Contract Sent transition requires a currently valid related sent request',
         (c) => c[1] === '+record-upsert' && !c.includes('--record-id'),
       ),
       update = cs.find((c) => c.includes('--record-id')),
-      msg = cs.find((c) => c[1] === '+messages-send'),
+      msg = cs.find((c) => c[0] === 'mail' && c[1] === '+send'),
       reads = cs.filter((c) => c !== create && c !== update && c !== msg),
       b = await startMock(seed);
     try {

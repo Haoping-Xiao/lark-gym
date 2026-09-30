@@ -17,6 +17,14 @@ def millis(value):
     return str(int(parsed.timestamp()*1000))
 def calendar_time(value):
     return {'date':value} if re.fullmatch(r'\d{4}-\d{2}-\d{2}',value) else {'timestamp':str(int(int(millis(value))/1000))}
+def native_draft_command(draft, mailbox):
+    if not draft.get('reply_source_smtp_id'):
+        return ['mail','+send','--mailbox',mailbox,'--to',draft['to'],'--subject',draft['subject'],'--body',draft['body'],'--as','user']
+    from email.message import EmailMessage
+    from email.policy import SMTP
+    message=EmailMessage(policy=SMTP);message['From']=mailbox;message['To']=draft['to'];message['Subject']=draft['subject'];message['In-Reply-To']='<'+draft['reply_source_smtp_id']+'>';message['References']='<'+draft['reply_source_smtp_id']+'>';message.set_content(draft['body'])
+    return ['mail','user_mailbox.drafts','create','--user-mailbox-id',mailbox,'--data',json.dumps({'raw':base64.urlsafe_b64encode(message.as_bytes()).decode().rstrip('=')}),'--as','user']
+
 def native_mail_seed(source, mailbox, unread_source="labels", id_encoding=None, preserve_metadata=False):
     # Opt in only after reviewing the full original state; unsupported material is never dropped.
     gmail=source.get('gmail',{})
@@ -269,7 +277,15 @@ for row in rows:
             record['fields'].setdefault(field,'')
             updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'labeled_value':u['labeled_values'][field]}if field in u.get('labeled_values',{})else{}),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
         commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--record-id',record['record_id'],'--json',json.dumps({**u['fields'],**u.get('oracle_fields',{})},ensure_ascii=False)])
-    for fields in recipe.get('creates',[]):commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
+    creation_sequence=recipe.get('native_creation_order',[{'record':i}for i in range(len(recipe.get('creates',[])))])
+    if recipe.get('native_creation_order'):
+        assert sorted(step['record']for step in creation_sequence if 'record'in step)==list(range(len(recipe.get('creates',[]))))
+        assert sorted(step['draft']for step in creation_sequence if 'draft'in step)==list(range(len(recipe.get('native_draft_commands',[]))))
+    for step in creation_sequence:
+        if 'record'in step:
+            fields=recipe['creates'][step['record']];commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
+        else:commands.append(native_draft_command(recipe['native_draft_commands'][step['draft']],recipe.get('native_mailbox','agent@company.example.com')))
+
     for rid in recipe.get('deletes',[]):
         assert any(r['record_id']=='rec_'+rid for r in records),(key,'unknown delete',rid)
         commands.append(['base','+record-delete','--base-token','base_crm','--table-id','tbl_crm','--record-id','rec_'+rid,'--yes'])
@@ -309,7 +325,8 @@ for row in rows:
         cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else newChatIds[m['channel']] if m.get('channel') in newChatIds else next(c['chat_id'] for c in chats if c['name']==m['channel'])
         messageChecks.append({**({'chat_name':m['channel']} if m.get('channel') in newChatIds else {'chat_id':cid}),'contains':m['contains']})
         commands.append(['im','+messages-send','--chat-id',cid,'--text',m['text']])
-    for draft in recipe.get('native_draft_commands',[]):commands.append(['mail','+send','--mailbox',recipe.get('native_mailbox','agent@company.example.com'),'--to',draft['to'],'--subject',draft['subject'],'--body',draft['body'],'--as','user'])
+    if not recipe.get('native_creation_order'):
+        for draft in recipe.get('native_draft_commands',[]):commands.append(native_draft_command(draft,recipe.get('native_mailbox','agent@company.example.com')))
     for update in recipe.get('mail_updates',[]):
         commands.append(['mail','user_mailbox.messages','modify','--user-mailbox-id',recipe.get('native_mailbox','agent@company.example.com'),'--message-id',update['message_id'],'--data',json.dumps({'remove_label_ids':update.get('remove_labels',[]),'add_label_ids':update.get('add_labels',[])}),'--as','user'])
     if 'command_order' in recipe:

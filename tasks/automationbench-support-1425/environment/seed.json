@@ -624,19 +624,15 @@
         "type": "text"
       },
       {
-        "name": "to",
-        "type": "text"
-      },
-      {
         "name": "ticket_id",
         "type": "text"
       },
       {
-        "name": "body",
+        "name": "sender_type",
         "type": "text"
       },
       {
-        "name": "sender_type",
+        "name": "body",
         "type": "text"
       },
       {
@@ -661,6 +657,7 @@
         "table_id": "tbl_45f2a400f1c1",
         "name": "gorgias_replies",
         "collection": "gorgias_replies",
+        "read_only": false,
         "fields": [
           {
             "name": "body",
@@ -674,13 +671,13 @@
             "name": "ticket_id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_47cb447a172a",
         "name": "gorgias_tickets",
         "collection": "gorgias_tickets",
+        "read_only": false,
         "fields": [
           {
             "name": "channel",
@@ -710,13 +707,13 @@
             "name": "tags",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_1d4750d4390a",
         "name": "jira_issues",
         "collection": "jira_issues",
+        "read_only": false,
         "fields": [
           {
             "name": "description",
@@ -738,141 +735,11 @@
             "name": "ticket_id",
             "type": "text"
           }
-        ],
-        "read_only": false
-      },
-      {
-        "table_id": "tbl_f9aeb41ef78b",
-        "name": "mail_drafts",
-        "collection": "mail_drafts",
-        "fields": [
-          {
-            "name": "body",
-            "type": "text"
-          },
-          {
-            "name": "subject",
-            "type": "text"
-          },
-          {
-            "name": "ticket_id",
-            "type": "text"
-          },
-          {
-            "name": "to",
-            "type": "text"
-          }
-        ],
-        "read_only": false
+        ]
       }
     ]
   },
   "chats": [
-    {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "amy@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "carlos@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "dan@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "derek@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "jenny.liu@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "jenny@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "kevin@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "lisa@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "loyalty@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "mark@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "nina@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_11",
-      "name": "otto@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_12",
-      "name": "priya@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_13",
-      "name": "rachel@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_14",
-      "name": "sam@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_15",
-      "name": "shopper1@mailbox.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_16",
-      "name": "shopper6@mailbox.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_17",
-      "name": "shopper7@mailbox.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_18",
-      "name": "support@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_19",
-      "name": "tom@example.com",
-      "chat_mode": "p2p"
-    },
     {
       "chat_id": "oc_C_finops",
       "name": "finance-ops",
@@ -884,5 +751,16 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": [],
+    "labels": []
+  }
 }

@@ -43,7 +43,7 @@ test('Signer JSON serialization preserves signer identity and routing order', as
       const cs = structuredClone(original),
         writes = cs.filter((c) => c[1] === '+record-upsert'),
         note = writes[0],
-        msgs = cs.filter((c) => c[1] === '+messages-send'),
+        msgs = cs.filter((c) => c[0] === 'mail' && c[1] === '+send'),
         change = (c, f) => {
           let o = JSON.parse(c.at(-1));
           f(o);
@@ -101,7 +101,7 @@ test('Signer JSON serialization preserves signer identity and routing order', as
         );
       if (mode === 'notify_queued') {
         const c = structuredClone(msgs[0]);
-        c[c.indexOf('--chat-id') + 1] = 'oc_email_119';
+        c[c.indexOf('--to') + 1] = 'vp@partnercorp.example.com';
         cs.push(c);
       }
       const b = await startMock(seed);
