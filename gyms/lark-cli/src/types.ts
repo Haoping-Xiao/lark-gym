@@ -21,6 +21,12 @@ export interface World {
       mailbox_id: string;
       name: string;
     })[];
+    labels?: {
+      id: string;
+      mailbox_id: string;
+      name: string;
+      background_color?: string;
+    }[];
     mailboxes: {
       email_address: string;
       email_type?: 'USER_PRIMARY' | 'PUBLIC_MAILBOX';

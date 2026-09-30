@@ -17,25 +17,44 @@ def millis(value):
     return str(int(parsed.timestamp()*1000))
 def calendar_time(value):
     return {'date':value} if re.fullmatch(r'\d{4}-\d{2}-\d{2}',value) else {'timestamp':str(int(int(millis(value))/1000))}
-def native_mail_seed(source, mailbox, unread_source="labels", id_encoding=None):
+def native_mail_seed(source, mailbox, unread_source="labels", id_encoding=None, preserve_metadata=False):
     # Opt in only after reviewing the full original state; unsupported material is never dropped.
     gmail=source.get('gmail',{})
     assert not gmail.get('drafts'), 'native mail draft fixtures need explicit adaptation'
-    assert all(label=={'id':'INBOX','name':'INBOX'}for label in gmail.get('labels',[])), 'review custom source labels before adapting'
+    assert preserve_metadata or all(label=={'id':'INBOX','name':'INBOX'}for label in (gmail.get('labels') or [])), 'review custom source labels before adapting'
     def encode(value):return base64.urlsafe_b64encode(value.encode()).decode().rstrip('=')
     def address(value):
         assert isinstance(value,str), 'review structured source addresses before adapting'
         return {'mail_address':mailbox if value=='me' else value}
     result=[]
     for m in gmail.get('messages',[]):
-        assert m.get('date') and not m.get('attachments'), 'review missing source dates or attachments before adapting'
-        assert set(m.get('label_ids',[])) <= {'INBOX','UNREAD'}, 'review additional source labels before adapting'
+        assert (preserve_metadata or m.get('date')) and not m.get('attachments'), 'review missing source dates or attachments before adapting'
+        assert preserve_metadata or set(m.get('label_ids',[])) <= {'INBOX','UNREAD'}, 'review additional source labels before adapting'
         body=m.get('body_plain',m.get('body',''))
-        result.append({'message_id':m['id'],'mailbox_id':mailbox,'thread_id':m.get('thread_id','thread_'+m['id']),'smtp_message_id':m['id']+'@fixture.invalid','subject':m.get('subject',''),'head_from':address(m.get('from_',m.get('from',''))),'to':[address(x)for x in m.get('to',[])],'cc':[address(x)for x in m.get('cc',[])],'bcc':[address(x)for x in m.get('bcc',[])],'body_plain_text':encode(body),'body_preview':encode(body[:120]),'body_html':encode(m.get('body_html','')),'internal_date':millis(m['date']),'message_state':1,'label_ids':['UNREAD']if (not m.get('is_read',False) if unread_source=='is_read' else 'UNREAD'in m.get('label_ids',[]))else[],'folder_id':'INBOX','attachments':[]})
+        result.append({'message_id':m['id'],'mailbox_id':mailbox,'thread_id':m.get('thread_id','thread_'+m['id']),'smtp_message_id':m['id']+'@fixture.invalid','subject':m.get('subject',''),'head_from':address(m.get('from_',m.get('from',''))),'to':[address(x)for x in m.get('to',[])],'cc':[address(x)for x in m.get('cc',[])],'bcc':[address(x)for x in m.get('bcc',[])],'body_plain_text':encode(body),'body_preview':encode(body[:120]),'body_html':encode(m.get('body_html','')),'internal_date':millis(m.get('date')),'message_state':1,'label_ids':['UNREAD']if (not m.get('is_read',False) if unread_source=='is_read' else 'UNREAD'in m.get('label_ids',[]))else[],'folder_id':'INBOX','attachments':[]})
+
+    label_definitions=[]
+    if preserve_metadata:
+        system={'INBOX','SENT','DRAFT','TRASH','SPAM','UNREAD','IMPORTANT','STARRED'}
+        declared={l['id']:l for l in (gmail.get('labels') or []) if l['id'] not in system}
+        for original in gmail.get('messages',[]):
+            for lid in original.get('label_ids',[]):
+                if lid not in system:declared.setdefault(lid, {'id':lid,'name':lid})
+        mapping={lid:encode('label:'+lid)for lid in declared}
+        label_definitions=[{'id':mapping[lid],'mailbox_id':mailbox,'name':l['name']}for lid,l in declared.items()]
+        for original,native in zip(gmail.get('messages',[]),result):
+            labels=set(original.get('label_ids',[]))
+            if 'SENT'in labels:native.update(message_state=2,folder_id='SENT')
+            elif 'TRASH'in labels:native['folder_id']='TRASH'
+            elif 'SPAM'in labels:native['folder_id']='SPAM'
+            elif 'INBOX'not in labels:native['folder_id']='ARCHIVED'
+            native['label_ids'] += [mapping[lid]for lid in original.get('label_ids',[])if lid in mapping]
+            if 'IMPORTANT'in labels:native['label_ids'].append('IMPORTANT')
+            if 'STARRED'in labels:native['label_ids'].append('FLAGGED')
     if id_encoding=='base64url':
         for m in result:
             m['message_id']=encode('fixture:'+m['message_id']);m['thread_id']=encode('fixture:'+m['thread_id'])
-    return {'mailboxes':[{'email_address':mailbox,'email_type':'USER_PRIMARY'}],'messages':result,'drafts':[]}
+    return {'mailboxes':[{'email_address':mailbox,'email_type':'USER_PRIMARY'}],'messages':result,'drafts':[],**({'labels':label_definitions}if preserve_metadata else{})}
 recipes=json.loads(Path(__file__).with_name('formal.zh.json').read_text())
 selected=set(sys.argv[2:])
 assert not selected-set(recipes),('unknown task keys',selected-set(recipes))
@@ -406,7 +425,8 @@ for row in rows:
         removed={c['chat_id']for c in seed['chats']if c['chat_id']=='oc_mail' or c['chat_id'].startswith('oc_email_')}
         assert not any(m['chat_id']in removed for m in seed['messages']), 'native mail context needs explicit routing'
         seed['chats']=[c for c in seed['chats']if c['chat_id']not in removed]
-        seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'),recipe.get('native_unread_source','labels'),recipe.get('native_mail_id_encoding'))
+        seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'),recipe.get('native_unread_source','labels'),recipe.get('native_mail_id_encoding'),recipe.get('native_preserve_metadata',False))
+        seed['mail']['messages'].extend(copy.deepcopy(recipe.get('native_context_messages',[])))
         seed['mail']['mailboxes'].extend(copy.deepcopy(recipe.get('native_mailboxes',[])))
         if recipe.get('native_preserve_sent'):
             sent_ids={m['id'] for m in src.get('gmail',{}).get('messages',[]) if 'SENT' in m.get('labels',m.get('label_ids',[]))}

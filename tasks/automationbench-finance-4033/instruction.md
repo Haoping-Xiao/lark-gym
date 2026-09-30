@@ -1,3 +1,5 @@
-今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者私聊确认项目，包含估价号、客户全名、原估价金额与最终发票金额。引用来源值时原样保留，不改写或四舍五入；最终发票金额使用千位逗号美元格式。
+今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者邮件确认项目，包含估价号、客户全名、原估价金额与最终发票金额。引用来源值时原样保留，不改写或四舍五入；最终发票金额使用千位逗号美元格式。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-10T09:00:00Z 为时间基准。

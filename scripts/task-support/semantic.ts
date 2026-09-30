@@ -252,6 +252,14 @@ export function prepareSemantic(
   if (config.event_end_time_unspecified?.length)
     deferred.push('events.unspecified_duration_reasonableness');
   if (expected.mail?.length) deferred.push('mail.content');
+  // These task migrations retain their former semantic body grading. Keep the
+  // original facts for the judge; delivery and recipient checks stay structural.
+  for (const mail of expected.mail || []) {
+    if (!mail.semantic_content) continue;
+    delete mail.body_contains;
+    delete mail.body_not_contains;
+  }
+
   if (expected.mail?.length && config.mail_delivery_count === 'unconstrained') {
     original.mail_delivery_count = 'unconstrained';
     deferred.push('mail.unconstrained_delivery_count');

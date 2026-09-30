@@ -68,6 +68,94 @@ export function mailMessageRoutes(
     return page(items, q);
   };
   const folders = ['INBOX', 'SENT', 'DRAFT', 'TRASH', 'SPAM', 'ARCHIVED'];
+  const labels = () =>
+    (store.labels || []).filter((l) => l.mailbox_id === owner.email_address);
+  const customLabel = (id: string) => labels().some((l) => l.id === id);
+  const labelPath = /^labels(?:\/([^/]+))?$/.exec(tail);
+  if (labelPath && store.labels !== undefined) {
+    options(Object.fromEntries(query), []);
+    const id = labelPath[1];
+    const found = id ? labels().find((l) => l.id === id) : undefined;
+    if (id && !found) fail(404, 123003, 'Mail label not found');
+    const renderLabel = (l: NonNullable<typeof store.labels>[number]) => {
+      const { mailbox_id, ...result } = l;
+      return {
+        ...result,
+        messages_unread: messages().filter(
+          (m) => m.label_ids.includes(l.id) && m.label_ids.includes('UNREAD'),
+        ).length,
+      };
+    };
+    if (method === 'GET') {
+      options(body, []);
+      return found
+        ? { label: renderLabel(found) }
+        : { items: labels().map(renderLabel) };
+    }
+    if ((method === 'POST' && !id) || (method === 'PATCH' && found)) {
+      options(body, ['label']);
+      const value = body.label;
+      requireValue(
+        value && typeof value === 'object' && !Array.isArray(value),
+        'Mail label object required',
+      );
+      options(value, ['name', 'background_color']);
+      requireValue(
+        Object.keys(value).length > 0,
+        'Label patch must not be empty',
+      );
+      if (method === 'POST' || value.name !== undefined) {
+        requireValue(
+          typeof value.name === 'string' &&
+            value.name.trim().length > 0 &&
+            [...value.name].length <= 255,
+          'Invalid label name',
+        );
+        requireValue(
+          !labels().some((l) => l.id !== id && l.name === value.name),
+          'Duplicate label name',
+        );
+      }
+      if (value.background_color !== undefined)
+        requireValue(
+          [
+            'blue',
+            'indigo',
+            'purple',
+            'violet',
+            'carmine',
+            'red',
+            'orange',
+            'yellow',
+            'lime',
+            'green',
+            'turquoise',
+            'wathet',
+          ].includes(value.background_color),
+          'Invalid label background color',
+        );
+      if (found) Object.assign(found, value);
+      else
+        store.labels.push({
+          id: String(
+            BigInt('7000000000000000000') +
+              BigInt('0x' + randomUUID().replaceAll('-', '').slice(0, 14)),
+          ),
+          mailbox_id: owner.email_address,
+          ...value,
+        });
+      return { label: renderLabel(found || store.labels.at(-1)!) };
+    }
+    if (method === 'DELETE' && found) {
+      options(body, []);
+      store.labels = store.labels.filter((l) => l !== found);
+      for (const m of messages())
+        m.label_ids = m.label_ids.filter((x: string) => x !== id);
+      return {};
+    }
+    fail(501, 990001, 'ENV_UNSUPPORTED: mail label method');
+  }
+
   if (tail === 'mail_contacts' && method === 'GET' && store.contacts) {
     options(Object.fromEntries(query), ['page_size', 'page_token']);
     options(body, []);
@@ -148,10 +236,14 @@ export function mailMessageRoutes(
       );
       if (
         [...add, ...remove].some(
-          (x) => !['UNREAD', 'IMPORTANT', 'OTHER', 'FLAGGED'].includes(x),
+          (x) =>
+            !['UNREAD', 'IMPORTANT', 'OTHER', 'FLAGGED'].includes(x) &&
+            !customLabel(x),
         )
       )
-        fail(501, 990001, 'ENV_UNSUPPORTED: custom mail label');
+        store.labels === undefined
+          ? fail(501, 990001, 'ENV_UNSUPPORTED: custom mail label')
+          : fail(400, 123004, 'Mail label not found');
       requireValue(
         !add.some((x) => remove.includes(x)),
         'Conflicting label changes',
@@ -229,9 +321,12 @@ export function mailMessageRoutes(
       fail(501, 990001, 'ENV_UNSUPPORTED: thread folder');
     if (
       query.has('label_id') &&
-      !['IMPORTANT', 'OTHER', 'FLAGGED'].includes(query.get('label_id')!)
+      !['IMPORTANT', 'OTHER', 'FLAGGED'].includes(query.get('label_id')!) &&
+      !customLabel(query.get('label_id')!)
     )
-      fail(501, 990001, 'ENV_UNSUPPORTED: thread label');
+      store.labels === undefined
+        ? fail(501, 990001, 'ENV_UNSUPPORTED: thread label')
+        : fail(400, 123004, 'Mail label not found');
     const grouped = new Map<string, ApiObject[]>();
     for (const m of messages()) {
       if (query.has('folder_id') && m.folder_id !== query.get('folder_id'))
@@ -339,10 +434,13 @@ export function mailMessageRoutes(
       'subject',
       'is_unread',
       'has_attachment',
+      'label',
       'folder',
       'create_time',
     ]);
-    for (const field of ['from', 'to', 'cc', 'bcc', 'folder'])
+    if (f.label !== undefined && store.labels === undefined)
+      fail(501, 990001, 'ENV_UNSUPPORTED: custom mail labels');
+    for (const field of ['from', 'to', 'cc', 'bcc', 'folder', 'label'])
       if (f[field] !== undefined)
         requireValue(
           Array.isArray(f[field]) &&
@@ -386,6 +484,13 @@ export function mailMessageRoutes(
             )
               return false;
           }
+        if (
+          f.label?.length &&
+          !f.label.some((name: string) =>
+            labels().some((l) => l.name === name && m.label_ids.includes(l.id)),
+          )
+        )
+          return false;
         if (
           f.folder?.length &&
           !f.folder.some(

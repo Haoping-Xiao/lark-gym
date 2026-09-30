@@ -81,7 +81,7 @@
     "messages": []
   },
   "sales-504": {
-    "instruction": "GlobalTech 的 Marcus Wong 需要更新电话号码。请从业务来信确定正确号码并更新飞书 CRM；在其 notes 台账记录来源，parent_id 为联系人业务 ID，body 包含来源消息 ID 和审计依据。",
+    "instruction": "GlobalTech 的 Marcus Wong 需要更新电话号码。请从邮箱来信确定正确号码并更新飞书 CRM；在其 notes 台账记录来源，parent_id 为联系人业务 ID，body 包含来源消息 ID 和审计依据。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "003xx000004MRW1",
@@ -100,22 +100,66 @@
     "messages": [],
     "create_contains": {
       "body": ["msg_marcus_004", "415-555-3333", "msg_marcus_003"]
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfbWFyY3VzXzAwMQ,Zml4dHVyZTptc2dfbWFyY3VzXzAwMg,Zml4dHVyZTptc2dfbWFyY3VzXzAwMw,Zml4dHVyZTptc2dfbWFyY3VzXzAwNA,Zml4dHVyZTptc2dfbWFyY3VzXzAwNQ,Zml4dHVyZTptc2dfbWFyY3VzXzAwNg,Zml4dHVyZTptc2dfbWFyY3VzXzAwNw,Zml4dHVyZTptc2dfbWFyY3VzX29sZF8wMDE,Zml4dHVyZTptc2dfbWFyY3VzX29sZF8wMDI,Zml4dHVyZTptc2dfbWFyY3VzX2d0aV8wMDE,Zml4dHVyZTptc2dfb3RoZXJfbWFyY3VzXzAwMQ,Zml4dHVyZTptc2dfbWFya193b25nXzAwMQ,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDM2",
+        "--as",
+        "user"
+      ]
+    ]
   },
   "sales-506": {
-    "instruction": "有一则安全提示需要发给 Apex Manufacturing Corp 的正确负责人，请根据最新流程指引选择收件人并通过飞书私聊发送。",
+    "instruction": "有一则安全提示需要发给 Apex Manufacturing Corp 的正确负责人，请根据最新流程指引选择收件人并通过飞书邮件发送。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "updates": [],
     "creates": [],
     "messages": [
       {
         "email": "r.anderson@apexmfg.example.com",
         "text": "Security advisory\nRobert Anderson，现向您转达 Apex Manufacturing 的安全提示，请协调相关安全事项。",
-        "contains": ["Security", "Robert Anderson", "Apex Manufacturing"]
+        "contains": ["Security", "Robert Anderson", "Apex Manufacturing"],
+        "subject": "Security advisory",
+        "body": "Security advisory\nRobert Anderson，现向您转达 Apex Manufacturing 的安全提示，请协调相关安全事项。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["r.anderson@apexmfg.example.com"],
+        "subject_contains": ["Security"],
+        "body_contains": ["Security", "Robert Anderson", "Apex Manufacturing"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfZXhlY19wcm90b2NvbF9vcHM,Zml4dHVyZTptc2dfZXhlY19wcm90b2NvbF92cA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDM0",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-511": {
-    "instruction": "收件箱里应该有一封职位更新请求，请按当前联系人识别流程处理飞书 CRM 中的职位信息。",
+    "instruction": "收件箱里应该有一封职位更新请求，请按当前联系人识别流程处理飞书 CRM 中的职位信息。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "003xx000004FMT1",
@@ -126,16 +170,51 @@
     ],
     "creates": [],
     "messages": [],
-    "seed_context_messages": [
+    "seed_context_messages": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "native_context_messages": [
       {
-        "message_id": "om_adapter_hr_release",
-        "chat_id": "oc_mail",
-        "msg_type": "text",
-        "body": {
-          "content": "{\"text\": \"HR 审核完成通知（模拟适配材料，非原始历史邮件）\\n发件部门：Partner Corp HR（hr@partner.example.com）\\n确认时间：2026-01-15T09:00:00Z\\n关联请求：msg_title_update_001 / Executive Promotion\\nHR 已完成该次晋升审核。对关联请求中 A.R.、Partner Corp、电话末四位 4567 同时匹配的联系人，解除 2025-12-15 账户复核所述的职位冻结，授权执行该次晋升请求中的职位更新。此确认仅适用于该请求及三项标识同时匹配的联系人，不解除其他人员或其他变更的限制。仍须按 2026-01-12 的最新联系人识别流程核验；原有冻结备注作为历史记录保留，不需改写。\"}"
+        "message_id": "Zml4dHVyZTpvbV9hZGFwdGVyX2hyX3JlbGVhc2U",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpvbV9hZGFwdGVyX2hyX3JlbGVhc2U",
+        "smtp_message_id": "om_adapter_hr_release@fixture.invalid",
+        "subject": "本轮合同完成触发（适配上下文）",
+        "head_from": {
+          "mail_address": "workflow@company.example.com"
         },
-        "create_time": "1768467600000"
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SFIg5a6h5qC45a6M5oiQ6YCa55-l77yI5qih5ouf6YCC6YWN5p2Q5paZ77yM6Z2e5Y6f5aeL5Y6G5Y-y6YKu5Lu277yJCuWPkeS7tumDqOmXqO-8mlBhcnRuZXIgQ29ycCBIUu-8iGhyQHBhcnRuZXIuZXhhbXBsZS5jb23vvIkK56Gu6K6k5pe26Ze077yaMjAyNi0wMS0xNVQwOTowMDowMFoK5YWz6IGU6K-35rGC77yabXNnX3RpdGxlX3VwZGF0ZV8wMDEgLyBFeGVjdXRpdmUgUHJvbW90aW9uCkhSIOW3suWujOaIkOivpeasoeaZi-WNh-WuoeaguOOAguWvueWFs-iBlOivt-axguS4rSBBLlIu44CBUGFydG5lciBDb3Jw44CB55S16K-d5pyr5Zub5L2NIDQ1Njcg5ZCM5pe25Yy56YWN55qE6IGU57O75Lq677yM6Kej6ZmkIDIwMjUtMTItMTUg6LSm5oi35aSN5qC45omA6L-w55qE6IGM5L2N5Ya757uT77yM5o6I5p2D5omn6KGM6K-l5qyh5pmL5Y2H6K-35rGC5Lit55qE6IGM5L2N5pu05paw44CC5q2k56Gu6K6k5LuF6YCC55So5LqO6K-l6K-35rGC5Y-K5LiJ6aG55qCH6K-G5ZCM5pe25Yy56YWN55qE6IGU57O75Lq677yM5LiN6Kej6Zmk5YW25LuW5Lq65ZGY5oiW5YW25LuW5Y-Y5pu055qE6ZmQ5Yi244CC5LuN6aG75oyJIDIwMjYtMDEtMTIg55qE5pyA5paw6IGU57O75Lq66K-G5Yir5rWB56iL5qC46aqM77yb5Y6f5pyJ5Ya757uT5aSH5rOo5L2c5Li65Y6G5Y-y6K6w5b2V5L-d55WZ77yM5LiN6ZyA5pS55YaZ44CC",
+        "body_preview": "SFIg5a6h5qC45a6M5oiQ6YCa55-l77yI5qih5ouf6YCC6YWN5p2Q5paZ77yM6Z2e5Y6f5aeL5Y6G5Y-y6YKu5Lu277yJCuWPkeS7tumDqOmXqO-8mlBhcnRuZXIgQ29ycCBIUu-8iGhyQHBhcnRuZXIuZXhhbXBsZS5jb23vvIkK56Gu6K6k5pe26Ze077yaMjAyNi0wMS0xNVQwOTowMDowMFoK5YWz6IGU6K-35rGC77yabXNnX3RpdGxlX3VwZGF0ZV8w",
+        "body_html": "",
+        "internal_date": "1768467600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfbWF0Y2hfcG9saWN5X29wcw,Zml4dHVyZTptc2dfbWF0Y2hfcG9saWN5X3Zw,Zml4dHVyZTptc2dfdGl0bGVfdXBkYXRlXzAwMQ,Zml4dHVyZTptc2dfbmV3c2xldHRlcl8wMDE,Zml4dHVyZTptc2dfb2xkX21lZXRpbmdfbm90ZXM,Zml4dHVyZTptc2dfZXh0ZXJuYWxfcmVxdWVzdA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDVfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDVfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTpvbV9hZGFwdGVyX2hyX3JlbGVhc2U",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-513": {
@@ -222,7 +301,7 @@
     ]
   },
   "sales-515": {
-    "instruction": "今天是 2026-02-20。NexGen 的人力资源部门发来联系人更新请求。请在业务来信中查找，并按照联系人匹配政策更新飞书 CRM 中正确联系人的电话号码。政策所需审计记录保存在 notes，parent_id 指向联系人业务 ID。",
+    "instruction": "今天是 2026-02-20。NexGen 的人力资源部门发来联系人更新请求。请在邮箱来信中查找，并按照联系人匹配政策更新飞书 CRM 中正确联系人的电话号码。政策所需审计记录保存在 notes，parent_id 指向联系人业务 ID。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "003xx000004KOC1",
@@ -242,10 +321,28 @@
     "messages": [],
     "create_contains": {
       "body": ["nexgensol", "925-555-7777"]
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfdHlwb18wMDE,Zml4dHVyZTptc2dfdHlwb18wMDI,Zml4dHVyZTptc2dfaW50ZXJuYWxfbWVtbw,Zml4dHVyZTptc2dfbWF0Y2hfcG9saWN5XzAwMQ,Zml4dHVyZTptc2dfbWF0Y2hfb2xkXzAwMQ,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDA5",
+        "--as",
+        "user"
+      ]
+    ]
   },
   "sales-516": {
-    "instruction": "今天是 2026-02-20。按照当前线索评分框架评估所有 Hot 线索，找出最高优先级潜在客户。通过飞书私聊向胜出者发送个性化联系消息，首行 Priority Outreach，包含姓名、公司以及希望讨论如何帮助其业务的说明。",
+    "instruction": "今天是 2026-02-20。按照当前线索评分框架评估所有 Hot 线索，找出最高优先级潜在客户。通过飞书邮件向胜出者发送个性化联系消息，邮件主题包含 Priority Outreach，包含姓名、公司以及希望讨论如何帮助其业务的说明。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "updates": [],
     "creates": [],
     "messages": [
@@ -257,8 +354,39 @@
           "Alexandra Wright",
           "BigCorp Global",
           "help"
-        ]
+        ],
+        "subject": "Priority Outreach",
+        "body": "Priority Outreach\nAlexandra Wright，您好。期待讨论如何帮助 BigCorp Global 的业务（help your business）。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["a.wright@bigcorp.example.com"],
+        "subject_contains": ["Priority Outreach"],
+        "body_contains": [
+          "Priority Outreach",
+          "Alexandra Wright",
+          "BigCorp Global",
+          "help"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfc2NvcmluZ19wb2xpY3lfMDAx,Zml4dHVyZTptc2dfc2NvcmluZ19vbGRfMDAx,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDA0",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-517": {
@@ -425,17 +553,21 @@
     ]
   },
   "sales-1202": {
-    "instruction": "请处理即将到期客户的 Q1 续约通知。查阅续约跟踪电子表格及客户成功团队的批准来信，从飞书 CRM 获取联系人信息，向符合条件的客户发送续约提醒私聊。完成后在 renewals 群汇总，消息包含来源数据中的相关金额。",
+    "instruction": "请处理即将到期客户的 Q1 续约通知。查阅续约跟踪电子表格及客户成功团队的批准来信，从飞书 CRM 获取联系人信息，向符合条件的客户发送续约提醒邮件。完成后在 renewals 群汇总，消息包含来源数据中的相关金额。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "messages": [
       {
         "email": "sarah.chen@vanguardlog.example.com",
         "text": "Vanguard Logistics 续约提醒\n您的合约即将续约，金额 $85,000。",
-        "contains": ["Vanguard Logistics", "$85,000"]
+        "contains": ["Vanguard Logistics", "$85,000"],
+        "subject": "Vanguard Logistics 续约提醒",
+        "body": "Vanguard Logistics 续约提醒\n您的合约即将续约，金额 $85,000。"
       },
       {
         "email": "marcus.webb@pinnaclesys.example.com",
         "text": "Pinnacle Systems 续约提醒\n您的合约即将续约，金额 $142,000。",
-        "contains": ["Pinnacle Systems", "$142,000"]
+        "contains": ["Pinnacle Systems", "$142,000"],
+        "subject": "Pinnacle Systems 续约提醒",
+        "body": "Pinnacle Systems 续约提醒\n您的合约即将续约，金额 $142,000。"
       },
       {
         "channel": "renewals",
@@ -447,6 +579,36 @@
           "$142,000"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["sarah.chen@vanguardlog.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Vanguard Logistics", "$85,000"],
+        "semantic_content": true
+      },
+      {
+        "to": ["marcus.webb@pinnaclesys.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Pinnacle Systems", "$142,000"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfY3NfcmVuZXdhbF9hcHByb3ZhbA,Zml4dHVyZTptc2dfZXh0ZXJuYWxfcGFydG5lcg,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDI5",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-1203": {
@@ -630,7 +792,7 @@
     ]
   },
   "finance-4003": {
-    "instruction": "检查 AR Tracker 中的逾期账单，按标准催收流程向账单联系人发送飞书私聊提醒。每次发送客户提醒后，将该行 Follow-Up Status 更新为 Reminder Sent，并在 Last Contact 填写今天日期。保留来源原始值，不改写或四舍五入，消息中包含相关金额。",
+    "instruction": "检查 AR Tracker 中的逾期账单，按标准催收流程向账单联系人发送飞书邮件提醒。每次发送客户提醒后，将该行 Follow-Up Status 更新为 Reminder Sent，并在 Last Contact 填写今天日期。保留来源原始值，不改写或四舍五入，消息中包含相关金额。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_ar_tracker",
@@ -670,23 +832,73 @@
       {
         "email": "billing@novatech.example.com",
         "text": "付款提醒：INV-2026-0089，未付金额 $3,200.00，请安排付款。",
-        "contains": ["INV-2026-0089", "$3,200.00"]
+        "contains": ["INV-2026-0089", "$3,200.00"],
+        "subject": "付款提醒：INV-2026-0089，未付金额 $3,200.00，请安排付款。",
+        "body": "付款提醒：INV-2026-0089，未付金额 $3,200.00，请安排付款。"
       },
       {
         "email": "ap@ridgeway.example.com",
         "text": "逾期付款提醒：INV-2026-0072，未付金额 $18,500.00，请尽快付款，可能产生滞纳金。",
-        "contains": ["INV-2026-0072", "$18,500.00", "滞纳金"]
+        "contains": ["INV-2026-0072", "$18,500.00", "滞纳金"],
+        "subject": "逾期付款提醒：INV-2026-0072，未付金额 $18,500.00，请尽快付款，可能产生滞纳金。",
+        "body": "逾期付款提醒：INV-2026-0072，未付金额 $18,500.00，请尽快付款，可能产生滞纳金。"
       },
       {
         "email": "cfo@company.example.com",
         "text": "催收升级：Vanguard Apparel，INV-2025-0941，金额 $7,800.00，逾期 52 天，请处理。",
-        "contains": ["Vanguard", "INV-2025-0941", "$7,800.00"]
+        "contains": ["Vanguard", "INV-2025-0941", "$7,800.00"],
+        "subject": "催收升级：Vanguard Apparel，INV-2025-0941，金额 $7,800.00，逾期 52 天，请处理。",
+        "body": "催收升级：Vanguard Apparel，INV-2025-0941，金额 $7,800.00，逾期 52 天，请处理。"
       },
       {
         "email": "payables@meridian.example.com",
         "text": "付款提醒：INV-2026-0101，未付金额 $950.00，请安排付款。",
-        "contains": ["INV-2026-0101", "$950.00"]
+        "contains": ["INV-2026-0101", "$950.00"],
+        "subject": "付款提醒：INV-2026-0101，未付金额 $950.00，请安排付款。",
+        "body": "付款提醒：INV-2026-0101，未付金额 $950.00，请安排付款。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["billing@novatech.example.com"],
+        "subject_contains": [],
+        "body_contains": ["INV-2026-0089", "$3,200.00"],
+        "semantic_content": true
+      },
+      {
+        "to": ["ap@ridgeway.example.com"],
+        "subject_contains": [],
+        "body_contains": ["INV-2026-0072", "$18,500.00", "滞纳金"],
+        "semantic_content": true
+      },
+      {
+        "to": ["cfo@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Vanguard", "INV-2025-0941", "$7,800.00"],
+        "semantic_content": true
+      },
+      {
+        "to": ["payables@meridian.example.com"],
+        "subject_contains": [],
+        "body_contains": ["INV-2026-0101", "$950.00"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfY29sbGVjdGlvbnNfcG9saWN5,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4004": {
@@ -711,17 +923,21 @@
     ]
   },
   "finance-4005": {
-    "instruction": "为客户的一月咨询工时开账单。从 Hours Tracker 读取已批准工时，按当前计费费率及政策在飞书 invoices 业务台账创建账单，记录 customer、period（2026-01）、amount（数字金额）。完成后向每位客户联系人发送飞书私聊，通知账单已准备好并包含账单总额。引用来源数据时保留原始值，不改写或四舍五入。",
+    "instruction": "为客户的一月咨询工时开账单。从 Hours Tracker 读取已批准工时，按当前计费费率及政策在飞书 invoices 业务台账创建账单，记录 customer、period（2026-01）、amount（数字金额）。完成后向每位客户联系人发送飞书邮件，通知账单已准备好并包含账单总额。引用来源数据时保留原始值，不改写或四舍五入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "messages": [
       {
         "email": "billing@novatech.example.com",
         "text": "NovaTech Solutions 一月账单\nAlice Park：42 × $225 = $9,450；Bob Chen：28 × $150 = $4,200。\n合计 $13,650。",
-        "contains": ["NovaTech Solutions", "13,650"]
+        "contains": ["NovaTech Solutions", "13,650"],
+        "subject": "NovaTech Solutions 一月账单",
+        "body": "NovaTech Solutions 一月账单\nAlice Park：42 × $225 = $9,450；Bob Chen：28 × $150 = $4,200。\n合计 $13,650。"
       },
       {
         "email": "payables@meridian.example.com",
         "text": "Meridian Corp 一月账单\nCarol Diaz：55 × $225 = $12,375；Eve Liu：18 × $125 = $2,250。应用 10% 折扣后合计 $13,162.5。",
-        "contains": ["Meridian Corp", "13,162.5", "10%"]
+        "contains": ["Meridian Corp", "13,162.5", "10%"],
+        "subject": "Meridian Corp 一月账单",
+        "body": "Meridian Corp 一月账单\nCarol Diaz：55 × $225 = $12,375；Eve Liu：18 × $125 = $2,250。应用 10% 折扣后合计 $13,162.5。"
       }
     ],
     "creates": [
@@ -737,6 +953,34 @@
         "period": "2026-01",
         "amount": 13162.5
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["billing@novatech.example.com"],
+        "subject_contains": [],
+        "body_contains": ["NovaTech Solutions", "13,650"],
+        "semantic_content": true
+      },
+      {
+        "to": ["payables@meridian.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Meridian Corp", "13,162.5", "10%"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4009": {
@@ -956,7 +1200,7 @@
     ]
   },
   "hr-5005": {
-    "instruction": "运行季度培训合规审计，找出逾期员工，向 compliance 群汇总，并通知其经理。自动把逾期员工报名到下一场可用培训；遵循当前培训要求及报名政策。摘要说明培训名称和逾期天数。保留来源原始值，不改写或四舍五入，通知使用飞书。",
+    "instruction": "运行季度培训合规审计，找出逾期员工，向 compliance 群汇总，并通知其经理。自动把逾期员工报名到下一场可用培训；遵循当前培训要求及报名政策。摘要说明培训名称和逾期天数。保留来源原始值，不改写或四舍五入，通知使用飞书。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "messages": [
       {
         "channel": "compliance",
@@ -976,7 +1220,9 @@
       {
         "email": "lisa.wang@company.example.com",
         "text": "Alice Park 的 Security Awareness 逾期 3 天，HIPAA Compliance 逾期 165 天。请您按经理权限安排报名。",
-        "contains": ["Alice Park", "Security Awareness", "HIPAA", "报名"]
+        "contains": ["Alice Park", "Security Awareness", "HIPAA", "报名"],
+        "subject": "Alice Park 的 Security Awareness 逾期 3 天，HIPAA Compliance 逾期 165 天。请您按经理权限安排报名。",
+        "body": "Alice Park 的 Security Awareness 逾期 3 天，HIPAA Compliance 逾期 165 天。请您按经理权限安排报名。"
       },
       {
         "email": "vp-sales@company.example.com",
@@ -986,8 +1232,45 @@
           "Security Awareness",
           "Manager Leadership",
           "报名"
-        ]
+        ],
+        "subject": "Lisa Wang 的 Security Awareness 逾期 39 天，Manager Leadership 逾期 85 天。请您按经理权限安排报名。",
+        "body": "Lisa Wang 的 Security Awareness 逾期 39 天，Manager Leadership 逾期 85 天。请您按经理权限安排报名。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["lisa.wang@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Alice Park", "Security Awareness", "HIPAA", "报名"],
+        "semantic_content": true
+      },
+      {
+        "to": ["vp-sales@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Lisa Wang",
+          "Security Awareness",
+          "Manager Leadership",
+          "报名"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfaGlwYWFfdXBkYXRl,Zml4dHVyZTptc2dfZW5yb2xsbWVudF9wb2xpY3k,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDQ",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5007": {
@@ -1026,7 +1309,7 @@
     ]
   },
   "hr-5011": {
-    "instruction": "执行季度薪酬区间合规检查，比较员工薪资与其职级区间，按约定标记超出范围者。向 comp-team@company.example.com 发送飞书私聊报告，包含相关金额，保留来源原始值，不改写或四舍五入。",
+    "instruction": "执行季度薪酬区间合规检查，比较员工薪资与其职级区间，按约定标记超出范围者。向 comp-team@company.example.com 发送飞书邮件报告，包含相关金额，保留来源原始值，不改写或四舍五入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_comp",
@@ -1074,8 +1357,43 @@
           "Eve Liu",
           "215000",
           "210000"
-        ]
+        ],
+        "subject": "薪酬检查：3 人超出区间。",
+        "body": "薪酬检查：3 人超出区间。\nBob Chen：125000，高于 IC2 上限 120000。\nCarol Diaz：108000，低于 IC3 下限 110000。\nEve Liu：215000，高于 IC4 上限 210000。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["comp-team@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "3",
+          "Bob Chen",
+          "125000",
+          "120000",
+          "Carol Diaz",
+          "108000",
+          "110000",
+          "Eve Liu",
+          "215000",
+          "210000"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "marketing-1023": {
@@ -1197,18 +1515,52 @@
     ]
   },
   "hr-5012": {
-    "instruction": "检查 PTO 余额，向距累积上限不超过 5 天的员工发送飞书私聊，说明当前余额及剩余可累积天数，并通知对应经理。对已超上限者重设上限；发送前核查当前 PTO 上限提醒政策。保留来源原始值，不改写或四舍五入。",
+    "instruction": "检查 PTO 余额，向距累积上限不超过 5 天的员工发送飞书邮件，说明当前余额及剩余可累积天数，并通知对应经理。对已超上限者重设上限；发送前核查当前 PTO 上限提醒政策。保留来源原始值，不改写或四舍五入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "messages": [
       {
         "email": "alice.park@company.example.com",
         "text": "PTO 余额提醒：您当前余额 22 天，累积上限 25 天，距上限还有 3 天，请安排休假。",
-        "contains": ["22", "25", "3"]
+        "contains": ["22", "25", "3"],
+        "subject": "PTO 余额提醒：您当前余额 22 天，累积上限 25 天，距上限还有 3 天，请安排休假。",
+        "body": "PTO 余额提醒：您当前余额 22 天，累积上限 25 天，距上限还有 3 天，请安排休假。"
       },
       {
         "email": "lisa.wang@company.example.com",
         "text": "Alice Park 当前 PTO 余额 22 天，距 25 天上限还有 3 天，已发送提醒，请协助安排。",
-        "contains": ["Alice", "22", "3"]
+        "contains": ["Alice", "22", "3"],
+        "subject": "Alice Park 当前 PTO 余额 22 天，距 25 天上限还有 3 天，已发送提醒，请协助安排。",
+        "body": "Alice Park 当前 PTO 余额 22 天，距 25 天上限还有 3 天，已发送提醒，请协助安排。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["alice.park@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["22", "25", "3"],
+        "semantic_content": true
+      },
+      {
+        "to": ["lisa.wang@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Alice", "22", "3"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcHRvX3BvbGljeQ,Zml4dHVyZTptc2dfY2FwX3Jlc2V0X3BvbGljeQ,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDI,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDQ",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1322": {
@@ -1717,7 +2069,7 @@
     ]
   },
   "sales-1": {
-    "instruction": "处理 HR 发来的电话号码更新。查找 hr-updates@company.example.com 发布的最新 VERIFIED 批次（按批次编号排序，排除草稿），逐个完整邮箱匹配 CRM contacts。对同一联系人采用未取消记录中最新生效日期的号码，日期相同则 P1 优先于 P2/P3；美国日期按月/日/年解释。号码规范为 XXX-XXX-XXXX。仅更新存在且唯一匹配的联系人，为每项实际更新创建 notes，parent_id 指向原联系人 ID、title 为 Phone Update Applied，正文说明新号码和来源。",
+    "instruction": "处理 HR 发来的电话号码更新。查找 hr-updates@company.example.com 发布的最新 VERIFIED 批次（按批次编号排序，排除草稿），逐个完整邮箱匹配 CRM contacts。对同一联系人采用未取消记录中最新生效日期的号码，日期相同则 P1 优先于 P2/P3；美国日期按月/日/年解释。号码规范为 XXX-XXX-XXXX。仅更新存在且唯一匹配的联系人，为每项实际更新创建 notes，parent_id 指向原联系人 ID、title 为 Phone Update Applied，正文说明新号码和来源。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "003xx000004TmiU",
@@ -1753,7 +2105,25 @@
       "1": {
         "body": ["555-444-5555", "msg_hr_batch003"]
       }
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfaHJfYmF0Y2gwMDE,Zml4dHVyZTptc2dfaHJfYmF0Y2gwMDM,Zml4dHVyZTptc2dfaHJfYmF0Y2gwOTk,Zml4dHVyZTptc2dfb3RoZXJfYmF0Y2g5OTk,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDA1",
+        "--as",
+        "user"
+      ]
+    ]
   },
   "sales-2": {
     "instruction": "Hendricks Manufacturing 的演示很顺利，请推进对应商机，遵守最近适用的政策更新。先精确匹配客户名称，再选取其 Enterprise Platform 的 Demo Scheduled 商机；若同客户存在同名商机，处理金额最大的一条。检查阶段政策表及相关政策来信，处理支持问题对阶段推进的影响，并按政策要求留下审计备注（notes，parent_id 使用商机原始 ID）。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
@@ -1824,7 +2194,7 @@
     ]
   },
   "sales-5": {
-    "instruction": "按最新资格审查政策与后续政策更新，处理所有 Open 状态的销售 leads，更新其 status。注意竞争对手规则的优先级，以及高管政策适用的行业和职务范围；不要创建新线索或修改其他字段。",
+    "instruction": "按最新资格审查政策与后续政策更新，处理所有 Open 状态的销售 leads，更新其 status。注意竞争对手规则的优先级，以及高管政策适用的行业和职务范围；不要创建新线索或修改其他字段。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "00Qxx000005VWX1",
@@ -1856,10 +2226,28 @@
           "status": "Hot Lead"
         }
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfdnBfb3ZlcnJpZGVfMDAx,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDEw",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-9": {
-    "instruction": "Summit Industries 希望增加 Analytics Module。根据客户联系人数量、等级、续约时间和最新价格政策，在 opportunities 中创建商机；同时遵守客户健康政策。保留客户名称和模块名称构成的商机名称（<客户名称> - <模块名称>），金额写数值，account_id 使用原始客户 ID。",
+    "instruction": "Summit Industries 希望增加 Analytics Module。根据客户联系人数量、等级、续约时间和最新价格政策，在 opportunities 中创建商机；同时遵守客户健康政策。保留客户名称和模块名称构成的商机名称（<客户名称> - <模块名称>），金额写数值，account_id 使用原始客户 ID。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "creates": [
       {
         "collection": "opportunities",
@@ -1868,10 +2256,28 @@
         "stage_name": "On Hold",
         "account_id": "001xx000003SMT1"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcTRfcHJpY2luZ18wMDE,Zml4dHVyZTptc2dfYWNjdF9oZWFsdGhfMDAx,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDI3",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-10": {
-    "instruction": "为 Amanda Foster 整理探索电话纪要。先找到正确联系人及对应邮件线程，读取 ss_disc_template_001 中的全部模板和评分公式，然后在 notes 集合创建纪要，parent_id 使用原联系人 ID。按模板组织标题和章节，汇总完整线程中的事实、去重竞争对手并计算评分；不要混入其他同名联系人或其他邮件中的信息。",
+    "instruction": "为 Amanda Foster 整理探索电话纪要。先找到正确联系人及对应邮件线程，读取 ss_disc_template_001 中的全部模板和评分公式，然后在 notes 集合创建纪要，parent_id 使用原联系人 ID。按模板组织标题和章节，汇总完整线程中的事实、去重竞争对手并计算评分；不要混入其他同名联系人或其他邮件中的信息。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "creates": [
       {
         "collection": "notes",
@@ -1894,7 +2300,25 @@
         "DataViz Pro",
         "Insight Corp"
       ]
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfZGlzY292ZXJ5XzAwMQ,Zml4dHVyZTptc2dfZGlzY292ZXJ5XzAwMg,Zml4dHVyZTptc2dfZGlzY292ZXJ5X290aGVy,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ0",
+        "--as",
+        "user"
+      ]
+    ]
   },
   "sales-520": {
     "instruction": "将销售跟踪电子表格 spreadsheet_sales_001 / ws_deals_001 与 CRM 商机核对。按客户和业务含义匹配每行商机，更新应同步的金额和阶段；跟踪表以 USD 计价，请使用 FX Rates 表按客户账户币种换算。不要修改已关闭商机对应行，也不要将跟踪表中更靠后的阶段倒退。未发生阶段倒退时，按 CRM 当前数据同步。不要修改 CRM。",
@@ -2831,7 +3255,7 @@
     ]
   },
   "sales-519": {
-    "instruction": "读取 msg_meeting_request_001 的会议请求，在 CRM 找到正确联系人，从对方给出的候选时间中选择第一个没有日历冲突的时间。按 Meeting Duration Policy 决定会议时长，并在创建前阅读 CRM Meeting Record Policy。只处理指定请求，用飞书日历创建会议并邀请正确联系人，保留政策要求的 CRM 关联信息。",
+    "instruction": "读取 msg_meeting_request_001 的会议请求，在 CRM 找到正确联系人，从对方给出的候选时间中选择第一个没有日历冲突的时间。按 Meeting Duration Policy 决定会议时长，并在创建前阅读 CRM Meeting Record Policy。只处理指定请求，用飞书日历创建会议并邀请正确联系人，保留政策要求的 CRM 关联信息。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "events": [
       {
         "calendar_id": "primary",
@@ -2842,6 +3266,24 @@
         "description_contains": ["003xx000004SCH1"],
         "attendees": ["s.chen@horizonlabs.example.com"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfbWVldGluZ19yZXF1ZXN0XzAwMQ,Zml4dHVyZTptc2dfY3JtX21lZXRpbmdfcG9saWN5,Zml4dHVyZTptc2dfaW50ZXJuYWxfbWVldGluZ19yZXE,Zml4dHVyZTptc2dfYXBleF9kZW1vX3JlcQ,Zml4dHVyZTptc2dfb2xkX2R1cmF0aW9uX3BvbGljeQ,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDM3",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-1177": {
@@ -5055,7 +5497,7 @@
     ]
   },
   "marketing-1068": {
-    "instruction": "审核用户内容队列 ss_mod / ws_queue：一般批准不提竞品的正面内容；核对封禁名单和图库，防止封禁用户与重复投稿进入图库。遵守版权及批次要求。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 存在法律争议，不能批准。合格内容追加到 ss_gallery / ws_approved 并把源行 status 设为 approved；其他源行保持原样。\n\n本批次的竞品限制指点名具体竞品品牌；未指明品牌的泛称 competitor 不构成竞品提及。封禁用户按完整账号精确匹配，不因拼写相似而视为同一用户。",
+    "instruction": "审核用户内容队列 ss_mod / ws_queue：一般批准不提竞品的正面内容；核对封禁名单和图库，防止封禁用户与重复投稿进入图库。遵守版权及批次要求。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 存在法律争议，不能批准。合格内容追加到 ss_gallery / ws_approved 并把源行 status 设为 approved；其他源行保持原样。\n\n本批次的竞品限制指点名具体竞品品牌；未指明品牌的泛称 competitor 不构成竞品提及。封禁用户按完整账号精确匹配，不因拼写相似而视为同一用户。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "sheets": [
       {
         "book": "ss_gallery",
@@ -5164,6 +5606,24 @@
         "text": "MOD-UGC-3847\n5 approved：UGC101 @happyfan, UGC103 @loyaluser, UGC106 @newuser, UGC109 @brand_ambassador, UGC111 @spammer_123",
         "contains": ["MOD-UGC-3847", "approved", "5", "UGC101"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfbW9kX3BvbGljeQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyOA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxOA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwOQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMw",
+        "--as",
+        "user"
+      ]
     ]
   },
   "marketing-1047": {
@@ -6366,7 +6826,7 @@
     ]
   },
   "marketing-1109": {
-    "instruction": "今天为 2026-01-27。查看视频库和所有生产说明，按视频主管标准为合格录播生成社交片段建议，写入片段队列并指定平台。本批每个合格录播的所有 key_moments 均生成一条建议：演示片段去 Instagram、快速提示去 Twitter，其余专业内容去 LinkedIn。status=Suggested，priority 一般 Normal、明确优先片段 High；production_ref 填生产批次码，clip_description 保留原片段名及明确反应量。只规划，不实际剪辑或发布。",
+    "instruction": "今天为 2026-01-27。查看视频库和所有生产说明，按视频主管标准为合格录播生成社交片段建议，写入片段队列并指定平台。本批每个合格录播的所有 key_moments 均生成一条建议：演示片段去 Instagram、快速提示去 Twitter，其余专业内容去 LinkedIn。status=Suggested，priority 一般 Normal、明确优先片段 High；production_ref 填生产批次码，clip_description 保留原片段名及明确反应量。只规划，不实际剪辑或发布。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "now": "2026-01-27T12:00:00Z",
     "sheets": [
       {
@@ -6486,6 +6946,24 @@
           "production_ref": "VID-CLIP-2026-W04"
         }
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfY2xpcF9jcml0ZXJpYQ,Zml4dHVyZTptc2dfb2xkX3ZpZGVvX3BvbGljeQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxOA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyOA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxOQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNw",
+        "--as",
+        "user"
+      ]
     ]
   },
   "marketing-1046": {
@@ -7159,7 +7637,7 @@
     ]
   },
   "marketing-1157": {
-    "instruction": "今天是 2026-01-27。按上月格式发布月度邮件活动摘要，先读取最新报告 SOP 与后续修改。保留 Campaign Performance 和 Key Highlights 两节，活动逐行按“campaign_name | open_rate | click_rate | unsubscribe_rate | sent”列出，亮点按“Best Performer / Worst Performer / High unsubscribe Alert | 活动名 | 指标值”逐条列出，源数值照录。使用要求的飞书群。",
+    "instruction": "今天是 2026-01-27。按上月格式发布月度邮件活动摘要，先读取最新报告 SOP 与后续修改。保留 Campaign Performance 和 Key Highlights 两节，活动逐行按“campaign_name | open_rate | click_rate | unsubscribe_rate | sent”列出，亮点按“Best Performer / Worst Performer / High unsubscribe Alert | 活动名 | 指标值”逐条列出，源数值照录。使用要求的飞书群。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "messages": [
       {
         "channel": "email-marketing",
@@ -7180,7 +7658,25 @@
         ]
       }
     ],
-    "now": "2026-01-27T09:00:00Z"
+    "now": "2026-01-27T09:00:00Z",
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfZW1haWxfaGlzdA,Zml4dHVyZTptc2dfZW1haWxfc29w,Zml4dHVyZTptc2dfZW1haWxfdnA,Zml4dHVyZTptc2dfZW1haWxfdmVuZG9y,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNQ,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNg,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMw,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNA,Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMg",
+        "--as",
+        "user"
+      ]
+    ]
   },
   "marketing-1152": {
     "instruction": "今天是 2026-01-27。审查 ss_campaigns，按团队最新 ROI 报告要求计算各活动回报和扩量建议，查预算余量并向规定收件人发送飞书私聊。沿用历史报告分组；CAMPAIGNS ANALYZED 按本次实际分析项计数，筛选以 SOP 明确的日期边界为准；每项按“campaign_name | spend | attributed_revenue | ROI | 分类”列出，扩量项再加“ | 预算余量或 budget data unavailable”。原始数值照录，ROI 舍入到整数百分比，保留零支出的特殊处理。",
@@ -10026,7 +10522,7 @@
     ]
   },
   "sales-702": {
-    "instruction": "检查业务来信中的产品询问，通过邮箱匹配尚未联系的 CRM leads。遵循 ss_outreach_rules 及个人通信限制，结合 linkedin_profiles 核实身份和 network size，向档案 URL 对应的飞书会话发送个性化邀请；这是飞书联系，不是外部 LinkedIn API。成功后才将 lead 设为 Working - Contacted，并在 description 记录行业、网络规模和邀请详情；需合规审查者按政策更新，不发送邀请。 description 中以“Industry | connections_count”片段保留关联事实。",
+    "instruction": "检查邮箱来信中的产品询问，通过邮箱匹配尚未联系的 CRM leads。遵循 ss_outreach_rules 及个人通信限制，结合 linkedin_profiles 核实身份和 network size，向档案 URL 对应的飞书会话发送个性化邀请；这是飞书联系，不是外部 LinkedIn API。成功后才将 lead 设为 Working - Contacted，并在 description 记录行业、网络规模和邀请详情；需合规审查者按政策更新，不发送邀请。 description 中以“Industry | connections_count”片段保留关联事实。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "00Qxx000001LDN1",
@@ -10072,10 +10568,28 @@
         "kind": "record",
         "ids": ["rec_00Qxx000001LDN1"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfaW5xdWlyeV8wMDE,Zml4dHVyZTptc2dfaW5xdWlyeV8wMDI,Zml4dHVyZTptc2dfaW5xdWlyeV8wMDM,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDMz",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4027": {
-    "instruction": "按重复付款检测政策扫描 ss_vendor_pmts/ws_jan_pmts，标记每个疑似重复对的两行 Flag=Potential Duplicate；7 日边界包含第 7 天。向 controller@company.example.com 发飞书私聊。报告逐行“Vendor | Payment ID / Payment ID | Amount | 间隔 days”。仅标记，不撤销付款。通知或记录中引用来源值时，保留供应商名称、付款编号和金额原文，不得改写或舍入；计算所得间隔天数按计算结果报告。",
+    "instruction": "按重复付款检测政策扫描 ss_vendor_pmts/ws_jan_pmts，标记每个疑似重复对的两行 Flag=Potential Duplicate；7 日边界包含第 7 天。向 controller@company.example.com 发飞书邮件。报告逐行“Vendor | Payment ID / Payment ID | Amount | 间隔 days”。仅标记，不撤销付款。通知或记录中引用来源值时，保留供应商名称、付款编号和金额原文，不得改写或舍入；计算所得间隔天数按计算结果报告。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_vendor_pmts",
@@ -10125,16 +10639,45 @@
         "contains": [
           "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days",
           "Metro Supply | VP-004 / VP-006 | $780.00 | 7 days"
-        ]
+        ],
+        "subject": "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days",
+        "body": "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days\nMetro Supply | VP-004 / VP-006 | $780.00 | 7 days"
       }
     ],
     "assertion_overrides": {
       "4": "Original user request and Duplicate Payment Detection Policy require reporting suspected pairs only to controller. Upstream Slack assertions add an unsupported audience; preserve controller report and all duplicate flags, remove required group broadcast.",
       "5": "Original user request and Duplicate Payment Detection Policy require reporting suspected pairs only to controller. Upstream Slack assertions add an unsupported audience; preserve controller report and all duplicate flags, remove required group broadcast."
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["controller@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Acme Supplies | VP-001 / VP-003 | $2,400.00 | 5 days",
+          "Metro Supply | VP-004 / VP-006 | $780.00 | 7 days"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfZHVwX3BvbGljeQ,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "--as",
+        "user"
+      ]
+    ]
   },
   "finance-4030": {
-    "instruction": "今天是 2026-02-15。根据逾期发票表和晚付费政策，按整日差计算逾期天数。只为应收取费用者更新 Late Fee，数值保留两位小数的美元字符串；免收者保持原行且不通知。逐人发飞书私聊，使用“Invoice # | Customer | 原余额 | Late fee 费用 | New total 新余额”关联各金额，派生金额使用千位逗号、两位小数。",
+    "instruction": "今天是 2026-02-15。根据逾期发票表和晚付费政策，按整日差计算逾期天数。只为应收取费用者更新 Late Fee，数值保留两位小数的美元字符串；免收者保持原行且不通知。逐人发飞书邮件，使用“Invoice # | Customer | 原余额 | Late fee 费用 | New total 新余额”关联各金额，派生金额使用千位逗号、两位小数。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-02-15T10:00:00Z",
     "sheets": [
       {
@@ -10164,15 +10707,53 @@
         "text": "INV-9001 | NovaTech | $8,000 | Late fee $120.00 | New total $8,120.00",
         "contains": [
           "INV-9001 | NovaTech | $8,000 | Late fee $120.00 | New total $8,120.00"
-        ]
+        ],
+        "subject": "INV-9001 | NovaTech | $8,000 | Late fee $120.00 | New total $8,120.00",
+        "body": "INV-9001 | NovaTech | $8,000 | Late fee $120.00 | New total $8,120.00"
       },
       {
         "email": "payables@meridian.example.com",
         "text": "INV-9002 | Meridian Corp | $22,500 | Late fee $1,125.00 | New total $23,625.00",
         "contains": [
           "INV-9002 | Meridian Corp | $22,500 | Late fee $1,125.00 | New total $23,625.00"
-        ]
+        ],
+        "subject": "INV-9002 | Meridian Corp | $22,500 | Late fee $1,125.00 | New total $23,625.00",
+        "body": "INV-9002 | Meridian Corp | $22,500 | Late fee $1,125.00 | New total $23,625.00"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["billing@novatech.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "INV-9001 | NovaTech | $8,000 | Late fee $120.00 | New total $8,120.00"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["payables@meridian.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "INV-9002 | Meridian Corp | $22,500 | Late fee $1,125.00 | New total $23,625.00"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfbGF0ZV9mZWVfcG9saWN5,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4035": {
@@ -10687,7 +11268,7 @@
     ]
   },
   "finance-4034": {
-    "instruction": "核对 Expense Reclassification 的请求与有效 Chart of Accounts。存在且 Active=Yes 的 Expense 类别才可修改 Current Category 并设 Status=Completed；不存在或失效则 Status=Rejected，原类别不动。给 controller@company.example.com 发飞书私聊，逐项 Expense ID | 最终Category | Status | 原Amount，拒绝项注明原因；不要修改科目表。",
+    "instruction": "核对 Expense Reclassification 的请求与有效 Chart of Accounts。存在且 Active=Yes 的 Expense 类别才可修改 Current Category 并设 Status=Completed；不存在或失效则 Status=Rejected，原类别不动。给 controller@company.example.com 发飞书邮件，逐项 Expense ID | 最终Category | Status | 原Amount，拒绝项注明原因；不要修改科目表。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_reclass",
@@ -10731,8 +11312,37 @@
           "EXP-4402 | Client Entertainment | Completed | $850",
           "EXP-4403 | Consulting | Rejected | $5,000",
           "Requested Category 不在有效科目表"
-        ]
+        ],
+        "subject": "EXP-4401 | Software | Completed | $2,400",
+        "body": "EXP-4401 | Software | Completed | $2,400\nEXP-4402 | Client Entertainment | Completed | $850\nEXP-4403 | Consulting | Rejected | $5,000\nEXP-4403：Requested Category 不在有效科目表中。"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["controller@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "EXP-4401 | Software | Completed | $2,400",
+          "EXP-4402 | Client Entertainment | Completed | $850",
+          "EXP-4403 | Consulting | Rejected | $5,000",
+          "Requested Category 不在有效科目表"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4038": {
@@ -11309,7 +11919,7 @@
     ]
   },
   "finance-4055": {
-    "instruction": "将 January Shared Costs 的所有费用按 Allocation Matrix 比例分给各部门，按源矩阵顺序向 Department Charges 追加 Department 与 Amount；派生金额使用整数千位逗号。逐部门向 Head Email 发飞书私聊，列部门、各 Cost Item 的分摊及 Total，不修改源金额和比例。通知或记录引用来源值时，包括部门名、费用项目名及实际引用的源金额、比例，须原样保留，不得改写或舍入；计算出的分摊金额仍按整数千位逗号呈现。",
+    "instruction": "将 January Shared Costs 的所有费用按 Allocation Matrix 比例分给各部门，按源矩阵顺序向 Department Charges 追加 Department 与 Amount；派生金额使用整数千位逗号。逐部门向 Head Email 发飞书邮件，列部门、各 Cost Item 的分摊及 Total，不修改源金额和比例。通知或记录引用来源值时，包括部门名、费用项目名及实际引用的源金额、比例，须原样保留，不得改写或舍入；计算出的分摊金额仍按整数千位逗号呈现。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_cost_alloc",
@@ -11354,7 +11964,9 @@
           "IT Infrastructure | 12,000",
           "Utilities | 3,200",
           "Total | 35,200"
-        ]
+        ],
+        "subject": "Engineering",
+        "body": "Engineering\nOffice Rent | 20,000\nIT Infrastructure | 12,000\nUtilities | 3,200\nTotal | 35,200"
       },
       {
         "email": "sales-lead@company.example.com",
@@ -11365,7 +11977,9 @@
           "IT Infrastructure | 9,000",
           "Utilities | 2,400",
           "Total | 26,400"
-        ]
+        ],
+        "subject": "Sales",
+        "body": "Sales\nOffice Rent | 15,000\nIT Infrastructure | 9,000\nUtilities | 2,400\nTotal | 26,400"
       },
       {
         "email": "mktg-lead@company.example.com",
@@ -11376,7 +11990,9 @@
           "IT Infrastructure | 6,000",
           "Utilities | 1,600",
           "Total | 17,600"
-        ]
+        ],
+        "subject": "Marketing",
+        "body": "Marketing\nOffice Rent | 10,000\nIT Infrastructure | 6,000\nUtilities | 1,600\nTotal | 17,600"
       },
       {
         "email": "ops-lead@company.example.com",
@@ -11387,8 +12003,74 @@
           "IT Infrastructure | 3,000",
           "Utilities | 800",
           "Total | 8,800"
-        ]
+        ],
+        "subject": "Operations",
+        "body": "Operations\nOffice Rent | 5,000\nIT Infrastructure | 3,000\nUtilities | 800\nTotal | 8,800"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["eng-lead@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Engineering",
+          "Office Rent | 20,000",
+          "IT Infrastructure | 12,000",
+          "Utilities | 3,200",
+          "Total | 35,200"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["sales-lead@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Sales",
+          "Office Rent | 15,000",
+          "IT Infrastructure | 9,000",
+          "Utilities | 2,400",
+          "Total | 26,400"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["mktg-lead@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Marketing",
+          "Office Rent | 10,000",
+          "IT Infrastructure | 6,000",
+          "Utilities | 1,600",
+          "Total | 17,600"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["ops-lead@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Operations",
+          "Office Rent | 5,000",
+          "IT Infrastructure | 3,000",
+          "Utilities | 800",
+          "Total | 8,800"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4056": {
@@ -13892,7 +14574,7 @@
     ]
   },
   "finance-4033": {
-    "instruction": "今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者私聊确认项目，包含估价号、客户全名、原估价金额与最终发票金额。引用来源值时原样保留，不改写或四舍五入；最终发票金额使用千位逗号美元格式。",
+    "instruction": "今天是2026-02-10，查阅 Estimate Conversion Rules，把符合条件的估价转成 quickbooks_invoices 飞书台账记录，字段 estimate_id、estimate_number、customer_id、customer_name、total_amt数值、status=Issued。保留源估价；对成功转换者邮件确认项目，包含估价号、客户全名、原估价金额与最终发票金额。引用来源值时原样保留，不改写或四舍五入；最终发票金额使用千位逗号美元格式。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-02-10T09:00:00Z",
     "creates": [
       {
@@ -13916,12 +14598,45 @@
           "发票已开具",
           "21,000",
           "20000"
-        ]
+        ],
+        "subject": "Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | 原估价金额 20000 | 最终发票金额 $21,000",
+        "body": "Bright Ideas Studio | EST-1001 | 项目已确认，发票已开具 | 原估价金额 20000 | 最终发票金额 $21,000"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["billing@brightideas.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Bright Ideas Studio",
+          "EST-1001",
+          "项目已确认",
+          "发票已开具",
+          "21,000",
+          "20000"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfY29udl9wcm9j,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4036": {
-    "instruction": "今天是2026-02-15，按当前 Bank Reconciliation Policy 和授权更新核对银行Statement与xero_bank_transactions台账，以reference及收支方向匹配，应用本月金额容差与已确认存款更正。只更新Statement的Status；不改原金额、源Xero交易、已Reconciled及pending reversal项。将未匹配项设Investigate并私聊controller@company.example.com，包含Reference、原金额、未匹配原因。",
+    "instruction": "今天是2026-02-15，按当前 Bank Reconciliation Policy 和授权更新核对银行Statement与xero_bank_transactions台账，以reference及收支方向匹配，应用本月金额容差与已确认存款更正。只更新Statement的Status；不改原金额、源Xero交易、已Reconciled及pending reversal项。将未匹配项设Investigate并邮件controller@company.example.com，包含Reference、原金额、未匹配原因。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-02-15T10:00:00Z",
     "sheets": [
       {
@@ -13979,8 +14694,34 @@
       {
         "email": "controller@company.example.com",
         "text": "TRF-9901 | -$3,750 | Investigate：没有对应Xero reference，需核查",
-        "contains": ["TRF-9901", "3,750", "Investigate"]
+        "contains": ["TRF-9901", "3,750", "Investigate"],
+        "subject": "TRF-9901 | -$3,750 | Investigate：没有对应Xero reference，需核查",
+        "body": "TRF-9901 | -$3,750 | Investigate：没有对应Xero reference，需核查"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["controller@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["TRF-9901", "3,750", "Investigate"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcmVjb25fcG9saWN5,Zml4dHVyZTptc2dfdnBfdG9sZXJhbmNl,Zml4dHVyZTptc2dfdmVuZG9yX292ZXJyaWRl,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4041": {
@@ -14074,7 +14815,7 @@
     ]
   },
   "finance-4042": {
-    "instruction": "今天2026-02-15，依据Invoice Sending Rules及客户暂缓请求，发送尚未送达且可发送的Xero发票。在飞书私聊向客户发送完整发票号、客户名称、原total、amount_due；CC CFO改为给cfo@company.example.com发同内容私聊。随后将已发送发票sent_to_contact设true，向billing群汇总真正发送的发票及金额，不把未发送发票混进汇总。原始账单记录中布尔值采用JSON文本true/false。",
+    "instruction": "今天2026-02-15，依据Invoice Sending Rules及客户暂缓请求，发送尚未送达且可发送的Xero发票。在飞书邮件向客户发送完整发票号、客户名称、原total、amount_due；CC CFO改为给cfo@company.example.com发同内容邮件。随后将已发送发票sent_to_contact设true，向billing群汇总真正发送的发票及金额，不把未发送发票混进汇总。原始账单记录中布尔值采用JSON文本true/false。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-02-15T10:00:00Z",
     "updates": [
       {
@@ -14088,22 +14829,56 @@
       {
         "email": "ap@baxter.example.com",
         "text": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票",
-        "contains": ["Baxter Industries", "INV-6002", "32000"]
+        "contains": ["Baxter Industries", "INV-6002", "32000"],
+        "subject": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票",
+        "body": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票"
       },
       {
         "email": "cfo@company.example.com",
         "text": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票",
-        "contains": ["Baxter Industries", "INV-6002", "32000"]
+        "contains": ["Baxter Industries", "INV-6002", "32000"],
+        "subject": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票",
+        "body": "Baxter Industries | INV-6002 | total 32000 | amount_due 32000 | 已发送发票"
       },
       {
         "channel": "billing",
         "text": "已发送1张：Baxter Industries | INV-6002 | total 32000 | amount_due 32000",
         "contains": ["INV-6002", "32000"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["ap@baxter.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Baxter Industries", "INV-6002", "32000"],
+        "semantic_content": true
+      },
+      {
+        "to": ["cfo@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Baxter Industries", "INV-6002", "32000"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfYWxwaW5lX2RlbGF5,Zml4dHVyZTptc2dfc2VuZF9ydWxlcw,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4044": {
-    "instruction": "按Three-Way Match Tolerance Policy核对Invoice Batch、Purchase Orders、Receiving Reports，只更新发票表Status。边界按含等号处理；源规则未定义价格差额超过5%的处置，本题补充为Price Variance - Hold，不擅自批准。数量差异优先Quantity Discrepancy - Hold。向ap-lead@company.example.com飞书私聊汇总全部非批准项，列Vendor Invoice、PO #、原发票金额、PO金额、三方数量和状态。",
+    "instruction": "按Three-Way Match Tolerance Policy核对Invoice Batch、Purchase Orders、Receiving Reports，只更新发票表Status。边界按含等号处理；源规则未定义价格差额超过5%的处置，本题补充为Price Variance - Hold，不擅自批准。数量差异优先Quantity Discrepancy - Hold。向ap-lead@company.example.com飞书邮件汇总全部非批准项，列Vendor Invoice、PO #、原发票金额、PO金额、三方数量和状态。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_3way",
@@ -14163,8 +14938,47 @@
           "$9,600.00",
           "30/25/25",
           "Quantity Discrepancy - Hold"
-        ]
+        ],
+        "subject": "VI-002 | PO-5502 | Invoice $3,750.00 | PO $3,500.00 | PO/Received/Invoice Qty 50/50/50 | Price Variance - Hold",
+        "body": "VI-002 | PO-5502 | Invoice $3,750.00 | PO $3,500.00 | PO/Received/Invoice Qty 50/50/50 | Price Variance - Hold\nVI-003 | PO-5503 | Invoice $8,200.00 | PO $9,600.00 | PO/Received/Invoice Qty 30/25/25 | Quantity Discrepancy - Hold"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["ap-lead@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "VI-002",
+          "PO-5502",
+          "$3,750.00",
+          "$3,500.00",
+          "50/50/50",
+          "Price Variance - Hold",
+          "VI-003",
+          "PO-5503",
+          "$8,200.00",
+          "$9,600.00",
+          "30/25/25",
+          "Quantity Discrepancy - Hold"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfM3dheV9wb2w,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy,Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz",
+        "--as",
+        "user"
+      ]
     ]
   },
   "finance-4048": {
@@ -15331,7 +16145,7 @@
     ]
   },
   "hr-5049": {
-    "instruction": "今天2026-03-20，按离职备注和最新权限发送exit interview预约链接。仅给离职日尚未过去且未安排、未撤销、未禁联的员工私聊，包含原Last Day日期和英文Month Day、源Calendly链接；此任务只发链接，不创建预约。已完成/已安排不重发。撤销离职者来源行清空全部单元格（替代物理删除，保留行号）。给HR Director汇总所有仍确认离职者姓名、Employee ID、Last Day、当前状态以申请其处理关闭；诉讼者只向Legal请求协调联系，不直接联系该员工、不自行关闭任何BambooHR记录。",
+    "instruction": "今天2026-03-20，按离职备注和最新权限发送exit interview预约链接。仅给离职日尚未过去且未安排、未撤销、未禁联的员工邮件，包含原Last Day日期和英文Month Day、源Calendly链接；此任务只发链接，不创建预约。已完成/已安排不重发。撤销离职者来源行清空全部单元格（替代物理删除，保留行号）。给HR Director汇总所有仍确认离职者姓名、Employee ID、Last Day、当前状态以申请其处理关闭；诉讼者只向Legal请求协调联系，不直接联系该员工、不自行关闭任何BambooHR记录。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-03-20T09:00:00Z",
     "sheets": [
       {
@@ -15360,12 +16174,16 @@
           "2026-03-28",
           "March 28",
           "https://calendly.com/hr-team/exit-interview"
-        ]
+        ],
+        "subject": "Greg Foster | exit interview | Last Day 2026-03-28 (March 28) | https://calendly.com/hr-team/exit-interview",
+        "body": "Greg Foster | exit interview | Last Day 2026-03-28 (March 28) | https://calendly.com/hr-team/exit-interview"
       },
       {
         "email": "legal@company.example.com",
         "text": "Ian Costa | EMP-2004 | 2026-04-04 | Not Scheduled | 请按litigation hold协调离职沟通，我们未直接联系",
-        "contains": ["Ian Costa", "EMP-2004", "2026-04-04", "litigation hold"]
+        "contains": ["Ian Costa", "EMP-2004", "2026-04-04", "litigation hold"],
+        "subject": "Ian Costa | EMP-2004 | 2026-04-04 | Not Scheduled | 请按litigation hold协调离职沟通，我们未直接联系",
+        "body": "Ian Costa | EMP-2004 | 2026-04-04 | Not Scheduled | 请按litigation hold协调离职沟通，我们未直接联系"
       },
       {
         "email": "hr-director@company.example.com",
@@ -15391,8 +16209,78 @@
           "EMP-2003",
           "2026-03-14",
           "Not Scheduled"
-        ]
+        ],
+        "subject": "请由您按授权处理确认离职记录，Ian沟通须经Legal：",
+        "body": "请由您按授权处理确认离职记录，Ian沟通须经Legal：\nGreg Foster | EMP-2001 | 2026-03-28 | Not Scheduled | Hannah Wright | EMP-2002 | 2026-03-21 | Completed | Ian Costa | EMP-2004 | 2026-04-04 | Not Scheduled | Jade Morrison | EMP-2005 | 2026-03-25 | Scheduled - March 22 | Tom Bradford | EMP-2003 | 2026-03-14 | Not Scheduled"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["greg.foster@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Greg Foster",
+          "exit interview",
+          "2026-03-28",
+          "March 28",
+          "https://calendly.com/hr-team/exit-interview"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Ian Costa",
+          "EMP-2004",
+          "2026-04-04",
+          "litigation hold"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["hr-director@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Greg Foster",
+          "EMP-2001",
+          "2026-03-28",
+          "Not Scheduled",
+          "Hannah Wright",
+          "EMP-2002",
+          "2026-03-21",
+          "Completed",
+          "Ian Costa",
+          "EMP-2004",
+          "2026-04-04",
+          "Not Scheduled",
+          "Jade Morrison",
+          "EMP-2005",
+          "2026-03-25",
+          "Scheduled - March 22",
+          "Tom Bradford",
+          "EMP-2003",
+          "2026-03-14",
+          "Not Scheduled"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfYmFtYm9vaHJfY2xvc2VfcG9saWN5,Zml4dHVyZTptc2dfbGl0aWdhdGlvbl9ob2xk,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDQ",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5032": {
@@ -19056,7 +19944,7 @@
     ]
   },
   "hr-5109": {
-    "instruction": "今天2026-04-15，按Referral Program Payout Criteria与隐私政策处理Bonus Status，核对90自然日、在职和已付款Notes。本题支付只模拟登记referral_payments台账referrer、referred_employee、amount数值、status=Paid，来源Bonus Status=Paid，通知仅对应referrer含双方姓名和奖金。未满90天标Pending - Not Yet Eligible，离职者标Ineligible，不通知；Notes已付款者不重复登记、回写或通知。不向all-staff广播。",
+    "instruction": "今天2026-04-15，按Referral Program Payout Criteria与隐私政策处理Bonus Status，核对90自然日、在职和已付款Notes。本次仅在付款登记簿登记：referral_payments台账referrer、referred_employee、amount数值、status=Paid，来源Bonus Status=Paid，通知仅对应referrer含双方姓名和奖金。未满90天标Pending - Not Yet Eligible，离职者标Ineligible，不通知；Notes已付款者不重复登记、回写或通知。不向all-staff广播。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-04-15T09:00:00Z",
     "creates": [
       {
@@ -19157,22 +20045,64 @@
       {
         "email": "amy.liu@company.example.com",
         "text": "Amy Liu | Hector Ruiz | $5,000 | Paid",
-        "contains": ["Amy Liu", "Hector Ruiz", "$5,000", "Paid"]
+        "contains": ["Amy Liu", "Hector Ruiz", "$5,000", "Paid"],
+        "subject": "Amy Liu | Hector Ruiz | $5,000 | Paid",
+        "body": "Amy Liu | Hector Ruiz | $5,000 | Paid"
       },
       {
         "email": "diego.morales@company.example.com",
         "text": "Diego Morales | Luna Eriksson | $5,000 | Paid",
-        "contains": ["Diego Morales", "Luna Eriksson", "$5,000", "Paid"]
+        "contains": ["Diego Morales", "Luna Eriksson", "$5,000", "Paid"],
+        "subject": "Diego Morales | Luna Eriksson | $5,000 | Paid",
+        "body": "Diego Morales | Luna Eriksson | $5,000 | Paid"
       },
       {
         "email": "grace.okonkwo@company.example.com",
         "text": "Grace Okonkwo | Omar Hassan | $2,500 | Paid",
-        "contains": ["Grace Okonkwo", "Omar Hassan", "$2,500", "Paid"]
+        "contains": ["Grace Okonkwo", "Omar Hassan", "$2,500", "Paid"],
+        "subject": "Grace Okonkwo | Omar Hassan | $2,500 | Paid",
+        "body": "Grace Okonkwo | Omar Hassan | $2,500 | Paid"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["amy.liu@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Amy Liu", "Hector Ruiz", "$5,000", "Paid"],
+        "semantic_content": true
+      },
+      {
+        "to": ["diego.morales@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Diego Morales", "Luna Eriksson", "$5,000", "Paid"],
+        "semantic_content": true
+      },
+      {
+        "to": ["grace.okonkwo@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Grace Okonkwo", "Omar Hassan", "$2,500", "Paid"],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcmVmZXJyYWxfcHJpdmFjeV81MTA5,Zml4dHVyZTptc2dfcmVmZXJyYWxfcG9saWN5XzUxMDk,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDI",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5110": {
-    "instruction": "只处理最新Approved Org Changes：在Employee Directory同步Manager与Manager Email，使用原目录中经理精确身份区分相似姓名。每位受影响员工私聊旧→新经理与新Manager Email，hr-ops一条全变更汇总。其他背景事项和未变员工不处理。",
+    "instruction": "只处理最新Approved Org Changes：在Employee Directory同步Manager与Manager Email，使用原目录中经理精确身份区分相似姓名。每位受影响员工邮件旧→新经理与新Manager Email，hr-ops一条全变更汇总。其他背景事项和未变员工不处理。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_directory_5110",
@@ -19227,7 +20157,9 @@
           "Aisha Jordan",
           "Lisa Wang → Marcus Chen",
           "marcus.chen@company.example.com"
-        ]
+        ],
+        "subject": "Aisha Jordan | Lisa Wang → Marcus Chen | marcus.chen@company.example.com",
+        "body": "Aisha Jordan | Lisa Wang → Marcus Chen | marcus.chen@company.example.com"
       },
       {
         "email": "bo.lindqvist@company.example.com",
@@ -19236,7 +20168,9 @@
           "Bo Lindqvist",
           "Marcus Chen → Derek Huang",
           "derek.huang@company.example.com"
-        ]
+        ],
+        "subject": "Bo Lindqvist | Marcus Chen → Derek Huang | derek.huang@company.example.com",
+        "body": "Bo Lindqvist | Marcus Chen → Derek Huang | derek.huang@company.example.com"
       },
       {
         "email": "chiara.russo@company.example.com",
@@ -19245,7 +20179,9 @@
           "Chiara Russo",
           "Derek Huang → Lisa Wang",
           "lisa.wang@company.example.com"
-        ]
+        ],
+        "subject": "Chiara Russo | Derek Huang → Lisa Wang | lisa.wang@company.example.com",
+        "body": "Chiara Russo | Derek Huang → Lisa Wang | lisa.wang@company.example.com"
       },
       {
         "email": "dante.obi@company.example.com",
@@ -19254,7 +20190,9 @@
           "Dante Obi",
           "Lisa Wang → Marcus Chen-Williams",
           "marcus.chen-williams@company.example.com"
-        ]
+        ],
+        "subject": "Dante Obi | Lisa Wang → Marcus Chen-Williams | marcus.chen-williams@company.example.com",
+        "body": "Dante Obi | Lisa Wang → Marcus Chen-Williams | marcus.chen-williams@company.example.com"
       },
       {
         "channel": "hr-ops",
@@ -19274,6 +20212,64 @@
           "marcus.chen-williams@company.example.com"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["aisha.jordan@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Aisha Jordan",
+          "Lisa Wang → Marcus Chen",
+          "marcus.chen@company.example.com"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["bo.lindqvist@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Bo Lindqvist",
+          "Marcus Chen → Derek Huang",
+          "derek.huang@company.example.com"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["chiara.russo@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Chiara Russo",
+          "Derek Huang → Lisa Wang",
+          "lisa.wang@company.example.com"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["dante.obi@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Dante Obi",
+          "Lisa Wang → Marcus Chen-Williams",
+          "marcus.chen-williams@company.example.com"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcmVvcmdfNTExMA,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDQ,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5111": {
@@ -22434,7 +23430,7 @@
     ]
   },
   "hr-5134": {
-    "instruction": "按Benefits Enrollment Eligibility Guidelines及本次orientation实际名单审查资格。满足条件者仅将队列Enrollment Status改Enrolled（本题的模拟参保完成动作），并私聊全名与确认；其余按政策发缺失条件说明、保持Queued，遇hold遵从政策。benefits群只汇总本轮实际完成的登记及通知，不枚举或解释跳过项，不联系外部保险系统。",
+    "instruction": "按Benefits Enrollment Eligibility Guidelines及本次orientation实际名单审查资格。满足条件者仅将队列Enrollment Status改Enrolled，并邮件全名与确认；其余按政策发缺失条件说明、保持Queued，遇hold遵从政策。benefits群只汇总本轮实际完成的登记及通知，不枚举或解释跳过项，不联系外部保险系统。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "sheets": [
       {
         "book": "ss_benefits_5134",
@@ -22461,17 +23457,23 @@
       {
         "email": "alex.rivera@company.example.com",
         "text": "Alex Rivera | Enrolled，参保确认。",
-        "contains": ["Alex Rivera", "Enrolled"]
+        "contains": ["Alex Rivera", "Enrolled"],
+        "subject": "Alex Rivera | Enrolled，参保确认。",
+        "body": "Alex Rivera | Enrolled，参保确认。"
       },
       {
         "email": "farida.hassan@company.example.com",
         "text": "Farida Hassan | Enrolled，参保确认。",
-        "contains": ["Farida Hassan", "Enrolled"]
+        "contains": ["Farida Hassan", "Enrolled"],
+        "subject": "Farida Hassan | Enrolled，参保确认。",
+        "body": "Farida Hassan | Enrolled，参保确认。"
       },
       {
         "email": "brianna.cho@company.example.com",
         "text": "Brianna Cho | not yet eligible | 任职未满90天",
-        "contains": ["Brianna Cho", "not yet eligible", "任职未满90天"]
+        "contains": ["Brianna Cho", "not yet eligible", "任职未满90天"],
+        "subject": "Brianna Cho | not yet eligible | 任职未满90天",
+        "body": "Brianna Cho | not yet eligible | 任职未满90天"
       },
       {
         "email": "carlos.mendez@company.example.com",
@@ -22480,23 +23482,95 @@
           "Carlos Mendez",
           "not yet eligible",
           "未参加本次orientation"
-        ]
+        ],
+        "subject": "Carlos Mendez | not yet eligible | 未参加本次orientation",
+        "body": "Carlos Mendez | not yet eligible | 未参加本次orientation"
       },
       {
         "email": "darius.idowu@company.example.com",
         "text": "Darius Idowu | not yet eligible | Form Signed尚未签署",
-        "contains": ["Darius Idowu", "not yet eligible", "Form Signed尚未签署"]
+        "contains": ["Darius Idowu", "not yet eligible", "Form Signed尚未签署"],
+        "subject": "Darius Idowu | not yet eligible | Form Signed尚未签署",
+        "body": "Darius Idowu | not yet eligible | Form Signed尚未签署"
       },
       {
         "email": "graham.liu@company.example.com",
         "text": "Graham Liu | not yet eligible | 未参加本次orientation",
-        "contains": ["Graham Liu", "not yet eligible", "未参加本次orientation"]
+        "contains": ["Graham Liu", "not yet eligible", "未参加本次orientation"],
+        "subject": "Graham Liu | not yet eligible | 未参加本次orientation",
+        "body": "Graham Liu | not yet eligible | 未参加本次orientation"
       },
       {
         "channel": "benefits",
         "text": "本轮2人Enrolled：Alex Rivera、Farida Hassan；已向4名条件待补员工说明缺失条件。",
         "contains": ["Alex Rivera", "2", "4"]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["alex.rivera@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Alex Rivera", "Enrolled"],
+        "semantic_content": true
+      },
+      {
+        "to": ["farida.hassan@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Farida Hassan", "Enrolled"],
+        "semantic_content": true
+      },
+      {
+        "to": ["brianna.cho@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Brianna Cho", "not yet eligible", "任职未满90天"],
+        "semantic_content": true
+      },
+      {
+        "to": ["carlos.mendez@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Carlos Mendez",
+          "not yet eligible",
+          "未参加本次orientation"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["darius.idowu@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Darius Idowu",
+          "not yet eligible",
+          "Form Signed尚未签署"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["graham.liu@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Graham Liu",
+          "not yet eligible",
+          "未参加本次orientation"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfYmVuZWZpdHNfcG9saWN5XzUxMzQ,Zml4dHVyZTptc2dfb3JpZW50YXRpb25fcm9zdGVyXzUxMzQ,Zml4dHVyZTptc2dfdmVuZG9yX2luamVjdGlvbl81MTM0,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDM,Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5135": {
@@ -23873,7 +24947,7 @@
     ]
   },
   "sales-1132": {
-    "instruction": "按Account Health Scoring Methodology做Enterprise季度体检，结合源资料里的有效分层更正。Zoom/LinkedIn历史信号已转飞书台账，只读；邮件活跃度无时间窗则统计提供的直接往来，会议用最近30日，Completed task用due_date作为源中唯一活动日期核验最近7日。将description追加Health Score=N和Classification标签；按行动表建tasks，related_to_id关联Account，status=Not Started；Critical任务priority=High，其余Normal。分别发告警和account-health摘要，列每家分数分类及各类总数，不代管理员更新tier。",
+    "instruction": "按Account Health Scoring Methodology做Enterprise季度体检，结合源资料里的有效分层更正。Zoom/LinkedIn历史信号已转飞书台账，只读；邮件活跃度无时间窗则统计提供的直接往来，会议用最近30日，Completed task用due_date作为源中唯一活动日期核验最近7日。将description追加Health Score=N和Classification标签；按行动表建tasks，related_to_id关联Account，status=Not Started；Critical任务priority=High，其余Normal。分别发告警和account-health摘要，列每家分数分类及各类总数，不代管理员更新tier。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "001xx000003AHS3",
@@ -23938,10 +25012,28 @@
           "critical=1"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfaGMx,Zml4dHVyZTptc2dfaGMy,Zml4dHVyZTptc2dfYXIx,Zml4dHVyZTptc2dfYXIy,Zml4dHVyZTptc2dfYXIz,Zml4dHVyZTptc2dfYXI0,Zml4dHVyZTptc2dfY3Ix,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDA4",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-1134": {
-    "instruction": "今天2026-02-20，为TechVentures的Marcus Chen做研究简报，依据最新engagement评分标准综合现有CRM、LinkedIn和直接往来。原ChatGPT会话步骤改为agent自主综合并保存research_briefs飞书台账（subject、body），再在lead-research分享；无需外部模型调用。简报列人物全名、公司、职位、邮箱、CRM状态、直接往来数量与Engagement Level及依据；不能将助手/自动回复混算，不能假造未提供交流内容。CRM与原消息只读。",
+    "instruction": "今天2026-02-20，为TechVentures的Marcus Chen做研究简报，依据最新engagement评分标准综合现有CRM、LinkedIn和直接往来。原ChatGPT会话步骤改为agent自主综合并保存research_briefs飞书台账（subject、body），再在lead-research分享；无需外部模型调用。简报列人物全名、公司、职位、邮箱、CRM状态、直接往来数量与Engagement Level及依据；不能将助手/自动回复混算，不能假造未提供交流内容。CRM与原消息只读。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "creates": [
       {
         "collection": "research_briefs",
@@ -23978,6 +25070,24 @@
           "2026-02-18"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptMQ,Zml4dHVyZTptMg,Zml4dHVyZTptMw,Zml4dHVyZTptNA,Zml4dHVyZTptNV9hdXRvcmVwbHk,Zml4dHVyZTptc2dfZW5nYWdlX3BvbGljeV8wMDE,Zml4dHVyZTptc2dfZW5nYWdlX29sZF8wMDE,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDMx",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-1139": {
@@ -24183,7 +25293,7 @@
     ]
   },
   "sales-1142": {
-    "instruction": "读取业务来信中的“本轮合同完成触发”上下文，按该事件的envelope_id找到对应DocuSign合同，结合Pricing Adjustments、历史交易及最新Win Announcement Process处理其匹配商机。原ChatGPT摘要由agent完成，写入opportunity description，含合同ID、原金额、适用折扣、调整后金额、期限及special terms；只关闭该事件对应的合同，不将其他历史completed合同一并处理。庆祝消息写商机名、实际金额和当前tier，金额以来源整数字面格式保留。DocuSign原envelopes只读，不能把旧公告或无关商机催办当作本轮触发。",
+    "instruction": "读取邮箱来信中的“本轮合同完成触发”上下文，按该事件的envelope_id找到对应DocuSign合同，结合Pricing Adjustments、历史交易及最新Win Announcement Process处理其匹配商机。原ChatGPT摘要由agent完成，写入opportunity description，含合同ID、原金额、适用折扣、调整后金额、期限及special terms；只关闭该事件对应的合同，不将其他历史completed合同一并处理。庆祝消息写商机名、实际金额和当前tier，金额以来源整数字面格式保留。DocuSign原envelopes只读，不能把旧公告或无关商机催办当作本轮触发。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "updates": [
       {
         "id": "opp_clientco",
@@ -24228,21 +25338,56 @@
         "channel": "big-wins"
       }
     ],
-    "seed_context_messages": [
+    "seed_context_messages": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "native_context_messages": [
       {
-        "message_id": "om_adapter_contract_trigger",
-        "chat_id": "oc_mail",
-        "msg_type": "text",
-        "body": {
-          "content": "{\"text\": \"本轮合同完成触发\\n适配上下文：为原任务“a contract just completed”补充本轮请求关联，非原始历史邮件。\\nevent_type: envelope.completed\\nenvelope_id: env_contract\\noccurred_at: 2026-01-20T14:00:00Z\\n本轮处理该事件，其他合同的完成日期不改变本轮事件关联。\"}"
+        "message_id": "Zml4dHVyZTpvbV9hZGFwdGVyX2NvbnRyYWN0X3RyaWdnZXI",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpvbV9hZGFwdGVyX2NvbnRyYWN0X3RyaWdnZXI",
+        "smtp_message_id": "om_adapter_contract_trigger@fixture.invalid",
+        "subject": "本轮合同完成触发（适配上下文）",
+        "head_from": {
+          "mail_address": "workflow@company.example.com"
         },
-        "create_time": "1771923600000"
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "5pys6L2u5ZCI5ZCM5a6M5oiQ6Kem5Y-RCumAgumFjeS4iuS4i-aWh--8muS4uuWOn-S7u-WKoeKAnGEgY29udHJhY3QganVzdCBjb21wbGV0ZWTigJ3ooaXlhYXmnKzova7or7fmsYLlhbPogZTvvIzpnZ7ljp_lp4vljoblj7Lpgq7ku7bjgIIKZXZlbnRfdHlwZTogZW52ZWxvcGUuY29tcGxldGVkCmVudmVsb3BlX2lkOiBlbnZfY29udHJhY3QKb2NjdXJyZWRfYXQ6IDIwMjYtMDEtMjBUMTQ6MDA6MDBaCuacrOi9ruWkhOeQhuivpeS6i-S7tu-8jOWFtuS7luWQiOWQjOeahOWujOaIkOaXpeacn-S4jeaUueWPmOacrOi9ruS6i-S7tuWFs-iBlOOAgg",
+        "body_preview": "5pys6L2u5ZCI5ZCM5a6M5oiQ6Kem5Y-RCumAgumFjeS4iuS4i-aWh--8muS4uuWOn-S7u-WKoeKAnGEgY29udHJhY3QganVzdCBjb21wbGV0ZWTigJ3ooaXlhYXmnKzova7or7fmsYLlhbPogZTvvIzpnZ7ljp_lp4vljoblj7Lpgq7ku7bjgIIKZXZlbnRfdHlwZTogZW52ZWxvcGUuY29tcGxldGVkCmVudmVsb3BlX2lkOiBlbnZfY29udHJhY3Q",
+        "body_html": "",
+        "internal_date": "1771923600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfb3BzX3dpbnNfcG9saWN5,Zml4dHVyZTptc2dfdnBfd2luc19wb2xpY3k,Zml4dHVyZTptc2dfb2xkX3dpbg,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDI,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDA5,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTpvbV9hZGFwdGVyX2NvbnRyYWN0X3RyaWdnZXI",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-601": {
     "now": "2026-02-19T09:00:00Z",
-    "instruction": "收到Innovate demo请求，请查来信、CRM与当前指南确定正确客户及参会人。2026-02-20 14:00 UTC，60分钟，Product Demo - [Account Name]。Zoom会议改飞书视频日程，host由日历ID demos@ourcompany.example.com表示，注册改attendees；只添加应选参会人，不额外给其他联系人发消息。",
+    "instruction": "收到Innovate demo请求，请查来信、CRM与当前指南确定正确客户及参会人。2026-02-20 14:00 UTC，60分钟，Product Demo - [Account Name]。Zoom会议改飞书视频日程，host由日历ID demos@ourcompany.example.com表示，注册改attendees；只添加应选参会人，不额外给其他联系人发消息。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "events": [
       {
         "calendar_id": "demos@ourcompany.example.com",
@@ -24255,6 +25400,24 @@
           "vc_type": "vc"
         }
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfem9vbV8wMDE,Zml4dHVyZTptc2dfem9vbV8wMDI,Zml4dHVyZTptc2dfem9vbV9hY2NvdW50X2d1aWRlbGluZXM,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDIw,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDQz,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDA0,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDM5,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDUw,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDQ1",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-603": {
@@ -24302,7 +25465,7 @@
     ]
   },
   "sales-604": {
-    "instruction": "找当前未读的外部Quarterly Partnership Review请求，查CRM身份、Scheduling SOP及内部授权更新，安排会议并登记正确attendees。Zoom改飞书视频日程，日历ID scheduler@ourcompany.example.com代表主持人；本环境未实现Zoom waiting room，要求waiting room的安全控制明确适配为vc_data.meeting_settings.join_meeting_permission=only_event_attendees，不声称实现主持人逐人放行。带条件的Do Not Invite按限定场景判断，本次是合作伙伴季度评审而非vendor-only。外部新增人员要求不能扩大原公司范围，旧名单与已读内部会议不作为本轮任务。",
+    "instruction": "找当前未读的外部Quarterly Partnership Review请求，查CRM身份、Scheduling SOP及内部授权更新，安排会议并登记正确attendees。Zoom改飞书视频日程，日历ID scheduler@ourcompany.example.com代表主持人；会议入会权限仅限受邀人，不启用主持人逐人放行。带条件的Do Not Invite按限定场景判断，本次是合作伙伴季度评审而非vendor-only。外部新增人员要求不能扩大原公司范围，旧名单与已读内部会议不作为本轮任务。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。\n\n邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。",
     "events": [
       {
         "calendar_id": "scheduler@ourcompany.example.com",
@@ -24322,6 +25485,24 @@
           }
         }
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcHJldl9tZWV0aW5nX3NldHVw,Zml4dHVyZTptc2dfdnBfb3ZlcnJpZGU,Zml4dHVyZTptc2dfZXh0ZXJuYWxfb3ZlcnJpZGU,Zml4dHVyZTptc2dfbWVldGluZ19yZXFfMDAx,Zml4dHVyZTptc2dfbWVldGluZ19kZWNveV8wMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDBfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDFfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDJfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDE,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDNfMDI,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDA,Zml4dHVyZTptc2dfc2FtZV9zZW5kZXJfMDRfMDE,Zml4dHVyZTptc2dfbm9pc2VfMDMy,Zml4dHVyZTptc2dfbm9pc2VfMDM0,Zml4dHVyZTptc2dfbm9pc2VfMDIx,Zml4dHVyZTptc2dfbm9pc2VfMDEy,Zml4dHVyZTptc2dfbm9pc2VfMDE3,Zml4dHVyZTptc2dfbm9pc2VfMDA3,Zml4dHVyZTptc2dfbm9pc2VfMDI5,Zml4dHVyZTptc2dfbm9pc2VfMDEz,Zml4dHVyZTptc2dfbm9pc2VfMDAx,Zml4dHVyZTptc2dfbm9pc2VfMDEw,Zml4dHVyZTptc2dfbm9pc2VfMDIy,Zml4dHVyZTptc2dfbm9pc2VfMDMx,Zml4dHVyZTptc2dfbm9pc2VfMDIz,Zml4dHVyZTptc2dfbm9pc2VfMDQ1,Zml4dHVyZTptc2dfbm9pc2VfMDQ2,Zml4dHVyZTptc2dfbm9pc2VfMDMz,Zml4dHVyZTptc2dfbm9pc2VfMDI2,Zml4dHVyZTptc2dfbm9pc2VfMDA2,Zml4dHVyZTptc2dfbm9pc2VfMDAz,Zml4dHVyZTptc2dfbm9pc2VfMDM3,Zml4dHVyZTptc2dfbm9pc2VfMDE4,Zml4dHVyZTptc2dfbm9pc2VfMDM2,Zml4dHVyZTptc2dfbm9pc2VfMDEx,Zml4dHVyZTptc2dfbm9pc2VfMDE0,Zml4dHVyZTptc2dfbm9pc2VfMDAy,Zml4dHVyZTptc2dfbm9pc2VfMDI3,Zml4dHVyZTptc2dfbm9pc2VfMDQ3,Zml4dHVyZTptc2dfbm9pc2VfMDM1,Zml4dHVyZTptc2dfbm9pc2VfMDQ4,Zml4dHVyZTptc2dfbm9pc2VfMDQ0,Zml4dHVyZTptc2dfbm9pc2VfMDE5,Zml4dHVyZTptc2dfbm9pc2VfMDMw,Zml4dHVyZTptc2dfbm9pc2VfMDQx,Zml4dHVyZTptc2dfbm9pc2VfMDM4,Zml4dHVyZTptc2dfbm9pc2VfMDA1,Zml4dHVyZTptc2dfbm9pc2VfMDQ5,Zml4dHVyZTptc2dfbm9pc2VfMDA4,Zml4dHVyZTptc2dfbm9pc2VfMDE1,Zml4dHVyZTptc2dfbm9pc2VfMDQw,Zml4dHVyZTptc2dfbm9pc2VfMDI0,Zml4dHVyZTptc2dfbm9pc2VfMDQy,Zml4dHVyZTptc2dfbm9pc2VfMDE2,Zml4dHVyZTptc2dfbm9pc2VfMDI1,Zml4dHVyZTptc2dfbm9pc2VfMDI4,Zml4dHVyZTptc2dfbm9pc2VfMDIw",
+        "--as",
+        "user"
+      ]
     ]
   },
   "sales-705": {
@@ -28336,7 +29517,7 @@
     ]
   },
   "operations-1216": {
-    "instruction": "处理procurement@company.example.com所有未读vendor reviews，精确匹配tbl_ops里pipefy_find_database_records实体。Approved写phase_id=phase_approved/field_status=Approved；Rejected写phase_rejected/Rejected；Conditional写phase_pending_docs/Pending Docs。每个处理项分别私聊procurement确认名称、原decision及实际phase/status，若有原因也原文保留。已读条目不重做，不合并相近vendor名。",
+    "instruction": "处理procurement@company.example.com所有未读vendor reviews，精确匹配tbl_ops里pipefy_find_database_records实体。Approved写phase_id=phase_approved/field_status=Approved；Rejected写phase_rejected/Rejected；Conditional写phase_pending_docs/Pending Docs。每个处理项分别邮件procurement确认名称、原decision及实际phase/status，若有原因也原文保留。已读条目不重做，不合并相近vendor名。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "updates": [
       {
         "id": "pipefy_pf_rec_4",
@@ -28371,12 +29552,16 @@
       {
         "email": "procurement@company.example.com",
         "text": "Vendor Review - Summit | Approved | phase_approved",
-        "contains": ["Summit", "Approved", "phase_approved"]
+        "contains": ["Summit", "Approved", "phase_approved"],
+        "subject": "Vendor Review - Summit | Approved | phase_approved",
+        "body": "Vendor Review - Summit | Approved | phase_approved"
       },
       {
         "email": "procurement@company.example.com",
         "text": "Vendor Review - Apex | Approved | phase_approved",
-        "contains": ["Apex", "Approved", "phase_approved"]
+        "contains": ["Apex", "Approved", "phase_approved"],
+        "subject": "Vendor Review - Apex | Approved | phase_approved",
+        "body": "Vendor Review - Apex | Approved | phase_approved"
       },
       {
         "email": "procurement@company.example.com",
@@ -28386,7 +29571,9 @@
           "Rejected",
           "phase_rejected",
           "failed background check"
-        ]
+        ],
+        "subject": "Vendor Review - NorthWind LLC | Rejected | phase_rejected | failed background check",
+        "body": "Vendor Review - NorthWind LLC | Rejected | phase_rejected | failed background check"
       },
       {
         "email": "procurement@company.example.com",
@@ -28396,8 +29583,62 @@
           "Pending Docs",
           "phase_pending_docs",
           "Conditional - pending insurance docs"
-        ]
+        ],
+        "subject": "Vendor Review - BlueYard | Pending Docs | phase_pending_docs | Conditional - pending insurance docs",
+        "body": "Vendor Review - BlueYard | Pending Docs | phase_pending_docs | Conditional - pending insurance docs"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["procurement@company.example.com"],
+        "subject_contains": ["Summit"],
+        "body_contains": ["Summit", "Approved", "phase_approved"],
+        "semantic_content": true
+      },
+      {
+        "to": ["procurement@company.example.com"],
+        "subject_contains": ["Apex"],
+        "body_contains": ["Apex", "Approved", "phase_approved"],
+        "semantic_content": true
+      },
+      {
+        "to": ["procurement@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "NorthWind LLC",
+          "Rejected",
+          "phase_rejected",
+          "failed background check"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["procurement@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "BlueYard",
+          "Pending Docs",
+          "phase_pending_docs",
+          "Conditional - pending insurance docs"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfcmV2XzAwMQ,Zml4dHVyZTptc2dfcmV2XzAwMg,Zml4dHVyZTptc2dfcmV2XzAwMw,Zml4dHVyZTptc2dfcmV2XzAwNA,Zml4dHVyZTptc2dfcmV2XzAwNQ,Zml4dHVyZTptc2dfb3BzXzAzNQ,Zml4dHVyZTptc2dfb3BzXzAwOA,Zml4dHVyZTptc2dfb3BzXzAwNA,Zml4dHVyZTptc2dfb3BzXzAxMw,Zml4dHVyZTptc2dfb3BzXzAwNQ,Zml4dHVyZTptc2dfb3BzXzAyOA,Zml4dHVyZTptc2dfb3BzXzAwNw,Zml4dHVyZTptc2dfb3BzXzAzOA,Zml4dHVyZTptc2dfb3BzXzAzNw,Zml4dHVyZTptc2dfb3BzXzAwMw,Zml4dHVyZTptc2dfb3BzXzAyOQ,Zml4dHVyZTptc2dfb3BzXzAzNA,Zml4dHVyZTptc2dfb3BzXzAyMQ,Zml4dHVyZTptc2dfb3BzXzAxOQ,Zml4dHVyZTptc2dfb3BzXzAyNQ,Zml4dHVyZTptc2dfb3BzXzAxNQ,Zml4dHVyZTptc2dfb3BzXzAyMA,Zml4dHVyZTptc2dfb3BzXzAzOQ,Zml4dHVyZTptc2dfb3BzXzAyMw,Zml4dHVyZTptc2dfb3BzXzAzMg,Zml4dHVyZTptc2dfb3BzXzAyNw,Zml4dHVyZTptc2dfb3BzXzAxMg,Zml4dHVyZTptc2dfb3BzXzAzMQ,Zml4dHVyZTptc2dfb3BzXzAwOQ,Zml4dHVyZTptc2dfb3BzXzAxNA,Zml4dHVyZTptc2dfb3BzXzAwNg,Zml4dHVyZTptc2dfb3BzXzAzNg,Zml4dHVyZTptc2dfb3BzXzAxMA,Zml4dHVyZTptc2dfb3BzXzAyNA,Zml4dHVyZTptc2dfb3BzXzAxNw",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1217": {
@@ -30271,7 +31512,7 @@
     ]
   },
   "operations-1287": {
-    "instruction": "读mailchimp_subscribers中aud_main的状态和ss_sync_policy/ws_mailchimp_rules，处理可更新的cleaned联系人。源Contacts表为空，本适配明确按email upsert：不存在则新建airtable_contacts(applicationId=base_contacts/tableName=Contacts/email/Email Status=Invalid)，不是伪称更新已有实体。遵守GDPR deletion hold，不改源订阅或其他状态。向政策Report Recipient私聊报告实际处理邮箱及Invalid、总数。",
+    "instruction": "读mailchimp_subscribers中aud_main的状态和ss_sync_policy/ws_mailchimp_rules，处理可更新的cleaned联系人。源Contacts表为空，本适配明确按email upsert：不存在则新建airtable_contacts(applicationId=base_contacts/tableName=Contacts/email/Email Status=Invalid)，不是伪称更新已有实体。遵守GDPR deletion hold，不改源订阅或其他状态。向政策Report Recipient邮件报告实际处理邮箱及Invalid、总数。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "airtable_contacts",
@@ -30297,8 +31538,39 @@
           "Invalid",
           "bounced1@invalid.example.com",
           "bounced2@old.example.com"
-        ]
+        ],
+        "subject": "2 created | Invalid | bounced1@invalid.example.com | bounced2@old.example.com",
+        "body": "2 created | Invalid | bounced1@invalid.example.com | bounced2@old.example.com"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["marketing@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "2",
+          "Invalid",
+          "bounced1@invalid.example.com",
+          "bounced2@old.example.com"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfb3BzXzAyOQ,Zml4dHVyZTptc2dfb3BzXzAwNQ,Zml4dHVyZTptc2dfb3BzXzAzOQ,Zml4dHVyZTptc2dfb3BzXzAxNg,Zml4dHVyZTptc2dfb3BzXzAxMQ,Zml4dHVyZTptc2dfb3BzXzAxMg,Zml4dHVyZTptc2dfb3BzXzAzMA,Zml4dHVyZTptc2dfb3BzXzAwOQ,Zml4dHVyZTptc2dfb3BzXzA0MA,Zml4dHVyZTptc2dfb3BzXzAyNA,Zml4dHVyZTptc2dfb3BzXzAzMQ,Zml4dHVyZTptc2dfb3BzXzAwNw,Zml4dHVyZTptc2dfb3BzXzAxMA,Zml4dHVyZTptc2dfb3BzXzAxOA,Zml4dHVyZTptc2dfb3BzXzAwMQ,Zml4dHVyZTptc2dfb3BzXzAyMA,Zml4dHVyZTptc2dfb3BzXzAyMw,Zml4dHVyZTptc2dfb3BzXzAzNw,Zml4dHVyZTptc2dfb3BzXzAzMg,Zml4dHVyZTptc2dfb3BzXzAyMQ,Zml4dHVyZTptc2dfb3BzXzAwNg,Zml4dHVyZTptc2dfb3BzXzAyMg,Zml4dHVyZTptc2dfb3BzXzAzNg,Zml4dHVyZTptc2dfb3BzXzAyNg,Zml4dHVyZTptc2dfb3BzXzAxNA,Zml4dHVyZTptc2dfb3BzXzAxMw,Zml4dHVyZTptc2dfb3BzXzAzMw,Zml4dHVyZTptc2dfb3BzXzAwOA,Zml4dHVyZTptc2dfb3BzXzAyNQ,Zml4dHVyZTptc2dfb3BzXzAyOA",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1289": {
@@ -33806,7 +35078,7 @@
   },
   "operations-1391": {
     "now": "2026-02-09T09:00:00Z",
-    "instruction": "按dock policies和cargo manifest处理全部请求，requested dock为偏好而非硬要求；按请求行顺序，优先偏好兼容可用dock，否则选编号最小的兼容可用dock，任何2小时重叠均冲突；不存在的偏好也可改选。历史/Completed不占用，manifest覆盖表单类型。无可用兼容dock才Rejected；insurance为On Hold不排期。时区补定UTC，cal_docks创建Dock [N] - [Company]两小时日程，description含Request ID和实际cargo，原无attendee不补。向每个contact私聊ID、确认的dock/date/time或拒绝/hold理由；每条均包含Scheduled=N; Rejected=N; On Hold=N总计（包括hold通知）。源表不回写。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。",
+    "instruction": "按dock policies和cargo manifest处理全部请求，requested dock为偏好而非硬要求；按请求行顺序，优先偏好兼容可用dock，否则选编号最小的兼容可用dock，任何2小时重叠均冲突；不存在的偏好也可改选。历史/Completed不占用，manifest覆盖表单类型。无可用兼容dock才Rejected；insurance为On Hold不排期。时区补定UTC，cal_docks创建Dock [N] - [Company]两小时日程，description含Request ID和实际cargo，原无attendee不补。向每个contact邮件ID、确认的dock/date/time或拒绝/hold理由；每条均包含Scheduled=N; Rejected=N; On Hold=N总计（包括hold通知）。源表不回写。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "events": [
       {
         "calendar_id": "cal_docks",
@@ -33867,7 +35139,9 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-101 | FastFreight Co | Dock 2 | 2026-02-10 08:00–10:00 UTC | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-101 | FastFreight Co | Dock 2 | 2026-02-10 08:00–10:00 UTC | Scheduled=5; Rejected=1; On Hold=1"
       },
       {
         "email": "ops@coldchain.example.com",
@@ -33881,7 +35155,9 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-102 | ColdChain Logistics | Dock 3 | 2026-02-10 10:00–12:00 UTC | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-102 | ColdChain Logistics | Dock 3 | 2026-02-10 10:00–12:00 UTC | Scheduled=5; Rejected=1; On Hold=1"
       },
       {
         "email": "booking@megahaul.example.com",
@@ -33895,7 +35171,9 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-103 | MegaHaul Inc | Dock 4 | 2026-02-10 08:00–10:00 UTC | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-103 | MegaHaul Inc | Dock 4 | 2026-02-10 08:00–10:00 UTC | Scheduled=5; Rejected=1; On Hold=1"
       },
       {
         "email": "dock@quickship.example.com",
@@ -33909,7 +35187,9 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-106 | QuickShip LLC | Dock 1 | 2026-02-12 09:00–11:00 UTC | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-106 | QuickShip LLC | Dock 1 | 2026-02-12 09:00–11:00 UTC | Scheduled=5; Rejected=1; On Hold=1"
       },
       {
         "email": "ops@heavyload.example.com",
@@ -33923,7 +35203,9 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-107 | HeavyLoad Transport | Dock 2 | 2026-02-11 09:00–11:00 UTC | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-107 | HeavyLoad Transport | Dock 2 | 2026-02-11 09:00–11:00 UTC | Scheduled=5; Rejected=1; On Hold=1"
       },
       {
         "email": "plan@arcticdel.example.com",
@@ -33935,7 +35217,9 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-105 | Rejected: no available Refrigerated dock at 2026-02-10 10:00 | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-105 | Rejected: no available Refrigerated dock at 2026-02-10 10:00 | Scheduled=5; Rejected=1; On Hold=1"
       },
       {
         "email": "schedule@bigrig.example.com",
@@ -33946,8 +35230,128 @@
           "Scheduled=5",
           "Rejected=1",
           "On Hold=1"
-        ]
+        ],
+        "subject": "DR-104 | On Hold: pending insurance verification | Scheduled=5; Rejected=1; On Hold=1",
+        "body": "DR-104 | On Hold: pending insurance verification | Scheduled=5; Rejected=1; On Hold=1"
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "mail": [
+      {
+        "to": ["dispatch@fastfreight.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-101",
+          "Dock 2",
+          "2026-02-10",
+          "08:00",
+          "10:00",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["ops@coldchain.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-102",
+          "Dock 3",
+          "2026-02-10",
+          "10:00",
+          "12:00",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["booking@megahaul.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-103",
+          "Dock 4",
+          "2026-02-10",
+          "08:00",
+          "10:00",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["dock@quickship.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-106",
+          "Dock 1",
+          "2026-02-12",
+          "09:00",
+          "11:00",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["ops@heavyload.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-107",
+          "Dock 2",
+          "2026-02-11",
+          "09:00",
+          "11:00",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["plan@arcticdel.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-105",
+          "Rejected",
+          "Refrigerated",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      },
+      {
+        "to": ["schedule@bigrig.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "DR-104",
+          "insurance",
+          "Scheduled=5",
+          "Rejected=1",
+          "On Hold=1"
+        ],
+        "semantic_content": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "mail",
+        "+messages",
+        "--mailbox",
+        "agent@company.example.com",
+        "--message-ids",
+        "Zml4dHVyZTptc2dfb3BzXzAwOQ,Zml4dHVyZTptc2dfb3BzXzAzMw,Zml4dHVyZTptc2dfb3BzXzAyMw,Zml4dHVyZTptc2dfb3BzXzAxMQ,Zml4dHVyZTptc2dfb3BzXzAyNg,Zml4dHVyZTptc2dfb3BzXzAxOQ,Zml4dHVyZTptc2dfb3BzXzAxNQ,Zml4dHVyZTptc2dfb3BzXzAyOA,Zml4dHVyZTptc2dfb3BzXzAyMQ,Zml4dHVyZTptc2dfb3BzXzAxNw,Zml4dHVyZTptc2dfb3BzXzAzOQ,Zml4dHVyZTptc2dfb3BzXzAwMQ,Zml4dHVyZTptc2dfb3BzXzAwOA,Zml4dHVyZTptc2dfb3BzXzAxNg,Zml4dHVyZTptc2dfb3BzXzAwNw,Zml4dHVyZTptc2dfb3BzXzAxMA,Zml4dHVyZTptc2dfb3BzXzAzMA,Zml4dHVyZTptc2dfb3BzXzAyNA,Zml4dHVyZTptc2dfb3BzXzAxMg,Zml4dHVyZTptc2dfb3BzXzAzNA,Zml4dHVyZTptc2dfb3BzXzAzMQ,Zml4dHVyZTptc2dfb3BzXzAwMw,Zml4dHVyZTptc2dfb3BzXzAzNg,Zml4dHVyZTptc2dfb3BzXzAzNQ,Zml4dHVyZTptc2dfb3BzXzAzNw,Zml4dHVyZTptc2dfb3BzXzAzMg,Zml4dHVyZTptc2dfb3BzXzAwNg,Zml4dHVyZTptc2dfb3BzXzAxNA,Zml4dHVyZTptc2dfb3BzXzAxMw,Zml4dHVyZTptc2dfb3BzXzAwNA",
+        "--as",
+        "user"
+      ]
     ]
   },
   "operations-1392": {

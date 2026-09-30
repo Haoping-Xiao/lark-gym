@@ -14,6 +14,7 @@ export function collectMutations(
       'message_id',
     ],
     ['mail_draft', before.mail?.drafts || [], world.mail?.drafts || [], 'id'],
+    ['mail_label', before.mail?.labels || [], world.mail?.labels || [], 'id'],
     ['event', before.events, world.events, 'event_id'],
     ['record', before.base.records, world.base.records, 'record_id'],
     ['message', before.messages, world.messages, 'message_id'],

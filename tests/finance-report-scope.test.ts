@@ -27,11 +27,24 @@ for (const id of [4027, 4094])
       const world = structuredClone(backend.world);
       const old = new Set(seed.messages.map((m: any) => m.message_id));
       const messages = world.messages.filter((m) => !old.has(m.message_id));
-      assert.equal(messages.length, 1);
-      assert.equal(
-        messages[0].chat_id,
-        id === 4027 ? 'oc_email_2' : 'oc_email_0',
+      const nativeMail = id === 4027;
+      const originalMail = new Set(
+        (seed.mail?.messages || []).map((m: any) => m.message_id),
       );
+      const sent = (world.mail?.messages || []).filter(
+        (m: any) => !originalMail.has(m.message_id) && m.message_state === 2,
+      );
+      if (nativeMail) {
+        assert.equal(messages.length, 0);
+        assert.equal(sent.length, 1);
+        assert.deepEqual(
+          sent[0].to.map((a: any) => a.mail_address),
+          ['controller@company.example.com'],
+        );
+      } else {
+        assert.equal(messages.length, 1);
+        assert.equal(messages[0].chat_id, 'oc_email_0');
+      }
       const verify = async (state: any, name: string) => {
         const file = join(dir, `${name}.json`),
           output = join(dir, name);
@@ -50,7 +63,17 @@ for (const id of [4027, 4094])
       );
       const broadcast = structuredClone(world);
       broadcast.messages.push({
-        ...structuredClone(messages[0]),
+        ...(nativeMail
+          ? {
+              msg_type: 'text',
+              body: {
+                content: JSON.stringify({
+                  text: 'Unrequested financial broadcast',
+                }),
+              },
+              create_time: '0',
+            }
+          : structuredClone(messages[0])),
         message_id: 'unrequested-group',
         chat_id: 'oc_C_FIN_ALERTS',
       });
@@ -59,7 +82,14 @@ for (const id of [4027, 4094])
         false,
       );
       const missing = structuredClone(world);
-      missing.messages = missing.messages.filter((m) => old.has(m.message_id));
+      if (nativeMail)
+        missing.mail!.messages = missing.mail!.messages.filter((m: any) =>
+          originalMail.has(m.message_id),
+        );
+      else
+        missing.messages = missing.messages.filter((m) =>
+          old.has(m.message_id),
+        );
       assert.equal(
         (await verify(missing, 'no-notice')).business_success,
         id === 4094,
