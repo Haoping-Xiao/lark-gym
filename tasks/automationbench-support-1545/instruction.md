@@ -1,3 +1,5 @@
-固定2026-02-07，按ss_usage全部政策分类。为消除源7日边界的小时歧义，窗口按UTC自然日期：earliest任意类型事件距今天<=7天完全豁免，feature_use仅近14天含边界；空事件无法确定入门时间，暂不动作。trial>90天或公司名含Beta改用standard阈值，保留原trial标签。追加low/normal/high-usage标签，低使用量给客户邮箱IM并创建tasks(subject含姓名/description含姓名公司和feature_use原计数、14 days/status=Not Started/source_customer_id)。OldCo邮箱域豁免通知/task但仍标签，其他非low只标签。
+固定2026-02-07，按ss_usage全部政策分类。为消除源7日边界的小时歧义，窗口按UTC自然日期：earliest任意类型事件距今天<=7天完全豁免，feature_use仅近14天含边界；空事件无法确定入门时间，暂不动作。trial>90天或公司名含Beta改用standard阈值，保留原trial标签。追加low/normal/high-usage标签，低使用量给客户飞书邮件并创建tasks(subject含姓名/description含姓名公司和feature_use原计数、14 days/status=Not Started/source_customer_id)。OldCo邮箱域豁免通知/task但仍标签，其他非low只标签。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

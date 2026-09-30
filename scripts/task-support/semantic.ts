@@ -258,6 +258,10 @@ export function prepareSemantic(
     if (!mail.semantic_content) continue;
     delete mail.body_contains;
     delete mail.body_not_contains;
+    if (mail.semantic_subject) {
+      delete mail.subject;
+      delete mail.subject_contains;
+    }
   }
 
   if (expected.mail?.length && config.mail_delivery_count === 'unconstrained') {
@@ -1106,7 +1110,11 @@ export function prepareSemantic(
         'messages.optional_requests.business_scope_and_no_redundancy',
       );
   }
-  for (const key of ['forbidden_messages', 'forbidden_records']) {
+  for (const key of [
+    'forbidden_messages',
+    'forbidden_records',
+    'forbidden_mail',
+  ]) {
     expected[key] = (expected[key] || []).filter((check: Json, i: number) => {
       const hasContent = Array.isArray(check.contains)
         ? check.contains.length > 0

@@ -1,3 +1,5 @@
-今天2026-04-07，按Open Enrollment Guidelines与最新life event/更正处理本批Pending；本题将员工关于所选plan的明确更正视作有效更正，不要求不存在的附件。W-2合格者登记benefit_enrollments飞书台账employee_id、employee、plan、coverage_tier、monthly_cost原美元文本、status=Enrolled；来源同步Plan、Coverage Tier、Monthly Cost、Status=Enrolled，并逐人私聊完整方案和金额。1099不办理、不通知、不改记录。
+今天2026-04-07，按Open Enrollment Guidelines与最新life event/更正处理本批Pending；本题将员工关于所选plan的明确更正视作有效更正，不要求不存在的附件。W-2合格者登记benefit_enrollments飞书台账employee_id、employee、plan、coverage_tier、monthly_cost原美元文本、status=Enrolled；来源同步Plan、Coverage Tier、Monthly Cost、Status=Enrolled，并逐人邮件完整方案和金额。1099不办理、不通知、不改记录。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-04-07T09:00:00Z 为时间基准。

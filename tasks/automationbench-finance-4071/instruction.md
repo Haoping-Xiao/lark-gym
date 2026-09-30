@@ -1,3 +1,5 @@
-今天是 2026-02-10。关联 quickbooks_customers 与 Credit Limits，依 AR Management Guidelines 只报告需关注的账户：负余额调查、超限建议暂停、零余额且90日以上无活动列 inactive candidate。向 ar-manager@company.example.com 发飛书私聊，保留账户名、原余额、相关阈值或活动日、原因及建议。源余额字符串照录并可附千位逗号展示；本轮只提建议，不直接停用客户或改余额。
+今天是 2026-02-10。关联 quickbooks_customers 与 Credit Limits，依 AR Management Guidelines 只报告需关注的账户：负余额调查、超限建议暂停、零余额且90日以上无活动列 inactive candidate。向 ar-manager@company.example.com 发飛书邮件，保留账户名、原余额、相关阈值或活动日、原因及建议。源余额字符串照录并可附千位逗号展示；本轮只提建议，不直接停用客户或改余额。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-10T09:00:00Z 为时间基准。

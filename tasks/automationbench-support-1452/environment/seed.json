@@ -457,6 +457,7 @@
         "table_id": "tbl_77b186294697",
         "name": "help_conversations",
         "collection": "help_conversations",
+        "read_only": false,
         "fields": [
           {
             "name": "customer_email",
@@ -486,13 +487,13 @@
             "name": "threads",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_2330fab21dcd",
         "name": "help_customers",
         "collection": "help_customers",
+        "read_only": false,
         "fields": [
           {
             "name": "email",
@@ -506,25 +507,25 @@
             "name": "last_name",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_dbf31b996399",
         "name": "help_mailboxes",
         "collection": "help_mailboxes",
+        "read_only": false,
         "fields": [
           {
             "name": "name",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_1d4750d4390a",
         "name": "jira_issues",
         "collection": "jira_issues",
+        "read_only": false,
         "fields": [
           {
             "name": "conversation_count",
@@ -558,13 +559,13 @@
             "name": "topic",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_281832285f98",
         "name": "成员资料",
         "collection": "lookup_users",
+        "read_only": true,
         "fields": [
           {
             "name": "id",
@@ -582,65 +583,14 @@
             "name": "username",
             "type": "text"
           }
-        ],
-        "read_only": true
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "content-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "noise_user2@cedarpoint.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "noise_user3@tidewaterio.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "noise_user5@ironbark.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "user1@techco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "user2@dataco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "user3@cloudco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "user4@startco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "user5@devco.com",
       "chat_mode": "p2p"
     },
     {
@@ -649,5 +599,15 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": []
+  }
 }

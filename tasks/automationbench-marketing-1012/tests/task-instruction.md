@@ -1,3 +1,5 @@
-今天是 2026-01-27。检查广告账户，在 google_ads_campaigns 飞书台账暂停 CTR 低于 1% 的活动，并处理旧 Holiday 2024 活动的删除请求，先阅读当前投放治理政策。暂停用 status=PAUSED；删除语义为 status=REMOVED，保留历史记录。完成后给 paid-media-ops@company.example.com 发私聊，列出实际暂停项、平均 CTR，以及政策要求说明的未执行删除请求。计算百分比两位小数。
+今天是 2026-01-27。检查广告账户，在 google_ads_campaigns 飞书台账暂停 CTR 低于 1% 的活动，并处理旧 Holiday 2024 活动的删除请求，先阅读当前投放治理政策。暂停用 status=PAUSED；删除语义为 status=REMOVED，保留历史记录。完成后给 paid-media-ops@company.example.com 发邮件，列出实际暂停项、平均 CTR，以及政策要求说明的未执行删除请求。计算百分比两位小数。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-01-27T09:00:00Z 为时间基准。

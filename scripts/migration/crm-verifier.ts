@@ -90,6 +90,11 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  mail_updates?: {
+    message_id: string;
+    remove_labels: string[];
+    add_labels?: string[];
+  }[];
   mail_before_outreach?: {
     to: string;
     record_id?: string;
@@ -230,6 +235,7 @@ const expected: {
     ids?: string[];
     collection?: string;
     all_messages?: boolean;
+    removes_mail_label?: string;
     sent_mail_only?: boolean;
   }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
@@ -381,7 +387,11 @@ const creationChecks = expected.creates.map((fields, index) => {
                   supportContains(String(r.fields[key]), part),
                 )
               : contains[key].every((part) =>
-                  String(r.fields[key]).includes(part),
+                  semantic.creationContainsCaseInsensitive
+                    ? String(r.fields[key])
+                        .toLowerCase()
+                        .includes(part.toLowerCase())
+                    : String(r.fields[key]).includes(part),
                 ))
           : isDeepStrictEqual(r.fields[key], value),
       ),
@@ -1080,7 +1090,42 @@ const mailChecks = (expected.mail || []).map((rule) => {
   if (match) consumedMail.add(match.message_id);
   return { ...rule, message_id: match?.message_id, passed: !!match };
 });
+const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
+  const before = seed.mail?.messages.find(
+    (m: any) => m.message_id === rule.message_id,
+  );
+  const after = world.mail?.messages.find(
+    (m: any) => m.message_id === rule.message_id,
+  );
+  const labels = before
+    ? [
+        ...new Set([
+          ...before.label_ids.filter(
+            (id: string) => !rule.remove_labels.includes(id),
+          ),
+          ...(rule.add_labels || []),
+        ]),
+      ].sort()
+    : [];
+  return {
+    ...rule,
+    passed:
+      !!before &&
+      !!after &&
+      isDeepStrictEqual([...after.label_ids].sort(), labels),
+  };
+});
 const protectedWorld = structuredClone(world);
+for (const rule of expected.mail_updates || []) {
+  const before = seed.mail?.messages.find(
+    (m: any) => m.message_id === rule.message_id,
+  );
+  const after = protectedWorld.mail?.messages.find(
+    (m: any) => m.message_id === rule.message_id,
+  );
+  if (before && after) after.label_ids = structuredClone(before.label_ids);
+}
+
 if (expected.mail && protectedWorld.mail)
   protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
     (m: any) => !consumedMail.has(m.message_id),
@@ -1287,6 +1332,15 @@ const orderChecks = (expected.order_groups || []).map((group) => {
         !(
           mutation.before?.message_state === 3 &&
           mutation.after?.message_state === 2
+        )
+      )
+        continue;
+      if (
+        group.removes_mail_label &&
+        !(
+          mutation.kind === 'mail_message' &&
+          mutation.before?.label_ids?.includes(group.removes_mail_label) &&
+          !mutation.after.label_ids?.includes(group.removes_mail_label)
         )
       )
         continue;
@@ -2541,6 +2595,7 @@ const mailBeforeOutreachChecks = (expected.mail_before_outreach || []).map(
 );
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  mailUpdateChecks.every((c) => c.passed) &&
   mailBeforeOutreachChecks.every((c) => c.passed) &&
   cellsBeforeMailChecks.every((c) => c.passed) &&
   mailChecks.every((c) => c.passed) &&
@@ -2588,6 +2643,7 @@ writeFileSync(
       chatChecks,
       membershipChecks,
       orderChecks,
+      mailUpdateChecks,
       actionPrerequisiteChecks,
       recordStateBeforeUpdateChecks,
       recordStateBeforeMessageChecks,

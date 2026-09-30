@@ -1,3 +1,5 @@
-今天2026-04-15 09:00 UTC，按Exit Interview SOP及优先的involuntary排除规则处理。工作日按周一至周五无额外节假日，从Last Day向前数5个工作日；若该日期已过去但员工尚未离职，本题改排今天15:00 UTC；各会议30分钟，primary日历，summary=Exit interview - 员工名。经理空缺时以HR Director为协调参会人，不伪造经理。对可安排者邀请员工和经理/协调人，并私聊三问预访谈问卷（离职原因、工作体验、改进建议）及会议日期；已离职者仅标Missed并通知HR Director。非自愿者Exempt，不安排不通知，不外发名单。
+今天2026-04-15 09:00 UTC，按Exit Interview SOP及优先的involuntary排除规则处理。工作日按周一至周五无额外节假日，从Last Day向前数5个工作日；若该日期已过去但员工尚未离职，本题改排今天15:00 UTC；各会议30分钟，primary日历，summary=Exit interview - 员工名。经理空缺时以HR Director为协调参会人，不伪造经理。对可安排者邀请员工和经理/协调人，并邮件三问预访谈问卷（离职原因、工作体验、改进建议）及会议日期；已离职者仅标Missed并通知HR Director。非自愿者Exempt，不安排不通知，不外发名单。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

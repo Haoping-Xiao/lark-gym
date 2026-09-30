@@ -8,10 +8,7 @@ import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 test('Real CLI search paginates live messages, enriches details and filters time/chat', async () => {
   const seed = JSON.parse(
-    await readFile(
-      'tasks/automationbench-finance-4001/environment/seed.json',
-      'utf8',
-    ),
+    await readFile('tests/fixtures/im-routing.json', 'utf8'),
   );
   const backend = await startMock(seed);
   const cli = async (args: string[]) =>
@@ -27,7 +24,7 @@ test('Real CLI search paginates live messages, enriches details and filters time
       'im',
       '+messages-send',
       '--chat-id',
-      'oc_mail',
+      'oc_im_primary',
       '--text',
       'search-needle first',
     ]);
@@ -35,7 +32,7 @@ test('Real CLI search paginates live messages, enriches details and filters time
       'im',
       '+messages-send',
       '--chat-id',
-      'oc_mail',
+      'oc_im_primary',
       '--text',
       'search-needle second',
     ]);
@@ -43,7 +40,7 @@ test('Real CLI search paginates live messages, enriches details and filters time
       'im',
       '+messages-send',
       '--chat-id',
-      'oc_email_0',
+      'oc_im_other',
       '--text',
       'search-needle unrelated',
     ]);
@@ -53,7 +50,7 @@ test('Real CLI search paginates live messages, enriches details and filters time
       '--query',
       'search-needle',
       '--chat-id',
-      'oc_mail',
+      'oc_im_primary',
       '--page-size',
       '1',
       '--page-all',

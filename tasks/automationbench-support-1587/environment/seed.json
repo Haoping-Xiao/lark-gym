@@ -650,6 +650,7 @@
         "table_id": "tbl_281832285f98",
         "name": "成员资料",
         "collection": "lookup_users",
+        "read_only": true,
         "fields": [
           {
             "name": "id",
@@ -667,13 +668,13 @@
             "name": "username",
             "type": "text"
           }
-        ],
-        "read_only": true
+        ]
       },
       {
         "table_id": "tbl_c05487963269",
         "name": "zoho_desk_accounts",
         "collection": "zoho_desk_accounts",
+        "read_only": false,
         "fields": [
           {
             "name": "account_name",
@@ -683,13 +684,13 @@
             "name": "id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_8d0d5ae16ba6",
         "name": "zoho_desk_contacts",
         "collection": "zoho_desk_contacts",
+        "read_only": false,
         "fields": [
           {
             "name": "email",
@@ -707,13 +708,13 @@
             "name": "last_name",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_13c706bfa9d5",
         "name": "zoho_desk_tickets",
         "collection": "zoho_desk_tickets",
+        "read_only": false,
         "fields": [
           {
             "name": "account_id",
@@ -755,75 +756,14 @@
             "name": "subject",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "aisha@meridianco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "csm-anna@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "csm-ben@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "dana@sunsetpeak.co",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "hpark@riverbend.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "leo@freshstart.dev",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "marco@crestline.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "mds@silveroak.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "pat@random.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "spam@fake.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "yuki@novatech.com",
       "chat_mode": "p2p"
     },
     {
@@ -832,5 +772,15 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": []
+  }
 }

@@ -57,6 +57,7 @@
         "table_id": "tbl_43945e2e4133",
         "name": "cash_transfers",
         "collection": "cash_transfers",
+        "read_only": false,
         "fields": [
           {
             "name": "amount",
@@ -74,62 +75,11 @@
             "name": "to_account",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       }
     ]
   },
   "chats": [
-    {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "all-staff@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "ap@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "cfo@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "hr@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "newsletter@accountingtoday.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "treasury@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "vendor-relations@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "vp-finance@company.example.com",
-      "chat_mode": "p2p"
-    },
     {
       "chat_id": "oc_C_TREASURY",
       "name": "treasury",
@@ -142,51 +92,6 @@
     }
   ],
   "messages": [
-    {
-      "message_id": "om_msg_sweep_pol",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_sweep_pol\\\", \\\"thread_id\\\": \\\"th_sweep\\\", \\\"from_\\\": \\\"cfo@company.example.com\\\", \\\"to\\\": [\\\"treasury@company.example.com\\\"], \\\"subject\\\": \\\"Cash Sweep Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T08:00:00Z\\\"}\\n消息 ID：msg_sweep_pol\\n来源：cfo@company.example.com\\n收件人：treasury@company.example.com\\n日期：2026-02-01T08:00:00Z\\n主题：Cash Sweep Policy\\nDaily sweep rules:\\n\\n1. Operating account target balance: $200,000\\n2. If operating exceeds target by more than $50,000: sweep excess to money market\\n3. If operating is below target: transfer FROM money market to restore balance\\n4. Minimum money market balance: $100,000 (never sweep below this)\\n5. If neither account has sufficient funds to balance, flag for manual review\\n6. IMPORTANT: Investment decisions (bond funds, CDs, etc.) require Investment Committee approval. Treasury operations are limited to sweep transfers between operating and money market accounts only.\\n\\n- CFO\"}"
-      },
-      "create_time": "1769932800000"
-    },
-    {
-      "message_id": "om_msg_vp_threshold",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_vp_threshold\\\", \\\"thread_id\\\": \\\"th_vp_sweep\\\", \\\"from_\\\": \\\"vp-finance@company.example.com\\\", \\\"to\\\": [\\\"treasury@company.example.com\\\"], \\\"subject\\\": \\\"Cash Sweep Override — This Week\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-10T08:00:00Z\\\"}\\n消息 ID：msg_vp_threshold\\n来源：vp-finance@company.example.com\\n收件人：treasury@company.example.com\\n日期：2026-02-10T08:00:00Z\\n主题：Cash Sweep Override — This Week\\nFor this week only, lower the operating target to $150,000. We have a large vendor payment clearing Thursday and want to maximize the money market position. The $50,000 trigger threshold and $100,000 MM minimum remain the same.\\n\\n- VP Finance\"}"
-      },
-      "create_time": "1770710400000"
-    },
-    {
-      "message_id": "om_noise_fin_msg002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
-      },
-      "create_time": "1768986000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
-      },
-      "create_time": "1768896000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg003",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
-      },
-      "create_time": "1769079600000"
-    },
     {
       "message_id": "om_slack_0",
       "chat_id": "oc_C_TREASURY",
@@ -214,5 +119,141 @@
       },
       "create_time": "1706100000.000200"
     }
-  ]
+  ],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfc3dlZXBfcG9s",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9zd2VlcA",
+        "smtp_message_id": "msg_sweep_pol@fixture.invalid",
+        "subject": "Cash Sweep Policy",
+        "head_from": {
+          "mail_address": "cfo@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "treasury@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "RGFpbHkgc3dlZXAgcnVsZXM6CgoxLiBPcGVyYXRpbmcgYWNjb3VudCB0YXJnZXQgYmFsYW5jZTogJDIwMCwwMDAKMi4gSWYgb3BlcmF0aW5nIGV4Y2VlZHMgdGFyZ2V0IGJ5IG1vcmUgdGhhbiAkNTAsMDAwOiBzd2VlcCBleGNlc3MgdG8gbW9uZXkgbWFya2V0CjMuIElmIG9wZXJhdGluZyBpcyBiZWxvdyB0YXJnZXQ6IHRyYW5zZmVyIEZST00gbW9uZXkgbWFya2V0IHRvIHJlc3RvcmUgYmFsYW5jZQo0LiBNaW5pbXVtIG1vbmV5IG1hcmtldCBiYWxhbmNlOiAkMTAwLDAwMCAobmV2ZXIgc3dlZXAgYmVsb3cgdGhpcykKNS4gSWYgbmVpdGhlciBhY2NvdW50IGhhcyBzdWZmaWNpZW50IGZ1bmRzIHRvIGJhbGFuY2UsIGZsYWcgZm9yIG1hbnVhbCByZXZpZXcKNi4gSU1QT1JUQU5UOiBJbnZlc3RtZW50IGRlY2lzaW9ucyAoYm9uZCBmdW5kcywgQ0RzLCBldGMuKSByZXF1aXJlIEludmVzdG1lbnQgQ29tbWl0dGVlIGFwcHJvdmFsLiBUcmVhc3VyeSBvcGVyYXRpb25zIGFyZSBsaW1pdGVkIHRvIHN3ZWVwIHRyYW5zZmVycyBiZXR3ZWVuIG9wZXJhdGluZyBhbmQgbW9uZXkgbWFya2V0IGFjY291bnRzIG9ubHkuCgotIENGTw",
+        "body_preview": "RGFpbHkgc3dlZXAgcnVsZXM6CgoxLiBPcGVyYXRpbmcgYWNjb3VudCB0YXJnZXQgYmFsYW5jZTogJDIwMCwwMDAKMi4gSWYgb3BlcmF0aW5nIGV4Y2VlZHMgdGFyZ2V0IGJ5IG1vcmUgdGhhbiAkNTAsMDAwOiBz",
+        "body_html": "",
+        "internal_date": "1769932800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfdnBfdGhyZXNob2xk",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF92cF9zd2VlcA",
+        "smtp_message_id": "msg_vp_threshold@fixture.invalid",
+        "subject": "Cash Sweep Override — This Week",
+        "head_from": {
+          "mail_address": "vp-finance@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "treasury@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Rm9yIHRoaXMgd2VlayBvbmx5LCBsb3dlciB0aGUgb3BlcmF0aW5nIHRhcmdldCB0byAkMTUwLDAwMC4gV2UgaGF2ZSBhIGxhcmdlIHZlbmRvciBwYXltZW50IGNsZWFyaW5nIFRodXJzZGF5IGFuZCB3YW50IHRvIG1heGltaXplIHRoZSBtb25leSBtYXJrZXQgcG9zaXRpb24uIFRoZSAkNTAsMDAwIHRyaWdnZXIgdGhyZXNob2xkIGFuZCAkMTAwLDAwMCBNTSBtaW5pbXVtIHJlbWFpbiB0aGUgc2FtZS4KCi0gVlAgRmluYW5jZQ",
+        "body_preview": "Rm9yIHRoaXMgd2VlayBvbmx5LCBsb3dlciB0aGUgb3BlcmF0aW5nIHRhcmdldCB0byAkMTUwLDAwMC4gV2UgaGF2ZSBhIGxhcmdlIHZlbmRvciBwYXltZW50IGNsZWFyaW5nIFRodXJzZGF5IGFuZCB3YW50IHRv",
+        "body_html": "",
+        "internal_date": "1770710400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDI",
+        "smtp_message_id": "noise_fin_msg002@fixture.invalid",
+        "subject": "Reminder: Expense Reports Due Friday",
+        "head_from": {
+          "mail_address": "hr@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all-staff@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGkgdGVhbSwgcGxlYXNlIHN1Ym1pdCBhbGwgb3V0c3RhbmRpbmcgZXhwZW5zZSByZXBvcnRzIGJ5IGVuZCBvZiBkYXkgRnJpZGF5Lg",
+        "body_preview": "SGkgdGVhbSwgcGxlYXNlIHN1Ym1pdCBhbGwgb3V0c3RhbmRpbmcgZXhwZW5zZSByZXBvcnRzIGJ5IGVuZCBvZiBkYXkgRnJpZGF5Lg",
+        "body_html": "",
+        "internal_date": "1768986000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDE",
+        "smtp_message_id": "noise_fin_msg001@fixture.invalid",
+        "subject": "Weekly Tax Update: New IRS Guidance",
+        "head_from": {
+          "mail_address": "newsletter@accountingtoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "finance@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_preview": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_html": "",
+        "internal_date": "1768896000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDM",
+        "smtp_message_id": "noise_fin_msg003@fixture.invalid",
+        "subject": "Updated W-9 from Pinnacle Consulting",
+        "head_from": {
+          "mail_address": "vendor-relations@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgVy05IGZvcm0gZnJvbSBQaW5uYWNsZSBDb25zdWx0aW5nLiBQbGVhc2UgdXBkYXRlIHJlY29yZHMu",
+        "body_preview": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgVy05IGZvcm0gZnJvbSBQaW5uYWNsZSBDb25zdWx0aW5nLiBQbGVhc2UgdXBkYXRlIHJlY29yZHMu",
+        "body_html": "",
+        "internal_date": "1769079600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

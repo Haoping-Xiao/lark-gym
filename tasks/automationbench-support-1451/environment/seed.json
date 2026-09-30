@@ -299,6 +299,7 @@
         "table_id": "tbl_f838e95de93a",
         "name": "intercom_companies",
         "collection": "intercom_companies",
+        "read_only": false,
         "fields": [
           {
             "name": "company_id",
@@ -316,13 +317,13 @@
             "name": "plan",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_340d8a319d78",
         "name": "intercom_contacts",
         "collection": "intercom_contacts",
+        "read_only": false,
         "fields": [
           {
             "name": "company_ids",
@@ -352,13 +353,13 @@
             "name": "tags",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_aab4246ab7fa",
         "name": "intercom_notes",
         "collection": "intercom_notes",
+        "read_only": false,
         "fields": [
           {
             "name": "body",
@@ -368,13 +369,13 @@
             "name": "contact_id",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_4b2516a07b23",
         "name": "intercom_tickets",
         "collection": "intercom_tickets",
+        "read_only": false,
         "fields": [
           {
             "name": "company_id",
@@ -396,13 +397,13 @@
             "name": "title",
             "type": "text"
           }
-        ],
-        "read_only": false
+        ]
       },
       {
         "table_id": "tbl_281832285f98",
         "name": "成员资料",
         "collection": "lookup_users",
+        "read_only": true,
         "fields": [
           {
             "name": "id",
@@ -420,65 +421,14 @@
             "name": "username",
             "type": "text"
           }
-        ],
-        "read_only": true
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "alice@widgetworks.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "ben@dataflow.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "carol@cloudpeak.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "cdubois@apexsys.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "csm-team@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "dan@quickstart.co",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "eve@ghostcorp.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "frank@edgecase.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "swatts@nebulaco.example.com",
       "chat_mode": "p2p"
     },
     {
@@ -487,5 +437,15 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": []
+  }
 }

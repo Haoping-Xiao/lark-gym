@@ -93,6 +93,7 @@
         "table_id": "tbl_281832285f98",
         "name": "成员资料",
         "collection": "lookup_users",
+        "read_only": true,
         "fields": [
           {
             "name": "id",
@@ -106,60 +107,14 @@
             "name": "real_name",
             "type": "text"
           }
-        ],
-        "read_only": true
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "all-staff@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "carlos.reyes@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "david.okonkwo@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "hr-director@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "hr-ops@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "lisa.wang@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "newsletter@shrm.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "priya.sharma@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "social-committee@company.example.com",
+      "chat_id": "oc_user_U_DAVID",
+      "name": "U_DAVID | David Okonkwo",
       "chat_mode": "p2p"
     },
     {
@@ -170,33 +125,6 @@
   ],
   "messages": [
     {
-      "message_id": "om_msg_probation_policy",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_probation_policy\\\", \\\"thread_id\\\": \\\"th_probation_policy\\\", \\\"from_\\\": \\\"hr-director@company.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"Probation Review Policy - Standard Periods\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-15T08:00:00Z\\\"}\\n消息 ID：msg_probation_policy\\n来源：hr-director@company.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-01-15T08:00:00Z\\n主题：Probation Review Policy - Standard Periods\\nTeam,\\n\\nStandard probation review periods:\\n- All new hires: 90-day probation review\\n- Send reminders when within 30 days of the review date\\n- Flag as URGENT if the review date has passed\\n\\nManagers may request extensions on a case-by-case basis. Check with the manager's communication channels for any approved extensions.\\n\\n- HR Director\"}"
-      },
-      "create_time": "1768464000000"
-    },
-    {
-      "message_id": "om_noise_hr_msg004",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_msg004\\\", \\\"thread_id\\\": \\\"noise_hr_th004\\\", \\\"from_\\\": \\\"social-committee@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Spring Social - April 12 RSVP\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-03-05T12:00:00Z\\\"}\\n消息 ID：noise_hr_msg004\\n来源：social-committee@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-03-05T12:00:00Z\\n主题：Spring Social - April 12 RSVP\\nJoin us for our spring social event on April 12! Food trucks, lawn games, and live music.\"}"
-      },
-      "create_time": "1772712000000"
-    },
-    {
-      "message_id": "om_noise_hr_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_msg001\\\", \\\"thread_id\\\": \\\"noise_hr_th001\\\", \\\"from_\\\": \\\"newsletter@shrm.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"SHRM Weekly: New EEOC Guidelines Released\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-20T08:00:00Z\\\"}\\n消息 ID：noise_hr_msg001\\n来源：newsletter@shrm.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-02-20T08:00:00Z\\n主题：SHRM Weekly: New EEOC Guidelines Released\\nThis week in HR: the EEOC has released updated enforcement guidelines for AI-assisted hiring...\"}"
-      },
-      "create_time": "1771574400000"
-    },
-    {
       "message_id": "om_slack_0",
       "chat_id": "oc_C_HRGEN",
       "msg_type": "text",
@@ -205,5 +133,91 @@
       },
       "create_time": "2026-03-10T14:00:00Z"
     }
-  ]
+  ],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfcHJvYmF0aW9uX3BvbGljeQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9wcm9iYXRpb25fcG9saWN5",
+        "smtp_message_id": "msg_probation_policy@fixture.invalid",
+        "subject": "Probation Review Policy - Standard Periods",
+        "head_from": {
+          "mail_address": "hr-director@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGVhbSwKClN0YW5kYXJkIHByb2JhdGlvbiByZXZpZXcgcGVyaW9kczoKLSBBbGwgbmV3IGhpcmVzOiA5MC1kYXkgcHJvYmF0aW9uIHJldmlldwotIFNlbmQgcmVtaW5kZXJzIHdoZW4gd2l0aGluIDMwIGRheXMgb2YgdGhlIHJldmlldyBkYXRlCi0gRmxhZyBhcyBVUkdFTlQgaWYgdGhlIHJldmlldyBkYXRlIGhhcyBwYXNzZWQKCk1hbmFnZXJzIG1heSByZXF1ZXN0IGV4dGVuc2lvbnMgb24gYSBjYXNlLWJ5LWNhc2UgYmFzaXMuIENoZWNrIHdpdGggdGhlIG1hbmFnZXIncyBjb21tdW5pY2F0aW9uIGNoYW5uZWxzIGZvciBhbnkgYXBwcm92ZWQgZXh0ZW5zaW9ucy4KCi0gSFIgRGlyZWN0b3I",
+        "body_preview": "VGVhbSwKClN0YW5kYXJkIHByb2JhdGlvbiByZXZpZXcgcGVyaW9kczoKLSBBbGwgbmV3IGhpcmVzOiA5MC1kYXkgcHJvYmF0aW9uIHJldmlldwotIFNlbmQgcmVtaW5kZXJzIHdoZW4gd2l0aGluIDMwIGRheXMg",
+        "body_html": "",
+        "internal_date": "1768464000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9ocl9tc2cwMDQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9ocl90aDAwNA",
+        "smtp_message_id": "noise_hr_msg004@fixture.invalid",
+        "subject": "Spring Social - April 12 RSVP",
+        "head_from": {
+          "mail_address": "social-committee@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all-staff@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Sm9pbiB1cyBmb3Igb3VyIHNwcmluZyBzb2NpYWwgZXZlbnQgb24gQXByaWwgMTIhIEZvb2QgdHJ1Y2tzLCBsYXduIGdhbWVzLCBhbmQgbGl2ZSBtdXNpYy4",
+        "body_preview": "Sm9pbiB1cyBmb3Igb3VyIHNwcmluZyBzb2NpYWwgZXZlbnQgb24gQXByaWwgMTIhIEZvb2QgdHJ1Y2tzLCBsYXduIGdhbWVzLCBhbmQgbGl2ZSBtdXNpYy4",
+        "body_html": "",
+        "internal_date": "1772712000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9ocl90aDAwMQ",
+        "smtp_message_id": "noise_hr_msg001@fixture.invalid",
+        "subject": "SHRM Weekly: New EEOC Guidelines Released",
+        "head_from": {
+          "mail_address": "newsletter@shrm.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrIGluIEhSOiB0aGUgRUVPQyBoYXMgcmVsZWFzZWQgdXBkYXRlZCBlbmZvcmNlbWVudCBndWlkZWxpbmVzIGZvciBBSS1hc3Npc3RlZCBoaXJpbmcuLi4",
+        "body_preview": "VGhpcyB3ZWVrIGluIEhSOiB0aGUgRUVPQyBoYXMgcmVsZWFzZWQgdXBkYXRlZCBlbmZvcmNlbWVudCBndWlkZWxpbmVzIGZvciBBSS1hc3Npc3RlZCBoaXJpbmcuLi4",
+        "body_html": "",
+        "internal_date": "1771574400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

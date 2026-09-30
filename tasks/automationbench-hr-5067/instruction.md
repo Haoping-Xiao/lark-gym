@@ -1,3 +1,5 @@
-从HR Committee今天的Decisions登记已决定事项和通知Owner；Tabled是暂缓讨论，不建立执行页面、不通知。Notion页面改为committee_decisions飞书台账，字段title原Decision、owner、owner_email、deadline、priority；私聊Owner列原决定、Deadline的ISO及英文Month Day、Priority和责任。
+从HR Committee今天的Decisions登记已决定事项和通知Owner；Tabled是暂缓讨论，不建立执行页面、不通知。Notion页面改为committee_decisions飞书台账，字段title原Decision、owner、owner_email、deadline、priority；邮件Owner列原决定、Deadline的ISO及英文Month Day、Priority和责任。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-03-20T15:00:00Z 为时间基准。

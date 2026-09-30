@@ -42,7 +42,10 @@ test('Recording notes accept natural titles while retaining links and recipients
     ]) {
       const cs = structuredClone(original),
         note = cs.find((c) => c[1] === '+record-upsert'),
-        msgs = cs.filter((c) => c[1] === '+messages-send'),
+        msgs = cs.filter(
+          (c) =>
+            c[1] === '+messages-send' || (c[0] === 'mail' && c[1] === '+send'),
+        ),
         change = (c, f) => {
           let o = JSON.parse(c.at(-1));
           f(o);
@@ -73,13 +76,14 @@ test('Recording notes accept natural titles while retaining links and recipients
         );
       if (mode === 'missing_cc') cs.splice(cs.indexOf(msgs[1]), 1);
       if (mode === 'external_discovery')
-        msgs[5][msgs[5].indexOf('--chat-id') + 1] = 'oc_email_83';
+        msgs[5][msgs[5].indexOf('--to') + 1] =
+          'p.prospect@techstart.example.com';
       if (mode === 'optout_training')
-        msgs[4][msgs[4].indexOf('--chat-id') + 1] = 'oc_email_32';
+        msgs[4][msgs[4].indexOf('--to') + 1] = 'd.optout@customer.example.com';
       if (mode === 'old_meeting') {
         const c = structuredClone(msgs[0]);
-        c[c.indexOf('--chat-id') + 1] = 'oc_email_16';
-        c[c.length - 1] =
+        c[c.indexOf('--to') + 1] = 'b.contact@bluesky.example.com';
+        c[c.indexOf('--body') + 1] =
           'Recording: Product Demo - BlueSky Corp\nhttps://zoom.us/rec/mtg_old_demo_002';
         cs.push(c);
       }

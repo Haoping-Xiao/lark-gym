@@ -1,3 +1,5 @@
-按最新career fair物流消息协调，先核对已有venue确认，勿重复预订或违反采购冻结。Trello源仅有Card ID，给现有卡的comment改为card_comments飞书台账card_id、comment，不创建新卡。每位comment列Recruiter、Booth、Role、活动日期时间和prep checklist；清单补定为准备岗位介绍、候选人登记及角色材料，休假者只注明leave/replacement needed，不当作已排班。向Facilities私聊复核现有venue、confirmation number、capacity、活动日期时间，不发swag采购。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。
+按最新career fair物流消息协调，先核对已有venue确认，勿重复预订或违反采购冻结。Trello源仅有Card ID，给现有卡的comment改为card_comments飞书台账card_id、comment，不创建新卡。每位comment列Recruiter、Booth、Role、活动日期时间和prep checklist；清单补定为准备岗位介绍、候选人登记及角色材料，休假者只注明leave/replacement needed，不当作已排班。向Facilities邮件复核现有venue、confirmation number、capacity、活动日期时间，不发swag采购。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-04-07T09:00:00Z 为时间基准。

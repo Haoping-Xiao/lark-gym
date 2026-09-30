@@ -7,12 +7,7 @@ import { resolve } from 'node:path';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
 const seed = async () =>
-  JSON.parse(
-    await readFile(
-      'tasks/automationbench-hr-5039/environment/seed.json',
-      'utf8',
-    ),
-  );
+  JSON.parse(await readFile('tests/fixtures/im-routing.json', 'utf8'));
 const cli = async (url: string, ...args: string[]) =>
   JSON.parse(
     (

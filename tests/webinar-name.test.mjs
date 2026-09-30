@@ -43,7 +43,11 @@ test('Webinar opportunity name preserves company and event without fixed orderin
       'wrong_company_case',
     ]) {
       const cs = structuredClone(original),
-        c = cs[12],
+        c = cs.find(
+          (c) =>
+            c[1] === '+record-upsert' &&
+            JSON.parse(c.at(-1)).stage === 'Discovery',
+        ),
         o = JSON.parse(c.at(-1));
       if (mode === 'lower_name')
         o.name = 'ai innovation summit — big enterprise corp';
@@ -64,14 +68,24 @@ test('Webinar opportunity name preserves company and event without fixed orderin
       if (mode === 'wrong_source') o.source = 'Other Webinar';
       c[c.length - 1] = JSON.stringify(o);
       if (mode === 'small_lead') {
-        let x = JSON.parse(cs[10].at(-1));
+        const lead = cs.find(
+          (c) =>
+            c[1] === '+record-upsert' &&
+            JSON.parse(c.at(-1)).email === 'vp@bigenterprise.example.com',
+        );
+        let x = JSON.parse(lead.at(-1));
         x.email = 'ceo@smallco.example.com';
-        cs[10][cs[10].length - 1] = JSON.stringify(x);
+        lead[lead.length - 1] = JSON.stringify(x);
       }
       if (mode === 'wrong_title') {
-        let x = JSON.parse(cs[10].at(-1));
+        const lead = cs.find(
+          (c) =>
+            c[1] === '+record-upsert' &&
+            JSON.parse(c.at(-1)).email === 'vp@bigenterprise.example.com',
+        );
+        let x = JSON.parse(lead.at(-1));
         x.title = 'CEO';
-        cs[10][cs[10].length - 1] = JSON.stringify(x);
+        lead[lead.length - 1] = JSON.stringify(x);
       }
       const b = await startMock(seed);
       try {

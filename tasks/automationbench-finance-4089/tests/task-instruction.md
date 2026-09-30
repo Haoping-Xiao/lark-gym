@@ -1,3 +1,5 @@
-今天是 2026-02-15。按 Requirements 检查 Active 供应商保险有效期及最低保障，Inactive 完全跳过。30日内到期和已过期者逐人发飞书私聊要求更新证书；过期者 Status=Non-Compliant，并在现有 Payment Hold 列的对应单元格写 Yes。向 vendor-management 群及 compliance@company.example.com 分别报告所有本轮Active供应商 Vendor | Expiry | Coverage | Compliant/Expiring within 30 days/Non-Compliant，冻结付款者补 Payment Hold Yes。其他源行不动。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。
+今天是 2026-02-15。按 Requirements 检查 Active 供应商保险有效期及最低保障，Inactive 完全跳过。30日内到期和已过期者逐人发飞书邮件要求更新证书；过期者 Status=Non-Compliant，并在现有 Payment Hold 列的对应单元格写 Yes。向 vendor-management 群及 compliance@company.example.com 分别报告所有本轮Active供应商 Vendor | Expiry | Coverage | Compliant/Expiring within 30 days/Non-Compliant，冻结付款者补 Payment Hold Yes。其他源行不动。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-15T09:00:00Z 为时间基准。
