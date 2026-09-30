@@ -97,7 +97,8 @@ for (const n of [
           );
           assert.equal(rejected.business_success, false);
           assert.equal(
-            rejected.messageChecks.filter((c: any) => !c.passed).length,
+            rejected.semantic.literalMessageChecks.filter((c: any) => !c.passed)
+              .length,
             1,
           );
         } finally {

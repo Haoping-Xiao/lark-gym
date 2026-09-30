@@ -34,21 +34,34 @@ test('Lead classification pairs must be valid when mail is marked read', async (
     'score_restored_before',
   ]) {
     const cs = structuredClone(original),
+      creates = cs.filter((c) => c[1] === '+record-upsert'),
+      allNotices = cs.filter((c) => c[1] === '+messages-send'),
+      notices = allNotices.slice(0, -1),
+      marks = cs.filter(
+        (c) => c[1] === 'user_mailbox.messages' && c[2] === 'modify',
+      ),
+      summary = allNotices.at(-1),
+      reads = cs.filter(
+        (c) =>
+          !creates.includes(c) && !allNotices.includes(c) && !marks.includes(c),
+      ),
       get = (c) => JSON.parse(c.at(-1)),
       put = (c, o) => (c[c.length - 1] = JSON.stringify(o)),
-      cold = get(cs[6]);
+      cold = get(creates[2]);
     if (['cold_exploring', 'both_variants', 'exploring_two'].includes(mode)) {
       cold.budget_signal = 'exploring';
       cold.score = mode === 'exploring_two' ? 2 : 3;
     }
     if (mode === 'unknown_three') cold.score = 3;
-    put(cs[6], cold);
+    put(creates[2], cold);
     if (mode === 'both_variants') {
-      const o = get(cs[5]);
+      const o = get(creates[1]);
       o.urgency = 'low';
       o.score = 7;
-      put(cs[5], o);
-      cs[8][cs[8].length - 1] = cs[8].at(-1).replace('score=8', 'score=7');
+      put(creates[1], o);
+      notices[1][notices[1].length - 1] = notices[1]
+        .at(-1)
+        .replace('score=8', 'score=7');
     }
     const b = await startMock(seed);
     try {
@@ -58,7 +71,7 @@ test('Lead classification pairs must be valid when mail is marked read', async (
           maxBuffer: 8e6,
         });
       if (['wrong_score_at_read', 'score_restored_before'].includes(mode)) {
-        for (const c of cs.slice(0, 9)) await run(c);
+        for (const c of [...reads, ...creates, ...notices]) await run(c);
         const mutation = b.calls
           .flatMap((c) => c.mutations || [])
           .find(
@@ -70,7 +83,7 @@ test('Lead classification pairs must be valid when mail is marked read', async (
         if (!mutation) throw Error('Tom id');
         const patch = (score) =>
           run([
-            ...cs[5].slice(0, cs[5].indexOf('--json')),
+            ...creates[1].slice(0, creates[1].indexOf('--json')),
             '--record-id',
             mutation.id,
             '--json',
@@ -78,9 +91,9 @@ test('Lead classification pairs must be valid when mail is marked read', async (
           ]);
         await patch(7);
         if (mode === 'score_restored_before') await patch(8);
-        for (const c of cs.slice(9, 12)) await run(c);
+        for (const c of marks) await run(c);
         if (mode === 'wrong_score_at_read') await patch(8);
-        await run(cs[12]);
+        await run(summary);
       } else for (const c of cs) await run(c);
       if (b.calls.some((c) => c.status >= 400)) throw Error(mode);
       await fs.writeFile(

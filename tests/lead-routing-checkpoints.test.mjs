@@ -37,11 +37,17 @@ test('Lead routing accepts coherent classification pairs and per-source completi
     'restored_before_read',
   ]) {
     const cs = structuredClone(original),
-      reads = cs.slice(0, 4),
-      creates = cs.slice(4, 7),
-      notices = cs.slice(7, 9),
-      marks = cs.slice(9, 12),
-      summary = cs[12];
+      creates = cs.filter((c) => c[1] === '+record-upsert'),
+      allNotices = cs.filter((c) => c[1] === '+messages-send'),
+      notices = allNotices.slice(0, -1),
+      marks = cs.filter(
+        (c) => c[1] === 'user_mailbox.messages' && c[2] === 'modify',
+      ),
+      summary = allNotices.at(-1),
+      reads = cs.filter(
+        (c) =>
+          !creates.includes(c) && !allNotices.includes(c) && !marks.includes(c),
+      );
     let commands = cs;
     const o = JSON.parse(creates[1].at(-1));
     if (

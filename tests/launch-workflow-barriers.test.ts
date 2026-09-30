@@ -22,12 +22,16 @@ test('launch coordination precedes execution and summary follows all required ac
     vm.runInNewContext(block + '\nJSON.stringify(commands)'),
   );
   const e = JSON.parse(await readFile(task + '/tests/expected.json', 'utf8')),
-    summaryChat = e.messages.at(-1).chat_id;
+    summaryChat = e.mail.at(-1).to[0];
   const chat = (c: string[]) =>
-    c[1] === '+messages-send' ? c[c.indexOf('--chat-id') + 1] : '';
+    c[1] === '+send'
+      ? c[c.indexOf('--to') + 1]
+      : c[1] === '+messages-send'
+        ? c[c.indexOf('--chat-id') + 1]
+        : '';
   const text = (cmd: string[], t: string) => {
     const c = structuredClone(cmd);
-    c[c.indexOf('--text') + 1] = t;
+    c[c.indexOf(c[1] === '+send' ? '--body' : '--text') + 1] = t;
     return c;
   };
   try {
@@ -46,7 +50,9 @@ test('launch coordination precedes execution and summary follows all required ac
     ]) {
       let commands = structuredClone(original),
         coord = commands.find((c) => chat(c) === 'oc_C_lnch')!,
-        review = commands.find((c) => chat(c) === 'oc_email_4')!,
+        review = commands.find(
+          (c) => chat(c) === 'content-team@company.example.com',
+        )!,
         summary = commands.find((c) => chat(c) === summaryChat)!,
         email = commands.find(
           (c) => chat(c) && c !== coord && c !== review && c !== summary,
@@ -61,7 +67,7 @@ test('launch coordination precedes execution and summary follows all required ac
       if (['split_coord', 'split_both', 'partial_coord_late'].includes(mode))
         commands.splice(commands.indexOf(coord), 1, ...split);
       if (mode === 'split_both') {
-        const lines = review.at(-1)!.split('\n').slice(1);
+        const lines = review[review.indexOf('--body') + 1].split('\n').slice(1);
         commands.splice(
           commands.indexOf(review),
           1,
@@ -95,15 +101,16 @@ test('launch coordination precedes execution and summary follows all required ac
         commands.splice(idx, 0, summary);
       }
       if (mode === 'missing_reapproval')
-        review[review.indexOf('--text') + 1] = review
-          .at(-1)!
+        review[review.indexOf('--body') + 1] = review[
+          review.indexOf('--body') + 1
+        ]
           .split('\n')
           .filter((l) => !l.includes('LC-005'))
           .join('\n');
       if (mode === 'duplicate_coord')
         commands.splice(commands.indexOf(coord) + 1, 0, structuredClone(coord));
       if (mode === 'alter_title')
-        email[email.indexOf('--text') + 1] = 'A First Look at Prism 2.0';
+        email[email.indexOf('--body') + 1] = 'A First Look at Prism 2.0';
       const backend = await startMock(seed);
       try {
         for (const args of commands)

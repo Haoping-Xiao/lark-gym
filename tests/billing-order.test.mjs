@@ -40,9 +40,16 @@ test('retry counters change only after each contact receives every required noti
       let commands = structuredClone(original),
         reads = commands.filter(
           (c) =>
-            !['+record-upsert', '+messages-send', '+cells-set'].includes(c[1]),
+            ![
+              '+record-upsert',
+              '+messages-send',
+              '+send',
+              '+cells-set',
+            ].includes(c[1]),
         ),
-        messages = commands.filter((c) => c[1] === '+messages-send'),
+        messages = commands.filter((c) =>
+          ['+messages-send', '+send'].includes(c[1]),
+        ),
         updates = commands.filter((c) => c[1] === '+record-upsert'),
         cells = commands.filter((c) => c[1] === '+cells-set'),
         groups = [
@@ -86,9 +93,9 @@ test('retry counters change only after each contact receives every required noti
         updates[0][updates[0].indexOf('--json') + 1] =
           '{"payment_retry_count":3}';
       if (mode === 'wrong_email')
-        messages[2][messages[2].indexOf('--text') + 1] = messages[2]
-          .at(-1)
-          .replace('user@smallbiz.example.com', 'other@example.com');
+        messages[2][messages[2].indexOf('--body') + 1] = messages[2][
+          messages[2].indexOf('--body') + 1
+        ].replace('user@smallbiz.example.com', 'other@example.com');
       if (mode === 'missing_log')
         commands = commands.filter((c) => !cells.slice(10).includes(c));
       if (mode === 'excluded_update') {

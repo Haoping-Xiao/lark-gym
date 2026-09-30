@@ -1,3 +1,7 @@
-按Email Routing Policy处理当前未读来信，agent依据正文（包括讽刺）做原ChatGPT情绪判断；已读不重复。需升级的邮件私聊manager，首行以[ESCALATION]加原subject，保留原sender与全文。标签和已读状态改写mail_messages台账：保留其他label_ids，去掉UNREAD，按政策添加标签ID；数组字段保存JSON文本。处理完成再is_read=true，并在email-routing报processed及各路由数量，不能直接回复客户。
+按Email Routing Policy处理当前未读来信，agent依据正文（包括讽刺）做原ChatGPT情绪判断；已读不重复。需升级的邮件邮件manager，首行以[ESCALATION]加原subject，保留原sender与全文。直接修改飞书邮箱中的标签和已读状态：保留其他标签，按政策添加邮箱中对应的标签ID；完成处理后再标为已读，并在email-routing报processed及各路由数量，不能直接回复客户。
+
+来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。
+
+邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。

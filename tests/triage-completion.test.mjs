@@ -37,35 +37,20 @@ test('Email read completion requires its own escalation and applied labels', asy
     'failed_escalation',
   ]) {
     const cs = structuredClone(original),
-      reads = cs.slice(0, 3),
-      notices = cs.slice(3, 5),
-      updates = cs.slice(5, 10),
-      summary = cs[10],
-      get = (c) => JSON.parse(c.at(-1)),
-      put = (c, v) => (c[c.length - 1] = JSON.stringify(v));
+      notices = cs.filter((c) => c[0] === 'mail' && c[1] === '+send'),
+      updates = cs.filter(
+        (c) => c[1] === 'user_mailbox.messages' && c[2] === 'modify',
+      ),
+      summary = cs.find((c) => c[1] === '+messages-send'),
+      reads = cs.filter(
+        (c) => !notices.includes(c) && !updates.includes(c) && c !== summary,
+      ),
+      get = (c) => JSON.parse(c[c.indexOf('--data') + 1]),
+      put = (c, v) => (c[c.indexOf('--data') + 1] = JSON.stringify(v));
     let commands = cs;
-    if (
-      [
-        'spaced',
-        'reversed_labels',
-        'missing_inbox',
-        'unread_retained',
-        'wrong_label',
-        'invalid_json',
-        'duplicate_label',
-      ].includes(mode)
-    ) {
+    if (mode === 'spaced') {
       const o = get(updates[1]);
-      if (mode === 'spaced') o.label_ids = '[ "INBOX", "lbl_happy" ]';
-      if (mode === 'reversed_labels') o.label_ids = '["lbl_happy","INBOX"]';
-      if (mode === 'missing_inbox') o.label_ids = '["lbl_happy"]';
-      if (mode === 'unread_retained')
-        o.label_ids = '["INBOX","UNREAD","lbl_happy"]';
-      if (mode === 'wrong_label') o.label_ids = '["INBOX","lbl_standard"]';
-      if (mode === 'invalid_json') o.label_ids = 'not-json';
-      if (mode === 'duplicate_label')
-        o.label_ids = '["INBOX","lbl_happy","lbl_happy"]';
-      put(updates[1], o);
+      updates[1][updates[1].indexOf('--data') + 1] = JSON.stringify(o, null, 2);
     }
     if (mode === 'positive_first')
       commands = [
@@ -107,21 +92,24 @@ test('Email read completion requires its own escalation and applied labels', asy
         const o = get(c),
           label = structuredClone(c),
           read = structuredClone(c);
-        put(label, { label_ids: o.label_ids });
-        put(read, { is_read: 'true' });
+        put(label, {
+          add_label_ids: o.add_label_ids,
+          remove_label_ids: o.remove_label_ids.filter((x) => x !== 'UNREAD'),
+        });
+        put(read, { remove_label_ids: ['UNREAD'] });
         return mode === 'early_label' ? [read, label] : [label, read];
       });
       commands = [...reads, ...notices, ...split.flat(), summary];
     }
     if (mode === 'missing_original')
-      notices[1][notices[1].length - 1] =
+      notices[1][notices[1].indexOf('--body') + 1] =
         '[ESCALATION] Wonderful experience with your support team\nFrom: frustrated@customer.example.com\nCustomer was unhappy.';
     if (mode === 'wrong_summary')
       summary[summary.length - 1] =
         '5 processed | 1 escalation | happy-customer=3 | standard-inquiry=1';
     if (mode === 'failed_escalation') {
       const bad = structuredClone(notices[1]);
-      bad[bad.indexOf('--chat-id') + 1] = 'oc_missing';
+      bad[bad.indexOf('--mailbox') + 1] = 'missing@invalid.example';
       commands = [
         ...reads,
         notices[0],
@@ -144,7 +132,10 @@ test('Email read completion requires its own escalation and applied labels', asy
             maxBuffer: 8e6,
           });
         } catch (e) {
-          if (mode !== 'failed_escalation' || !c.includes('oc_missing'))
+          if (
+            mode !== 'failed_escalation' ||
+            !c.includes('missing@invalid.example')
+          )
             throw e;
         }
       }

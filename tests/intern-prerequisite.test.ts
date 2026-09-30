@@ -22,15 +22,17 @@ test('Conditional onboarding requires a complete Legal notice only for that inte
     vm.runInNewContext(block + '\nJSON.stringify(commands)'),
   );
   const records = original.filter((c) => c[1] === '+record-upsert'),
-    messages = original.filter((c) => c[1] === '+messages-send'),
+    messages = original.filter((c) =>
+      ['+messages-send', '+send'].includes(c[1]),
+    ),
     reads = original.filter(
-      (c) => !['+record-upsert', '+messages-send'].includes(c[1]),
+      (c) => !['+record-upsert', '+messages-send', '+send'].includes(c[1]),
     );
   const legal = messages[0],
     clear = messages.slice(1, 5),
     taylor = messages.slice(5);
   const partial = structuredClone(legal);
-  partial[partial.indexOf('--text') + 1] = 'Taylor Kim | Conditional';
+  partial[partial.indexOf('--body') + 1] = 'Taylor Kim | Conditional';
   const cases: [string, string[][], boolean][] = [
     ['reference', original, true],
     [

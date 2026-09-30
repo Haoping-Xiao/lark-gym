@@ -18,7 +18,7 @@ for (const n of [1610])
       dir = await mkdtemp(join(tmpdir(), 'support-group-')),
       backend = await startMock(seed);
     try {
-      const transform = `const changed=commands.flatMap(a=>{if(a[0]!=='im'||a[1]!=='+messages-send'||a[a.indexOf('--chat-id')+1]!=='oc_email_4')return[a];const p=a.indexOf('--text')+1;return a[p].split('\\n').filter(l=>l.startsWith('LC-')).map(t=>{const b=[...a];b[p]='请重审以下过期内容：\\n'+t;return b;});});`;
+      const transform = `const changed=commands.flatMap(a=>{if(a[0]!=='mail'||a[1]!=='+send'||a[a.indexOf('--to')+1]!=='content-team@company.example.com')return[a];const p=a.indexOf('--body')+1;return a[p].split('\\n').filter(l=>l.startsWith('LC-')).map(t=>{const b=[...a];b[p]='请重审以下过期内容：\\n'+t;return b;});});`;
 
       const file = join(dir, 'solve.ts');
       await writeFile(
@@ -47,11 +47,27 @@ for (const n of [1610])
         await readFile(join(output, 'result.json'), 'utf8'),
       );
       assert.equal(result.business_success, true);
-      assert.deepEqual(result.semantic.original.message_count_chats, scopes[n]);
+      assert.deepEqual(
+        result.semantic.original.message_count_chats,
+        scopes[n].filter((x) => !x.startsWith('oc_email_')),
+      );
       const old = new Set(seed.messages.map((m: any) => m.message_id));
       const sent = backend.world.messages.filter((m) => !old.has(m.message_id));
-      assert.equal(sent.length, 6);
-      assert.equal(sent.filter((m) => m.chat_id === 'oc_email_4').length, 3);
+      const sentMail = backend.world.mail!.messages.filter(
+        (m) =>
+          m.message_state === 2 &&
+          !seed.mail.messages.some((x: any) => x.message_id === m.message_id),
+      );
+      assert.equal(sent.length + sentMail.length, 6);
+      assert.equal(
+        sentMail.filter((m) =>
+          m.to.some(
+            (a: { mail_address: string }) =>
+              a.mail_address === 'content-team@company.example.com',
+          ),
+        ).length,
+        3,
+      );
     } finally {
       await backend.close();
       await rm(dir, { recursive: true, force: true });

@@ -81,7 +81,7 @@ test('Meeting prep titles use the required marker and preserve escalation constr
       if (mode === 'merged_vip')
         hv[hv.length - 1] += ' Linda Wong SmallBiz $30,000 也按 VIP 升级';
       if (mode === 'wrong_summary')
-        summary[summary.indexOf('--chat-id') + 1] = 'oc_email_83';
+        summary[summary.indexOf('--to') + 1] = 'sales@company.example.com';
       if (mode === 'cancelled_note') {
         const c = structuredClone(rs[0]);
         change(c, (o) => {

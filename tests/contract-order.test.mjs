@@ -48,9 +48,9 @@ test('Contracts preserve signer structure and per-opportunity notification order
           (c) => c[1] === '+record-upsert' && !c.includes('--record-id'),
         ),
         updates = cs.filter((c) => c.includes('--record-id')),
-        msgs = cs.filter((c) => c[1] === '+messages-send'),
-        reads = cs.filter(
-          (c) => c[1] === '+record-list' || c[1] === '+chat-messages-list',
+        msgs = cs.filter((c) => ['+messages-send', '+send'].includes(c[1])),
+        reads = cs.filter((c) =>
+          ['+record-list', '+chat-messages-list', '+messages'].includes(c[1]),
         ),
         change = (c, f) => {
           let o = JSON.parse(c.at(-1));
@@ -128,7 +128,7 @@ test('Contracts preserve signer structure and per-opportunity notification order
         cs.splice(cs.indexOf(creates[0]), 0, msgs[0]);
       }
       if (mode === 'wrong_recipient')
-        msgs[1][msgs[1].indexOf('--chat-id') + 1] = 'oc_email_32';
+        msgs[1][msgs[1].indexOf('--to') + 1] = 'wrong-recipient@example.com';
       const b = await startMock(seed);
       try {
         for (const c of cs)

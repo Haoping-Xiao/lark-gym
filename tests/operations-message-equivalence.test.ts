@@ -25,7 +25,16 @@ for (const n of [1302, 1334, 1339, 1346, 1351, 1361])
       dir = await mkdtemp(join(tmpdir(), 'operations-group-')),
       backend = await startMock(seed);
     try {
-      const transform = `const changed=[],seen=new Map(),scope=${JSON.stringify(scopes[n])};for(const a of commands){if(a[0]==='im'&&a[1]==='+messages-send'){const id=a[a.indexOf('--chat-id')+1],p=a.indexOf('--text')+1;if(scope.includes(id)){if(${n}===1334){for(const t of a[p].split('\\n')){const b=[...a];b[p]=t;changed.push(b);}continue;}if(seen.has(id)){const b=seen.get(id);b[b.indexOf('--text')+1]+='\\n\\n'+a[p];continue;}seen.set(id,a);}}changed.push(a);}`;
+      const cfg = JSON.parse(
+        await readFile(`${root}/tests/semantic-config.json`, 'utf8'),
+      );
+      const expected = JSON.parse(
+        await readFile(`${root}/tests/expected.json`, 'utf8'),
+      );
+      const mailScope = (expected.mail || [])
+        .filter((r: any) => r.aggregate)
+        .flatMap((r: any) => r.to);
+      const transform = `const changed=[],seen=new Map(),scope=${JSON.stringify([...(cfg.message_count_chats || []), ...mailScope])};for(const a of commands){const mail=a[0]==='mail'&&a[1]==='+send';if(mail||(a[0]==='im'&&a[1]==='+messages-send')){const id=a[a.indexOf(mail?'--to':'--chat-id')+1],p=a.indexOf(mail?'--body':'--text')+1;if(scope.includes(id)){if(${n}===1334){for(const t of a[p].split('\\n')){const b=[...a];b[p]=t;changed.push(b);}continue;}if(seen.has(id)){const b=seen.get(id);b[p]+='\\n\\n'+a[p];continue;}seen.set(id,a);}}changed.push(a);}`;
       const file = join(dir, 'solve.ts');
       await writeFile(
         file,
@@ -53,7 +62,10 @@ for (const n of [1302, 1334, 1339, 1346, 1351, 1361])
         await readFile(join(output, 'result.json'), 'utf8'),
       );
       assert.equal(result.business_success, true);
-      assert.deepEqual(result.semantic.original.message_count_chats, scopes[n]);
+      assert.deepEqual(
+        result.semantic.original.message_count_chats,
+        scopes[n].filter((x) => !x.startsWith('oc_email_')),
+      );
       const old = new Set(seed.messages.map((m: any) => m.message_id));
       const sent = backend.world.messages.filter((m) => !old.has(m.message_id));
       assert.notEqual(sent.length, result.semantic.original.messages.length);

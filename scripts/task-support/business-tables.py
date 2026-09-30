@@ -37,7 +37,7 @@ for task in sorted((ROOT/'tasks').glob('automationbench-*')):
                 data.pop('collection',None);new[args.index('--json')+1]=json.dumps(data,ensure_ascii=False)
             updated.append(new)
         else: raise ValueError((task.name,args))
-    p.write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(updated,ensure_ascii=False,indent=2)+";\nfor (const args of commands) execFileSync(process.env.LARK_CLI || 'lark-cli', args, { stdio: 'inherit' });\n")
+    p.write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(updated,ensure_ascii=False,indent=2)+";"+source[b+1:])
     instruction=task/'instruction.md';text=instruction.read_text()
     text=re.sub(r'[，。]collection 为 [^。]+。','。',text)
     text=text.replace('原业务表映射为同名 collection。','')

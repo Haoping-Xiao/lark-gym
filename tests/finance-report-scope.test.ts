@@ -27,7 +27,7 @@ for (const id of [4027, 4094])
       const world = structuredClone(backend.world);
       const old = new Set(seed.messages.map((m: any) => m.message_id));
       const messages = world.messages.filter((m) => !old.has(m.message_id));
-      const nativeMail = id === 4027;
+      const nativeMail = true;
       const originalMail = new Set(
         (seed.mail?.messages || []).map((m: any) => m.message_id),
       );
@@ -39,7 +39,11 @@ for (const id of [4027, 4094])
         assert.equal(sent.length, 1);
         assert.deepEqual(
           sent[0].to.map((a: any) => a.mail_address),
-          ['controller@company.example.com'],
+          [
+            id === 4027
+              ? 'controller@company.example.com'
+              : 'cfo@company.example.com',
+          ],
         );
       } else {
         assert.equal(messages.length, 1);
@@ -104,8 +108,8 @@ for (const id of [4027, 4094])
           (r) => r.fields.ratio !== 'DSCR',
         );
         const repeated = structuredClone(world);
-        repeated.messages.push({
-          ...structuredClone(messages[0]),
+        repeated.mail!.messages.push({
+          ...structuredClone(sent[0]),
           message_id: 'duplicate-notice',
         });
         assert.equal(

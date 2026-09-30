@@ -7,14 +7,7 @@ import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { startMock } from '../gyms/lark-cli/src/server.ts';
 const exec = promisify(execFile);
-for (const name of [
-  'sales-105',
-  'sales-104',
-  'marketing-1166',
-  'operations-1315',
-  'operations-1308',
-  'operations-1282',
-])
+for (const name of ['operations-1315', 'operations-1308', 'operations-1282'])
   test(`${name}: created or updated tag JSON preserves business membership`, async () => {
     const root = `tasks/automationbench-${name}`,
       seed = JSON.parse(
@@ -75,6 +68,54 @@ for (const name of [
           JSON.parse(await readFile(join(output, 'result.json'), 'utf8'))
             .business_success,
           mode === 'equivalent',
+          mode,
+        );
+      }
+    } finally {
+      await b.close();
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+for (const name of ['sales-105', 'sales-104', 'marketing-1166'])
+  test(`${name}: native labels preserve membership and read state`, async () => {
+    const root = `tasks/automationbench-${name}`,
+      seed = JSON.parse(
+        await readFile(`${root}/environment/seed.json`, 'utf8'),
+      ),
+      b = await startMock(seed),
+      dir = await mkdtemp(join(tmpdir(), 'native-label-state-'));
+    try {
+      await exec(process.execPath, [`${root}/solution/solve.ts`], {
+        env: {
+          ...process.env,
+          FEISHU_MOCK_URL: b.url,
+          LARK_CLI: resolve('gyms/lark-cli/bin/lark-cli'),
+        },
+      });
+      const expected = JSON.parse(
+          await readFile(`${root}/tests/expected.json`, 'utf8'),
+        ),
+        id = expected.mail_updates[0].message_id;
+      for (const mode of ['reordered', 'changed-member', 'changed-read']) {
+        const world = structuredClone(b.world),
+          m = world.mail!.messages.find((m) => m.message_id === id)!;
+        m.label_ids.reverse();
+        if (mode === 'changed-member') m.label_ids.push('WRONG');
+        if (mode === 'changed-read')
+          m.label_ids = m.label_ids.includes('UNREAD')
+            ? m.label_ids.filter((x: string) => x !== 'UNREAD')
+            : [...m.label_ids, 'UNREAD'];
+        const state = join(dir, mode + '.json'),
+          output = join(dir, mode);
+        await writeFile(state, JSON.stringify({ seed, world, calls: b.calls }));
+        await exec(process.execPath, [`${root}/tests/verify.ts`], {
+          env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: output },
+        });
+        assert.equal(
+          JSON.parse(await readFile(join(output, 'result.json'), 'utf8'))
+            .business_success,
+          mode === 'reordered',
           mode,
         );
       }

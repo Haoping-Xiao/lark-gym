@@ -47,19 +47,10 @@ for (const n of [5120, 5121, 5129, 5132])
       assert.equal(result.business_success, true);
       assert.ok(
         result.semantic.deferred.includes(
-          n === 5120
-            ? 'messages.per_recipient_completeness_and_no_redundancy'
-            : 'mail.per_recipient_completeness_and_no_redundancy',
+          'mail.per_recipient_completeness_and_no_redundancy',
         ),
       );
-      if (n === 5120) {
-        const old = new Set(seed.messages.map((m: any) => m.message_id));
-        const sent = backend.world.messages.filter(
-          (m) => !old.has(m.message_id),
-        );
-        assert.ok(sent.length < result.semantic.original.messages.length);
-        assert.equal(new Set(sent.map((m) => m.chat_id)).size, sent.length);
-      } else {
+      {
         const old = new Set(seed.mail.messages.map((m: any) => m.message_id));
         const sent = backend.world.mail!.messages.filter(
           (m) => !old.has(m.message_id),

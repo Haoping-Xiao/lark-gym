@@ -46,9 +46,9 @@ test('Webinar outreach permits per-contact order and requires completed outreach
           (c) => c[1] === '+record-upsert' && !c.includes('--record-id'),
         ),
         updates = cs.filter((c) => c.includes('--record-id')),
-        msgs = cs.filter((c) => c[1] === '+messages-send'),
-        reads = cs.filter(
-          (c) => c[1] === '+record-list' || c[1] === '+chat-messages-list',
+        msgs = cs.filter((c) => ['+messages-send', '+send'].includes(c[1])),
+        reads = cs.filter((c) =>
+          ['+record-list', '+chat-messages-list', '+messages'].includes(c[1]),
         ),
         change = (c, f) => {
           let o = JSON.parse(c.at(-1));
@@ -81,11 +81,11 @@ test('Webinar outreach permits per-contact order and requires completed outreach
         change(inv, (o) => (o.profile_id = 'li_rachel'));
       if (mode === 'wrong_status') change(inv, (o) => (o.status = 'Accepted'));
       if (mode === 'wrong_date')
-        msgs[0][msgs[0].length - 1] = msgs[0]
-          .at(-1)
-          .replace('March 5', 'March 6');
+        msgs[0][msgs[0].indexOf('--body') + 1] = msgs[0][
+          msgs[0].indexOf('--body') + 1
+        ].replace('March 5', 'March 6');
       if (mode === 'wrong_audience')
-        msgs[0][msgs[0].indexOf('--chat-id') + 1] = 'oc_email_123';
+        msgs[0][msgs[0].indexOf('--to') + 1] = 'wrong-recipient@example.com';
       const b = await startMock(seed);
       try {
         for (const c of cs)

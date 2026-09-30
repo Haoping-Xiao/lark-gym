@@ -730,6 +730,141 @@ export function prepareSemantic(
     literalMessageChecks.push({ chat_id, parts: rule, passed });
   }
 
+  // Read actual sent mailbox objects. These are independent literal checks,
+  // not IM deliveries and not changes to the protected environment state.
+  const initialNativeMailIDs = new Set(
+    (seed?.mail?.messages || []).map((m: Json) => m.message_id),
+  );
+  const nativeSentMail = (world.mail?.messages || []).filter(
+    (m: Json) =>
+      m.message_state === 2 && !initialNativeMailIDs.has(m.message_id),
+  );
+  const nativeBody = (m: Json) =>
+    ['body_plain_text', 'body_html']
+      .map((key) => Buffer.from(m[key] || '', 'base64url').toString('utf8'))
+      .join('\n');
+  const atRecipient = (m: Json, recipient: string) =>
+    [...(m.to || []), ...(m.cc || [])].some(
+      (a: Json) => a.mail_address.toLowerCase() === recipient.toLowerCase(),
+    );
+  const strictNativeContains = (text: string, term: string) =>
+    text
+      .replace(/\s/g, '')
+      .toLowerCase()
+      .includes(term.replace(/\s/g, '').toLowerCase());
+  const nativeContains = (actual: string, needle: string) => {
+    const norm = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const n = norm(needle);
+    if (!n) return false;
+    const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(
+      (/^[a-z0-9]/.test(n) ? '(?<![a-z0-9])' : '') +
+        escaped +
+        (/\d$/.test(n) ? '(?!\\d|\\.\\d)' : ''),
+    ).test(norm(actual));
+  };
+  for (const [recipient, groups] of Object.entries(
+    config.literal_mail_groups_recipient || {},
+  )) {
+    for (const terms of groups as string[][])
+      literalMessageChecks.push({
+        recipient,
+        contains: terms,
+        passed:
+          Boolean(seed) &&
+          nativeSentMail.some(
+            (m: Json) =>
+              atRecipient(m, recipient) &&
+              terms.every((term) => strictNativeContains(nativeBody(m), term)),
+          ),
+      });
+  }
+  for (const [recipient, terms] of Object.entries(
+    config.literal_terms_per_mail_recipient || {},
+  )) {
+    const matches = nativeSentMail.filter((m: Json) =>
+      atRecipient(m, recipient),
+    );
+    literalMessageChecks.push({
+      recipient,
+      every_body_contains: terms,
+      passed:
+        Boolean(seed) &&
+        matches.length > 0 &&
+        matches.every((m: Json) =>
+          (terms as string[]).every((term) =>
+            nativeContains(nativeBody(m), term),
+          ),
+        ),
+    });
+  }
+  for (const [recipient, terms] of Object.entries(
+    config.literal_terms_in_one_mail_recipient || {},
+  ))
+    literalMessageChecks.push({
+      recipient,
+      witness_contains: terms,
+      passed:
+        Boolean(seed) &&
+        nativeSentMail.some(
+          (m: Json) =>
+            atRecipient(m, recipient) &&
+            (terms as string[]).every((term) =>
+              nativeContains(nativeBody(m), term),
+            ),
+        ),
+    });
+
+  for (const [chat_id, parts] of Object.entries(
+    config.literal_mail_parts_recipient || {},
+  )) {
+    const rule = parts as { subject?: string[]; body?: string[] };
+    const normalize = (text: string) =>
+      text
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\d+)\.0+%/g, '$1%')
+        .replace(/\s*->\s*/g, '->')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const bodyContains = (body: string, term: string) => {
+      const needle = normalize(term);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d)` : ''),
+      ).test(normalize(body));
+    };
+    const passed =
+      Boolean(seed) &&
+      nativeSentMail.some((m: Json) => {
+        if (!atRecipient(m, chat_id)) return false;
+        try {
+          const text = nativeBody(m);
+          if (typeof text !== 'string') return false;
+          const subject = m.subject,
+            body = [text];
+          return (
+            (rule.subject || []).every((term) =>
+              subject.toLowerCase().includes(term.toLowerCase()),
+            ) &&
+            (rule.body || []).every((term) =>
+              bodyContains(body.join('\n'), term),
+            )
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ recipient: chat_id, parts: rule, passed });
+  }
   const semanticCell = (cell: Json) =>
     cell.contains?.length ||
     (typeof cell.value === 'string' && cell.value.length > 80) ||
@@ -1103,6 +1238,21 @@ export function prepareSemantic(
         `messages.optional_delivery[${message.chat_id}].check_content_if_present`,
       );
       return recipients.has(message.chat_id);
+    });
+  }
+  if (seed && config.optional_mail_recipients?.length) {
+    original.optional_mail_recipients = config.optional_mail_recipients;
+    expected.mail = (expected.mail || []).filter((rule: Json) => {
+      if (
+        !rule.to.every((to: string) =>
+          config.optional_mail_recipients.includes(to),
+        )
+      )
+        return true;
+      deferred.push('mail.optional_delivery.check_content_if_present');
+      return nativeSentMail.some((m: Json) =>
+        rule.to.some((to: string) => atRecipient(m, to)),
+      );
     });
   }
   if (seed && config.optional_mail_requests?.length) {

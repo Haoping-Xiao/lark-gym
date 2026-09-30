@@ -39,10 +39,12 @@ test('insurance request state must exist before messages even with staged writes
     ]) {
       let all = structuredClone(original),
         reads = all.filter(
-          (c) => !['+record-upsert', '+messages-send'].includes(c[1]),
+          (c) => !['+record-upsert', '+messages-send', '+send'].includes(c[1]),
         ),
         records = all.filter((c) => c[1] === '+record-upsert'),
-        messages = all.filter((c) => c[1] === '+messages-send'),
+        messages = all.filter((c) =>
+          ['+messages-send', '+send'].includes(c[1]),
+        ),
         requests = messages.slice(0, 3),
         notices = messages.slice(3),
         commands = [...reads, ...records, ...requests, ...notices],
@@ -106,7 +108,7 @@ test('insurance request state must exist before messages even with staged writes
       if (mode === 'missing_request')
         commands = commands.filter((c) => c !== requests[0]);
       if (mode === 'wrong_amount')
-        notices[0][notices[0].indexOf('--text') + 1] = notices[0]
+        notices[0][notices[0].indexOf('--body') + 1] = notices[0]
           .at(-1)
           .replace('1,500,000', '1,500,001');
       const b = await startMock(seed);

@@ -17,7 +17,7 @@ for (const n of [5080])
       dir = await mkdtemp(join(tmpdir(), 'support-group-')),
       backend = await startMock(seed);
     try {
-      const transform = `const changed=commands.flatMap(a=>{if(a[0]!=='im'||a[1]!=='+messages-send')return[a];const p=a.indexOf('--text')+1,parts=a[p].split(' | ');return[parts.slice(0,2).join(' | '),parts.slice(2).join(' | ')].map(t=>{const b=[...a];b[p]=t;return b;});});`;
+      const transform = `const changed=commands.flatMap(a=>{const mail=a[0]==='mail'&&a[1]==='+send';if(!mail&&(a[0]!=='im'||a[1]!=='+messages-send'))return[a];const p=a.indexOf(mail?'--body':'--text')+1,parts=a[p].split(' | ');return[parts.slice(0,2).join(' | '),parts.slice(2).join(' | ')].map(t=>{const b=[...a];b[p]=t;return b;});});`;
 
       const file = join(dir, 'solve.ts');
       await writeFile(
@@ -53,7 +53,17 @@ for (const n of [5080])
       );
       const old = new Set(seed.messages.map((m: any) => m.message_id));
       const sent = backend.world.messages.filter((m) => !old.has(m.message_id));
-      assert.equal(sent.length, 8);
+      assert.equal(
+        sent.length +
+          (backend.world.mail?.messages || []).filter(
+            (m) =>
+              m.message_state === 2 &&
+              !seed.mail.messages.some(
+                (x: any) => x.message_id === m.message_id,
+              ),
+          ).length,
+        8,
+      );
     } finally {
       await backend.close();
       await rm(dir, { recursive: true, force: true });

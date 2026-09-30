@@ -39,32 +39,38 @@ test('Routing scope is explicit and mandatory notification values are preserved'
       'no_open_claim',
     ]) {
       let cs = structuredClone(original),
-        ms = cs.filter((c) => c[1] === '+messages-send'),
+        ms = cs.filter((c) => c[1] === '+send'),
         support = ms[0];
       if (mode === 'reverse_order')
-        cs = [...cs.filter((c) => c[1] !== '+messages-send'), ...ms.reverse()];
+        cs = [...cs.filter((c) => c[1] !== '+send'), ...ms.reverse()];
       if (mode === 'natural_text')
-        support[support.length - 1] =
+        support[support.indexOf('--body') + 1] =
           'Deal Closed Notification\nMeridian Corp - Platform Deal｜$156,000｜Enterprise\n母公司有待解决的高严重度支持问题，请协助处理。';
       if (mode === 'executive_only') cs = cs.filter((c) => c !== support);
       if (mode === 'wrong_fx')
         for (const c of ms)
-          c[c.length - 1] = c.at(-1).replace('$156,000', '$132,000');
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1].replace(
+            '$156,000',
+            '$132,000',
+          );
       if (mode === 'wrong_tier')
         for (const c of ms)
-          c[c.length - 1] = c.at(-1).replace('Enterprise', 'Mid-Market');
-      if (mode === 'wrong_case')
-        support[support.length - 1] = support
-          .at(-1)
-          .replace(
-            '直接母公司 Meridian Holdings 存在未结 Critical 工单 Security Review',
-            'Meridian Corporation 存在未结 High 工单 Technical Issue',
+          c[c.indexOf('--body') + 1] = c[c.indexOf('--body') + 1].replace(
+            'Enterprise',
+            'Mid-Market',
           );
+      if (mode === 'wrong_case')
+        support[support.indexOf('--body') + 1] = support[
+          support.indexOf('--body') + 1
+        ].replace(
+          '直接母公司 Meridian Holdings 存在未结 Critical 工单 Security Review',
+          'Meridian Corporation 存在未结 High 工单 Technical Issue',
+        );
       if (mode === 'no_win') cs = cs.filter((c) => c[1] !== '+record-upsert');
       if (mode === 'wrong_recipient')
-        support[support.indexOf('--chat-id') + 1] = 'oc_email_42';
+        support[support.indexOf('--to') + 1] = 'sales-team@example.com';
       if (mode === 'no_open_claim')
-        support[support.length - 1] =
+        support[support.indexOf('--body') + 1] =
           'Deal Closed Notification\nMeridian Corp - Platform Deal｜$156,000｜Enterprise\n本账户及直接母公司均无未结支持升级。';
       const b = await startMock(seed);
       try {

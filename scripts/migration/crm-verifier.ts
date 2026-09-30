@@ -83,6 +83,8 @@ type WorkflowEventSelector = {
   field?: string;
   equals?: Fields;
   chat_id?: string;
+  mail_to?: string;
+  mail_message_id?: string;
   collection?: string;
   spreadsheet_token?: string;
   sheet_id?: string;
@@ -100,10 +102,12 @@ const expected: {
     business_context?: any;
   }[];
   forbidden_mail?: { to: string[]; contains: string[]; literal?: boolean }[];
+  mail_label_creates?: { name: string; mailbox: string }[];
   mail_updates?: {
     message_id: string;
     remove_labels: string[];
     add_labels?: string[];
+    add_label_names?: string[];
   }[];
   mail_before_outreach?: {
     to: string;
@@ -200,13 +204,23 @@ const expected: {
     after: WorkflowEventSelector[];
   }[];
   record_state_before_updates?: {
-    update: { record_id: string; field: string; value?: string | number };
+    update: {
+      record_id?: string;
+      mail_message_id?: string;
+      field: string;
+      value?: string | number;
+    };
     records: { collection: string; equals: Fields; one_of?: Fields[] }[];
-    messages_before?: { chat_id: string; contains: string[] }[];
+    messages_before?: {
+      chat_id?: string;
+      mail_to?: string;
+      contains: string[];
+    }[];
     updated_json_sets?: Record<string, string[]>;
   }[];
   record_state_before_messages?: {
-    chat_id: string;
+    chat_id?: string;
+    mail_to?: string;
     message_contains?: string[];
     records: {
       record_id?: string;
@@ -216,11 +230,12 @@ const expected: {
     }[];
   }[];
   action_prerequisites?: {
-    notification: { chat_id: string; contains: string[] };
+    notification: { chat_id?: string; mail_to?: string; contains: string[] };
     records: { collection: string; equals: Fields }[];
     messages: {
       source_mail_id?: string;
-      chat_id: string;
+      chat_id?: string;
+      mail_to?: string;
       contains: string[];
     }[];
   }[];
@@ -231,7 +246,7 @@ const expected: {
       contains?: Record<string, string[]>;
     };
     record_before_message?: boolean;
-    message: { chat_id: string; contains: string[] };
+    message: { chat_id?: string; mail_to?: string; contains: string[] };
     cell: {
       spreadsheet_token: string;
       sheet_id: string;
@@ -1187,6 +1202,33 @@ const draftChecks = (expected.mail_drafts || []).map((rule) => {
   }
   return { ...rule, draft_id: draft?.id, passed: !!draft };
 });
+const newLabelChecks = (expected.mail_label_creates || []).map((rule) => {
+  const matches = (world.mail?.labels || []).filter(
+    (l: any) =>
+      l.mailbox_id === rule.mailbox &&
+      l.name === rule.name &&
+      !(seed.mail?.labels || []).some((old: any) => old.id === l.id),
+  );
+  return {
+    ...rule,
+    ids: matches.map((l: any) => l.id),
+    passed: matches.length === 1,
+  };
+});
+const addedLabelIDs = (rule: {
+  add_labels?: string[];
+  add_label_names?: string[];
+}) => [
+  ...(rule.add_labels || []),
+  ...(rule.add_label_names || []).flatMap((name) =>
+    (world.mail?.labels || [])
+      .filter(
+        (l: any) =>
+          l.name === name && l.mailbox_id === 'agent@company.example.com',
+      )
+      .map((l: any) => l.id),
+  ),
+];
 const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
   const before = seed.mail?.messages.find(
     (m: any) => m.message_id === rule.message_id,
@@ -1200,7 +1242,7 @@ const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
           ...before.label_ids.filter(
             (id: string) => !rule.remove_labels.includes(id),
           ),
-          ...(rule.add_labels || []),
+          ...addedLabelIDs(rule),
         ]),
       ].sort()
     : [];
@@ -1213,6 +1255,11 @@ const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
   };
 });
 const protectedWorld = structuredClone(world);
+if (protectedWorld.mail && expected.mail_label_creates?.length)
+  protectedWorld.mail.labels = (protectedWorld.mail.labels || []).filter(
+    (l: any) => !newLabelChecks.some((c) => c.passed && c.ids.includes(l.id)),
+  );
+
 if (protectedWorld.mail) {
   protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
     (m: any) => !consumedDraftMessages.has(m.message_id),
@@ -1426,6 +1473,48 @@ const unchanged =
   sent.length === (expected.messages || []).length &&
   newEvents.length === (expected.events || []).length;
 let previousStageEnd = -1;
+// Causal delivery is established by a successful native send mutation, never
+// by creating a draft or by the final mailbox state alone.
+const notificationMatches = (
+  mutation: any,
+  rule: { chat_id?: string; mail_to?: string; contains?: string[] },
+  terms: string[] = rule.contains || [],
+): boolean => {
+  let text: string | undefined;
+  if (rule.mail_to) {
+    if (
+      mutation.kind !== 'mail_message' ||
+      mutation.before?.message_state !== 3 ||
+      mutation.after?.message_state !== 2 ||
+      initialMailIDs.has(mutation.id)
+    )
+      return false;
+    if (
+      ![...(mutation.after.to || []), ...(mutation.after.cc || [])].some(
+        (a: any) =>
+          a.mail_address.toLowerCase() === rule.mail_to!.toLowerCase(),
+      )
+    )
+      return false;
+    text = mutation.after.subject + '\n' + mailBodyText(mutation.after);
+  } else {
+    if (
+      mutation.kind !== 'message' ||
+      mutation.before ||
+      !rule.chat_id ||
+      mutation.after?.chat_id !== rule.chat_id
+    )
+      return false;
+    try {
+      text = decodedMessageText(mutation.after.body.content);
+    } catch {
+      return false;
+    }
+  }
+  return (
+    typeof text === 'string' && terms.every((part) => text!.includes(part))
+  );
+};
 const orderChecks = (expected.order_groups || []).map((group) => {
   const sequences: number[] = [];
   const found = new Set<string>();
@@ -1531,22 +1620,7 @@ const entityOrderChecks = (expected.entity_order || []).map((rule) => {
       if (!mutation.after) continue;
       if (mutation.kind === 'record' && matchesRecord(mutation.after.fields))
         records.push(call.seq);
-      if (
-        mutation.kind === 'message' &&
-        !mutation.before &&
-        mutation.after.chat_id === rule.message.chat_id
-      ) {
-        try {
-          const text = decodedMessageText(mutation.after.body.content);
-          if (
-            typeof text === 'string' &&
-            rule.message.contains.every((part) => text.includes(part))
-          )
-            messages.push(call.seq);
-        } catch {
-          /* Malformed content cannot establish notification delivery. */
-        }
-      }
+      if (notificationMatches(mutation, rule.message)) messages.push(call.seq);
       const cell = rule.cell;
       if (
         mutation.kind === 'spreadsheet' &&
@@ -1608,18 +1682,14 @@ const actionPrerequisiteChecks = (expected.action_prerequisites || []).map(
           )
         )
           actions.push(call.seq);
-        if (mutation.kind !== 'message' || mutation.before) continue;
-        try {
-          const text = decodedMessageText(mutation.after.body.content);
-          const matches = (message: { chat_id: string; contains: string[] }) =>
-            mutation.after.chat_id === message.chat_id &&
-            typeof text === 'string' &&
-            message.contains.every((part) => text.includes(part));
-          if (matches(rule.notification)) notifications.push(call.seq);
-          if (rule.messages.some(matches)) actions.push(call.seq);
-        } catch {
-          /* A malformed message cannot establish delivery. */
-        }
+        if (notificationMatches(mutation, rule.notification))
+          notifications.push(call.seq);
+        if (
+          rule.messages.some((message) =>
+            notificationMatches(mutation, message),
+          )
+        )
+          actions.push(call.seq);
       }
     }
     return {
@@ -1648,22 +1718,27 @@ const recordStateBeforeUpdateChecks = (
     // Read the state before the entire successful request, not after a sibling mutation.
     for (const mutation of call.mutations || []) {
       if (
-        mutation.kind === 'record' &&
-        mutation.id === rule.update.record_id &&
-        mutation.after &&
-        (Object.hasOwn(rule.update, 'value')
-          ? isDeepStrictEqual(
-              mutation.after.fields?.[rule.update.field],
-              rule.update.value,
-            ) &&
-            !isDeepStrictEqual(
-              mutation.before?.fields?.[rule.update.field],
-              rule.update.value,
-            )
-          : !isDeepStrictEqual(
-              mutation.before?.fields?.[rule.update.field],
-              mutation.after.fields?.[rule.update.field],
-            ))
+        rule.update.mail_message_id
+          ? mutation.kind === 'mail_message' &&
+            mutation.id === rule.update.mail_message_id &&
+            mutation.before?.label_ids?.includes('UNREAD') &&
+            !mutation.after?.label_ids?.includes('UNREAD')
+          : mutation.kind === 'record' &&
+            mutation.id === rule.update.record_id &&
+            mutation.after &&
+            (rule.update.value !== undefined
+              ? isDeepStrictEqual(
+                  mutation.after.fields?.[rule.update.field],
+                  rule.update.value,
+                ) &&
+                !isDeepStrictEqual(
+                  mutation.before?.fields?.[rule.update.field],
+                  rule.update.value,
+                )
+              : !isDeepStrictEqual(
+                  mutation.before?.fields?.[rule.update.field],
+                  mutation.after.fields?.[rule.update.field],
+                ))
       ) {
         checkpoints.push({
           seq: call.seq,
@@ -1673,28 +1748,17 @@ const recordStateBeforeUpdateChecks = (
                 (prior: any) =>
                   prior.status < 400 &&
                   prior.seq < call.seq &&
-                  (prior.mutations || []).some((item: any) => {
-                    if (
-                      item.kind !== 'message' ||
-                      item.before ||
-                      item.after?.chat_id !== message.chat_id
-                    )
-                      return false;
-                    try {
-                      const text = decodedMessageText(item.after.body.content);
-                      return (
-                        typeof text === 'string' &&
-                        message.contains.every((part) => text.includes(part))
-                      );
-                    } catch {
-                      return false;
-                    }
-                  }),
+                  (prior.mutations || []).some((item: any) =>
+                    notificationMatches(item, message),
+                  ),
               ),
             ) &&
             Object.entries(rule.updated_json_sets || {}).every(
               ([field, wanted]) => {
-                const value = mutation.after.fields?.[field];
+                const value =
+                  rule.update.mail_message_id && field === 'label_ids'
+                    ? JSON.stringify(mutation.after.label_ids)
+                    : mutation.after.fields?.[field];
                 if (typeof value !== 'string') return false;
                 try {
                   const tags = JSON.parse(value);
@@ -1754,22 +1818,7 @@ const recordStateBeforeMessageChecks = (
   for (const call of calls) {
     if (call.status >= 400) continue;
     for (const mutation of call.mutations || []) {
-      if (
-        mutation.kind === 'message' &&
-        mutation.after &&
-        !mutation.before &&
-        mutation.after.chat_id === rule.chat_id &&
-        (() => {
-          try {
-            const text = decodedMessageText(mutation.after.body.content);
-            return (rule.message_contains || []).every(
-              (part) => typeof text === 'string' && text.includes(part),
-            );
-          } catch {
-            return false;
-          }
-        })()
-      ) {
+      if (notificationMatches(mutation, rule, rule.message_contains || [])) {
         checkpoints.push({
           seq: call.seq,
           passed: rule.records.every((record) =>
@@ -1819,11 +1868,14 @@ const workflowEventSequences = (selector: WorkflowEventSelector): number[] => {
     for (const mutation of call.mutations || []) {
       if (!mutation.after) continue;
       let matches = false;
-      if (selector.kind === 'message')
+      if (selector.kind === 'message' || selector.kind === 'mail')
+        matches = notificationMatches(mutation, selector);
+      if (selector.kind === 'mail_read')
         matches =
-          mutation.kind === 'message' &&
-          !mutation.before &&
-          mutation.after.chat_id === selector.chat_id;
+          mutation.kind === 'mail_message' &&
+          mutation.id === selector.mail_message_id &&
+          mutation.before?.label_ids?.includes('UNREAD') &&
+          !mutation.after?.label_ids?.includes('UNREAD');
       if (selector.kind === 'record')
         matches =
           mutation.kind === 'record' &&
@@ -2724,6 +2776,7 @@ const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
   draftChecks.every((c) => c.passed) &&
   forbiddenMailChecks.every((c) => c.passed) &&
+  newLabelChecks.every((c) => c.passed) &&
   mailUpdateChecks.every((c) => c.passed) &&
   mailBeforeOutreachChecks.every((c) => c.passed) &&
   cellsBeforeMailChecks.every((c) => c.passed) &&
@@ -2773,6 +2826,7 @@ writeFileSync(
       membershipChecks,
       orderChecks,
       mailUpdateChecks,
+      newLabelChecks,
       actionPrerequisiteChecks,
       recordStateBeforeUpdateChecks,
       recordStateBeforeMessageChecks,

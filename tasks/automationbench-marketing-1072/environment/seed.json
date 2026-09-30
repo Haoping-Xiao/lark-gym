@@ -146,247 +146,418 @@
     "records": [],
     "fields": []
   },
-  "chats": [
-    {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "analytics@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "calendar-noreply@meet.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "elena.voss@crestlinedigital.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "events@marketingconf.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "marcus.lee@brightwaveio.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "marketing@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "news@contentmarketinginstitute.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "nora.chen@lumenatech.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "noreply@hubspot.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "noreply@mailchimp.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_11",
-      "name": "promo@martech.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_12",
-      "name": "scheduling@calendly.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_13",
-      "name": "sonia.reyes@vantagepoint.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_14",
-      "name": "strategy-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_15",
-      "name": "strategy@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_16",
-      "name": "tanya.nguyen@amplifyco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_17",
-      "name": "updates@hubspotacademy.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_ca_strategy",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_ca_strategy\\\", \\\"thread_id\\\": \\\"t_ca\\\", \\\"from_\\\": \\\"strategy-lead@company.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Attribution Analysis Scope\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-27T08:00:00Z\\\"}\\n消息 ID：msg_ca_strategy\\n来源：strategy-lead@company.example.com\\n收件人：me\\n日期：2026-01-27T08:00:00Z\\n主题：Attribution Analysis Scope\\nFor the attribution analysis:\\n\\n1. Focus on active channels only -- we discontinued our display advertising program last quarter, so exclude anything with Discontinued status.\\n2. Also exclude Paused and Pilot channels.\\n3. Include tracking code CATTR-Q1-2026-AN in your email.\\n4. For each of the top first-touch channels, compute the cost per first-touch conversion (cost / first_touch_conversions) and include it in the analysis.\\n\\nThanks,\\nStrategy Lead\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfY2Ffc3RyYXRlZ3k",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0X2Nh",
+        "smtp_message_id": "msg_ca_strategy@fixture.invalid",
+        "subject": "Attribution Analysis Scope",
+        "head_from": {
+          "mail_address": "strategy-lead@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Rm9yIHRoZSBhdHRyaWJ1dGlvbiBhbmFseXNpczoKCjEuIEZvY3VzIG9uIGFjdGl2ZSBjaGFubmVscyBvbmx5IC0tIHdlIGRpc2NvbnRpbnVlZCBvdXIgZGlzcGxheSBhZHZlcnRpc2luZyBwcm9ncmFtIGxhc3QgcXVhcnRlciwgc28gZXhjbHVkZSBhbnl0aGluZyB3aXRoIERpc2NvbnRpbnVlZCBzdGF0dXMuCjIuIEFsc28gZXhjbHVkZSBQYXVzZWQgYW5kIFBpbG90IGNoYW5uZWxzLgozLiBJbmNsdWRlIHRyYWNraW5nIGNvZGUgQ0FUVFItUTEtMjAyNi1BTiBpbiB5b3VyIGVtYWlsLgo0LiBGb3IgZWFjaCBvZiB0aGUgdG9wIGZpcnN0LXRvdWNoIGNoYW5uZWxzLCBjb21wdXRlIHRoZSBjb3N0IHBlciBmaXJzdC10b3VjaCBjb252ZXJzaW9uIChjb3N0IC8gZmlyc3RfdG91Y2hfY29udmVyc2lvbnMpIGFuZCBpbmNsdWRlIGl0IGluIHRoZSBhbmFseXNpcy4KClRoYW5rcywKU3RyYXRlZ3kgTGVhZA",
+        "body_preview": "Rm9yIHRoZSBhdHRyaWJ1dGlvbiBhbmFseXNpczoKCjEuIEZvY3VzIG9uIGFjdGl2ZSBjaGFubmVscyBvbmx5IC0tIHdlIGRpc2NvbnRpbnVlZCBvdXIgZGlzcGxheSBhZHZlcnRpc2luZyBwcm9ncmFtIGxhc3Qg",
+        "body_html": "",
+        "internal_date": "1769500800000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1769500800000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_032",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_032\\\", \\\"thread_id\\\": \\\"th_mkt_noise_032\\\", \\\"from_\\\": \\\"promo@martech.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"30% off MarTech Summit tickets\\\", \\\"date\\\": \\\"2026-03-02T12:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_032\\n来源：promo@martech.example.com\\n收件人：me\\n日期：2026-03-02T12:00:00Z\\n主题：30% off MarTech Summit tickets\\nUse code EARLYBIRD30 for 30% off MarTech Summit 2026 tickets. Offer expires March 10.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzMg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDMy",
+        "smtp_message_id": "msg_mkt_noise_032@fixture.invalid",
+        "subject": "30% off MarTech Summit tickets",
+        "head_from": {
+          "mail_address": "promo@martech.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VXNlIGNvZGUgRUFSTFlCSVJEMzAgZm9yIDMwJSBvZmYgTWFyVGVjaCBTdW1taXQgMjAyNiB0aWNrZXRzLiBPZmZlciBleHBpcmVzIE1hcmNoIDEwLg",
+        "body_preview": "VXNlIGNvZGUgRUFSTFlCSVJEMzAgZm9yIDMwJSBvZmYgTWFyVGVjaCBTdW1taXQgMjAyNiB0aWNrZXRzLiBPZmZlciBleHBpcmVzIE1hcmNoIDEwLg",
+        "body_html": "",
+        "internal_date": "1772452800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772452800000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_025",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_025\\\", \\\"thread_id\\\": \\\"th_mkt_noise_025\\\", \\\"from_\\\": \\\"tanya.nguyen@amplifyco.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Social media takeover — confirmed\\\", \\\"date\\\": \\\"2026-03-01T14:20:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_025\\n来源：tanya.nguyen@amplifyco.example.com\\n收件人：me\\n日期：2026-03-01T14:20:00Z\\n主题：Social media takeover — confirmed\\nConfirmed for the Instagram takeover on March 12. I'll send a content brief by Friday.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDI1",
+        "smtp_message_id": "msg_mkt_noise_025@fixture.invalid",
+        "subject": "Social media takeover — confirmed",
+        "head_from": {
+          "mail_address": "tanya.nguyen@amplifyco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Q29uZmlybWVkIGZvciB0aGUgSW5zdGFncmFtIHRha2VvdmVyIG9uIE1hcmNoIDEyLiBJJ2xsIHNlbmQgYSBjb250ZW50IGJyaWVmIGJ5IEZyaWRheS4",
+        "body_preview": "Q29uZmlybWVkIGZvciB0aGUgSW5zdGFncmFtIHRha2VvdmVyIG9uIE1hcmNoIDEyLiBJJ2xsIHNlbmQgYSBjb250ZW50IGJyaWVmIGJ5IEZyaWRheS4",
+        "body_html": "",
+        "internal_date": "1772374800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772374800000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_002\\\", \\\"thread_id\\\": \\\"th_mkt_noise_002\\\", \\\"from_\\\": \\\"news@contentmarketinginstitute.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"CMI Digest: Content Strategy Trends for Q2\\\", \\\"date\\\": \\\"2026-03-02T06:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_002\\n来源：news@contentmarketinginstitute.example.com\\n收件人：me\\n日期：2026-03-02T06:30:00Z\\n主题：CMI Digest: Content Strategy Trends for Q2\\nPillar-page strategy drives 3x organic traffic versus standalone blog posts.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDAy",
+        "smtp_message_id": "msg_mkt_noise_002@fixture.invalid",
+        "subject": "CMI Digest: Content Strategy Trends for Q2",
+        "head_from": {
+          "mail_address": "news@contentmarketinginstitute.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UGlsbGFyLXBhZ2Ugc3RyYXRlZ3kgZHJpdmVzIDN4IG9yZ2FuaWMgdHJhZmZpYyB2ZXJzdXMgc3RhbmRhbG9uZSBibG9nIHBvc3RzLg",
+        "body_preview": "UGlsbGFyLXBhZ2Ugc3RyYXRlZ3kgZHJpdmVzIDN4IG9yZ2FuaWMgdHJhZmZpYyB2ZXJzdXMgc3RhbmRhbG9uZSBibG9nIHBvc3RzLg",
+        "body_html": "",
+        "internal_date": "1772433000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772433000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_026",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_026\\\", \\\"thread_id\\\": \\\"th_mkt_noise_026\\\", \\\"from_\\\": \\\"noreply@hubspot.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Workflow alert: 12 contacts entered nurture sequence\\\", \\\"date\\\": \\\"2026-03-03T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_026\\n来源：noreply@hubspot.example.com\\n收件人：me\\n日期：2026-03-03T08:00:00Z\\n主题：Workflow alert: 12 contacts entered nurture sequence\\n12 new contacts entered your 'Content Download Nurture' workflow in the last 24 hours.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDI2",
+        "smtp_message_id": "msg_mkt_noise_026@fixture.invalid",
+        "subject": "Workflow alert: 12 contacts entered nurture sequence",
+        "head_from": {
+          "mail_address": "noreply@hubspot.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "MTIgbmV3IGNvbnRhY3RzIGVudGVyZWQgeW91ciAnQ29udGVudCBEb3dubG9hZCBOdXJ0dXJlJyB3b3JrZmxvdyBpbiB0aGUgbGFzdCAyNCBob3Vycy4",
+        "body_preview": "MTIgbmV3IGNvbnRhY3RzIGVudGVyZWQgeW91ciAnQ29udGVudCBEb3dubG9hZCBOdXJ0dXJlJyB3b3JrZmxvdyBpbiB0aGUgbGFzdCAyNCBob3Vycy4",
+        "body_html": "",
+        "internal_date": "1772524800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772524800000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_009",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_009\\\", \\\"thread_id\\\": \\\"th_mkt_noise_009\\\", \\\"from_\\\": \\\"nora.chen@lumenatech.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Co-marketing proposal\\\", \\\"date\\\": \\\"2026-03-03T09:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_009\\n来源：nora.chen@lumenatech.example.com\\n收件人：me\\n日期：2026-03-03T09:45:00Z\\n主题：Re: Co-marketing proposal\\nThanks for sending over the draft. Our team is reviewing and will circle back by Thursday.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwOQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA5",
+        "smtp_message_id": "msg_mkt_noise_009@fixture.invalid",
+        "subject": "Re: Co-marketing proposal",
+        "head_from": {
+          "mail_address": "nora.chen@lumenatech.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhhbmtzIGZvciBzZW5kaW5nIG92ZXIgdGhlIGRyYWZ0LiBPdXIgdGVhbSBpcyByZXZpZXdpbmcgYW5kIHdpbGwgY2lyY2xlIGJhY2sgYnkgVGh1cnNkYXku",
+        "body_preview": "VGhhbmtzIGZvciBzZW5kaW5nIG92ZXIgdGhlIGRyYWZ0LiBPdXIgdGVhbSBpcyByZXZpZXdpbmcgYW5kIHdpbGwgY2lyY2xlIGJhY2sgYnkgVGh1cnNkYXku",
+        "body_html": "",
+        "internal_date": "1772531100000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772531100000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_007",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_007\\\", \\\"thread_id\\\": \\\"th_mkt_noise_007\\\", \\\"from_\\\": \\\"scheduling@calendly.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"New Event: Content Calendar Review\\\", \\\"date\\\": \\\"2026-03-02T11:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_007\\n来源：scheduling@calendly.example.com\\n收件人：me\\n日期：2026-03-02T11:30:00Z\\n主题：New Event: Content Calendar Review\\nTeam scheduled a 45-minute Content Calendar Review on March 6 at 3:00 PM.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNw",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA3",
+        "smtp_message_id": "msg_mkt_noise_007@fixture.invalid",
+        "subject": "New Event: Content Calendar Review",
+        "head_from": {
+          "mail_address": "scheduling@calendly.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGVhbSBzY2hlZHVsZWQgYSA0NS1taW51dGUgQ29udGVudCBDYWxlbmRhciBSZXZpZXcgb24gTWFyY2ggNiBhdCAzOjAwIFBNLg",
+        "body_preview": "VGVhbSBzY2hlZHVsZWQgYSA0NS1taW51dGUgQ29udGVudCBDYWxlbmRhciBSZXZpZXcgb24gTWFyY2ggNiBhdCAzOjAwIFBNLg",
+        "body_html": "",
+        "internal_date": "1772451000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772451000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_034",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_034\\\", \\\"thread_id\\\": \\\"th_mkt_noise_034\\\", \\\"from_\\\": \\\"sonia.reyes@vantagepoint.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Case study interview — scheduling\\\", \\\"date\\\": \\\"2026-03-03T10:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_034\\n来源：sonia.reyes@vantagepoint.example.com\\n收件人：me\\n日期：2026-03-03T10:45:00Z\\n主题：Case study interview — scheduling\\nHappy to participate in the case study. Can we do next Wednesday at 2 PM? I have 30 minutes available.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzNA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDM0",
+        "smtp_message_id": "msg_mkt_noise_034@fixture.invalid",
+        "subject": "Case study interview — scheduling",
+        "head_from": {
+          "mail_address": "sonia.reyes@vantagepoint.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGFwcHkgdG8gcGFydGljaXBhdGUgaW4gdGhlIGNhc2Ugc3R1ZHkuIENhbiB3ZSBkbyBuZXh0IFdlZG5lc2RheSBhdCAyIFBNPyBJIGhhdmUgMzAgbWludXRlcyBhdmFpbGFibGUu",
+        "body_preview": "SGFwcHkgdG8gcGFydGljaXBhdGUgaW4gdGhlIGNhc2Ugc3R1ZHkuIENhbiB3ZSBkbyBuZXh0IFdlZG5lc2RheSBhdCAyIFBNPyBJIGhhdmUgMzAgbWludXRlcyBhdmFpbGFibGUu",
+        "body_html": "",
+        "internal_date": "1772534700000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772534700000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_003",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_003\\\", \\\"thread_id\\\": \\\"th_mkt_noise_003\\\", \\\"from_\\\": \\\"updates@hubspotacademy.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"New Course: Advanced HubSpot Reporting\\\", \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_003\\n来源：updates@hubspotacademy.example.com\\n收件人：me\\n日期：2026-03-01T08:00:00Z\\n主题：New Course: Advanced HubSpot Reporting\\nEnroll now in our 2-hour course on custom dashboards and attribution reporting.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMw",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDAz",
+        "smtp_message_id": "msg_mkt_noise_003@fixture.invalid",
+        "subject": "New Course: Advanced HubSpot Reporting",
+        "head_from": {
+          "mail_address": "updates@hubspotacademy.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "RW5yb2xsIG5vdyBpbiBvdXIgMi1ob3VyIGNvdXJzZSBvbiBjdXN0b20gZGFzaGJvYXJkcyBhbmQgYXR0cmlidXRpb24gcmVwb3J0aW5nLg",
+        "body_preview": "RW5yb2xsIG5vdyBpbiBvdXIgMi1ob3VyIGNvdXJzZSBvbiBjdXN0b20gZGFzaGJvYXJkcyBhbmQgYXR0cmlidXRpb24gcmVwb3J0aW5nLg",
+        "body_html": "",
+        "internal_date": "1772352000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772352000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_015",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_015\\\", \\\"thread_id\\\": \\\"th_mkt_noise_015\\\", \\\"from_\\\": \\\"finance@company.example.com\\\", \\\"to\\\": [\\\"marketing@company.example.com\\\"], \\\"subject\\\": \\\"March marketing budget approved\\\", \\\"date\\\": \\\"2026-03-01T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_015\\n来源：finance@company.example.com\\n收件人：marketing@company.example.com\\n日期：2026-03-01T09:00:00Z\\n主题：March marketing budget approved\\nMarch budget has been approved: $185k total ($95k paid, $45k content, $25k events, $20k tools).\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDE1",
+        "smtp_message_id": "msg_mkt_noise_015@fixture.invalid",
+        "subject": "March marketing budget approved",
+        "head_from": {
+          "mail_address": "finance@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "marketing@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "TWFyY2ggYnVkZ2V0IGhhcyBiZWVuIGFwcHJvdmVkOiAkMTg1ayB0b3RhbCAoJDk1ayBwYWlkLCAkNDVrIGNvbnRlbnQsICQyNWsgZXZlbnRzLCAkMjBrIHRvb2xzKS4",
+        "body_preview": "TWFyY2ggYnVkZ2V0IGhhcyBiZWVuIGFwcHJvdmVkOiAkMTg1ayB0b3RhbCAoJDk1ayBwYWlkLCAkNDVrIGNvbnRlbnQsICQyNWsgZXZlbnRzLCAkMjBrIHRvb2xzKS4",
+        "body_html": "",
+        "internal_date": "1772355600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772355600000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_006",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_006\\\", \\\"thread_id\\\": \\\"th_mkt_noise_006\\\", \\\"from_\\\": \\\"calendar-noreply@meet.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Meeting Confirmed: Weekly Marketing Sync\\\", \\\"date\\\": \\\"2026-03-02T14:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_006\\n来源：calendar-noreply@meet.example.com\\n收件人：me\\n日期：2026-03-02T14:00:00Z\\n主题：Meeting Confirmed: Weekly Marketing Sync\\nYour meeting 'Weekly Marketing Sync' has been confirmed for Tuesday March 5 at 11:00 AM.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA2",
+        "smtp_message_id": "msg_mkt_noise_006@fixture.invalid",
+        "subject": "Meeting Confirmed: Weekly Marketing Sync",
+        "head_from": {
+          "mail_address": "calendar-noreply@meet.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciBtZWV0aW5nICdXZWVrbHkgTWFya2V0aW5nIFN5bmMnIGhhcyBiZWVuIGNvbmZpcm1lZCBmb3IgVHVlc2RheSBNYXJjaCA1IGF0IDExOjAwIEFNLg",
+        "body_preview": "WW91ciBtZWV0aW5nICdXZWVrbHkgTWFya2V0aW5nIFN5bmMnIGhhcyBiZWVuIGNvbmZpcm1lZCBmb3IgVHVlc2RheSBNYXJjaCA1IGF0IDExOjAwIEFNLg",
+        "body_html": "",
+        "internal_date": "1772460000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772460000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_028",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_028\\\", \\\"thread_id\\\": \\\"th_mkt_noise_028\\\", \\\"from_\\\": \\\"noreply@mailchimp.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Campaign sent: March Newsletter\\\", \\\"date\\\": \\\"2026-03-01T11:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_028\\n来源：noreply@mailchimp.example.com\\n收件人：me\\n日期：2026-03-01T11:45:00Z\\n主题：Campaign sent: March Newsletter\\nYour campaign 'March Newsletter' was sent to 4,230 subscribers. Open rate so far: 24.8%.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyOA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDI4",
+        "smtp_message_id": "msg_mkt_noise_028@fixture.invalid",
+        "subject": "Campaign sent: March Newsletter",
+        "head_from": {
+          "mail_address": "noreply@mailchimp.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciBjYW1wYWlnbiAnTWFyY2ggTmV3c2xldHRlcicgd2FzIHNlbnQgdG8gNCwyMzAgc3Vic2NyaWJlcnMuIE9wZW4gcmF0ZSBzbyBmYXI6IDI0LjglLg",
+        "body_preview": "WW91ciBjYW1wYWlnbiAnTWFyY2ggTmV3c2xldHRlcicgd2FzIHNlbnQgdG8gNCwyMzAgc3Vic2NyaWJlcnMuIE9wZW4gcmF0ZSBzbyBmYXI6IDI0LjglLg",
+        "body_html": "",
+        "internal_date": "1772365500000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772365500000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_014",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_014\\\", \\\"thread_id\\\": \\\"th_mkt_noise_014\\\", \\\"from_\\\": \\\"analytics@company.example.com\\\", \\\"to\\\": [\\\"marketing@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Dashboard: Traffic & Conversion\\\", \\\"date\\\": \\\"2026-03-02T16:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_014\\n来源：analytics@company.example.com\\n收件人：marketing@company.example.com\\n日期：2026-03-02T16:30:00Z\\n主题：Weekly Dashboard: Traffic & Conversion\\nTraffic up 9% WoW. Blog organic sessions +14%. Conversion rate steady at 3.2%. Full dashboard attached.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDE0",
+        "smtp_message_id": "msg_mkt_noise_014@fixture.invalid",
+        "subject": "Weekly Dashboard: Traffic & Conversion",
+        "head_from": {
+          "mail_address": "analytics@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "marketing@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VHJhZmZpYyB1cCA5JSBXb1cuIEJsb2cgb3JnYW5pYyBzZXNzaW9ucyArMTQlLiBDb252ZXJzaW9uIHJhdGUgc3RlYWR5IGF0IDMuMiUuIEZ1bGwgZGFzaGJvYXJkIGF0dGFjaGVkLg",
+        "body_preview": "VHJhZmZpYyB1cCA5JSBXb1cuIEJsb2cgb3JnYW5pYyBzZXNzaW9ucyArMTQlLiBDb252ZXJzaW9uIHJhdGUgc3RlYWR5IGF0IDMuMiUuIEZ1bGwgZGFzaGJvYXJkIGF0dGFjaGVkLg",
+        "body_html": "",
+        "internal_date": "1772469000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772469000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_022",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_022\\\", \\\"thread_id\\\": \\\"th_mkt_noise_022\\\", \\\"from_\\\": \\\"marcus.lee@brightwaveio.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Joint webinar — agenda draft\\\", \\\"date\\\": \\\"2026-03-02T13:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_022\\n来源：marcus.lee@brightwaveio.example.com\\n收件人：me\\n日期：2026-03-02T13:00:00Z\\n主题：Re: Joint webinar — agenda draft\\nUpdated agenda attached. I moved the product demo section to the second half. Let me know if this works.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDIy",
+        "smtp_message_id": "msg_mkt_noise_022@fixture.invalid",
+        "subject": "Re: Joint webinar — agenda draft",
+        "head_from": {
+          "mail_address": "marcus.lee@brightwaveio.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VXBkYXRlZCBhZ2VuZGEgYXR0YWNoZWQuIEkgbW92ZWQgdGhlIHByb2R1Y3QgZGVtbyBzZWN0aW9uIHRvIHRoZSBzZWNvbmQgaGFsZi4gTGV0IG1lIGtub3cgaWYgdGhpcyB3b3Jrcy4",
+        "body_preview": "VXBkYXRlZCBhZ2VuZGEgYXR0YWNoZWQuIEkgbW92ZWQgdGhlIHByb2R1Y3QgZGVtbyBzZWN0aW9uIHRvIHRoZSBzZWNvbmQgaGFsZi4gTGV0IG1lIGtub3cgaWYgdGhpcyB3b3Jrcy4",
+        "body_html": "",
+        "internal_date": "1772456400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772456400000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_020",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_020\\\", \\\"thread_id\\\": \\\"th_mkt_noise_020\\\", \\\"from_\\\": \\\"events@marketingconf.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"MarketingConf 2026: Speaker applications open\\\", \\\"date\\\": \\\"2026-02-25T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_020\\n来源：events@marketingconf.example.com\\n收件人：me\\n日期：2026-02-25T10:00:00Z\\n主题：MarketingConf 2026: Speaker applications open\\nSubmit your talk proposal for MarketingConf 2026 in Chicago, May 14-16. Deadline: March 31.\"}"
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDIw",
+        "smtp_message_id": "msg_mkt_noise_020@fixture.invalid",
+        "subject": "MarketingConf 2026: Speaker applications open",
+        "head_from": {
+          "mail_address": "events@marketingconf.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "U3VibWl0IHlvdXIgdGFsayBwcm9wb3NhbCBmb3IgTWFya2V0aW5nQ29uZiAyMDI2IGluIENoaWNhZ28sIE1heSAxNC0xNi4gRGVhZGxpbmU6IE1hcmNoIDMxLg",
+        "body_preview": "U3VibWl0IHlvdXIgdGFsayBwcm9wb3NhbCBmb3IgTWFya2V0aW5nQ29uZiAyMDI2IGluIENoaWNhZ28sIE1heSAxNC0xNi4gRGVhZGxpbmU6IE1hcmNoIDMxLg",
+        "body_html": "",
+        "internal_date": "1772013600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1772013600000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_023",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_023\\\", \\\"thread_id\\\": \\\"th_mkt_noise_023\\\", \\\"from_\\\": \\\"elena.voss@crestlinedigital.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Influencer campaign — deliverables update\\\", \\\"date\\\": \\\"2026-03-03T10:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_023\\n来源：elena.voss@crestlinedigital.example.com\\n收件人：me\\n日期：2026-03-03T10:15:00Z\\n主题：Influencer campaign — deliverables update\\nAll 4 influencer posts have been published. Engagement so far: 2.4k likes, 380 comments, 120 shares.\"}"
-      },
-      "create_time": "1772532900000"
-    }
-  ]
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyMw",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDIz",
+        "smtp_message_id": "msg_mkt_noise_023@fixture.invalid",
+        "subject": "Influencer campaign — deliverables update",
+        "head_from": {
+          "mail_address": "elena.voss@crestlinedigital.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QWxsIDQgaW5mbHVlbmNlciBwb3N0cyBoYXZlIGJlZW4gcHVibGlzaGVkLiBFbmdhZ2VtZW50IHNvIGZhcjogMi40ayBsaWtlcywgMzgwIGNvbW1lbnRzLCAxMjAgc2hhcmVzLg",
+        "body_preview": "QWxsIDQgaW5mbHVlbmNlciBwb3N0cyBoYXZlIGJlZW4gcHVibGlzaGVkLiBFbmdhZ2VtZW50IHNvIGZhcjogMi40ayBsaWtlcywgMzgwIGNvbW1lbnRzLCAxMjAgc2hhcmVzLg",
+        "body_html": "",
+        "internal_date": "1772532900000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": [],
+    "labels": []
+  }
 }

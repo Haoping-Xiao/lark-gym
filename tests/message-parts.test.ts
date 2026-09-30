@@ -32,7 +32,16 @@ test('adapted email assertions preserve subject/body boundaries and source numer
     ];
     for (const [i, [text, passed]] of cases.entries()) {
       const world = structuredClone(b.world);
-      world.messages.at(-1)!.body.content = JSON.stringify({ text });
+      const originalIDs = new Set(
+        seed.mail.messages.map((m: any) => m.message_id),
+      );
+      const mail = world.mail!.messages.find(
+        (m) => m.message_state === 2 && !originalIDs.has(m.message_id),
+      )!;
+      const [subject, ...body] = text.split(/\r?\n/);
+      mail.subject = subject;
+      mail.body_plain_text = Buffer.from(body.join('\n')).toString('base64url');
+      mail.body_html = '';
       const state = join(dir, `${i}.json`),
         out = join(dir, String(i));
       await writeFile(state, JSON.stringify({ seed, world, calls: b.calls }));

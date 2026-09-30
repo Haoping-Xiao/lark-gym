@@ -21,7 +21,7 @@ for (const n of [1042, 1079]) {
       for (const missing of [false, true]) {
         const backend = await startMock(seed);
         try {
-          const transform = `const changed=commands.flatMap(a=>{if(a[0]!=='im'||a[1]!=='+messages-send')return[a];const p=a.indexOf('--text')+1;const lines=a[p].split('\\n').filter(l=>!l.includes('${code}'));const k=Math.ceil(lines.length/2);return[lines.slice(0,k).join('\\n'),lines.slice(k).join('\\n')].map((t,i)=>{const b=[...a];b[p]='${header}\\n'+(${missing}&&i===1?'':'${code}\\n')+t;return b;});});`;
+          const transform = `const changed=commands.flatMap(a=>{const mail=a[0]==='mail'&&a[1]==='+send';if(!mail&&(a[0]!=='im'||a[1]!=='+messages-send'))return[a];const p=a.indexOf(mail?'--body':'--text')+1;const lines=a[p].split('\\n').filter(l=>!l.includes('${code}'));const k=Math.ceil(lines.length/2);return[lines.slice(0,k).join('\\n'),lines.slice(k).join('\\n')].map((t,i)=>{const b=[...a];b[p]='${header}\\n'+(${missing}&&i===1?'':'${code}\\n')+t;return b;});});`;
           const file = join(dir, 'solve.ts');
           await writeFile(
             file,
@@ -54,12 +54,24 @@ for (const n of [1042, 1079]) {
           );
           assert.equal(result.business_success, !missing);
           assert.equal(
-            result.messageChecks.filter((c: any) => !c.passed).length,
+            (n === 1042
+              ? result.semantic.literalMessageChecks
+              : result.messageChecks
+            ).filter((c: any) => !c.passed).length,
             missing ? 1 : 0,
           );
           const old = new Set(seed.messages.map((m: any) => m.message_id));
           assert.equal(
-            backend.world.messages.filter((m) => !old.has(m.message_id)).length,
+            n === 1042
+              ? backend.world.mail!.messages.filter(
+                  (m) =>
+                    m.message_state === 2 &&
+                    !seed.mail.messages.some(
+                      (x: any) => x.message_id === m.message_id,
+                    ),
+                ).length
+              : backend.world.messages.filter((m) => !old.has(m.message_id))
+                  .length,
             2,
           );
         } finally {
