@@ -285,7 +285,7 @@ for row in rows:
     for m in recipe.get('messages',[]):
         if recipe.get('native_mail') and m.get('email'):
             assert 'mail' in recipe, 'native mail criteria must be independently reviewed'
-            commands.append(['mail','+send','--mailbox',recipe.get('native_mailbox','agent@company.example.com'),'--to',m['email'],'--subject',m['subject'],'--body',m['body'],'--confirm-send','--as','user'])
+            commands.append(['mail','+send','--mailbox',m.get('mailbox',recipe.get('native_mailbox','agent@company.example.com')),'--to',m['email'],'--subject',m['subject'],'--body',m['body'],'--confirm-send','--as','user'])
             continue
         cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else newChatIds[m['channel']] if m.get('channel') in newChatIds else next(c['chat_id'] for c in chats if c['name']==m['channel'])
         messageChecks.append({**({'chat_name':m['channel']} if m.get('channel') in newChatIds else {'chat_id':cid}),'contains':m['contains']})
@@ -407,6 +407,11 @@ for row in rows:
         assert not any(m['chat_id']in removed for m in seed['messages']), 'native mail context needs explicit routing'
         seed['chats']=[c for c in seed['chats']if c['chat_id']not in removed]
         seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'),recipe.get('native_unread_source','labels'),recipe.get('native_mail_id_encoding'))
+        seed['mail']['mailboxes'].extend(copy.deepcopy(recipe.get('native_mailboxes',[])))
+        if recipe.get('native_preserve_sent'):
+            sent_ids={m['id'] for m in src.get('gmail',{}).get('messages',[]) if 'SENT' in m.get('labels',m.get('label_ids',[]))}
+            for m in seed['mail']['messages']:
+                if m['message_id'] in sent_ids: m.update(message_state=2,folder_id='SENT',label_ids=['SENT'])
         if 'native_mail_contacts' in recipe:
             seed['mail']['contacts']=copy.deepcopy(recipe['native_mail_contacts'])
         forbidden=[f for f in forbidden if f.get('chat_id')not in removed]

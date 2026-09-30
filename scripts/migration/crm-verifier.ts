@@ -105,6 +105,7 @@ const expected: {
   cells_before_mail?: { to: string; cells: any[] }[];
   mail_list_before_send?: { mailbox: string };
   mail?: {
+    from?: string;
     aggregate?: boolean;
     every_body_contains?: string[];
     attachments?: {
@@ -961,6 +962,10 @@ const mailChecks = (expected.mail || []).map((rule) => {
         a.mail_address.toLowerCase(),
       );
       return (
+        (!rule.from ||
+          (m.mailbox_id?.toLowerCase() === rule.from.toLowerCase() &&
+            m.head_from?.mail_address?.toLowerCase() ===
+              rule.from.toLowerCase())) &&
         rule.to.every((a) => recipients.includes(a.toLowerCase())) &&
         recipients.every((a: string) => allowed.has(a)) &&
         !(m.bcc || []).length
@@ -1011,6 +1016,10 @@ const mailChecks = (expected.mail || []).map((rule) => {
   const match = sentMail.find(
     (m: any) =>
       !consumedMail.has(m.message_id) &&
+      (!rule.from ||
+        (m.mailbox_id?.toLowerCase() === rule.from.toLowerCase() &&
+          m.head_from?.mail_address?.toLowerCase() ===
+            rule.from.toLowerCase())) &&
       unreadListBeforeMail(m) &&
       mailSourceProof(m, rule) &&
       sheetBeforeMail(m, rule) &&
