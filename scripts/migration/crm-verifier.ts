@@ -68,6 +68,7 @@ type EventCheck = {
   attendee_options?: string[][];
 };
 type Check = {
+  labeled_value?: { label: string; value: string };
   required_url?: string;
   record_id: string;
   field: string;
@@ -267,6 +268,29 @@ const includesSourceUrl = (text: unknown, source: string): boolean => {
   });
 };
 
+// Explicit source-mapped scalar inside a prose field: compare the whole token.
+function hasLabeledValue(
+  actual: unknown,
+  rule: { label: string; value: string },
+) {
+  if (
+    typeof actual !== 'string' ||
+    !/^[A-Za-z_][A-Za-z0-9_]*$/.test(rule.label)
+  )
+    return false;
+  const matches = [
+    ...actual.matchAll(
+      new RegExp(
+        String.raw`(?:^|[\s;；,，])${rule.label}\s*[:：=]\s*([^\s;；，。]+)`,
+        'g',
+      ),
+    ),
+  ];
+  return (
+    matches.length > 0 &&
+    matches.every((match) => match[1].replace(/,$/, '') === rule.value)
+  );
+}
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
@@ -275,6 +299,7 @@ const checks = expected.updates.map((check) => {
     ...check,
     passed:
       !(check.forbidden || []).some((part) => String(value).includes(part)) &&
+      (!check.labeled_value || hasLabeledValue(value, check.labeled_value)) &&
       (!check.required_url || includesSourceUrl(value, check.required_url)) &&
       (check.contains
         ? check.contains.every((part) => String(value).includes(part))

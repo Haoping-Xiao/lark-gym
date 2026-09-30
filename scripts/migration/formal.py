@@ -248,7 +248,7 @@ for row in rows:
         record=next(r for r in records if r['record_id'] in ['rec_'+u['id'],'rec_'+re.sub(r'[^A-Za-z0-9_-]','_',u['id'])])
         for field,value in u['fields'].items():
             record['fields'].setdefault(field,'')
-            updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
+            updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'labeled_value':u['labeled_values'][field]}if field in u.get('labeled_values',{})else{}),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
         commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--record-id',record['record_id'],'--json',json.dumps({**u['fields'],**u.get('oracle_fields',{})},ensure_ascii=False)])
     for fields in recipe.get('creates',[]):commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
     for rid in recipe.get('deletes',[]):

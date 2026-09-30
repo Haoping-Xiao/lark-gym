@@ -38818,7 +38818,7 @@
     ]
   },
   "support-1473": {
-    "instruction": "按enrichment spec以完整domain匹配support_organizations/hubspot_companies，do-not-enrich跳过；name mismatch整org不写任何字段，仅data-quality邮箱IM报告双方name/domain，不覆盖名称。成功匹配追加lifecycle原值tag、details记annual_revenue: 原值、notes记industry: 原值，保留其他字段；缺match不创建company。crm-ops报告已enriched公司及字段、成功数和discrepancy数，不列无匹配或禁止对象。",
+    "instruction": "按enrichment spec以完整domain匹配support_organizations/hubspot_companies，do-not-enrich跳过；name mismatch整org不写任何字段，仅使用 agent@company.example.com 原生邮箱向 data-quality@company.example.com 报告双方name/domain，不覆盖名称。成功匹配追加lifecycle原值tag、details记annual_revenue: 原值、notes记industry: 原值，保留其他字段；缺match不创建company。crm-ops报告已enriched公司及字段、成功数和discrepancy数，不列无匹配或禁止对象。",
     "updates": [
       {
         "id": "zendesk_c360_org1",
@@ -38830,6 +38830,12 @@
         "contains": {
           "details": ["5000000"],
           "notes": ["Technology"]
+        },
+        "labeled_values": {
+          "details": {
+            "label": "annual_revenue",
+            "value": "5000000"
+          }
         }
       },
       {
@@ -38842,14 +38848,20 @@
         "contains": {
           "details": ["500000"],
           "notes": ["Software"]
+        },
+        "labeled_values": {
+          "details": {
+            "label": "annual_revenue",
+            "value": "500000"
+          }
         }
       }
     ],
     "messages": [
       {
         "email": "data-quality@company.example.com",
-        "text": "Name discrepancy | betacorp.io | Zendesk: BetaCorp | HubSpot: Beta Corporation | 未改写org",
-        "contains": ["betacorp.io", "BetaCorp", "Beta Corporation"]
+        "subject": "Name discrepancy",
+        "body": "Name discrepancy | betacorp.io | Zendesk: BetaCorp | HubSpot: Beta Corporation | 未改写org"
       },
       {
         "channel": "crm-ops",
@@ -38866,6 +38878,39 @@
           "Software"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "native_mail_contacts": [],
+    "mail": [
+      {
+        "to": ["data-quality@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["BetaCorp", "Beta Corporation"]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_enrichment",
+        "--sheet-id",
+        "ws_field_mapping",
+        "--range",
+        "A1:C100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_enrichment",
+        "--sheet-id",
+        "ws_enrichment_rules",
+        "--range",
+        "A1:C100"
+      ]
     ]
   },
   "support-1475": {
