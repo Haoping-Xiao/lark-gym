@@ -145,6 +145,20 @@ const expected: {
     source_message_id: string;
     identity: Fields;
   }[];
+  transfer_before_deletes?: {
+    record_id: string;
+    summary_chat_id?: string;
+    source_collection: string;
+    source_equals: Fields;
+    target_equals: Fields;
+    source_id_prefix: string;
+    notes: {
+      collection: string;
+      source_field: string;
+      equals: Fields;
+      contains: Record<string, string[]>;
+    };
+  }[];
   event_state_before_creates?: {
     collection: string;
     equals: Fields;
@@ -1652,6 +1666,116 @@ const workflowBarrierChecks = (expected.workflow_barriers || []).map((rule) => {
       Math.max(...before.flat()) < Math.min(...after.flat()),
   };
 });
+// Every linked source record must be transferred, with its note, before deletion.
+// Reconstruct successful state before each request, including deletion mutations.
+const transferBeforeDeleteChecks = (expected.transfer_before_deletes || []).map(
+  (rule) => {
+    const sources = seed.base.records.filter(
+      (record: RecordRow) =>
+        record.fields.collection === rule.source_collection &&
+        Object.entries(rule.source_equals).every(([key, value]) =>
+          isDeepStrictEqual(record.fields[key], value),
+        ),
+    );
+    const current = new Map<string, Fields>(
+      seed.base.records.map((record: RecordRow) => [
+        record.record_id,
+        structuredClone(record.fields),
+      ]),
+    );
+    const checkpoints: {
+      seq: number;
+      passed: boolean;
+      transferred: { record_id: string; ready: boolean; note: boolean }[];
+    }[] = [];
+    for (const call of calls) {
+      if (call.status >= 400) continue;
+      if (
+        (call.mutations || []).some(
+          (mutation: any) =>
+            mutation.kind === 'record' &&
+            mutation.id === rule.record_id &&
+            mutation.before &&
+            !mutation.after,
+        )
+      ) {
+        const transferred = sources.map((source: RecordRow) => {
+          const fields = current.get(source.record_id);
+          const ready =
+            Boolean(fields) &&
+            Object.entries(rule.target_equals).every(([key, value]) =>
+              isDeepStrictEqual(fields?.[key], value),
+            );
+          const id = source.record_id.startsWith(rule.source_id_prefix)
+            ? source.record_id.slice(rule.source_id_prefix.length)
+            : undefined;
+          const note =
+            id !== undefined &&
+            [...current.values()].some(
+              (fields) =>
+                fields.collection === rule.notes.collection &&
+                fields[rule.notes.source_field] === id &&
+                Object.entries(rule.notes.equals).every(([key, value]) =>
+                  isDeepStrictEqual(fields[key], value),
+                ) &&
+                Object.entries(rule.notes.contains).every(
+                  ([key, terms]) =>
+                    typeof fields[key] === 'string' &&
+                    terms.every((term) =>
+                      supportContains(String(fields[key]), term),
+                    ),
+                ),
+            );
+          return { record_id: source.record_id, ready, note };
+        });
+        checkpoints.push({
+          seq: call.seq,
+          transferred,
+          passed: transferred.every(
+            (record: { ready: boolean; note: boolean }) =>
+              record.ready && record.note,
+          ),
+        });
+      }
+      for (const mutation of call.mutations || []) {
+        if (mutation.kind !== 'record') continue;
+        if (mutation.after)
+          current.set(mutation.id, structuredClone(mutation.after.fields));
+        else current.delete(mutation.id);
+      }
+    }
+    const summaries = rule.summary_chat_id
+      ? calls
+          .filter(
+            (call: any) =>
+              call.status < 400 &&
+              (call.mutations || []).some(
+                (mutation: any) =>
+                  mutation.kind === 'message' &&
+                  !mutation.before &&
+                  mutation.after?.chat_id === rule.summary_chat_id,
+              ),
+          )
+          .map((call: any) => call.seq)
+      : [];
+    return {
+      record_id: rule.record_id,
+      sources: sources.map((record: RecordRow) => record.record_id),
+      checkpoints,
+      summaries,
+      passed:
+        checkpoints.length > 0 &&
+        checkpoints.every((checkpoint) => checkpoint.passed) &&
+        (!rule.summary_chat_id ||
+          (summaries.length > 0 &&
+            summaries.every(
+              (seq: number) =>
+                seq >
+                Math.max(...checkpoints.map((checkpoint) => checkpoint.seq)),
+            ))),
+    };
+  },
+);
 const eventStateBeforeCreateChecks = (
   expected.event_state_before_creates || []
 ).map((rule) => {
@@ -2188,6 +2312,7 @@ const success =
   readRecordsBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeCreateChecks.every((check) => check.passed) &&
   readBeforeUpdateChecks.every((check) => check.passed) &&
+  transferBeforeDeleteChecks.every((c) => c.passed) &&
   eventStateBeforeCreateChecks.every((check) => check.passed) &&
   workflowBarrierChecks.every((check) => check.passed) &&
   recordStateBeforeUpdateChecks.every((check) => check.passed) &&
@@ -2252,6 +2377,7 @@ writeFileSync(
           : [],
       ),
       eventStateBeforeCreateChecks,
+      transferBeforeDeleteChecks,
       unchanged,
       covered,
     },
