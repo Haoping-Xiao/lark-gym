@@ -1,3 +1,4 @@
+import { verifyDocuments } from './documents.ts';
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
@@ -33,6 +34,7 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  documents?: any[];
   new_chats?: { name: string; description: string; user_ids: string[] }[];
   memberships?: { chat_id: string; user_ids: string[] }[];
   order_groups?: { kind: string; ids?: string[]; collection?: string }[];
@@ -291,7 +293,14 @@ const chatChecks = (expected.new_chats || []).map((check) => ({
         ),
     ).length === 1,
 }));
+const documentResult = verifyDocuments(
+  seed,
+  world,
+  expected.documents || [],
+  calls,
+);
 const protectedWorld = structuredClone(world);
+if (protectedWorld.docs) protectedWorld.docs = documentResult.protectedDocs;
 protectedWorld.chats = protectedWorld.chats.filter((c: { chat_id: string }) =>
   originalChats.has(c.chat_id),
 );
@@ -399,6 +408,7 @@ const orderChecks = (expected.order_groups || []).map((group) => {
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  documentResult.passed &&
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
@@ -429,6 +439,7 @@ writeFileSync(
       semantic,
       coverage,
       checks,
+      documentChecks: documentResult.checks,
       creationChecks,
       chatChecks,
       membershipChecks,

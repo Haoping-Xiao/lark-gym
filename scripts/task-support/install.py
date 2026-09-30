@@ -38,6 +38,8 @@ def install_environment(task):
         version = '0.2.14'
     if 'labels' in seed.get('mail', {}):
         version = '0.2.15'
+    if 'docs' in seed or 'drive_files' in seed:
+        version = '0.2.16'
     s = re.sub(r'(?m)^(FROM\s+)lark-gym-mock:0\.2\.\d+\b', lambda m: m[1] + 'lark-gym-mock:' + version, docker.read_text())
     if 'unsupported.ts' not in s:
         s += 'COPY unsupported.ts unsupported-policy.json /opt/mock/\n'

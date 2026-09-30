@@ -1,3 +1,4 @@
+import { verifyDocuments } from './documents.ts';
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
@@ -33,6 +34,7 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  documents?: any[];
   memberships?: { chat_id: string; user_ids: string[] }[];
   order_groups?: { kind: string; ids?: string[]; collection?: string }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
@@ -256,7 +258,14 @@ const membershipChecks = (expected.memberships || []).map((check) => ({
     ].sort(),
   ),
 }));
+const documentResult = verifyDocuments(
+  seed,
+  world,
+  expected.documents || [],
+  calls,
+);
 const protectedWorld = structuredClone(world);
+if (protectedWorld.docs) protectedWorld.docs = documentResult.protectedDocs;
 for (const check of expected.memberships || []) {
   const chat = protectedWorld.chats.find(
     (c: { chat_id: string }) => c.chat_id === check.chat_id,
@@ -361,6 +370,7 @@ const orderChecks = (expected.order_groups || []).map((group) => {
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  documentResult.passed &&
   membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
@@ -389,6 +399,7 @@ writeFileSync(
       semantic,
       coverage,
       checks,
+      documentChecks: documentResult.checks,
       creationChecks,
       membershipChecks,
       orderChecks,

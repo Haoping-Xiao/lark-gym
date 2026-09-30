@@ -314,6 +314,19 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
                 (old: { id: string }) => old.id === d.id,
               ),
           );
+          const newDocument = backend.world.docs?.documents.find(
+            (d) =>
+              !seed.docs?.documents.some(
+                (old: { document_id: string }) =>
+                  old.document_id === d.document_id,
+              ),
+          );
+          const newFolder = backend.world.docs?.folders.find(
+            (f) =>
+              !seed.docs?.folders.some(
+                (old: { token: string }) => old.token === f.token,
+              ),
+          );
           const newEvent = backend.world.events.find(
             (e: { event_id: string }) =>
               !seed.events.some(
@@ -350,7 +363,18 @@ describe('Native task programmatic regressions', { concurrency: 4 }, () => {
             backend.world.events = backend.world.events.filter(
               (e: { event_id: string }) => e.event_id !== newEvent.event_id,
             );
+          else if (newDocument)
+            backend.world.docs!.documents =
+              backend.world.docs!.documents.filter(
+                (d) => d.document_id !== newDocument.document_id,
+              );
+          else if (newFolder)
+            backend.world.docs!.folders = backend.world.docs!.folders.filter(
+              (f) => f.token !== newFolder.token,
+            );
           else {
+            if (seed.drive_files)
+              backend.world.drive_files = structuredClone(seed.drive_files);
             backend.world.base = structuredClone(seed.base);
             backend.world.sheets = structuredClone(seed.sheets);
             if (seed.spreadsheets)

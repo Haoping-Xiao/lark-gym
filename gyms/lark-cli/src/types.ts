@@ -13,6 +13,30 @@ export interface Sheet {
 export interface World {
   [key: string]: any;
   now: string;
+  drive_files?: {
+    token: string;
+    name: string;
+    parent_token: string;
+    type: 'file';
+    writable?: boolean;
+  }[];
+  docs?: {
+    folders: {
+      token: string;
+      name: string;
+      parent_token?: string;
+      writable?: boolean;
+    }[];
+    documents: {
+      document_id: string;
+      parent_token: string;
+      title: string;
+      content: string;
+      format: 'markdown';
+      revision_id: number;
+      writable?: boolean;
+    }[];
+  };
   mail?: {
     attachment_support?: boolean;
     // Explicit task opt-in: [] is an empty address book; absence is unsupported.

@@ -139,6 +139,8 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  for (const [i, doc] of (expected.documents || []).entries())
+    if (doc.semantic_content) deferred.push(`documents[${i}].content`);
   if (config.source_read_before_create?.length) {
     original.source_read_before_create = structuredClone(
       config.source_read_before_create,

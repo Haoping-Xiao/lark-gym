@@ -115,6 +115,8 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  for (const [i, doc] of (expected.documents || []).entries())
+    if (doc.semantic_content) deferred.push(`documents[${i}].content`);
   if (config.event_text && expected.events?.length)
     deferred.push('events.business_purpose_and_optional_description');
   // Each source assertion is existential over one actual, newly sent body.

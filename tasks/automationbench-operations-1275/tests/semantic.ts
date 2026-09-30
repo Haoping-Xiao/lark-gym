@@ -23,6 +23,8 @@ export function prepareSemantic(
     (fields.has(field.toLowerCase()) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  for (const [i, doc] of (expected.documents || []).entries())
+    if (doc.semantic_content) deferred.push(`documents[${i}].content`);
   const semanticCell = (cell: Json) =>
     cell.contains?.length ||
     (typeof cell.value === 'string' && cell.value.length > 80) ||

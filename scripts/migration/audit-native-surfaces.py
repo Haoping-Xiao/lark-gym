@@ -30,7 +30,8 @@ def audit(source_path):
         mail_assertions = [a['type'] for a in assertions if a['type'].startswith('gmail_')]
         mail_source = bool(state.get('gmail'))
         mail_tools = [t for t in info.get('zapier_tools', []) if t.startswith('gmail_')]
-        has_mail_scope = bool(mail_source or mail_assertions or mail_tools)
+        source_mail_scope = bool(mail_source or mail_assertions or mail_tools)
+        has_mail_scope = bool(source_mail_scope or seed.get('mail') or expected.get('mail') or any(m.get('email') for m in recipe.get('messages', [])))
         has_native_mail = 'mail' in seed
         legacy_chats = [c['chat_id'] for c in seed.get('chats', [])
                         if c['chat_id'] == 'oc_mail' or c['chat_id'].startswith('oc_email_')]
@@ -60,18 +61,23 @@ def audit(source_path):
         rows.append({
             'task': name, 'source_domain': source['domain'],
             'source_apps': sorted(k for k, v in state.items() if k != 'meta' and v),
-            'mail_scope': has_mail_scope, 'mail_kind': mail_kind if has_mail_scope else None,
+            'source_mail_scope': source_mail_scope, 'mail_scope': has_mail_scope, 'mail_kind': mail_kind if has_mail_scope else None,
             'source_mail_messages': len(state.get('gmail', {}).get('messages', [])),
             'mail_assertion_types': sorted(set(mail_assertions)),
             'native_mail_state': has_native_mail,
             'legacy_mail_chats': len(legacy_chats),
             'legacy_mail_write_collections': legacy_mail_writes,
+            'native_documents': len(expected.get('documents', [])),
+            'native_file_moves': len(expected.get('file_moves', [])),
+            'native_folder_creates': len(expected.get('folder_creates', [])),
+            'base_write_collections': collections_written,
             'mail_flags': flags, 'business_review_candidates': review,
         })
     return {
         'scope': 'static mapping inventory only; execution and semantic acceptance are separate',
         'counts': {
             'tasks': len(rows),
+            'source_mail_tasks': sum(r['source_mail_scope'] for r in rows),
             'mail_tasks': sum(r['mail_scope'] for r in rows),
             'mail_tasks_with_native_state': sum(r['mail_scope'] and r['native_mail_state'] for r in rows),
             'mail_tasks_missing_native_state': sum(r['mail_scope'] and not r['native_mail_state'] for r in rows),

@@ -1,3 +1,4 @@
+import { verifyDrive } from './files.ts';
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
@@ -33,6 +34,8 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  file_moves?: any[];
+  folder_creates?: any[];
   new_chats?: { name: string; description: string; user_ids: string[] }[];
   memberships?: { chat_id: string; user_ids: string[] }[];
   order_groups?: { kind: string; ids?: string[]; collection?: string }[];
@@ -291,7 +294,11 @@ const chatChecks = (expected.new_chats || []).map((check) => ({
         ),
     ).length === 1,
 }));
+const driveResult = verifyDrive(seed, world, expected);
 const protectedWorld = structuredClone(world);
+protectedWorld.drive_files = driveResult.protectedFiles;
+if (protectedWorld.docs)
+  protectedWorld.docs.folders = driveResult.protectedDocs.folders;
 protectedWorld.chats = protectedWorld.chats.filter((c: { chat_id: string }) =>
   originalChats.has(c.chat_id),
 );
@@ -399,6 +406,7 @@ const orderChecks = (expected.order_groups || []).map((group) => {
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  driveResult.passed &&
   newChats.length === (expected.new_chats || []).length &&
   chatChecks.every((c) => c.passed) &&
   membershipChecks.every((c) => c.passed) &&
@@ -429,6 +437,8 @@ writeFileSync(
       semantic,
       coverage,
       checks,
+      fileMoveChecks: driveResult.moves,
+      folderChecks: driveResult.folders,
       creationChecks,
       chatChecks,
       membershipChecks,

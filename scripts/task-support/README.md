@@ -1,3 +1,5 @@
+> 完成下列常规生成／整理步骤后，还须运行 `python scripts/migration/native-business/apply.py`，再执行格式化和验证。该步骤把已审核的文档、云盘和社媒队列承接落实到真实原生对象；来源字段名保留用于业务追溯。
+
 # Task review and verifier support
 
 All task packages remain native Harbor tasks. Each task owns its environment hook,
@@ -8,6 +10,7 @@ files after task generation; task-specific policy JSON is retained. Run:
 python scripts/task-support/business-context.py
 python scripts/task-support/business-tables.py
 python scripts/task-support/install.py
+python scripts/migration/native-business/apply.py
 python scripts/task-support/audit.py
 npm run format
 ```

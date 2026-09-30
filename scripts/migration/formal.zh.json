@@ -35316,7 +35316,7 @@
     ]
   },
   "hr-5043": {
-    "instruction": "按Offer Approvals和状态约定，仅为完全批准且尚未发送的offer发签署请求。DocuSign改为签署请求飞书台账signature_requests加候选人私聊，不提供外部电子签名能力。每个请求保存template_id、candidate、email、role、salary原文、start_date、status=Sent；私聊列候选人、Role、Salary、Start Date及请求签署。发送后才更新来源DocuSign Status为约定值。不把Sent当成已签署，也不修改审批结论。",
+    "instruction": "按Offer Approvals和状态约定，仅为完全批准且尚未发送的offer发签署请求。DocuSign改为签署请求飞书台账signature_requests加候选人邮件，不提供外部电子签名能力。每个请求保存template_id、candidate、email、role、salary原文、start_date、status=Sent；邮件列候选人、Role、Salary、Start Date及请求签署。发送后才更新来源DocuSign Status为约定值。不把Sent当成已签署，也不修改审批结论。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -35349,7 +35349,9 @@
           "$155,000",
           "2026-04-14",
           "请签署offer"
-        ]
+        ],
+        "subject": "Elena Vasquez | Senior Backend Engineer | $155,000 | 2026-04-14 | 请签署offer",
+        "body": "Elena Vasquez | Senior Backend Engineer | $155,000 | 2026-04-14 | 请签署offer"
       },
       {
         "email": "james.morton@email.example.com",
@@ -35360,7 +35362,9 @@
           "$195,000",
           "2026-04-21",
           "请签署offer"
-        ]
+        ],
+        "subject": "James Morton | Staff Engineer | $195,000 | 2026-04-21 | 请签署offer",
+        "body": "James Morton | Staff Engineer | $195,000 | 2026-04-21 | 请签署offer"
       }
     ],
     "sheets": [
@@ -35396,8 +35400,8 @@
           }
         },
         "message": {
-          "email": "elena.vasquez@email.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "elena.vasquez@email.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_offers_pending",
@@ -35416,8 +35420,8 @@
           }
         },
         "message": {
-          "email": "james.morton@email.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "james.morton@email.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_offers_pending",
@@ -35427,7 +35431,58 @@
           "value": "DocuSign Sent"
         }
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["elena.vasquez@email.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Elena Vasquez",
+          "Senior Backend Engineer",
+          "$155,000",
+          "2026-04-14",
+          "请签署offer"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["james.morton@email.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "James Morton",
+          "Staff Engineer",
+          "$195,000",
+          "2026-04-21",
+          "请签署offer"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "creation_contains": {},
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
+    ],
+    "order_groups": []
   },
   "hr-5047": {
     "instruction": "今天2026-03-19，读取明天面试名单与Notes，只提醒仍有效且SMS Opt-In=Yes的候选人。短信适配为以来源电话号码命名的飞书私聊，先从会话目录定位号码，不真实发送SMS。消息含候选人原名、2026-03-20、原Interview Time（保留EST字面值，不推断改时区）、Type。不同意或已取消者不联系，不改来源。",
@@ -36333,7 +36388,7 @@
     ]
   },
   "hr-5061": {
-    "instruction": "检查NDA Compliance，只为Not Sent员工发NDA签署请求，已Signed者保持不变。DocuSign改为signature_requests台账加飞书私聊；台账字段template_id、employee、email、start_date、status=Sent，使用源Employee NDA模板。私聊含姓名、NDA、入职日和请求签署；发出后来源NDA Status写DocuSign Sent（保留原跟踪约定），不表示签署完成。",
+    "instruction": "检查NDA Compliance，只为Not Sent员工发NDA签署请求，已Signed者保持不变。DocuSign改为signature_requests台账加飞书邮件；台账字段template_id、employee、email、start_date、status=Sent，使用源Employee NDA模板。邮件含姓名、NDA、入职日和请求签署；发出后来源NDA Status写DocuSign Sent（保留原跟踪约定），不表示签署完成。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -36396,17 +36451,23 @@
       {
         "email": "alicia.fernandez@company.example.com",
         "text": "Alicia Fernandez | NDA | 2026-03-24 | 请签署",
-        "contains": ["Alicia Fernandez", "NDA", "2026-03-24", "请签署"]
+        "contains": ["Alicia Fernandez", "NDA", "2026-03-24", "请签署"],
+        "subject": "Alicia Fernandez | NDA | 2026-03-24 | 请签署",
+        "body": "Alicia Fernandez | NDA | 2026-03-24 | 请签署"
       },
       {
         "email": "tyrone.washington@company.example.com",
         "text": "Tyrone Washington | NDA | 2026-03-25 | 请签署",
-        "contains": ["Tyrone Washington", "NDA", "2026-03-25", "请签署"]
+        "contains": ["Tyrone Washington", "NDA", "2026-03-25", "请签署"],
+        "subject": "Tyrone Washington | NDA | 2026-03-25 | 请签署",
+        "body": "Tyrone Washington | NDA | 2026-03-25 | 请签署"
       },
       {
         "email": "meiling.chow@company.example.com",
         "text": "Mei-Ling Chow | NDA | 2026-03-24 | 请签署",
-        "contains": ["Mei-Ling Chow", "NDA", "2026-03-24", "请签署"]
+        "contains": ["Mei-Ling Chow", "NDA", "2026-03-24", "请签署"],
+        "subject": "Mei-Ling Chow | NDA | 2026-03-24 | 请签署",
+        "body": "Mei-Ling Chow | NDA | 2026-03-24 | 请签署"
       }
     ],
     "command_order": [0, 1, 2, 3, 4, 8, 9, 10, 5, 6, 7],
@@ -36420,8 +36481,8 @@
           }
         },
         "message": {
-          "email": "alicia.fernandez@company.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "alicia.fernandez@company.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_nda_tracker",
@@ -36440,8 +36501,8 @@
           }
         },
         "message": {
-          "email": "tyrone.washington@company.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "tyrone.washington@company.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_nda_tracker",
@@ -36460,8 +36521,8 @@
           }
         },
         "message": {
-          "email": "meiling.chow@company.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "meiling.chow@company.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_nda_tracker",
@@ -36471,7 +36532,54 @@
           "value": "DocuSign Sent"
         }
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["alicia.fernandez@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Alicia Fernandez", "NDA", "2026-03-24", "请签署"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["tyrone.washington@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Tyrone Washington", "NDA", "2026-03-25", "请签署"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["meiling.chow@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Mei-Ling Chow", "NDA", "2026-03-24", "请签署"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "creation_contains": {},
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
+    ],
+    "order_groups": []
   },
   "hr-5062": {
     "instruction": "今天2026-03-20，本周明确为2026-03-16至03-22（含端点）。按PIP Process处理本周checkpoint及到期仍Active项。源Monday没有item实体，状态变更改登记pip_status_updates飞书台账，字段item_id、employee、status：本周checkpoint为Review Due，过期为Expired。邮件按政策找经理或Escalation Contact，包含姓名、checkpoint类型及日期或expired和PIP End；不改源表、不代表已完成评审/纪律处分。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
@@ -37954,7 +38062,7 @@
     ]
   },
   "hr-5079": {
-    "instruction": "按Policy Acknowledgment Tracker与状态约定，仅向未签署且不在休假中的员工发policy acknowledgment签署请求。DocuSign改signature_requests台账（template_id、employee、email、status=Sent）和飞书私聊；发送后Signed列写Sent，暂缓者写Deferred，已Yes不动。不把发出请求写成Yes或已签署。",
+    "instruction": "按Policy Acknowledgment Tracker与状态约定，仅向未签署且不在休假中的员工发policy acknowledgment签署请求。DocuSign改signature_requests台账（template_id、employee、email、status=Sent）和飞书邮件；发送后Signed列写Sent，暂缓者写Deferred，已Yes不动。不把发出请求写成Yes或已签署。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -38024,17 +38132,23 @@
       {
         "email": "alice.park@company.example.com",
         "text": "Alice Park | Policy Acknowledgment Form | 请签署",
-        "contains": ["Alice Park", "Policy Acknowledgment Form", "请签署"]
+        "contains": ["Alice Park", "Policy Acknowledgment Form", "请签署"],
+        "subject": "Alice Park | Policy Acknowledgment Form | 请签署",
+        "body": "Alice Park | Policy Acknowledgment Form | 请签署"
       },
       {
         "email": "dave.kim@company.example.com",
         "text": "Dave Kim | Policy Acknowledgment Form | 请签署",
-        "contains": ["Dave Kim", "Policy Acknowledgment Form", "请签署"]
+        "contains": ["Dave Kim", "Policy Acknowledgment Form", "请签署"],
+        "subject": "Dave Kim | Policy Acknowledgment Form | 请签署",
+        "body": "Dave Kim | Policy Acknowledgment Form | 请签署"
       },
       {
         "email": "eve.liu@company.example.com",
         "text": "Eve Liu | Policy Acknowledgment Form | 请签署",
-        "contains": ["Eve Liu", "Policy Acknowledgment Form", "请签署"]
+        "contains": ["Eve Liu", "Policy Acknowledgment Form", "请签署"],
+        "subject": "Eve Liu | Policy Acknowledgment Form | 请签署",
+        "body": "Eve Liu | Policy Acknowledgment Form | 请签署"
       }
     ],
     "command_order": [0, 1, 2, 3, 4, 9, 10, 11, 5, 6, 7, 8],
@@ -38042,8 +38156,8 @@
     "entity_order": [
       {
         "message": {
-          "email": "alice.park@company.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "alice.park@company.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_policy_ack",
@@ -38055,8 +38169,8 @@
       },
       {
         "message": {
-          "email": "dave.kim@company.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "dave.kim@company.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_policy_ack",
@@ -38068,8 +38182,8 @@
       },
       {
         "message": {
-          "email": "eve.liu@company.example.com",
-          "contains": []
+          "contains": [],
+          "mail_to": "eve.liu@company.example.com"
         },
         "cell": {
           "spreadsheet_token": "ss_policy_ack",
@@ -38079,10 +38193,56 @@
           "value": "Sent"
         }
       }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["alice.park@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Alice Park", "Policy Acknowledgment Form", "请签署"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["dave.kim@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Dave Kim", "Policy Acknowledgment Form", "请签署"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["eve.liu@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Eve Liu", "Policy Acknowledgment Form", "请签署"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "creation_contains": {},
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
     ]
   },
   "hr-5080": {
-    "instruction": "今天2026-03-20，通知Austin办公室天气紧急情况，明天2026-03-21在家办公。短信适配为源Phone命名的飞书私聊，仅Austin且SMS Opt-In=Yes者接收；其他办公室/Remote/未同意者不私聊。另在company-announcements发公告，并按Office Contacts给Austin facilities私聊，不更改原数据。每个收件人收到的信息整体需完整说明Austin、日期、天气原因和在家办公指令。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
+    "instruction": "今天2026-03-20，通知Austin办公室天气紧急情况，明天2026-03-21在家办公。短信适配为源Phone命名的飞书私聊，仅Austin且SMS Opt-In=Yes者接收；其他办公室/Remote/未同意者不私聊。另在company-announcements发公告，并按Office Contacts给Austin facilities发邮件，不更改原数据。每个收件人收到的信息整体需完整说明Austin、日期、天气原因和在家办公指令。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "now": "2026-03-20T16:00:00Z",
     "messages": [
       {
@@ -55565,7 +55725,7 @@
     ]
   },
   "operations-1204": {
-    "instruction": "查看facilities incidents及escalation rules，选择最紧急可升级的Open事件；同优先级先Impact=Critical，再最小Severity，再最早Reported。查jira_project精确匹配Operations Support。飞书Base新建jira_issues(project/issuetype=Incident/summary/external_id=incident:<Location>)，confluence_pages(cloudId=cloud_ops/space_id=SP_OPS/type=page/title=Incident - <Location>/body为Summary原文)。将ops-team@company.example.com作为本题ops团队接收地址，先私聊通知，再建jira_comments(issue_external_id/comment含notified)。不要在未通知时记已通知，也不要修改原事件表。",
+    "instruction": "查看facilities incidents及escalation rules，选择最紧急可升级的Open事件；同优先级先Impact=Critical，再最小Severity，再最早Reported。查jira_project精确匹配Operations Support。飞书Base新建jira_issues(project/issuetype=Incident/summary/external_id=incident:<Location>)，confluence_pages(cloudId=cloud_ops/space_id=SP_OPS/type=page/title=Incident - <Location>/body为Summary原文)。将ops-team@company.example.com作为本题ops团队接收地址，先邮件通知，再建jira_comments(issue_external_id/comment含notified)。不要在未通知时记已通知，也不要修改原事件表。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "jira_issues",
@@ -55603,20 +55763,58 @@
           "Critical",
           "Severity 1",
           "OPS"
-        ]
+        ],
+        "subject": "Incident - Badge Readers - HQ | Badge readers offline - HQ | Critical | Severity 1 | Jira OPS已创建。",
+        "body": "Incident - Badge Readers - HQ | Badge readers offline - HQ | Critical | Severity 1 | Jira OPS已创建。"
       }
     ],
     "command_order": [0, 1, 2, 3, 5, 4],
     "order_groups": [
       {
-        "kind": "message",
-        "emails": ["ops-team@company.example.com"]
+        "kind": "notification",
+        "ids": ["mail:ops-team@company.example.com"]
       },
       {
         "kind": "record",
         "collection": "jira_comments"
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["ops-team@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Badge Readers - HQ",
+          "Badge readers offline - HQ",
+          "Critical",
+          "Severity 1",
+          "OPS"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
+    ],
+    "entity_order": []
   },
   "operations-1205": {
     "instruction": "查ops@company.example.com最新vendor checklist归档来信，从google_drive_find_multiple_files和google_drive_folder台账识别正确文件及Archived Vendors文件夹。将文件实体folder实际更新为目标ID，并建notion_pages(parent_page=pg_ops、title保留文件原名、content记录Archived及file/目标folder)。原Drive/Notion移至Base业务台账，不操作外部文件、不改其他版本。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
@@ -56307,7 +56505,7 @@
     ]
   },
   "operations-1217": {
-    "instruction": "按ss_move_plan任务政策选择下一Phase 1 Floor Plan Signoff，创建飞书Base asana_tasks和basecamp_todos。Asana workspace=ws_ops/project=proj_move、section查Planning、tag=Move、name及dueDate取源Task/Due；Basecamp account=acct_ops/project=proj_move/todo_set=set_move/todo_list=list_signoff、content及due_on用同一行原文。遇到disputed行按policy向legal-ops@company.example.com询问状态，不替Legal认定解除争议，不影响其他可安排行。",
+    "instruction": "按ss_move_plan任务政策选择下一Phase 1 Floor Plan Signoff，创建飞书Base asana_tasks和basecamp_todos。Asana workspace=ws_ops/project=proj_move、section查Planning、tag=Move、name及dueDate取源Task/Due；Basecamp account=acct_ops/project=proj_move/todo_set=set_move/todo_list=list_signoff、content及due_on用同一行原文。遇到disputed行按policy向legal-ops@company.example.com询问状态，不替Legal认定解除争议，不影响其他可安排行。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "asana_tasks",
@@ -56339,9 +56537,50 @@
           "2026-02-03",
           "disputed",
           "尚未安排"
-        ]
+        ],
+        "subject": "请确认ss_move_plan row 7 | Floor Plan Signoff | Phase 1 | Due: 2026-02-03的ownership disputed是否已解决；该条尚未安排。",
+        "body": "请确认ss_move_plan row 7 | Floor Plan Signoff | Phase 1 | Due: 2026-02-03的ownership disputed是否已解决；该条尚未安排。"
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["legal-ops@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "row 7",
+          "Floor Plan Signoff",
+          "Phase 1",
+          "2026-02-03",
+          "disputed",
+          "尚未安排"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "creation_contains": {},
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
+    ],
+    "entity_order": [],
+    "order_groups": []
   },
   "operations-1219": {
     "instruction": "读取safety@company.example.com关于HQ emergency drill的完整更新，以最新仍有效会期安排cal_ops飞书日程，并写brd_ops的monday_find_items对应实体status=Scheduled、due=日程日期。不要混入Satellite或消防委员会会议。本题办公时间09:00–17:00 UTC，若超出则向emergency-team发after hours drill通知，含原日期起止；不修改其他安排。\n\n相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
@@ -56897,7 +57136,7 @@
   },
   "operations-1248": {
     "now": "2026-01-29T04:00:00Z",
-    "instruction": "当前2026-01-29 04:00 UTC，核对incident queue、全部政策、monitoring邮件和Current on-call，处理应响应的after-hours P1。SMS改为电话号码会话的飞书私聊，正文保留From: +15550001111作原流程审计，不声称实际发送短信；按政策决定是否升级secondary。创建jira_issues(project由Incident Management查/issuetype=Incident/summary/labels为JSON数组/description)及confluence_pages(cloudId=cloud_ops/space_id=SP_INCIDENTS/type=page/title/body)，并私聊incident-stakeholders；所有告警保留事件名、有效severity、detected原ISO时间和被通知on-call姓名。源Twilio历史保留为只读台账，不把历史噪声当本次发送。通知或记录引用来源值时须原样保留，不得改写或舍入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
+    "instruction": "当前2026-01-29 04:00 UTC，核对incident queue、全部政策、monitoring邮件和Current on-call，处理应响应的after-hours P1。SMS改为电话号码会话的飞书私聊，正文保留From: +15550001111作原流程审计，不声称实际发送短信；按政策决定是否升级secondary。创建jira_issues(project由Incident Management查/issuetype=Incident/summary/labels为JSON数组/description)及confluence_pages(cloudId=cloud_ops/space_id=SP_INCIDENTS/type=page/title/body)，并给incident-stakeholders发邮件；所有告警保留事件名、有效severity、detected原ISO时间和被通知on-call姓名。源Twilio历史保留为只读台账，不把历史噪声当本次发送。通知或记录引用来源值时须原样保留，不得改写或舍入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "jira_issues",
@@ -57538,7 +57777,7 @@
   },
   "operations-1262": {
     "now": "2026-01-29T09:00:00Z",
-    "instruction": "处理Jan27–Feb2到期、Active且NDA Signed=Yes的合同中End Date最早者，同日Security Clearance High>Standard>None。DocuSign替换signature_requests(template_id/template_name/signer_email/cc_emails JSON数组/status=Sent)，向本人发签署请求，HR/Legal分别私聊抄送。创建trello_cards(board=brd_hr/list=Offboarding/name=Offboard: <Name>)和notion_pages(parent_page=pg_offboarding/title=Offboarding: <Name>/content)。通知hr-ops及源Manager ID对应用户，正文和页面保留End Date、Security Clearance、Equipment List。只是开始offboarding，不终止账号或声称签署完成。通知或记录引用来源值时须原样保留，不得改写或舍入。",
+    "instruction": "处理Jan27–Feb2到期、Active且NDA Signed=Yes的合同中End Date最早者，同日Security Clearance High>Standard>None。DocuSign替换signature_requests(template_id/template_name/signer_email/cc_emails JSON数组/status=Sent)，向本人发签署请求，HR/Legal分别发送邮件副本。创建trello_cards(board=brd_hr/list=Offboarding/name=Offboard: <Name>)和notion_pages(parent_page=pg_offboarding/title=Offboarding: <Name>/content)。通知hr-ops及源Manager ID对应用户，正文和页面保留End Date、Security Clearance、Equipment List。只是开始offboarding，不终止账号或声称签署完成。通知或记录引用来源值时须原样保留，不得改写或舍入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "signature_requests",
@@ -57581,7 +57820,9 @@
           "2026-01-30",
           "Standard",
           "Laptop, Monitor, Badge"
-        ]
+        ],
+        "subject": "Contractor Exit Agreement | 签署请求 | Alex Rivera | 2026-01-30 | Standard | Laptop, Monitor, Badge",
+        "body": "Contractor Exit Agreement | 签署请求 | Alex Rivera | 2026-01-30 | Standard | Laptop, Monitor, Badge"
       },
       {
         "email": "hr@company.example.com",
@@ -57592,7 +57833,9 @@
           "2026-01-30",
           "Standard",
           "Laptop, Monitor, Badge"
-        ]
+        ],
+        "subject": "Contractor Exit Agreement | 签署请求 | Alex Rivera | 2026-01-30 | Standard | Laptop, Monitor, Badge",
+        "body": "Contractor Exit Agreement | 签署请求 | Alex Rivera | 2026-01-30 | Standard | Laptop, Monitor, Badge"
       },
       {
         "email": "legal@company.example.com",
@@ -57603,7 +57846,9 @@
           "2026-01-30",
           "Standard",
           "Laptop, Monitor, Badge"
-        ]
+        ],
+        "subject": "Contractor Exit Agreement | 签署请求 | Alex Rivera | 2026-01-30 | Standard | Laptop, Monitor, Badge",
+        "body": "Contractor Exit Agreement | 签署请求 | Alex Rivera | 2026-01-30 | Standard | Laptop, Monitor, Badge"
       },
       {
         "channel": "hr-ops",
@@ -57625,7 +57870,90 @@
           "Laptop, Monitor, Badge"
         ]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["arivera@contractor.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Contractor Exit Agreement",
+          "Alex Rivera",
+          "2026-01-30",
+          "Standard",
+          "Laptop, Monitor, Badge"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": [
+          "Contractor Exit Agreement",
+          "Alex Rivera",
+          "2026-01-30",
+          "Standard",
+          "Laptop, Monitor, Badge"
+        ]
+      },
+      {
+        "to": ["hr@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Contractor Exit Agreement",
+          "Alex Rivera",
+          "2026-01-30",
+          "Standard",
+          "Laptop, Monitor, Badge"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": [
+          "Contractor Exit Agreement",
+          "Alex Rivera",
+          "2026-01-30",
+          "Standard",
+          "Laptop, Monitor, Badge"
+        ]
+      },
+      {
+        "to": ["legal@company.example.com"],
+        "subject_contains": [],
+        "body_contains": [
+          "Contractor Exit Agreement",
+          "Alex Rivera",
+          "2026-01-30",
+          "Standard",
+          "Laptop, Monitor, Badge"
+        ],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": [
+          "Contractor Exit Agreement",
+          "Alex Rivera",
+          "2026-01-30",
+          "Standard",
+          "Laptop, Monitor, Badge"
+        ]
+      }
+    ],
+    "forbidden_mail": [],
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
+    ],
+    "entity_order": [],
+    "order_groups": []
   },
   "operations-1263": {
     "now": "2026-02-01T09:00:00Z",
@@ -57720,7 +58048,7 @@
   },
   "operations-1270": {
     "now": "2026-02-01T09:00:00Z",
-    "instruction": "查Q1 2026 Scheduled Regular最早会议及全部Governance Policies，选择Active/Required且无Recused或未解除ethics hold的成员。创建cal_exec飞书视频日历Q1 2026 Board Meeting，当日09UTC起3小时、非空会议密码并邀请合格成员。为每人创建signature_requests(template_id/template_name/signer_email/status=Sent)并私聊Board Meeting Consent签署请求。创建monday_items(board_id=brd_exec/item_name=Q1 2026 Board Meeting/meeting_date/prep_status=In Progress/attendees人数)和notion_pages(parent_page=pg_board/title=Q1 2026 Board Meeting - Agenda/uri=lark-gym://board/Q1-2026/agenda/content)。缺具体议程，明确采用经营回顾、财务报告、决议事项三项通用草案，含所有合格姓名、日期、UTC时段。executive通知日期、人数和议程uri；uri仅本环境业务引用，不声称真实网页。",
+    "instruction": "查Q1 2026 Scheduled Regular最早会议及全部Governance Policies，选择Active/Required且无Recused或未解除ethics hold的成员。创建cal_exec飞书视频日历Q1 2026 Board Meeting，当日09UTC起3小时、非空会议密码并邀请合格成员。为每人创建signature_requests(template_id/template_name/signer_email/status=Sent)并邮件Board Meeting Consent签署请求。创建monday_items(board_id=brd_exec/item_name=Q1 2026 Board Meeting/meeting_date/prep_status=In Progress/attendees人数)和notion_pages(parent_page=pg_board/title=Q1 2026 Board Meeting - Agenda/uri=lark-gym://board/Q1-2026/agenda/content)。缺具体议程，明确采用经营回顾、财务报告、决议事项三项通用草案，含所有合格姓名、日期、UTC时段。executive通知日期、人数和议程uri；uri 是台账内的业务引用，不作为网页链接。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "events": [
       {
         "calendar_id": "cal_exec",
@@ -57776,7 +58104,7 @@
         "parent_page": "pg_board",
         "title": "Q1 2026 Board Meeting - Agenda",
         "uri": "lark-gym://board/Q1-2026/agenda",
-        "content": "缺具体议程，采用经营回顾、财务报告、决议事项三项通用草案。2026-03-15 | 09:00–12:00 UTC | John Smith | Mary Johnson | Robert Williams | 经营回顾 | 财务报告 | 决议事项"
+        "content": "2026-03-15 | 09:00 | 12:00 | John Smith | Mary Johnson | Robert Williams | 经营回顾 | 财务报告 | 决议事项"
       }
     ],
     "creation_contains": {
@@ -57798,28 +58126,81 @@
       {
         "email": "jsmith@board.example.com",
         "text": "Board Meeting Consent | 2026-03-15 | 签署请求",
-        "contains": ["Board Meeting Consent", "2026-03-15", "签署请求"]
+        "contains": ["Board Meeting Consent", "2026-03-15", "签署请求"],
+        "subject": "Board Meeting Consent | 2026-03-15 | 签署请求",
+        "body": "Board Meeting Consent | 2026-03-15 | 签署请求"
       },
       {
         "email": "mjohnson@board.example.com",
         "text": "Board Meeting Consent | 2026-03-15 | 签署请求",
-        "contains": ["Board Meeting Consent", "2026-03-15", "签署请求"]
+        "contains": ["Board Meeting Consent", "2026-03-15", "签署请求"],
+        "subject": "Board Meeting Consent | 2026-03-15 | 签署请求",
+        "body": "Board Meeting Consent | 2026-03-15 | 签署请求"
       },
       {
         "email": "rwilliams@board.example.com",
         "text": "Board Meeting Consent | 2026-03-15 | 签署请求",
-        "contains": ["Board Meeting Consent", "2026-03-15", "签署请求"]
+        "contains": ["Board Meeting Consent", "2026-03-15", "签署请求"],
+        "subject": "Board Meeting Consent | 2026-03-15 | 签署请求",
+        "body": "Board Meeting Consent | 2026-03-15 | 签署请求"
       },
       {
         "channel": "executive",
         "text": "Q1 2026 Board Meeting | 2026-03-15 | 3 attendees | lark-gym://board/Q1-2026/agenda",
         "contains": ["2026-03-15", "3", "lark-gym://board/Q1-2026/agenda"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "native_unread_source": "is_read",
+    "native_mail_id_encoding": "base64url",
+    "native_preserve_metadata": true,
+    "mail": [
+      {
+        "to": ["jsmith@board.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Board Meeting Consent", "2026-03-15", "签署请求"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["mjohnson@board.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Board Meeting Consent", "2026-03-15", "签署请求"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      },
+      {
+        "to": ["rwilliams@board.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Board Meeting Consent", "2026-03-15", "签署请求"],
+        "semantic_content": true,
+        "semantic_subject": true,
+        "literal_body_contains": []
+      }
+    ],
+    "forbidden_mail": [],
+    "forbidden_records": [],
+    "create_contains": {},
+    "source_assertion_overrides": {},
+    "reference_read_commands": [
+      [
+        "mail",
+        "+triage",
+        "--mailbox",
+        "agent@company.example.com",
+        "--as",
+        "user"
+      ]
+    ],
+    "entity_order": [],
+    "order_groups": []
   },
   "operations-1271": {
     "now": "2026-01-29T14:15:00Z",
-    "instruction": "当前Jan29 14:15UTC以纳入最新Safety邮件，执行全部Emergency Queue政策；stale规则以实际当前时刻回溯12小时。判断各地点事件的有效优先级，挑最紧急可响应Facilities New一项；remaining计所有排除后的可响应总数（包括本次选中项，未从源表删除）。原SMS改对+15551119999电话号码飞书私聊，包含描述、有效Priority、具体Location、EMG-源row_id及N remaining。创建monday_items(board_id=brd_emergencies/item_name含描述及引用/status=Active/description)与notion_pages(parent_page=pg_emergencies/title含描述引用/content全部详情)，同样私聊building-occupants@company.example.com。全部输出含有效优先级、地点、引用、总数；本次为告警演练，不实际派遣，不把同楼不同位置混同。通知或记录引用来源值时须原样保留，不得改写或舍入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
+    "instruction": "当前Jan29 14:15UTC以纳入最新Safety邮件，执行全部Emergency Queue政策；stale规则以实际当前时刻回溯12小时。判断各地点事件的有效优先级，挑最紧急可响应Facilities New一项；remaining计所有排除后的可响应总数（包括本次选中项，未从源表删除）。原SMS改对+15551119999电话号码飞书私聊，包含描述、有效Priority、具体Location、EMG-源row_id及N remaining。创建monday_items(board_id=brd_emergencies/item_name含描述及引用/status=Active/description)与notion_pages(parent_page=pg_emergencies/title含描述引用/content全部详情)，同样发邮件给building-occupants@company.example.com。全部输出含有效优先级、地点、引用、总数；本次为告警演练，不实际派遣，不把同楼不同位置混同。通知或记录引用来源值时须原样保留，不得改写或舍入。\n\n来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。",
     "creates": [
       {
         "collection": "monday_items",

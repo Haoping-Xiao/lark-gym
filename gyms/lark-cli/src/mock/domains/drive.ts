@@ -13,6 +13,27 @@ function resources(world: World) {
     },
   };
   return [
+    ...(world.drive_files || []).map((f) => ({
+      ...f,
+      text: '',
+      url: `https://company.feishu.cn/file/${f.token}`,
+    })),
+    ...(world.docs?.documents || []).map((d) => ({
+      token: d.document_id,
+      name: d.title,
+      type: 'docx',
+      text: d.content,
+      parent_token: d.parent_token,
+      url: `https://company.feishu.cn/docx/${d.document_id}`,
+    })),
+    ...(world.docs?.folders || []).map((d) => ({
+      token: d.token,
+      name: d.name,
+      type: 'folder',
+      text: '',
+      parent_token: d.parent_token || '',
+      url: `https://company.feishu.cn/drive/folder/${d.token}`,
+    })),
     ...Object.entries(books).map(([token, book]) => ({
       token,
       name: book.title,
@@ -42,6 +63,56 @@ export function driveRoutes(
   world: World,
   { method, path, query, body }: ApiRequest,
 ) {
+  if (method === 'POST' && path === '/open-apis/drive/v1/files/create_folder') {
+    if (!world.docs)
+      fail(501, 990001, 'ENV_UNSUPPORTED: writable Drive folders not enabled');
+    supported(Object.keys(body), ['name', 'folder_token']);
+    requireValue(
+      typeof body.name === 'string' &&
+        Buffer.byteLength(body.name) > 0 &&
+        Buffer.byteLength(body.name) <= 256,
+      'Invalid folder name',
+    );
+    requireValue(
+      typeof body.folder_token === 'string',
+      'folder_token must be text',
+    );
+    const parent = world.docs!.folders.find(
+      (f) => f.token === body.folder_token,
+    );
+    requireValue(!body.folder_token || !!parent, 'Parent folder not found');
+    if (parent?.writable === false)
+      fail(403, 1061004, 'Parent folder is read only');
+    let n = 1;
+    while (world.docs!.folders.some((f) => f.token === `fldMock${n}`)) n++;
+    const token = `fldMock${n}`;
+    world.docs!.folders.push({
+      token,
+      name: body.name,
+      parent_token: body.folder_token,
+    });
+    return { token, url: `https://company.feishu.cn/drive/folder/${token}` };
+  }
+  const move = /^\/open-apis\/drive\/v1\/files\/([^/]+)\/move$/.exec(path);
+  if (method === 'POST' && move) {
+    supported(Object.keys(body), ['type', 'folder_token']);
+    if (!['file', 'docx'].includes(body.type))
+      fail(501, 990001, 'ENV_UNSUPPORTED: move resource type');
+    const id = decodeURIComponent(move[1]);
+    const target =
+      body.type === 'file'
+        ? world.drive_files?.find((f) => f.token === id)
+        : world.docs?.documents.find((d) => d.document_id === id);
+    if (!target) fail(404, 1061002, 'File not found');
+    const parent = world.docs?.folders.find(
+      (f) => f.token === body.folder_token,
+    );
+    if (!parent) fail(404, 1061002, 'Target folder not found');
+    if (target!.writable === false || parent!.writable === false)
+      fail(403, 1061004, 'Move permission denied');
+    target!.parent_token = body.folder_token;
+    return {};
+  }
   const commentsPath = path.match(
     /^\/open-apis\/drive\/v1\/files\/([^/]+)\/comments(?:\/(batch_query)|\/([^/]+)\/replies)?$/,
   );
@@ -130,8 +201,17 @@ export function driveRoutes(
     supported([...query.keys()], ['page_size', 'page_token', 'folder_token']);
     // All current business documents are at the accessible root. Unknown folder
     // IDs must not silently return that root's contents.
-    requireValue(!query.get('folder_token'), 'Folder does not exist');
-    const result = page(resources(world), query);
+    const parent = query.get('folder_token') || '';
+    requireValue(
+      !parent || !!world.docs?.folders.some((f) => f.token === parent),
+      'Folder does not exist',
+    );
+    const result = page(
+      resources(world).filter(
+        (file) => ('parent_token' in file ? file.parent_token : '') === parent,
+      ),
+      query,
+    );
     return {
       files: result.items.map(({ text: _text, ...file }) => file),
       has_more: result.has_more,
@@ -193,6 +273,7 @@ export function driveRoutes(
       page_token: result.page_token,
       res_units: result.items.map((file) => ({
         title: file.name,
+        title_highlighted: file.name,
         entity_type: 'DOC',
         result_meta: {
           token: file.token,

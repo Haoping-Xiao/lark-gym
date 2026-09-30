@@ -245,6 +245,8 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  for (const [i, doc] of (expected.documents || []).entries())
+    if (doc.semantic_content) deferred.push(`documents[${i}].content`);
   if (config.cell_source_context) {
     original.cell_source_context = structuredClone(config.cell_source_context);
     deferred.push('cells.optional_source_references_verbatim');

@@ -1,3 +1,4 @@
+import { verifyDocuments } from './documents.ts';
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
 import { createHash } from 'node:crypto';
@@ -92,6 +93,7 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  documents?: any[];
   forbidden_mail?: { to: string[]; contains: string[]; literal?: boolean }[];
   mail_updates?: {
     message_id: string;
@@ -1158,7 +1160,14 @@ const mailUpdateChecks = (expected.mail_updates || []).map((rule) => {
       isDeepStrictEqual([...after.label_ids].sort(), labels),
   };
 });
+const documentResult = verifyDocuments(
+  seed,
+  world,
+  expected.documents || [],
+  calls,
+);
 const protectedWorld = structuredClone(world);
+if (protectedWorld.docs) protectedWorld.docs = documentResult.protectedDocs;
 for (const rule of expected.mail_updates || []) {
   const before = seed.mail?.messages.find(
     (m: any) => m.message_id === rule.message_id,
@@ -2642,6 +2651,7 @@ const mailBeforeOutreachChecks = (expected.mail_before_outreach || []).map(
 );
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  documentResult.passed &&
   forbiddenMailChecks.every((c) => c.passed) &&
   mailUpdateChecks.every((c) => c.passed) &&
   mailBeforeOutreachChecks.every((c) => c.passed) &&
@@ -2699,6 +2709,7 @@ writeFileSync(
       readRecordsBeforeCreateChecks,
       readBeforeCreateChecks,
       readBeforeUpdateChecks,
+      documentChecks: documentResult.checks,
       creationChecks,
       deletionChecks,
       chatChecks,

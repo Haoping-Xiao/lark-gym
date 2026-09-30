@@ -1,3 +1,5 @@
+import { verifyDrive } from './files.ts';
+import { verifyDocuments } from './documents.ts';
 import { prepareSemantic } from './semantic.ts';
 import { scoreUnsupported } from './unsupported.ts';
 import { createHash } from 'node:crypto';
@@ -92,6 +94,9 @@ type WorkflowEventSelector = {
   column?: number;
 };
 const expected: {
+  file_moves?: any[];
+  folder_creates?: any[];
+  documents?: any[];
   mail_before_outreach?: {
     to: string;
     record_id?: string;
@@ -1088,7 +1093,18 @@ const mailChecks = (expected.mail || []).map((rule) => {
   if (match) consumedMail.add(match.message_id);
   return { ...rule, message_id: match?.message_id, passed: !!match };
 });
+const documentResult = verifyDocuments(
+  seed,
+  world,
+  expected.documents || [],
+  calls,
+);
+const driveResult = verifyDrive(seed, world, expected);
 const protectedWorld = structuredClone(world);
+protectedWorld.drive_files = driveResult.protectedFiles;
+if (protectedWorld.docs)
+  protectedWorld.docs.folders = driveResult.protectedDocs.folders;
+if (protectedWorld.docs) protectedWorld.docs = documentResult.protectedDocs;
 if (expected.mail && protectedWorld.mail)
   protectedWorld.mail.messages = protectedWorld.mail.messages.filter(
     (m: any) => !consumedMail.has(m.message_id),
@@ -2553,6 +2569,8 @@ const mailBeforeOutreachChecks = (expected.mail_before_outreach || []).map(
 );
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  driveResult.passed &&
+  documentResult.passed &&
   mailBeforeOutreachChecks.every((c) => c.passed) &&
   cellsBeforeMailChecks.every((c) => c.passed) &&
   mailChecks.every((c) => c.passed) &&
@@ -2608,6 +2626,9 @@ writeFileSync(
       readRecordsBeforeCreateChecks,
       readBeforeCreateChecks,
       readBeforeUpdateChecks,
+      documentChecks: documentResult.checks,
+      fileMoveChecks: driveResult.moves,
+      folderChecks: driveResult.folders,
       creationChecks,
       deletionChecks,
       chatChecks,

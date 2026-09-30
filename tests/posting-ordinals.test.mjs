@@ -16,11 +16,8 @@ test('ranking annotations require correct ordinals and unique memberships', asyn
       await fs.readFile(task + '/environment/seed.json', 'utf8'),
     ),
     src = await fs.readFile(task + '/solution/solve.ts', 'utf8'),
-    block = src
-      .slice(src.indexOf('const commands'), src.indexOf('for (const args'))
-      .replace('commands: string[][]', 'commands'),
-    original = JSON.parse(
-      vm.runInNewContext(block + '\nJSON.stringify(commands)'),
+    original = vm.runInNewContext(
+      src.match(/const commands: string\[\]\[\] = ([\s\S]*?);\n/)[1],
     );
   try {
     for (const mode of [

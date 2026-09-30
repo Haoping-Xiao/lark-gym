@@ -1,3 +1,4 @@
+import { docsRoutes } from './domains/docs.ts';
 import { contactRoutes } from './domains/contact.ts';
 import type { World } from '../types.ts';
 import { wikiRoutes } from './domains/wiki.ts';
@@ -22,6 +23,9 @@ export function createRouter(world: World) {
     const family = /^\/open-apis\/([^/]+)\//.exec(request.path)?.[1];
     let result: ResponseData | undefined;
     switch (family) {
+      case 'docs_ai':
+        result = docsRoutes(world, request);
+        break;
       case 'drive':
       case 'search':
         result = driveRoutes(world, request);

@@ -22,12 +22,17 @@ test('policy acknowledgments: per-person sending precedes Sent; record dependenc
     vm.runInNewContext(block + '\nJSON.stringify(commands)'),
   );
   const records = original.filter((c) => c[1] === '+record-upsert'),
-    messages = original.filter((c) => c[1] === '+messages-send'),
+    messages = original.filter((c) =>
+      ['+messages-send', '+send'].includes(c[1]),
+    ),
     cells = original.filter((c) => c[1] === '+cells-set');
   const sent = cells.filter((c) => !c.includes('C4')),
     deferred = cells.find((c) => c.includes('C4'))!;
   const reads = original.filter(
-    (c) => !['+record-upsert', '+messages-send', '+cells-set'].includes(c[1]),
+    (c) =>
+      !['+record-upsert', '+messages-send', '+send', '+cells-set'].includes(
+        c[1],
+      ),
   );
   try {
     await cp(task + '/tests', dir + '/tests', { recursive: true });

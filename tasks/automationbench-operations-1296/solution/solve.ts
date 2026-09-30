@@ -17,14 +17,8 @@ const commands: string[][] = [
     '--table-id',
     'tbl_ed2cf0112c20',
   ],
-  [
-    'base',
-    '+record-list',
-    '--base-token',
-    'base_crm',
-    '--table-id',
-    'tbl_53fb571ac4c7',
-  ],
+  ['drive', 'files', 'list', '--params', '{}'],
+  ['drive', 'files', 'list', '--params', '{"folder_token": "fld_q1_assets"}'],
   [
     'base',
     '+record-upsert',
@@ -51,7 +45,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_CDESIGN',
     '--text',
-    '2 designs queued | Q1 Banner | Social Template | PNG | lark-gym://drive/folders/fld_q1_assets',
+    '2 designs queued | Q1 Banner | Social Template | PNG | https://company.feishu.cn/drive/folder/fld_q1_assets',
   ],
 ];
 for (const args of commands)

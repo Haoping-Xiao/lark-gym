@@ -8,66 +8,7 @@
   "base": {
     "app_token": "base_crm",
     "table_id": "tbl_crm",
-    "records": [
-      {
-        "record_id": "rec_google_drive_gd_rec_1a",
-        "fields": {
-          "collection": "google_drive_find_multiple_files",
-          "source_action_id": "gd_rec_1a",
-          "title": "Vendor Checklist Q1 - Updated",
-          "file": "file_987",
-          "folder": "fld_current"
-        }
-      },
-      {
-        "record_id": "rec_google_drive_gd_rec_1b",
-        "fields": {
-          "collection": "google_drive_find_multiple_files",
-          "source_action_id": "gd_rec_1b",
-          "title": "Vendor Checklist Q1 - Draft",
-          "file": "file_988",
-          "folder": "fld_current"
-        }
-      },
-      {
-        "record_id": "rec_google_drive_gd_rec_1c",
-        "fields": {
-          "collection": "google_drive_find_multiple_files",
-          "source_action_id": "gd_rec_1c",
-          "title": "Vendor Checklist Q1 - Final",
-          "file": "file_989",
-          "folder": "fld_current"
-        }
-      },
-      {
-        "record_id": "rec_google_drive_gd_rec_2",
-        "fields": {
-          "collection": "google_drive_find_multiple_files",
-          "source_action_id": "gd_rec_2",
-          "title": "Vendor Checklist Q1",
-          "file": "file_654",
-          "folder": "fld_current"
-        }
-      },
-      {
-        "record_id": "rec_google_drive_gd_fld_1",
-        "fields": {
-          "collection": "google_drive_folder",
-          "source_action_id": "gd_fld_1",
-          "name": "Archived Vendors",
-          "folder": "fld_archive"
-        }
-      },
-      {
-        "record_id": "rec_google_drive_gd_fld_2",
-        "fields": {
-          "collection": "google_drive_folder",
-          "source_action_id": "gd_fld_2",
-          "name": "Archived Contracts",
-          "folder": "fld_archive_contracts"
-        }
-      }
-    ],
+    "records": [],
     "fields": [
       {
         "name": "collection",
@@ -102,72 +43,7 @@
         "type": "text"
       }
     ],
-    "tables": [
-      {
-        "table_id": "tbl_8dbde951e646",
-        "name": "google_drive_find_multiple_files",
-        "collection": "google_drive_find_multiple_files",
-        "read_only": false,
-        "fields": [
-          {
-            "name": "file",
-            "type": "text"
-          },
-          {
-            "name": "folder",
-            "type": "text"
-          },
-          {
-            "name": "source_action_id",
-            "type": "text"
-          },
-          {
-            "name": "title",
-            "type": "text"
-          }
-        ]
-      },
-      {
-        "table_id": "tbl_c1140e7f5d88",
-        "name": "google_drive_folder",
-        "collection": "google_drive_folder",
-        "read_only": false,
-        "fields": [
-          {
-            "name": "folder",
-            "type": "text"
-          },
-          {
-            "name": "name",
-            "type": "text"
-          },
-          {
-            "name": "source_action_id",
-            "type": "text"
-          }
-        ]
-      },
-      {
-        "table_id": "tbl_73488a54c9a2",
-        "name": "notion_pages",
-        "collection": "notion_pages",
-        "read_only": false,
-        "fields": [
-          {
-            "name": "content",
-            "type": "text"
-          },
-          {
-            "name": "parent_page",
-            "type": "text"
-          },
-          {
-            "name": "title",
-            "type": "text"
-          }
-        ]
-      }
-    ]
+    "tables": []
   },
   "chats": [],
   "messages": [],
@@ -931,5 +807,55 @@
       }
     ],
     "drafts": []
-  }
+  },
+  "docs": {
+    "folders": [
+      {
+        "token": "pg_ops",
+        "name": "pg_ops"
+      },
+      {
+        "token": "fld_current",
+        "name": "fld_current",
+        "parent_token": ""
+      },
+      {
+        "token": "fld_archive",
+        "name": "Archived Vendors",
+        "parent_token": ""
+      },
+      {
+        "token": "fld_archive_contracts",
+        "name": "Archived Contracts",
+        "parent_token": ""
+      }
+    ],
+    "documents": []
+  },
+  "drive_files": [
+    {
+      "token": "file_987",
+      "name": "Vendor Checklist Q1 - Updated",
+      "parent_token": "fld_current",
+      "type": "file"
+    },
+    {
+      "token": "file_988",
+      "name": "Vendor Checklist Q1 - Draft",
+      "parent_token": "fld_current",
+      "type": "file"
+    },
+    {
+      "token": "file_989",
+      "name": "Vendor Checklist Q1 - Final",
+      "parent_token": "fld_current",
+      "type": "file"
+    },
+    {
+      "token": "file_654",
+      "name": "Vendor Checklist Q1",
+      "parent_token": "fld_current",
+      "type": "file"
+    }
+  ]
 }
