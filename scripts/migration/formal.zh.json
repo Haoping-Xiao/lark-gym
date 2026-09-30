@@ -40829,7 +40829,7 @@
     ]
   },
   "support-1495": {
-    "instruction": "固定2025-01-20T12:00Z，按ss_escalation处理status2票，escalation-hold标签或ws_holds禁令优先。年龄严格大于本轮初始group对应Hours Threshold才升一级，不能同轮连升；priority加1封顶4。新增私有freshdesk_notes(ticket_id/body含escalated、目标Tier、年龄/阈值h、新priority/private=true文本)。给对应Manager Email邮箱IM该经理所有升级票，support-escalations汇总数量、subject、目标tier、年龄和priority；不改变非升级票。",
+    "instruction": "固定2025-01-20T12:00Z，按ss_escalation处理status2票，escalation-hold标签或ws_holds禁令优先。年龄严格大于本轮初始group对应Hours Threshold才升一级，不能同轮连升；priority加1封顶4。新增私有freshdesk_notes(ticket_id/body含escalated、目标Tier、年龄/阈值h、新priority/private=true文本)。通过 agent@company.example.com 原生邮箱向对应 Manager Email 通知该经理所有升级票，support-escalations汇总数量、subject、目标tier、年龄和priority；不改变非升级票。只汇报实际处理事项，不列举、统计或解释未处理、跳过、排除、暂停升级的对象。",
     "updates": [
       {
         "id": "freshdesk_tickets_fd_e01",
@@ -40915,25 +40915,13 @@
     "messages": [
       {
         "email": "t2-manager@company.example.com",
-        "text": "escalation: 4 tickets\nfd_e01 | Login failure T1 | escalated to Tier 2 | age=30h | threshold=24h | priority=3\nfd_e02 | API errors T1 | escalated to Tier 2 | age=36h | threshold=24h | priority=3\nfd_e03 | Dashboard crash T1 | escalated to Tier 2 | age=28h | threshold=24h | priority=4\nfd_e04 | Export issue T1 | escalated to Tier 2 | age=26h | threshold=24h | priority=2",
-        "contains": [
-          "escalation",
-          "4 tickets",
-          "fd_e01 | Login failure T1 | escalated to Tier 2 | age=30h | threshold=24h | priority=3",
-          "fd_e02 | API errors T1 | escalated to Tier 2 | age=36h | threshold=24h | priority=3",
-          "fd_e03 | Dashboard crash T1 | escalated to Tier 2 | age=28h | threshold=24h | priority=4",
-          "fd_e04 | Export issue T1 | escalated to Tier 2 | age=26h | threshold=24h | priority=2"
-        ]
+        "subject": "Ticket escalation",
+        "body": "escalation: 4 tickets\nfd_e01 | Login failure T1 | escalated to Tier 2 | age=30h | threshold=24h | priority=3\nfd_e02 | API errors T1 | escalated to Tier 2 | age=36h | threshold=24h | priority=3\nfd_e03 | Dashboard crash T1 | escalated to Tier 2 | age=28h | threshold=24h | priority=4\nfd_e04 | Export issue T1 | escalated to Tier 2 | age=26h | threshold=24h | priority=2"
       },
       {
         "email": "t3-manager@company.example.com",
-        "text": "escalation: 2 tickets\nfd_e05 | Critical data loss T2 | escalated to Tier 3 | age=60h | threshold=48h | priority=4\nfd_e06 | Security incident T2 | escalated to Tier 3 | age=50h | threshold=48h | priority=4",
-        "contains": [
-          "escalation",
-          "2 tickets",
-          "fd_e05 | Critical data loss T2 | escalated to Tier 3 | age=60h | threshold=48h | priority=4",
-          "fd_e06 | Security incident T2 | escalated to Tier 3 | age=50h | threshold=48h | priority=4"
-        ]
+        "subject": "Ticket escalation",
+        "body": "escalation: 2 tickets\nfd_e05 | Critical data loss T2 | escalated to Tier 3 | age=60h | threshold=48h | priority=4\nfd_e06 | Security incident T2 | escalated to Tier 3 | age=50h | threshold=48h | priority=4"
       },
       {
         "channel": "support-escalations",
@@ -40949,6 +40937,46 @@
           "fd_e06 | Security incident T2 | escalated to Tier 3 | age=50h | threshold=48h | priority=4"
         ]
       }
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "native_mail_contacts": [],
+    "mail": [
+      {
+        "to": ["t2-manager@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["Login failure"],
+        "aggregate": true
+      },
+      {
+        "to": ["t3-manager@company.example.com"],
+        "subject_contains": [],
+        "body_contains": ["data loss"],
+        "aggregate": true
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_escalation",
+        "--sheet-id",
+        "ws_tiers",
+        "--range",
+        "A1:F100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_escalation",
+        "--sheet-id",
+        "ws_holds",
+        "--range",
+        "A1:F100"
+      ]
     ]
   },
   "support-1502": {
@@ -44013,7 +44041,7 @@
     ]
   },
   "support-1559": {
-    "instruction": "按ss_coaching配置逐roster agent统计closed/全部会话；status非active、tenure低于New_Agent_Tenure_Days、Notes含coaching-exempt、样本不足Min_Conversations先排除。未舍入resolution rate低于阈值者才记录ws_recommendations并发Manager Email邮箱IM，所有显示rate四舍五入为整数百分比（带%），包含姓名/closed数/总数和指导建议。不发agent本人，不通知合格者或排除者，也不修改会话。",
+    "instruction": "按ss_coaching配置逐roster agent统计closed/全部会话；status非active、tenure低于New_Agent_Tenure_Days、Notes含coaching-exempt、样本不足Min_Conversations先排除。未舍入resolution rate低于阈值者才记录ws_recommendations并通过 agent@company.example.com 原生邮箱向其 Manager Email 发邮件，所有显示rate四舍五入为整数百分比（带%），ws_recommendations沿用原三列，仅登记待指导人员姓名、整数百分比和总会话数，不新增建议列；经理邮件包含姓名/closed数/总数、整数百分比和具体指导建议。不发agent本人，不通知合格者或排除者，也不修改会话。只汇报实际处理事项，不列举或解释跳过、排除、豁免的对象。",
     "sheets": [
       {
         "book": "ss_coaching",
@@ -44028,9 +44056,52 @@
     "messages": [
       {
         "email": "mgr_east@company.example.com",
-        "text": "Coaching recommendation: Fiona Drake | resolution rate=17% | 1 closed / 6 total\n建议复盘未解决会话并安排跟进指导。",
-        "contains": ["Fiona Drake", "17%", "1 closed", "6 total"]
+        "subject": "Coaching recommendation: Fiona Drake",
+        "body": "Coaching recommendation: Fiona Drake | resolution rate=17% | 1 closed / 6 total\n建议复盘未解决会话并安排跟进指导。"
       }
+    ],
+    "native_mail": true,
+    "native_unread_source": "is_read",
+    "native_mailbox": "agent@company.example.com",
+    "native_mail_contacts": [],
+    "mail": [
+      {
+        "to": ["mgr_east@company.example.com"],
+        "subject_contains": ["Fiona"],
+        "body_contains": ["Fiona", "17"]
+      }
+    ],
+    "reference_read_commands": [
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_coaching",
+        "--sheet-id",
+        "ws_roster",
+        "--range",
+        "A1:F100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_coaching",
+        "--sheet-id",
+        "ws_config",
+        "--range",
+        "A1:F100"
+      ],
+      [
+        "sheets",
+        "+cells-get",
+        "--spreadsheet-token",
+        "ss_coaching",
+        "--sheet-id",
+        "ws_recommendations",
+        "--range",
+        "A1:F100"
+      ]
     ]
   },
   "support-1562": {
