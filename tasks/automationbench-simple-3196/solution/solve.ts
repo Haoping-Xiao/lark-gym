@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'demos@company.example.com',
+    '--message-ids',
+    'msg_3196',
+    '--as',
+    'user',
+  ],
   [
     'calendar',
     'events',
@@ -10,14 +19,18 @@ const commands: string[][] = [
     '--data',
     '{"summary": "Product Demo - Cascade Solutions", "start_time": {"timestamp": "1772290800"}, "end_time": {"timestamp": "1772292600"}, "vc_data": {"vc_type": "vc", "meeting_settings": {}}}',
   ],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_notice_0',
-    '--text',
-    'Re: Demo Request: Cascade Solutions\nProduct Demo - Cascade Solutions 演示安排：2026-02-28 15:00 UTC，30 分钟。',
+    'mail',
+    '+reply',
+    '--mailbox',
+    'demos@company.example.com',
+    '--message-id',
+    'msg_3196',
+    '--body',
+    'Product Demo - Cascade Solutions 演示安排：2026-02-28 15:00 UTC，30 分钟。',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

@@ -1,3 +1,6 @@
+import { verifyDocuments } from './documents.ts';
+import { prepareSemantic } from './semantic.ts';
+import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -31,6 +34,7 @@ type Check = {
   forbidden?: string[];
 };
 const expected: {
+  documents?: any[];
   memberships?: { chat_id: string; user_ids: string[] }[];
   order_groups?: { kind: string; ids?: string[]; collection?: string }[];
   forbidden_records?: { equals: Fields; contains: Record<string, string> }[];
@@ -64,6 +68,12 @@ const { seed, world, calls } = JSON.parse(
     process.env.MOCK_STATE || '/var/lib/feishu-mock/state.json',
     'utf8',
   ),
+);
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
 );
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
@@ -248,7 +258,14 @@ const membershipChecks = (expected.memberships || []).map((check) => ({
     ].sort(),
   ),
 }));
+const documentResult = verifyDocuments(
+  seed,
+  world,
+  expected.documents || [],
+  calls,
+);
 const protectedWorld = structuredClone(world);
+if (protectedWorld.docs) protectedWorld.docs = documentResult.protectedDocs;
 for (const check of expected.memberships || []) {
   const chat = protectedWorld.chats.find(
     (c: { chat_id: string }) => c.chat_id === check.chat_id,
@@ -353,6 +370,7 @@ const orderChecks = (expected.order_groups || []).map((group) => {
 });
 const covered = !calls.some((c: { status: number }) => c.status === 501);
 const success =
+  documentResult.passed &&
   membershipChecks.every((c) => c.passed) &&
   orderChecks.every((c) => c.passed) &&
   eventChecks.every((c) => c.passed) &&
@@ -362,15 +380,26 @@ const success =
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
+const coverage = scoreUnsupported(
+  success ? 1 : 0,
+  calls,
+  JSON.parse(
+    readFileSync(new URL('./unsupported-policy.json', import.meta.url), 'utf8'),
+  ),
+);
+writeFileSync(`${output}/unsupported.json`, JSON.stringify(coverage, null, 2));
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
       status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
-      success,
+      success: coverage.valid_sample && success,
+      business_success: success,
+      semantic,
+      coverage,
       checks,
+      documentChecks: documentResult.checks,
       creationChecks,
       membershipChecks,
       orderChecks,
@@ -386,10 +415,10 @@ writeFileSync(
     2,
   ),
 );
-if (!covered) {
+if (!coverage.valid_sample) {
   rmSync(`${output}/reward.txt`);
   throw new Error(
     'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
   );
 }
-writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');
+writeFileSync(`${output}/reward.txt`, `${coverage.reward}\n`);

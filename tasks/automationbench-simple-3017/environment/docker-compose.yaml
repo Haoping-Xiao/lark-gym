@@ -1,5 +1,10 @@
 services:
   main:
+    init: false
+    entrypoint: ['node', '/opt/task/agent-lifetime.mjs']
+    command: []
+    volumes:
+      - task-control:/run/task-control:ro
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,6 +14,8 @@ services:
       mock:
         condition: service_healthy
   mock:
+    volumes:
+      - task-control:/run/task-control
     build:
       context: .
       dockerfile: mock.Dockerfile
@@ -24,3 +31,5 @@ services:
       interval: 1s
       timeout: 5s
       retries: 30
+volumes:
+  task-control: {}

@@ -22,9 +22,11 @@ function rejectAsyncResult(data: unknown) {
 export function createState(
   seed: World,
   onSnapshot?: MockOptions['onSnapshot'],
+  onUnsupported?: MockOptions['onUnsupported'],
 ) {
   const world = structuredClone(seed);
   const calls: ApiCall[] = [];
+  let aborted = false;
 
   const execute: RequestExecutor = (request, operation) => {
     // Snapshot after reading the HTTP body, so an unfinished request cannot
@@ -32,6 +34,12 @@ export function createState(
     const before = structuredClone(world);
     let result: ApiResult;
     try {
+      if (aborted)
+        throw new ApiError(
+          410,
+          990003,
+          'ENV_ABORTED: trial stopped after unsupported operation',
+        );
       if (isAsyncFunction(operation))
         throw new TypeError('Mock operations must be synchronous');
       const data = operation();
@@ -58,14 +66,31 @@ export function createState(
         response: { code: e.code || 990002, msg: e.message },
       };
     }
-    calls.push({
+    const call: ApiCall = {
       seq: calls.length + 1,
+      timestamp: new Date().toISOString(),
       ...structuredClone(request),
       status: result.status,
       response: structuredClone(result.response),
       changed: !isDeepStrictEqual(before, world),
       mutations: collectMutations(before, world),
-    });
+    };
+    if (result.status === 501 && onUnsupported) {
+      try {
+        call.unsupported = onUnsupported(structuredClone(call));
+        rejectAsyncResult(call.unsupported);
+        if (call.unsupported.action === 'abort') aborted = true;
+        if (typeof call.unsupported.feedback === 'string') {
+          result.response = {
+            ...result.response,
+            msg: `${result.response.msg}; ${call.unsupported.feedback}`,
+          };
+        }
+      } catch (error) {
+        call.unsupported = { kind: 'hook_error', error: String(error) };
+      }
+    }
+    calls.push(call);
     onSnapshot?.(world, calls);
     return result;
   };

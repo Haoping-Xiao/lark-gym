@@ -43,23 +43,86 @@
         "name": "summary",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_02e3fe5aad80",
+        "name": "研发问题",
+        "collection": "issues",
+        "fields": [
+          {
+            "name": "issuetype",
+            "type": "text"
+          },
+          {
+            "name": "project",
+            "type": "text"
+          },
+          {
+            "name": "summary",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_71f117ca2cc0",
+        "name": "lookup_project",
+        "collection": "lookup_project",
+        "fields": [
+          {
+            "name": "project",
+            "type": "text"
+          },
+          {
+            "name": "project_id",
+            "type": "text"
+          },
+          {
+            "name": "searchByParameter",
+            "type": "text"
+          }
+        ],
+        "read_only": true
+      }
     ]
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_4203",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：support@company.example.com\\n主题：User Report: Login failure with special characters\\n日期：2026-02-22T11:00:00Z\\nA user reported that they cannot log in when their password contains special characters like & or #. The login form returns a 500 error.\"}"
-      },
-      "create_time": "1771758000000"
-    }
-  ]
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_4203",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "thread_msg_4203",
+        "smtp_message_id": "msg_4203@fixture.invalid",
+        "subject": "User Report: Login failure with special characters",
+        "head_from": {
+          "mail_address": "support@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QSB1c2VyIHJlcG9ydGVkIHRoYXQgdGhleSBjYW5ub3QgbG9nIGluIHdoZW4gdGhlaXIgcGFzc3dvcmQgY29udGFpbnMgc3BlY2lhbCBjaGFyYWN0ZXJzIGxpa2UgJiBvciAjLiBUaGUgbG9naW4gZm9ybSByZXR1cm5zIGEgNTAwIGVycm9yLg",
+        "body_preview": "QSB1c2VyIHJlcG9ydGVkIHRoYXQgdGhleSBjYW5ub3QgbG9nIGluIHdoZW4gdGhlaXIgcGFzc3dvcmQgY29udGFpbnMgc3BlY2lhbCBjaGFyYWN0ZXJzIGxpa2UgJiBvciAjLg",
+        "body_html": "",
+        "internal_date": "1771758000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

@@ -59,51 +59,67 @@
     "records": [],
     "fields": []
   },
-  "chats": [
-    {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "accounting@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "controller@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "newsletter@accountingtoday.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_revrec_policy",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_revrec_policy\\\", \\\"thread_id\\\": \\\"th_revrec\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"Revenue Recognition Policy - 2026\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-28T08:00:00Z\\\"}\\n消息 ID：msg_revrec_policy\\n来源：controller@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-01-28T08:00:00Z\\n主题：Revenue Recognition Policy - 2026\\nRev rec rules:\\n\\n1. Spread total contract value evenly over the contract term\\n2. Monthly amount = Total Value / Number of Months (round to nearest cent)\\n3. Contracts with status 'Cancelled' should be excluded entirely\\n4. Contracts starting after the current month should be marked as 'Deferred' and NOT included in the current month's schedule\\n5. Calculate and include January 2026 recognition amount only\\n\\n- Controller\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfcmV2cmVjX3BvbGljeQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9yZXZyZWM",
+        "smtp_message_id": "msg_revrec_policy@fixture.invalid",
+        "subject": "Revenue Recognition Policy - 2026",
+        "head_from": {
+          "mail_address": "controller@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "accounting@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UmV2IHJlYyBydWxlczoKCjEuIFNwcmVhZCB0b3RhbCBjb250cmFjdCB2YWx1ZSBldmVubHkgb3ZlciB0aGUgY29udHJhY3QgdGVybQoyLiBNb250aGx5IGFtb3VudCA9IFRvdGFsIFZhbHVlIC8gTnVtYmVyIG9mIE1vbnRocyAocm91bmQgdG8gbmVhcmVzdCBjZW50KQozLiBDb250cmFjdHMgd2l0aCBzdGF0dXMgJ0NhbmNlbGxlZCcgc2hvdWxkIGJlIGV4Y2x1ZGVkIGVudGlyZWx5CjQuIENvbnRyYWN0cyBzdGFydGluZyBhZnRlciB0aGUgY3VycmVudCBtb250aCBzaG91bGQgYmUgbWFya2VkIGFzICdEZWZlcnJlZCcgYW5kIE5PVCBpbmNsdWRlZCBpbiB0aGUgY3VycmVudCBtb250aCdzIHNjaGVkdWxlCjUuIENhbGN1bGF0ZSBhbmQgaW5jbHVkZSBKYW51YXJ5IDIwMjYgcmVjb2duaXRpb24gYW1vdW50IG9ubHkKCi0gQ29udHJvbGxlcg",
+        "body_preview": "UmV2IHJlYyBydWxlczoKCjEuIFNwcmVhZCB0b3RhbCBjb250cmFjdCB2YWx1ZSBldmVubHkgb3ZlciB0aGUgY29udHJhY3QgdGVybQoyLiBNb250aGx5IGFtb3VudCA9IFRvdGFsIFZhbHVlIC8gTnVtYmVyIG9m",
+        "body_html": "",
+        "internal_date": "1769587200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1769587200000"
-    },
-    {
-      "message_id": "om_noise_fin_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
-      },
-      "create_time": "1768896000000"
-    }
-  ]
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDE",
+        "smtp_message_id": "noise_fin_msg001@fixture.invalid",
+        "subject": "Weekly Tax Update: New IRS Guidance",
+        "head_from": {
+          "mail_address": "newsletter@accountingtoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "finance@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_preview": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_html": "",
+        "internal_date": "1768896000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

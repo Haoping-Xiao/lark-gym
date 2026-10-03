@@ -39,10 +39,17 @@ export function createHttpHandler(
     }
     const result = execute(request, () => {
       if (failure) throw failure.error;
-      if (req.headers.authorization !== 'Bearer local-evaluation-only')
-        fail(401, 99991663, 'Synthetic token required');
+      const identity =
+        req.headers.authorization === 'Bearer local-evaluation-only'
+          ? 'user'
+          : req.headers.authorization === 'Bearer local-evaluation-only-bot'
+            ? 'bot'
+            : undefined;
+      if (!identity) fail(401, 99991663, 'Synthetic token required');
+      request.identity = identity;
       const url = new URL(request.path, 'http://localhost');
       return route({
+        identity,
         method: request.method,
         path: decodeURIComponent(url.pathname),
         query: url.searchParams,

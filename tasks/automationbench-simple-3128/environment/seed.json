@@ -39,23 +39,91 @@
         "name": "description",
         "type": "text"
       }
-    ]
-  },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_4206",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：manager@company.example.com\\n主题：Feedback on Q1 campaign performance\\n日期：2026-02-22T08:00:00Z\\nGood work on the Q1 campaigns. A few action items: 1) Update the social media calendar for March 2) Revise the email newsletter template 3) Schedule a review meeting with the design team.\"}"
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_6ac9a32c0ca8",
+        "name": "看板卡片",
+        "collection": "cards",
+        "fields": [
+          {
+            "name": "board",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "list",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ],
+        "read_only": false
       },
-      "create_time": "1771747200000"
-    }
-  ]
+      {
+        "table_id": "tbl_4ff873f55e54",
+        "name": "lookup_board_list",
+        "collection": "lookup_board_list",
+        "fields": [
+          {
+            "name": "board",
+            "type": "text"
+          },
+          {
+            "name": "list",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ],
+        "read_only": true
+      }
+    ],
+    "resource_discovery": true
+  },
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_4206",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "thread_msg_4206",
+        "smtp_message_id": "msg_4206@fixture.invalid",
+        "subject": "Feedback on Q1 campaign performance",
+        "head_from": {
+          "mail_address": "manager@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "R29vZCB3b3JrIG9uIHRoZSBRMSBjYW1wYWlnbnMuIEEgZmV3IGFjdGlvbiBpdGVtczogMSkgVXBkYXRlIHRoZSBzb2NpYWwgbWVkaWEgY2FsZW5kYXIgZm9yIE1hcmNoIDIpIFJldmlzZSB0aGUgZW1haWwgbmV3c2xldHRlciB0ZW1wbGF0ZSAzKSBTY2hlZHVsZSBhIHJldmlldyBtZWV0aW5nIHdpdGggdGhlIGRlc2lnbiB0ZWFtLg",
+        "body_preview": "R29vZCB3b3JrIG9uIHRoZSBRMSBjYW1wYWlnbnMuIEEgZmV3IGFjdGlvbiBpdGVtczogMSkgVXBkYXRlIHRoZSBzb2NpYWwgbWVkaWEgY2FsZW5kYXIgZm9yIE1hcmNoIDIpIA",
+        "body_html": "",
+        "internal_date": "1771747200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

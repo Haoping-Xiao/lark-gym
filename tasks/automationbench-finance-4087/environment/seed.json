@@ -56,46 +56,6 @@
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "accounting@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "ap@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "controller@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "newsletter@accountingtoday.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "tax@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "vendor-relations@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
       "chat_id": "oc_C_TAX",
       "name": "tax-updates",
       "chat_mode": "group"
@@ -107,33 +67,6 @@
     }
   ],
   "messages": [
-    {
-      "message_id": "om_msg_tax_est_proc",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_tax_est_proc\\\", \\\"thread_id\\\": \\\"th_taxest\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"accounting@company.example.com\\\"], \\\"subject\\\": \\\"Quarterly Tax Estimation Procedures\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-03-01T08:00:00Z\\\"}\\n消息 ID：msg_tax_est_proc\\n来源：controller@company.example.com\\n收件人：accounting@company.example.com\\n日期：2026-03-01T08:00:00Z\\n主题：Quarterly Tax Estimation Procedures\\nGeneral approach:\\n\\n1. Calculate taxable income: Revenue - Deductible Expenses\\n2. Apply the effective tax rate from the Tax Rates worksheet\\n3. Subtract any tax credits from the Credits worksheet\\n4. Divide annual estimate by 4 for quarterly payment\\n5. Subtract prior quarter payments already made\\n6. Round to the nearest dollar\\n\\n- Controller\"}"
-      },
-      "create_time": "1772352000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg003",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
-      },
-      "create_time": "1769079600000"
-    },
-    {
-      "message_id": "om_noise_fin_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
-      },
-      "create_time": "1768896000000"
-    },
     {
       "message_id": "om_slack_0",
       "chat_id": "oc_C_TAX",
@@ -161,5 +94,92 @@
       },
       "create_time": "1706100000.000100"
     }
-  ]
+  ],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfdGF4X2VzdF9wcm9j",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF90YXhlc3Q",
+        "smtp_message_id": "msg_tax_est_proc@fixture.invalid",
+        "subject": "Quarterly Tax Estimation Procedures",
+        "head_from": {
+          "mail_address": "controller@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "accounting@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "R2VuZXJhbCBhcHByb2FjaDoKCjEuIENhbGN1bGF0ZSB0YXhhYmxlIGluY29tZTogUmV2ZW51ZSAtIERlZHVjdGlibGUgRXhwZW5zZXMKMi4gQXBwbHkgdGhlIGVmZmVjdGl2ZSB0YXggcmF0ZSBmcm9tIHRoZSBUYXggUmF0ZXMgd29ya3NoZWV0CjMuIFN1YnRyYWN0IGFueSB0YXggY3JlZGl0cyBmcm9tIHRoZSBDcmVkaXRzIHdvcmtzaGVldAo0LiBEaXZpZGUgYW5udWFsIGVzdGltYXRlIGJ5IDQgZm9yIHF1YXJ0ZXJseSBwYXltZW50CjUuIFN1YnRyYWN0IHByaW9yIHF1YXJ0ZXIgcGF5bWVudHMgYWxyZWFkeSBtYWRlCjYuIFJvdW5kIHRvIHRoZSBuZWFyZXN0IGRvbGxhcgoKLSBDb250cm9sbGVy",
+        "body_preview": "R2VuZXJhbCBhcHByb2FjaDoKCjEuIENhbGN1bGF0ZSB0YXhhYmxlIGluY29tZTogUmV2ZW51ZSAtIERlZHVjdGlibGUgRXhwZW5zZXMKMi4gQXBwbHkgdGhlIGVmZmVjdGl2ZSB0YXggcmF0ZSBmcm9tIHRoZSBU",
+        "body_html": "",
+        "internal_date": "1772352000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDM",
+        "smtp_message_id": "noise_fin_msg003@fixture.invalid",
+        "subject": "Updated W-9 from Pinnacle Consulting",
+        "head_from": {
+          "mail_address": "vendor-relations@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgVy05IGZvcm0gZnJvbSBQaW5uYWNsZSBDb25zdWx0aW5nLiBQbGVhc2UgdXBkYXRlIHJlY29yZHMu",
+        "body_preview": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgVy05IGZvcm0gZnJvbSBQaW5uYWNsZSBDb25zdWx0aW5nLiBQbGVhc2UgdXBkYXRlIHJlY29yZHMu",
+        "body_html": "",
+        "internal_date": "1769079600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDE",
+        "smtp_message_id": "noise_fin_msg001@fixture.invalid",
+        "subject": "Weekly Tax Update: New IRS Guidance",
+        "head_from": {
+          "mail_address": "newsletter@accountingtoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "finance@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_preview": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_html": "",
+        "internal_date": "1768896000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": [],
+    "labels": []
+  }
 }

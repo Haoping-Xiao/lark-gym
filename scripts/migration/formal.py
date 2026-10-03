@@ -1,5 +1,5 @@
 """Build individually adapted formal tasks; unresolved tasks remain in the manifest."""
-import json,sys,shutil,re
+import json,sys,shutil,re,base64,copy
 from pathlib import Path
 from datetime import datetime,timezone
 ROOT=Path(__file__).resolve().parents[2]
@@ -17,6 +17,52 @@ def millis(value):
     return str(int(parsed.timestamp()*1000))
 def calendar_time(value):
     return {'date':value} if re.fullmatch(r'\d{4}-\d{2}-\d{2}',value) else {'timestamp':str(int(int(millis(value))/1000))}
+def native_draft_command(draft, mailbox):
+    if not draft.get('reply_source_smtp_id'):
+        return ['mail','+send','--mailbox',mailbox,'--to',draft['to'],'--subject',draft['subject'],'--body',draft['body'],'--as','user']
+    from email.message import EmailMessage
+    from email.policy import SMTP
+    message=EmailMessage(policy=SMTP);message['From']=mailbox;message['To']=draft['to'];message['Subject']=draft['subject'];message['In-Reply-To']='<'+draft['reply_source_smtp_id']+'>';message['References']='<'+draft['reply_source_smtp_id']+'>';message.set_content(draft['body'])
+    return ['mail','user_mailbox.drafts','create','--user-mailbox-id',mailbox,'--data',json.dumps({'raw':base64.urlsafe_b64encode(message.as_bytes()).decode().rstrip('=')}),'--as','user']
+
+def native_mail_seed(source, mailbox, unread_source="labels", id_encoding=None, preserve_metadata=False):
+    # Opt in only after reviewing the full original state; unsupported material is never dropped.
+    gmail=source.get('gmail',{})
+    assert not gmail.get('drafts'), 'native mail draft fixtures need explicit adaptation'
+    assert preserve_metadata or all(label=={'id':'INBOX','name':'INBOX'}for label in (gmail.get('labels') or [])), 'review custom source labels before adapting'
+    def encode(value):return base64.urlsafe_b64encode(value.encode()).decode().rstrip('=')
+    def address(value):
+        assert isinstance(value,str), 'review structured source addresses before adapting'
+        return {'mail_address':mailbox if value=='me' else value}
+    result=[]
+    for m in gmail.get('messages',[]):
+        assert (preserve_metadata or m.get('date')) and not m.get('attachments'), 'review missing source dates or attachments before adapting'
+        assert preserve_metadata or set(m.get('label_ids',[])) <= {'INBOX','UNREAD'}, 'review additional source labels before adapting'
+        body=m.get('body_plain',m.get('body',''))
+        result.append({'message_id':m['id'],'mailbox_id':mailbox,'thread_id':m.get('thread_id','thread_'+m['id']),'smtp_message_id':m['id']+'@fixture.invalid','subject':m.get('subject',''),'head_from':address(m.get('from_',m.get('from',''))),'to':[address(x)for x in m.get('to',[])],'cc':[address(x)for x in m.get('cc',[])],'bcc':[address(x)for x in m.get('bcc',[])],'body_plain_text':encode(body),'body_preview':encode(body[:120]),'body_html':encode(m.get('body_html','')),'internal_date':millis(m.get('date')),'message_state':1,'label_ids':['UNREAD']if (not m.get('is_read',False) if unread_source=='is_read' else 'UNREAD'in m.get('label_ids',[]))else[],'folder_id':'INBOX','attachments':[]})
+
+    label_definitions=[]
+    if preserve_metadata:
+        system={'INBOX','SENT','DRAFT','TRASH','SPAM','UNREAD','IMPORTANT','STARRED'}
+        declared={l['id']:l for l in (gmail.get('labels') or []) if l['id'] not in system}
+        for original in gmail.get('messages',[]):
+            for lid in original.get('label_ids',[]):
+                if lid not in system:declared.setdefault(lid, {'id':lid,'name':lid})
+        mapping={lid:encode('label:'+lid)for lid in declared}
+        label_definitions=[{'id':mapping[lid],'mailbox_id':mailbox,'name':l['name']}for lid,l in declared.items()]
+        for original,native in zip(gmail.get('messages',[]),result):
+            labels=set(original.get('label_ids',[]))
+            if 'SENT'in labels:native.update(message_state=2,folder_id='SENT')
+            elif 'TRASH'in labels:native['folder_id']='TRASH'
+            elif 'SPAM'in labels:native['folder_id']='SPAM'
+            elif 'INBOX'not in labels:native['folder_id']='ARCHIVED'
+            native['label_ids'] += [mapping[lid]for lid in original.get('label_ids',[])if lid in mapping]
+            if 'IMPORTANT'in labels:native['label_ids'].append('IMPORTANT')
+            if 'STARRED'in labels:native['label_ids'].append('FLAGGED')
+    if id_encoding=='base64url':
+        for m in result:
+            m['message_id']=encode('fixture:'+m['message_id']);m['thread_id']=encode('fixture:'+m['thread_id'])
+    return {'mailboxes':[{'email_address':mailbox,'email_type':'USER_PRIMARY'}],'messages':result,'drafts':[],**({'labels':label_definitions}if preserve_metadata else{})}
 recipes=json.loads(Path(__file__).with_name('formal.zh.json').read_text())
 selected=set(sys.argv[2:])
 assert not selected-set(recipes),('unknown task keys',selected-set(recipes))
@@ -97,6 +143,7 @@ for row in rows:
             properties=item.get('properties',{})
             assert isinstance(properties,dict),(key,'hubspot properties not object')
             flat={k:scalar(v) for k,v in item.items() if k not in ['id','properties']}
+            if collection in recipe.get('preserve_hubspot_ids',[]):flat['id']=scalar(item['id'])
             assert not (set(flat)&set(properties)),(key,'hubspot property collision')
             records.append({'record_id':'rec_hubspot_'+str(item['id']),'fields':{'collection':'hubspot_'+collection,**flat,**{k:scalar(v) for k,v in properties.items()}}})
     for collection,items in src.get('google_ads',{}).items():
@@ -170,6 +217,13 @@ for row in rows:
                 matrix[index]=[scalar(r.get(k,'')) for k in headers]
             sheets[w['id']]={'title':w['title'],'values':matrix}
         spreadsheets[book['id']]={'title':book['title'],'sheets':sheets}
+    for change in recipe.get('seed_cell_adaptations',[]):
+        assert isinstance(change.get('reason'),str) and change['reason'].strip(),(key,'missing seed adaptation reason')
+        matrix=spreadsheets[change['book']]['sheets'][change['sheet']]['values']
+        r,c=change['row'],change['column']
+        assert isinstance(r,int) and r>0 and isinstance(c,int) and c>=0,(key,'invalid seed adaptation coordinate')
+        assert matrix[r][c]==change['before'],(key,'source changed at seed adaptation',change)
+        matrix[r][c]=change['after']
     calendars=[{'calendar_id':c['id'],'summary':c.get('summary',c['id']),'role':'owner'} for c in src.get('google_calendar',{}).get('calendars',[])]
     events=[]
     for event in src.get('google_calendar',{}).get('events',[]):
@@ -192,6 +246,10 @@ for row in rows:
     destinations={address:'oc_email_'+str(i) for i,address in enumerate(emails)}
     phones=sorted(set(re.findall(r'\+[1-9][0-9]{7,14}',json.dumps(src)+' '+json.dumps(row['prompt'])+' '+recipe['instruction'])))
     phoneDestinations={phone:'oc_phone_'+str(i) for i,phone in enumerate(phones)}
+    if recipe.get('phone_chat_ids'):
+        assert set(recipe['phone_chat_ids'])==set(phones) and len(set(recipe['phone_chat_ids'].values()))==len(phones)
+        phoneDestinations=recipe['phone_chat_ids']
+
     chats.extend({'chat_id':cid,'name':phone,'chat_mode':'p2p'} for phone,cid in phoneDestinations.items())
     chats.extend({'chat_id':cid,'name':address,'chat_mode':'p2p'} for address,cid in destinations.items())
     for c in src.get('slack',{}).get('channels',[]):chats.append({'chat_id':'oc_'+c['id'],'name':c['name'],'chat_mode':'group'})
@@ -199,8 +257,12 @@ for row in rows:
         channel_id='oc_'+str(m.get('channel_id',m.get('channel','')))
         if not any(c['chat_id']==channel_id for c in chats):chats.append({'chat_id':channel_id,'name':channel_id,'chat_mode':'group'})
         messages.append({'message_id':'om_slack_'+str(i),'chat_id':'oc_'+str(m.get('channel_id',m.get('channel',''))),'msg_type':'text','body':{'content':json.dumps({'text':'原始消息元数据：'+json.dumps({k:v for k,v in m.items() if k!='text'},ensure_ascii=False)+'\n'+m.get('text','')},ensure_ascii=False)},'create_time':str(m.get('ts','0'))})
+    messages.extend(json.loads(json.dumps(recipe.get('seed_context_messages',[]))))
+    assert len({m['message_id'] for m in messages})==len(messages),(key,'duplicate seed message IDs')
     assert len({r['record_id'] for r in records})==len(records),(key,'duplicate mapped record IDs')
     updates=[];commands=[['im','+chat-messages-list','--chat-id','oc_mail'],['base','+record-list','--base-token','base_crm','--table-id','tbl_crm']]
+    if recipe.get('native_mail'):commands=[c for c in commands if c[0]!='im']
+    commands=recipe.get('reference_read_commands',[])+commands
     newChatIds={}
     for index,chat in enumerate(recipe.get('new_chats',[]),1):
         newChatIds[chat['name']]='oc_created_'+str(index)
@@ -217,9 +279,17 @@ for row in rows:
         record=next(r for r in records if r['record_id'] in ['rec_'+u['id'],'rec_'+re.sub(r'[^A-Za-z0-9_-]','_',u['id'])])
         for field,value in u['fields'].items():
             record['fields'].setdefault(field,'')
-            updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
+            updates.append({'record_id':record['record_id'],'field':field,'value':value,'mode':u.get('modes',{}).get(field,'equals'),**({'labeled_value':u['labeled_values'][field]}if field in u.get('labeled_values',{})else{}),**({'contains':u['contains'][field]} if field in u.get('contains',{}) else {}),**({'forbidden':u['forbidden'][field]} if field in u.get('forbidden',{}) else {})})
         commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--record-id',record['record_id'],'--json',json.dumps({**u['fields'],**u.get('oracle_fields',{})},ensure_ascii=False)])
-    for fields in recipe.get('creates',[]):commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
+    creation_sequence=recipe.get('native_creation_order',[{'record':i}for i in range(len(recipe.get('creates',[])))])
+    if recipe.get('native_creation_order'):
+        assert sorted(step['record']for step in creation_sequence if 'record'in step)==list(range(len(recipe.get('creates',[]))))
+        assert sorted(step['draft']for step in creation_sequence if 'draft'in step)==list(range(len(recipe.get('native_draft_commands',[]))))
+    for step in creation_sequence:
+        if 'record'in step:
+            fields=recipe['creates'][step['record']];commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
+        else:commands.append(native_draft_command(recipe['native_draft_commands'][step['draft']],recipe.get('native_mailbox','agent@company.example.com')))
+
     for rid in recipe.get('deletes',[]):
         assert any(r['record_id']=='rec_'+rid for r in records),(key,'unknown delete',rid)
         commands.append(['base','+record-delete','--base-token','base_crm','--table-id','tbl_crm','--record-id','rec_'+rid,'--yes'])
@@ -234,7 +304,7 @@ for row in rows:
             assert len(matches)==1,(key,operation,matches)
             index=matches[0];changes=operation['fields']
         for field,value in changes.items():
-            column=headers.index(field);cellChecks.append({'spreadsheet_token':token,'sheet_id':sid,'row':index,'column':column,'value':value,**({'one_of':operation['one_of'][field]} if field in operation.get('one_of',{}) else {}),**({'contains':operation['contains'][field]} if field in operation.get('contains',{}) else {})})
+            column=headers.index(field);cellChecks.append({'spreadsheet_token':token,'sheet_id':sid,'row':index,'column':column,'value':value,**({'numeric_equivalent':True} if field in operation.get('numeric_equivalent',[]) else {}),**({'one_of':operation['one_of'][field]} if field in operation.get('one_of',{}) else {}),**({'contains':operation['contains'][field]} if field in operation.get('contains',{}) else {})})
             col='';n=column+1
             while n:n,rem=divmod(n-1,26);col=chr(65+rem)+col
             commands.append(['sheets','+cells-set','--spreadsheet-token',token,'--sheet-id',sid,'--range',col+str(index+1),'--cells',json.dumps([[{'value':value}]],ensure_ascii=False)])
@@ -243,18 +313,28 @@ for row in rows:
     for event in recipe.get('events',[]):
         cid=event['calendar_id']
         if not any(c['calendar_id']==cid for c in calendars):calendars.append({'calendar_id':cid,'summary':cid,'role':'owner'})
-        data={k:v for k,v in event.items() if k not in ['calendar_id','start','end','attendees','description_contains']}
+        data={k:v for k,v in event.items() if k not in ['calendar_id','start','end','attendees','description_contains','summary_contains']}
         data.update({'start_time':{'timestamp':str(int(int(millis(event['start']))/1000))},'end_time':{'timestamp':str(int(int(millis(event['end']))/1000))}})
-        eventChecks.append({**data,'calendar_id':cid,'attendees':event.get('attendees',[]),**({'description_contains':event['description_contains']} if event.get('description_contains') else {})})
+        eventChecks.append({**data,'calendar_id':cid,'attendees':event.get('attendees',[]),**({'description_contains':event['description_contains']} if event.get('description_contains') else {}),**({'summary_contains':event['summary_contains']} if event.get('summary_contains') else {})})
         commands.append(['calendar','events','create','--calendar-id',cid,'--data',json.dumps(data,ensure_ascii=False)])
         while 'evt_'+str(nextEvent) in allocated:nextEvent+=1
         eid='evt_'+str(nextEvent);allocated.add(eid);nextEvent+=1
         if event.get('attendees'):commands.append(['calendar','event.attendees','create','--calendar-id',cid,'--event-id',eid,'--data',json.dumps({'attendees':[{'type':'third_party','third_party_email':a} for a in event['attendees']]})])
     messageChecks=[]
     for m in recipe.get('messages',[]):
+        if recipe.get('native_mail') and m.get('email'):
+            assert 'mail' in recipe, 'native mail criteria must be independently reviewed'
+            commands.append(['mail','+send','--mailbox',m.get('mailbox',recipe.get('native_mailbox','agent@company.example.com')),'--to',m['email'],'--subject',m['subject'],'--body',m['body'],'--confirm-send','--as','user'])
+            continue
         cid=userDestinations[m['user_id']] if m.get('user_id') else phoneDestinations[m['phone']] if m.get('phone') else destinations[m['email']] if m.get('email') else newChatIds[m['channel']] if m.get('channel') in newChatIds else next(c['chat_id'] for c in chats if c['name']==m['channel'])
         messageChecks.append({**({'chat_name':m['channel']} if m.get('channel') in newChatIds else {'chat_id':cid}),'contains':m['contains']})
         commands.append(['im','+messages-send','--chat-id',cid,'--text',m['text']])
+    if not recipe.get('native_creation_order'):
+        for draft in recipe.get('native_draft_commands',[]):commands.append(native_draft_command(draft,recipe.get('native_mailbox','agent@company.example.com')))
+    for label in recipe.get('mail_label_creates',[]):
+        commands.append(['mail','user_mailbox.labels','create','--user-mailbox-id',label['mailbox'],'--data',json.dumps({'label':{'name':label['name']}}),'--as','user'])
+    for update in recipe.get('mail_updates',[]):
+        commands.append(['mail','user_mailbox.messages','modify','--user-mailbox-id',recipe.get('native_mailbox','agent@company.example.com'),'--message-id',update['message_id'],'--data',json.dumps({'remove_label_ids':update.get('remove_labels',[]),'add_label_ids':update.get('add_labels',[])+['label-name:'+name for name in update.get('add_label_names',[])]}),'--as','user'])
     if 'command_order' in recipe:
         order=recipe['command_order']
         assert sorted(order)==list(range(len(commands))),(key,'invalid command permutation',len(commands),order)
@@ -266,6 +346,16 @@ for row in rows:
         if 'channel' in g:
             channel=g.pop('channel');g['ids']=[next(c['chat_id'] for c in chats if c['name']==channel)]
         orderGroups.append(g)
+    entityOrder=json.loads(json.dumps(recipe.get('entity_order',[])))
+    for rule in entityOrder:
+        message=rule['message']
+        if 'email' in message:message['chat_id']=destinations[message.pop('email')]
+    actionPrerequisites=json.loads(json.dumps(recipe.get('action_prerequisites',[])))
+    for rule in actionPrerequisites:
+        for message in [rule['notification']]+rule['messages']:
+            if 'email' in message:message['chat_id']=destinations[message.pop('email')]
+            if 'channel' in message:
+                channel=message.pop('channel');message['chat_id']=next(c['chat_id'] for c in chats if c['name']==channel)
     forbidden=[]
     for a in assertions:
         if a['type']=='gmail_message_sent_to_with_body_not_contains':
@@ -337,19 +427,51 @@ for row in rows:
     for record in records:
         for field in recipe.get('text_fields',[]):
             if field in record['fields']:record['fields'][field]=str(record['fields'][field])
+    for record_id, values in recipe.get('seed_record_fields',{}).items():
+        matches=[r for r in records if r['record_id']==record_id]
+        assert len(matches)==1, 'seed record adaptation must name one source record'
+        matches[0]['fields'].update(values)
     fields={k:'number' if isinstance(v,(int,float)) else 'text' for r in records for k,v in r['fields'].items()}
     for r in recipe.get('creates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r.items()})
     for r in recipe.get('updates',[]):fields.update({k:'number' if isinstance(v,(int,float)) else 'text' for k,v in r['fields'].items()})
     seed={'now':now,'spreadsheet_token':'ss_unused','sheets':{},'spreadsheets':spreadsheets,'calendars':calendars,'events':events,'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records,'fields':[{'name':k,'type':v} for k,v in fields.items()]},'chats':chats,'messages':messages}
     if newChatIds:seed['chat_creation_allowed']=True
     target=ROOT/'tasks'/('automationbench-'+key)
+    # A different task's semantic settings are not a generation template.
+    semantic_config=target/'tests/semantic-config.json'
+    existing_semantic=semantic_config.read_text() if semantic_config.exists() else None
     shutil.copytree(ROOT/'tasks/automationbench-simple-3001',target,dirs_exist_ok=True)
+    if existing_semantic is not None:
+        semantic_config.write_text(existing_semantic)
+    elif semantic_config.exists():
+        semantic_config.unlink()
+    if recipe.get('native_mail'):
+        sourceIds={'om_'+m['id']for m in src.get('gmail',{}).get('messages',[])}
+        seed['messages']=[m for m in seed['messages']if m['message_id']not in sourceIds]
+        removed={c['chat_id']for c in seed['chats']if c['chat_id']=='oc_mail' or c['chat_id'].startswith('oc_email_')}
+        assert not any(m['chat_id']in removed for m in seed['messages']), 'native mail context needs explicit routing'
+        seed['chats']=[c for c in seed['chats']if c['chat_id']not in removed]
+        seed['mail']=native_mail_seed(src,recipe.get('native_mailbox','agent@company.example.com'),recipe.get('native_unread_source','labels'),recipe.get('native_mail_id_encoding'),recipe.get('native_preserve_metadata',False))
+        seed['mail']['messages'].extend(copy.deepcopy(recipe.get('native_context_messages',[])))
+        seed['mail']['mailboxes'].extend(copy.deepcopy(recipe.get('native_mailboxes',[])))
+        if recipe.get('native_preserve_sent'):
+            sent_ids={m['id'] for m in src.get('gmail',{}).get('messages',[]) if 'SENT' in m.get('labels',m.get('label_ids',[]))}
+            for m in seed['mail']['messages']:
+                if m['message_id'] in sent_ids: m.update(message_state=2,folder_id='SENT',label_ids=['SENT'])
+        if 'native_mail_contacts' in recipe:
+            seed['mail']['contacts']=copy.deepcopy(recipe['native_mail_contacts'])
+        forbidden=[f for f in forbidden if f.get('chat_id')not in removed]
     def write(path,value): (target/path).write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
     write('environment/seed.json',seed)
-    write('tests/expected.json',{'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,'order_groups':orderGroups,'forbidden_records':forbiddenRecords,'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks})
+    write('tests/expected.json',{**({'state_before_actions':recipe['state_before_actions']} if recipe.get('state_before_actions') else {}),**({'record_state_before_creates':recipe['record_state_before_creates']} if recipe.get('record_state_before_creates') else {}),**({'transfer_before_deletes':recipe['transfer_before_deletes']} if recipe.get('transfer_before_deletes') else {}),**({'mail_before_outreach':recipe['mail_before_outreach']} if recipe.get('mail_before_outreach') else {}),**({'event_state_before_creates':recipe['event_state_before_creates']} if recipe.get('event_state_before_creates') else {}),**({'booking_order':recipe['booking_order']} if recipe.get('booking_order') else {}),**({'mail_list_before_send':recipe['mail_list_before_send']}if recipe.get('mail_list_before_send')else{}),**({'mail_updates':recipe['mail_updates']}if recipe.get('mail_updates')else{}),**({'mail_label_creates':recipe['mail_label_creates']}if recipe.get('mail_label_creates')else{}),'deletes':['rec_'+rid for rid in recipe.get('deletes',[])],'new_chats':recipe.get('new_chats',[]),'memberships':membershipChecks,'source_assertion_overrides':overrides,**({'record_state_before_updates':recipe['record_state_before_updates']} if recipe.get('record_state_before_updates') else {}),**({'record_state_before_messages':recipe['record_state_before_messages']} if recipe.get('record_state_before_messages') else {}),**({'workflow_barriers':recipe['workflow_barriers']} if recipe.get('workflow_barriers') else {}),'order_groups':orderGroups,'entity_order':entityOrder,**({'action_prerequisites':actionPrerequisites} if actionPrerequisites else {}),**({'forbidden_mail':recipe['forbidden_mail']}if recipe.get('forbidden_mail')else{}),**({'mail_drafts':recipe['mail_drafts']}if recipe.get('mail_drafts')else{}),**({'forbidden_mail_drafts':recipe['forbidden_mail_drafts']}if recipe.get('forbidden_mail_drafts')else{}),'forbidden_records':recipe.get('forbidden_records',forbiddenRecords),'forbidden_messages':forbidden,'updates':updates,'creates':recipe.get('creates',[]),'create_contains':recipe.get('create_contains',{}),'creation_contains':recipe.get('creation_contains',{}),'messages':messageChecks,'events':eventChecks,'cells':cellChecks,**({'mail':recipe.get('mail',[])}if recipe.get('native_mail')else{})})
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
-    (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\nfor(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n")
+    reference_loop="for(const args of commands)execFileSync(process.env.LARK_CLI||'lark-cli',args,{stdio:'inherit'});\n"
+    if recipe.get('mail_label_creates'):
+        reference_loop="const labels:Record<string,string>={};\nfor(const original of commands){const args=original.map(arg=>{if(!arg.startsWith('{'))return arg;return JSON.stringify(JSON.parse(arg),(_k,v)=>{if(typeof v==='string'&&v.startsWith('label-name:')){const id=labels[v.slice(11)];if(!id)throw Error('Required label has not been created');return id;}return v;});});const output=execFileSync(process.env.LARK_CLI||'lark-cli',args,{encoding:'utf8',stdio:['ignore','pipe','inherit']});process.stdout.write(output);if(args[1]==='user_mailbox.labels'&&args[2]==='create'){const response=JSON.parse(output),label=(response.data||response).label;labels[label.name]=label.id;}}\n"
+    (target/'solution/solve.ts').write_text("import {execFileSync} from 'node:child_process';\nconst commands:string[][]="+json.dumps(commands,ensure_ascii=False)+";\n"+reference_loop)
     context='\n\n使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。\n'
+    if recipe.get('native_mail'):
+        context='\n\n使用本环境的 Mock 版 lark-cli。政策和历史来信保留原文，位于 '+recipe.get('native_mailbox','agent@company.example.com')+' 邮箱；原收件人 me 映射为该账号。使用真实 mail 命令读取、发送邮件，Slack 通知使用对应飞书群。不要改动无关数据。\n'
     if 'mailchimp' in src:context+='\n邮件列表实体存放在 mailchimp_audiences / mailchimp_subscribers 等集合，以 list_id 关联，订阅状态直接写 status；归档写 archived，退订写 unsubscribed，保留记录用于审计。通过 Base 查询实际 record_id。\n'
     if 'hubspot' in src:context+='\nHubSpot 集合对应 hubspot_ 加原集合名，记录 ID 为 rec_hubspot_ 加原 ID；properties 内属性展开为同名台账字段。\n'
     if calendars:context+='\n日程使用飞书 calendar 命令，日历 ID：'+', '.join(c['calendar_id'] for c in calendars)+'。使用来源明确时区；未标时区按 UTC。\n'

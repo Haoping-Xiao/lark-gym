@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
+  ['mail', '+triage', '--mailbox', 'agent@company.example.com', '--as', 'user'],
   ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
   [
     'im',
@@ -27,12 +27,19 @@ const commands: string[][] = [
     'Austin | 2026-03-21 | weather emergency | work from home',
   ],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_email_0',
-    '--text',
+    'mail',
+    '+send',
+    '--mailbox',
+    'agent@company.example.com',
+    '--to',
+    'facilities@company.example.com',
+    '--subject',
     'Austin | 2026-03-21 | weather emergency | work from home，请协调办公室应急安排',
+    '--body',
+    'Austin | 2026-03-21 | weather emergency | work from home，请协调办公室应急安排',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

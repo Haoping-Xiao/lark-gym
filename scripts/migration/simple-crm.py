@@ -2,7 +2,7 @@
 Usage: python scripts/migration/simple-crm.py /path/to/source-tasks.json
 The input must come from upstream 4a8e1061254004d9dac807054eed33fad7d1ff14.
 """
-import json, sys
+import json, sys, base64
 from datetime import datetime
 from pathlib import Path
 root=Path(__file__).resolve().parents[2]
@@ -50,14 +50,17 @@ for row in rows:
         records.append({'record_id':'rec_'+channel['id'],'fields':{'collection':'channels',**{key:str(value).lower() if isinstance(value,bool) else value for key,value in channel.items()}}})
     for audience in source.get('mailchimp',{}).get('audiences',[]):
         records.append({'record_id':'rec_'+audience['id'],'fields':{'collection':'audiences','list_id':audience['id'],'name':audience['name']}})
-    messageTask=messageTasks.get(number)
+    records.extend(extra.get(number,{}).get('supplemental_records',[]))
+    for record in records:
+        record['fields'].update(extra.get(number,{}).get('seed_record_fields',{}).get(record['record_id'],{}))
+    messageTask=None if extra.get(number,{}).get('native_mail_only') else messageTasks.get(number)
     sheetTask=sheetTasks.get(number)
     calendarTask=calendarTasks.get(number)
     checks=[]
     updates={}
     create=extra.get(number,{}).get('create')
     creates=extra.get(number,{}).get('creates',[create] if create else [])
-    if number in extra:
+    if number in extra and not extra[number].get('preserve_source_assertions'):
         update=extra[number].get('update')
         assertions=[{'type':'salesforce_field_equals','record_id':update['id'],'field':key,'value':value} for key,value in update['fields'].items()] if update else []
     for a in assertions:
@@ -66,14 +69,30 @@ for row in rows:
         record=next(r for r in records if r['record_id']==rid)
         record['fields'].setdefault(a['field'],'')
         checks.append({'record_id':rid,'field':a['field'],'value':a['value'],'mode':'contains' if a['type'].endswith('contains') else 'equals'})
+        if number == '3006' and a['field'] == 'description': checks[-1]['required_url']='https://'+a['value']
         updates.setdefault(rid,{})[a['field']]=('https://'+a['value']) if number == '3006' else a['value']
     # Preserve evidence text and literal values. Email delivery becomes an IM
     # notification channel; this is a workflow adaptation, not official scoring.
     messages=[]
-    for item in source.get('gmail',{}).get('messages',[]):
+    for item in ([] if extra.get(number,{}).get('native_mail') else source.get('gmail',{}).get('messages',[])):
         content=f"来源联系人：{item['from_']}\n主题：{item['subject']}\n日期：{item.get('date','')}\n{item['body_plain']}"
         messages.append({'message_id':'om_'+item['id'],'chat_id':'oc_updates','msg_type':'text','body':{'content':json.dumps({'text':content},ensure_ascii=False)},'create_time':str(int(datetime.fromisoformat(item['date'].replace('Z','+00:00')).timestamp()*1000))})
-    seed={'now':'2026-02-24T09:00:00Z','spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
+    seed={'now':extra.get(number,{}).get('now','2026-02-24T09:00:00Z'),'spreadsheet_token':'ss_unused','sheets':{},'calendars':[],'events':[], 'base':{'app_token':'base_crm','table_id':'tbl_crm','records':records},'chats':[{'chat_id':'oc_updates','name':'客户资料更新通知'}] if messages else [],'messages':messages}
+    if extra.get(number,{}).get('native_mail'):
+        mailbox=extra[number].get('native_mailbox','agent@company.example.com')
+        boxes=[{'email_address':'agent@company.example.com','email_type':'USER_PRIMARY'}]
+        if mailbox != 'agent@company.example.com':
+            boxes[0]['email_type']='USER_PRIMARY'
+            boxes.append({'email_address':mailbox,'email_type':'PUBLIC_MAILBOX'})
+        encode=lambda text:base64.urlsafe_b64encode(text.encode()).decode().rstrip('=')
+        incoming=[]
+        for item in source.get('gmail',{}).get('messages',[]):
+            assert mailbox in item['to'], ('review mailbox owner', number, mailbox)
+            incoming.append({'message_id':item['id'],'mailbox_id':mailbox,'thread_id':item.get('thread_id','thread_'+item['id']),'smtp_message_id':item['id']+'@fixture.invalid','subject':item['subject'],'head_from':{'mail_address':item['from_']},'to':[{'mail_address':v} for v in item['to']],'cc':[],'bcc':[],'body_plain_text':encode(item['body_plain']),'body_preview':encode(item['body_plain'][:100]),'body_html':'','internal_date':str(int(datetime.fromisoformat(extra[number].get('native_mail_dates',{}).get(item['id'],item['date']).replace('Z','+00:00')).timestamp()*1000)),'message_state':1,'label_ids':(['UNREAD'] if 'UNREAD' in item['label_ids'] else []) if 'label_ids' in item else ([] if item.get('is_read') else ['UNREAD']),'folder_id':'INBOX','attachments':[]})
+        seed['mail']={'mailboxes':boxes,'messages':incoming,'drafts':[]}
+        if extra[number].get('native_mail_attachments'):seed['mail']['attachment_support']=True
+    if extra.get(number,{}).get('workspace_discovery'):seed['base']['workspace_discovery']=True
+    if extra.get(number,{}).get('resource_discovery'):seed['base']['resource_discovery']=True
     eventChecks=[]
     eventCommands=[]
     if calendarTask:
@@ -126,6 +145,9 @@ for row in rows:
                 sheetChecks.append({'sheet_id':sid,'row':rowIndex,'column':column,'value':value})
                 cell=chr(65+column)+str(rowIndex+1)
                 sheetCommands.append(['sheets','+cells-set','--spreadsheet-token',token,'--sheet-id',sid,'--range',cell,'--cells',json.dumps([[{'value':value}]],ensure_ascii=False)])
+    for cell in sheetChecks:
+        if extra.get(number,{}).get('cells_source_mail_id'):cell['source_mail_id']=extra[number]['cells_source_mail_id']
+        if cell['column'] in extra.get(number,{}).get('date_columns',[]):cell['date_equivalent']=True
     messageChecks=[]
     if messageTask:
         for channel in source.get('slack',{}).get('channels',[]):
@@ -145,17 +167,30 @@ for row in rows:
         elif assertion['type']=='slack_message_in_channel': destination=next(c['chat_id'] for c in seed['chats'] if c['name']==assertion['channel_name'])
         else: raise ValueError(assertion)
         messageChecks=[{'chat_id':destination,'contains':messageTask['contains']}]
+        if extra.get(number,{}).get('message_source_mail_id'):messageChecks[0]['source_mail_id']=extra[number]['message_source_mail_id']
     notificationCommands=[]
     for index, notice in enumerate(extra.get(number,{}).get('notifications',[])):
         for channel in source.get('slack',{}).get('channels',[]):
             if not any(c['chat_id']=='oc_'+channel['id'] for c in seed['chats']):seed['chats'].append({'chat_id':'oc_'+channel['id'],'name':channel['name'],'chat_mode':'group'})
+        if extra.get(number,{}).get('native_mail') and notice.get('email'):
+            if notice.get('reply_to'):
+                notificationCommands.append(['mail','+reply','--mailbox',extra[number]['native_mailbox'],'--message-id',notice['reply_to'],'--body',notice['body'],'--confirm-send','--as','user'])
+            else:
+                notificationCommands.append(['mail','+send','--to',notice['email'],'--subject',notice['subject'],'--body',notice['body'],'--confirm-send','--as','user']+[value for filename in notice.get('attachments',[]) for value in ['--attach',filename]])
+            continue
         if notice.get('channel'):
             destination=next(c['chat_id'] for c in seed['chats'] if c['name']==notice['channel'])
         else:
             destination=f'oc_notice_{index}'
             seed['chats'].append({'chat_id':destination,'name':notice['email'],'chat_mode':'p2p'})
-        messageChecks.append({'chat_id':destination,'contains':notice['contains']})
+        messageChecks.append({'chat_id':destination,'contains':notice['contains'],**({'source_mail_id':extra[number]['message_source_mail_id']} if extra.get(number,{}).get('message_source_mail_id') else {})})
         notificationCommands.append(['im','+messages-send','--chat-id',destination,'--text',notice['text']])
+    for calendar in seed['calendars']:
+        if extra.get(number,{}).get('primary_calendar') and calendar['calendar_id']=='cal_primary':calendar['type']='primary'
+    for chat in seed['chats']:
+        if chat['chat_id'] in extra.get(number,{}).get('mention_members',{}):chat.update(member_ids=extra[number]['mention_members'][chat['chat_id']],mention_support=True)
+    for chat in seed['chats']:
+        if chat['chat_id'] in extra.get(number,{}).get('post_channels',[]):chat['post_support']=True
     fieldTypes={key:'number' if isinstance(value,(int,float)) else 'text' for record in records for key,value in record['fields'].items()}
     for fields in creates: fieldTypes.update({key:'number' if isinstance(value,(int,float)) else 'text' for key,value in fields.items()})
     seed['base']['fields']=[{'name':key,'type':value} for key,value in fieldTypes.items()]
@@ -204,6 +239,13 @@ memory_mb = 2048
 storage_mb = 10240
 ''')
     (target/'environment/Dockerfile').write_text('FROM lark-gym-cli:0.2.0\nWORKDIR /workspace\n')
+    if extra.get(number,{}).get('agent_files'):
+        folder=target/'environment/input-files'
+        folder.mkdir(exist_ok=True)
+        for filename,encoded in extra[number]['agent_files'].items():
+            assert Path(filename).name==filename and filename not in ['.','..'], ('invalid input filename',filename)
+            (folder/filename).write_bytes(base64.b64decode(encoded,validate=True))
+        with (target/'environment/Dockerfile').open('a') as stream:stream.write('COPY input-files/ /workspace/\n')
     (target/'environment/mock.Dockerfile').write_text('FROM lark-gym-mock:0.2.0\nCOPY seed.json /opt/mock/seed.json\n')
     (target/'environment/docker-compose.yaml').write_text('''services:
   main:
@@ -228,10 +270,12 @@ storage_mb = 10240
 ''')
     (target/'tests/Dockerfile').write_text('FROM node:24-bookworm-slim\nCOPY . /tests\nWORKDIR /tests\n')
     (target/'tests/test.sh').write_text('#!/bin/sh\nset -eu\nnode /tests/verify.ts\n')
-    (target/'tests/expected.json').write_text(json.dumps({'updates':checks,'creates':creates,'messages':messageChecks,'cells':sheetChecks,'events':eventChecks,'create_contains':extra.get(number,{}).get('create_contains',{})},ensure_ascii=False,indent=2)+'\n')
+    (target/'tests/expected.json').write_text(json.dumps({'updates':checks,'creates':creates,'messages':messageChecks,'cells':sheetChecks,'events':eventChecks,'create_contains':extra.get(number,{}).get('create_contains',{}),**({'mail':extra[number]['mail']} if extra.get(number,{}).get('native_mail') and extra[number].get('mail') else {})},ensure_ascii=False,indent=2)+'\n')
     (target/'tests/verify.ts').write_text(Path(__file__).with_name('crm-verifier.ts').read_text())
     commands=[]
     if messages: commands.append(['im','+chat-messages-list','--chat-id','oc_updates'])
+    if extra.get(number,{}).get('native_mail') and seed['mail']['messages']:
+        commands.append(['mail','+messages','--mailbox',extra[number]['native_mailbox'],'--message-ids',','.join(m['message_id'] for m in seed['mail']['messages']),'--as','user'])
     commands.append(['base','+record-list','--base-token','base_crm','--table-id','tbl_crm'])
     for rid,fields in updates.items(): commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--record-id',rid,'--json',json.dumps(fields,ensure_ascii=False)])
     for fields in creates: commands.append(['base','+record-upsert','--base-token','base_crm','--table-id','tbl_crm','--json',json.dumps(fields,ensure_ascii=False)])
@@ -250,5 +294,7 @@ storage_mb = 10240
         commands.append(['im','+chat-list','--types=p2p,group'])
         commands.extend(notificationCommands)
     (target/'solution/solve.sh').write_text('#!/bin/sh\nset -eu\nnode /solution/solve.ts\n')
-    (target/'solution/solve.ts').write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(commands,ensure_ascii=False,indent=2)+";\nfor (const args of commands) execFileSync(process.env.LARK_CLI || 'lark-cli', args, {stdio: 'inherit'});\n")
+    tail = "for (const args of commands) execFileSync(process.env.LARK_CLI || 'lark-cli', args, {stdio: 'inherit'});\n"
+    if extra.get(number,{}).get('notification_meeting_url'): tail = "let meetingUrl = '';\nfor (const args of commands) {\n  const output = execFileSync(process.env.LARK_CLI || 'lark-cli', args.map(value => value.replace('{{MEETING_URL}}', meetingUrl)), { encoding: 'utf8' });\n  process.stdout.write(output);\n  if (args[0] === 'calendar' && args[2] === 'create') {\n    const data = JSON.parse(output);\n    meetingUrl = data.data?.event?.vc_data?.meeting_url ?? data.event?.vc_data?.meeting_url ?? '';\n    if (!meetingUrl) throw new Error('Created video meeting did not return joining information');\n  }\n}\n"
+    (target/'solution/solve.ts').write_text("import { execFileSync } from 'node:child_process';\nconst commands: string[][] = "+json.dumps(commands,ensure_ascii=False,indent=2)+';\n'+tail)
 print('Generated',len(translations),'adapted simple task packages')

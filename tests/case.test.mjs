@@ -261,3 +261,36 @@ test('agenda reads shared events and reserved endpoints cannot masquerade as mis
     await m.close();
   }
 });
+
+test('maintenance accepts a localized event title and target-only plan reads', async () => {
+  const mock = await startMock(seed);
+  try {
+    await oracle(async (args) => {
+      if (args.includes('ws_plan') && args.includes('--range')) {
+        for (const range of ['A1:E4', 'A6:E7']) {
+          const scoped = [...args];
+          scoped[scoped.indexOf('--range') + 1] = range;
+          await cli(mock, scoped);
+        }
+        return { stdout: '', stderr: '' };
+      }
+      if (args[0] === 'calendar' && args[2] === 'create') {
+        const localized = [...args];
+        const dataAt = localized.indexOf('--data') + 1;
+        const event = JSON.parse(localized[dataAt]);
+        event.summary = '机房断电维护';
+        event.description = 'Data Closet';
+        localized[dataAt] = JSON.stringify(event);
+        return cli(mock, localized);
+      }
+      return cli(mock, args);
+    });
+    assert.equal(verify(seed, mock.world, mock.calls).status, 'pass');
+    mock.world.events.find(
+      (e) => !seed.events.some((s) => s.event_id === e.event_id),
+    ).description = '';
+    assert.equal(verify(seed, mock.world, mock.calls).status, 'fail');
+  } finally {
+    await mock.close();
+  }
+});

@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'feedback@company.example.com',
+    '--message-ids',
+    'msg_3162',
+    '--as',
+    'user',
+  ],
   [
     'sheets',
     '+cells-get',
@@ -35,14 +44,18 @@ const commands: string[][] = [
     '--cells',
     '[[{"value": "Hi, I just wanted to say your new reporting feature is fantastic. It\'s saved our team hours every week. Keep up the great work! - Tom Brennan"}]]',
   ],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_notice_0',
-    '--text',
-    'Re: Customer Feedback: Great experience with your product\n感谢您的反馈！',
+    'mail',
+    '+reply',
+    '--mailbox',
+    'feedback@company.example.com',
+    '--message-id',
+    'msg_3162',
+    '--body',
+    'Thank you for sharing your feedback, Tom. We are glad the reporting feature saves your team time.',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

@@ -1,15 +1,20 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
   [
     'base',
-    '+record-upsert',
+    '+record-list',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
-    '--json',
-    '{"collection": "posts", "channel_id": "ch_twitter", "scheduled_at": "2026-02-26T09:00:00Z", "text": "欢迎参加Scaling Your Business with AI Automation！3月12日美东时间下午1点，报名：brightpath.example.com/webinar-ai。"}',
+    'tbl_61ffa9c8c703',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_a44f1b975171',
   ],
   [
     'base',
@@ -17,9 +22,19 @@ const commands: string[][] = [
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_a44f1b975171',
     '--json',
-    '{"collection": "posts", "channel_id": "ch_linkedin", "scheduled_at": "2026-02-26T09:00:00Z", "text": "欢迎参加Scaling Your Business with AI Automation！3月12日美东时间下午1点，报名：brightpath.example.com/webinar-ai。"}',
+    '{"channel_id": "ch_twitter", "scheduled_at": "2026-02-26T09:00:00Z", "text": "欢迎参加Scaling Your Business with AI Automation！3月12日美东时间下午1点，报名：brightpath.example.com/webinar-ai。"}',
+  ],
+  [
+    'base',
+    '+record-upsert',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_a44f1b975171',
+    '--json',
+    '{"channel_id": "ch_linkedin", "scheduled_at": "2026-02-26T09:00:00Z", "text": "欢迎参加Scaling Your Business with AI Automation！3月12日美东时间下午1点，报名：brightpath.example.com/webinar-ai。"}',
   ],
 ];
 for (const args of commands)

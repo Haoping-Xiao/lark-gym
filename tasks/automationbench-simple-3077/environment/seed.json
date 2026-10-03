@@ -12,29 +12,57 @@
   },
   "chats": [
     {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
       "chat_id": "oc_CSUPPORT",
       "name": "support",
-      "chat_mode": "group"
+      "chat_mode": "group",
+      "post_support": true
     },
     {
       "chat_id": "oc_CGENERAL",
       "name": "general",
-      "chat_mode": "group"
+      "chat_mode": "group",
+      "post_support": true
     }
   ],
-  "messages": [
-    {
-      "message_id": "om_msg_5002",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：veronica.steele@northstarlogistics.example.com\\n主题：URGENT: Data sync failure affecting production\\n日期：2026-02-23T06:30:00Z\\nOur production data sync has been failing since 6 AM today. We're seeing errors in the integration pipeline and customer records are not updating. This is blocking our operations team. Please escalate immediately. - Veronica Steele, VP of Operations\"}"
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771828200000"
-    }
-  ]
+      {
+        "email_address": "support@brightpath.example.com",
+        "email_type": "PUBLIC_MAILBOX"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_5002",
+        "mailbox_id": "support@brightpath.example.com",
+        "thread_id": "thread_5002",
+        "smtp_message_id": "msg_5002@fixture.invalid",
+        "subject": "URGENT: Data sync failure affecting production",
+        "head_from": {
+          "mail_address": "veronica.steele@northstarlogistics.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "support@brightpath.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "T3VyIHByb2R1Y3Rpb24gZGF0YSBzeW5jIGhhcyBiZWVuIGZhaWxpbmcgc2luY2UgNiBBTSB0b2RheS4gV2UncmUgc2VlaW5nIGVycm9ycyBpbiB0aGUgaW50ZWdyYXRpb24gcGlwZWxpbmUgYW5kIGN1c3RvbWVyIHJlY29yZHMgYXJlIG5vdCB1cGRhdGluZy4gVGhpcyBpcyBibG9ja2luZyBvdXIgb3BlcmF0aW9ucyB0ZWFtLiBQbGVhc2UgZXNjYWxhdGUgaW1tZWRpYXRlbHkuIC0gVmVyb25pY2EgU3RlZWxlLCBWUCBvZiBPcGVyYXRpb25z",
+        "body_preview": "T3VyIHByb2R1Y3Rpb24gZGF0YSBzeW5jIGhhcyBiZWVuIGZhaWxpbmcgc2luY2UgNiBBTSB0b2RheS4gV2UncmUgc2VlaW5nIGVycm9ycyBpbiB0aGUgaW50ZWdyYXRpb24gcA",
+        "body_html": "",
+        "internal_date": "1771828200000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }
