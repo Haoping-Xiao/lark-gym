@@ -34,6 +34,6 @@ def inventory():
     return items
 
 if __name__ == '__main__':
-    output = ROOT / 'reports/task-audit.json'
-    output.parent.mkdir(exist_ok=True)
+    output = ROOT / 'runs/audit/task-audit.json'
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({'scope': 'all native tasks; risk inventory is not a claim of semantic correctness or production parity', 'tasks': inventory()}, ensure_ascii=False, indent=2) + '\n')

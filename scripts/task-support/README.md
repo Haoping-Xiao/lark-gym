@@ -1,23 +1,24 @@
-> 完成下列常规生成／整理步骤后，还须运行 `python scripts/migration/native-business/apply.py`，再执行格式化和验证。该步骤把已审核的文档、云盘和社媒队列承接落实到真实原生对象；来源字段名保留用于业务追溯。
+# Task verifier support
 
-# Task review and verifier support
+`tasks/<name>/` is the maintained source of each task's instruction, seed,
+reference solution and verifier. Edit task packages directly; the one-time
+business conversion scripts are not part of the maintenance workflow.
 
-All task packages remain native Harbor tasks. Each task owns its environment hook,
-policy, instructions and grading rubric. `install.py` stages the default support
-files after task generation; task-specific policy JSON is retained. Run:
+This directory holds shared verifier and environment-hook sources. `install.py`
+stages those defaults into task packages and retains task-specific policy JSON.
+It rewrites verifier/configuration files: use it in a clean worktree, review the
+resulting diff, and run `npm run check` and `npm run oracle`. Do not treat it as a
+way to regenerate a task's business semantics.
+
+Generate a local review inventory with:
 
 ```sh
-python scripts/task-support/business-context.py
-python scripts/task-support/business-tables.py
-python scripts/task-support/install.py
-python scripts/migration/native-business/apply.py
 python scripts/task-support/audit.py
-npm run format
 ```
 
-`reports/task-audit.json` inventories every task and flags old substring checks.
-It is an inventory, not evidence that every business interpretation has been
-independently reviewed or that the Mock matches production.
+The output is `runs/audit/task-audit.json` (ignored by Git). It flags review
+candidates, not semantic correctness or production compatibility. Keep execution
+reports and audit snapshots in `runs/` or CI artifacts, not the source tree.
 
 ## Environment gaps
 
@@ -110,7 +111,7 @@ review so a refusal to renew is not automatically treated as a renewal.
 Task Dockerfiles do not install per-task AGENTS files. The judge receives exactly
 `instruction.md`, plus authoritative seed/state; it no longer concatenates an
 execution guide. Business reference time is explicit in the request. Reviewed
-request changes live in `user-request-overrides.json`; review-model proposals are
+request changes live in each task's `instruction.md`; review-model proposals are
 not automatically installed.
 
 Drive file listing and title/content search derive their results from the live

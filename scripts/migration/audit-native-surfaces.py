@@ -94,5 +94,7 @@ if __name__ == '__main__':
     if len(sys.argv) != 3:
         raise SystemExit(__doc__)
     result = audit(sys.argv[1])
-    Path(sys.argv[2]).write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
+    output = Path(sys.argv[2])
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps(result['counts'], ensure_ascii=False, indent=2))
