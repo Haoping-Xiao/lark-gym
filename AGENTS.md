@@ -27,6 +27,7 @@
 
 ## Validation and delivery
 
+- Organize repository tests by validation purpose under `tests/`; use descriptive business names rather than migration batches or version numbers. Keep assertions for distinct purposes in separate files. See `tests/README.md` for commands and boundaries.
 - Run `npm run check` and `npm run oracle` while these remain the supported repository commands. Update commands and CI together when migrating them.
 - Task acceptance includes environment build, reference solution success, no-op failure, and meaningful incorrect/partial-result checks. Verify state isolation and cross-interface consistency for shared environments.
 - Validate multi-container artifact collection and separate verification against the pinned Harbor version. Report checks that could not run; generated files alone are not execution evidence.

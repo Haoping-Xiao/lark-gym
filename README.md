@@ -30,13 +30,18 @@ npm run check
 npm run oracle
 ```
 
-`check` 包含类型、格式、Node 与 Go 检查。`oracle` 是维护通知示例的本地服务/参考解/独立评分冒烟测试，无模型调用。全部迁移任务的本地验证可单独执行：
+`check` 包含类型、格式、全部本地测试与 Go 检查。测试按验证目的分目录和命令，见 [测试说明](tests/README.md)。例如：
 
 ```bash
-node --test tests/migration.test.ts
+npm run test:environment  # Mock 的状态、权限、接口一致性与运行隔离
+npm run test:tasks        # 800 题参考解可执行，空操作/错误结果与语义交接符合评分约定
+npm run test:grading      # 专项评分规则：允许的替代做法能通过，错误/缺失操作被拒绝
+npm run test:packaging    # CLI 资源、任务输入边界与独立进程入口
 ```
 
-这些检查使用真实 CLI 访问 Mock，验证结构性缺失、禁止通知、无关数据误改以及语义检查的交接。文本含义检查需要真实 judge；例如 sales-703 的空操作也必须经过语义判定。它们不能代替模型或 Harbor 容器验收。
+`oracle` 是 `test:packaging` 中维护通知示例的快捷入口，已包含在 `check` 中；单独执行便于排错，CI 不再重复运行。它是本地进程测试，不会启动 Harbor 容器或调用模型。
+
+这些检查不导入或重新生成任务。它们持续检查环境与评分是否正确；历史来源名不代表验证目的。程序检查通过不等于文本含义符合要求：例如 sales-703 的空操作仍需语义判定。本地检查不能代替 Harbor 容器或模型裁判验收。
 
 ## Harbor 运行
 

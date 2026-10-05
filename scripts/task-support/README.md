@@ -79,7 +79,7 @@ programmatic grading is not a claim of live judge validation.
 
 ## Contract comparisons
 
-`tests/base-contract.test.ts` executes the real pinned CLI against the Mock and
+`tests/environment/base-contract.test.ts` executes the real pinned CLI against the Mock and
 checks projections, pagination and state reads. Existing transaction, isolation,
 calendar and messaging tests remain in place.
 

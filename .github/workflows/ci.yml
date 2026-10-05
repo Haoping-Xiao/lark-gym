@@ -12,6 +12,7 @@ permissions:
   contents: read
 jobs:
   test:
+    name: Code, environment and scoring checks (no models)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,12 +24,34 @@ jobs:
         with:
           go-version: '1.23.x'
           cache-dependency-path: gyms/lark-cli/cli/go.sum
-      - run: npm ci
-      - run: npm run build:cli
-      - run: npm run check
-      - run: npm run oracle
-  # CI runs deterministic checks only; model runs require explicit authorization.
+      - name: Install JavaScript dependencies
+        run: npm ci
+      - name: Build the real lark-cli used by environment tests
+        run: npm run build:cli
+      # Same coverage as npm run check, separated so failures have a clear purpose.
+      - name: Check TypeScript types
+        run: npm run typecheck
+      - name: Check source formatting
+        run: npm run format:check
+      - name: Environment - API behavior, shared state, permissions and isolation
+        run: npm run test:environment
+      # Runs each reference once, then checks no-op, structural mistakes and semantic handoff.
+      # Programmatic success does not imply the text satisfies the semantic rubric.
+      - name: Task acceptance - reference solutions and scoring contracts (800 tasks)
+        run: npm run test:tasks
+      - name: Scoring - reject wrong results and accept permitted alternatives
+        run: npm run test:grading
+      # Local process/artifact boundary only; Docker/Harbor is checked in the next job.
+      - name: Packaging - CLI assets, task inputs and standalone entrypoints
+        run: npm run test:packaging
+      # Tests retained import tooling on temporary fixtures; never regenerates maintained tasks.
+      - name: Import tools - preserve source mail data when importing a fixture
+        run: npm run test:import-tools
+      - name: CLI implementation - Go tests and static analysis
+        run: npm run test:go
+  # Ordinary CI does not call models. The separately gated job below can spend model tokens.
   container:
+    name: Container wiring and judge configuration (no models)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -36,19 +59,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
-      - run: bash scripts/build-images.sh
-      - run: docker run --rm --network none -e LITELLM_LOCAL_MODEL_COST_MAP=True -v "$PWD:/repo:ro" --entrypoint python lark-gym-verifier:0.3.0 /repo/scripts/check-rewardkit-configs.py
-      - run: harbor run --path tasks/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
-      - run: python scripts/check-harbor-results.py runs/harbor/maintenance-oracle 1 maintenance-notice
-      - run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
-      - run: python scripts/check-harbor-results.py runs/harbor/maintenance-nop 0 maintenance-notice
+      - name: Install the pinned Harbor runner
+        run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
+      - name: Build agent, Mock and verifier images
+        run: bash scripts/build-images.sh
+      # Load every semantic.toml with the real RewardKit library, without network/model calls.
+      - name: Judge configuration - validate schema and construct scoring criteria offline
+        run: docker run --rm --network none -e LITELLM_LOCAL_MODEL_COST_MAP=True -v "$PWD:/repo:ro" --entrypoint python lark-gym-verifier:0.3.0 /repo/scripts/check-rewardkit-configs.py
+      # One small task checks container startup, backend artifacts and separate scoring.
+      - name: Container smoke - execute the maintenance reference solution
+        run: harbor run --path tasks/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
+      - name: Container smoke - require reference reward 1 and no missing/error results
+        run: python scripts/check-harbor-results.py runs/harbor/maintenance-oracle 1 maintenance-notice
+      - name: Container smoke - execute no-op control
+        run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
+      - name: Container smoke - require no-op reward 0 and no missing/error results
+        run: python scripts/check-harbor-results.py runs/harbor/maintenance-nop 0 maintenance-notice
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: maintenance-harbor-results
           path: runs/harbor/
+  # Paid judge acceptance is opt-in. Oracle/nop are scripted controls, not autonomous model players.
   harbor_plan:
+    name: Plan optional full semantic-judge acceptance
     if: github.event_name == 'workflow_dispatch' && inputs.run_model_judges
     runs-on: ubuntu-latest
     outputs:
@@ -70,6 +104,7 @@ jobs:
           print(f'{total} tasks across {count} shards, at most 32 per shard')
           PLAN
   native-harbor:
+    name: Optional model judges - reference and no-op controls
     needs: harbor_plan
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -87,8 +122,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
-      - run: bash scripts/build-images.sh
+      - name: Install the pinned Harbor runner
+        run: pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
+      - name: Build agent, Mock and verifier images
+        run: bash scripts/build-images.sh
       - name: Check one native Harbor task before the full suite
         timeout-minutes: 10
         run: |
@@ -96,11 +133,16 @@ jobs:
           python scripts/check-harbor-results.py runs/harbor/smoke-oracle 1 automationbench-simple-3001
           harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent nop --jobs-dir runs/harbor --job-name smoke-nop
           python scripts/check-harbor-results.py runs/harbor/smoke-nop 0 automationbench-simple-3001
-      - run: python scripts/select-harbor-shard.py ${{ matrix.shard }} ${{ needs.harbor_plan.outputs.count }}
-      - run: harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config runs/harbor/oracle.yaml
-      - run: python scripts/check-harbor-results.py runs/harbor/automationbench-oracle 1 @runs/harbor/selected-tasks.json
-      - run: harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config runs/harbor/nop.yaml
-      - run: python scripts/check-harbor-results.py runs/harbor/automationbench-nop 0 @runs/harbor/selected-tasks.json
+      - name: Select this group of tasks for both controls
+        run: python scripts/select-harbor-shard.py ${{ matrix.shard }} ${{ needs.harbor_plan.outputs.count }}
+      - name: Semantic acceptance - run references with live judges
+        run: harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config runs/harbor/oracle.yaml
+      - name: Semantic acceptance - require all reference rewards 1
+        run: python scripts/check-harbor-results.py runs/harbor/automationbench-oracle 1 @runs/harbor/selected-tasks.json
+      - name: Semantic acceptance - run no-op controls (judge only when required)
+        run: harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config runs/harbor/nop.yaml
+      - name: Semantic acceptance - require all no-op rewards 0
+        run: python scripts/check-harbor-results.py runs/harbor/automationbench-nop 0 @runs/harbor/selected-tasks.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
