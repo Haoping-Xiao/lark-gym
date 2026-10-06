@@ -1,14 +1,7 @@
 import { execFileSync } from 'node:child_process';
-import {
-  readFileSync,
-  writeFileSync,
-  mkdirSync,
-  rmSync,
-  existsSync,
-} from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import { scoreUnsupported } from './unsupported.ts';
 import { semanticEvidence } from './semantic-evidence.ts';
 const root = dirname(fileURLToPath(import.meta.url));
 const output = resolve(process.env.VERIFIER_OUTPUT || '/logs/verifier');
@@ -17,15 +10,10 @@ mkdirSync(rulesOutput, { recursive: true });
 for (const name of ['reward.txt', 'reward.json'])
   rmSync(join(output, name), { force: true });
 try {
-  let ruleError: unknown;
-  try {
-    execFileSync(process.execPath, [join(root, 'verify.ts')], {
-      env: { ...process.env, VERIFIER_OUTPUT: rulesOutput },
-      stdio: 'inherit',
-    });
-  } catch (error) {
-    ruleError = error;
-  }
+  execFileSync(process.execPath, [join(root, 'verify.ts')], {
+    env: { ...process.env, VERIFIER_OUTPUT: rulesOutput },
+    stdio: 'inherit',
+  });
   const result = JSON.parse(
     readFileSync(join(rulesOutput, 'result.json'), 'utf8'),
   );
@@ -36,29 +24,18 @@ try {
     ),
   );
   if (
-    state.calls.some(
-      (call: any) =>
-        call.unsupported?.kind === 'hook_error' ||
-        (call.status >= 500 && call.status !== 501),
-    )
+    state.calls.some((call: any) => call.status >= 500 && call.status !== 501)
   )
-    throw new Error('Mock or hook infrastructure failure');
-  const policy = JSON.parse(
-    readFileSync(join(root, 'unsupported-policy.json'), 'utf8'),
-  );
+    throw new Error('Mock infrastructure failure');
   let rawReward = (result.business_success ?? result.success) ? 1 : 0;
   const programmaticReward = rawReward;
   let judge: unknown = null;
-  const valid = scoreUnsupported(rawReward, state.calls, policy).valid_sample;
   let semanticStatus = !result.semantic?.required
     ? 'not_required'
     : !rawReward
       ? 'blocked_by_rules'
-      : !valid
-        ? 'not_run_excluded'
-        : 'pending';
-  if (ruleError && valid) throw ruleError;
-  if (valid && rawReward && result.semantic?.required) {
+      : 'pending';
+  if (rawReward && result.semantic?.required) {
     const semanticDir = join(output, 'semantic');
     mkdirSync(semanticDir, { recursive: true });
     const evidence = semanticEvidence({
@@ -107,32 +84,23 @@ try {
     rawReward = score === 1 ? 1 : 0;
     semanticStatus = rawReward ? 'passed' : 'failed';
   }
-  const coverage = scoreUnsupported(rawReward, state.calls, policy);
   writeFileSync(
     join(output, 'result.json'),
     JSON.stringify(
       {
         ...result,
-        coverage,
         judge,
-        status: coverage.environment_incomplete
-          ? 'environment_incomplete'
-          : rawReward === 1
-            ? 'pass'
-            : 'fail',
+        status: rawReward === 1 ? 'pass' : 'fail',
         programmatic_reward: programmaticReward,
         semantic_status: semanticStatus,
-        business_success:
-          semanticStatus === 'not_run_excluded' ? null : rawReward === 1,
-        success: coverage.valid_sample && rawReward === 1,
+        business_success: rawReward === 1,
+        success: rawReward === 1,
       },
       null,
       2,
     ),
   );
-  if (!coverage.valid_sample)
-    throw new Error('ENV_UNSUPPORTED: excluded by task policy');
-  writeFileSync(join(output, 'reward.txt'), `${coverage.reward}\n`);
+  writeFileSync(join(output, 'reward.txt'), `${rawReward}\n`);
 } catch (error) {
   writeFileSync(join(output, 'verification-error.txt'), String(error));
   throw error;

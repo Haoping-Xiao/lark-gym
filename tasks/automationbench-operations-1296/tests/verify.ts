@@ -1,6 +1,5 @@
 import { verifyDrive } from './files.ts';
 import { prepareSemantic } from './semantic.ts';
-import { scoreUnsupported } from './unsupported.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -64,7 +63,7 @@ const expected: {
 );
 const output = process.env.VERIFIER_OUTPUT || '/logs/verifier';
 mkdirSync(output, { recursive: true });
-writeFileSync(`${output}/reward.txt`, '0\n');
+rmSync(`${output}/reward.txt`, { force: true });
 const { seed, world, calls } = JSON.parse(
   readFileSync(
     process.env.MOCK_STATE || '/var/lib/feishu-mock/state.json',
@@ -404,7 +403,12 @@ const orderChecks = (expected.order_groups || []).map((group) => {
   previousStageEnd = Math.max(previousStageEnd, ...sequences);
   return { group, passed };
 });
-const covered = !calls.some((c: { status: number }) => c.status === 501);
+if (
+  calls.some(
+    (call: { status: number }) => call.status >= 500 && call.status !== 501,
+  )
+)
+  throw new Error('Mock infrastructure failure');
 const success =
   driveResult.passed &&
   newChats.length === (expected.new_chats || []).length &&
@@ -419,23 +423,14 @@ const success =
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
   unchanged;
-const coverage = scoreUnsupported(
-  success ? 1 : 0,
-  calls,
-  JSON.parse(
-    readFileSync(new URL('./unsupported-policy.json', import.meta.url), 'utf8'),
-  ),
-);
-writeFileSync(`${output}/unsupported.json`, JSON.stringify(coverage, null, 2));
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
-      status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
-      success: coverage.valid_sample && success,
+      status: success ? 'pass' : 'fail',
+      success,
       business_success: success,
       semantic,
-      coverage,
       checks,
       fileMoveChecks: driveResult.moves,
       folderChecks: driveResult.folders,
@@ -449,16 +444,9 @@ writeFileSync(
       cellChecks,
       eventChecks,
       unchanged,
-      covered,
     },
     null,
     2,
   ),
 );
-if (!coverage.valid_sample) {
-  rmSync(`${output}/reward.txt`);
-  throw new Error(
-    'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
-  );
-}
-writeFileSync(`${output}/reward.txt`, `${coverage.reward}\n`);
+writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');

@@ -100,7 +100,6 @@ test('workspace entity reads derive the existing Base and preserve instance boun
       ]),
     );
     assert.equal(b.calls.at(-1)?.status, 404);
-    assert.equal(b.calls.at(-1)?.unsupported, undefined);
     const own = await cli(b, [
       'base',
       '+workspace-entity-list',
@@ -138,7 +137,6 @@ test('business workspace field does not grant or invent a Feishu workspace', asy
       ]),
     );
     assert.equal(b.calls.at(-1)?.status, 404);
-    assert.equal(b.calls.at(-1)?.unsupported, undefined);
     assert.deepEqual(b.world, before);
   } finally {
     await b.close();

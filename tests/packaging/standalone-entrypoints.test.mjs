@@ -48,6 +48,26 @@ test(
         await new Promise((r) => setTimeout(r, 50));
       }
       assert.ok(endpoint, 'Mock service readiness timed out');
+      // Failed CLI output must retain a searchable marker; the next command can still solve.
+      await assert.rejects(
+        exec(
+          resolve('gyms/lark-cli/bin/lark-cli'),
+          [
+            'calendar',
+            'events',
+            'search_event',
+            '--calendar-id',
+            'cal_ops',
+            '--data',
+            '{"query":"maintenance","unsupported_option":true}',
+          ],
+          { env: { ...process.env, FEISHU_MOCK_URL: endpoint, HOME: dir } },
+        ),
+        (error) => {
+          assert.match(error.stdout + error.stderr, /ENV_UNSUPPORTED/);
+          return true;
+        },
+      );
       const verifier = () =>
         exec(process.execPath, [join(dir, 'tests/entry.ts')], {
           env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: dir },

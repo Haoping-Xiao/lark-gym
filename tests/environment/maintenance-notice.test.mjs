@@ -114,10 +114,7 @@ test('denied and invalid writes are atomic; unknown endpoints are coverage gaps'
       (await api(m, 'GET', '/open-apis/not-implemented')).status,
       501,
     );
-    assert.equal(
-      verify(seed, m.world, m.calls).status,
-      'environment_incomplete',
-    );
+    assert.equal(verify(seed, m.world, m.calls).status, 'fail');
   } finally {
     await m.close();
   }
@@ -197,10 +194,7 @@ test('agenda reads shared events and reserved endpoints cannot masquerade as mis
     );
     const unsupported = await api(m, 'POST', path + '/search', {});
     assert.equal(unsupported.status, 501);
-    assert.equal(
-      verify(seed, m.world, m.calls).status,
-      'environment_incomplete',
-    );
+    assert.equal(verify(seed, m.world, m.calls).status, 'fail');
   } finally {
     await m.close();
   }

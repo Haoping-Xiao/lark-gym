@@ -300,7 +300,7 @@ const expected: {
 );
 const output = process.env.VERIFIER_OUTPUT || '/logs/verifier';
 mkdirSync(output, { recursive: true });
-writeFileSync(`${output}/reward.txt`, '0\n');
+rmSync(`${output}/reward.txt`, { force: true });
 const { seed, world, calls } = JSON.parse(
   readFileSync(
     process.env.MOCK_STATE || '/var/lib/feishu-mock/state.json',
@@ -2772,7 +2772,12 @@ const mailBeforeOutreachChecks = (expected.mail_before_outreach || []).map(
     };
   },
 );
-const covered = !calls.some((c: { status: number }) => c.status === 501);
+if (
+  calls.some(
+    (call: { status: number }) => call.status >= 500 && call.status !== 501,
+  )
+)
+  throw new Error('Mock infrastructure failure');
 const success =
   draftChecks.every((c) => c.passed) &&
   forbiddenMailChecks.every((c) => c.passed) &&
@@ -2807,13 +2812,12 @@ const success =
   deletionChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
-      status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
+      status: success ? 'pass' : 'fail',
       success,
       checks,
       readRecordsBeforeUpdateChecks,
@@ -2861,16 +2865,9 @@ writeFileSync(
       eventStateBeforeCreateChecks,
       transferBeforeDeleteChecks,
       unchanged,
-      covered,
     },
     null,
     2,
   ),
 );
-if (!covered) {
-  rmSync(`${output}/reward.txt`);
-  throw new Error(
-    'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
-  );
-}
 writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');

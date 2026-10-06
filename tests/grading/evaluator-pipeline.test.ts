@@ -29,6 +29,11 @@ test('verifier composes judge results and fails closed on judge errors (stubbed 
         LARK_CLI: resolve('gyms/lark-cli/bin/lark-cli'),
       },
     });
+    // A real environment gap must neither exclude a solved task nor skip its judge.
+    const missing = await fetch(backend.url + '/open-apis/missing/v1/objects', {
+      headers: { authorization: 'Bearer local-evaluation-only' },
+    });
+    assert.equal(missing.status, 501);
     await writeFile(
       join(dir, 'state.json'),
       JSON.stringify({ seed, world: backend.world, calls: backend.calls }),
@@ -83,6 +88,44 @@ fs.writeFileSync(path.join(path.dirname(output), 'reward-details.json'), JSON.st
     assert.match(
       await readFile(join(errorOutput, 'verification-error.txt'), 'utf8'),
       /Judge failure/,
+    );
+    // An actual backend failure must remain a verifier error, even with solved state.
+    await writeFile(
+      join(dir, 'state.json'),
+      JSON.stringify({
+        seed,
+        world: backend.world,
+        calls: [
+          ...backend.calls,
+          {
+            seq: backend.calls.length + 1,
+            method: 'GET',
+            path: '/broken',
+            status: 500,
+            changed: false,
+            mutations: [],
+          },
+        ],
+      }),
+    );
+    const infrastructureOutput = join(dir, 'infrastructure');
+    await assert.rejects(
+      exec(process.execPath, [`${task}/tests/evaluate.ts`], {
+        env: {
+          ...process.env,
+          PATH: `${bin}:${process.env.PATH}`,
+          STUB_SCORE: '1',
+          MOCK_STATE: join(dir, 'state.json'),
+          VERIFIER_OUTPUT: infrastructureOutput,
+        },
+      }),
+    );
+    await assert.rejects(access(join(infrastructureOutput, 'reward.txt')));
+    await assert.rejects(
+      access(join(infrastructureOutput, 'programmatic/reward.txt')),
+    );
+    await assert.rejects(
+      access(join(infrastructureOutput, 'semantic/reward.json')),
     );
     const textOnly = 'tasks/automationbench-sales-703';
     const unchanged = JSON.parse(

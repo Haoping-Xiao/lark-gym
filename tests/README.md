@@ -4,7 +4,7 @@ LarkGym 的持续目标是**环境行为正确、任务可执行、评分正确*
 
 **两个 `tests/` 的区别：** `tasks/<题目>/tests/` 是实际判卷程序，Harbor 每次运行该题时用它给做题者打分；仓库根目录的 `tests/` 是开发者回归测试，用正确、错误和等价结果检查判卷程序，并检查 Mock 环境行为。例如任务评分器判断是否向指定收件人发信，根目录测试则检查“发对人能通过、发错人或没发会失败”。它不额外定义一套选手评分标准。
 
-以下命令从仓库根目录执行。首次运行先 `npm ci && npm run build:cli`。`npm run check` 包含类型、格式、下表全部本地测试与 Go 检查；`npm test` 只包含五组本地 Node 测试。普通 CI 按同样的组分别显示步骤，便于看出失败原因。
+以下命令从仓库根目录执行。首次运行先 `npm ci && npm run build:cli`。`npm run check` 包含类型、格式、下表全部本地测试与 Go 检查；`npm test` 只包含六组本地 Node 测试。普通 CI 按同样的组分别显示步骤，便于看出失败原因。
 
 | 验证目的                 | 位置 / 命令                                                         | 实际检查                                                                                              | 不证明什么                                         |
 | ------------------------ | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
@@ -35,7 +35,7 @@ LarkGym 的持续目标是**环境行为正确、任务可执行、评分正确*
 
 按被验证的行为选目录，不按来源批次或开发版本选目录。单个文件围绕一个接口能力或一条业务评分规则组织，允许把该规则的正例、反例、等价写法放在一起。跨目的的通用初始化放入 `helpers/`；数据样例放入 `fixtures/`；编译期接口约束放入 `types/`（由 `typecheck` 检查）。
 
-例如检查文档状态一致性看 `environment/native-documents.test.ts`；检查合同发出前的状态约束看 `grading/contract-state-before-update.test.mjs`；检查语义裁判失败时如何处理看 `grading/evaluator-pipeline.test.ts`。版本号文件已改为业务名，例如原 `native-formal-v400` 现在是 `grading/coaching-metrics.test.mjs`。
+例如检查文档状态一致性看 `environment/native-documents.test.ts`；检查合同发出前的状态约束看 `grading/contract-state-before-update.test.mjs`；检查语义裁判失败时如何处理看 `grading/evaluator-pipeline.test.ts`。检查辅导记录指标看 `grading/coaching-metrics.test.mjs`。
 
 只运行一个文件：
 
@@ -44,3 +44,13 @@ npx tsx --test tests/environment/native-documents.test.ts
 ```
 
 `npm run oracle` 是 `packaging/standalone-entrypoints.test.mjs` 的兼容快捷命令，已被 `npm run check` 覆盖。完整容器入口见根 README 的 Harbor 运行说明。任务本身的隐藏评分代码仍由 `tasks/<name>/tests/` 拥有；本目录是开发者用来验证环境和评分代码的测试，不是另一套评分标准。
+
+## 分析工具验证
+
+`npm run test:analysis` 验证对 Harbor 产物的离线统计：请求次数、受影响 trial 数、
+接口分布、缺失/损坏证据的区分，以及分析不修改 reward。轨迹关键词用于人工定位，
+不替代后端请求记录计数。该组包含在 `npm run check` 和普通 CI 中。
+
+Docker/Harbor 超时验收使用 `python tests/packaging/harbor-timeout.py`：脚本复制维护通知任务，
+通过真实 CLI 触发一次 unsupported 后完成任务，再故意超过 Agent 时限；检查超时记录、
+后端产物、错误标记及最终得分。它使用脚本选手，不调用模型，由 CI 容器检查执行。

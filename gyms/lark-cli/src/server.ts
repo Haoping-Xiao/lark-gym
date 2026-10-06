@@ -6,11 +6,7 @@ import { createState } from './mock/state.ts';
 
 // A fresh server owns one world. No reset/admin/score HTTP endpoints exist.
 export async function startMock(seed: World, options: MockOptions = {}) {
-  const { world, calls, execute } = createState(
-    seed,
-    options.onSnapshot,
-    options.onUnsupported,
-  );
+  const { world, calls, execute } = createState(seed, options.onSnapshot);
   const server = http.createServer(
     createHttpHandler(execute, createRouter(world)),
   );

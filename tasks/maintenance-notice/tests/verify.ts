@@ -105,22 +105,18 @@ export function verify(seed: World, world: World, calls: ApiCall[]): Verdict {
       equal(seed.calendars, world.calendars) &&
       equal(seed.chats, world.chats),
   };
-  const unsupported = calls
-    .filter((c) => c.status === 501)
-    .map((c) => `${c.method} ${c.path}`);
   const infrastructureErrors = calls.filter(
     (c) => c.status >= 500 && c.status !== 501,
   ).length;
-  const valid = unsupported.length === 0 && infrastructureErrors === 0;
+  const valid = infrastructureErrors === 0;
   return {
     status: !valid
-      ? 'environment_incomplete'
+      ? 'error'
       : Object.values(checks).every(Boolean)
         ? 'pass'
         : 'fail',
     success: valid && Object.values(checks).every(Boolean),
     checks,
-    unsupported,
     infrastructureErrors,
     apiCalls: calls.length,
   };

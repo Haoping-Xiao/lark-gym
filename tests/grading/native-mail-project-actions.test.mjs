@@ -186,7 +186,6 @@ test('invalid workspace discovery can recover into the task business write', asy
     });
     const d = JSON.parse(await fs.readFile(a + '/result.json'));
     assert.equal(d.business_success, true);
-    assert.equal(d.coverage.valid_sample, true);
   } finally {
     await b.close();
     await fs.rm(a, { recursive: true, force: true });

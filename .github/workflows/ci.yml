@@ -44,6 +44,8 @@ jobs:
       # Local process/artifact boundary only; Docker/Harbor is checked in the next job.
       - name: Packaging - CLI assets, task inputs and standalone entrypoints
         run: npm run test:packaging
+      - name: Analysis - count environment gaps from collected artifacts
+        run: npm run test:analysis
       # Tests retained import tooling on temporary fixtures; never regenerates maintained tasks.
       - name: Import tools - preserve source mail data when importing a fixture
         run: npm run test:import-tools
@@ -75,6 +77,8 @@ jobs:
         run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
       - name: Container smoke - require no-op reward 0 and no missing/error results
         run: python scripts/check-harbor-results.py runs/harbor/maintenance-nop 0 maintenance-notice
+      - name: Container timeout - preserve gap evidence and grade completed work
+        run: python tests/packaging/harbor-timeout.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

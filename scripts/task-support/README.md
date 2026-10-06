@@ -4,8 +4,8 @@
 reference solution and verifier. Edit task packages directly; the one-time
 business conversion scripts are not part of the maintenance workflow.
 
-This directory holds shared verifier and environment-hook sources. `install.py`
-stages those defaults into task packages and retains task-specific policy JSON.
+This directory holds shared verifier sources. `install.py` stages them into
+task packages and selects the shared backend image.
 It rewrites verifier/configuration files: use it in a clean worktree, review the
 resulting diff, and run `npm run check` and `npm run oracle`. Do not treat it as a
 way to regenerate a task's business semantics.
@@ -22,41 +22,23 @@ reports and audit snapshots in `runs/` or CI artifacts, not the source tree.
 
 ## Environment gaps
 
-The default policy aborts on the first 501 and excludes the sample. The backend
-seals subsequent operations, persists evidence, then writes an abort signal to a
-trial-local volume mounted read-only in the agent container. The task keepalive
-runs as PID 1 in the private Docker PID namespace and terminates its current
-agent processes once; the separate backend survives for independent grading.
-Native Harbor remains the entrypoint; neither CLI nor agent is wrapped.
-The hook runs after rollback. Every call retains its sequence, timestamp, request,
-original error, mutations and hook decision in the exported backend state.
+Unsupported operations return `ENV_UNSUPPORTED` without mutating state or
+preventing subsequent requests. The backend records sequence, timestamp,
+request, response and mutations in `state.json`; the task declares this file as
+a Harbor artifact. Agent execution uses the native harness and Harbor timeout.
 
-Task `environment/unsupported-policy.json` controls:
-
-- `execution`: `abort` (default) or `continue`. Continue returns feedback and
-  permits subsequent operations; scoring/exclusion settings remain independent.
-- `penalty_per_call`: nonnegative, default 0.
-- `max_penalty`: nonnegative cumulative cap, or null for no cap.
-- `score_floor`: default 0; a negative value or null allows negative reward.
-- `exclude_from_valid_samples`: default true. False retains a reward even though
-  the coverage gap remains recorded.
-- `feedback`: factual text, without solution hints.
-
-After editing policy, run `install.py` to copy the same configuration to the
-separate verifier. A hook failure is an infrastructure error. This lifecycle actuator applies to installed agents in the Docker main
-container, not host-side agents or other environment providers. Keep the task
-PID namespace private and `init: false`. Do not mount the Docker socket or
-backend state into main. Fresh trials require fresh control volumes; Harbor
-cleanup removes them. Agent exit 137 is an environment abort, not a business
-failure; the verifier still records exclusion and preserves its diagnostics.
+Use `scripts/analysis/unsupported.ts` on a collected Harbor job to count gaps.
+Analysis is independent of task grading; it neither changes rewards nor excludes
+trials. Locate commands by searching agent logs for `ENV_UNSUPPORTED`.
 
 ## Semantic checks
 
 `tests/verify.ts` performs programmatic checks and records checks deferred to
 `tests/semantic.toml`. Its output is an intermediate result, not the final score
 for a task that needs a judge. `tests/evaluate.ts`, invoked by `test.sh`, runs the
-semantic judge only after hard checks pass, then applies the environment policy.
-The final reward is not written if the judge fails or the sample is excluded.
+semantic judge only after hard checks pass. Unsupported requests do not skip
+the judge or adjust its score. No final reward is written on a verifier or
+backend infrastructure failure.
 
 The judge reads trusted backend state/history, task instructions and applicable
 policies, not an agent's claim of success. Reference facts anchor the business
@@ -88,10 +70,10 @@ test tenant and the evaluation CLI, using a manifest of corresponding commands
 and an explicit ID mapping. Write scenarios require the test-tenant execution
 option. Provision independent synthetic fixtures first; do not replay writes into
 production. The report distinguishes matches, differences and unrun scenarios.
-No live tenant parity or Astra coverage run has yet been performed in this change.
+Mock contract tests do not establish live-tenant parity.
 
 Automatic CI runs programmatic regressions and the deterministic maintenance
-container task. Full 800-task native Harbor acceptance now includes live judges;
+container task. Full 800-task native Harbor acceptance includes live judges;
 run the workflow manually with `run_model_judges=true` and verifier credentials.
 Those gated checks are not reported as executed by ordinary PR CI. Astra agent
 exploration uses `experiments/eval/astra-coverage.yaml` separately; judge execution

@@ -116,20 +116,17 @@ export interface ApiCall {
   response: unknown;
   changed: boolean;
   timestamp?: string;
-  unsupported?: Record<string, unknown>;
   mutations: { kind: string; id: string; before?: unknown; after: unknown }[];
 }
 export interface MockOptions {
   host?: string;
   port?: number;
   onSnapshot?: (world: World, calls: ApiCall[]) => void;
-  onUnsupported?: (call: ApiCall) => Record<string, unknown>;
 }
 export interface Verdict {
-  status: 'pass' | 'fail' | 'environment_incomplete';
+  status: 'pass' | 'fail' | 'error';
   success: boolean;
   checks: Record<string, boolean>;
-  unsupported: string[];
   infrastructureErrors: number;
   apiCalls: number;
 }

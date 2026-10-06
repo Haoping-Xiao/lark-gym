@@ -57,13 +57,13 @@ harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracl
 
 构建脚本会将当前 Mock 镜像标记为仓库任务引用的所有兼容版本，避免干净机器尝试从 Docker Hub 拉取不存在的本地镜像。这些标签指向当前代码构建，不是历史代码快照；复现实验仍需保存仓库提交和镜像摘要。脚本参数透传给每次 `docker build`，可用 `--build-arg HTTP_PROXY --build-arg HTTPS_PROXY` 传入当前环境的构建代理。
 
-任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表；任务内环境不足 hook 处理工具错误、审计和运行中断。
+任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表。
 
-Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足；默认排除样本，任务策略可以选择保留并扣分。
+Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足，用于独立分析，不自动改变任务得分。
 
 单元格写入支持普通值及字符串的 `cell_styles.number_format="@"` 文本格式，格式保存在共享状态并通过单元格/类型化表格读回，前导零和长编号保持原文。其他数字/日期/视觉格式与样式单独写入仍未支持。
 
-Sheet AI 批量写入目前仅支持所有子操作均可成功的普通 `set_cell_range` 值写入，按顺序处理且可跨同一工作簿内的子表。任何失败、未知选项或混合操作均在写入前返回 501 并排除样本；这不是对真实后端失败回滚语义的实现。失败批次的部分生效规则仍需后端证据确认。
+Sheet AI 批量写入目前仅支持所有子操作均可成功的普通 `set_cell_range` 值写入，按顺序处理且可跨同一工作簿内的子表。任何失败、未知选项或混合操作均在写入前返回 501；这不是对真实后端失败回滚语义的实现。失败批次的部分生效规则仍需后端证据确认。
 
 Base 的 `+base-block-list` 与 URL 定位可读取同一份平铺数据表目录；仅返回任务已有数据表，不虚构文件夹、文档或仪表盘。嵌套目录及未知选项继续记录 501。
 
@@ -99,7 +99,7 @@ Mock 实现任务需要的共享业务状态和部分权限规则；尚未与真
 
 ## 业务与评分整理
 
-当前任务按业务实体分表，用户请求与操作环境说明分开。环境不足经 task 内 hook 留下请求与处置日志；默认 `execution: "abort"`：保存证据后封住业务接口，由任务容器内的 PID 1 终止当前选手进程，后端继续存活供独立评分；最终排除样本、扣分默认 0。设置 `execution: "continue"` 可继续探索并接收反馈。策略支持累计扣分上限、负分下限及样本有效性配置。该执行中断实现针对 Docker 中安装式 agent；不要配置共享/宿主 PID namespace 或 Docker init，环境保活程序要求自己是私有容器的 PID 1。
+环境对未支持的操作返回 `ENV_UNSUPPORTED`，失败不改变业务状态，后续操作仍可执行。Agent 由 Harbor 原生适配器运行，执行超时按任务的 `[agent].timeout_sec` 控制。评分仅依据任务规则与 LLM rubrics；unsupported 不触发额外扣分或样本排除。Mock 自身故障和裁判故障仍作为运行错误报告。
 
 评分保留对象、数量、数值状态、权限和无关数据保护等代码检查；文本含义交给 Reward Kit rubric，避免禁词或参考措辞误杀。`tests/test.sh` 执行完整评分；单独运行 `verify.ts` 只得到程序检查的中间结果。judge 失败不生成最终分数。需要在独立 verifier 中配置模型接入。
 
@@ -112,3 +112,21 @@ Mock 实现任务需要的共享业务状态和部分权限规则；尚未与真
 文档 Mock 支持 Markdown 创建、全文读取、覆盖、首尾追加和唯一文本替换；Drive 支持已实现范围内的文件移动与目录创建。未知富文本操作、资源类型和权限场景继续报告环境不足，不代表与真实飞书完全兼容。
 
 仓库回归检查参考路径、错误或缺失操作、状态一致性及评分交接。历史容器结果和子集自主轨迹只能证明各自版本与范围；程序检查通过不等于语义验收，也不等于最新提交的全量模型自主成功率。真实租户差分和完整模型评测需单独执行，结果保存在 CI 或外部运行产物中。
+
+## 环境缺口分析
+
+每个 trial 的 `state.json` 由 Mock 保存 `{ seed, world, calls }`，Harbor 按任务的
+`artifacts` 配置收集它。分析读取这些产物，不修改 reward：
+
+```bash
+npm run --silent analyze:unsupported -- runs/harbor/<job> > runs/unsupported-analysis.json
+rg -n 'ENV_UNSUPPORTED' runs/harbor/<job>/<trial>/agent/
+```
+
+报告包含已有 trial 总数、有证据的 trial 数、受影响 trial 数、unsupported 请求总数、
+按 HTTP 方法与路径汇总的接口分布，以及每条失败请求。缺失或损坏的状态文件单独列出，
+不当作零次 unsupported。一次任务的多次 trial 分别统计；正在运行的 job 只能得到当前快照。
+
+`calls.seq` 是后端请求序号，不是 Agent 步数。定位 Agent 操作时，在轨迹或原生日志中
+搜索 `ENV_UNSUPPORTED`，查看对应工具调用和命令。关键词匹配用于定位，不用于计数；
+Agent 引用错误可能重复命中，工具输出被截断时也可能找不到标记。
