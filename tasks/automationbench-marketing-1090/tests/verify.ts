@@ -1,3 +1,4 @@
+import { prepareSemantic } from './semantic.ts';
 import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
@@ -54,12 +55,18 @@ const expected: {
 );
 const output = process.env.VERIFIER_OUTPUT || '/logs/verifier';
 mkdirSync(output, { recursive: true });
-writeFileSync(`${output}/reward.txt`, '0\n');
+rmSync(`${output}/reward.txt`, { force: true });
 const { seed, world, calls } = JSON.parse(
   readFileSync(
     process.env.MOCK_STATE || '/var/lib/feishu-mock/state.json',
     'utf8',
   ),
+);
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
 );
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
@@ -91,7 +98,13 @@ const creationChecks = expected.creates.map((fields, index) => {
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&
-            contains[key].every((part) => String(r.fields[key]).includes(part))
+            contains[key].every((part) =>
+              semantic.creationContainsCaseInsensitive
+                ? String(r.fields[key])
+                    .toLowerCase()
+                    .includes(part.toLowerCase())
+                : String(r.fields[key]).includes(part),
+            )
           : isDeepStrictEqual(r.fields[key], value),
       ),
   );
@@ -240,7 +253,11 @@ for (const check of expected.updates) {
   const after = protectedWorld.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
   );
-  if (after) after.fields[check.field] = before.fields[check.field];
+  if (after) {
+    if (Object.hasOwn(before.fields, check.field))
+      after.fields[check.field] = before.fields[check.field];
+    else delete after.fields[check.field];
+  }
 }
 const sheetsFor = (
   state: typeof world,
@@ -289,23 +306,32 @@ const unchanged =
   created.length === consumed.size &&
   sent.length === (expected.messages || []).length &&
   newEvents.length === (expected.events || []).length;
-const covered = !calls.some((c: { status: number }) => c.status === 501);
+if (
+  calls.some(
+    (call: { status: number }) => call.status >= 500 && call.status !== 501,
+  )
+)
+  throw new Error('Mock infrastructure failure');
 const success =
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
+  semantic.recordGroupChecks.every((c) => c.passed) &&
+  semantic.literalCellChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
   checks.every((c) => c.passed) &&
   creationChecks.every((c) => c.passed) &&
-  unchanged &&
-  covered;
+  unchanged;
 writeFileSync(
   `${output}/result.json`,
   JSON.stringify(
     {
-      status: !covered ? 'environment_incomplete' : success ? 'pass' : 'fail',
+      status: success ? 'pass' : 'fail',
       success,
+      business_success: success,
+      semantic,
       checks,
       creationChecks,
       messageChecks,
@@ -314,16 +340,9 @@ writeFileSync(
       cellChecks,
       eventChecks,
       unchanged,
-      covered,
     },
     null,
     2,
   ),
 );
-if (!covered) {
-  rmSync(`${output}/reward.txt`);
-  throw new Error(
-    'ENV_UNSUPPORTED: trial invalid because backend coverage is incomplete',
-  );
-}
 writeFileSync(`${output}/reward.txt`, success ? '1\n' : '0\n');

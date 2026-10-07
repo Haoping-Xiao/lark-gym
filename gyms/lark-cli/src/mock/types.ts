@@ -2,6 +2,7 @@ import type { ApiObject } from '../types.ts';
 
 /** HTTP-independent input for a business route. Paths are decoded once. */
 export interface ApiRequest {
+  identity?: 'user' | 'bot';
   method: string;
   path: string;
   query: URLSearchParams;
@@ -16,6 +17,7 @@ export type RouteHandler = (request: ApiRequest) => ResponseData | undefined;
 
 /** Preserve the original URL, including query parameters, for the audit log. */
 export interface RequestRecord {
+  identity?: 'user' | 'bot';
   method: string;
   path: string;
   body: ApiObject;

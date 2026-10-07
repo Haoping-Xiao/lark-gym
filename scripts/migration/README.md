@@ -1,4 +1,17 @@
-# AutomationBench → LarkGym
+# AutomationBench 来源与初始导入
+
+当前维护入口是 `tasks/<name>/` 中的原生 Harbor 任务包。此目录保留来源清单、固定版本、初始导入代码及其规则；**导入器不是当前 800 题的完整重建流程**，不会重现后续逐题的全部修改。仅在隔离 worktree 中用于新任务导入或排查来源，不能批量覆盖已验收任务。
+
+- `automationbench.json`：来源 ID、版本与历史验证记录；许可见 `LICENSES/AutomationBench.txt`。
+- `inventory.py`：从指定上游 checkout 导出公开任务。
+- `formal.py`、`simple-crm.py`、对应 JSON 与 `crm-verifier.ts`：初始导入器、中文配方和评分模板；邮件导入行为有回归测试。
+- `audit-native-surfaces.py SOURCE_JSON runs/audit/native-surfaces.json`：只读检查当前任务与来源的映射，输出按需生成，不提交快照。
+
+运行和评分不依赖这些导入脚本。修改现有任务时直接维护任务内文件，再运行仓库检查；一次性批量补丁已移除。通用评分代码维护见 [task-support](../task-support/README.md)。
+
+## 历史改写决策
+
+以下保留初次导入时的业务决策以便追溯，不是当前能力或验收报告。邮件已迁入原生 Mail，部分文档和云盘也已有原生操作，具体以任务包为准。将外部执行改成内部登记属于目标变化，不能宣称等价迁移；此类题仍需单独审查。
 
 固定上游提交见 `automationbench.json`。该清单覆盖 600 道正式题和 200 道辅助题；只有实际通过检查的任务标记 `local-cli-verified`，容器检查单列。此实现是飞书业务改写，不是官方评测复现。
 

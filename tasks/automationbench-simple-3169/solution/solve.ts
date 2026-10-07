@@ -1,15 +1,22 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_085154084c74',
+  ],
   [
     'base',
     '+record-upsert',
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_085154084c74',
     '--json',
-    '{"collection": "tasks", "name": "Monitor analytics dashboard launch", "workspace": "ws_prod"}',
+    '{"name": "Monitor analytics dashboard launch", "workspace": "ws_prod"}',
   ],
   ['im', '+chat-list', '--types=p2p,group'],
   [

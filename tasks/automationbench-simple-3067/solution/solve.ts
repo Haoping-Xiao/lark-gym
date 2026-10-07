@@ -1,13 +1,19 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_recipient',
-    '--text',
-    'Invoice #INV-2026-0342 - February Services\nRachel，2月咨询服务账单为$12,500，付款期限Net 30。账单文件：invoice_INV-2026-0342.pdf。',
+    'mail',
+    '+send',
+    '--to',
+    'rachel.kim@globexfin.example.com',
+    '--subject',
+    'Invoice #INV-2026-0342 - February Services',
+    '--body',
+    'Hi Rachel, attached is invoice INV-2026-0342 for $12,500 for February consulting services. Payment terms are Net 30. Please see invoice_INV-2026-0342.pdf.',
+    '--attach',
+    'invoice_INV-2026-0342.pdf',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

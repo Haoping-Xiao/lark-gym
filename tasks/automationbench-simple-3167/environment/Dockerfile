@@ -1,2 +1,2 @@
-FROM lark-gym-cli:0.2.0
+FROM lark-gym-cli:0.2.1
 WORKDIR /workspace

@@ -6,12 +6,19 @@
   "scripts": {
     "build:cli": "bash scripts/build-cli.sh",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.*",
+    "test": "npm run test:environment && npm run test:tasks && npm run test:grading && npm run test:packaging && npm run test:import-tools && npm run test:analysis",
     "test:go": "cd gyms/lark-cli/cli && go test ./... && go vet ./...",
-    "oracle": "node --test tests/harbor.test.mjs",
+    "oracle": "node --test tests/packaging/standalone-entrypoints.test.mjs",
     "check": "npm run typecheck && npm run format:check && npm test && npm run test:go",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test:environment": "tsx --test tests/environment/*.test.*",
+    "test:tasks": "tsx --test tests/task-contracts/*.test.*",
+    "test:grading": "tsx --test tests/grading/*.test.*",
+    "test:packaging": "tsx --test tests/packaging/*.test.*",
+    "test:import-tools": "tsx --test tests/import-tools/*.test.*",
+    "test:analysis": "tsx --test tests/analysis/*.test.*",
+    "analyze:unsupported": "node scripts/analysis/unsupported.ts"
   },
   "engines": {
     "node": ">=24"
@@ -21,5 +28,9 @@
     "prettier": "3.9.7",
     "tsx": "4.23.13",
     "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "emailjs-mime-parser": "2.0.7",
+    "html-to-text": "9.0.5"
   }
 }

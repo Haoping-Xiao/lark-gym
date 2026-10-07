@@ -16,19 +16,21 @@
 - Keep business logic and graders in TypeScript; retain the actual Go lark-cli. Do not add shell wrappers solely to inject a backend URL: install the CLI on PATH and configure the URL through the task environment.
 - Agents use normal CLI commands, never raw API escape hatches. CLI parsing and execution must run real code against the simulated backend.
 - Formal evaluation and training separate the agent from the Mock backend. Each trial gets independent state initialized from the same frozen seed. Never put backend state, reference solutions, or grading code into the agent image.
-- All endpoints operate on shared business state. Unknown endpoints invalidate environment coverage; they are not agent failures. Record mutations and export backend state for verification.
+- All endpoints operate on shared business state. Unsupported operations return `ENV_UNSUPPORTED`, roll back failed writes and record requests without blocking later operations. Export backend state for verification and independent environment-gap analysis.
 
 ## Evaluation and training
 
 - Use Harbor job configurations under `experiments/eval/`; keep training integration configurations under `experiments/rl/<framework>/`. Evaluation and training consume the same task packages.
 - Run verification independently of the agent, using backend-collected state/history and declared task artifacts. Agent-authored output is not authoritative evidence of backend changes.
-- Keep success rewards and per-condition diagnostic results distinct. Changes to reward semantics must be explicit.
-- Harbor is the execution entrypoint. Do not reintroduce a separate SDK runner, task registry, executable wrapper, or custom agent hook.
+- Keep task scores, infrastructure errors and environment-gap analysis distinct. Use deterministic rules for explicit structural/literal requirements; use semantic rubrics where string checks can reject valid business results. Judge failures are verifier errors, not model failures. Changes to reward semantics must be explicit.
+- Harbor is the execution entrypoint. Do not reintroduce a separate SDK runner, task registry, executable wrapper, or custom agent execution hook. Use the native harness and Harbor agent timeout; unsupported requests do not trigger custom termination or score adjustments.
 
 ## Validation and delivery
 
+- Organize repository tests by validation purpose under `tests/`; use descriptive business names rather than migration batches or version numbers. Keep assertions for distinct purposes in separate files. See `tests/README.md` for commands and boundaries.
 - Run `npm run check` and `npm run oracle` while these remain the supported repository commands. Update commands and CI together when migrating them.
 - Task acceptance includes environment build, reference solution success, no-op failure, and meaningful incorrect/partial-result checks. Verify state isolation and cross-interface consistency for shared environments.
 - Validate multi-container artifact collection and separate verification against the pinned Harbor version. Report checks that could not run; generated files alone are not execution evidence.
 - Keep runtime output in ignored directories. Never expose production credentials or connect evaluation writes to production services.
+- Document the current design and supported usage, not before/after change logs. Keep comments for module boundaries, constraints and non-obvious reasoning; Git retains change history.
 - Avoid speculative layers and redundant documentation. Keep README and these rules synchronized with actual supported behavior; distinguish plans from implemented features.
