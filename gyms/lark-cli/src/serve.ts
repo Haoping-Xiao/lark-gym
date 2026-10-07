@@ -18,7 +18,10 @@ const seed = JSON.parse(readFileSync(values.seed, 'utf8'));
 mkdirSync(dirname(values.state), { recursive: true });
 const statePath = values.state;
 const persist = (world: World, calls: ApiCall[]) => {
-  writeFileSync(statePath + '.tmp', JSON.stringify({ seed, world, calls }));
+  writeFileSync(
+    statePath + '.tmp',
+    JSON.stringify({ seed, world, calls }, null, 2) + '\n',
+  );
   renameSync(statePath + '.tmp', statePath);
 };
 const backend = await startMock(seed, {
