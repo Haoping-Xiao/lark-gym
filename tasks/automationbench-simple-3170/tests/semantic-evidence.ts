@@ -1,3 +1,37 @@
+function decodedMessageText(content: string): string | undefined {
+  const value = JSON.parse(content);
+  if (typeof value?.text === 'string') return value.text;
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return undefined;
+  const parts: string[] = [];
+  for (const [locale, post] of Object.entries(value) as [string, any][]) {
+    if (
+      !['zh_cn', 'en_us', 'ja_jp'].includes(locale) ||
+      !post ||
+      !Array.isArray(post.content)
+    )
+      return undefined;
+    if (typeof post.title === 'string') parts.push(post.title);
+    for (const line of post.content) {
+      if (!Array.isArray(line)) return undefined;
+      const words: string[] = [];
+      for (const node of line) {
+        if (['text', 'md'].includes(node?.tag) && typeof node.text === 'string')
+          words.push(node.text);
+        else if (
+          node?.tag === 'a' &&
+          typeof node.text === 'string' &&
+          typeof node.href === 'string'
+        )
+          words.push(node.text + ' (' + node.href + ')');
+        else if (node?.tag === 'at') words.push('@' + (node.user_name || ''));
+        else return undefined;
+      }
+      parts.push(words.join(''));
+    }
+  }
+  return parts.join('\n');
+}
 // Keep every authoritative call while staying below the judge's per-file limit.
 export function semanticEvidence(
   input: Record<string, any>,
@@ -9,9 +43,10 @@ export function semanticEvidence(
   ) {
     const old = new Set(input.seed.messages.map((m: any) => m.message_id));
     const decoded = input.world.messages.flatMap((m: any) => {
-      if (old.has(m.message_id) || m.msg_type !== 'text') return [];
+      if (old.has(m.message_id) || !['text', 'post'].includes(m.msg_type))
+        return [];
       try {
-        const text = JSON.parse(m.body?.content).text;
+        const text = decodedMessageText(m.body?.content);
         return typeof text === 'string'
           ? [
               {

@@ -11,6 +11,69 @@ type Call = {
   response?: unknown;
 };
 
+// Template only known API resource positions; unknown routes retain their path.
+export function operationPath(raw: string): string {
+  const path = raw.split('?')[0];
+  if (
+    !/^\/open-apis\/(?:base|bitable|im|calendar|docs_ai|mail|sheets|contact|drive|wiki)\//.test(
+      path,
+    )
+  )
+    return path;
+  const resource =
+    '(?!(?:batch_[^/]+|search|fetch|primary|send|create_folder)(?:/|$))[^/]+';
+  return path
+    .replace(
+      new RegExp(`(/open-apis/contact/v3/users/)${resource}`, 'g'),
+      '$1:user_id',
+    )
+    .replace(
+      new RegExp(`(/open-apis/im/v1/chats/)${resource}`, 'g'),
+      '$1:chat_id',
+    )
+    .replace(
+      new RegExp(`(/open-apis/drive/v1/files/)${resource}`, 'g'),
+      '$1:file_id',
+    )
+    .replace(new RegExp(`(/comments/)${resource}`, 'g'), '$1:comment_id')
+    .replace(/(\/open-apis\/wiki\/v2\/spaces\/)[^/]+/g, '$1:space_id')
+    .replace(
+      new RegExp(
+        `(/open-apis/(?:base/v3/bases|bitable/v1/apps)/)${resource}`,
+        'g',
+      ),
+      '$1:base_id',
+    )
+    .replace(/(\/tables\/)[^/]+/g, '$1:table_id')
+    .replace(new RegExp(`(/records/)${resource}`, 'g'), '$1:record_id')
+    .replace(
+      new RegExp(`(/open-apis/im/v1/messages/)${resource}`, 'g'),
+      '$1:message_id',
+    )
+    .replace(
+      new RegExp(`(/open-apis/calendar/v4/calendars/)${resource}`, 'g'),
+      '$1:calendar_id',
+    )
+    .replace(new RegExp(`(/events/)${resource}`, 'g'), '$1:event_id')
+    .replace(
+      new RegExp(`(/open-apis/docs_ai/v1/documents/)${resource}`, 'g'),
+      '$1:document_id',
+    )
+    .replace(/(\/open-apis\/mail\/v1\/user_mailboxes\/)[^/]+/g, '$1:mailbox_id')
+    .replace(new RegExp(`(/messages/)${resource}`, 'g'), '$1:message_id')
+    .replace(
+      /(\/open-apis\/sheets\/v[23]\/spreadsheets\/)[^/]+/g,
+      '$1:spreadsheet_id',
+    );
+}
+function unsupportedReason(response: unknown): string {
+  const message =
+    response && typeof response === 'object' && 'msg' in response
+      ? String(response.msg)
+      : 'ENV_UNSUPPORTED (reason unavailable)';
+  return message.replace(/\/open-apis\/[^\s]+/g, operationPath);
+}
+
 /** Read Harbor trial artifacts only. Scores and agent-authored output are not inputs. */
 export function analyzeUnsupported(jobPath: string) {
   const job = resolve(jobPath);
@@ -69,7 +132,10 @@ export function analyzeUnsupported(jobPath: string) {
         }));
       const seen = new Set<string>();
       for (const request of requests) {
-        const key = `${request.method} ${request.path}`;
+        const key = JSON.stringify([
+          `${request.method} ${operationPath(request.path)}`,
+          unsupportedReason(request.response),
+        ]);
         const count = operations.get(key) ?? { requests: 0, trials: 0 };
         count.requests++;
         if (!seen.has(key)) count.trials++;
@@ -102,7 +168,10 @@ export function analyzeUnsupported(jobPath: string) {
     ),
     operations: [...operations]
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([operation, counts]) => ({ operation, ...counts })),
+      .map(([key, counts]) => {
+        const [operation, reason] = JSON.parse(key);
+        return { operation, reason, ...counts };
+      }),
     trials,
   };
 }

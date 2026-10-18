@@ -36,6 +36,24 @@ import { existsSync, readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 
 type Json = Record<string, any>;
+// Opt-in parity with the reviewed source sheet matcher: case-insensitive,
+// numeric normalization, word-start guards, and permitted word prefixes.
+function sourceCellContains(value: string, term: string): boolean {
+  const normalize = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/(\d),(?=\d)/g, '$1')
+      .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+      .replace(/(\d)\.0+(?!\d)/g, '$1');
+  const needle = normalize(term);
+  if (!needle) return false;
+  return new RegExp(
+    (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+      needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+      (/\d$/.test(needle) ? '(?!\\d|\\.\\d)' : ''),
+  ).test(normalize(value));
+}
+
 // Reviewed USD result columns only. Compare cents exactly, never via floats.
 function usdCents(value: unknown): bigint | null {
   if (typeof value !== 'string' && typeof value !== 'number') return null;
@@ -227,9 +245,47 @@ export function prepareSemantic(
         )) ||
       /_(memo|notes?|reason|description)$/i.test(field));
   const deferred: string[] = [];
+  for (const [i, doc] of (expected.documents || []).entries())
+    if (doc.semantic_content || doc.semantic_title)
+      deferred.push(`documents[${i}].content`);
+  if (config.cell_source_context) {
+    original.cell_source_context = structuredClone(config.cell_source_context);
+    deferred.push('cells.optional_source_references_verbatim');
+  }
   if (config.event_end_time_unspecified?.length)
     deferred.push('events.unspecified_duration_reasonableness');
   if (expected.mail?.length) deferred.push('mail.content');
+  if (expected.mail_drafts?.length) {
+    deferred.push('mail_drafts.content');
+    for (const d of expected.mail_drafts) {
+      if (d.semantic_content) {
+        delete d.subject;
+        delete d.body_contains;
+      }
+    }
+  }
+
+  if (expected.mail?.length && config.mail_delivery_count === 'per_recipient') {
+    original.mail_delivery_count = 'per_recipient';
+    deferred.push('mail.per_recipient_completeness_and_no_redundancy');
+  }
+
+  // These task migrations retain their former semantic body grading. Keep the
+  // original facts for the judge; delivery and recipient checks stay structural.
+  for (const mail of expected.mail || []) {
+    if (!mail.semantic_content) continue;
+    mail.body_contains = mail.literal_body_contains || [];
+    delete mail.body_not_contains;
+    if (mail.semantic_subject) {
+      delete mail.subject;
+      delete mail.subject_contains;
+    }
+  }
+
+  if (expected.mail?.length && config.mail_delivery_count === 'unconstrained') {
+    original.mail_delivery_count = 'unconstrained';
+    deferred.push('mail.unconstrained_delivery_count');
+  }
   if (config.optional_creation_text_fields) {
     original.optional_creation_text_fields =
       config.optional_creation_text_fields;
@@ -331,6 +387,61 @@ export function prepareSemantic(
       expected.cells.push({ ...cell, value });
       deferred.push('optional_cell_edits.source_supported_correction');
     }
+  }
+  // A reviewed outreach log may include optional source-supported columns.
+  // Resolve each new row by its stable identity before unordered-row matching.
+  if (seed && config.optional_outreach_columns?.length) {
+    expected.trim_optional_columns = true;
+    original.optional_outreach_columns = structuredClone(
+      config.optional_outreach_columns,
+    );
+    for (const rule of config.optional_outreach_columns) {
+      const before =
+        seed.spreadsheets?.[rule.spreadsheet_token]?.sheets?.[rule.sheet_id]
+          ?.values || [];
+      const after =
+        world.spreadsheets?.[rule.spreadsheet_token]?.sheets?.[rule.sheet_id]
+          ?.values || [];
+      const headers = after[0] || [];
+      const columns = headers.flatMap((header: unknown, column: number) =>
+        column >= (before[0]?.length || 0) &&
+        typeof header === 'string' &&
+        rule.columns.includes(header) &&
+        headers.indexOf(header) === column
+          ? [{ header, column }]
+          : [],
+      );
+      const identityChecks = (expected.cells || []).filter(
+        (c: Json) =>
+          c.spreadsheet_token === rule.spreadsheet_token &&
+          c.sheet_id === rule.sheet_id &&
+          c.column === rule.identity_column,
+      );
+      for (const { header, column } of columns) {
+        expected.cells.push({
+          spreadsheet_token: rule.spreadsheet_token,
+          sheet_id: rule.sheet_id,
+          row: 0,
+          column,
+          value: header,
+        });
+        for (let row = before.length; row < after.length; row++) {
+          const identity = identityChecks.find(
+            (c: Json) => c.value === after[row]?.[rule.identity_column],
+          );
+          const value = after[row]?.[column];
+          if (!identity || typeof value !== 'string' || !value.trim()) continue;
+          expected.cells.push({
+            spreadsheet_token: rule.spreadsheet_token,
+            sheet_id: rule.sheet_id,
+            row: identity.row,
+            column,
+            value,
+          });
+        }
+      }
+    }
+    deferred.push('cells.optional_outreach_columns_truthfulness');
   }
   // Reviewed payment policies constrain the group, not a reference split.
   if (seed && config.payment_split_groups?.length) {
@@ -622,6 +733,141 @@ export function prepareSemantic(
     literalMessageChecks.push({ chat_id, parts: rule, passed });
   }
 
+  // Read actual sent mailbox objects. These are independent literal checks,
+  // not IM deliveries and not changes to the protected environment state.
+  const initialNativeMailIDs = new Set(
+    (seed?.mail?.messages || []).map((m: Json) => m.message_id),
+  );
+  const nativeSentMail = (world.mail?.messages || []).filter(
+    (m: Json) =>
+      m.message_state === 2 && !initialNativeMailIDs.has(m.message_id),
+  );
+  const nativeBody = (m: Json) =>
+    ['body_plain_text', 'body_html']
+      .map((key) => Buffer.from(m[key] || '', 'base64url').toString('utf8'))
+      .join('\n');
+  const atRecipient = (m: Json, recipient: string) =>
+    [...(m.to || []), ...(m.cc || [])].some(
+      (a: Json) => a.mail_address.toLowerCase() === recipient.toLowerCase(),
+    );
+  const strictNativeContains = (text: string, term: string) =>
+    text
+      .replace(/\s/g, '')
+      .toLowerCase()
+      .includes(term.replace(/\s/g, '').toLowerCase());
+  const nativeContains = (actual: string, needle: string) => {
+    const norm = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const n = norm(needle);
+    if (!n) return false;
+    const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(
+      (/^[a-z0-9]/.test(n) ? '(?<![a-z0-9])' : '') +
+        escaped +
+        (/\d$/.test(n) ? '(?!\\d|\\.\\d)' : ''),
+    ).test(norm(actual));
+  };
+  for (const [recipient, groups] of Object.entries(
+    config.literal_mail_groups_recipient || {},
+  )) {
+    for (const terms of groups as string[][])
+      literalMessageChecks.push({
+        recipient,
+        contains: terms,
+        passed:
+          Boolean(seed) &&
+          nativeSentMail.some(
+            (m: Json) =>
+              atRecipient(m, recipient) &&
+              terms.every((term) => strictNativeContains(nativeBody(m), term)),
+          ),
+      });
+  }
+  for (const [recipient, terms] of Object.entries(
+    config.literal_terms_per_mail_recipient || {},
+  )) {
+    const matches = nativeSentMail.filter((m: Json) =>
+      atRecipient(m, recipient),
+    );
+    literalMessageChecks.push({
+      recipient,
+      every_body_contains: terms,
+      passed:
+        Boolean(seed) &&
+        matches.length > 0 &&
+        matches.every((m: Json) =>
+          (terms as string[]).every((term) =>
+            nativeContains(nativeBody(m), term),
+          ),
+        ),
+    });
+  }
+  for (const [recipient, terms] of Object.entries(
+    config.literal_terms_in_one_mail_recipient || {},
+  ))
+    literalMessageChecks.push({
+      recipient,
+      witness_contains: terms,
+      passed:
+        Boolean(seed) &&
+        nativeSentMail.some(
+          (m: Json) =>
+            atRecipient(m, recipient) &&
+            (terms as string[]).every((term) =>
+              nativeContains(nativeBody(m), term),
+            ),
+        ),
+    });
+
+  for (const [chat_id, parts] of Object.entries(
+    config.literal_mail_parts_recipient || {},
+  )) {
+    const rule = parts as { subject?: string[]; body?: string[] };
+    const normalize = (text: string) =>
+      text
+        .toLowerCase()
+        .replace(/(\d),(\d)/g, '$1$2')
+        .replace(/(\d+)\.0+%/g, '$1%')
+        .replace(/\s*->\s*/g, '->')
+        .replace(/(\.\d*[1-9])0+(?!\d)/g, '$1')
+        .replace(/(\d)\.0+(?!\d)/g, '$1');
+    const bodyContains = (body: string, term: string) => {
+      const needle = normalize(term);
+      if (!needle) return false;
+      const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(
+        (/^[a-z0-9]/.test(needle) ? '(?<![a-z0-9])' : '') +
+          escaped +
+          (/\d$/.test(needle) ? String.raw`(?!\d|\.\d)` : ''),
+      ).test(normalize(body));
+    };
+    const passed =
+      Boolean(seed) &&
+      nativeSentMail.some((m: Json) => {
+        if (!atRecipient(m, chat_id)) return false;
+        try {
+          const text = nativeBody(m);
+          if (typeof text !== 'string') return false;
+          const subject = m.subject,
+            body = [text];
+          return (
+            (rule.subject || []).every((term) =>
+              subject.toLowerCase().includes(term.toLowerCase()),
+            ) &&
+            (rule.body || []).every((term) =>
+              bodyContains(body.join('\n'), term),
+            )
+          );
+        } catch {
+          return false;
+        }
+      });
+    literalMessageChecks.push({ recipient: chat_id, parts: rule, passed });
+  }
   const semanticCell = (cell: Json) =>
     cell.contains?.length ||
     (typeof cell.value === 'string' && cell.value.length > 80) ||
@@ -686,6 +932,18 @@ export function prepareSemantic(
       ['numeric_result_columns', decimalValue],
       ['percent_result_columns', percentValue],
       ['utc_clock_result_columns', utcClockSeconds],
+      [
+        'utc_date_result_columns',
+        (value: unknown): string | null => {
+          if (typeof value !== 'string') return null;
+          const parsed = instant(
+            /^\d{4}-\d{2}-\d{2}$/.test(value) ? value + 'T00:00:00Z' : value,
+          );
+          return parsed === null
+            ? null
+            : new Date(Number(parsed.split(':')[0])).toISOString().slice(0, 10);
+        },
+      ],
     ] as const) {
       const rule = (config[key] || []).find(
         (rule: Json) =>
@@ -907,11 +1165,13 @@ export function prepareSemantic(
           terms.every(
             (term: unknown) =>
               typeof term === 'string' &&
-              (config.literal_cell_token_boundaries
-                ? new RegExp(
-                    `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
-                  ).test(value)
-                : value.includes(term)),
+              (config.literal_cell_source_contains
+                ? sourceCellContains(value, term)
+                : config.literal_cell_token_boundaries
+                  ? new RegExp(
+                      `(?<![A-Za-z0-9_-])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z0-9_-])`,
+                    ).test(value)
+                  : value.includes(term)),
           ),
       };
     },
@@ -983,6 +1243,46 @@ export function prepareSemantic(
       return recipients.has(message.chat_id);
     });
   }
+  if (seed && config.optional_mail_recipients?.length) {
+    original.optional_mail_recipients = config.optional_mail_recipients;
+    expected.mail = (expected.mail || []).filter((rule: Json) => {
+      if (
+        !rule.to.every((to: string) =>
+          config.optional_mail_recipients.includes(to),
+        )
+      )
+        return true;
+      deferred.push('mail.optional_delivery.check_content_if_present');
+      return nativeSentMail.some((m: Json) =>
+        rule.to.some((to: string) => atRecipient(m, to)),
+      );
+    });
+  }
+  if (seed && config.optional_mail_requests?.length) {
+    original.optional_mail_requests = config.optional_mail_requests;
+    const old = new Set(
+      (seed.mail?.messages || []).map((m: Json) => m.message_id),
+    );
+    const allowed = new Set(
+      config.optional_mail_requests.map((r: Json) => r.to.toLowerCase()),
+    );
+    const requests = (world.mail?.messages || []).filter(
+      (m: Json) =>
+        m.message_state === 2 &&
+        !old.has(m.message_id) &&
+        m.to?.length === 1 &&
+        allowed.has(m.to[0].mail_address.toLowerCase()),
+    );
+    expected.mail = [
+      ...(expected.mail || []),
+      ...requests.map((m: Json) => ({
+        to: [m.to[0].mail_address],
+        body_contains: [],
+      })),
+    ];
+    if (requests.length)
+      deferred.push('mail.optional_requests.business_scope_and_no_redundancy');
+  }
   // Reviewed, optional follow-up requests are graded for purpose, not an
   // invented fixed count. Required deliveries and all other recipients remain strict.
   if (seed && config.optional_requests?.length) {
@@ -1003,7 +1303,12 @@ export function prepareSemantic(
         'messages.optional_requests.business_scope_and_no_redundancy',
       );
   }
-  for (const key of ['forbidden_messages', 'forbidden_records']) {
+  for (const key of [
+    'forbidden_messages',
+    'forbidden_records',
+    'forbidden_mail',
+    'forbidden_mail_drafts',
+  ]) {
     expected[key] = (expected[key] || []).filter((check: Json, i: number) => {
       const hasContent = Array.isArray(check.contains)
         ? check.contains.length > 0
@@ -1011,6 +1316,7 @@ export function prepareSemantic(
       if (hasContent) deferred.push(`${key}[${i}].meaning`);
       return (
         !hasContent ||
+        (key === 'forbidden_mail' && check.literal) ||
         (key === 'forbidden_messages' &&
           config.literal_forbidden_message_indices?.includes(String(i)))
       );
@@ -1046,6 +1352,31 @@ export function prepareSemantic(
     )?.fields[check.field];
     if (sameReviewedField(check.field, actual, check.value))
       check.value = actual;
+  }
+  // Only explicitly reviewed source-empty fields admit alternate absence encodings.
+  for (const [index, fields] of Object.entries(
+    config.empty_creation_fields || {},
+  )) {
+    const record = expected.creates?.[Number(index)];
+    const keys = (fields as string[]).filter((key) => record?.[key] === '');
+    if (!record || !keys.length) continue;
+    const actual = world.base.records.find(
+      (row: Json) =>
+        !seed?.base?.records.some(
+          (old: Json) => old.record_id === row.record_id,
+        ) &&
+        Object.entries(record).every(([key, value]) =>
+          keys.includes(key)
+            ? row.fields[key] === '' || row.fields[key] === undefined
+            : semanticField(key, Number(index)) ||
+              isDeepStrictEqual(row.fields[key], value),
+        ),
+    );
+    if (actual)
+      for (const key of keys) {
+        if (actual.fields[key] === undefined) delete record[key];
+        else record[key] = actual.fields[key];
+      }
   }
   // Joint alternatives are reviewed together; never form a cross product of fields.
   for (const [index, variants] of Object.entries(

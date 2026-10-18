@@ -1,3 +1,4 @@
+import { prepareSemantic } from './semantic.ts';
 import { createHash } from 'node:crypto';
 function decodedMessageText(content: string): string | undefined {
   const value = JSON.parse(content);
@@ -352,6 +353,12 @@ function hasLabeledValue(
     matches.every((match) => match[1].replace(/,$/, '') === rule.value)
   );
 }
+const semantic = prepareSemantic(
+  expected,
+  world,
+  new URL('./semantic-config.json', import.meta.url),
+  seed,
+);
 const checks = expected.updates.map((check) => {
   const value = world.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
@@ -1324,7 +1331,11 @@ for (const check of expected.updates) {
   const after = protectedWorld.base.records.find(
     (r: RecordRow) => r.record_id === check.record_id,
   );
-  if (after) after.fields[check.field] = before.fields[check.field];
+  if (after) {
+    if (Object.hasOwn(before.fields, check.field))
+      after.fields[check.field] = before.fields[check.field];
+    else delete after.fields[check.field];
+  }
 }
 const sheetsFor = (
   state: typeof world,
@@ -2807,6 +2818,9 @@ const success =
   eventChecks.every((c) => c.passed) &&
   cellChecks.every((c) => c.passed) &&
   messageChecks.every((c) => c.passed) &&
+  semantic.literalMessageChecks.every((c) => c.passed) &&
+  semantic.recordGroupChecks.every((c) => c.passed) &&
+  semantic.literalCellChecks.every((c) => c.passed) &&
   forbiddenMessageChecks.every((c) => c.passed) &&
   forbiddenRecordChecks.every((c) => c.passed) &&
   deletionChecks.every((c) => c.passed) &&
@@ -2819,6 +2833,8 @@ writeFileSync(
     {
       status: success ? 'pass' : 'fail',
       success,
+      business_success: success,
+      semantic,
       checks,
       readRecordsBeforeUpdateChecks,
       readRecordsBeforeCreateChecks,

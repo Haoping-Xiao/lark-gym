@@ -85,7 +85,7 @@ AutomationBench 固定上游提交 `4a8e1061254004d9dac807054eed33fad7d1ff14`，
 
 邮件使用原生 Lark Mail，群通知使用飞书消息，文档、文件和日程使用任务声明的 Docs、Drive 与日历操作；CRM 等业务实体由多维表格承载。保留来源 ID、数值、政策与干扰数据，必要的歧义处理写入中文题面。部分外部发券、付款或社交发布被改为内部登记或排队，这改变了完成目标，不属于等价迁移，也不表示原外部动作已执行；相关任务仍需单独审查。
 
-现有任务直接维护 `tasks/<name>/`。迁移目录用于来源追溯及初始导入，不是当前任务的完整重建入口。运行报告、审计快照和临时产物放在忽略的 `runs/` 或 CI 附件中，不提交到代码仓库。
+任务的业务数据、配置、参考解与 `verify.ts` 直接维护在 `tasks/<name>/`。通用 `semantic.ts`、`semantic.toml`、`semantic-evidence.ts`、`evaluate.ts` 以 `scripts/task-support/` 为唯一源，使用 `python3 scripts/task-support/install.py` 同步副本，CI 检查一致性；安装器不修改业务 `verify.ts`。迁移目录用于来源追溯及初始导入，不是当前任务的完整重建入口。运行报告、审计快照和临时产物放在忽略的 `runs/` 或 CI 附件中，不提交到代码仓库。
 
 维护通知示例源自 AutomationBench operations-1236，重点检查读规则、选择批准窗口、记录和通知完整以及过程中的误操作。先创建错误日程再取消，仍不能通过。
 
@@ -124,7 +124,7 @@ rg -n 'ENV_UNSUPPORTED' runs/harbor/<job>/<trial>/agent/
 ```
 
 报告包含已有 trial 总数、有证据的 trial 数、受影响 trial 数、unsupported 请求总数、
-按 HTTP 方法与路径汇总的接口分布，以及每条失败请求。缺失或损坏的状态文件单独列出，
+按 HTTP 方法与路径汇总的按方法、接口路径模板和缺口原因汇总的分布，以及每条失败请求。缺失或损坏的状态文件单独列出，
 不当作零次 unsupported。一次任务的多次 trial 分别统计；正在运行的 job 只能得到当前快照。
 
 `calls.seq` 是后端请求序号，不是 Agent 步数。定位 Agent 操作时，在轨迹或原生日志中

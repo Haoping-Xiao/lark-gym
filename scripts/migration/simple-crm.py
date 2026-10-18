@@ -246,7 +246,7 @@ storage_mb = 10240
             assert Path(filename).name==filename and filename not in ['.','..'], ('invalid input filename',filename)
             (folder/filename).write_bytes(base64.b64decode(encoded,validate=True))
         with (target/'environment/Dockerfile').open('a') as stream:stream.write('COPY input-files/ /workspace/\n')
-    (target/'environment/mock.Dockerfile').write_text('FROM lark-gym-mock:0.2.17\nCOPY seed.json /opt/mock/seed.json\n')
+    (target/'environment/mock.Dockerfile').write_text('FROM lark-gym-mock:0.2.18\nCOPY seed.json /opt/mock/seed.json\n')
     (target/'environment/docker-compose.yaml').write_text('''services:
   main:
     init: true

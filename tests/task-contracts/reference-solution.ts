@@ -12,4 +12,9 @@ export async function checkReferenceSolution(fixture: TaskFixture) {
     (await readFile(join(dir, 'result.json'), 'utf8')) +
       JSON.stringify(backend.calls.filter((c) => c.status !== 200)),
   );
+  assert.equal(
+    await fixture.evaluate(),
+    '1',
+    'Actual evaluate.ts entrypoint with a stubbed judge',
+  );
 }

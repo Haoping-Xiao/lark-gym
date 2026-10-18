@@ -5,6 +5,7 @@ import {
   rm,
   readdir,
   cp,
+  mkdir,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
@@ -47,6 +48,29 @@ export async function createTaskFixture(task: string) {
       );
       await exec(process.execPath, [`tasks/${task}/tests/verify.ts`], { env });
       return (await readFile(join(dir, 'reward.txt'), 'utf8')).trim();
+    },
+    async evaluate() {
+      const bin = join(dir, 'stub-bin');
+      await mkdir(bin, { recursive: true });
+      await writeFile(
+        join(bin, 'rewardkit'),
+        `#!/usr/bin/env node
+const fs = require('node:fs'), path = require('node:path');
+const output = process.argv[process.argv.indexOf('--output')+1];
+fs.writeFileSync(output, JSON.stringify({reward:1}));
+fs.writeFileSync(path.join(path.dirname(output),'reward-details.json'), JSON.stringify({criteria:[{score:1}]}));
+`,
+        { mode: 0o755 },
+      );
+      const output = join(dir, 'pipeline');
+      await exec(process.execPath, [`tasks/${task}/tests/evaluate.ts`], {
+        env: {
+          ...env,
+          PATH: `${bin}:${process.env.PATH}`,
+          VERIFIER_OUTPUT: output,
+        },
+      });
+      return (await readFile(join(output, 'reward.txt'), 'utf8')).trim();
     },
     async solve() {
       try {

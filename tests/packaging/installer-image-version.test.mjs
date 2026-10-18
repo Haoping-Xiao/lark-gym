@@ -7,14 +7,14 @@ r=pathlib.Path(sys.argv[1]);spec=importlib.util.spec_from_file_location('install
 count=0
 with tempfile.TemporaryDirectory() as td:
  t=pathlib.Path(td);(t/'environment').mkdir();(t/'tests').mkdir()
- for old in ['0.2.0','0.2.6','0.2.9','0.2.10','0.2.11','0.2.12','0.2.13','0.2.17','0.2.100','0.2.1000']:
+ for old in ['0.2.0','0.2.6','0.2.9','0.2.10','0.2.11','0.2.12','0.2.13','0.2.18','0.2.100','0.2.1000']:
   (t/'environment/seed.json').write_text('{}')
   (t/'environment/mock.Dockerfile').write_text('FROM lark-gym-mock:'+old+'\\nCOPY seed.json /opt/mock/seed.json\\n')
   (t/'environment/Dockerfile').write_text('FROM lark-gym-cli:0.2.1\\n')
   (t/'environment/docker-compose.yaml').write_text('services:\\n  main:\\n    init: true\\n    build: .\\n  mock:\\n    build: .\\n')
   original={p.name:p.read_text() for p in (t/'environment').iterdir() if p.name!='mock.Dockerfile'}
   m.install_environment(t)
-  assert (t/'environment/mock.Dockerfile').read_text()=='FROM lark-gym-mock:0.2.17\\nCOPY seed.json /opt/mock/seed.json\\n'
+  assert (t/'environment/mock.Dockerfile').read_text()=='FROM lark-gym-mock:0.2.18\\nCOPY seed.json /opt/mock/seed.json\\n'
   assert original=={p.name:p.read_text() for p in (t/'environment').iterdir() if p.name!='mock.Dockerfile'}
   assert list((t/'tests').iterdir())==[]
   before={p.name:p.read_text() for p in (t/'environment').iterdir()}

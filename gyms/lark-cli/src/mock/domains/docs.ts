@@ -29,6 +29,10 @@ export function docsRoutes(world: World, { method, path, body }: ApiRequest) {
   const match =
     /^\/open-apis\/docs_ai\/v1\/documents(?:\/([^/]+)(\/fetch)?)?$/.exec(path);
   if (!match) return;
+  const supportedRoute =
+    (method === 'POST' && (!match[1] || !!match[2])) ||
+    (method === 'PUT' && !!match[1] && !match[2]);
+  if (!supportedRoute) return;
   if (!world.docs) unsupported('domain not enabled in this fixture');
   const docs = world.docs!;
   const visible = (doc: NonNullable<World['docs']>['documents'][number]) => ({

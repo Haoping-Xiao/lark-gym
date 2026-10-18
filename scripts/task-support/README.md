@@ -1,14 +1,19 @@
 # Task verifier support
 
-`tasks/<name>/` is the maintained source of each task's instruction, seed,
-reference solution and verifier. Edit task packages directly; the one-time
-business conversion scripts are not part of the maintenance workflow.
+Task-owned files are `instruction.md`, seed, reference solutions, `tests/verify.ts`,
+`expected.json` and `semantic-config.json`. Edit their business rules directly.
 
-This directory holds shared verifier sources. `install.py` stages them into
-task packages and selects the shared backend image.
-It rewrites verifier/configuration files: use it in a clean worktree, review the
-resulting diff, and run `npm run check` and `npm run oracle`. Do not treat it as a
-way to regenerate a task's business semantics.
+`semantic.ts`, `semantic.toml`, `semantic-evidence.ts` and `evaluate.ts` are shared
+sources in this directory. Their task-local files are generated copies: edit the
+shared source, then run `python3 scripts/task-support/install.py`. The installer
+also stages task instructions and selects runtime images; it never patches
+`verify.ts`. Business rule changes must be explicit task edits, including their
+connections to shared structural checks.
+
+Run `python3 scripts/task-support/install.py --check` to check the four shared
+copies without writes. Packaging tests and CI enforce this boundary. After
+synchronization, review the diff and run `npm run check` and `npm run oracle`.
+A passing stub judge verifies wiring, not real semantic quality.
 
 Generate a local review inventory with:
 
@@ -153,7 +158,7 @@ considers new records only, leaving existing source records unchanged.
 
 `literal_terms_in_one_message_chat` 保留明确的同一正文要求：指定收件人至少有一条新消息同时包含全部字面值，与 `message_count=per_recipient` 共用时可以追加相关补充说明，但不能把该组值完全拆散。每个收件人只支持一组；消息检查先匹配这条完整正文，再匹配其他消息，补充说明先发也不误拒。所有消息仍接受完整性、关联和无冗余语义评审。
 
-`literal_message_groups_chat` 保留一个收件人的多项原始正文断言，每组词必须同时出现在某一条新消息中；不同组可共用一条消息，也可分别出现在多条消息中。`semantic.literalMessageChecks` 给出逐组结果，安装脚本将其接入程序通过条件，独立于参考报告条数。不得仅复制配置而遗漏该验收条件。
+`literal_message_groups_chat` 保留一个收件人的多项原始正文断言，每组词必须同时出现在某一条新消息中；不同组可共用一条消息，也可分别出现在多条消息中。`semantic.literalMessageChecks` 给出逐组结果，任务 verify.ts 必须将其接入程序通过条件，独立于参考报告条数。不得仅复制配置而遗漏该验收条件。
 
 `literal_forbidden_message_indices` 对经完整来源核对的正文禁词断言保留程序检查，同时仍做语义禁止事项评审。仅为明确的字面禁止启用，不从一般禁止动作推导禁词；例如 4060 原断言禁止税务正文包含被排除供应商名称。
 

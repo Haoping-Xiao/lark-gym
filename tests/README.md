@@ -54,3 +54,8 @@ npx tsx --test tests/environment/native-documents.test.ts
 Docker/Harbor 超时验收使用 `python tests/packaging/harbor-timeout.py`：脚本复制维护通知任务，
 通过真实 CLI 触发一次 unsupported 后完成任务，再故意超过 Agent 时限；检查超时记录、
 后端产物、错误标记及最终得分。它使用脚本选手，不调用模型，由 CI 容器检查执行。
+
+每道题的参考解验收同时执行真实 `evaluate.ts` 入口，使用固定通过的本地裁判替身；
+这证明规则与裁判组合入口可运行，不代表文本已通过真实模型评审。
+`packaging/shared-verifier.test.mjs` 检查四个共享文件无漂移及业务硬检查已接入。
+环境缺口汇总保留原始请求，按方法、已知资源路径模板和原因分组，查询参数不参与分组。

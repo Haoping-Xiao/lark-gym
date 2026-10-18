@@ -4,6 +4,12 @@ import { fail, requireValue } from '../errors.ts';
 import { page } from '../pagination.ts';
 import { baseMetadata } from './base/metadata.ts';
 
+function businessText(value: unknown): string {
+  if (value === null || value === undefined) return '';
+  if (typeof value !== 'object') return String(value);
+  return Object.values(value).map(businessText).join(' ');
+}
+
 // Derive the catalogue from live business objects; never from expected answers.
 function resources(world: World) {
   const books = world.spreadsheets || {
@@ -38,7 +44,9 @@ function resources(world: World) {
       token,
       name: book.title,
       type: 'sheet',
-      text: JSON.stringify(book),
+      text: Object.values(book.sheets)
+        .map((sheet) => [sheet.title, ...sheet.values.flat()].join(' '))
+        .join(' '),
       url: `https://company.feishu.cn/sheets/${token}`,
     })),
     ...(world.base
@@ -47,7 +55,18 @@ function resources(world: World) {
             token: world.base.app_token,
             name: baseMetadata(world.base).name,
             type: 'bitable',
-            text: JSON.stringify(world.base),
+            text: [
+              ...(world.base.tables || []).flatMap((table) => [
+                table.name,
+                ...(table.fields || []).map((field) => field.name),
+              ]),
+              ...(world.base.fields || []).map((field) => field.name),
+              ...world.base.records.flatMap((record) =>
+                Object.values(record.fields),
+              ),
+            ]
+              .map(businessText)
+              .join(' '),
             url: `https://company.feishu.cn/base/${world.base.app_token}`,
           },
         ]
@@ -254,6 +273,7 @@ export function driveRoutes(
     const queryText = body.query.toLocaleLowerCase();
     const matches = resources(world).filter(
       (file) =>
+        file.type !== 'folder' &&
         (!filter.doc_types?.length ||
           filter.doc_types.includes(file.type.toUpperCase())) &&
         (filter.only_title ? file.name : `${file.name} ${file.text}`)

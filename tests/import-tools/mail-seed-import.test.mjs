@@ -37,6 +37,34 @@ test('mail generation preserves read state and assigns a local thread only when 
       ).toString(),
       source.info.initial_state.gmail.messages[0].body_plain,
     );
+    await fs.cp(
+      'scripts/task-support',
+      path.join(dir, 'scripts/task-support'),
+      { recursive: true },
+    );
+    execFileSync('python3', [
+      path.join(dir, 'scripts/task-support/install.py'),
+    ]);
+    const state = path.join(dir, 'state.json');
+    await fs.writeFile(
+      state,
+      JSON.stringify({ seed: generated, world: generated, calls: [] }),
+    );
+    const output = path.join(dir, 'verifier-output');
+    execFileSync(
+      process.execPath,
+      [path.join(dir, 'tasks/automationbench-simple-3102/tests/verify.ts')],
+      {
+        env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: output },
+      },
+    );
+    const result = JSON.parse(
+      await fs.readFile(path.join(output, 'result.json'), 'utf8'),
+    );
+    assert.ok(
+      result.semantic,
+      'generated rules explicitly connect shared checks',
+    );
     source.info.initial_state.gmail.messages[0].thread_id = 'original-thread';
     source.info.initial_state.gmail.messages[0].label_ids.push('UNREAD');
     await fs.writeFile(path.join(dir, 'source.json'), JSON.stringify([source]));

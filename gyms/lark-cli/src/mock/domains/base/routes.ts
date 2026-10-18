@@ -65,7 +65,7 @@ export function baseRoutes(
   const tableCatalog = /^\/open-apis\/base\/v3\/bases\/([^/]+)\/tables$/.exec(
     p,
   );
-  if (method === 'GET' && tableCatalog && allBase.resource_discovery) {
+  if (method === 'GET' && tableCatalog) {
     if (
       Object.keys(body).length ||
       [...q.keys()].some((k) => !['offset', 'limit'].includes(k))
@@ -96,6 +96,14 @@ export function baseRoutes(
       has_more: offset + limit < entries.length,
     };
   }
+  const blocksToken =
+    /^\/open-apis\/base\/v3\/bases\/([^/]+)\/blocks\/list$/.exec(p)?.[1];
+  if (
+    method === 'POST' &&
+    blocksToken &&
+    decodeURIComponent(blocksToken) !== allBase.app_token
+  )
+    fail(404, 990004, 'Base not found in fixture');
   if (
     method === 'POST' &&
     p === `/open-apis/base/v3/bases/${allBase.app_token}/blocks/list`
@@ -112,11 +120,39 @@ export function baseRoutes(
     ).map(({ table_id, name }) => ({ id: table_id, type: 'table', name }));
     return { blocks, total: blocks.length };
   }
+  const resource =
+    /^\/open-apis\/(?:base\/v3\/bases|bitable\/v1\/apps)\/([^/]+)\/tables\/([^/]+)(.*)$/.exec(
+      p,
+    );
+  const suffix = resource?.[3] || '';
+  const v3 = p.startsWith('/open-apis/base/v3/');
+  const supportedResource =
+    resource &&
+    (v3
+      ? (method === 'GET' &&
+          ['', '/views', '/fields', '/records'].includes(suffix)) ||
+        (method === 'POST' &&
+          /^\/records(?:\/(?:search|batch_get|batch_create|batch_update|batch_delete))?$/.test(
+            suffix,
+          )) ||
+        (method === 'PATCH' && /^\/records\/[^/]+$/.test(suffix))
+      : (method === 'GET' && ['/fields', '/records'].includes(suffix)) ||
+        (['GET', 'PUT', 'DELETE'].includes(method) &&
+          /^\/records\/[^/]+$/.test(suffix)));
+  if (resource && !supportedResource) return;
+  if (
+    supportedResource &&
+    decodeURIComponent(resource[1]) !== allBase.app_token
+  )
+    fail(404, 990004, 'Base not found in fixture');
   const tableId = /\/tables\/([^/]+)/.exec(p)?.[1];
   const selected = allBase.tables?.find(
     (table) => table.table_id === tableId || table.name === tableId,
   );
-  if (tableId && allBase.tables?.length && !selected)
+  if (
+    tableId &&
+    (allBase.tables?.length ? !selected : tableId !== allBase.table_id)
+  )
     fail(404, 1254041, 'Table not found');
   const table = selected
     ? { ...allBase, table_id: selected.table_id, fields: selected.fields }

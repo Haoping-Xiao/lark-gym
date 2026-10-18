@@ -9,7 +9,10 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { analyzeUnsupported } from '../../scripts/analysis/unsupported.ts';
+import {
+  analyzeUnsupported,
+  operationPath,
+} from '../../scripts/analysis/unsupported.ts';
 
 test('counts backend requests per trial, preserves rewards, and separates missing or invalid evidence', () => {
   const job = mkdtempSync(join(tmpdir(), 'unsupported-analysis-'));
@@ -54,8 +57,18 @@ test('counts backend requests per trial, preserves rewards, and separates missin
     assert.equal(report.missingEvidenceTrials, 1);
     assert.equal(report.invalidEvidenceTrials, 1);
     assert.deepEqual(report.operations, [
-      { operation: 'POST /missing', requests: 2, trials: 1 },
-      { operation: 'POST /other', requests: 1, trials: 1 },
+      {
+        operation: 'POST /missing',
+        reason: 'ENV_UNSUPPORTED',
+        requests: 2,
+        trials: 1,
+      },
+      {
+        operation: 'POST /other',
+        reason: 'ENV_UNSUPPORTED',
+        requests: 1,
+        trials: 1,
+      },
     ]);
     assert.equal(
       report.trials.find((t) => t.trial === 'missing')?.unsupportedRequests,
@@ -80,5 +93,63 @@ test('an empty job is not reported as a successful zero-gap evaluation', () => {
     assert.throws(() => analyzeUnsupported(job), /No Harbor trial/);
   } finally {
     rmSync(job, { recursive: true, force: true });
+  }
+});
+
+test('normalizes resource IDs and query strings without collapsing action names', () => {
+  assert.equal(
+    operationPath('/open-apis/im/v1/messages/uuid-a?format=raw'),
+    operationPath('/open-apis/im/v1/messages/uuid-b?format=content'),
+  );
+  assert.equal(
+    operationPath('/open-apis/base/v3/bases/app/tables/table/records/search'),
+    '/open-apis/base/v3/bases/:base_id/tables/:table_id/records/search',
+  );
+  assert.equal(
+    operationPath('/open-apis/calendar/v4/calendars/primary'),
+    '/open-apis/calendar/v4/calendars/primary',
+  );
+  assert.equal(
+    operationPath('/custom/records/object?x=1'),
+    '/custom/records/object',
+  );
+  const dir = mkdtempSync(join(tmpdir(), 'gap-reasons-'));
+  try {
+    const artifact = join(dir, 'trial/artifacts/var/lib/feishu-mock');
+    mkdirSync(artifact, { recursive: true });
+    const paths = [
+      '/open-apis/im/v1/messages/a?format=raw',
+      '/open-apis/im/v1/messages/b?format=content',
+    ];
+    writeFileSync(
+      join(artifact, 'state.json'),
+      JSON.stringify({
+        calls: [
+          ...paths.map((path, seq) => ({
+            seq,
+            method: 'GET',
+            path,
+            status: 501,
+            response: { msg: `ENV_UNSUPPORTED: GET ${path}` },
+          })),
+          ...['rich text', 'attachments'].map((reason, seq) => ({
+            seq: seq + 2,
+            method: 'POST',
+            path: '/open-apis/im/v1/messages',
+            status: 501,
+            response: { msg: `ENV_UNSUPPORTED: ${reason}` },
+          })),
+        ],
+      }),
+    );
+    const report = analyzeUnsupported(dir);
+    assert.equal(report.operations.length, 3);
+    assert.equal(
+      report.operations.find((o) => o.operation.startsWith('GET'))?.requests,
+      2,
+    );
+    assert.equal(report.trials[0].requests[0].path, paths[0]);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
   }
 });
