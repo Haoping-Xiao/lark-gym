@@ -124,7 +124,7 @@ rg -n 'ENV_UNSUPPORTED' runs/harbor/<job>/<trial>/agent/
 ```
 
 报告包含已有 trial 总数、有证据的 trial 数、受影响 trial 数、unsupported 请求总数、
-按 HTTP 方法与路径汇总的按方法、接口路径模板和缺口原因汇总的分布，以及每条失败请求。缺失或损坏的状态文件单独列出，
+按 HTTP 方法、接口路径模板和缺口原因汇总的分布，以及每条失败请求。缺失或损坏的状态文件单独列出，
 不当作零次 unsupported。一次任务的多次 trial 分别统计；正在运行的 job 只能得到当前快照。
 
 `calls.seq` 是后端请求序号，不是 Agent 步数。定位 Agent 操作时，在轨迹或原生日志中

@@ -60,10 +60,38 @@ export function operationPath(raw: string): string {
       '$1:document_id',
     )
     .replace(/(\/open-apis\/mail\/v1\/user_mailboxes\/)[^/]+/g, '$1:mailbox_id')
+    .replace(
+      new RegExp(
+        `(/open-apis/mail/v1/user_mailboxes/[^/]+/drafts/)${resource}`,
+        'g',
+      ),
+      '$1:draft_id',
+    )
+    .replace(
+      new RegExp(
+        `(/open-apis/mail/v1/user_mailboxes/[^/]+/threads/)${resource}`,
+        'g',
+      ),
+      '$1:thread_id',
+    )
+    .replace(
+      new RegExp(
+        `(/open-apis/mail/v1/user_mailboxes/[^/]+/labels/)${resource}`,
+        'g',
+      ),
+      '$1:label_id',
+    )
     .replace(new RegExp(`(/messages/)${resource}`, 'g'), '$1:message_id')
     .replace(
       /(\/open-apis\/sheets\/v[23]\/spreadsheets\/)[^/]+/g,
       '$1:spreadsheet_id',
+    )
+    .replace(
+      new RegExp(
+        `(/open-apis/sheets/v[23]/spreadsheets/[^/]+/sheets/)${resource}`,
+        'g',
+      ),
+      '$1:sheet_id',
     );
 }
 function unsupportedReason(response: unknown): string {

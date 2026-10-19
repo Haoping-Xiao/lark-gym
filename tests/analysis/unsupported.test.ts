@@ -153,3 +153,67 @@ test('normalizes resource IDs and query strings without collapsing action names'
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('mail subresources and spreadsheet tabs aggregate across IDs while preserving actions', () => {
+  const cases = [
+    [
+      '/open-apis/mail/v1/user_mailboxes/me/drafts/d1/send',
+      '/open-apis/mail/v1/user_mailboxes/other/drafts/d2/send',
+      '/open-apis/mail/v1/user_mailboxes/:mailbox_id/drafts/:draft_id/send',
+    ],
+    [
+      '/open-apis/mail/v1/user_mailboxes/me/threads/t1',
+      '/open-apis/mail/v1/user_mailboxes/me/threads/t2',
+      '/open-apis/mail/v1/user_mailboxes/:mailbox_id/threads/:thread_id',
+    ],
+    [
+      '/open-apis/mail/v1/user_mailboxes/me/labels/L1',
+      '/open-apis/mail/v1/user_mailboxes/me/labels/L2',
+      '/open-apis/mail/v1/user_mailboxes/:mailbox_id/labels/:label_id',
+    ],
+    [
+      '/open-apis/sheets/v3/spreadsheets/s1/sheets/sh1',
+      '/open-apis/sheets/v3/spreadsheets/s2/sheets/sh2',
+      '/open-apis/sheets/v3/spreadsheets/:spreadsheet_id/sheets/:sheet_id',
+    ],
+  ];
+  const job = mkdtempSync(join(tmpdir(), 'subresource-gaps-'));
+  try {
+    const artifact = join(job, 'trial/artifacts/var/lib/feishu-mock');
+    mkdirSync(artifact, { recursive: true });
+    const calls = cases.flatMap(([first, second, template], index) => {
+      assert.equal(operationPath(first), template);
+      assert.equal(operationPath(second + '?page_size=20'), template);
+      return [first, second].map((path, i) => ({
+        seq: index * 2 + i + 1,
+        method: 'GET',
+        path,
+        status: 501,
+        response: { msg: `ENV_UNSUPPORTED: GET ${path}` },
+      }));
+    });
+    writeFileSync(join(artifact, 'state.json'), JSON.stringify({ calls }));
+    const report = analyzeUnsupported(job);
+    assert.equal(report.operations.length, cases.length);
+    assert.ok(
+      report.operations.every(
+        (operation) => operation.requests === 2 && operation.trials === 1,
+      ),
+    );
+    assert.equal(report.unsupportedRequests, 8);
+    assert.deepEqual(
+      report.trials[0].requests.map((request) => request.path),
+      calls.map((call) => call.path),
+    );
+    assert.equal(
+      operationPath('/open-apis/mail/v1/user_mailboxes/me/drafts/batch_get'),
+      '/open-apis/mail/v1/user_mailboxes/:mailbox_id/drafts/batch_get',
+    );
+    assert.equal(
+      operationPath('/open-apis/sheets/v2/spreadsheets/s1/sheets/sh1'),
+      '/open-apis/sheets/v2/spreadsheets/:spreadsheet_id/sheets/:sheet_id',
+    );
+  } finally {
+    rmSync(job, { recursive: true, force: true });
+  }
+});
