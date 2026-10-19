@@ -1,7 +1,30 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
   ['im', '+chat-messages-list', '--chat-id', 'oc_mail'],
-  ['base', '+record-list', '--base-token', 'base_crm', '--table-id', 'tbl_crm'],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_bc62a3c14fec',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_aa5af4084f37',
+  ],
+  [
+    'base',
+    '+record-list',
+    '--base-token',
+    'base_crm',
+    '--table-id',
+    'tbl_281832285f98',
+  ],
   [
     'im',
     'chats',
@@ -25,7 +48,7 @@ const commands: string[][] = [
     '--base-token',
     'base_crm',
     '--table-id',
-    'tbl_crm',
+    'tbl_bc62a3c14fec',
     '--record-id',
     'rec_001xx000003PFG1',
     '--json',

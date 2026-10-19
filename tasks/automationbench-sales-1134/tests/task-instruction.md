@@ -1,0 +1,9 @@
+今天为 2026-02-20，为 TechVentures 的 Marcus Chen 编写研究简报，应用 engagement scoring criteria，综合已知资料并与团队分享，含相关实体名称。原 ChatGPT 综合由 agent 完成，保存为飞书文档并分享，不额外调用外部模型。
+
+相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
+
+邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。
+
+本次业务处理以 2026-02-20T10:00:00Z 为时间基准。
+
+飞书文档使用 docs +create / +fetch / +update，指定 --doc-format markdown；文档标题和正文存于真实 Docs 对象，不以 Base 记录替代。

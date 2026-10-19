@@ -1,6 +1,15 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
+  [
+    'mail',
+    '+messages',
+    '--mailbox',
+    'support@brightpath.example.com',
+    '--message-ids',
+    'msg_5002',
+    '--as',
+    'user',
+  ],
   ['im', '+chat-list', '--types=p2p,group'],
   [
     'im',
@@ -8,7 +17,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_CSUPPORT',
     '--text',
-    '紧急告警：Veronica Steele反馈生产环境数据同步（data sync）自今天早上6点起失败，集成流水线报错、客户记录无法更新，已阻塞运营团队，请立即升级处理。',
+    '紧急告警：Veronica Steele反馈生产环境数据同步（data sync）据 2026-02-23 的来信，自该日早上6点起失败，集成流水线报错、客户记录无法更新，已阻塞运营团队，请立即升级处理。',
   ],
 ];
 for (const args of commands)

@@ -1,10 +1,5 @@
-按FAQ Templates所有类别/模板/override处理freshdesk_tickets与contacts。以subject+description大小写不敏感匹配不同keyword，重复出现只算一次；最高命中数类别优先，同分按Categories行顺序，0命中No FAQ match。先skip status/已有notes/exclusion/never-draft；beta域override允许正命中低于threshold也draft。安全回复只保存mail_drafts(to/subject=Re: 原subject/body=原Template加priority>=3的原Urgent Note/ticket_id)，是待审草稿，不能发送消息给客户或声称已通知工程。每个处理票新增freshdesk_notes(ticket_id/private为JSON文本true/body含FAQ match或Low confidence或No FAQ match及所选category)，保留旧notes；日志按原字段追加，无匹配Category空。support-automation汇报draft/low-confidence/no-match/skip人数及涉及姓名，所有其他原字段不动。
+检查 Freshdesk 重复问题与 FAQ library 的匹配情况，准备合适回复草稿；每票记录 FAQ match、Low confidence 或 No FAQ match。tracking log 的 Action 对已准备回复使用 Drafted，无法安全起草时使用 Manual Review，并向 support-automation 汇总。工单为 freshdesk_tickets、contacts，备注写 freshdesk_notes（ticket_id、private、body）；回复保存为飞书邮箱真实草稿，不发送。引用来源值及相关金额时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。
 
-飞书电子表格目录：
-
-- ss_faq_templates：FAQ Templates & Rules；工作表 ws_categories（Categories）, ws_templates（Templates）, ws_tracking（Tracking）, ws_overrides（Override Rules）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-24T09:00:00Z。
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

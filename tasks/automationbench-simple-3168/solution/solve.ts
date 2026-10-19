@@ -9,15 +9,39 @@ const commands: string[][] = [
     '--data',
     '{"summary": "Quarterly Review with Orion Corp", "start_time": {"timestamp": "1772186400"}, "end_time": {"timestamp": "1772190000"}, "vc_data": {"vc_type": "vc", "meeting_settings": {}}}',
   ],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_notice_0',
-    '--text',
-    'Quarterly Review with Orion Corp\n邀请您参加 2026-02-27 10:00 UTC 会议，时长 60 分钟。',
+    'mail',
+    '+send',
+    '--mailbox',
+    'agent@company.example.com',
+    '--to',
+    'marco.reeves@orioncorp.example.com',
+    '--subject',
+    'Quarterly Review with Orion Corp',
+    '--body',
+    'You are invited to Quarterly Review with Orion Corp on February 27, 2026, 10:00–11:00 UTC (60 minutes), hosted by agent@company.example.com. Join: {{MEETING_URL}}',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
-for (const args of commands)
-  execFileSync(process.env.LARK_CLI || 'lark-cli', args, { stdio: 'inherit' });
+let meetingUrl = '';
+for (const args of commands) {
+  const output = execFileSync(
+    process.env.LARK_CLI || 'lark-cli',
+    args.map((value) => value.replace('{{MEETING_URL}}', meetingUrl)),
+    { encoding: 'utf8' },
+  );
+  process.stdout.write(output);
+  if (args[0] === 'calendar' && args[2] === 'create') {
+    const data = JSON.parse(output);
+    meetingUrl =
+      data.data?.event?.vc_data?.meeting_url ??
+      data.event?.vc_data?.meeting_url ??
+      '';
+    if (!meetingUrl)
+      throw new Error(
+        'Created video meeting did not return joining information',
+      );
+  }
+}

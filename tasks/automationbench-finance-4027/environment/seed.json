@@ -66,46 +66,6 @@
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "all-staff@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "ap@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "controller@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "hr@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "newsletter@accountingtoday.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "vendor-relations@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
       "chat_id": "oc_C_FIN_ALERTS",
       "name": "finance-alerts",
       "chat_mode": "group"
@@ -118,42 +78,6 @@
   ],
   "messages": [
     {
-      "message_id": "om_msg_dup_policy",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_dup_policy\\\", \\\"thread_id\\\": \\\"th_dup_policy\\\", \\\"from_\\\": \\\"controller@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Duplicate Payment Detection Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-15T08:00:00Z\\\"}\\n消息 ID：msg_dup_policy\\n来源：controller@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-15T08:00:00Z\\n主题：Duplicate Payment Detection Policy\\nDefinition of potential duplicate: same vendor name AND same dollar amount within a 7 calendar day window. Flag both payments in the pair. Report all suspected pairs to the controller.\"}"
-      },
-      "create_time": "1768464000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg002\\\", \\\"thread_id\\\": \\\"noise_fin_th002\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"all-staff@company.example.com\\\"], \\\"subject\\\": \\\"Reminder: Expense Reports Due Friday\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-21T09:00:00Z\\\"}\\n消息 ID：noise_fin_msg002\\n来源：hr@company.example.com\\n收件人：all-staff@company.example.com\\n日期：2026-01-21T09:00:00Z\\n主题：Reminder: Expense Reports Due Friday\\nHi team, please submit all outstanding expense reports by end of day Friday.\"}"
-      },
-      "create_time": "1768986000000"
-    },
-    {
-      "message_id": "om_noise_fin_msg003",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg003\\\", \\\"thread_id\\\": \\\"noise_fin_th003\\\", \\\"from_\\\": \\\"vendor-relations@company.example.com\\\", \\\"to\\\": [\\\"ap@company.example.com\\\"], \\\"subject\\\": \\\"Updated W-9 from Pinnacle Consulting\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-22T11:00:00Z\\\"}\\n消息 ID：noise_fin_msg003\\n来源：vendor-relations@company.example.com\\n收件人：ap@company.example.com\\n日期：2026-01-22T11:00:00Z\\n主题：Updated W-9 from Pinnacle Consulting\\nAttached is the updated W-9 form from Pinnacle Consulting. Please update records.\"}"
-      },
-      "create_time": "1769079600000"
-    },
-    {
-      "message_id": "om_noise_fin_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
-      },
-      "create_time": "1768896000000"
-    },
-    {
       "message_id": "om_slack_0",
       "chat_id": "oc_C_GENERAL",
       "msg_type": "text",
@@ -162,5 +86,116 @@
       },
       "create_time": "1706100000.000100"
     }
-  ]
+  ],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfZHVwX3BvbGljeQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9kdXBfcG9saWN5",
+        "smtp_message_id": "msg_dup_policy@fixture.invalid",
+        "subject": "Duplicate Payment Detection Policy",
+        "head_from": {
+          "mail_address": "controller@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "RGVmaW5pdGlvbiBvZiBwb3RlbnRpYWwgZHVwbGljYXRlOiBzYW1lIHZlbmRvciBuYW1lIEFORCBzYW1lIGRvbGxhciBhbW91bnQgd2l0aGluIGEgNyBjYWxlbmRhciBkYXkgd2luZG93LiBGbGFnIGJvdGggcGF5bWVudHMgaW4gdGhlIHBhaXIuIFJlcG9ydCBhbGwgc3VzcGVjdGVkIHBhaXJzIHRvIHRoZSBjb250cm9sbGVyLg",
+        "body_preview": "RGVmaW5pdGlvbiBvZiBwb3RlbnRpYWwgZHVwbGljYXRlOiBzYW1lIHZlbmRvciBuYW1lIEFORCBzYW1lIGRvbGxhciBhbW91bnQgd2l0aGluIGEgNyBjYWxlbmRhciBkYXkgd2luZG93LiBGbGFnIGJvdGggcGF5",
+        "body_html": "",
+        "internal_date": "1768464000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAy",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDI",
+        "smtp_message_id": "noise_fin_msg002@fixture.invalid",
+        "subject": "Reminder: Expense Reports Due Friday",
+        "head_from": {
+          "mail_address": "hr@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all-staff@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGkgdGVhbSwgcGxlYXNlIHN1Ym1pdCBhbGwgb3V0c3RhbmRpbmcgZXhwZW5zZSByZXBvcnRzIGJ5IGVuZCBvZiBkYXkgRnJpZGF5Lg",
+        "body_preview": "SGkgdGVhbSwgcGxlYXNlIHN1Ym1pdCBhbGwgb3V0c3RhbmRpbmcgZXhwZW5zZSByZXBvcnRzIGJ5IGVuZCBvZiBkYXkgRnJpZGF5Lg",
+        "body_html": "",
+        "internal_date": "1768986000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAz",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDM",
+        "smtp_message_id": "noise_fin_msg003@fixture.invalid",
+        "subject": "Updated W-9 from Pinnacle Consulting",
+        "head_from": {
+          "mail_address": "vendor-relations@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "ap@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgVy05IGZvcm0gZnJvbSBQaW5uYWNsZSBDb25zdWx0aW5nLiBQbGVhc2UgdXBkYXRlIHJlY29yZHMu",
+        "body_preview": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgVy05IGZvcm0gZnJvbSBQaW5uYWNsZSBDb25zdWx0aW5nLiBQbGVhc2UgdXBkYXRlIHJlY29yZHMu",
+        "body_html": "",
+        "internal_date": "1769079600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDE",
+        "smtp_message_id": "noise_fin_msg001@fixture.invalid",
+        "subject": "Weekly Tax Update: New IRS Guidance",
+        "head_from": {
+          "mail_address": "newsletter@accountingtoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "finance@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_preview": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_html": "",
+        "internal_date": "1768896000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

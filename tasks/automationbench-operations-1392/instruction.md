@@ -1,10 +1,7 @@
-按Fire Suppression所有配置和inspection邮件审核，只有Active+非exempt building，最近等效test（含邮件已完成/保修/紧急）超过30或90整日才overdue。按楼选Current认证tech，SMS改phone会话IM，每system单条，含ID/Building/Zone/Last Test Date。jira_issues每项project=FIRE/issuetype=Task/summary按配置/building/zone/last_test_date；原日期格式不变。每个有逾期的building向coordinator邮箱私聊名单与该building计数，同人管不同楼分开，不通知零项楼，不回写测试完成。
+今天为 2026-02-09，检查 ss_fire 全部消防系统、测试政策、技术员和协调人联系信息，按配置频率识别逾期系统，为每项在 FIRE 创建工单，summary 遵循配置格式。短信通知该系统指定消防技术员，按楼向安全协调人邮件逾期名单及该楼总数。Jira 适配为 jira_issues（project、issuetype、summary、building、zone、last_test_date），短信适配为电话号码 IM。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。
 
-- ss_fire：Fire Suppression Systems；工作表 ws_systems（System Inventory）, ws_config（Compliance Config）, ws_technicians（Fire Technicians）, ws_coordinators（Safety Coordinators）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-09T09:00:00Z。
+邮件的 internal_date=0 表示来源未提供时间，不代表该邮件发生于 1970 年；请结合材料内容及明确日期判断。

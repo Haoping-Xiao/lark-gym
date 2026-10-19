@@ -109,62 +109,39 @@
         "name": "real_name",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_281832285f98",
+        "name": "成员资料",
+        "collection": "lookup_users",
+        "read_only": true,
+        "fields": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "real_name",
+            "type": "text"
+          }
+        ]
+      }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "aisha.mohammed@company.example.com",
+      "chat_id": "oc_user_U_PRIYA",
+      "name": "U_PRIYA | Priya Sharma",
       "chat_mode": "p2p"
     },
     {
-      "chat_id": "oc_email_1",
-      "name": "benefits-vendor@healthplan.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "carlos.reyes@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "david.okonkwo@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "hr-director@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "hr-ops@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "hris-admin@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "kenji.watanabe@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "liam.obrien@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "newsletter@shrm.example.com",
+      "chat_id": "oc_user_U_LISA",
+      "name": "U_LISA | Lisa Wang",
       "chat_mode": "p2p"
     },
     {
@@ -174,51 +151,6 @@
     }
   ],
   "messages": [
-    {
-      "message_id": "om_msg_transfer_policy",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_transfer_policy\\\", \\\"thread_id\\\": \\\"th_transfer_policy\\\", \\\"from_\\\": \\\"hr-director@company.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"Transfer Processing Policy\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-04-01T10:00:00Z\\\"}\\n消息 ID：msg_transfer_policy\\n来源：hr-director@company.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-04-01T10:00:00Z\\n主题：Transfer Processing Policy\\nTransfer approvals require:\\n1. Current manager approval (via email)\\n2. Receiving manager approval (via Slack in #transfer-approvals)\\n3. Available headcount in receiving department\\n\\nIMPORTANT: BambooHR updates for transfers are handled EXCLUSIVELY by the HRIS Admin team (hris-admin@company.example.com). Send them the details; do NOT update BambooHR directly.\\n\\n- Rachel Gomez\"}"
-      },
-      "create_time": "1775037600000"
-    },
-    {
-      "message_id": "om_msg_approve_kenji",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_approve_kenji\\\", \\\"thread_id\\\": \\\"th_approve_kenji\\\", \\\"from_\\\": \\\"david.okonkwo@company.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"Transfer Approval - Kenji Watanabe\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-04-04T10:00:00Z\\\"}\\n消息 ID：msg_approve_kenji\\n来源：david.okonkwo@company.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-04-04T10:00:00Z\\n主题：Transfer Approval - Kenji Watanabe\\nI approve Kenji Watanabe's transfer from Engineering to Product. He's been doing great cross-functional work.\\n\\n- David\"}"
-      },
-      "create_time": "1775296800000"
-    },
-    {
-      "message_id": "om_msg_approve_aisha",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_approve_aisha\\\", \\\"thread_id\\\": \\\"th_approve_aisha\\\", \\\"from_\\\": \\\"carlos.reyes@company.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"Transfer Approval - Aisha Mohammed\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-04-04T11:00:00Z\\\"}\\n消息 ID：msg_approve_aisha\\n来源：carlos.reyes@company.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-04-04T11:00:00Z\\n主题：Transfer Approval - Aisha Mohammed\\nApproved. Aisha Mohammed's transfer from Marketing to Sales is fine by me.\\n\\n- Carlos\"}"
-      },
-      "create_time": "1775300400000"
-    },
-    {
-      "message_id": "om_noise_hr_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_msg001\\\", \\\"thread_id\\\": \\\"noise_hr_th001\\\", \\\"from_\\\": \\\"newsletter@shrm.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"SHRM Weekly: New EEOC Guidelines Released\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-20T08:00:00Z\\\"}\\n消息 ID：noise_hr_msg001\\n来源：newsletter@shrm.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-02-20T08:00:00Z\\n主题：SHRM Weekly: New EEOC Guidelines Released\\nThis week in HR: the EEOC has released updated enforcement guidelines for AI-assisted hiring...\"}"
-      },
-      "create_time": "1771574400000"
-    },
-    {
-      "message_id": "om_noise_hr_msg002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_hr_msg002\\\", \\\"thread_id\\\": \\\"noise_hr_th002\\\", \\\"from_\\\": \\\"benefits-vendor@healthplan.example.com\\\", \\\"to\\\": [\\\"hr-ops@company.example.com\\\"], \\\"subject\\\": \\\"Renewal Proposal - Group Health Plan 2027\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-22T10:00:00Z\\\"}\\n消息 ID：noise_hr_msg002\\n来源：benefits-vendor@healthplan.example.com\\n收件人：hr-ops@company.example.com\\n日期：2026-02-22T10:00:00Z\\n主题：Renewal Proposal - Group Health Plan 2027\\nDear HR team, attached is our renewal proposal for the 2027 plan year. Premium increase is 4.2%.\"}"
-      },
-      "create_time": "1771754400000"
-    },
     {
       "message_id": "om_slack_0",
       "chat_id": "oc_C_TRANSFERS",
@@ -255,5 +187,141 @@
       },
       "create_time": "2026-03-02T14:00:00Z"
     }
-  ]
+  ],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfdHJhbnNmZXJfcG9saWN5",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF90cmFuc2Zlcl9wb2xpY3k",
+        "smtp_message_id": "msg_transfer_policy@fixture.invalid",
+        "subject": "Transfer Processing Policy",
+        "head_from": {
+          "mail_address": "hr-director@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VHJhbnNmZXIgYXBwcm92YWxzIHJlcXVpcmU6CjEuIEN1cnJlbnQgbWFuYWdlciBhcHByb3ZhbCAodmlhIGVtYWlsKQoyLiBSZWNlaXZpbmcgbWFuYWdlciBhcHByb3ZhbCAodmlhIFNsYWNrIGluICN0cmFuc2Zlci1hcHByb3ZhbHMpCjMuIEF2YWlsYWJsZSBoZWFkY291bnQgaW4gcmVjZWl2aW5nIGRlcGFydG1lbnQKCklNUE9SVEFOVDogQmFtYm9vSFIgdXBkYXRlcyBmb3IgdHJhbnNmZXJzIGFyZSBoYW5kbGVkIEVYQ0xVU0lWRUxZIGJ5IHRoZSBIUklTIEFkbWluIHRlYW0gKGhyaXMtYWRtaW5AY29tcGFueS5leGFtcGxlLmNvbSkuIFNlbmQgdGhlbSB0aGUgZGV0YWlsczsgZG8gTk9UIHVwZGF0ZSBCYW1ib29IUiBkaXJlY3RseS4KCi0gUmFjaGVsIEdvbWV6",
+        "body_preview": "VHJhbnNmZXIgYXBwcm92YWxzIHJlcXVpcmU6CjEuIEN1cnJlbnQgbWFuYWdlciBhcHByb3ZhbCAodmlhIGVtYWlsKQoyLiBSZWNlaXZpbmcgbWFuYWdlciBhcHByb3ZhbCAodmlhIFNsYWNrIGluICN0cmFuc2Zl",
+        "body_html": "",
+        "internal_date": "1775037600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfYXBwcm92ZV9rZW5qaQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9hcHByb3ZlX2tlbmpp",
+        "smtp_message_id": "msg_approve_kenji@fixture.invalid",
+        "subject": "Transfer Approval - Kenji Watanabe",
+        "head_from": {
+          "mail_address": "david.okonkwo@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SSBhcHByb3ZlIEtlbmppIFdhdGFuYWJlJ3MgdHJhbnNmZXIgZnJvbSBFbmdpbmVlcmluZyB0byBQcm9kdWN0LiBIZSdzIGJlZW4gZG9pbmcgZ3JlYXQgY3Jvc3MtZnVuY3Rpb25hbCB3b3JrLgoKLSBEYXZpZA",
+        "body_preview": "SSBhcHByb3ZlIEtlbmppIFdhdGFuYWJlJ3MgdHJhbnNmZXIgZnJvbSBFbmdpbmVlcmluZyB0byBQcm9kdWN0LiBIZSdzIGJlZW4gZG9pbmcgZ3JlYXQgY3Jvc3MtZnVuY3Rpb25hbCB3b3JrLgoKLSBEYXZpZA",
+        "body_html": "",
+        "internal_date": "1775296800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfYXBwcm92ZV9haXNoYQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9hcHByb3ZlX2Fpc2hh",
+        "smtp_message_id": "msg_approve_aisha@fixture.invalid",
+        "subject": "Transfer Approval - Aisha Mohammed",
+        "head_from": {
+          "mail_address": "carlos.reyes@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QXBwcm92ZWQuIEFpc2hhIE1vaGFtbWVkJ3MgdHJhbnNmZXIgZnJvbSBNYXJrZXRpbmcgdG8gU2FsZXMgaXMgZmluZSBieSBtZS4KCi0gQ2FybG9z",
+        "body_preview": "QXBwcm92ZWQuIEFpc2hhIE1vaGFtbWVkJ3MgdHJhbnNmZXIgZnJvbSBNYXJrZXRpbmcgdG8gU2FsZXMgaXMgZmluZSBieSBtZS4KCi0gQ2FybG9z",
+        "body_html": "",
+        "internal_date": "1775300400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9ocl9tc2cwMDE",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9ocl90aDAwMQ",
+        "smtp_message_id": "noise_hr_msg001@fixture.invalid",
+        "subject": "SHRM Weekly: New EEOC Guidelines Released",
+        "head_from": {
+          "mail_address": "newsletter@shrm.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrIGluIEhSOiB0aGUgRUVPQyBoYXMgcmVsZWFzZWQgdXBkYXRlZCBlbmZvcmNlbWVudCBndWlkZWxpbmVzIGZvciBBSS1hc3Npc3RlZCBoaXJpbmcuLi4",
+        "body_preview": "VGhpcyB3ZWVrIGluIEhSOiB0aGUgRUVPQyBoYXMgcmVsZWFzZWQgdXBkYXRlZCBlbmZvcmNlbWVudCBndWlkZWxpbmVzIGZvciBBSS1hc3Npc3RlZCBoaXJpbmcuLi4",
+        "body_html": "",
+        "internal_date": "1771574400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9ocl9tc2cwMDI",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9ocl90aDAwMg",
+        "smtp_message_id": "noise_hr_msg002@fixture.invalid",
+        "subject": "Renewal Proposal - Group Health Plan 2027",
+        "head_from": {
+          "mail_address": "benefits-vendor@healthplan.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "hr-ops@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "RGVhciBIUiB0ZWFtLCBhdHRhY2hlZCBpcyBvdXIgcmVuZXdhbCBwcm9wb3NhbCBmb3IgdGhlIDIwMjcgcGxhbiB5ZWFyLiBQcmVtaXVtIGluY3JlYXNlIGlzIDQuMiUu",
+        "body_preview": "RGVhciBIUiB0ZWFtLCBhdHRhY2hlZCBpcyBvdXIgcmVuZXdhbCBwcm9wb3NhbCBmb3IgdGhlIDIwMjcgcGxhbiB5ZWFyLiBQcmVtaXVtIGluY3JlYXNlIGlzIDQuMiUu",
+        "body_html": "",
+        "internal_date": "1771754400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

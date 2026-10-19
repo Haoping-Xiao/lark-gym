@@ -1,10 +1,5 @@
-按Severance Agreement Process及特殊授权发送允许的协议。DocuSign改signature_requests飞书台账加私聊签署请求；台账template_id、employee、employee_id、email、Severance Weeks数值、benefits_days=60、status=Sent。员工通知含姓名、周数、60 days及请求签署。诉讼件不发送；给Legal一条私聊转交诉讼详情及全部离职者non-compete作废请求，不自行作废（源无实际协议实体，不伪造ID）。不修改来源工资或状态。
+通过签署系统向离职员工发送遣散协议，并因政策切换作废其现有竞业禁止协议；发送前检查特殊遣散条款和法律暂停。DocuSign 适配为 signature_requests 飞书台账和邮件签署请求，字段为 template_id、employee、employee_id、email、Severance Weeks、benefits_days、status，状态可使用 Sent。本环境不连接真实签署平台。引用来源值时原样保留，不改写或取整；消息包含相关且统计对象明确的数量。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_severance：Severance Processing；工作表 ws_departures（Departures）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-04-07T09:00:00Z。
+本次业务处理以 2026-04-07T09:00:00Z 为时间基准。

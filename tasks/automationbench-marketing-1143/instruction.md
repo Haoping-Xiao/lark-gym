@@ -1,10 +1,5 @@
-现在是 2026-01-27 10:00 UTC。检查 ss_crisis/ws_posts，按最新危机手册和 crisis-war-room 群消息核实类别并逐项路由至飞书群。HR 事项仅私聊 hr@company.example.com，不能混入营销群或 comms 摘要；已自行澄清解决的帖子不再路由。给指定 comms 负责人私聊汇总本轮营销/客服路由项，逐行“author | category | reach”，修正误分类；总覆盖人数使用“Total Routed Reach | 整数”，只统计该摘要范围，HR 单独处理。
+负面帖子激增，请审查 ss_crisis/ws_posts，按 PR 总监上周共享的危机手册处理，将事项转交适当团队并向传播团队发送摘要。飞书适配使用群消息和邮件，摘要可使用 author、category、reach 和 Total Routed Reach 字段。引用相关来源金额时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_crisis：Crisis Tracking；工作表 ws_posts（Posts）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-27T10:00:00Z。
+本次业务处理以 2026-01-27T10:00:00Z 为时间基准。

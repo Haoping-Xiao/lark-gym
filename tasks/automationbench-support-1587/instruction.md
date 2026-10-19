@@ -1,10 +1,5 @@
-按ws_details的Account_ID连接工单，含Closed且按created_at升序建journey，未关联账户不按联系人臆造账户。原题只有标签无阈值，本题公开判断：取消/离开迹象或多个未解决High事件为Critical/Worsening；历史High已解决、近期仅Low且积极询问为Healthy/Improving；持续普通低风险或刚入门样本少为Healthy/Stable；其他持续未解决Medium为At Risk。ws_journey每已关联表内账户一行，Notes含判断依据及全部时间线（原created_at/ID/subject），使用配置允许标签。只有At Risk/Critical向对应CSM邮箱IM提醒，不通知客户/健康账户；account-insights汇总全部分析账户数量、Trend/Health与依据。
+根据 Zoho Desk 工单历史和 ss_accounts/ws_details 构建客户互动时间线、识别模式并评估健康，登记 ws_journey，对需关注账户告警，向 account-insights 汇总。使用 zoho_desk_tickets 和表格，Gmail 适配为飞书邮箱。 原题没有健康判定边界，本适配将取消/离开信号或多项未解决 High 问题记 Critical/Worsening；已解决历史严重问题且近期低风险积极互动记 Healthy/Improving；稳定低风险或新入门样本不足记 Healthy/Stable；持续未解决 Medium 问题记 At Risk。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_accounts：Account Details；工作表 ws_details（Details）, ws_config（Config）, ws_journey（Journey Reports）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-09T09:00:00Z。
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

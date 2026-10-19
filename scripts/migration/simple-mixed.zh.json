@@ -1,23 +1,29 @@
 {
   "3151": {
-    "instruction": "客户发来账单问题。请阅读通知群中的来信，在飞书多维表格创建 tickets 工单，subject 和 description 分别保留来信标题和正文。",
+    "instruction": "客服邮箱 support@company.example.com 收到客户关于账单的邮件。请阅读来信，在客服工单台账 tickets 新建工单，subject 包含 invoice（忽略大小写），description 忠实记录账单问题，可概括来信。",
     "create": {
       "collection": "tickets",
       "subject": "Question about my invoice",
       "description": "Hi, I was charged twice for my March subscription (Invoice #INV-2026-031). Can you help fix this? Thanks, Alex"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "support@company.example.com",
+    "mail": []
   },
   "3153": {
-    "instruction": "客户反馈收到错误商品。请阅读来信并在飞书工单台账 tickets 创建工单，subject 和 description 保留原文，tags 设为 billing。",
+    "instruction": "客服邮箱 support@company.example.com 收到客户关于错误商品的邮件。请阅读来信并在飞书工单台账 tickets 创建工单，subject 须包含 wrong（忽略大小写），description 准确记录来信问题，可忠实概括，tags 设为 billing。",
     "create": {
       "collection": "tickets",
       "subject": "Wrong item received - Order #ORD-8847",
       "description": "Hi, I ordered a blue wireless keyboard but received a black mouse instead. My order number is ORD-8847. Please help resolve this. Thanks, Maria",
       "tags": "billing"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "support@company.example.com",
+    "mail": []
   },
   "3155": {
-    "instruction": "客户紧急反馈服务中断。请阅读来信并在飞书工单台账 tickets 创建 high 优先级工单，subject 和 description 保留原文；通过飞书私聊回复客户，确认已收到并处理服务中断问题，首行使用 Re: 加原邮件标题。",
+    "instruction": "客服邮箱 support@company.example.com 收到客户关于服务中断的紧急邮件。请阅读来信，在客服工单台账 tickets 创建 high 优先级工单，subject 包含 service（忽略大小写），description 忠实记录问题及影响，可概括来信；回复客户邮件，确认已收到问题，回复主题保留 Re:（忽略大小写）。",
     "create": {
       "collection": "tickets",
       "subject": "URGENT: Service completely down",
@@ -27,8 +33,17 @@
     "notifications": [
       {
         "email": "cto@bigclient.example.com",
-        "text": "Re: URGENT: Service completely down\n已收到服务中断问题，已建立高优先级工单处理。",
-        "contains": ["Re:", "服务中断"]
+        "reply_to": "msg_3155",
+        "body": "已收到你们全员无法使用平台的问题，已创建高优先级工单处理。"
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "support@company.example.com",
+    "mail": [
+      {
+        "to": ["cto@bigclient.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": []
       }
     ]
   },
@@ -67,7 +82,7 @@
     ]
   },
   "3157": {
-    "instruction": "阅读客户功能需求来信，在飞书 tasks 台账为产品团队创建评审任务，name 保留需求关键词 PDF，description 保留原来信正文。通过私聊回复发件人确认已收到需求，首行为 Re: 加原邮件标题。",
+    "instruction": "客户发来功能需求邮件。请在 product@company.example.com 邮箱阅读来信，在飞书多维表格的产品工作事项台账创建供产品团队评审的任务，并邮件回复发件人确认已收到需求。",
     "create": {
       "collection": "tasks",
       "name": "评审 PDF 导出需求",
@@ -79,13 +94,24 @@
     "notifications": [
       {
         "email": "nina.kowalski@techstart.example.com",
-        "text": "Re: Feature Request: Export to PDF\n已收到 PDF 导出需求，已创建产品评审任务。",
-        "contains": ["Re:", "PDF"]
+        "reply_to": "msg_3157",
+        "body": "Thanks for your feature request. We have received it and created a product review task."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "product@company.example.com",
+    "mail": [
+      {
+        "to": ["nina.kowalski@techstart.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": [],
+        "source_message_id": "msg_3157",
+        "reply_to_source": true
       }
     ]
   },
   "3158": {
-    "instruction": "阅读客户报障来信，在飞书研发工单台账 issues 的 PLAT 项目创建 Bug；project 为 PLAT，issue_type 为 Bug，summary 保留原问题关键词，description 保留原来信正文。向 engineering 群通报该故障。",
+    "instruction": "客户通过邮件报告了故障。请在 bugs@company.example.com 邮箱阅读来信，在飞书多维表格研发工单台账的 PLAT 项目创建 Bug 问题，并向 engineering 群通报。",
     "create": {
       "collection": "issues",
       "project": "PLAT",
@@ -102,10 +128,15 @@
         "text": "已创建 PLAT Bug：CSV upload 超过 50MB 时挂起并超时。",
         "contains": ["CSV upload", "50MB"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "bugs@company.example.com",
+    "mail": [],
+    "message_source_mail_id": "msg_3158",
+    "post_channels": ["oc_CENG001"]
   },
   "3159": {
-    "instruction": "阅读销售咨询来信，把发件人的姓名、邮箱、职位、公司分别写入飞书 contacts 台账的 firstname、lastname、email、jobtitle、company 字段。私聊回复发件人，感谢其对产品的兴趣，首行为 Re: 加原邮件标题。",
+    "instruction": "收到一封销售咨询邮件。请在 sales@company.example.com 邮箱阅读来信，在飞书多维表格联系人台账中为发件人创建联系人，并邮件回复感谢其兴趣。",
     "create": {
       "collection": "contacts",
       "firstname": "Jordan",
@@ -117,13 +148,24 @@
     "notifications": [
       {
         "email": "jordan.blake@innovate.example.com",
-        "text": "Re: Interested in your Enterprise plan\n感谢您对 Enterprise 产品的兴趣。",
-        "contains": ["Re:", "Enterprise"]
+        "reply_to": "msg_3159",
+        "body": "Thank you for your interest in our Enterprise plan, Jordan. We have added your contact details."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "sales@company.example.com",
+    "mail": [
+      {
+        "to": ["jordan.blake@innovate.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["interest"],
+        "source_message_id": "msg_3159",
+        "reply_to_source": true
       }
     ]
   },
   "3160": {
-    "instruction": "阅读新同事欢迎来信，在飞书 contacts 台账创建联系人，first_name、last_name、email、title 从来信提取，company 使用 Acme Corp。",
+    "instruction": "收到一封新同事的欢迎邮件。请在 team@company.example.com 邮箱阅读来信，按照邮件提供的信息在飞书多维表格联系人台账创建新同事的联系人，公司使用 Acme Corp。",
     "create": {
       "collection": "contacts",
       "first_name": "Casey",
@@ -131,10 +173,13 @@
       "email": "casey.morgan@company.example.com",
       "title": "Senior Developer",
       "company": "Acme Corp"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "team@company.example.com",
+    "mail": []
   },
   "3161": {
-    "instruction": "阅读客户合同咨询来信，在飞书 tickets 工单台账创建工单，subject 和 description 分别保留原来信标题、正文，group_id 选择 Legal Team 的业务 ID。私聊回复客户确认已收到咨询，首行为 Re: 加原邮件标题。",
+    "instruction": "客户发来合同问题邮件。请在 contracts@company.example.com 邮箱阅读来信，在飞书多维表格客服工单台账中为法务团队创建工单，并邮件回复确认已收到咨询。",
     "create": {
       "collection": "tickets",
       "subject": "Contract renewal terms",
@@ -144,13 +189,32 @@
     "notifications": [
       {
         "email": "legal@partnerco.example.com",
-        "text": "Re: Contract renewal terms\n已收到合同续约咨询，已交法律团队处理。",
-        "contains": ["Re:", "已收到"]
+        "reply_to": "msg_3161",
+        "body": "We have received your contract inquiry and created a ticket for our legal team."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "contracts@company.example.com",
+    "mail": [
+      {
+        "to": ["legal@partnerco.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["received"],
+        "source_message_id": "msg_3161",
+        "reply_to_source": true
+      }
+    ],
+    "seed_record_fields": {
+      "rec_grp_support": {
+        "group_id": "grp_support"
+      },
+      "rec_grp_legal": {
+        "group_id": "grp_legal"
+      }
+    }
   },
   "3162": {
-    "instruction": "阅读客户反馈来信，在飞书电子表格 ss_feedback / sheet1 末尾追加客户姓名 Name 和反馈摘要 Feedback。摘要保留原来信正文，随后私聊回复发件人表示感谢，首行为 Re: 加原邮件标题。",
+    "instruction": "收到客户反馈邮件。请在 feedback@company.example.com 邮箱阅读来信，在飞书电子表格 ss_feedback 的 sheet1 工作表追加客户姓名和反馈摘要，并邮件回复表示感谢。",
     "sheet": {
       "append": {
         "Name": "Tom Brennan",
@@ -160,13 +224,25 @@
     "notifications": [
       {
         "email": "tom.brennan@userfirst.example.com",
-        "text": "Re: Customer Feedback: Great experience with your product\n感谢您的反馈！",
-        "contains": ["Re:", "感谢"]
+        "reply_to": "msg_3162",
+        "body": "Thank you for sharing your feedback, Tom. We are glad the reporting feature saves your team time."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "feedback@company.example.com",
+    "mail": [
+      {
+        "to": ["tom.brennan@userfirst.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["thank"],
+        "source_message_id": "msg_3162",
+        "reply_to_source": true
+      }
+    ],
+    "cells_source_mail_id": "msg_3162"
   },
   "3163": {
-    "instruction": "阅读客户预约来信，在飞书日历创建 Client Call with Apex Systems，2026-02-26 14:00–15:00 UTC；通过私聊回复发件人确认日期和时间，首行为 Re: 加原邮件标题。",
+    "instruction": "客户发来会议请求邮件。请在 meetings@company.example.com 邮箱阅读来信，在飞书工作日历创建 Client Call with Apex Systems，时间为 2026 年 2 月 26 日下午 2 点，时长 1 小时，并邮件回复确认会议时间。\n\n本场景未注明时区的会议时间按 UTC 解释。",
     "calendar": {
       "summary": "Client Call with Apex Systems",
       "start": "2026-02-26T14:00:00Z",
@@ -176,13 +252,25 @@
     "notifications": [
       {
         "email": "lena.park@apexsys.example.com",
-        "text": "Re: Meeting Request: Partnership Discussion\n会议确认：2026-02-26 14:00–15:00 UTC。",
-        "contains": ["Re:", "2026-02-26", "14:00", "UTC"]
+        "reply_to": "msg_3163",
+        "body": "Confirmed: Client Call with Apex Systems on February 26, 2026, 14:00–15:00 UTC."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "meetings@company.example.com",
+    "mail": [
+      {
+        "to": ["lena.park@apexsys.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["February 26"],
+        "source_message_id": "msg_3163",
+        "reply_to_source": true
+      }
+    ],
+    "primary_calendar": true
   },
   "3164": {
-    "instruction": "阅读合作伙伴来信，在飞书 deals 台账创建 dealname 为 Vertex Labs Partnership、amount 为 75000 的商机，并向 partnerships 群通知该合作机会。",
+    "instruction": "收到合作伙伴的联系邮件。请在 partnerships@company.example.com 邮箱阅读来信，在飞书多维表格商机台账创建名为 Vertex Labs Partnership、amount 为 75000 的商机，并通知 partnerships 群。",
     "create": {
       "collection": "deals",
       "dealname": "Vertex Labs Partnership",
@@ -194,10 +282,15 @@
         "text": "已登记 Vertex Labs Partnership，合作预算 $75,000。",
         "contains": ["Vertex Labs"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "partnerships@company.example.com",
+    "mail": [],
+    "message_source_mail_id": "msg_3164",
+    "post_channels": ["oc_CPART01"]
   },
   "3165": {
-    "instruction": "阅读开发团队进度来信，在飞书电子表格 ss_projects / sheet1 追加一行：Project 为 Mobile App v2，Status 为 Phase 2 Complete。私聊回复发件人确认收到，并根据来信说明下一步，首行为 Re: 加原邮件标题。",
+    "instruction": "收到开发团队的项目进度邮件。请在 pm@company.example.com 邮箱阅读来信，在飞书电子表格 ss_projects 的 sheet1 工作表追加一行，Project 为 Mobile App v2，Status 为 Phase 2 Complete，然后邮件回复确认收到并说明下一步。\n\n来信中的相对日期按该邮件的发送时间解释。",
     "sheet": {
       "append": {
         "Project": "Mobile App v2",
@@ -207,10 +300,22 @@
     "notifications": [
       {
         "email": "dev.lead@company.example.com",
-        "text": "Re: Project Update: Mobile App v2 Phase 2 Complete\n已记录 Phase 2 Complete，下一步下周开始 Phase 3。",
-        "contains": ["Re:", "Phase 3"]
+        "reply_to": "msg_3165",
+        "body": "Acknowledged: Mobile App v2 Phase 2 Complete has been logged. The next step is Phase 3, which your February 21 email says is ready to begin the following week (February 23–March 1)."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "pm@company.example.com",
+    "mail": [
+      {
+        "to": ["dev.lead@company.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["next"],
+        "source_message_id": "msg_3165",
+        "reply_to_source": true
+      }
+    ],
+    "cells_source_mail_id": "msg_3165"
   },
   "3166": {
     "instruction": "将飞书 opportunities 台账中 NovaTech Enterprise Deal（opp_401）的 stage 改为 Closed Won，并向 sales 群发送成交庆祝消息。",
@@ -229,7 +334,7 @@
     ]
   },
   "3167": {
-    "instruction": "Priya Sharma 将于 2026-03-03 入职。在飞书 tasks 台账创建 name 为 Onboard Priya Sharma、workspace 为 ws_hr 的入职任务，并私聊 priya.sharma@company.example.com 表示欢迎。",
+    "instruction": "新同事 Priya Sharma 将于 2026 年 3 月 3 日入职。请在飞书多维表格工作事项台账的 ws_hr 工作区创建名为 Onboard Priya Sharma 的入职任务，并向 priya.sharma@company.example.com 发送欢迎邮件。",
     "create": {
       "collection": "tasks",
       "name": "Onboard Priya Sharma",
@@ -238,13 +343,24 @@
     "notifications": [
       {
         "email": "priya.sharma@company.example.com",
-        "text": "欢迎 Priya Sharma！期待您 2026-03-03 入职。",
-        "contains": ["欢迎", "Priya"]
+        "subject": "Welcome, Priya Sharma!",
+        "body": "Welcome to the team, Priya! We look forward to your start on March 3, 2026."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["priya.sharma@company.example.com"],
+        "subject_contains": ["welcome"],
+        "body_contains": ["Priya"]
+      }
+    ],
+    "workspace_discovery": true,
+    "resource_discovery": true
   },
   "3168": {
-    "instruction": "使用当前账号 agent@company.example.com 在飞书日历安排带视频会议的 Quarterly Review with Orion Corp，时间为 2026-02-27 10:00–11:00 UTC。私聊 marco.reeves@orioncorp.example.com 发送会议邀请，包含主题、时间和时长。",
+    "instruction": "请安排名为 Quarterly Review with Orion Corp 的飞书视频会议，时间为 2026 年 2 月 27 日上午 10 点，时长 60 分钟，并向 marco.reeves@orioncorp.example.com 发送包含会议详情的邮件邀请。主持账号使用 agent@company.example.com。\n\n本场景未注明时区的会议时间按 UTC 解释。视频会议主持人映射为创建会议的当前用户，请以指定账号的用户身份创建。",
     "calendar": {
       "summary": "Quarterly Review with Orion Corp",
       "start": "2026-02-27T10:00:00Z",
@@ -255,10 +371,21 @@
     "notifications": [
       {
         "email": "marco.reeves@orioncorp.example.com",
-        "text": "Quarterly Review with Orion Corp\n邀请您参加 2026-02-27 10:00 UTC 会议，时长 60 分钟。",
-        "contains": ["Quarterly Review", "2026-02-27", "10:00", "60"]
+        "subject": "Quarterly Review with Orion Corp",
+        "body": "You are invited to Quarterly Review with Orion Corp on February 27, 2026, 10:00–11:00 UTC (60 minutes), hosted by agent@company.example.com. Join: {{MEETING_URL}}"
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["marco.reeves@orioncorp.example.com"],
+        "subject_contains": ["Quarterly Review"],
+        "body_contains": []
+      }
+    ],
+    "primary_calendar": true,
+    "notification_meeting_url": true
   },
   "3169": {
     "instruction": "新的 analytics dashboard 已上线。向飞书 product 群发布上线公告，并在 tasks 台账创建 name 为 Monitor analytics dashboard launch、workspace 为 ws_prod 的监控任务。",
@@ -276,7 +403,7 @@
     ]
   },
   "3170": {
-    "instruction": "在飞书电子表格 ss_reports / sheet1 追加本周业绩：Week 为 Week of Feb 23，Deals Closed 为 12，Revenue 为 340K。私聊 manager@company.example.com 发送周报，包含上述业绩。",
+    "instruction": "在电子表格 ss_reports 的工作表 sheet1 追加本周业绩：Week 为 Week of Feb 23，Deals Closed 为 12，Revenue 按报表约定写为 340K，单位为美元。完成追加后，向 manager@company.example.com 发送周报邮件，主题包含 weekly，正文报告本周成交和美元收入，并保留金额标记 340K（忽略大小写）。",
     "sheet": {
       "append": {
         "Week": "Week of Feb 23",
@@ -287,13 +414,22 @@
     "notifications": [
       {
         "email": "manager@company.example.com",
-        "text": "周报 Week of Feb 23：成交 12 单，收入 $340K。",
-        "contains": ["Feb 23", "12", "340K"]
+        "subject": "weekly report",
+        "body": "Week of Feb 23：成交12单，收入340K美元。"
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["manager@company.example.com"],
+        "subject_contains": ["weekly"],
+        "body_contains": ["340K"]
       }
     ]
   },
   "3171": {
-    "instruction": "密码重置问题已解决。将飞书 tickets 台账中 ZD-501 的 status 更新为 solved，并私聊 elena.voss@retail.example.com 告知密码重置问题已解决。",
+    "instruction": "支持工单 ZD-501 的密码重置问题已解决。请将飞书多维表格客服工单台账中该工单的 status 更新为 solved，并向 elena.voss@retail.example.com 发送问题解决通知邮件。",
     "update": {
       "id": "ZD-501",
       "fields": {
@@ -303,10 +439,24 @@
     "notifications": [
       {
         "email": "elena.voss@retail.example.com",
-        "text": "密码重置问题已解决。",
-        "contains": ["密码", "解决"]
+        "subject": "Password reset issue resolved — ZD-501",
+        "body": "Your password reset issue has been resolved. Ticket ZD-501 is marked solved."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["elena.voss@retail.example.com"],
+        "subject_contains": ["resolved"],
+        "body_contains": ["password"]
+      }
+    ],
+    "seed_record_fields": {
+      "rec_ZD-501": {
+        "ticket_id": "ZD-501"
+      }
+    }
   },
   "3172": {
     "instruction": "为 BrightPath Solutions 的 Derek Huang 在飞书 leads 台账新增线索，first_name、last_name、email、company 分别填写姓名、derek.huang@brightpath.example.com 和公司。再在 issues 台账创建 SALES 项目的 Task 跟进工单，summary 包含完整姓名。",
@@ -360,7 +510,7 @@
     ]
   },
   "3175": {
-    "instruction": "CloudSync Pro 今天发布。在飞书 general 群发布上线公告，并私聊 team@company.example.com，首行标题为 CloudSync Pro Launch，正文说明今天发布。",
+    "instruction": "CloudSync Pro 今天发布。请在飞书 general 群发布上线公告，并向 team@company.example.com 发送邮件，主题为 CloudSync Pro Launch，正文介绍今天的产品发布（launch）。",
     "notifications": [
       {
         "channel": "general",
@@ -369,8 +519,17 @@
       },
       {
         "email": "team@company.example.com",
-        "text": "CloudSync Pro Launch\nCloudSync Pro 今天正式发布！",
-        "contains": ["CloudSync Pro Launch"]
+        "subject": "CloudSync Pro Launch",
+        "body": "CloudSync Pro 今天正式发布（launch）。"
+      }
+    ],
+    "native_mail": true,
+    "mail": [
+      {
+        "to": ["team@company.example.com"],
+        "subject": "CloudSync Pro Launch",
+        "subject_contains": ["CloudSync Pro"],
+        "body_contains": ["launch"]
       }
     ]
   },
@@ -385,13 +544,16 @@
     }
   },
   "3177": {
-    "instruction": "阅读潜在客户咨询来信，在飞书 Leads 台账新增记录，将姓名、邮箱和咨询主题填入 Name、Email、Topic，Topic 保留原邮件标题。collection 为 Leads。",
+    "instruction": "info@company.example.com 邮箱收到潜在客户的咨询邮件。请阅读来信，在 Leads 台账新建记录，把发件人的姓名、邮箱和咨询主题填入 Name、Email、Topic；Topic 应准确表达咨询内容，可概括来信。",
     "create": {
       "collection": "Leads",
       "Name": "Sara Chen",
       "Email": "sara.chen@bluewave.example.com",
       "Topic": "Inquiry about API integration"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "info@company.example.com",
+    "mail": []
   },
   "3178": {
     "instruction": "在飞书 Deals 台账新增成交记录，Name=Acme Corp Deal，Status=Won，用来登记原商机 rec_001 的成交结果。collection 为 Deals。本题要求新增，不是修改已有记录。",
@@ -412,15 +574,17 @@
     }
   },
   "3180": {
-    "instruction": "阅读新项目来信，在飞书 Projects 台账登记项目名称 Name 和状态 Status，collection 为 Projects。",
+    "instruction": "收到包含新项目详情的邮件。请在 ops@company.example.com 邮箱阅读来信，并在飞书 Projects 台账创建记录，包含邮件中的项目名称 Name 和状态 Status。\n\n原来源的 base_pm / Projects 在本环境映射为飞书多维表格中的 Projects 表。",
     "create": {
       "collection": "Projects",
       "Name": "Data Migration Phase 1",
       "Status": "Planning"
-    }
+    },
+    "native_mail": true,
+    "native_mailbox": "ops@company.example.com"
   },
   "3181": {
-    "instruction": "在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。collection 为 Contacts，原记录保持不变。",
+    "instruction": "在飞书 Contacts 台账查询 Email=jordan@example.com 的联系人，然后在同一台账新增 VIP 记录：Name=Jordan Lee，Email=jordan@example.com，Status=VIP。",
     "create": {
       "collection": "Contacts",
       "Name": "Jordan Lee",
@@ -450,7 +614,7 @@
     }
   },
   "3183": {
-    "instruction": "阅读新客户入驻来信，在飞书 Customers 台账登记 Name 和 Company，collection 为 Customers；从来信找到客户本人邮箱，通过私聊表示欢迎。",
+    "instruction": "cs@company.example.com 邮箱收到新客户入驻通知。请阅读来信，在 Customers 台账登记客户姓名和公司（Name、Company），并向新客户发送欢迎邮件；邮件主题包含 welcome，正文提到客户公司并表达欢迎。",
     "create": {
       "collection": "Customers",
       "Name": "Lucas Grant",
@@ -459,8 +623,17 @@
     "notifications": [
       {
         "email": "lucas.grant@pinnacle.example.com",
-        "text": "欢迎 Pinnacle Dynamics 的 Lucas Grant！",
-        "contains": ["欢迎", "Pinnacle"]
+        "subject": "Welcome to our service",
+        "body": "欢迎 Pinnacle Dynamics 的 Lucas Grant！"
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "cs@company.example.com",
+    "mail": [
+      {
+        "to": ["lucas.grant@pinnacle.example.com"],
+        "subject_contains": ["welcome"],
+        "body_contains": ["Pinnacle"]
       }
     ]
   },
@@ -501,7 +674,7 @@
     }
   },
   "3186": {
-    "instruction": "使用当前账号 agent@company.example.com 创建 Onboarding Call with Helix Corp，时间 2026-03-02 09:00–09:45 UTC，同时确保视频会议与日历安排一致。在飞书中用一个带视频会议的日历日程承载这两部分，不创建两份重复日程。",
+    "instruction": "使用当前账号 agent@company.example.com 创建 Onboarding Call with Helix Corp，时间 2026-03-02 09:00–09:45 UTC，同时确保视频会议与日历安排一致。在飞书中用一个带视频会议的日历日程承载这两部分，不创建两份重复日程。\n\n模拟适配约定：本题将视频会议主持人映射为创建会议的当前用户。请以 agent@company.example.com 的用户身份创建；以应用（bot）身份创建不满足指定主持人的要求。",
     "calendar": {
       "summary": "Onboarding Call with Helix Corp",
       "start": "2026-03-02T09:00:00Z",
@@ -511,7 +684,7 @@
     }
   },
   "3187": {
-    "instruction": "阅读企业客户升级投诉来信，在飞书 tickets 台账创建 priority=high 的工单，subject 和 description 保留来信标题、正文；向 escalations 群发送警报并在正文标记 @Support Manager。此任务用文本标记表达经理提醒，不触发真实成员推送。",
+    "instruction": "阅读 escalations@company.example.com 邮箱中的企业客户升级投诉，在客服工单台账创建高优先级工单，并向 escalations 群发送警报，实际提及客服经理。工单主题和警报包含 data sync（忽略大小写），内容准确概括客户问题，不要求逐字抄写。\n\n环境补充：客服经理为通讯录中的 Support Manager（support-manager@company.example.com），已在 escalations 群内。使用该成员身份完成提及；仅写姓名或普通 @ 文本不满足要求，不要求验证手机推送或已读。",
     "create": {
       "collection": "tickets",
       "subject": "ESCALATION: Data sync failures in production",
@@ -521,13 +694,36 @@
     "notifications": [
       {
         "channel": "escalations",
-        "text": "@Support Manager 客户发生 data sync 故障，影响 500+ 用户，已建立高优先级工单。",
-        "contains": ["@Support Manager", "data sync"]
+        "contains": ["data sync"],
+        "text": "<at user_id=\"ou_mock_769d30f340f7ebd3585b828c\">Support Manager</at> 客户发生 data sync 故障，影响 500+ 用户，已建立高优先级工单。"
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "escalations@company.example.com",
+    "supplemental_records": [
+      {
+        "record_id": "rec_support_manager",
+        "fields": {
+          "collection": "lookup_users",
+          "id": "support_manager",
+          "name": "Support Manager",
+          "email": "support-manager@company.example.com",
+          "role": "support_manager"
+        }
+      }
+    ],
+    "seed_record_fields": {
+      "rec_zd_user_1": {
+        "id": "zd_user_1"
+      }
+    },
+    "mention_members": {
+      "oc_CESC01": ["support_manager"]
+    },
+    "post_channels": ["oc_CESC01"]
   },
   "3188": {
-    "instruction": "阅读新订阅者通知，在飞书 contacts 台账新增联系人，firstname、lastname、email 从通知提取；私聊订阅者表示欢迎订阅。",
+    "instruction": "收到新的订阅者通知邮件。请在 marketing@company.example.com 邮箱阅读通知，在飞书联系人台账为订阅者创建联系人，并向该订阅者发送欢迎邮件。",
     "create": {
       "collection": "contacts",
       "firstname": "Mia",
@@ -537,8 +733,18 @@
     "notifications": [
       {
         "email": "mia.torres@creative.example.com",
-        "text": "欢迎订阅，Mia Torres！",
-        "contains": ["欢迎", "订阅"]
+        "subject": "Welcome to our newsletter",
+        "body": "Welcome, Mia! Thank you for subscribing to our newsletter."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "marketing@company.example.com",
+    "mail": [
+      {
+        "to": ["mia.torres@creative.example.com"],
+        "subject_contains": ["welcome"],
+        "body_contains": ["subscri"],
+        "source_message_id": "msg_3188"
       }
     ]
   },
@@ -560,7 +766,7 @@
     ]
   },
   "3190": {
-    "instruction": "阅读满意度反馈来信，在飞书电子表格 ss_csat / sheet1 追加客户姓名 Customer 和分数 Score。评分为 4/10，低于 7，因此向 support 群提醒跟进。",
+    "instruction": "收到客户满意度调查邮件，评分为 4/10。请在 cs@company.example.com 邮箱阅读来信，在飞书电子表格 ss_csat 的 sheet1 工作表追加客户姓名 Customer 和评分 Score；由于评分低于 7，请向 support 群发送提醒。\n\nDate 和 Comment 不要求填写。如填写 Date，可记录来信日期或本次处理日期；填写 Comment 则须忠实于来信。",
     "sheet": {
       "append": {
         "Customer": "Ben Ortiz",
@@ -573,41 +779,87 @@
         "text": "Ben Ortiz 的满意度为 4/10，低于 7，请跟进。",
         "contains": ["Ben Ortiz", "4"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "cs@company.example.com",
+    "cells_source_mail_id": "msg_3190",
+    "message_source_mail_id": "msg_3190",
+    "post_channels": ["oc_CSUP01"]
   },
   "3191": {
-    "instruction": "阅读飞书电子表格 ss_digest / sheet1 的联系人名单，给名单中的每个人发送飞书私聊周报，首行为 Weekly Digest - Feb 23。正文简述本周亮点；本题未提供实际业务进展，可说明暂无可核实的亮点，不要虚构成果。",
-    "sheet": {},
+    "instruction": "请读取飞书电子表格 ss_digest 的 sheet1 工作表中的联系人名单，向每位联系人分别发送一封周报邮件，主题为 Weekly Digest - Feb 23，正文简述本周亮点。\n\n本场景未提供实际业务进展；可说明暂无可核实的亮点，不要虚构成果。",
+    "sheet": {
+      "read": true
+    },
     "notifications": [
       {
         "email": "alice.fernandez@company.example.com",
-        "text": "Weekly Digest - Feb 23\nAlice Fernandez，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Alice Fernandez, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "bob.nguyen@company.example.com",
-        "text": "Weekly Digest - Feb 23\nBob Nguyen，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Bob Nguyen, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "clara.singh@company.example.com",
-        "text": "Weekly Digest - Feb 23\nClara Singh，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Clara Singh, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "dan.mueller@company.example.com",
-        "text": "Weekly Digest - Feb 23\nDan Mueller，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Dan Mueller, this week's highlights: no verified business updates were provided for this digest."
       },
       {
         "email": "eva.kowalski@company.example.com",
-        "text": "Weekly Digest - Feb 23\nEva Kowalski，本周亮点：暂无可核实的业务进展。",
-        "contains": ["Weekly Digest - Feb 23", "亮点"]
+        "subject": "Weekly Digest - Feb 23",
+        "body": "Eva Kowalski, this week's highlights: no verified business updates were provided for this digest."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["alice.fernandez@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": ["highlights"],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["bob.nguyen@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": ["highlights"],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["clara.singh@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": [],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["dan.mueller@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": [],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
+      },
+      {
+        "to": ["eva.kowalski@company.example.com"],
+        "subject": "Weekly Digest - Feb 23",
+        "body_contains": [],
+        "source_sheet_id": "sheet1",
+        "source_sheet_recipient": true
       }
     ]
   },
   "3192": {
-    "instruction": "阅读账单来信，在飞书 Invoices 台账新增记录，Vendor 和 Amount 分别填写供应商名称和数字金额，collection 为 Invoices。然后向 finance 群通知该账单。",
+    "instruction": "收到一封账单邮件。请在 ap@company.example.com 邮箱阅读来信，在飞书 Invoices 台账创建记录，包含供应商 Vendor 和账单金额 Amount，并通知 finance 群。\n\n原来源的 base_finance / Invoices 映射为本环境的飞书 Invoices 表。来源数据只提供了邮件正文，没有提供实际附件。",
     "create": {
       "collection": "Invoices",
       "Vendor": "CloudHost",
@@ -616,10 +868,14 @@
     "notifications": [
       {
         "channel": "finance",
-        "text": "已登记 CloudHost 账单 CH-2026-0089，金额 $4,500。",
+        "text": "已登记 CloudHost invoice CH-2026-0089，金额 $4,500。",
         "contains": ["CloudHost", "4,500"]
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "ap@company.example.com",
+    "message_source_mail_id": "msg_3192",
+    "post_channels": ["oc_CFIN01"]
   },
   "3193": {
     "instruction": "合作伙伴 Zenith Analytics 的联系人为 Ravi Kapoor，邮箱 ravi.kapoor@zenithanalytics.example.com。在飞书 contacts 台账创建联系人，firstname、lastname、email、company 填入对应信息；再在 tasks 台账创建 name=Onboard Zenith Analytics、workspace=ws_partnerships 的入驻任务。",
@@ -639,7 +895,7 @@
     ]
   },
   "3194": {
-    "instruction": "阅读客户功能反馈来信，在飞书 issues 台账创建 PROD 项目的 Story，project=PROD，issue_type=Story；summary 保留原功能名称关键词，description 保留原来信正文。私聊回复客户致谢，首行为 Re: 加原邮件标题。",
+    "instruction": "收到客户的功能反馈邮件。请在 feedback@company.example.com 邮箱阅读来信，在飞书研发问题台账创建 PROD 项目的 Story，project 为 PROD、issue_type 为 Story，完整记录客户的功能反馈，可放在 summary 或 description 中，无需逐字复制邮件，并邮件回复客户感谢其建议。",
     "create": {
       "collection": "issues",
       "project": "PROD",
@@ -653,8 +909,19 @@
     "notifications": [
       {
         "email": "power.user@datadrive.example.com",
-        "text": "Re: Suggestion: Bulk export feature\n感谢您的功能反馈！",
-        "contains": ["Re:", "感谢"]
+        "reply_to": "msg_3194",
+        "body": "Thank you for your feature feedback. We have recorded your bulk export suggestion for review."
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "feedback@company.example.com",
+    "mail": [
+      {
+        "to": ["power.user@datadrive.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["thank"],
+        "source_message_id": "msg_3194",
+        "reply_to_source": true
       }
     ]
   },
@@ -674,7 +941,7 @@
     ]
   },
   "3196": {
-    "instruction": "阅读客户演示预约来信，安排带飞书视频会议的日历日程 Product Demo - Cascade Solutions，2026-02-28 15:00–15:30 UTC。私聊回复预约人确认演示安排，包含主题、时间、时长，首行为 Re: 加原邮件标题。",
+    "instruction": "阅读 demos@company.example.com 邮箱的客户演示预约来信，安排带飞书视频会议的日历日程 Product Demo - Cascade Solutions，2026-02-28 15:00–15:30 UTC，并邮件回复预约人告知会议主题、时间和时长。回复主题包含 Re:，正文包含 demo（均忽略大小写）。可不添加参会人，或仅邀请来信预约人；邀请不能代替邮件回复。",
     "calendar": {
       "summary": "Product Demo - Cascade Solutions",
       "start": "2026-02-28T15:00:00Z",
@@ -685,8 +952,18 @@
     "notifications": [
       {
         "email": "ops@cascadesol.example.com",
-        "text": "Re: Demo Request: Cascade Solutions\nProduct Demo - Cascade Solutions 演示安排：2026-02-28 15:00 UTC，30 分钟。",
-        "contains": ["Re:", "Product Demo", "2026-02-28", "15:00", "30"]
+        "reply_to": "msg_3196",
+        "body": "Product Demo - Cascade Solutions 演示安排：2026-02-28 15:00 UTC，30 分钟。"
+      }
+    ],
+    "primary_calendar": true,
+    "native_mail": true,
+    "native_mailbox": "demos@company.example.com",
+    "mail": [
+      {
+        "to": ["ops@cascadesol.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["demo"]
       }
     ]
   },
@@ -707,7 +984,7 @@
     ]
   },
   "3198": {
-    "instruction": "阅读客户定价咨询，私聊回复说明 Basic（$29/月）、Pro（$79/月）、Enterprise（定制价格）套餐，首行为 Re: 加原邮件标题。并在飞书 tickets 台账创建跟踪工单，subject 和 description 保留来信标题、正文。",
+    "instruction": "客户通过邮件咨询定价套餐。请在 sales@company.example.com 邮箱阅读来信，邮件回复说明 Basic（$29/月）、Pro（$79/月）和 Enterprise（定制价格），提供有帮助的回应，并在飞书客服工单台账创建跟踪该咨询的工单。",
     "create": {
       "collection": "tickets",
       "subject": "Question about pricing",
@@ -716,13 +993,27 @@
     "notifications": [
       {
         "email": "buyer@startupxyz.example.com",
-        "text": "Re: Question about pricing\nBasic：$29/月；Pro：$79/月；Enterprise：定制价格。",
-        "contains": ["Re:", "Basic", "29", "Pro", "79", "Enterprise", "定制"]
+        "reply_to": "msg_3198",
+        "body": "Our pricing is Basic at $29/month, Pro at $79/month, and Enterprise with custom pricing. To help your team of 30 choose, please share your required features and usage; no plan limits or feature differences were provided here."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "sales@company.example.com",
+    "mail": [
+      {
+        "to": ["buyer@startupxyz.example.com"],
+        "subject_contains": ["Re:"],
+        "body_contains": ["pricing"],
+        "source_message_id": "msg_3198",
+        "reply_to_source": true
+      }
+    ],
+    "create_contains": {
+      "subject": ["pricing"]
+    }
   },
   "3199": {
-    "instruction": "Horizon Media 已签约。将飞书 opportunities 台账中 Horizon Media Deal（opp_601）的 stage 改为 Closed Won，并私聊 kelly.brooks@horizonmedia.example.com 欢迎其成为客户。",
+    "instruction": "Horizon Media 已签署合同。请将飞书商机台账中的 Horizon Media Deal（业务 ID：opp_601）的 stage 更新为 Closed Won，并向主要联系人 kelly.brooks@horizonmedia.example.com 发送入门欢迎邮件，欢迎其成为客户。",
     "update": {
       "id": "opp_601",
       "fields": {
@@ -732,13 +1023,26 @@
     "notifications": [
       {
         "email": "kelly.brooks@horizonmedia.example.com",
-        "text": "欢迎 Horizon Media 成为我们的客户！",
-        "contains": ["欢迎", "Horizon Media"]
+        "subject": "Welcome, Horizon Media",
+        "body": "Welcome to our customer community, Kelly and Horizon Media! We look forward to helping you get started."
       }
-    ]
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "mail": [
+      {
+        "to": ["kelly.brooks@horizonmedia.example.com"],
+        "body_contains": ["welcome"]
+      }
+    ],
+    "seed_record_fields": {
+      "rec_opp_601": {
+        "opportunity_id": "opp_601"
+      }
+    }
   },
   "3200": {
-    "instruction": "阅读 QuantumLeap AI 合作提案，在飞书 deals 台账创建 dealname=QuantumLeap AI Partnership、amount=50000 的商机，并创建带视频会议的日历日程 Intro Call - QuantumLeap AI，2026-03-04 13:00–13:30 UTC。",
+    "instruction": "阅读 partnerships@company.example.com 邮箱中的 QuantumLeap AI 合作提案，在飞书 deals 台账创建 dealname=QuantumLeap AI Partnership、amount=50000 的商机，并创建带视频会议的日历日程 Intro Call - QuantumLeap AI，2026-03-04 13:00–13:30 UTC。可不添加参会人，或仅邀请提案联系人。",
     "create": {
       "collection": "deals",
       "dealname": "QuantumLeap AI Partnership",
@@ -750,6 +1054,565 @@
       "end": "2026-03-04T13:30:00Z",
       "attendees": [],
       "vc": true
+    },
+    "primary_calendar": true,
+    "native_mail": true,
+    "native_mailbox": "partnerships@company.example.com",
+    "mail": []
+  },
+  "3001": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Jordan Lee 发来邮件，告知电话号码有变。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中她的 phone 字段。",
+    "preserve_source_assertions": true
+  },
+  "3002": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Maria Santos 发来邮件，告知更换了电子邮件地址。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中她的 email 字段。",
+    "preserve_source_assertions": true
+  },
+  "3003": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Tyler Chen 发来晋升邮件。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中他的 title 字段。",
+    "preserve_source_assertions": true
+  },
+  "3004": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Lisa Park 发来办公室搬迁邮件。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中她的 mailing_city 字段。",
+    "preserve_source_assertions": true
+  },
+  "3005": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "David Kim 发来入职新公司的邮件。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中他的 account_name 字段。",
+    "preserve_source_assertions": true
+  },
+  "3006": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Sarah Johnson 的邮件签名中附有 LinkedIn 个人主页链接。请在 agent@company.example.com 邮箱找到并阅读来信，将链接补充到飞书线索台账中她的 description 字段。",
+    "preserve_source_assertions": true
+  },
+  "3007": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Marcus Rivera 发来新的直联手机号码。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中他的 mobile_phone 字段。",
+    "preserve_source_assertions": true
+  },
+  "3008": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Priya Patel 的助理发来新的传真号码。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中 Priya 的 fax 字段。",
+    "preserve_source_assertions": true
+  },
+  "3009": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Amir Hassan 发来调部门的邮件。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中他的 department 字段。",
+    "preserve_source_assertions": true
+  },
+  "3010": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Rachel Nguyen 发来邮件介绍新助理。请在 agent@company.example.com 邮箱找到并阅读来信，更新飞书客户台账中她的 assistant_name 和 assistant_email 字段。",
+    "preserve_source_assertions": true
+  },
+  "3023": {
+    "instruction": "Natalie Wong 发来关于项目时间安排的邮件。请在 agent@company.example.com 邮箱找到并阅读来信，在飞书跟进台账中为联系人 003002 创建一条 tasks 记录，subject 为 Email received from client，who_id 为 003002。",
+    "create": {
+      "collection": "tasks",
+      "subject": "Email received from client",
+      "who_id": "003002",
+      "description": "Hi, can we discuss the revised project timeline this week? I have a few concerns. Thanks, Natalie"
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3037": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "Ben Archer 发来一封表达强烈合作意愿的邮件。请在 agent@company.example.com 邮箱找到并阅读来信，再在飞书线索台账找到他的线索记录，将 rating 更新为 Hot。",
+    "preserve_source_assertions": true
+  },
+  "3040": {
+    "instruction": "Sophie Laurent 发来了一封介绍或咨询邮件。请在 agent@company.example.com 邮箱找到并阅读来信，根据邮件内容和发件人地址在飞书客户台账创建 contacts 记录，填写 first_name、last_name、email、phone、title 和 account_name。",
+    "create": {
+      "collection": "contacts",
+      "first_name": "Sophie",
+      "last_name": "Laurent",
+      "email": "sophie.laurent@verdeenergy.example.com",
+      "phone": "+1-555-4040",
+      "title": "VP of Operations",
+      "account_name": "Verde Energy"
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3042": {
+    "instruction": "Nathan Brooks 发来了一封介绍或咨询邮件。请在 agent@company.example.com 邮箱找到并阅读来信，根据邮件内容和发件人地址在飞书客户台账创建 contacts 记录，填写 firstname、lastname、email、phone、jobtitle 和 company。",
+    "create": {
+      "collection": "contacts",
+      "firstname": "Nathan",
+      "lastname": "Brooks",
+      "email": "nathan.brooks@pinegrove.example.com",
+      "phone": "+1-555-4242",
+      "jobtitle": "Head of IT",
+      "company": "PineGrove Analytics"
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3047": {
+    "instruction": "Liam Foster 发来了一封介绍或咨询邮件。请在 agent@company.example.com 邮箱找到并阅读来信，根据邮件内容和发件人地址在飞书客户台账创建 contacts 记录，填写 firstname、lastname、email、phone、jobtitle 和 company。",
+    "create": {
+      "collection": "contacts",
+      "firstname": "Liam",
+      "lastname": "Foster",
+      "email": "liam.foster@redrock.example.com",
+      "phone": "+1-555-4747",
+      "jobtitle": "Operations Manager",
+      "company": "RedRock Logistics"
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3061": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 Maya Rodriguez（maya.rodriguez@clientco.example.com）发送确认邮件，确认会议为 2 月 25 日（February 25）美东标准时间 EST 上午 10 点，主题为 Meeting Confirmed - Tuesday Feb 25th。",
+    "mail": [
+      {
+        "to": ["maya.rodriguez@clientco.example.com"],
+        "body_contains": ["February 25"],
+        "subject": "Meeting Confirmed - Tuesday Feb 25th"
+      }
+    ],
+    "now": "2025-02-24T09:00:00Z",
+    "notifications": [
+      {
+        "email": "maya.rodriguez@clientco.example.com",
+        "body": "Dear Maya, your meeting request is confirmed for February 25 at 10 AM EST.",
+        "subject": "Meeting Confirmed - Tuesday Feb 25th"
+      }
+    ]
+  },
+  "3062": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 Derek Hanson（derek.hanson@novacorp.example.com）发送今天产品演示后的跟进邮件，主题为 Great connecting today - BrightPath Demo Follow-up。感谢他的时间，回顾工作流自动化（workflow automation）和报表仪表盘演示，并告知本周结束前发送方案（proposal）。",
+    "mail": [
+      {
+        "to": ["derek.hanson@novacorp.example.com"],
+        "body_contains": ["workflow automation", "proposal"],
+        "subject": "Great connecting today - BrightPath Demo Follow-up"
+      }
+    ],
+    "notifications": [
+      {
+        "email": "derek.hanson@novacorp.example.com",
+        "body": "Hi Derek, thank you for your time on our demo call today. We demonstrated workflow automation and reporting dashboards. We will send you a proposal by the end of this week.",
+        "subject": "Great connecting today - BrightPath Demo Follow-up"
+      }
+    ]
+  },
+  "3063": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 team@brightpath.example.com 发送周报邮件，主题为 Weekly Status Update - Feb 24。内容包括：已完成与 Salesforce 的 API 集成；客户入职仪表盘（onboarding dashboard）已完成 80%；下周重点进行 QA 测试和缺陷修复。",
+    "mail": [
+      {
+        "to": ["team@brightpath.example.com"],
+        "body_contains": ["Salesforce", "onboarding dashboard"],
+        "subject": "Weekly Status Update - Feb 24"
+      }
+    ],
+    "notifications": [
+      {
+        "email": "team@brightpath.example.com",
+        "body": "Completed the API integration with Salesforce. The customer onboarding dashboard is 80% done. Next week we will focus on QA testing and bug fixes.",
+        "subject": "Weekly Status Update - Feb 24"
+      }
+    ]
+  },
+  "3064": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "Tomoko Ishida 发来关于 API 限流的咨询。请在 support@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件：标准套餐每分钟允许 1,000 次 API 调用，企业套餐每分钟 10,000 次，并附文档链接 docs.brightpath.example.com/rate-limits。",
+    "mail": [
+      {
+        "to": ["tomoko.ishida@sakuratech.example.com"],
+        "body_contains": ["1,000", "10,000"],
+        "source_message_id": "msg_4001",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "tomoko.ishida@sakuratech.example.com",
+        "body": "Hi Tomoko, the standard plan allows 1,000 API calls per minute and the enterprise plan allows 10,000 API calls per minute. Documentation: https://docs.brightpath.example.com/rate-limits",
+        "reply_to": "msg_4001"
+      }
+    ]
+  },
+  "3065": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "sales@brightpath.example.com",
+    "instruction": "Luis Moreno 发来价格咨询。请在 sales@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件：Starter 为每用户每月 $49，Professional 为每用户每月 $99，Enterprise 为定制报价。企业客户可通过 brightpath.example.com/pricing-call 预约沟通。",
+    "mail": [
+      {
+        "to": ["luis.moreno@andesconsulting.example.com"],
+        "body_contains": ["$49", "$99"],
+        "source_message_id": "msg_4002",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "luis.moreno@andesconsulting.example.com",
+        "body": "Hi Luis, Starter is $49/month per user, Professional is $99/month per user, and Enterprise has custom pricing. For Enterprise inquiries, book a call at https://brightpath.example.com/pricing-call .",
+        "reply_to": "msg_4002"
+      }
+    ]
+  },
+  "3068": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "James Whitfield 投诉仪表盘加载缓慢。请在 support@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件，表示歉意并承认问题，说明工程团队已找到原因、将在 48 小时（48 hours）内发布修复，同时提供下次续约 15% 的优惠。",
+    "mail": [
+      {
+        "to": ["james.whitfield@retailhub.example.com"],
+        "body_contains": ["48 hours", "15%"],
+        "source_message_id": "msg_4004",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "james.whitfield@retailhub.example.com",
+        "body": "Hi James, I apologize for the slow dashboard load times affecting your operations. Our engineering team has identified the cause and will deploy a fix within 48 hours. As a goodwill gesture, we offer a 15% discount on your next renewal.",
+        "reply_to": "msg_4004"
+      }
+    ]
+  },
+  "3069": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向新客户 Fatima Al-Hassan（fatima.alhassan@crescentlogistics.example.com）发送欢迎邮件，主题为 Welcome to BrightPath! Let's Get Started。说明账户已激活，可登录 app.brightpath.example.com；入职培训定于 3 月 3 日（March 3）美东标准时间 EST 上午 11 点，专属客户成功经理为 Olivia Park。",
+    "mail": [
+      {
+        "to": ["fatima.alhassan@crescentlogistics.example.com"],
+        "body_contains": ["March 3", "Olivia Park"],
+        "subject": "Welcome to BrightPath! Let's Get Started"
+      }
+    ],
+    "notifications": [
+      {
+        "email": "fatima.alhassan@crescentlogistics.example.com",
+        "body": "Welcome Fatima! Your account is active and you can log in at https://app.brightpath.example.com . Your onboarding session is scheduled for March 3 at 11 AM EST. Your dedicated success manager is Olivia Park.",
+        "subject": "Welcome to BrightPath! Let's Get Started"
+      }
+    ]
+  },
+  "3070": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 Ben Torres（ben.torres@summitretail.example.com）发送续约提醒邮件，主题为 Your BrightPath Contract Renewal - Action Required。告知年度合同于 2026 年 3 月 31 日（March 31）到期，3 月 15 日前签署可享 10% 提前续约优惠，并附链接 renewals.brightpath.example.com。",
+    "mail": [
+      {
+        "to": ["ben.torres@summitretail.example.com"],
+        "body_contains": ["March 31", "10%"],
+        "subject": "Your BrightPath Contract Renewal - Action Required"
+      }
+    ],
+    "notifications": [
+      {
+        "email": "ben.torres@summitretail.example.com",
+        "body": "Hi Ben, your annual BrightPath contract expires on March 31, 2026. Sign by March 15 to receive a 10% early renewal discount. Renew at https://renewals.brightpath.example.com .",
+        "subject": "Your BrightPath Contract Renewal - Action Required"
+      }
+    ]
+  },
+  "3067": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请向 Rachel Kim（rachel.kim@globexfin.example.com）发送邮件，主题为 Invoice #INV-2026-0342 - February Services。告知 2 月咨询服务账单 INV-2026-0342 金额为 $12,500，付款期限 Net 30，并附上工作目录中的 invoice_INV-2026-0342.pdf，在邮件中注明该附件。",
+    "mail": [
+      {
+        "to": ["rachel.kim@globexfin.example.com"],
+        "subject": "Invoice #INV-2026-0342 - February Services",
+        "body_contains": ["INV-2026-0342", "$12,500"],
+        "attachments": [
+          {
+            "filename": "invoice_INV-2026-0342.pdf",
+            "sha256": "f2b6754cdcb07bf2069a1b42901e850445506e521ae282c86611f3ccece0034f",
+            "content_types": ["application/pdf", "application/octet-stream"]
+          }
+        ]
+      }
+    ],
+    "notifications": [
+      {
+        "email": "rachel.kim@globexfin.example.com",
+        "body": "Hi Rachel, attached is invoice INV-2026-0342 for $12,500 for February consulting services. Payment terms are Net 30. Please see invoice_INV-2026-0342.pdf.",
+        "subject": "Invoice #INV-2026-0342 - February Services",
+        "attachments": ["invoice_INV-2026-0342.pdf"]
+      }
+    ],
+    "native_mail_attachments": true,
+    "agent_files": {
+      "invoice_INV-2026-0342.pdf": "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA2MTIgNzkyXSAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9GMSA0IDAgUiA+PiA+PiAvQ29udGVudHMgNSAwIFIgPj4KZW5kb2JqCjQgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggMjI4ID4+CnN0cmVhbQpCVCAvRjEgMTQgVGYgNTAgNzUwIFRkIChJTlZPSUNFIElOVi0yMDI2LTAzNDIpIFRqIDAgLTI0IFRkIChGZWJydWFyeSBjb25zdWx0aW5nIHNlcnZpY2VzKSBUaiAwIC0yNCBUZCAoQW1vdW50OiBVU0QgMTIsNTAwKSBUaiAwIC0yNCBUZCAoUGF5bWVudCB0ZXJtczogTmV0IDMwKSBUaiAwIC0yNCBUZCAoTW9jayBldmFsdWF0aW9uIGludm9pY2UgLSBubyBwYXltZW50IGluc3RydWN0aW9ucykgVGogRVQKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMDkgMDAwMDAgbiAKMDAwMDAwMDA1OCAwMDAwMCBuIAowMDAwMDAwMTE1IDAwMDAwIG4gCjAwMDAwMDAyNDEgMDAwMDAgbiAKMDAwMDAwMDMxMSAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDYgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjU5MAolJUVPRgo="
     }
+  },
+  "3066": {
+    "native_mail": true,
+    "native_mail_only": true,
+    "native_mailbox": "me@brightpath.example.com",
+    "instruction": "Anika Patel 发来会议邀请。请在 me@brightpath.example.com 邮箱找到并阅读来信，然后回复邮件，确认可以参加 2025 年 2 月 27 日（February 27，星期四）美东标准时间 EST 下午 3 点的会议，并会提前准备季度回顾（quarterly review）幻灯片。",
+    "mail": [
+      {
+        "to": ["anika.patel@brightpath.example.com"],
+        "body_contains": ["February 27", "quarterly review"],
+        "source_message_id": "msg_4003",
+        "reply_to_source": true
+      }
+    ],
+    "notifications": [
+      {
+        "email": "anika.patel@brightpath.example.com",
+        "body": "Hi Anika, I can attend the meeting on Thursday, February 27 at 3 PM EST. I will prepare the quarterly review slides beforehand.",
+        "reply_to": "msg_4003"
+      }
+    ],
+    "now": "2025-02-24T09:00:00Z",
+    "native_mail_dates": {
+      "msg_4003": "2025-02-22T11:00:00Z"
+    }
+  },
+  "3073": {
+    "native_mail": true,
+    "native_mailbox": "all-managers@brightpath.example.com",
+    "instruction": "CEO Nathan Drake 发来公司公告邮件。请在 all-managers@brightpath.example.com 邮箱找到并阅读来信，然后在飞书 all-hands 群发布公告摘要。",
+    "message_source_mail_id": "msg_5001",
+    "post_channels": ["oc_CALLHANDS", "oc_CGENERAL"]
+  },
+  "3077": {
+    "native_mail": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "Veronica Steele 发来紧急客户升级邮件。请在 support@brightpath.example.com 邮箱找到并阅读来信，然后在飞书 support 群发布告警并概述问题。来信中的相对时间以邮件发送时间为准。",
+    "message_source_mail_id": "msg_5002",
+    "post_channels": ["oc_CSUPPORT", "oc_CGENERAL"]
+  },
+  "3082": {
+    "native_mail": true,
+    "native_mailbox": "marketing@brightpath.example.com",
+    "instruction": "Dana Okafor 发来邮件要求订阅简报。请在 marketing@brightpath.example.com 邮箱找到并阅读来信，使用她的发件地址，在飞书多维表格订阅台账中创建 subscribers 记录，加入 Newsletter 列表 list_001，填写 email 和 list_id。",
+    "creates": [
+      {
+        "collection": "subscribers",
+        "email": "dana.okafor@crestfieldmedia.example.com",
+        "list_id": "list_001"
+      }
+    ]
+  },
+  "3087": {
+    "native_mail": true,
+    "native_mailbox": "info@brightpath.example.com",
+    "instruction": "Kwame Asante 发来客户咨询邮件。请在 info@brightpath.example.com 邮箱找到并阅读来信，在飞书电子表格 Contact Log（ss_contacts / ws_log）新增一行，记录来信的发件人姓名 Name、发件地址 Email、主题 Subject 和发送日期 Date。",
+    "cells_source_mail_id": "msg_7001",
+    "date_columns": [3]
+  },
+  "3095": {
+    "native_mail": true,
+    "native_mailbox": "support@brightpath.example.com",
+    "instruction": "Ingrid Svensson 发来支持请求邮件。请在 support@brightpath.example.com 邮箱找到并阅读来信，在飞书电子表格 Support Log（ss_support / ws_tickets）新增一行，记录来信的发件人姓名 Name、发件地址 Email、主题 Subject 和发送日期 Date，并将 Priority 设为 Medium。",
+    "cells_source_mail_id": "msg_8001",
+    "date_columns": [3]
+  },
+  "3091": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请读取飞书电子表格 Outreach Tracker（ss_outreach / ws_pending），找到第一位 Status 为 Pending 的联系人。使用表中的 Name 和 Email 向其发送介绍 BrightPath 自动化平台的邮件，主题为 Introducing BrightPath - Workflow Automation。",
+    "native_mail_only": true,
+    "mail": [
+      {
+        "to": ["nina.patel@clearviewsoftware.example.com"],
+        "subject": "Introducing BrightPath - Workflow Automation",
+        "source_sheet_id": "ws_pending",
+        "body_contains": ["BrightPath"]
+      }
+    ],
+    "notifications": [
+      {
+        "email": "nina.patel@clearviewsoftware.example.com",
+        "subject": "Introducing BrightPath - Workflow Automation",
+        "body": "Nina，你好！BrightPath 自动化平台帮助团队连接工作流程，减少重复操作。期待与你交流。"
+      }
+    ]
+  },
+  "3098": {
+    "native_mail": true,
+    "native_mailbox": "pm@brightpath.example.com",
+    "instruction": "Mike Chen 发来项目进展邮件。请在 pm@brightpath.example.com 邮箱找到并阅读来信，根据内容更新飞书电子表格 Project Status（ss_project_status / ws_projects）中对应项目的 Status 及其他有依据的相关字段。",
+    "cells_source_mail_id": "msg_8002"
+  },
+  "3102": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读客户近期提出新功能需求的邮件。随后在飞书多维表格项目台账的工作事项表创建任务，name 为 Add dark mode feature，workspace 为 ws_prod，project 为 Product Backlog（proj_backlog）。",
+    "creates": [
+      {
+        "collection": "tasks",
+        "workspace": "ws_prod",
+        "name": "Add dark mode feature",
+        "project": "proj_backlog"
+      }
+    ],
+    "workspace_discovery": true
+  },
+  "3108": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读近期的缺陷报告邮件。随后在飞书多维表格项目台账的工作事项表创建任务，name 为 Fix checkout bug，workspace 为 ws_prod，project 为 Engineering（proj_eng）。",
+    "create": {
+      "collection": "tasks",
+      "workspace": "ws_prod",
+      "name": "Fix checkout bug",
+      "project": "proj_eng"
+    },
+    "seed_records": [],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "workspace_discovery": true
+  },
+  "3112": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读用户报告登录问题的邮件。随后在飞书多维表格研发工单台账的研发问题表创建一条问题，project 为 PROD，issuetype 为 Bug，summary 为 Login fails with special characters in password。",
+    "create": {
+      "collection": "issues",
+      "project": "PROD",
+      "issuetype": "Bug",
+      "summary": "Login fails with special characters in password"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_jira_proj_1",
+        "fields": {
+          "collection": "lookup_project",
+          "project": "PROD",
+          "project_id": "proj_prod",
+          "searchByParameter": "PROD"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3118": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读客户报告数据同步问题的邮件。在飞书多维表格研发工单台账中创建问题，project 为 PROD，issuetype 为 Bug，summary 为 Data sync fails for accounts with more than 1000 records。",
+    "create": {
+      "collection": "issues",
+      "project": "PROD",
+      "issuetype": "Bug",
+      "summary": "Data sync fails for accounts with more than 1000 records"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_jira_proj_1",
+        "fields": {
+          "collection": "lookup_project",
+          "project": "PROD",
+          "project_id": "proj_prod",
+          "searchByParameter": "PROD"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com"
+  },
+  "3122": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读营销副总裁关于新代理机构的邮件。在飞书多维表格 Marketing 看板 brd_mktg 的 To Do 列表中创建卡片，name 为 Onboard new agency partner。先读取看板列表映射，找到目标列表，list 字段使用查到的列表 ID。",
+    "create": {
+      "collection": "cards",
+      "board": "brd_mktg",
+      "name": "Onboard new agency partner",
+      "list": "lst_todo"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_tr_rec_1",
+        "fields": {
+          "collection": "lookup_board_list",
+          "board": "brd_mktg",
+          "name": "To Do",
+          "list": "lst_todo"
+        }
+      },
+      {
+        "record_id": "rec_tr_rec_2",
+        "fields": {
+          "collection": "lookup_board_list",
+          "board": "brd_mktg",
+          "name": "In Progress",
+          "list": "lst_inprog"
+        }
+      }
+    ],
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "resource_discovery": true
+  },
+  "3128": {
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读经理发来的反馈邮件，在飞书多维表格 Marketing 看板 brd_mktg 的 To Do 列表中创建卡片。name 为 Action items from manager feedback，description 概述邮件中的行动事项。先查找目标列表，list 字段使用查到的列表 ID。",
+    "create": {
+      "collection": "cards",
+      "board": "brd_mktg",
+      "name": "Action items from manager feedback",
+      "list": "lst_todo",
+      "description": "更新3月社交媒体日历；修订邮件简报模板；安排与设计团队的评审会议。"
+    },
+    "seed_records": [
+      {
+        "record_id": "rec_tr_rec_1",
+        "fields": {
+          "collection": "lookup_board_list",
+          "board": "brd_mktg",
+          "name": "To Do",
+          "list": "lst_todo"
+        }
+      }
+    ],
+    "create_contains": {
+      "description": ["3月", "模板", "设计"]
+    },
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "resource_discovery": true
+  },
+  "3133": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "primary_calendar": true,
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读产品评审会议请求邮件。根据邮件中的安排，在飞书工作日历 cal_primary 创建名为 Product Review Meeting 的日程。"
+  },
+  "3139": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "primary_calendar": true,
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读安排合作电话的邮件，根据来信请求的时间和内容在飞书工作日历创建日程。"
+  },
+  "3144": {
+    "native_mail": true,
+    "native_mailbox": "agent@company.example.com",
+    "primary_calendar": true,
+    "instruction": "请检查 agent@company.example.com 收件箱，找到并阅读客户请求安排电话的邮件，根据其中的时间、时长和主题创建飞书视频会议。使用工作日历 cal_primary，主持账号为 agent@company.example.com。\n\n模拟适配约定：本题将视频会议主持人映射为创建会议的当前用户。请以 agent@company.example.com 的用户身份创建；以应用（bot）身份创建不满足指定主持人的要求。"
   }
 }

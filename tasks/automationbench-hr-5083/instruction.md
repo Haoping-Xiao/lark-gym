@@ -1,10 +1,5 @@
-今天2026-04-07，按最新高管指引处理Q3 headcount请求。先判断是否允许提交、公告、修改状态；完成后只向hr-director@company.example.com私聊准确状态及受影响人数，若暂停则说明生效日、范围及未执行事项。不得把之前Approved当成当前授权。
+根据劳动力规划数据提交 Q3 人员编制申请，提交各部门已批准职位，向招聘委员会发送摘要并在 hiring-updates 群发布批准职位。执行前遵循近期高管指示，完成后向 hr-director@company.example.com 发送状态更新。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_workforce：Q3 2026 Headcount Plan；工作表 ws_headcount（Approved Positions）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-04-07T09:00:00Z。
+本次业务处理以 2026-04-07T09:00:00Z 为时间基准。

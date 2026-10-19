@@ -741,342 +741,118 @@
         "name": "private",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_77c87bf8e743",
+        "name": "freshdesk_contacts",
+        "collection": "freshdesk_contacts",
+        "read_only": false,
+        "fields": [
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "table_id": "tbl_27c7d448fabc",
+        "name": "freshdesk_notes",
+        "collection": "freshdesk_notes",
+        "read_only": false,
+        "fields": [
+          {
+            "name": "body",
+            "type": "text"
+          },
+          {
+            "name": "private",
+            "type": "text"
+          },
+          {
+            "name": "ticket_id",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "table_id": "tbl_1984cace9e49",
+        "name": "freshdesk_tickets",
+        "collection": "freshdesk_tickets",
+        "read_only": false,
+        "fields": [
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "notes",
+            "type": "text"
+          },
+          {
+            "name": "priority",
+            "type": "number"
+          },
+          {
+            "name": "requester_id",
+            "type": "text"
+          },
+          {
+            "name": "status",
+            "type": "number"
+          },
+          {
+            "name": "subject",
+            "type": "text"
+          },
+          {
+            "name": "tags",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "table_id": "tbl_281832285f98",
+        "name": "成员资料",
+        "collection": "lookup_users",
+        "read_only": true,
+        "fields": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "is_bot",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "username",
+            "type": "text"
+          }
+        ]
+      }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "adesai@redwood.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "afoster@riverview.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "aisha@datanova.ai",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "alex.vance@ironclad.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "all-hands@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "all@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "bcalloway@indigotech.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "billing@cloudtools.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "calendar-noreply@meet.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "ceo@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "cto@alphastream.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_11",
-      "name": "derek@urbantech.co",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_12",
-      "name": "dhamilton@northgate.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_13",
-      "name": "dhsu@nimbuslabs.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_14",
-      "name": "digest@b2bsales.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_15",
-      "name": "digest@techinsider.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_16",
-      "name": "dpark@cascade.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_17",
-      "name": "elena.m.rodriguez@smallco.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_18",
-      "name": "elena.rodriguez@megacorp.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_19",
-      "name": "events@salesconf.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_20",
-      "name": "finance@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_21",
-      "name": "ghost@example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_22",
-      "name": "gmoreau@templar.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_23",
-      "name": "hr@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_24",
-      "name": "ilarsson@nordicsoft.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_25",
-      "name": "info@titaniumsys.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_26",
-      "name": "it@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_27",
-      "name": "jhutchins@vantagepoint.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_28",
-      "name": "jtorres@bluestar.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_29",
-      "name": "kwalsh@starling.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_30",
-      "name": "leo@codecraft.dev",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_31",
-      "name": "logan@skybridge.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_32",
-      "name": "lromero@ridgeline.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_33",
-      "name": "lsimmons@pacific.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_34",
-      "name": "maya@stellarops.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_35",
-      "name": "mreed@summit.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_36",
-      "name": "msullivan@thornwood.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_37",
-      "name": "news@salesbriefing.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_38",
-      "name": "newsletter@revenueops.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_39",
-      "name": "nhoffman@montclair.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_40",
-      "name": "nina@cloudpeak.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_41",
-      "name": "noreply@crm.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_42",
-      "name": "noreply@docusign.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_43",
-      "name": "noreply@linkedin.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_44",
-      "name": "noreply@zoom.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_45",
-      "name": "ops@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_46",
-      "name": "owen@nexusdata.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_47",
-      "name": "payroll@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_48",
-      "name": "promo@salestools.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_49",
-      "name": "rachel@brightwave.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_50",
-      "name": "rcrane@rapidscale.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_51",
-      "name": "reports@marketdata.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_52",
-      "name": "sales@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_53",
-      "name": "sam@greenfield.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_54",
-      "name": "scheduling@calendly.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_55",
-      "name": "support@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_56",
-      "name": "support@saasplatform.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_57",
-      "name": "tbrooks@eastgate.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_58",
-      "name": "tom@peakventures.io",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_59",
-      "name": "tstein@zenithpro.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_60",
-      "name": "updates@crmnews.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_61",
-      "name": "vendor@softwaresupplier.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_62",
-      "name": "vp.success@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_63",
-      "name": "webinar@gotowebinar.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_64",
-      "name": "yuki@horizonlabs.com",
       "chat_mode": "p2p"
     },
     {
@@ -1085,420 +861,1170 @@
       "chat_mode": "group"
     }
   ],
-  "messages": [
-    {
-      "message_id": "om_gm_csat_prev1",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"gm_csat_prev1\\\", \\\"from\\\": \\\"support@company.example.com\\\", \\\"to\\\": [\\\"logan@skybridge.io\\\"], \\\"subject\\\": \\\"CSAT Follow-up: Your recent support experience\\\", \\\"body\\\": \\\"Thank you for your feedback on your recent support experience. We apologize for the difficulties you encountered.\\\", \\\"date\\\": \\\"2026-02-04T10:00:00Z\\\", \\\"labels\\\": [\\\"SENT\\\"], \\\"from_\\\": \\\"support@company.example.com\\\"}\\n消息 ID：gm_csat_prev1\\n来源：support@company.example.com\\n收件人：logan@skybridge.io\\n日期：2026-02-04T10:00:00Z\\n主题：CSAT Follow-up: Your recent support experience\\nThank you for your feedback on your recent support experience. We apologize for the difficulties you encountered.\"}"
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1770199200000"
-    },
-    {
-      "message_id": "om_msg_noise_005",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_005\\\", \\\"thread_id\\\": \\\"th_noise_005\\\", \\\"from_\\\": \\\"digest@b2bsales.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"B2B Sales Digest: Best Practices for Q2 Planning\\\", \\\"date\\\": \\\"2026-01-17T09:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_005\\n来源：digest@b2bsales.example.com\\n收件人：me\\n日期：2026-01-17T09:15:00Z\\n主题：B2B Sales Digest: Best Practices for Q2 Planning\\n5 strategies for accelerating Q2 pipeline: 1. Revisit stalled deals. 2. Identify expansion accounts...\"}"
+      {
+        "email_address": "vp.success@company.example.com",
+        "email_type": "PUBLIC_MAILBOX"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "gm_csat_prev1",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "thread_gm_csat_prev1",
+        "smtp_message_id": "gm_csat_prev1@fixture.invalid",
+        "subject": "CSAT Follow-up: Your recent support experience",
+        "head_from": {
+          "mail_address": "support@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "logan@skybridge.io"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhhbmsgeW91IGZvciB5b3VyIGZlZWRiYWNrIG9uIHlvdXIgcmVjZW50IHN1cHBvcnQgZXhwZXJpZW5jZS4gV2UgYXBvbG9naXplIGZvciB0aGUgZGlmZmljdWx0aWVzIHlvdSBlbmNvdW50ZXJlZC4",
+        "body_preview": "VGhhbmsgeW91IGZvciB5b3VyIGZlZWRiYWNrIG9uIHlvdXIgcmVjZW50IHN1cHBvcnQgZXhwZXJpZW5jZS4gV2UgYXBvbG9naXplIGZvciB0aGUgZGlmZmljdWx0aWVzIHlvdSBlbmNvdW50ZXJlZC4",
+        "body_html": "",
+        "internal_date": "1770199200000",
+        "message_state": 2,
+        "label_ids": ["SENT"],
+        "folder_id": "SENT",
+        "attachments": []
       },
-      "create_time": "1768641300000"
-    },
-    {
-      "message_id": "om_msg_noise_038",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_038\\\", \\\"thread_id\\\": \\\"th_noise_038\\\", \\\"from_\\\": \\\"mreed@summit.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Reference call: happy to help\\\", \\\"date\\\": \\\"2026-01-15T03:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_038\\n来源：mreed@summit.example.com\\n收件人：me\\n日期：2026-01-15T03:30:00Z\\n主题：Reference call: happy to help\\nOf course, happy to be a reference for your prospective customer. Schedule a call with me anytime next week.\"}"
+      {
+        "message_id": "msg_noise_005",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_005",
+        "smtp_message_id": "msg_noise_005@fixture.invalid",
+        "subject": "B2B Sales Digest: Best Practices for Q2 Planning",
+        "head_from": {
+          "mail_address": "digest@b2bsales.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "NSBzdHJhdGVnaWVzIGZvciBhY2NlbGVyYXRpbmcgUTIgcGlwZWxpbmU6IDEuIFJldmlzaXQgc3RhbGxlZCBkZWFscy4gMi4gSWRlbnRpZnkgZXhwYW5zaW9uIGFjY291bnRzLi4u",
+        "body_preview": "NSBzdHJhdGVnaWVzIGZvciBhY2NlbGVyYXRpbmcgUTIgcGlwZWxpbmU6IDEuIFJldmlzaXQgc3RhbGxlZCBkZWFscy4gMi4gSWRlbnRpZnkgZXhwYW5zaW9uIGFjY291bnRzLi4u",
+        "body_html": "",
+        "internal_date": "1768641300000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768447800000"
-    },
-    {
-      "message_id": "om_msg_noise_001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_001\\\", \\\"thread_id\\\": \\\"th_noise_001\\\", \\\"from_\\\": \\\"digest@techinsider.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Tech Insider Weekly — March 3 Issue\\\", \\\"date\\\": \\\"2026-01-14T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_001\\n来源：digest@techinsider.example.com\\n收件人：me\\n日期：2026-01-14T10:00:00Z\\n主题：Tech Insider Weekly — March 3 Issue\\nYour weekly roundup of enterprise tech news. Top story: AI adoption in B2B sales reaches 67%.\"}"
+      {
+        "message_id": "msg_noise_038",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_038",
+        "smtp_message_id": "msg_noise_038@fixture.invalid",
+        "subject": "Reference call: happy to help",
+        "head_from": {
+          "mail_address": "mreed@summit.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "T2YgY291cnNlLCBoYXBweSB0byBiZSBhIHJlZmVyZW5jZSBmb3IgeW91ciBwcm9zcGVjdGl2ZSBjdXN0b21lci4gU2NoZWR1bGUgYSBjYWxsIHdpdGggbWUgYW55dGltZSBuZXh0IHdlZWsu",
+        "body_preview": "T2YgY291cnNlLCBoYXBweSB0byBiZSBhIHJlZmVyZW5jZSBmb3IgeW91ciBwcm9zcGVjdGl2ZSBjdXN0b21lci4gU2NoZWR1bGUgYSBjYWxsIHdpdGggbWUgYW55dGltZSBuZXh0IHdlZWsu",
+        "body_html": "",
+        "internal_date": "1768447800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768384800000"
-    },
-    {
-      "message_id": "om_msg_noise_036",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_036\\\", \\\"thread_id\\\": \\\"th_noise_036\\\", \\\"from_\\\": \\\"tbrooks@eastgate.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Q1 Review Meeting agenda\\\", \\\"date\\\": \\\"2026-01-15T00:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_036\\n来源：tbrooks@eastgate.example.com\\n收件人：me\\n日期：2026-01-15T00:00:00Z\\n主题：Re: Q1 Review Meeting agenda\\nConfirmed. I'll join at 10 AM. Can we add a 10-minute segment on the competitive landscape?\"}"
+      {
+        "message_id": "msg_noise_001",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_001",
+        "smtp_message_id": "msg_noise_001@fixture.invalid",
+        "subject": "Tech Insider Weekly — March 3 Issue",
+        "head_from": {
+          "mail_address": "digest@techinsider.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciB3ZWVrbHkgcm91bmR1cCBvZiBlbnRlcnByaXNlIHRlY2ggbmV3cy4gVG9wIHN0b3J5OiBBSSBhZG9wdGlvbiBpbiBCMkIgc2FsZXMgcmVhY2hlcyA2NyUu",
+        "body_preview": "WW91ciB3ZWVrbHkgcm91bmR1cCBvZiBlbnRlcnByaXNlIHRlY2ggbmV3cy4gVG9wIHN0b3J5OiBBSSBhZG9wdGlvbiBpbiBCMkIgc2FsZXMgcmVhY2hlcyA2NyUu",
+        "body_html": "",
+        "internal_date": "1768384800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768435200000"
-    },
-    {
-      "message_id": "om_msg_noise_017",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_017\\\", \\\"thread_id\\\": \\\"th_noise_017\\\", \\\"from_\\\": \\\"billing@cloudtools.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Invoice #INV-20260228 — $2,400.00\\\", \\\"date\\\": \\\"2026-01-16T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_017\\n来源：billing@cloudtools.example.com\\n收件人：me\\n日期：2026-01-16T09:00:00Z\\n主题：Invoice #INV-20260228 — $2,400.00\\nInvoice for CloudTools Pro subscription — February 2026. Amount: $2,400.00. Due date: March 15.\"}"
+      {
+        "message_id": "msg_noise_036",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_036",
+        "smtp_message_id": "msg_noise_036@fixture.invalid",
+        "subject": "Re: Q1 Review Meeting agenda",
+        "head_from": {
+          "mail_address": "tbrooks@eastgate.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Q29uZmlybWVkLiBJJ2xsIGpvaW4gYXQgMTAgQU0uIENhbiB3ZSBhZGQgYSAxMC1taW51dGUgc2VnbWVudCBvbiB0aGUgY29tcGV0aXRpdmUgbGFuZHNjYXBlPw",
+        "body_preview": "Q29uZmlybWVkLiBJJ2xsIGpvaW4gYXQgMTAgQU0uIENhbiB3ZSBhZGQgYSAxMC1taW51dGUgc2VnbWVudCBvbiB0aGUgY29tcGV0aXRpdmUgbGFuZHNjYXBlPw",
+        "body_html": "",
+        "internal_date": "1768435200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768554000000"
-    },
-    {
-      "message_id": "om_msg_noise_039",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_039\\\", \\\"thread_id\\\": \\\"th_noise_039\\\", \\\"from_\\\": \\\"afoster@riverview.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Legal has questions about data residency\\\", \\\"date\\\": \\\"2026-01-16T02:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_039\\n来源：afoster@riverview.example.com\\n收件人：me\\n日期：2026-01-16T02:00:00Z\\n主题：Legal has questions about data residency\\nOur legal team has a few questions about data residency and GDPR compliance before we sign. Can we schedule a technical call?\"}"
+      {
+        "message_id": "msg_noise_017",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_017",
+        "smtp_message_id": "msg_noise_017@fixture.invalid",
+        "subject": "Invoice #INV-20260228 — $2,400.00",
+        "head_from": {
+          "mail_address": "billing@cloudtools.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SW52b2ljZSBmb3IgQ2xvdWRUb29scyBQcm8gc3Vic2NyaXB0aW9uIOKAlCBGZWJydWFyeSAyMDI2LiBBbW91bnQ6ICQyLDQwMC4wMC4gRHVlIGRhdGU6IE1hcmNoIDE1Lg",
+        "body_preview": "SW52b2ljZSBmb3IgQ2xvdWRUb29scyBQcm8gc3Vic2NyaXB0aW9uIOKAlCBGZWJydWFyeSAyMDI2LiBBbW91bnQ6ICQyLDQwMC4wMC4gRHVlIGRhdGU6IE1hcmNoIDE1Lg",
+        "body_html": "",
+        "internal_date": "1768554000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768528800000"
-    },
-    {
-      "message_id": "om_msg_noise_049",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_049\\\", \\\"thread_id\\\": \\\"th_noise_049\\\", \\\"from_\\\": \\\"bcalloway@indigotech.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Expansion: adding 20 seats\\\", \\\"date\\\": \\\"2026-01-16T05:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_049\\n来源：bcalloway@indigotech.example.com\\n收件人：me\\n日期：2026-01-16T05:00:00Z\\n主题：Expansion: adding 20 seats\\nWe've had a great first 6 months. We'd like to expand from 30 to 50 seats. Who should I talk to about pricing for the expansion?\"}"
+      {
+        "message_id": "msg_noise_039",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_039",
+        "smtp_message_id": "msg_noise_039@fixture.invalid",
+        "subject": "Legal has questions about data residency",
+        "head_from": {
+          "mail_address": "afoster@riverview.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "T3VyIGxlZ2FsIHRlYW0gaGFzIGEgZmV3IHF1ZXN0aW9ucyBhYm91dCBkYXRhIHJlc2lkZW5jeSBhbmQgR0RQUiBjb21wbGlhbmNlIGJlZm9yZSB3ZSBzaWduLiBDYW4gd2Ugc2NoZWR1bGUgYSB0ZWNobmljYWwgY2FsbD8",
+        "body_preview": "T3VyIGxlZ2FsIHRlYW0gaGFzIGEgZmV3IHF1ZXN0aW9ucyBhYm91dCBkYXRhIHJlc2lkZW5jeSBhbmQgR0RQUiBjb21wbGlhbmNlIGJlZm9yZSB3ZSBzaWduLiBDYW4gd2Ugc2NoZWR1bGUgYSB0ZWNobmljYWwg",
+        "body_html": "",
+        "internal_date": "1768528800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768539600000"
-    },
-    {
-      "message_id": "om_msg_noise_023",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_023\\\", \\\"thread_id\\\": \\\"th_noise_023\\\", \\\"from_\\\": \\\"dpark@cascade.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Following up on demo request\\\", \\\"date\\\": \\\"2026-01-14T06:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_023\\n来源：dpark@cascade.example.com\\n收件人：me\\n日期：2026-01-14T06:45:00Z\\n主题：Following up on demo request\\nHi, I wanted to follow up on the demo we scheduled. Looking forward to seeing the product in action. Please confirm the Zoom link.\"}"
+      {
+        "message_id": "msg_noise_049",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_049",
+        "smtp_message_id": "msg_noise_049@fixture.invalid",
+        "subject": "Expansion: adding 20 seats",
+        "head_from": {
+          "mail_address": "bcalloway@indigotech.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "V2UndmUgaGFkIGEgZ3JlYXQgZmlyc3QgNiBtb250aHMuIFdlJ2QgbGlrZSB0byBleHBhbmQgZnJvbSAzMCB0byA1MCBzZWF0cy4gV2hvIHNob3VsZCBJIHRhbGsgdG8gYWJvdXQgcHJpY2luZyBmb3IgdGhlIGV4cGFuc2lvbj8",
+        "body_preview": "V2UndmUgaGFkIGEgZ3JlYXQgZmlyc3QgNiBtb250aHMuIFdlJ2QgbGlrZSB0byBleHBhbmQgZnJvbSAzMCB0byA1MCBzZWF0cy4gV2hvIHNob3VsZCBJIHRhbGsgdG8gYWJvdXQgcHJpY2luZyBmb3IgdGhlIGV4",
+        "body_html": "",
+        "internal_date": "1768539600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768373100000"
-    },
-    {
-      "message_id": "om_msg_noise_016",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_016\\\", \\\"thread_id\\\": \\\"th_noise_016\\\", \\\"from_\\\": \\\"vendor@softwaresupplier.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your software license renewal is due\\\", \\\"date\\\": \\\"2026-01-18T06:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_016\\n来源：vendor@softwaresupplier.example.com\\n收件人：me\\n日期：2026-01-18T06:00:00Z\\n主题：Your software license renewal is due\\nYour annual license for SalesPro Enterprise is due for renewal on April 1. Click here to review your renewal quote.\"}"
+      {
+        "message_id": "msg_noise_023",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_023",
+        "smtp_message_id": "msg_noise_023@fixture.invalid",
+        "subject": "Following up on demo request",
+        "head_from": {
+          "mail_address": "dpark@cascade.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIEkgd2FudGVkIHRvIGZvbGxvdyB1cCBvbiB0aGUgZGVtbyB3ZSBzY2hlZHVsZWQuIExvb2tpbmcgZm9yd2FyZCB0byBzZWVpbmcgdGhlIHByb2R1Y3QgaW4gYWN0aW9uLiBQbGVhc2UgY29uZmlybSB0aGUgWm9vbSBsaW5rLg",
+        "body_preview": "SGksIEkgd2FudGVkIHRvIGZvbGxvdyB1cCBvbiB0aGUgZGVtbyB3ZSBzY2hlZHVsZWQuIExvb2tpbmcgZm9yd2FyZCB0byBzZWVpbmcgdGhlIHByb2R1Y3QgaW4gYWN0aW9uLiBQbGVhc2UgY29uZmlybSB0aGUg",
+        "body_html": "",
+        "internal_date": "1768373100000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768716000000"
-    },
-    {
-      "message_id": "om_msg_noise_048",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_048\\\", \\\"thread_id\\\": \\\"th_noise_048\\\", \\\"from_\\\": \\\"tstein@zenithpro.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Introduction from Michael (mutual contact)\\\", \\\"date\\\": \\\"2026-01-15T02:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_048\\n来源：tstein@zenithpro.example.com\\n收件人：me\\n日期：2026-01-15T02:30:00Z\\n主题：Introduction from Michael (mutual contact)\\nHi, Michael suggested I reach out. We're a 50-person SaaS company looking to scale our sales ops. Would love to connect.\"}"
+      {
+        "message_id": "msg_noise_016",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_016",
+        "smtp_message_id": "msg_noise_016@fixture.invalid",
+        "subject": "Your software license renewal is due",
+        "head_from": {
+          "mail_address": "vendor@softwaresupplier.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciBhbm51YWwgbGljZW5zZSBmb3IgU2FsZXNQcm8gRW50ZXJwcmlzZSBpcyBkdWUgZm9yIHJlbmV3YWwgb24gQXByaWwgMS4gQ2xpY2sgaGVyZSB0byByZXZpZXcgeW91ciByZW5ld2FsIHF1b3RlLg",
+        "body_preview": "WW91ciBhbm51YWwgbGljZW5zZSBmb3IgU2FsZXNQcm8gRW50ZXJwcmlzZSBpcyBkdWUgZm9yIHJlbmV3YWwgb24gQXByaWwgMS4gQ2xpY2sgaGVyZSB0byByZXZpZXcgeW91ciByZW5ld2FsIHF1b3RlLg",
+        "body_html": "",
+        "internal_date": "1768716000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768444200000"
-    },
-    {
-      "message_id": "om_msg_noise_042",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_042\\\", \\\"thread_id\\\": \\\"th_noise_042\\\", \\\"from_\\\": \\\"payroll@noiseco.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your February commission statement is available\\\", \\\"date\\\": \\\"2026-01-16T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_042\\n来源：payroll@noiseco.example.com\\n收件人：me\\n日期：2026-01-16T09:00:00Z\\n主题：Your February commission statement is available\\nYour February commission statement is now available in the payroll portal. Total commission: $8,240.00.\"}"
+      {
+        "message_id": "msg_noise_048",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_048",
+        "smtp_message_id": "msg_noise_048@fixture.invalid",
+        "subject": "Introduction from Michael (mutual contact)",
+        "head_from": {
+          "mail_address": "tstein@zenithpro.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIE1pY2hhZWwgc3VnZ2VzdGVkIEkgcmVhY2ggb3V0LiBXZSdyZSBhIDUwLXBlcnNvbiBTYWFTIGNvbXBhbnkgbG9va2luZyB0byBzY2FsZSBvdXIgc2FsZXMgb3BzLiBXb3VsZCBsb3ZlIHRvIGNvbm5lY3Qu",
+        "body_preview": "SGksIE1pY2hhZWwgc3VnZ2VzdGVkIEkgcmVhY2ggb3V0LiBXZSdyZSBhIDUwLXBlcnNvbiBTYWFTIGNvbXBhbnkgbG9va2luZyB0byBzY2FsZSBvdXIgc2FsZXMgb3BzLiBXb3VsZCBsb3ZlIHRvIGNvbm5lY3Qu",
+        "body_html": "",
+        "internal_date": "1768444200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768554000000"
-    },
-    {
-      "message_id": "om_msg_noise_032",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_032\\\", \\\"thread_id\\\": \\\"th_noise_032\\\", \\\"from_\\\": \\\"noreply@crm.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Task Due Today: Follow up with Cascade Analytics\\\", \\\"date\\\": \\\"2026-01-14T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_032\\n来源：noreply@crm.example.com\\n收件人：me\\n日期：2026-01-14T09:00:00Z\\n主题：Task Due Today: Follow up with Cascade Analytics\\nYou have a task due today: Follow up with Cascade Analytics re: Q2 expansion proposal. Owner: You.\"}"
+      {
+        "message_id": "msg_noise_042",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_042",
+        "smtp_message_id": "msg_noise_042@fixture.invalid",
+        "subject": "Your February commission statement is available",
+        "head_from": {
+          "mail_address": "payroll@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciBGZWJydWFyeSBjb21taXNzaW9uIHN0YXRlbWVudCBpcyBub3cgYXZhaWxhYmxlIGluIHRoZSBwYXlyb2xsIHBvcnRhbC4gVG90YWwgY29tbWlzc2lvbjogJDgsMjQwLjAwLg",
+        "body_preview": "WW91ciBGZWJydWFyeSBjb21taXNzaW9uIHN0YXRlbWVudCBpcyBub3cgYXZhaWxhYmxlIGluIHRoZSBwYXlyb2xsIHBvcnRhbC4gVG90YWwgY29tbWlzc2lvbjogJDgsMjQwLjAwLg",
+        "body_html": "",
+        "internal_date": "1768554000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768381200000"
-    },
-    {
-      "message_id": "om_msg_noise_041",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_041\\\", \\\"thread_id\\\": \\\"th_noise_041\\\", \\\"from_\\\": \\\"hr@noiseco.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Performance review window opens March 10\\\", \\\"date\\\": \\\"2026-01-14T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_041\\n来源：hr@noiseco.example.com\\n收件人：me\\n日期：2026-01-14T08:00:00Z\\n主题：Performance review window opens March 10\\nThe Q1 performance review window opens March 10. Please complete your self-assessment by March 20.\"}"
+      {
+        "message_id": "msg_noise_032",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_032",
+        "smtp_message_id": "msg_noise_032@fixture.invalid",
+        "subject": "Task Due Today: Follow up with Cascade Analytics",
+        "head_from": {
+          "mail_address": "noreply@crm.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91IGhhdmUgYSB0YXNrIGR1ZSB0b2RheTogRm9sbG93IHVwIHdpdGggQ2FzY2FkZSBBbmFseXRpY3MgcmU6IFEyIGV4cGFuc2lvbiBwcm9wb3NhbC4gT3duZXI6IFlvdS4",
+        "body_preview": "WW91IGhhdmUgYSB0YXNrIGR1ZSB0b2RheTogRm9sbG93IHVwIHdpdGggQ2FzY2FkZSBBbmFseXRpY3MgcmU6IFEyIGV4cGFuc2lvbiBwcm9wb3NhbC4gT3duZXI6IFlvdS4",
+        "body_html": "",
+        "internal_date": "1768381200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768377600000"
-    },
-    {
-      "message_id": "om_msg_noise_025",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_025\\\", \\\"thread_id\\\": \\\"th_noise_025\\\", \\\"from_\\\": \\\"kwalsh@starling.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Security questionnaire\\\", \\\"date\\\": \\\"2026-01-16T02:40:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_025\\n来源：kwalsh@starling.example.com\\n收件人：me\\n日期：2026-01-16T02:40:00Z\\n主题：Re: Security questionnaire\\nAttached is our completed security questionnaire. Please let us know if you need any clarification on sections 3 and 7.\"}"
+      {
+        "message_id": "msg_noise_041",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_041",
+        "smtp_message_id": "msg_noise_041@fixture.invalid",
+        "subject": "Performance review window opens March 10",
+        "head_from": {
+          "mail_address": "hr@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhlIFExIHBlcmZvcm1hbmNlIHJldmlldyB3aW5kb3cgb3BlbnMgTWFyY2ggMTAuIFBsZWFzZSBjb21wbGV0ZSB5b3VyIHNlbGYtYXNzZXNzbWVudCBieSBNYXJjaCAyMC4",
+        "body_preview": "VGhlIFExIHBlcmZvcm1hbmNlIHJldmlldyB3aW5kb3cgb3BlbnMgTWFyY2ggMTAuIFBsZWFzZSBjb21wbGV0ZSB5b3VyIHNlbGYtYXNzZXNzbWVudCBieSBNYXJjaCAyMC4",
+        "body_html": "",
+        "internal_date": "1768377600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768531200000"
-    },
-    {
-      "message_id": "om_msg_noise_050",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_050\\\", \\\"thread_id\\\": \\\"th_noise_050\\\", \\\"from_\\\": \\\"ilarsson@nordicsoft.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Proposal — a few questions\\\", \\\"date\\\": \\\"2026-01-14T08:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_050\\n来源：ilarsson@nordicsoft.example.com\\n收件人：me\\n日期：2026-01-14T08:30:00Z\\n主题：Re: Proposal — a few questions\\nThank you for the proposal. We have 3 questions: (1) Can the contract be annual? (2) What's the onboarding timeline? (3) Do you have EU data centers?\"}"
+      {
+        "message_id": "msg_noise_025",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_025",
+        "smtp_message_id": "msg_noise_025@fixture.invalid",
+        "subject": "Re: Security questionnaire",
+        "head_from": {
+          "mail_address": "kwalsh@starling.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QXR0YWNoZWQgaXMgb3VyIGNvbXBsZXRlZCBzZWN1cml0eSBxdWVzdGlvbm5haXJlLiBQbGVhc2UgbGV0IHVzIGtub3cgaWYgeW91IG5lZWQgYW55IGNsYXJpZmljYXRpb24gb24gc2VjdGlvbnMgMyBhbmQgNy4",
+        "body_preview": "QXR0YWNoZWQgaXMgb3VyIGNvbXBsZXRlZCBzZWN1cml0eSBxdWVzdGlvbm5haXJlLiBQbGVhc2UgbGV0IHVzIGtub3cgaWYgeW91IG5lZWQgYW55IGNsYXJpZmljYXRpb24gb24gc2VjdGlvbnMgMyBhbmQgNy4",
+        "body_html": "",
+        "internal_date": "1768531200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768379400000"
-    },
-    {
-      "message_id": "om_msg_noise_008",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_008\\\", \\\"thread_id\\\": \\\"th_noise_008\\\", \\\"from_\\\": \\\"noreply@zoom.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Zoom Meeting Invitation: Q1 Pipeline Review\\\", \\\"date\\\": \\\"2026-01-16T01:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_008\\n来源：noreply@zoom.example.com\\n收件人：me\\n日期：2026-01-16T01:00:00Z\\n主题：Zoom Meeting Invitation: Q1 Pipeline Review\\nYou have been invited to Q1 Pipeline Review on March 7 at 9:00 AM. Join Zoom Meeting: https://zoom.example.com/j/98765\"}"
+      {
+        "message_id": "msg_noise_050",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_050",
+        "smtp_message_id": "msg_noise_050@fixture.invalid",
+        "subject": "Re: Proposal — a few questions",
+        "head_from": {
+          "mail_address": "ilarsson@nordicsoft.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhhbmsgeW91IGZvciB0aGUgcHJvcG9zYWwuIFdlIGhhdmUgMyBxdWVzdGlvbnM6ICgxKSBDYW4gdGhlIGNvbnRyYWN0IGJlIGFubnVhbD8gKDIpIFdoYXQncyB0aGUgb25ib2FyZGluZyB0aW1lbGluZT8gKDMpIERvIHlvdSBoYXZlIEVVIGRhdGEgY2VudGVycz8",
+        "body_preview": "VGhhbmsgeW91IGZvciB0aGUgcHJvcG9zYWwuIFdlIGhhdmUgMyBxdWVzdGlvbnM6ICgxKSBDYW4gdGhlIGNvbnRyYWN0IGJlIGFubnVhbD8gKDIpIFdoYXQncyB0aGUgb25ib2FyZGluZyB0aW1lbGluZT8gKDMp",
+        "body_html": "",
+        "internal_date": "1768379400000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768525200000"
-    },
-    {
-      "message_id": "om_msg_noise_022",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_022\\\", \\\"thread_id\\\": \\\"th_noise_022\\\", \\\"from_\\\": \\\"jtorres@bluestar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Partnership discussion — OOO\\\", \\\"date\\\": \\\"2026-01-15T04:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_022\\n来源：jtorres@bluestar.example.com\\n收件人：me\\n日期：2026-01-15T04:00:00Z\\n主题：Re: Partnership discussion — OOO\\nI am currently attending an offsite through Thursday. I will follow up on our partnership discussion when I return. — Carmen Valdez\"}"
+      {
+        "message_id": "msg_noise_008",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_008",
+        "smtp_message_id": "msg_noise_008@fixture.invalid",
+        "subject": "Zoom Meeting Invitation: Q1 Pipeline Review",
+        "head_from": {
+          "mail_address": "noreply@zoom.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91IGhhdmUgYmVlbiBpbnZpdGVkIHRvIFExIFBpcGVsaW5lIFJldmlldyBvbiBNYXJjaCA3IGF0IDk6MDAgQU0uIEpvaW4gWm9vbSBNZWV0aW5nOiBodHRwczovL3pvb20uZXhhbXBsZS5jb20vai85ODc2NQ",
+        "body_preview": "WW91IGhhdmUgYmVlbiBpbnZpdGVkIHRvIFExIFBpcGVsaW5lIFJldmlldyBvbiBNYXJjaCA3IGF0IDk6MDAgQU0uIEpvaW4gWm9vbSBNZWV0aW5nOiBodHRwczovL3pvb20uZXhhbXBsZS5jb20vai85ODc2NQ",
+        "body_html": "",
+        "internal_date": "1768525200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768449600000"
-    },
-    {
-      "message_id": "om_msg_noise_004",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_004\\\", \\\"thread_id\\\": \\\"th_noise_004\\\", \\\"from_\\\": \\\"newsletter@revenueops.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"RevOps Monthly: February Wrap-Up\\\", \\\"date\\\": \\\"2026-01-16T07:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_004\\n来源：newsletter@revenueops.example.com\\n收件人：me\\n日期：2026-01-16T07:45:00Z\\n主题：RevOps Monthly: February Wrap-Up\\nFebruary highlights: 3 deals closed above $100k, average deal cycle reduced to 47 days.\"}"
+      {
+        "message_id": "msg_noise_022",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_022",
+        "smtp_message_id": "msg_noise_022@fixture.invalid",
+        "subject": "Re: Partnership discussion — OOO",
+        "head_from": {
+          "mail_address": "jtorres@bluestar.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SSBhbSBjdXJyZW50bHkgYXR0ZW5kaW5nIGFuIG9mZnNpdGUgdGhyb3VnaCBUaHVyc2RheS4gSSB3aWxsIGZvbGxvdyB1cCBvbiBvdXIgcGFydG5lcnNoaXAgZGlzY3Vzc2lvbiB3aGVuIEkgcmV0dXJuLiDigJQgQ2FybWVuIFZhbGRleg",
+        "body_preview": "SSBhbSBjdXJyZW50bHkgYXR0ZW5kaW5nIGFuIG9mZnNpdGUgdGhyb3VnaCBUaHVyc2RheS4gSSB3aWxsIGZvbGxvdyB1cCBvbiBvdXIgcGFydG5lcnNoaXAgZGlzY3Vzc2lvbiB3aGVuIEkgcmV0dXJuLiDigJQgQ2E",
+        "body_html": "",
+        "internal_date": "1768449600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768549500000"
-    },
-    {
-      "message_id": "om_msg_noise_018",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_018\\\", \\\"thread_id\\\": \\\"th_noise_018\\\", \\\"from_\\\": \\\"noreply@linkedin.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"You have 5 new connection requests\\\", \\\"date\\\": \\\"2026-01-14T09:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_018\\n来源：noreply@linkedin.example.com\\n收件人：me\\n日期：2026-01-14T09:30:00Z\\n主题：You have 5 new connection requests\\n5 people want to connect with you on LinkedIn. Review and respond to your pending requests.\"}"
+      {
+        "message_id": "msg_noise_004",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_004",
+        "smtp_message_id": "msg_noise_004@fixture.invalid",
+        "subject": "RevOps Monthly: February Wrap-Up",
+        "head_from": {
+          "mail_address": "newsletter@revenueops.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "RmVicnVhcnkgaGlnaGxpZ2h0czogMyBkZWFscyBjbG9zZWQgYWJvdmUgJDEwMGssIGF2ZXJhZ2UgZGVhbCBjeWNsZSByZWR1Y2VkIHRvIDQ3IGRheXMu",
+        "body_preview": "RmVicnVhcnkgaGlnaGxpZ2h0czogMyBkZWFscyBjbG9zZWQgYWJvdmUgJDEwMGssIGF2ZXJhZ2UgZGVhbCBjeWNsZSByZWR1Y2VkIHRvIDQ3IGRheXMu",
+        "body_html": "",
+        "internal_date": "1768549500000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768383000000"
-    },
-    {
-      "message_id": "om_msg_noise_012",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_012\\\", \\\"thread_id\\\": \\\"th_noise_012\\\", \\\"from_\\\": \\\"hr@noiseco.example.com\\\", \\\"to\\\": [\\\"all@noiseco.example.com\\\"], \\\"subject\\\": \\\"Reminder: Benefits enrollment closes March 15\\\", \\\"date\\\": \\\"2026-01-16T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_012\\n来源：hr@noiseco.example.com\\n收件人：all@noiseco.example.com\\n日期：2026-01-16T07:00:00Z\\n主题：Reminder: Benefits enrollment closes March 15\\nPlease complete your benefits enrollment before March 15. Log in to the HR portal to review your options.\"}"
+      {
+        "message_id": "msg_noise_018",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_018",
+        "smtp_message_id": "msg_noise_018@fixture.invalid",
+        "subject": "You have 5 new connection requests",
+        "head_from": {
+          "mail_address": "noreply@linkedin.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "NSBwZW9wbGUgd2FudCB0byBjb25uZWN0IHdpdGggeW91IG9uIExpbmtlZEluLiBSZXZpZXcgYW5kIHJlc3BvbmQgdG8geW91ciBwZW5kaW5nIHJlcXVlc3RzLg",
+        "body_preview": "NSBwZW9wbGUgd2FudCB0byBjb25uZWN0IHdpdGggeW91IG9uIExpbmtlZEluLiBSZXZpZXcgYW5kIHJlc3BvbmQgdG8geW91ciBwZW5kaW5nIHJlcXVlc3RzLg",
+        "body_html": "",
+        "internal_date": "1768383000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768546800000"
-    },
-    {
-      "message_id": "om_msg_noise_033",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_033\\\", \\\"thread_id\\\": \\\"th_noise_033\\\", \\\"from_\\\": \\\"promo@salestools.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Limited Offer: 40% off annual plan\\\", \\\"date\\\": \\\"2026-01-15T05:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_033\\n来源：promo@salestools.example.com\\n收件人：me\\n日期：2026-01-15T05:00:00Z\\n主题：Limited Offer: 40% off annual plan\\nUpgrade to our Professional plan and save 40% for the next 48 hours. This offer expires March 5.\"}"
+      {
+        "message_id": "msg_noise_012",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_012",
+        "smtp_message_id": "msg_noise_012@fixture.invalid",
+        "subject": "Reminder: Benefits enrollment closes March 15",
+        "head_from": {
+          "mail_address": "hr@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all@noiseco.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UGxlYXNlIGNvbXBsZXRlIHlvdXIgYmVuZWZpdHMgZW5yb2xsbWVudCBiZWZvcmUgTWFyY2ggMTUuIExvZyBpbiB0byB0aGUgSFIgcG9ydGFsIHRvIHJldmlldyB5b3VyIG9wdGlvbnMu",
+        "body_preview": "UGxlYXNlIGNvbXBsZXRlIHlvdXIgYmVuZWZpdHMgZW5yb2xsbWVudCBiZWZvcmUgTWFyY2ggMTUuIExvZyBpbiB0byB0aGUgSFIgcG9ydGFsIHRvIHJldmlldyB5b3VyIG9wdGlvbnMu",
+        "body_html": "",
+        "internal_date": "1768546800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768453200000"
-    },
-    {
-      "message_id": "om_msg_noise_003",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_003\\\", \\\"thread_id\\\": \\\"th_noise_003\\\", \\\"from_\\\": \\\"updates@crmnews.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"CRM Platform Release Notes — v4.2.1\\\", \\\"date\\\": \\\"2026-01-16T09:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_003\\n来源：updates@crmnews.example.com\\n收件人：me\\n日期：2026-01-16T09:00:00Z\\n主题：CRM Platform Release Notes — v4.2.1\\nNew features: bulk record update, enhanced duplicate detection, improved mobile search.\"}"
+      {
+        "message_id": "msg_noise_033",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_033",
+        "smtp_message_id": "msg_noise_033@fixture.invalid",
+        "subject": "Limited Offer: 40% off annual plan",
+        "head_from": {
+          "mail_address": "promo@salestools.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VXBncmFkZSB0byBvdXIgUHJvZmVzc2lvbmFsIHBsYW4gYW5kIHNhdmUgNDAlIGZvciB0aGUgbmV4dCA0OCBob3Vycy4gVGhpcyBvZmZlciBleHBpcmVzIE1hcmNoIDUu",
+        "body_preview": "VXBncmFkZSB0byBvdXIgUHJvZmVzc2lvbmFsIHBsYW4gYW5kIHNhdmUgNDAlIGZvciB0aGUgbmV4dCA0OCBob3Vycy4gVGhpcyBvZmZlciBleHBpcmVzIE1hcmNoIDUu",
+        "body_html": "",
+        "internal_date": "1768453200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768554000000"
-    },
-    {
-      "message_id": "om_msg_noise_028",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_028\\\", \\\"thread_id\\\": \\\"th_noise_028\\\", \\\"from_\\\": \\\"nhoffman@montclair.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Checking in — proposal status\\\", \\\"date\\\": \\\"2026-01-16T05:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_028\\n来源：nhoffman@montclair.example.com\\n收件人：me\\n日期：2026-01-16T05:15:00Z\\n主题：Checking in — proposal status\\nJust checking in on the proposal we sent over last week. Have you had a chance to review? Happy to jump on a call.\"}"
+      {
+        "message_id": "msg_noise_003",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_003",
+        "smtp_message_id": "msg_noise_003@fixture.invalid",
+        "subject": "CRM Platform Release Notes — v4.2.1",
+        "head_from": {
+          "mail_address": "updates@crmnews.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "TmV3IGZlYXR1cmVzOiBidWxrIHJlY29yZCB1cGRhdGUsIGVuaGFuY2VkIGR1cGxpY2F0ZSBkZXRlY3Rpb24sIGltcHJvdmVkIG1vYmlsZSBzZWFyY2gu",
+        "body_preview": "TmV3IGZlYXR1cmVzOiBidWxrIHJlY29yZCB1cGRhdGUsIGVuaGFuY2VkIGR1cGxpY2F0ZSBkZXRlY3Rpb24sIGltcHJvdmVkIG1vYmlsZSBzZWFyY2gu",
+        "body_html": "",
+        "internal_date": "1768554000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768540500000"
-    },
-    {
-      "message_id": "om_msg_noise_013",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_013\\\", \\\"thread_id\\\": \\\"th_noise_013\\\", \\\"from_\\\": \\\"it@noiseco.example.com\\\", \\\"to\\\": [\\\"all@noiseco.example.com\\\"], \\\"subject\\\": \\\"Scheduled maintenance: Saturday 2-4 AM\\\", \\\"date\\\": \\\"2026-01-14T03:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_013\\n来源：it@noiseco.example.com\\n收件人：all@noiseco.example.com\\n日期：2026-01-14T03:00:00Z\\n主题：Scheduled maintenance: Saturday 2-4 AM\\nThe CRM system will be down for maintenance Saturday March 8 from 2:00 AM to 4:00 AM PST. Please save your work.\"}"
+      {
+        "message_id": "msg_noise_028",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_028",
+        "smtp_message_id": "msg_noise_028@fixture.invalid",
+        "subject": "Checking in — proposal status",
+        "head_from": {
+          "mail_address": "nhoffman@montclair.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SnVzdCBjaGVja2luZyBpbiBvbiB0aGUgcHJvcG9zYWwgd2Ugc2VudCBvdmVyIGxhc3Qgd2Vlay4gSGF2ZSB5b3UgaGFkIGEgY2hhbmNlIHRvIHJldmlldz8gSGFwcHkgdG8ganVtcCBvbiBhIGNhbGwu",
+        "body_preview": "SnVzdCBjaGVja2luZyBpbiBvbiB0aGUgcHJvcG9zYWwgd2Ugc2VudCBvdmVyIGxhc3Qgd2Vlay4gSGF2ZSB5b3UgaGFkIGEgY2hhbmNlIHRvIHJldmlldz8gSGFwcHkgdG8ganVtcCBvbiBhIGNhbGwu",
+        "body_html": "",
+        "internal_date": "1768540500000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768359600000"
-    },
-    {
-      "message_id": "om_msg_noise_046",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_046\\\", \\\"thread_id\\\": \\\"th_noise_046\\\", \\\"from_\\\": \\\"jhutchins@vantagepoint.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Forwarding: RFP for CRM platform\\\", \\\"date\\\": \\\"2026-01-16T04:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_046\\n来源：jhutchins@vantagepoint.example.com\\n收件人：me\\n日期：2026-01-16T04:00:00Z\\n主题：Forwarding: RFP for CRM platform\\nJerome here from VantagePoint Systems. I'm forwarding our RFP for a CRM platform. We're evaluating 3 vendors. Deadline to respond: March 20.\"}"
+      {
+        "message_id": "msg_noise_013",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_013",
+        "smtp_message_id": "msg_noise_013@fixture.invalid",
+        "subject": "Scheduled maintenance: Saturday 2-4 AM",
+        "head_from": {
+          "mail_address": "it@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all@noiseco.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhlIENSTSBzeXN0ZW0gd2lsbCBiZSBkb3duIGZvciBtYWludGVuYW5jZSBTYXR1cmRheSBNYXJjaCA4IGZyb20gMjowMCBBTSB0byA0OjAwIEFNIFBTVC4gUGxlYXNlIHNhdmUgeW91ciB3b3JrLg",
+        "body_preview": "VGhlIENSTSBzeXN0ZW0gd2lsbCBiZSBkb3duIGZvciBtYWludGVuYW5jZSBTYXR1cmRheSBNYXJjaCA4IGZyb20gMjowMCBBTSB0byA0OjAwIEFNIFBTVC4gUGxlYXNlIHNhdmUgeW91ciB3b3JrLg",
+        "body_html": "",
+        "internal_date": "1768359600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768536000000"
-    },
-    {
-      "message_id": "om_msg_noise_035",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_035\\\", \\\"thread_id\\\": \\\"th_noise_035\\\", \\\"from_\\\": \\\"reports@marketdata.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your Market Intelligence Report Is Ready\\\", \\\"date\\\": \\\"2026-01-17T03:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_035\\n来源：reports@marketdata.example.com\\n收件人：me\\n日期：2026-01-17T03:00:00Z\\n主题：Your Market Intelligence Report Is Ready\\nYour requested market report on the Enterprise SaaS vertical is now available. Click to download (36 pages).\"}"
+      {
+        "message_id": "msg_noise_046",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_046",
+        "smtp_message_id": "msg_noise_046@fixture.invalid",
+        "subject": "Forwarding: RFP for CRM platform",
+        "head_from": {
+          "mail_address": "jhutchins@vantagepoint.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SmVyb21lIGhlcmUgZnJvbSBWYW50YWdlUG9pbnQgU3lzdGVtcy4gSSdtIGZvcndhcmRpbmcgb3VyIFJGUCBmb3IgYSBDUk0gcGxhdGZvcm0uIFdlJ3JlIGV2YWx1YXRpbmcgMyB2ZW5kb3JzLiBEZWFkbGluZSB0byByZXNwb25kOiBNYXJjaCAyMC4",
+        "body_preview": "SmVyb21lIGhlcmUgZnJvbSBWYW50YWdlUG9pbnQgU3lzdGVtcy4gSSdtIGZvcndhcmRpbmcgb3VyIFJGUCBmb3IgYSBDUk0gcGxhdGZvcm0uIFdlJ3JlIGV2YWx1YXRpbmcgMyB2ZW5kb3JzLiBEZWFkbGluZSB0",
+        "body_html": "",
+        "internal_date": "1768536000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768618800000"
-    },
-    {
-      "message_id": "om_msg_noise_026",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_026\\\", \\\"thread_id\\\": \\\"th_noise_026\\\", \\\"from_\\\": \\\"adesai@redwood.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Integration question before we sign\\\", \\\"date\\\": \\\"2026-01-14T06:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_026\\n来源：adesai@redwood.example.com\\n收件人：me\\n日期：2026-01-14T06:00:00Z\\n主题：Integration question before we sign\\nBefore we finalize the contract, we have a technical question about the Salesforce integration. Can we set up a 20-minute call?\"}"
+      {
+        "message_id": "msg_noise_035",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_035",
+        "smtp_message_id": "msg_noise_035@fixture.invalid",
+        "subject": "Your Market Intelligence Report Is Ready",
+        "head_from": {
+          "mail_address": "reports@marketdata.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciByZXF1ZXN0ZWQgbWFya2V0IHJlcG9ydCBvbiB0aGUgRW50ZXJwcmlzZSBTYWFTIHZlcnRpY2FsIGlzIG5vdyBhdmFpbGFibGUuIENsaWNrIHRvIGRvd25sb2FkICgzNiBwYWdlcyku",
+        "body_preview": "WW91ciByZXF1ZXN0ZWQgbWFya2V0IHJlcG9ydCBvbiB0aGUgRW50ZXJwcmlzZSBTYWFTIHZlcnRpY2FsIGlzIG5vdyBhdmFpbGFibGUuIENsaWNrIHRvIGRvd25sb2FkICgzNiBwYWdlcyku",
+        "body_html": "",
+        "internal_date": "1768618800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768370400000"
-    },
-    {
-      "message_id": "om_msg_noise_020",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_020\\\", \\\"thread_id\\\": \\\"th_noise_020\\\", \\\"from_\\\": \\\"events@salesconf.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"SalesConf 2026: Early Bird Registration Now Open\\\", \\\"date\\\": \\\"2026-01-20T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_020\\n来源：events@salesconf.example.com\\n收件人：me\\n日期：2026-01-20T07:00:00Z\\n主题：SalesConf 2026: Early Bird Registration Now Open\\nJoin 5,000+ sales professionals at SalesConf 2026 in Las Vegas, June 10-12. Early bird pricing ends March 31.\"}"
+      {
+        "message_id": "msg_noise_026",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_026",
+        "smtp_message_id": "msg_noise_026@fixture.invalid",
+        "subject": "Integration question before we sign",
+        "head_from": {
+          "mail_address": "adesai@redwood.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QmVmb3JlIHdlIGZpbmFsaXplIHRoZSBjb250cmFjdCwgd2UgaGF2ZSBhIHRlY2huaWNhbCBxdWVzdGlvbiBhYm91dCB0aGUgU2FsZXNmb3JjZSBpbnRlZ3JhdGlvbi4gQ2FuIHdlIHNldCB1cCBhIDIwLW1pbnV0ZSBjYWxsPw",
+        "body_preview": "QmVmb3JlIHdlIGZpbmFsaXplIHRoZSBjb250cmFjdCwgd2UgaGF2ZSBhIHRlY2huaWNhbCBxdWVzdGlvbiBhYm91dCB0aGUgU2FsZXNmb3JjZSBpbnRlZ3JhdGlvbi4gQ2FuIHdlIHNldCB1cCBhIDIwLW1pbnV0",
+        "body_html": "",
+        "internal_date": "1768370400000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768892400000"
-    },
-    {
-      "message_id": "om_msg_noise_015",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_015\\\", \\\"thread_id\\\": \\\"th_noise_015\\\", \\\"from_\\\": \\\"finance@noiseco.example.com\\\", \\\"to\\\": [\\\"sales@noiseco.example.com\\\"], \\\"subject\\\": \\\"February Expense Reports Due\\\", \\\"date\\\": \\\"2026-01-16T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_015\\n来源：finance@noiseco.example.com\\n收件人：sales@noiseco.example.com\\n日期：2026-01-16T08:00:00Z\\n主题：February Expense Reports Due\\nPlease submit your February expense reports by March 10. Use the Concur portal linked in the intranet.\"}"
+      {
+        "message_id": "msg_noise_020",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_020",
+        "smtp_message_id": "msg_noise_020@fixture.invalid",
+        "subject": "SalesConf 2026: Early Bird Registration Now Open",
+        "head_from": {
+          "mail_address": "events@salesconf.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Sm9pbiA1LDAwMCsgc2FsZXMgcHJvZmVzc2lvbmFscyBhdCBTYWxlc0NvbmYgMjAyNiBpbiBMYXMgVmVnYXMsIEp1bmUgMTAtMTIuIEVhcmx5IGJpcmQgcHJpY2luZyBlbmRzIE1hcmNoIDMxLg",
+        "body_preview": "Sm9pbiA1LDAwMCsgc2FsZXMgcHJvZmVzc2lvbmFscyBhdCBTYWxlc0NvbmYgMjAyNiBpbiBMYXMgVmVnYXMsIEp1bmUgMTAtMTIuIEVhcmx5IGJpcmQgcHJpY2luZyBlbmRzIE1hcmNoIDMxLg",
+        "body_html": "",
+        "internal_date": "1768892400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768550400000"
-    },
-    {
-      "message_id": "om_msg_noise_007",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_007\\\", \\\"thread_id\\\": \\\"th_noise_007\\\", \\\"from_\\\": \\\"scheduling@calendly.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"New Event: Discovery Call with Ironclad Systems\\\", \\\"date\\\": \\\"2026-01-15T05:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_007\\n来源：scheduling@calendly.example.com\\n收件人：me\\n日期：2026-01-15T05:30:00Z\\n主题：New Event: Discovery Call with Ironclad Systems\\nAlex Vance (alex.vance@ironclad.example.com) scheduled a 30-minute Discovery Call on March 6 at 2:00 PM.\"}"
+      {
+        "message_id": "msg_noise_015",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_015",
+        "smtp_message_id": "msg_noise_015@fixture.invalid",
+        "subject": "February Expense Reports Due",
+        "head_from": {
+          "mail_address": "finance@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "sales@noiseco.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UGxlYXNlIHN1Ym1pdCB5b3VyIEZlYnJ1YXJ5IGV4cGVuc2UgcmVwb3J0cyBieSBNYXJjaCAxMC4gVXNlIHRoZSBDb25jdXIgcG9ydGFsIGxpbmtlZCBpbiB0aGUgaW50cmFuZXQu",
+        "body_preview": "UGxlYXNlIHN1Ym1pdCB5b3VyIEZlYnJ1YXJ5IGV4cGVuc2UgcmVwb3J0cyBieSBNYXJjaCAxMC4gVXNlIHRoZSBDb25jdXIgcG9ydGFsIGxpbmtlZCBpbiB0aGUgaW50cmFuZXQu",
+        "body_html": "",
+        "internal_date": "1768550400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768455000000"
-    },
-    {
-      "message_id": "om_msg_noise_034",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_034\\\", \\\"thread_id\\\": \\\"th_noise_034\\\", \\\"from_\\\": \\\"webinar@gotowebinar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Webinar: Winning Enterprise Deals in 2026\\\", \\\"date\\\": \\\"2026-01-16T06:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_034\\n来源：webinar@gotowebinar.example.com\\n收件人：me\\n日期：2026-01-16T06:30:00Z\\n主题：Webinar: Winning Enterprise Deals in 2026\\nJoin us March 12 for a live webinar on enterprise sales strategies. Register now to secure your spot.\"}"
+      {
+        "message_id": "msg_noise_007",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_007",
+        "smtp_message_id": "msg_noise_007@fixture.invalid",
+        "subject": "New Event: Discovery Call with Ironclad Systems",
+        "head_from": {
+          "mail_address": "scheduling@calendly.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QWxleCBWYW5jZSAoYWxleC52YW5jZUBpcm9uY2xhZC5leGFtcGxlLmNvbSkgc2NoZWR1bGVkIGEgMzAtbWludXRlIERpc2NvdmVyeSBDYWxsIG9uIE1hcmNoIDYgYXQgMjowMCBQTS4",
+        "body_preview": "QWxleCBWYW5jZSAoYWxleC52YW5jZUBpcm9uY2xhZC5leGFtcGxlLmNvbSkgc2NoZWR1bGVkIGEgMzAtbWludXRlIERpc2NvdmVyeSBDYWxsIG9uIE1hcmNoIDYgYXQgMjowMCBQTS4",
+        "body_html": "",
+        "internal_date": "1768455000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768545000000"
-    },
-    {
-      "message_id": "om_msg_noise_031",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_031\\\", \\\"thread_id\\\": \\\"th_noise_031\\\", \\\"from_\\\": \\\"noreply@docusign.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Envelope Completed: Thornwood Partners NDA\\\", \\\"date\\\": \\\"2026-01-16T00:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_031\\n来源：noreply@docusign.example.com\\n收件人：me\\n日期：2026-01-16T00:15:00Z\\n主题：Envelope Completed: Thornwood Partners NDA\\nThe envelope 'Thornwood Partners - Mutual NDA' has been completed by all parties. Download the signed document.\"}"
+      {
+        "message_id": "msg_noise_034",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_034",
+        "smtp_message_id": "msg_noise_034@fixture.invalid",
+        "subject": "Webinar: Winning Enterprise Deals in 2026",
+        "head_from": {
+          "mail_address": "webinar@gotowebinar.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Sm9pbiB1cyBNYXJjaCAxMiBmb3IgYSBsaXZlIHdlYmluYXIgb24gZW50ZXJwcmlzZSBzYWxlcyBzdHJhdGVnaWVzLiBSZWdpc3RlciBub3cgdG8gc2VjdXJlIHlvdXIgc3BvdC4",
+        "body_preview": "Sm9pbiB1cyBNYXJjaCAxMiBmb3IgYSBsaXZlIHdlYmluYXIgb24gZW50ZXJwcmlzZSBzYWxlcyBzdHJhdGVnaWVzLiBSZWdpc3RlciBub3cgdG8gc2VjdXJlIHlvdXIgc3BvdC4",
+        "body_html": "",
+        "internal_date": "1768545000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768522500000"
-    },
-    {
-      "message_id": "om_msg_noise_019",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_019\\\", \\\"thread_id\\\": \\\"th_noise_019\\\", \\\"from_\\\": \\\"support@saasplatform.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Support ticket #TKT-8842 resolved\\\", \\\"date\\\": \\\"2026-01-17T01:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_019\\n来源：support@saasplatform.example.com\\n收件人：me\\n日期：2026-01-17T01:30:00Z\\n主题：Support ticket #TKT-8842 resolved\\nYour ticket #TKT-8842 regarding API rate limit errors has been resolved. The fix has been deployed to production.\"}"
+      {
+        "message_id": "msg_noise_031",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_031",
+        "smtp_message_id": "msg_noise_031@fixture.invalid",
+        "subject": "Envelope Completed: Thornwood Partners NDA",
+        "head_from": {
+          "mail_address": "noreply@docusign.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhlIGVudmVsb3BlICdUaG9ybndvb2QgUGFydG5lcnMgLSBNdXR1YWwgTkRBJyBoYXMgYmVlbiBjb21wbGV0ZWQgYnkgYWxsIHBhcnRpZXMuIERvd25sb2FkIHRoZSBzaWduZWQgZG9jdW1lbnQu",
+        "body_preview": "VGhlIGVudmVsb3BlICdUaG9ybndvb2QgUGFydG5lcnMgLSBNdXR1YWwgTkRBJyBoYXMgYmVlbiBjb21wbGV0ZWQgYnkgYWxsIHBhcnRpZXMuIERvd25sb2FkIHRoZSBzaWduZWQgZG9jdW1lbnQu",
+        "body_html": "",
+        "internal_date": "1768522500000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768613400000"
-    },
-    {
-      "message_id": "om_msg_noise_037",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_037\\\", \\\"thread_id\\\": \\\"th_noise_037\\\", \\\"from_\\\": \\\"lsimmons@pacific.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Updated SOW attached\\\", \\\"date\\\": \\\"2026-01-14T08:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_037\\n来源：lsimmons@pacific.example.com\\n收件人：me\\n日期：2026-01-14T08:00:00Z\\n主题：Updated SOW attached\\nHi, our legal team made a few minor edits to the SOW. Changes are tracked. Please review and let us know if you're okay to proceed.\"}"
+      {
+        "message_id": "msg_noise_019",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_019",
+        "smtp_message_id": "msg_noise_019@fixture.invalid",
+        "subject": "Support ticket #TKT-8842 resolved",
+        "head_from": {
+          "mail_address": "support@saasplatform.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciB0aWNrZXQgI1RLVC04ODQyIHJlZ2FyZGluZyBBUEkgcmF0ZSBsaW1pdCBlcnJvcnMgaGFzIGJlZW4gcmVzb2x2ZWQuIFRoZSBmaXggaGFzIGJlZW4gZGVwbG95ZWQgdG8gcHJvZHVjdGlvbi4",
+        "body_preview": "WW91ciB0aWNrZXQgI1RLVC04ODQyIHJlZ2FyZGluZyBBUEkgcmF0ZSBsaW1pdCBlcnJvcnMgaGFzIGJlZW4gcmVzb2x2ZWQuIFRoZSBmaXggaGFzIGJlZW4gZGVwbG95ZWQgdG8gcHJvZHVjdGlvbi4",
+        "body_html": "",
+        "internal_date": "1768613400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768377600000"
-    },
-    {
-      "message_id": "om_msg_noise_011",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_011\\\", \\\"thread_id\\\": \\\"th_noise_011\\\", \\\"from_\\\": \\\"ceo@noiseco.example.com\\\", \\\"to\\\": [\\\"all-hands@noiseco.example.com\\\"], \\\"subject\\\": \\\"All-Hands Notes: Q1 Review\\\", \\\"date\\\": \\\"2026-01-17T00:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_011\\n来源：ceo@noiseco.example.com\\n收件人：all-hands@noiseco.example.com\\n日期：2026-01-17T00:00:00Z\\n主题：All-Hands Notes: Q1 Review\\nTeam, attached are the notes from last week's all-hands. Highlights: Q1 attainment 94%, new product launch planned for April.\"}"
+      {
+        "message_id": "msg_noise_037",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_037",
+        "smtp_message_id": "msg_noise_037@fixture.invalid",
+        "subject": "Updated SOW attached",
+        "head_from": {
+          "mail_address": "lsimmons@pacific.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIG91ciBsZWdhbCB0ZWFtIG1hZGUgYSBmZXcgbWlub3IgZWRpdHMgdG8gdGhlIFNPVy4gQ2hhbmdlcyBhcmUgdHJhY2tlZC4gUGxlYXNlIHJldmlldyBhbmQgbGV0IHVzIGtub3cgaWYgeW91J3JlIG9rYXkgdG8gcHJvY2VlZC4",
+        "body_preview": "SGksIG91ciBsZWdhbCB0ZWFtIG1hZGUgYSBmZXcgbWlub3IgZWRpdHMgdG8gdGhlIFNPVy4gQ2hhbmdlcyBhcmUgdHJhY2tlZC4gUGxlYXNlIHJldmlldyBhbmQgbGV0IHVzIGtub3cgaWYgeW91J3JlIG9rYXkg",
+        "body_html": "",
+        "internal_date": "1768377600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768608000000"
-    },
-    {
-      "message_id": "om_msg_noise_044",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_044\\\", \\\"thread_id\\\": \\\"th_noise_044\\\", \\\"from_\\\": \\\"info@titaniumsys.example.com\\\", \\\"to\\\": [\\\"sales@noiseco.example.com\\\"], \\\"subject\\\": \\\"Inquiry about enterprise plan\\\", \\\"date\\\": \\\"2026-01-14T05:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_044\\n来源：info@titaniumsys.example.com\\n收件人：sales@noiseco.example.com\\n日期：2026-01-14T05:30:00Z\\n主题：Inquiry about enterprise plan\\nHi, we are a 200-person manufacturing company looking for a CRM solution. Could you send pricing info for your enterprise plan?\"}"
+      {
+        "message_id": "msg_noise_011",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_011",
+        "smtp_message_id": "msg_noise_011@fixture.invalid",
+        "subject": "All-Hands Notes: Q1 Review",
+        "head_from": {
+          "mail_address": "ceo@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "all-hands@noiseco.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGVhbSwgYXR0YWNoZWQgYXJlIHRoZSBub3RlcyBmcm9tIGxhc3Qgd2VlaydzIGFsbC1oYW5kcy4gSGlnaGxpZ2h0czogUTEgYXR0YWlubWVudCA5NCUsIG5ldyBwcm9kdWN0IGxhdW5jaCBwbGFubmVkIGZvciBBcHJpbC4",
+        "body_preview": "VGVhbSwgYXR0YWNoZWQgYXJlIHRoZSBub3RlcyBmcm9tIGxhc3Qgd2VlaydzIGFsbC1oYW5kcy4gSGlnaGxpZ2h0czogUTEgYXR0YWlubWVudCA5NCUsIG5ldyBwcm9kdWN0IGxhdW5jaCBwbGFubmVkIGZvciBB",
+        "body_html": "",
+        "internal_date": "1768608000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768368600000"
-    },
-    {
-      "message_id": "om_msg_noise_006",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_006\\\", \\\"thread_id\\\": \\\"th_noise_006\\\", \\\"from_\\\": \\\"calendar-noreply@meet.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Meeting Confirmed: Weekly Team Sync\\\", \\\"date\\\": \\\"2026-01-15T03:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_006\\n来源：calendar-noreply@meet.example.com\\n收件人：me\\n日期：2026-01-15T03:00:00Z\\n主题：Meeting Confirmed: Weekly Team Sync\\nYour meeting 'Weekly Team Sync' has been confirmed for Tuesday March 5 at 10:00 AM PST.\"}"
+      {
+        "message_id": "msg_noise_044",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_044",
+        "smtp_message_id": "msg_noise_044@fixture.invalid",
+        "subject": "Inquiry about enterprise plan",
+        "head_from": {
+          "mail_address": "info@titaniumsys.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "sales@noiseco.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIHdlIGFyZSBhIDIwMC1wZXJzb24gbWFudWZhY3R1cmluZyBjb21wYW55IGxvb2tpbmcgZm9yIGEgQ1JNIHNvbHV0aW9uLiBDb3VsZCB5b3Ugc2VuZCBwcmljaW5nIGluZm8gZm9yIHlvdXIgZW50ZXJwcmlzZSBwbGFuPw",
+        "body_preview": "SGksIHdlIGFyZSBhIDIwMC1wZXJzb24gbWFudWZhY3R1cmluZyBjb21wYW55IGxvb2tpbmcgZm9yIGEgQ1JNIHNvbHV0aW9uLiBDb3VsZCB5b3Ugc2VuZCBwcmljaW5nIGluZm8gZm9yIHlvdXIgZW50ZXJwcmlz",
+        "body_html": "",
+        "internal_date": "1768368600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768446000000"
-    },
-    {
-      "message_id": "om_msg_noise_002",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_002\\\", \\\"thread_id\\\": \\\"th_noise_002\\\", \\\"from_\\\": \\\"news@salesbriefing.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Sales Briefing: Q1 Market Trends\\\", \\\"date\\\": \\\"2026-01-15T10:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_002\\n来源：news@salesbriefing.example.com\\n收件人：me\\n日期：2026-01-15T10:30:00Z\\n主题：Sales Briefing: Q1 Market Trends\\nThis week in sales: pipeline velocity up 12% YoY across mid-market segments. Read more...\"}"
+      {
+        "message_id": "msg_noise_006",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_006",
+        "smtp_message_id": "msg_noise_006@fixture.invalid",
+        "subject": "Meeting Confirmed: Weekly Team Sync",
+        "head_from": {
+          "mail_address": "calendar-noreply@meet.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciBtZWV0aW5nICdXZWVrbHkgVGVhbSBTeW5jJyBoYXMgYmVlbiBjb25maXJtZWQgZm9yIFR1ZXNkYXkgTWFyY2ggNSBhdCAxMDowMCBBTSBQU1Qu",
+        "body_preview": "WW91ciBtZWV0aW5nICdXZWVrbHkgVGVhbSBTeW5jJyBoYXMgYmVlbiBjb25maXJtZWQgZm9yIFR1ZXNkYXkgTWFyY2ggNSBhdCAxMDowMCBBTSBQU1Qu",
+        "body_html": "",
+        "internal_date": "1768446000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768473000000"
-    },
-    {
-      "message_id": "om_msg_noise_009",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_009\\\", \\\"thread_id\\\": \\\"th_noise_009\\\", \\\"from_\\\": \\\"rcrane@rapidscale.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Proposal follow-up\\\", \\\"date\\\": \\\"2026-01-14T07:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_009\\n来源：rcrane@rapidscale.example.com\\n收件人：me\\n日期：2026-01-14T07:15:00Z\\n主题：Re: Proposal follow-up\\nHi, thanks for the proposal. We are reviewing with the procurement team and will get back to you by end of week.\"}"
+      {
+        "message_id": "msg_noise_002",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_002",
+        "smtp_message_id": "msg_noise_002@fixture.invalid",
+        "subject": "Sales Briefing: Q1 Market Trends",
+        "head_from": {
+          "mail_address": "news@salesbriefing.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrIGluIHNhbGVzOiBwaXBlbGluZSB2ZWxvY2l0eSB1cCAxMiUgWW9ZIGFjcm9zcyBtaWQtbWFya2V0IHNlZ21lbnRzLiBSZWFkIG1vcmUuLi4",
+        "body_preview": "VGhpcyB3ZWVrIGluIHNhbGVzOiBwaXBlbGluZSB2ZWxvY2l0eSB1cCAxMiUgWW9ZIGFjcm9zcyBtaWQtbWFya2V0IHNlZ21lbnRzLiBSZWFkIG1vcmUuLi4",
+        "body_html": "",
+        "internal_date": "1768473000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768374900000"
-    },
-    {
-      "message_id": "om_msg_noise_045",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_045\\\", \\\"thread_id\\\": \\\"th_noise_045\\\", \\\"from_\\\": \\\"cto@alphastream.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Saw your post on LinkedIn — interested\\\", \\\"date\\\": \\\"2026-01-15T01:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_045\\n来源：cto@alphastream.example.com\\n收件人：me\\n日期：2026-01-15T01:00:00Z\\n主题：Saw your post on LinkedIn — interested\\nI saw your post on pipeline automation. We're evaluating solutions for our ops team. Could we set up a 30-minute intro call?\"}"
+      {
+        "message_id": "msg_noise_009",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_009",
+        "smtp_message_id": "msg_noise_009@fixture.invalid",
+        "subject": "Re: Proposal follow-up",
+        "head_from": {
+          "mail_address": "rcrane@rapidscale.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIHRoYW5rcyBmb3IgdGhlIHByb3Bvc2FsLiBXZSBhcmUgcmV2aWV3aW5nIHdpdGggdGhlIHByb2N1cmVtZW50IHRlYW0gYW5kIHdpbGwgZ2V0IGJhY2sgdG8geW91IGJ5IGVuZCBvZiB3ZWVrLg",
+        "body_preview": "SGksIHRoYW5rcyBmb3IgdGhlIHByb3Bvc2FsLiBXZSBhcmUgcmV2aWV3aW5nIHdpdGggdGhlIHByb2N1cmVtZW50IHRlYW0gYW5kIHdpbGwgZ2V0IGJhY2sgdG8geW91IGJ5IGVuZCBvZiB3ZWVrLg",
+        "body_html": "",
+        "internal_date": "1768374900000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768438800000"
-    },
-    {
-      "message_id": "om_msg_noise_040",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_040\\\", \\\"thread_id\\\": \\\"th_noise_040\\\", \\\"from_\\\": \\\"dhamilton@northgate.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Pilot results — very positive\\\", \\\"date\\\": \\\"2026-01-15T06:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_040\\n来源：dhamilton@northgate.example.com\\n收件人：me\\n日期：2026-01-15T06:15:00Z\\n主题：Pilot results — very positive\\nWe completed the 30-day pilot and the results exceeded our expectations. Our team is very excited. Looking forward to the expansion discussion.\"}"
+      {
+        "message_id": "msg_noise_045",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_045",
+        "smtp_message_id": "msg_noise_045@fixture.invalid",
+        "subject": "Saw your post on LinkedIn — interested",
+        "head_from": {
+          "mail_address": "cto@alphastream.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SSBzYXcgeW91ciBwb3N0IG9uIHBpcGVsaW5lIGF1dG9tYXRpb24uIFdlJ3JlIGV2YWx1YXRpbmcgc29sdXRpb25zIGZvciBvdXIgb3BzIHRlYW0uIENvdWxkIHdlIHNldCB1cCBhIDMwLW1pbnV0ZSBpbnRybyBjYWxsPw",
+        "body_preview": "SSBzYXcgeW91ciBwb3N0IG9uIHBpcGVsaW5lIGF1dG9tYXRpb24uIFdlJ3JlIGV2YWx1YXRpbmcgc29sdXRpb25zIGZvciBvdXIgb3BzIHRlYW0uIENvdWxkIHdlIHNldCB1cCBhIDMwLW1pbnV0ZSBpbnRybyBj",
+        "body_html": "",
+        "internal_date": "1768438800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768457700000"
-    },
-    {
-      "message_id": "om_msg_noise_029",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_029\\\", \\\"thread_id\\\": \\\"th_noise_029\\\", \\\"from_\\\": \\\"noreply@crm.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Deal Stage Change: Ironclad Systems → Proposal\\\", \\\"date\\\": \\\"2026-01-15T02:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_029\\n来源：noreply@crm.example.com\\n收件人：me\\n日期：2026-01-15T02:45:00Z\\n主题：Deal Stage Change: Ironclad Systems → Proposal\\nThe opportunity 'Ironclad Systems - Platform License' has moved from Qualification to Proposal. Updated by: Alex Vance.\"}"
+      {
+        "message_id": "msg_noise_040",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_040",
+        "smtp_message_id": "msg_noise_040@fixture.invalid",
+        "subject": "Pilot results — very positive",
+        "head_from": {
+          "mail_address": "dhamilton@northgate.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "V2UgY29tcGxldGVkIHRoZSAzMC1kYXkgcGlsb3QgYW5kIHRoZSByZXN1bHRzIGV4Y2VlZGVkIG91ciBleHBlY3RhdGlvbnMuIE91ciB0ZWFtIGlzIHZlcnkgZXhjaXRlZC4gTG9va2luZyBmb3J3YXJkIHRvIHRoZSBleHBhbnNpb24gZGlzY3Vzc2lvbi4",
+        "body_preview": "V2UgY29tcGxldGVkIHRoZSAzMC1kYXkgcGlsb3QgYW5kIHRoZSByZXN1bHRzIGV4Y2VlZGVkIG91ciBleHBlY3RhdGlvbnMuIE91ciB0ZWFtIGlzIHZlcnkgZXhjaXRlZC4gTG9va2luZyBmb3J3YXJkIHRvIHRo",
+        "body_html": "",
+        "internal_date": "1768457700000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768445100000"
-    },
-    {
-      "message_id": "om_msg_noise_024",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_024\\\", \\\"thread_id\\\": \\\"th_noise_024\\\", \\\"from_\\\": \\\"msullivan@thornwood.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Question about enterprise pricing\\\", \\\"date\\\": \\\"2026-01-15T01:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_024\\n来源：msullivan@thornwood.example.com\\n收件人：me\\n日期：2026-01-15T01:15:00Z\\n主题：Question about enterprise pricing\\nCould you send over the enterprise pricing sheet? Our CFO wants to review before we proceed with the evaluation.\"}"
+      {
+        "message_id": "msg_noise_029",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_029",
+        "smtp_message_id": "msg_noise_029@fixture.invalid",
+        "subject": "Deal Stage Change: Ironclad Systems → Proposal",
+        "head_from": {
+          "mail_address": "noreply@crm.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhlIG9wcG9ydHVuaXR5ICdJcm9uY2xhZCBTeXN0ZW1zIC0gUGxhdGZvcm0gTGljZW5zZScgaGFzIG1vdmVkIGZyb20gUXVhbGlmaWNhdGlvbiB0byBQcm9wb3NhbC4gVXBkYXRlZCBieTogQWxleCBWYW5jZS4",
+        "body_preview": "VGhlIG9wcG9ydHVuaXR5ICdJcm9uY2xhZCBTeXN0ZW1zIC0gUGxhdGZvcm0gTGljZW5zZScgaGFzIG1vdmVkIGZyb20gUXVhbGlmaWNhdGlvbiB0byBQcm9wb3NhbC4gVXBkYXRlZCBieTogQWxleCBWYW5jZS4",
+        "body_html": "",
+        "internal_date": "1768445100000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768439700000"
-    },
-    {
-      "message_id": "om_msg_noise_047",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_047\\\", \\\"thread_id\\\": \\\"th_noise_047\\\", \\\"from_\\\": \\\"gmoreau@templar.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Checking on contract status\\\", \\\"date\\\": \\\"2026-01-14T06:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_noise_047\\n来源：gmoreau@templar.example.com\\n收件人：me\\n日期：2026-01-14T06:15:00Z\\n主题：Checking on contract status\\nHi, just checking in on the contract we discussed. Our procurement team is asking for an update. Any ETA on the finalized terms?\"}"
+      {
+        "message_id": "msg_noise_024",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_024",
+        "smtp_message_id": "msg_noise_024@fixture.invalid",
+        "subject": "Question about enterprise pricing",
+        "head_from": {
+          "mail_address": "msullivan@thornwood.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Q291bGQgeW91IHNlbmQgb3ZlciB0aGUgZW50ZXJwcmlzZSBwcmljaW5nIHNoZWV0PyBPdXIgQ0ZPIHdhbnRzIHRvIHJldmlldyBiZWZvcmUgd2UgcHJvY2VlZCB3aXRoIHRoZSBldmFsdWF0aW9uLg",
+        "body_preview": "Q291bGQgeW91IHNlbmQgb3ZlciB0aGUgZW50ZXJwcmlzZSBwcmljaW5nIHNoZWV0PyBPdXIgQ0ZPIHdhbnRzIHRvIHJldmlldyBiZWZvcmUgd2UgcHJvY2VlZCB3aXRoIHRoZSBldmFsdWF0aW9uLg",
+        "body_html": "",
+        "internal_date": "1768439700000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768371300000"
-    },
-    {
-      "message_id": "om_msg_noise_014",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_noise_014\\\", \\\"thread_id\\\": \\\"th_noise_014\\\", \\\"from_\\\": \\\"ops@noiseco.example.com\\\", \\\"to\\\": [\\\"sales@noiseco.example.com\\\"], \\\"subject\\\": \\\"Updated: Q1 Sales Leaderboard\\\", \\\"date\\\": \\\"2026-01-15T00:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_noise_014\\n来源：ops@noiseco.example.com\\n收件人：sales@noiseco.example.com\\n日期：2026-01-15T00:30:00Z\\n主题：Updated: Q1 Sales Leaderboard\\nAttached is the updated Q1 leaderboard through week 9. Top performers: Jordan Marsh (142%), Riley Griffith (138%), Alex Vance (127%).\"}"
+      {
+        "message_id": "msg_noise_047",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_047",
+        "smtp_message_id": "msg_noise_047@fixture.invalid",
+        "subject": "Checking on contract status",
+        "head_from": {
+          "mail_address": "gmoreau@templar.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIGp1c3QgY2hlY2tpbmcgaW4gb24gdGhlIGNvbnRyYWN0IHdlIGRpc2N1c3NlZC4gT3VyIHByb2N1cmVtZW50IHRlYW0gaXMgYXNraW5nIGZvciBhbiB1cGRhdGUuIEFueSBFVEEgb24gdGhlIGZpbmFsaXplZCB0ZXJtcz8",
+        "body_preview": "SGksIGp1c3QgY2hlY2tpbmcgaW4gb24gdGhlIGNvbnRyYWN0IHdlIGRpc2N1c3NlZC4gT3VyIHByb2N1cmVtZW50IHRlYW0gaXMgYXNraW5nIGZvciBhbiB1cGRhdGUuIEFueSBFVEEgb24gdGhlIGZpbmFsaXpl",
+        "body_html": "",
+        "internal_date": "1768371300000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1768437000000"
-    }
-  ]
+      {
+        "message_id": "msg_noise_014",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "th_noise_014",
+        "smtp_message_id": "msg_noise_014@fixture.invalid",
+        "subject": "Updated: Q1 Sales Leaderboard",
+        "head_from": {
+          "mail_address": "ops@noiseco.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "sales@noiseco.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgUTEgbGVhZGVyYm9hcmQgdGhyb3VnaCB3ZWVrIDkuIFRvcCBwZXJmb3JtZXJzOiBKb3JkYW4gTWFyc2ggKDE0MiUpLCBSaWxleSBHcmlmZml0aCAoMTM4JSksIEFsZXggVmFuY2UgKDEyNyUpLg",
+        "body_preview": "QXR0YWNoZWQgaXMgdGhlIHVwZGF0ZWQgUTEgbGVhZGVyYm9hcmQgdGhyb3VnaCB3ZWVrIDkuIFRvcCBwZXJmb3JtZXJzOiBKb3JkYW4gTWFyc2ggKDE0MiUpLCBSaWxleSBHcmlmZml0aCAoMTM4JSksIEFsZXgg",
+        "body_html": "",
+        "internal_date": "1768437000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

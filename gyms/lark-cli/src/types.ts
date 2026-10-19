@@ -7,10 +7,57 @@ export interface BaseRecord {
 export interface Sheet {
   title: string;
   values: (string | number | boolean)[][];
+  // Reviewed text number format, keyed by zero-based row:column coordinates.
+  cell_styles?: Record<string, { number_format: '@' }>;
 }
 export interface World {
   [key: string]: any;
   now: string;
+  drive_files?: {
+    token: string;
+    name: string;
+    parent_token: string;
+    type: 'file';
+    writable?: boolean;
+  }[];
+  docs?: {
+    folders: {
+      token: string;
+      name: string;
+      parent_token?: string;
+      writable?: boolean;
+    }[];
+    documents: {
+      document_id: string;
+      parent_token: string;
+      title: string;
+      content: string;
+      format: 'markdown';
+      revision_id: number;
+      writable?: boolean;
+    }[];
+  };
+  mail?: {
+    attachment_support?: boolean;
+    // Explicit task opt-in: [] is an empty address book; absence is unsupported.
+    contacts?: (ApiObject & {
+      id: string;
+      mailbox_id: string;
+      name: string;
+    })[];
+    labels?: {
+      id: string;
+      mailbox_id: string;
+      name: string;
+      background_color?: string;
+    }[];
+    mailboxes: {
+      email_address: string;
+      email_type?: 'USER_PRIMARY' | 'PUBLIC_MAILBOX';
+    }[];
+    messages: (ApiObject & { message_id: string; mailbox_id: string })[];
+    drafts: { id: string; message_id: string; mailbox_id: string }[];
+  };
   spreadsheet_token: string;
   spreadsheet_title?: string;
   sheets: Record<string, Sheet>;
@@ -18,19 +65,49 @@ export interface World {
     string,
     { title: string; sheets: Record<string, Sheet> }
   >;
+  // Absent means no comments in this fixture, not an alternate response cache.
+  drive_comments?: (ApiObject & {
+    file_token: string;
+    file_type: string;
+    comment_id: string;
+    is_solved: boolean;
+    is_whole: boolean;
+    reply_list?: { replies: ApiObject[] };
+  })[];
+  // Spaces accessible to this fixture's evaluation identity; absence means none.
+  wiki_spaces?: {
+    space_id: string;
+    name: string;
+    description: string;
+    space_type: 'team' | 'person' | 'my_library' | 'my_library_resigned';
+    visibility: 'public' | 'private';
+    open_sharing: 'open' | 'closed';
+  }[];
   calendars: ApiObject[];
   events: (ApiObject & { event_id: string; summary: string })[];
   base: {
+    resource_discovery?: boolean;
+    workspace_discovery?: boolean;
+    workspace_token?: string;
+    name?: string;
     app_token: string;
     table_id: string;
     records: BaseRecord[];
     fields?: { name: string; type: string }[];
+    tables?: {
+      table_id: string;
+      name: string;
+      collection: string;
+      read_only?: boolean;
+      fields: { name: string; type: string }[];
+    }[];
   };
   chats: (ApiObject & { chat_id: string; name: string })[];
   chat_creation_allowed?: boolean;
   messages: (ApiObject & { message_id: string; chat_id: string })[];
 }
 export interface ApiCall {
+  identity?: 'user' | 'bot';
   seq: number;
   method: string;
   path: string;
@@ -38,6 +115,7 @@ export interface ApiCall {
   status: number;
   response: unknown;
   changed: boolean;
+  timestamp?: string;
   mutations: { kind: string; id: string; before?: unknown; after: unknown }[];
 }
 export interface MockOptions {
@@ -46,10 +124,9 @@ export interface MockOptions {
   onSnapshot?: (world: World, calls: ApiCall[]) => void;
 }
 export interface Verdict {
-  status: 'pass' | 'fail' | 'environment_incomplete';
+  status: 'pass' | 'fail' | 'error';
   success: boolean;
   checks: Record<string, boolean>;
-  unsupported: string[];
   infrastructureErrors: number;
   apiCalls: number;
 }

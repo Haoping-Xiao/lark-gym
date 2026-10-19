@@ -1,18 +1,22 @@
 {
   "updates": [],
   "creates": [],
-  "messages": [
-    {
-      "chat_id": "oc_recipient",
-      "contains": [
-        "INV-2026-0342",
-        "$12,500",
-        "Net 30",
-        "invoice_INV-2026-0342.pdf"
-      ]
-    }
-  ],
+  "messages": [],
   "cells": [],
   "events": [],
-  "create_contains": {}
+  "create_contains": {},
+  "mail": [
+    {
+      "to": ["rachel.kim@globexfin.example.com"],
+      "subject": "Invoice #INV-2026-0342 - February Services",
+      "body_contains": ["INV-2026-0342", "$12,500"],
+      "attachments": [
+        {
+          "filename": "invoice_INV-2026-0342.pdf",
+          "sha256": "f2b6754cdcb07bf2069a1b42901e850445506e521ae282c86611f3ccece0034f",
+          "content_types": ["application/pdf", "application/octet-stream"]
+        }
+      ]
+    }
+  ]
 }

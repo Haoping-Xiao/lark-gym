@@ -1,10 +1,7 @@
-查看 ss_space/ws_rooms 的空间利用率，筛选 Office 类型且日均利用率低于 40% 的办公室，排除会议室、Renovation 及政策/最新通知排除的场所。将合并建议保存为飞书报告台账 reports 记录，title 为 Space Consolidation Report - Q1 2026，workspace 为 sp_facilities，body 列房间、容量、入住率及 consolidate 建议。另向设施总监 rachel.torres@company.example.com 私聊结果，包含总空置座位数（各候选房间 capacity × (1 - occupancy%) 之和），保留两位小数，不向下取整。
+查看 ss_space/ws_rooms 的空间利用率，筛选 Office 类型且日均利用率低于 40% 的办公室，排除会议室、Renovation 及政策/最新通知排除的场所。将合并建议保存为真实飞书文档，标题为 Space Consolidation Report - Q1 2026，父目录为 sp_facilities，正文列房间、容量、入住率及 consolidate 建议。另向设施总监 rachel.torres@company.example.com 邮件结果，包含总空置座位数（各候选房间 capacity × (1 - occupancy%) 之和），保留两位小数，不向下取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。
 
-- ss_space：Space Utilization；工作表 ws_rooms（Rooms）, ws_space_policy（Space Policies）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-09T09:00:00Z。
+飞书文档使用 docs +create / +fetch / +update，指定 --doc-format markdown；文档标题和正文存于真实 Docs 对象，不以 Base 记录替代。

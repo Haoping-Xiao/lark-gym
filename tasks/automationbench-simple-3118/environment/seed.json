@@ -43,23 +43,86 @@
         "name": "summary",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_02e3fe5aad80",
+        "name": "研发问题",
+        "collection": "issues",
+        "fields": [
+          {
+            "name": "issuetype",
+            "type": "text"
+          },
+          {
+            "name": "project",
+            "type": "text"
+          },
+          {
+            "name": "summary",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_71f117ca2cc0",
+        "name": "lookup_project",
+        "collection": "lookup_project",
+        "fields": [
+          {
+            "name": "project",
+            "type": "text"
+          },
+          {
+            "name": "project_id",
+            "type": "text"
+          },
+          {
+            "name": "searchByParameter",
+            "type": "text"
+          }
+        ],
+        "read_only": true
+      }
     ]
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_4204",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：csm@company.example.com\\n主题：Customer Issue: Data sync failure for large accounts\\n日期：2026-02-22T16:45:00Z\\nMegaCorp reported that their data sync has been failing consistently. They have over 1000 records and the sync process times out every time. This is blocking their quarterly reporting.\"}"
-      },
-      "create_time": "1771778700000"
-    }
-  ]
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_4204",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "thread_msg_4204",
+        "smtp_message_id": "msg_4204@fixture.invalid",
+        "subject": "Customer Issue: Data sync failure for large accounts",
+        "head_from": {
+          "mail_address": "csm@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "TWVnYUNvcnAgcmVwb3J0ZWQgdGhhdCB0aGVpciBkYXRhIHN5bmMgaGFzIGJlZW4gZmFpbGluZyBjb25zaXN0ZW50bHkuIFRoZXkgaGF2ZSBvdmVyIDEwMDAgcmVjb3JkcyBhbmQgdGhlIHN5bmMgcHJvY2VzcyB0aW1lcyBvdXQgZXZlcnkgdGltZS4gVGhpcyBpcyBibG9ja2luZyB0aGVpciBxdWFydGVybHkgcmVwb3J0aW5nLg",
+        "body_preview": "TWVnYUNvcnAgcmVwb3J0ZWQgdGhhdCB0aGVpciBkYXRhIHN5bmMgaGFzIGJlZW4gZmFpbGluZyBjb25zaXN0ZW50bHkuIFRoZXkgaGF2ZSBvdmVyIDEwMDAgcmVjb3JkcyBhbg",
+        "body_html": "",
+        "internal_date": "1771778700000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

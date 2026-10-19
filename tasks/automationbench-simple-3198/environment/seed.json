@@ -50,28 +50,98 @@
         "name": "description",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_f883a4577cea",
+        "name": "客服组资料",
+        "collection": "lookup_groups",
+        "fields": [
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ],
+        "read_only": true
+      },
+      {
+        "table_id": "tbl_281832285f98",
+        "name": "成员资料",
+        "collection": "lookup_users",
+        "fields": [
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "role",
+            "type": "text"
+          }
+        ],
+        "read_only": true
+      },
+      {
+        "table_id": "tbl_45a5c62241ee",
+        "name": "客服工单",
+        "collection": "tickets",
+        "fields": [
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "subject",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      }
     ]
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
-      "chat_id": "oc_notice_0",
-      "name": "buyer@startupxyz.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_3198",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：buyer@startupxyz.example.com\\n主题：Question about pricing\\n日期：2026-02-22T09:15:00Z\\nHi, could you explain the difference between your pricing tiers? We're a team of 30 and not sure which plan fits best. Thanks, Jamie Park\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771751700000"
-    }
-  ]
+      {
+        "email_address": "sales@company.example.com",
+        "email_type": "PUBLIC"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3198",
+        "mailbox_id": "sales@company.example.com",
+        "thread_id": "thr_3198",
+        "smtp_message_id": "msg_3198@fixture.invalid",
+        "subject": "Question about pricing",
+        "head_from": {
+          "mail_address": "buyer@startupxyz.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "sales@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIGNvdWxkIHlvdSBleHBsYWluIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4geW91ciBwcmljaW5nIHRpZXJzPyBXZSdyZSBhIHRlYW0gb2YgMzAgYW5kIG5vdCBzdXJlIHdoaWNoIHBsYW4gZml0cyBiZXN0LiBUaGFua3MsIEphbWllIFBhcms",
+        "body_preview": "SGksIGNvdWxkIHlvdSBleHBsYWluIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4geW91ciBwcmljaW5nIHRpZXJzPyBXZSdyZSBhIHRlYW0gb2YgMzAgYW5kIG5vdCBzdXJlIHdoaQ",
+        "body_html": "",
+        "internal_date": "1771751700000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

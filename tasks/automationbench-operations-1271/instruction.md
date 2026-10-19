@@ -1,10 +1,7 @@
-当前Jan29 14:15UTC以纳入最新Safety邮件，执行全部Emergency Queue政策；stale规则以实际当前时刻回溯12小时。判断各地点事件的有效优先级，挑最紧急可响应Facilities New一项；remaining计所有排除后的可响应总数（包括本次选中项，未从源表删除）。原SMS改对+15551119999电话号码飞书私聊，包含描述、有效Priority、具体Location、EMG-源row_id及N remaining。创建monday_items(board_id=brd_emergencies/item_name含描述及引用/status=Active/description)与notion_pages(parent_page=pg_emergencies/title含描述引用/content全部详情)，同样私聊building-occupants@company.example.com。全部输出含有效优先级、地点、引用、总数；只模拟告警流程，不实际派遣，不把同楼不同位置混同。
+查 ss_emergencies/ws_active 的新 Facilities 事故及安全团队最新优先级更新，处理最严重的一项。短信 +15551119999，含优先级、描述、位置和全部排除后待处理 New Facilities 总数；在 brd_emergencies 建 status=Active 的 Monday 项，在 pg_emergencies 记录全部详情，并邮件 building-occupants@company.example.com 告警。飞书适配：短信为电话号码 IM，monday_items（board_id、item_name、status、description），页面为原生文档；统计待处理总数包含本次选择项。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
+本次业务处理以 2026-01-29T14:15:00Z 为时间基准。
 
-- ss_emergencies：Emergencies；工作表 ws_active（Active）, ws_protocols（Response Protocols）, ws_protocols_q1_update（Q1 2026 Protocol Updates）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-29T14:15:00Z。
+文档必须通过飞书 Docs 创建，使用 Markdown 内容；不在 Base 表里登记页面来替代文档。本题将原目录映射为飞书云盘目录 pg_emergencies。 可用 docs +create / +fetch / +update，均指定 --doc-format markdown；云盘目录使用 drive files list 查询。

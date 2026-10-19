@@ -311,71 +311,111 @@
       {
         "name": "email",
         "type": "text"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_d133e6701c96",
+        "name": "hiver_conversations",
+        "collection": "hiver_conversations",
+        "read_only": false,
+        "fields": [
+          {
+            "name": "assigned_to",
+            "type": "text"
+          },
+          {
+            "name": "assignee_id",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "status",
+            "type": "text"
+          },
+          {
+            "name": "subject",
+            "type": "text"
+          },
+          {
+            "name": "tags",
+            "type": "text"
+          }
+        ]
       },
       {
-        "name": "to",
-        "type": "text"
+        "table_id": "tbl_e8730dfe4865",
+        "name": "hiver_shared_mailboxes",
+        "collection": "hiver_shared_mailboxes",
+        "read_only": false,
+        "fields": [
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ]
       },
       {
-        "name": "body",
-        "type": "text"
+        "table_id": "tbl_add0821bb6f3",
+        "name": "hiver_users",
+        "collection": "hiver_users",
+        "read_only": false,
+        "fields": [
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "table_id": "tbl_281832285f98",
+        "name": "成员资料",
+        "collection": "lookup_users",
+        "read_only": true,
+        "fields": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "is_bot",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "username",
+            "type": "text"
+          }
+        ]
       }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
       "chat_id": "oc_user_U_BOT",
       "name": "U_BOT | Workflow Bot",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "agent_a@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "agent_b@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "agent_c@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "agent_d@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "eng-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "ops-lead@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "rhartley@noiseco.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "support@company.example.com",
       "chat_mode": "p2p"
     },
     {
@@ -384,5 +424,16 @@
       "chat_mode": "group"
     }
   ],
-  "messages": []
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [],
+    "drafts": [],
+    "labels": []
+  }
 }

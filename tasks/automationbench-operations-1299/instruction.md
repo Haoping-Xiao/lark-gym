@@ -1,10 +1,5 @@
-检查Champion/Decision Maker，交叉LinkedIn和Contact Management Policy、内部邮件。源联系人关联的主要accounts缺失，本适配明确原公司映射：acc_oldco=OldCompany，acc_stable=StableCompany LLC，acc_current=CurrentCo，acc_partner=PartnerCo，acc_legacy=LegacyCorp，acc_globalsoft=GlobalSoft Inc；这是补齐的比对基线，不创建account。只有确认永久换公司者更新contacts.company和title，保留旧account_id和email避免关联到不存在账号；为原owner_id建tasks(owner_id/who_id/subject含姓名/description含新公司title)。sales-alerts报告确认姓名/新公司及N confirmed，不把借调、提前更新、更名、内部晋升作为跳槽。
+检查 Salesforce 中标记 Champion 或 Decision Maker 的联系人，将 LinkedIn 当前公司与 CRM 比较，并查阅近期邮件、当前政策及所有可用记录核实是否换工作。对确认换工作的联系人更新 company、title，为账户负责人创建跟进任务，向 sales-alerts 通知姓名、新公司和确认总数。Salesforce 适配为 contacts、accounts、tasks 飞书台账；源缺原账户公司信息，本适配补充比对基线 acc_oldco=OldCompany、acc_stable=StableCompany LLC、acc_current=CurrentCo、acc_partner=PartnerCo、acc_legacy=LegacyCorp、acc_globalsoft=GlobalSoft Inc。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_contact_policy：Contact Management Policy；工作表 ws_flagging_rules（Flagging Rules）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-10T10:00:00Z。
+本次业务处理以 2026-02-10T10:00:00Z 为时间基准。

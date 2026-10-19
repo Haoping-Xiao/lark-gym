@@ -1,14 +1,27 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_recipient',
-    '--text',
-    'Luis，Starter套餐为每用户每月$49，Professional套餐为每用户每月$99，Enterprise采用定制报价。企业咨询请在brightpath.example.com/pricing-call预约。',
+    'mail',
+    '+messages',
+    '--mailbox',
+    'sales@brightpath.example.com',
+    '--message-ids',
+    'msg_4002',
+    '--as',
+    'user',
+  ],
+  [
+    'mail',
+    '+reply',
+    '--mailbox',
+    'sales@brightpath.example.com',
+    '--message-id',
+    'msg_4002',
+    '--body',
+    'Hi Luis, Starter is $49/month per user, Professional is $99/month per user, and Enterprise has custom pricing. For Enterprise inquiries, book a call at https://brightpath.example.com/pricing-call .',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)
