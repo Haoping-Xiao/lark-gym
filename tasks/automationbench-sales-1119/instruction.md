@@ -1,3 +1,3 @@
-检查活跃商机champion当前任职，交叉核对CRM机会、联系人和LinkedIn人物身份，发现离职才通知deal-risk并补充联系人description。按原owner_id、related_to_id创建tasks跟进，subject包含champion和联系人姓名，status=Not Started；不直接改联系人公司归属或旧邮箱以免损坏商机关联。消息含商机、原公司、新公司和人物全名。
+监控活跃交易 champion 是否换工作，对照 Salesforce opportunity contacts 与当前 LinkedIn 资料，发现 champion 离开公司时提醒团队并更新记录。资料和 CRM 使用飞书台账，通知使用飞书消息。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

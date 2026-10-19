@@ -1,4 +1,4 @@
-今天2026-03-20，阅读全部新职位来信与tracker，按保密和外发权限处理。普通新职位按邮件时间向Open Roles追加完整Title/Department/Location/Level/Headcount/Status=Open/Hiring Manager/Date Added；按Department Hiring Managers邮件对应经理，另给Talent Marketing一条汇总申请外发，不自行发布。机密职位不进普通tracker，仅邮件发件人和指定executive recruiter协调；重复职位不新增不通知。
+招聘经理发来了内部职位需求，请先阅读全部消息和现有跟踪表，再把真正新增的职位加入职位表，通知相关部门招聘经理，并发布到公司 LinkedIn 页面以获得外部曝光。LinkedIn 发布在本环境适配为外发申请，不连接真实平台；职位表使用 Open Roles，字段为 Title、Department、Location、Level、Headcount、Status、Hiring Manager、Date Added，Status 可使用 Open。经理通知使用飞书邮件，原群通知使用飞书消息。引用来源值时原样保留，通知包含受影响实体名称。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

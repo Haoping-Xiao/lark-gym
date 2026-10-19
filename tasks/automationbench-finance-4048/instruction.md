@@ -1,4 +1,4 @@
-今天2026-02-12。依Vendor Credit Application Policy与授权时效更新处理供应商credit，并核对Notes。最旧bill按Due Date排序；本轮不能改采购独占的Vendor Info评级，虽然原请求提出了评级更新。写credit_applications台账credit_number、bill_number、vendor、amount数值；Open Credits新增Remaining Credit，成功项Status=Applied，待确认项Status=Needs Verification且不改Amount；Open Bills新增Remaining Balance，不覆盖原Amount，有应用但未结清写Partially Paid。每个成功供应商只发一条邮件列credit、bill、原额度、应用金额和全批总计Total credits applied: $X。
+审查供应商贷项并应用到相应未付账单，遵循供应商贷项政策及其可能的近期更新。同时根据贷项频次更新 Vendor Info 中的供应商评级：有 2 笔或更多贷项的供应商降为 Review。更新跟踪表并通过飞书邮件确认贷项应用，每封确认包含 Total credits applied: $X。飞书适配使用 credit_applications 台账，字段为 credit_number、bill_number、vendor、amount；Open Credits 使用 Remaining Credit，Open Bills 使用 Remaining Balance，Status 可选 Applied、Needs Verification、Partially Paid。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

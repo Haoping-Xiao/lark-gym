@@ -1,4 +1,4 @@
-分析截至2026-03-07的Q1客户会议ROI。读取sales-ops当前政策，只算已结束的外部客户会议，用CRM机会amount除该账户累计会议小时（每场时长计一次，不按人数重复）；会议参与邮箱和contacts关联账户。低于政策阈值则建tasks，subject遵循政策，related_to_id关联机会，owner_id沿用机会负责人，status=Not Started，description注明累计分钟、金额和美元每小时。按政策邮件sales ops汇总所有账户ROI与需复核者。
+分析 Q1 账户会议 ROI，阅读 sales-ops 中 ROI policy，标记表现不足的交易供 review，并向 sales ops 团队汇总。会议资料和 CRM 使用飞书台账，跟进任务使用 tasks，通知使用原生邮件。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

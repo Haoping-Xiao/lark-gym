@@ -68,7 +68,10 @@ for (const [name, mode] of [
           maxBuffer: 8e6,
         });
         const result = JSON.parse(await fs.readFile(out + '/result.json'));
-        assert.equal(result.business_success, !changed || mode === 'optional');
+        assert.equal(
+          result.business_success,
+          !changed || mode === 'optional' || mode === 'subject',
+        );
         assert.equal(result.semantic.required, true);
       } finally {
         await server.close();

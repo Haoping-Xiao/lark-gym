@@ -1,4 +1,4 @@
-按ss_capacity分析Open负载，agent Max_Tickets用数量判断，优先移动较低优先级票（Low、Medium、High；同级ID数字升序），仅在同Department内转给有空余capacity者，最少移动到个人不超限。部门按Priority_Weight加权负载对Max_Dept_Load判断，转移不改变部门总负载，不把部门过载当已解决。每移动票新增zoho_desk_comments(ticket_id/content含redistributed及原新Agent_ID/is_public=false文本)，不改priority/department。ws_report为运行前快照：Overloaded_Agents用roster IDs逗号拼接，无则空串；Status=Overloaded/Within capacity。邮件目的地原题缺失，本题显式使用测试邮箱capacity@support.example.com的IM；它与capacity-planning报告含capacity、各部门数量/人数/加权负载、原过载者及转移后人数。
+按 ss_capacity/ws_roster、ws_benchmarks 分析 Zoho Desk 各部门负载，从超负荷人员重新分派工单，每个移动票加含 redistributed 的内部注释。登记 ws_report，人员引用使用 roster Agent_ID，邮件 capacity report 且主题含 capacity，向 capacity-planning 汇总。使用 zoho_desk_tickets、zoho_desk_comments；源缺报告邮箱时使用 capacity@support.example.com，Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

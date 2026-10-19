@@ -1,4 +1,4 @@
-核对Skills/Role Competencies及全部policy、过去30天LMS completion邮件，以邮箱识别同名员工，最近完成视已掌握对应技能。仅Required差集、无scheduled/probation/transfer排除者创建asana_tasks(project=Training/name=原Name/email/missing_skills JSON数组/missing_count)，源project无ID使用逻辑名称Training。邮件各自training plan包含每项剩余技能、总数及学习后复核建议，不把已经补齐或optional技能列入计划。
+今天为 2026-02-09，检查 ss_training 技能矩阵与角色必需技能，忽略 optional/nice-to-have，跳过已有培训安排者。为缺少必需技能的员工在 Training 项目创建任务，并邮件培训计划列明待学习技能及缺失技能总数。Asana 适配为 asana_tasks（project、name、email、missing_skills JSON 数组、missing_count），源未提供项目 ID 时用逻辑名称 Training。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

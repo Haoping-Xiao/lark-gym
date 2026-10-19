@@ -1,4 +1,4 @@
-按最新更正分析Recruiting Channel Analytics，仅邮件talent-lead@company.example.com，不改预算、不广播或扩展收件人。逐渠道列Spend、Applications、Hires、CPH两位美元、Avg Time to Hire、原Budget；0 hires的CPH=N/A，未激活预算保留。源缺underperform门槛与调拨算法，本题明确已激活渠道CPH>5000为underperforming；只提出从其中CPH最高者原Budget的20%转给CPH最低的付费渠道的建议，预算不变、待CFO批准。
+分析招聘渠道表现，计算各渠道单次招聘成本，标记表现不佳的渠道并据此重新分配预算，给出具体金额，将分析发送给人才负责人，同时将完整分析发布到 all-staff 群。发送前核实数字为最新。飞书适配报告字段为 Spend、Applications、Hires、CPH、Avg Time to Hire、Budget，CPH 可使用两位小数美元金额。引用来源值时原样保留，不改写或取整；消息包含受影响实体名称。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

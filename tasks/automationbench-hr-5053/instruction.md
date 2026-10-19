@@ -1,4 +1,4 @@
-今天2026-03-20，处理已批准且Effective Date已到的晋升，未来生效和待签字项本轮不执行或公告。源BambooHR未提供员工实体，改为从批准表在employee_records飞书台账登记本轮有效记录，字段employee_id、name、title、salary原文、effective_date，作为本轮人事变更登记。给每位晋升者邮件祝贺并列新Title、Salary、Effective Date；向celebrations逐人公告姓名、Title、生效日，不披露工资。保留来源表。
+处理本轮晋升，更新员工的新职称和工资，向每位晋升员工发送祝贺邮件，并在 celebrations 群公告。来源未提供 BambooHR 员工实体，飞书适配使用 employee_records 台账登记变更，字段为 employee_id、name、title、salary、effective_date。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

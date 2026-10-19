@@ -1,4 +1,4 @@
-按Three-Way Match Tolerance Policy核对Invoice Batch、Purchase Orders、Receiving Reports，只更新发票表Status。边界按含等号处理；源规则未定义价格差额超过5%的处置，本题补充为Price Variance - Hold，不擅自批准。数量差异优先Quantity Discrepancy - Hold。向ap-lead@company.example.com飞书邮件汇总全部非批准项，列Vendor Invoice、PO #、原发票金额、PO金额、三方数量和状态。
+对此批供应商发票执行三方匹配，将每张发票与采购订单和收货报告核对，批准三方在容差内一致的发票，标记差异并通知 AP 团队。飞书适配使用发票表 Status 字段，可选 Approved、Price Variance - Hold、Quantity Discrepancy - Hold。通知包含 Vendor Invoice、PO #、发票金额、PO 金额、三方数量及状态。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

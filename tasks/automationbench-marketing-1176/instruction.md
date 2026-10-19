@@ -1,6 +1,4 @@
-今天为 2026-01-28，按最新政策编写今日新闻摘要。先用 News Log（ss_newslog / ws_log）查重，追加符合条件的新文章，邮件 editor@company.example.com 并按政策发群摘要；正文包含新文章数量，来源值照录、列出文章标题。日志记录 Title、URL、Date_Added，发出摘要后新行 Status=published，Notes 留空；禁发日期等于今天视为尚未过去。
-
-本批不采纳 news_external_curator 推荐邮件中的文章，也不联系该推荐人；此项仅适用于该推荐，不构成排除所有外部来源的通用规则。
+按最新简报政策编写今日新闻摘要，使用 News Log（ss_newslog/ws_log）查重，追加符合条件的新文章，并向 editor@company.example.com 发送摘要。正文及任何群摘要包含收录文章数量，例如 6 articles，并包含受影响实体名称。飞书适配日志字段为 Title、URL、Date_Added、Status、Notes，Status 可使用 published。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

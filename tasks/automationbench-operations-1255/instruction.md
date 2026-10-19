@@ -1,4 +1,4 @@
-阅读DR Systems及DR Scheduling Policy，从Critical/Production/Due/Ready且无未解决安全hold者选Last Test最早系统。原Zoom改cal_ops飞书视频日历DR Drill: <System>，2026-02-08 06:00 UTC3小时，源无参会人不猜。创建飞书文档(父目录=SP_DR/title=DR Drill Plan: <System> - 2026-02-08/body)，以及asana_tasks(workspace=ws_it/project=proj_dr/name/dueDate)三项：Pre-drill checklist/Execute DR drill/Post-drill report，各冒号后系统名，日期Feb7/8/9。邮件dr-team@company.example.com主题DR Drill Scheduled: <System>，并发disaster-recovery，页面/通知保留System Owner、Last Test、RTO、RPO及UTC窗口。只安排不执行恢复演练，不清除安全hold。
+在 ss_dr_systems/ws_schedule 中先阅读 DR scheduling policies，选择最久未测试、已就绪且未在进行中的关键生产系统，安排 DR 演练。创建 cal_ops 飞书视频日历（替代 Zoom），名称 DR Drill: <System>，2026-02-08T06:00:00Z 开始、持续 3 小时；在 SP_DR 下创建飞书文档（替代 cloud_ops/SP_DR Confluence），标题 DR Drill Plan: <System> - 2026-02-08。在 asana_tasks 台账的 ws_it/proj_dr 创建 Pre-drill checklist: <System>、Execute DR drill: <System>、Post-drill report: <System>，dueDate 分别为 2026-02-07、2026-02-08、2026-02-09。向 dr-team@company.example.com 发送主题 DR Drill Scheduled: <System> 的邮件，正文包含所选 System Owner，并向 disaster-recovery 通知。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

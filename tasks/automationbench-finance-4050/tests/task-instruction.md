@@ -1,4 +1,4 @@
-今天是 2026-02-01。依据 Active Subscriptions、2026 Rate Card 和最新业务来信/群消息处理本月续费，尊重专门定价、旧客户保价与取消要求。符合条件者创建 wave_invoices 飞书台账（customer_id、customer_name、period=2026-02、invoice_total 数值、memo），欠款者 memo 应说明逾期欠款并保留原欠款金额；无欠款者不得虚构欠款，memo 可为空或填写准确的续费说明。不删除或回写订阅者行。逐客户发飞书邮件，包含客户名及 Renewal amount: $X，不合格者不通知。通知或记录引用来源值时须原样保留，不得改写或舍入。
+处理本月订阅续费，检查到期订阅，应用新价目表中的价格调整，遵循续费程序及其可能的近期更新，并创建发票。同时从 Active Subscriptions 表移除已流失客户。告知每位续费客户即将收取的费用，通知包含 Renewal amount: $X。Wave 发票适配为 wave_invoices 飞书台账，字段为 customer_id、customer_name、period、invoice_total、memo，period 使用 YYYY-MM 格式。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

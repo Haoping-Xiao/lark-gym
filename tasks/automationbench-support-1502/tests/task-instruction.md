@@ -1,3 +1,3 @@
-按ss_sentiment精确tag匹配，只对open且Action=Escalate的会话处理；not-negative优先排除，Monitor保持不动。源未给admin/team实体，公开用assigned_team=Support Escalation业务字段承载分派，不伪造成员ID。追加escalated标签，intercom_notes(conversation_id/body含escalated、命中tag、severity/author_type=admin)。仅其中带product-issue创建issues(project=SUP/issuetype=Bug/summary原title/source_conversation/description原会话正文)。escalations群报升级总数/bug数、title/tag/severity。
+按 ss_sentiment/ws_rules 升级带负面标签的 Intercom 会话，按需分派、加备注和建 issue，向 escalations 汇总，含相关金额。使用 intercom_conversations、intercom_notes、issues；源缺团队实体 ID 时 assigned_team 保存逻辑团队名称。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

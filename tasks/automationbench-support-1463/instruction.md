@@ -1,4 +1,4 @@
-对Open且classification精确warranty-claim票按完整Serial查products/policy/log。保修按Purchase_Date加月数及extended bonus的日历月，到期日含当日；max_claims只计历史approved，不计此次待处理。excluded category/已达最大数/过期均denied，否则approved。每票追加zoho_desk_comments(ticket_id/content含verdict/serial/product/name/原因)及claims log，保留历史。approved新cases(subject含serial/description原票/serial_number/product_name/requester_email/status=New/origin=Web/ticket_id)，无CRM人/账号ID不造；denied飞书邮件完整解释。群含batch_tracking_code、精确<N> approved/<N> denied、产品/人名及verdict，不宣称已维修。
+今天为 2026-02-10，用 ss_warranty 的 ws_products、ws_claims_policy、ws_claims_log 验证 Zoho Desk warranty claims，逐票注释 approved 或 denied；每项 approved 建 Salesforce case，subject 含产品 serial，denied 则邮件申请人。向 warranty-ops 汇总 <N> approved、<N> denied 和 Config 的 batch_tracking_code，含相关实体名称和计数。使用 zoho_desk_tickets、zoho_desk_comments、cases，Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

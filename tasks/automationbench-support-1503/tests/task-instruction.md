@@ -1,3 +1,3 @@
-处理open、feature-request且没有feature-logged的会话，按ws_blocklist完整公司名或邮箱domain排除竞争者，不回复/记录/报告排除项。按ws_areas关键词匹配title+正文，多类命中按行顺序。每条记录ws_log并追加feature-logged，创建intercom_replies(conversation_id/author_type=admin/body感谢并含feature与Product Area)。上游未明示story门槛，采用公开约定：本轮同area至少2条有效请求才汇成一条issues(project=PROD/issuetype=Story/summary含area/description完整列每请求ID/title/正文/request_count数字)，单条仅记录回复。product-feedback报告Batch_Reference、有效请求数、story数和请求人/title/area。
+处理 feature-request Intercom 会话，使用 ss_features/ws_areas、ws_log、ws_blocklist 分类、登记、适当建 Jira Story 并回复请求人；向 product-feedback 汇总含 ws_config 的 Batch_Reference、相关实体名称和金额。使用 intercom_conversations、intercom_replies、issues；原题未给 Story 汇总门槛，本适配定义本轮同 area 至少两条有效请求时合成一个 Story。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

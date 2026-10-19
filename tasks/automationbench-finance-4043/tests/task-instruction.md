@@ -1,4 +1,4 @@
-今天是 2026-01-15。按给定 State Rates（包括生效日期备注）核对上一季度的 wave_invoices 与 wave_customers 飞书台账。invoice_total 为含税总额，计税基础=invoice_total-invoice_tax_total；应收税按当时州税率算并四舍五入到分。只向 tax@company.example.com 报不一致发票，逐行 Invoice | Customer | State | 已收税 | 应收税 | 差额（已收-应收，正数带+），金额两位小数。保持所有发票不变。
+执行季度销售税合规检查，审查上一季度全部发票，按客户所在州核对是否应用正确税率，标记差异并向 tax@company.example.com 发送报告。飞书适配使用 wave_invoices、wave_customers；invoice_total 表示含税总额，invoice_tax_total 表示其中税额。报告字段为 Invoice、Customer、State、已收税、应收税、差额，金额可使用两位小数，正差额带 +。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-按ss_social_analytics配置分析Buffer org_001，Organic精确匹配不含Boosted、Primary；21天lookback以日期边界Jan7 00:00UTC至当前时刻，避免把当天09时排除。来源day与published_at实际星期不一致，明确使用来源day/hour作业务时段标签，published_at仅过滤日期；聚合每个day/hour平均engagement_rate。分别选Top3与Low3，平分较早时间先，样本不足6时排名允许交集并注明，不把重合项同时当强制推荐与禁发。创建飞书文档(title=Posting Schedule Optimization/content)，ws_timing每时段追加Day/Hour/Rate/Rank，Hour照录来源hour数值；Rank按Top/Low归属记录，可在同一行组合或按归属分行；可附正确名次，同一时段的同一归属不得重复，百分比整数带%。通知或记录引用来源值时须原样保留，不得改写或舍入（engagement_rate按要求转为整数百分比）。social-strategy报告两个排名、样本量、推荐每周最佳单一时段及avoid最差单一时段，不真正发布或改schedule。
+分析 Buffer org_001 近期帖子，按 ss_social_analytics/ws_config 过滤，按小时及星期分析互动表现。按配置标准找出最佳及最差时段，同分优先较早时间，互动率用带百分号的整数百分比。创建 Posting Schedule Optimization 飞书文档（替代 Notion），登记 ss_social_analytics/ws_timing，并向 social-strategy 分享最佳时段、应避免时段和每周建议。今天为 2026-01-28。源 day/hour 与时间戳不一致时，本适配用 day/hour 作为业务时段、published_at 过滤日期；日志使用 Day、Hour、Rate、Rank，Rank 可使用 Top、Low，允许同一时段的不同排名归属。引用来源值及相关金额时原样保留，互动率按要求转换。
 
 本次业务处理以 2026-01-28T12:00:00Z 为时间基准。
 

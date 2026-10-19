@@ -1,4 +1,4 @@
-按Quality Audit给有agent回复的票逐票评分；源未指定多轮合成，补定greeting/resolution/长度取最后一条agent回复（不能误取最后customer），professional_tone审查该票全部agent历史，后续礼貌回复不能抹去先前粗俗。greeting需开头独立Hi/Hello/Hey；length>=50字符；resolution需确定的解决或具体可执行步骤，i guess式猜测或just call back later不算；slang含表中整词及idk、man式随意称呼（不要把u子串误判you）。日志Score数字文本，Details固定greeting=N; resolution=N; length=N; tone=N，全部有回复者都记，包括无benchmark者。按agent所有票平均低于其benchmark才创建gorgias_tickets(subject=coaching - <邮箱>/agent_email/status=open/description含平均与建议)，并lead飞书邮件；无benchmark只报告unbenchmarked不猜lead。quality-assurance发完整逐票及逐agent平均两位小数/票数/benchmark状态，原票不改或补coaching消息。
+按 ss_quality 的评分标准和团队期望审计 Gorgias 工单，识别表现不足者，为其创建 subject 含 agent 的 coaching 工单并邮件其 team lead，登记逐票分数，向 quality-assurance 发布完整 scorecard。使用 gorgias_tickets 及相关客服资料，Gmail 适配为飞书邮箱。 同票有多条 agent 回复时，问候、解决方案和长度评估最后一条 agent 回复，professional tone 检查整段 agent 回复历史。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

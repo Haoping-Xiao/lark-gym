@@ -1,4 +1,4 @@
-按Q1最新Bonus Policy、PIP更新及Tracker，仅计算真正Eligible员工奖金，Recommended %受最终cap约束；不改薪资或源表，不发公共群。向payroll@company.example.com一条邮件，只列本批合格员工、Employee ID、最终适用百分比、精确奖金金额。
+处理符合条件员工的季度绩效奖金，计算每人金额并将最终数字发送至 payroll@company.example.com；同时调整被标记加薪员工的基本工资。最终处理前遵循最新薪酬指南。通过飞书邮件报告员工、Employee ID、适用百分比和奖金金额；引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

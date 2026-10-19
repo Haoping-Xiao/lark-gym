@@ -1,4 +1,4 @@
-今天是 2026-02-10，本轮处理周明确为滚动7天2026-02-04至02-10（含端点），按收件日筛选真正的供应商发票。源只有邮件文本、没有附件或Drive文件，因此在 invoice_archive 飞书台账保存 invoice_number、file_name（YYYY-MM_VendorName_InvoiceNumber，保留Vendor空格）、source_message_id、content原邮件正文，不伪造PDF。向 Registry 按收件日、同日source id排序追加原有 Invoice/Vendor/Amount，加 Date Filed、Invoice #、Drive Link；Invoice和Invoice #同源号，Amount保留美元原文，Drive Link用lark-gym://invoice/InvoiceNumber作为台账逻辑引用。向ap-lead@company.example.com邮件按上月格式报告 Invoices filed: N, Total amount: $X 与逐发票 Vendor | Invoice | Amount | 发票日期。
+整理本周通过邮件收到的供应商发票，按上月格式和当前归档规范将元数据登记到 Invoice Registry。向 ap-lead@company.example.com 发送摘要，包含 Invoices filed: N, Total amount: $X。适配中“本周”使用截至当前业务日期的滚动七天；源只提供邮件文本，使用 invoice_archive 台账归档，字段为 invoice_number、file_name、source_message_id、content，content 保存邮件正文。Registry 字段为 Invoice、Vendor、Amount、Date Filed、Invoice #、Drive Link；Drive Link 使用 lark-gym://invoice/InvoiceNumber 引用归档记录。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

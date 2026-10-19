@@ -1,4 +1,4 @@
-通知受影响客户即将到来的维护窗口。读取 ss_maint/ws_schedule，只处理 Scheduled 行；精确匹配客服组织和通知偏好，根据窗口分类向联系人邮件和/或组织群发送通知。emergency 窗口标题含 EMERGENCY，通知紧急联系人且即使正常偏好仅邮件也要通知组织群；组织 notes 中列出的多个普通联系人均通知。若结束时间早于开始时间，则为次日结束，并在邮件中说明跨 midnight。每个成功处理窗口在 cal_primary 创建 Maintenance: <系统名> 日程，行状态改为 Notified。无法匹配的组织不要猜测。最后在 support-ops 汇报处理窗口数、邮件通知数和创建日程数。
+处理 ss_maint/ws_schedule 中 Scheduled 维护窗口，匹配 Zendesk organization，按 ws_notification_prefs 与维护分类通过邮件或群通知。Emergency 窗口邮件主题含 EMERGENCY，通知 Emergency Contact，即使正常偏好 email-only 也发组织群；结束早于开始时邮件说明跨午夜。每窗口创建 Maintenance: <system name> 日历，更新行 Status=Notified，向 support-ops 汇总窗口数、邮件数、日历数。Google Calendar 适配为 cal_primary 飞书日历，Gmail 适配为飞书邮箱，引用来源值时原样保留。
 
 组织资料位于 support_organizations 集合，原 Zendesk 组织的 notes、tags 和 domain_names 保留；未标时区统一 UTC。
 

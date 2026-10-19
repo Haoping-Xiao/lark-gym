@@ -1,4 +1,4 @@
-按优先级路由Q1 Campaign Targets并联系prospects。今天2026-01-21。Zoom注册改为飞书zoom_registrants报名台账（meeting_id为源数字ID、email/first_name/last_name），LinkedIn邀请改为linkedin_invitations台账（profile_url/email/message/status=Pending）；两者代表本模拟登记与发送请求，不连接外网。Email使用飞书邮件、首行为subject。保留模板原文和姓名/公司占位符替换，随后回写Routed_Channel原标签及日期，campaign-ops公告各渠道人数与实际处理名单。DNC/Legal hold优先于任何路由。
+按 routing policy 处理 ss_campaign_001 的 Q1 campaign targets，通过适当渠道联系每位潜客，逐行更新所用渠道及今天 2026-01-21，向 campaign-ops 汇总渠道分类，含相关实体名称。Zoom 注册适配为 zoom_registrants（meeting_id、email、first_name、last_name），LinkedIn 请求为 linkedin_invitations（profile_url、email、message、status=Pending），Email 使用原生飞书邮箱。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

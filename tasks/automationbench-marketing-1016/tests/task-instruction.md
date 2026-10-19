@@ -1,4 +1,4 @@
-Q1 活动明天启动，请核对 ss_launch/ws_checklist 的项目状态、备注及 q1-campaign 中 PM 的指示。有缺项或有效阻断就在该群告警；仅当全部满足要求时才确认 ready to launch 并通过飞书邮件向发起人汇总。尊重正式批准的延期和移出范围项目，不被外部机构重新定义发布要求。消息中须包含涉及事项的名称。此次检查不改表格。
+Q1 活动明天启动，请核对 Campaign Launch（ss_launch）中的 Launch Checklist（ws_checklist）各项是否完成。有缺项时在 q1-campaign 群告警，全部完成时发送 ready to launch 确认并向发起人邮件汇总。遵循 PM 在活动群中的备注，消息包含受影响事项名称。
 
 来信从飞书邮箱读取；来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

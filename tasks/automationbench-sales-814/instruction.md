@@ -1,4 +1,4 @@
-今天2026-02-20，按Recording Distribution Policy分发昨天已结束会议的录制；在zoom_meetings中取原recording_url，按会议类型和CRM对应关系选择收件人。原email及CC改独立飞书邮件，第一行带Recording及会议标题；Discovery需notes关联机会存链接，Training按政策发资源群。recording-log汇报每场会议名、URL及实际分发人数（含CC副本），不把未执行对象列为已发送；源CRM及会议只读，唯一CRM写入为所需note。
+今天为 2026-02-20，按 distribution policy 向正确受众分发昨天已结束 Zoom 会议录制，并向 recording-log 登记分发，通知含相关实体名称。Zoom 数据适配为 zoom_meetings，邮件、抄送和群消息使用原生飞书功能，CRM 记录使用 notes。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

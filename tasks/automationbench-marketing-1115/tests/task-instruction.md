@@ -1,4 +1,4 @@
-今天是 2026-01-27 15:00 UTC。整理 StrataCorp 新平台竞争响应简报，汇合跟踪表、分析师来信和 competitive-intel 群的一线反馈，给 strategy@company.example.com 发飞书邮件。功能对照逐行按“feature_name | stratacorp_has | we_have | gap_status | priority”保留原文，其余材料需标识来源、引用关键数值。同时按当前定价页审批流程处理新价格：审批请求使用 hubspot_tickets 台账，subject 与政策一致，description 列出具体价格修改。 非表格部分按“主题 | 对应事实或数值”分行，分析师部分使用 AI-Powered Insights、Native Mobile App、Pricing、Embedded Analytics、Custom Workflows 标签，一线信息用 Field，建议用 Response。
+StrataCorp 今早发布了新平台，请立即汇总竞争跟踪表、分析师来信及一线团队群消息，形成竞争响应简报发至 strategy@company.example.com，同时用新价格层级更新我们的价格比较页。飞书适配中外部页面更新通过 hubspot_tickets 台账请求表达，字段为 subject、description；简报保留来源功能字段并标明材料来源。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

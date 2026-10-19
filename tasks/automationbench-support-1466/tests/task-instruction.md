@@ -1,3 +1,3 @@
-按archive rules从freshdesk迁移到zoho_desk台账。只配置status且created_at age>=min_age_days、无排除tag及未archived者；完整email复用contact，无则first_name/last_name/email/external_id=email:<邮箱>新建。zoho_desk_tickets保留subject/description，status=Closed，priority按表，requester_email/external_id=freshdesk:<源id>/source_created_at/全部source_notes JSON保存。每源追加archived tag和freshdesk_notes(ticket_id/private=true文本/body含migrated to Zoho Desk与新external_id)，不删除原history；log Zoho_Ticket_ID用同业务external_id，Status=Migrated。migration-tracker汇总4类数字（扫描符合数/迁移票/新contact/复用）及已迁移subject/name，不列排除项。
+今天为 2026-02-07，按 ss_archive/ws_archive_rules、ws_field_translations、ws_migration_log 将已解决 Freshdesk 工单归档至 Zoho Desk，保留历史，每个已迁移源票加 archived 标签及迁移至 Zoho Desk 的内部备注，向 migration-tracker 汇总，含相关实体名称。使用 freshdesk_tickets、freshdesk_notes、zoho_desk_tickets、zoho_desk_contacts，目标 external_id 可用 freshdesk:<源id>。
 
 本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

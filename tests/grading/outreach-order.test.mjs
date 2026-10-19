@@ -56,9 +56,9 @@ test('Webinar outreach permits per-contact order and requires completed outreach
           c[c.length - 1] = JSON.stringify(o);
         };
       if (mode === 'per_contact')
-        cs = [...reads, msgs[0], updates[0], msgs[1], inv, updates[1], msgs[2]];
+        cs = [...reads, msgs[0], updates[0], inv, updates[1], msgs[1]];
       if (mode === 'marcus_first')
-        cs = [...reads, inv, updates[1], msgs[0], updates[0], msgs[1], msgs[2]];
+        cs = [...reads, inv, updates[1], msgs[0], updates[0], msgs[1]];
       if (mode === 'marker_context')
         updates.forEach((c) =>
           change(
@@ -69,11 +69,11 @@ test('Webinar outreach permits per-contact order and requires completed outreach
           ),
         );
       if (mode === 'marcus_early')
-        cs = [...reads, msgs[0], msgs[1], ...updates, inv, msgs[2]];
+        cs = [...reads, msgs[0], ...updates, inv, msgs[1]];
       if (mode === 'rachel_early')
-        cs = [...reads, inv, updates[0], msgs[0], msgs[1], updates[1], msgs[2]];
+        cs = [...reads, inv, updates[0], msgs[0], updates[1], msgs[1]];
       if (mode === 'summary_early')
-        cs = [...reads, inv, msgs[0], msgs[1], msgs[2], ...updates];
+        cs = [...reads, inv, msgs[0], msgs[1], ...updates];
       if (mode === 'missing_marker')
         change(updates[0], (o) => (o.description = '已发送研讨会邀请'));
       if (mode === 'missing_invite') cs.splice(cs.indexOf(inv), 1);

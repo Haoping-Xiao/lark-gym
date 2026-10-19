@@ -1,4 +1,4 @@
-今天2026-03-24，为Meridian Technologies准备并发送当前合格候选人submittal。最新撤回/可用时间优先；在Candidate Pipeline回写撤回Status=Withdrawn及变更Availability（用原更正日期YYYY-MM-DD和2 weeks notice）。每候选人向客户唯一联系人发一条飞书邮件，邮件主题按客户格式，随后四段Candidate Summary、Relevant Experience、Availability、Salary Expectations；资料缺更多经历时只用已知Role与年限。Account Manager另收全部包的合并邮件处理portal，不自行访问或写入portal。
+为 Meridian Technologies 客户准备候选人推荐材料，从跟踪表获取资料，向客户联系人发送每位合格候选人的推荐邮件，并直接提交到客户门户；发送前检查近期往来中的特殊要求。飞书适配通过邮件提交材料及门户处理请求，不连接真实客户门户。Candidate Pipeline 使用 Status、Availability 字段，Status 可使用 Withdrawn。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

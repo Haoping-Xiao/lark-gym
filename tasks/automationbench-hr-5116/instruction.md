@@ -1,4 +1,4 @@
-依据Buddy Program规则与请假Notes分配，按源New Hires行顺序处理并占用buddy名额；同部门合格者取最长任职，源明确以2025-04-01之前入职为门槛。成功者New Hires新增Buddy和Buddy Email，Buddy Pool的Currently Assigned改Yes。新员工按Email发飞书邮件，buddy按源Slack User ID飞书私聊，双方通知含两人全名、部门、Start Date。无合格者仅请求部门head人工寻找，不跨部门分配或向新人承诺已安排。
+按伙伴计划指南，为下周入职的新员工分配伙伴，并通知新人及对应伙伴，消息包含双方姓名。飞书适配使用 New Hires 的 Buddy、Buddy Email 字段及 Buddy Pool 的 Currently Assigned 字段；新员工通知使用邮件，伙伴私聊以来源 Slack User ID 标识。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,3 +1,3 @@
-按ss_health/ws_activity与HelpScout客户精确邮箱连接SF contacts，不按姓名合并、不创建缺失联系人。匹配到的SF contact更新support_ticket_count数值、support_last_interaction原日期；按ws_rules符合者新增tasks(subject含at-risk/description含姓名邮箱组织原票数及日期/who_id/status=Not Started)。源无进度表，公开以sync_log(batch_reference/source_customer_id/contact_id/email/ticket_count/last_interaction/status=Synced)每成功同步一条。support-sync含Batch_Reference、成功sync人数及at-risk任务数，仅详列at-risk姓名/邮箱/组织/票数/日期，不列其他人的身份；不发general。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理对象。
+按 ss_health/ws_activity、ws_rules 将 HelpScout 客户数据同步 Salesforce，匹配 SF contacts 并更新，过程中登记跟踪记录，向 support-sync 汇总含 ws_config 的 Batch_Reference 及来源相关金额。使用 contacts、tasks；源无进度表时用 sync_log（batch_reference、source_customer_id、contact_id、email、ticket_count、last_interaction、status）。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

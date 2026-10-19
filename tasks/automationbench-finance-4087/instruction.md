@@ -1,4 +1,4 @@
-依 Quarterly Tax Estimation Procedures 和 tax-updates 最新说明计算 Q1 2026 估计税款。本题把Q1应税收入乘4作为全年估计，应用联邦率及按月份混合的州率，扣年度credits后除4，减同税年已付款；不同税年付款不能抵扣。中间计算不舍入，最后四舍五入整数美元。分别给 tax@company.example.com 和 controller@company.example.com 发飞书邮件，列Q1收入、可扣支出、应税收入、年化收入、税率公式、年度credits、本年已付款与 Q1 estimated payment。只报估计，不申报或付款。 报告标签使用 Q1 revenue、Q1 deductible expenses、Q1 taxable income、Annualized taxable income、Federal rate、Blended state rate、Annual credits、2026 prior payments。
+计算 Q1 2026 预估税款，使用年初至今收入和有效税率，遵循季度税款估算程序，向 tax@company.example.com 和 controller@company.example.com 发送估算及相关来源金额。飞书适配交付估算，不实际申报或付款。报告字段标签为 Q1 revenue、Q1 deductible expenses、Q1 taxable income、Annualized taxable income、Federal rate、Blended state rate、Annual credits、2026 prior payments、Q1 estimated payment。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

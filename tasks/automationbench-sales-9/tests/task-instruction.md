@@ -1,4 +1,4 @@
-Summit Industries 希望增加 Analytics Module。根据客户联系人数量、等级、续约时间和最新价格政策，在 opportunities 中创建商机；同时遵守客户健康政策。保留客户名称和模块名称构成的商机名称（<客户名称> - <模块名称>），金额写数值，account_id 使用原始客户 ID。
+Summit Industries 希望增加 Analytics Module，根据账户规模、tier、最新价格更新和账户健康政策创建定价适当的商机。CRM 适配为 accounts、opportunities，account_id 引用客户业务 ID。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,3 +1,3 @@
-处理gorgias_tickets中open且order-inquiry精确tag订单咨询，完整订单号匹配，不做前缀匹配；每票逐个订单查询。此题继承源fixture允许代查询，不额外推断授权流程。按当前提问customer邮箱查VIP前缀，cancelled查refund资格，backordered明确转fulfillment，未找到/未给号请求补充，不猜status。回复写gorgias_replies(ticket_id/sender_type=agent/body)，作为客服回复台账，不改原messages/status。每次成功lookup（按ticket+order计，不按订单全局去重）追加ws_order_log四字段，Customer为提问者姓名。order-support群按小写status汇总处理lookup数、姓名，另列回复ticket数与未找到/缺号数。
+处理 open 且带 order-inquiry 的 Gorgias 工单，查 ss_orders/ws_orders 的订单号、ws_vip_orders 的 VIP 状态及 ws_refund_policy 的取消订单退款资格；符合资格的取消订单告知可退款。逐票回复适当订单状态，将成功查到的订单登记 ws_order_log，Action Taken 使用 Replied with tracking、Replied with ship date、Replied with refund info 或 Escalated to fulfillment。向 order-support 按小写订单状态汇总，例如 shipped、processing、cancelled、backordered。工单和回复适配为 gorgias_tickets、gorgias_replies（ticket_id、sender_type=agent、body）。引用来源值时原样保留，通知含相关实体名称。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

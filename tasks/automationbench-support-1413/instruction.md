@@ -1,4 +1,4 @@
-基于help_conversations/help_mailboxes生成本周支持报告，遵从ss_reports配置。源无创建/关闭时间，明确本周报告是2026-02-09当前已登记邮箱内会话状态快照：仅计入mailbox_id能关联help_mailboxes登记邮箱的会话，包含Enterprise邮箱，不推断周内流量；不能仅因subject含Spam/Duplicate而排除。ws_weekly追加一行Week=2026-02-09/Active/Pending/Closed/Total，数字写数字文本；support-lead邮箱邮件与support-metrics群都含Weekly Support Report、reference、全局与各mailbox的四项计数，按General Support: active=N, pending=N, closed=N, total=N这类结构写明关联，原Gmail发送改飞书IM。
+今天为 2026-02-09，从 HelpScout 生成本周支持报告，遵循 reporting preferences，将数字登记 ss_reports/ws_weekly，邮件 support-lead@company.example.com，并向 support-metrics 汇总各 mailbox 明细，含相关实体名称和金额。HelpScout 资料为 help_conversations、help_mailboxes；源缺创建和关闭时间，报告解释为当前状态快照，不推断周内流量。原 Gmail 发送使用原生飞书邮箱。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-处理新vendor onboarding未读邮件，查全部vendor approval政策、来源及额外批准要求，只推进完整获批者。Pipefy查询结果映射pipefy_find_database_records业务实体，按title/card_id识别，实际写phase_id=phase_ready、field_status=Approved；随后ops-updates通知vendor、Approved、Ready。不改其他卡，不把未获CFO批准的高金额当已放行。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。
+检查新到的供应商入驻邮件和 vendor approval policy 表，找出已完整获批、可推进的供应商，将其 Pipefy 卡片移至 Ready 并设状态 Approved，然后向 ops-updates 通知。Pipefy 适配为 pipefy_find_database_records 飞书台账，以 title/card_id 定位，phase_id 可用 phase_ready，field_status 可用 Approved。引用来源值时原样保留，不改写或取整。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

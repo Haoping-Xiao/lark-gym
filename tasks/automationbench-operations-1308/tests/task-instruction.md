@@ -1,3 +1,3 @@
-按Orders所有Tagging Policy及Opt-Out表，选Jan22及之后截至当前日有效订单客户。Mailchimp改mailchimp_subscribers(list_id/email/status=subscribed/tags JSON数组)，按原Order Count及Order Total组合全部标签；不改订单。ecommerce-ops以agent消息报告synced、总人数和实际邮箱、订单金额、标签，不统计排除项；本适配所有agent发出的飞书消息承担源bot消息语义。
+今天为 2026-01-29，从订单表取近期订单，按当前 tagging policy 将合格买家加入主 Mailchimp audience 并加正确标签，向 ecommerce-ops 汇总同步结果。Mailchimp 适配为 mailchimp_subscribers（list_id、email、status、tags JSON 数组），status 可用 subscribed。引用来源值及相关金额时原样保留，不改写或取整。
 
 本次业务处理以 2026-01-29T23:00:00Z 为时间基准。

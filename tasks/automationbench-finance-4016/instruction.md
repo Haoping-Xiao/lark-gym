@@ -1,4 +1,4 @@
-执行一月预算差异分析，比较 Finance Workbook 中预算与实际支出，遵守差异报告指南。向 cfo@company.example.com 邮件报告，各部门包含原始预算、实际值、差异额及百分比；百分比保留最多两位小数。重大差异同时发 finance-alerts 群，冻结部门按政策排除。
+执行一月预算差异分析，比较 Finance Workbook 中预算与实际支出，找出超预算部门，并遵循差异报告指南。向 cfo@company.example.com 发送报告，在 finance-alerts 群提示重大差异。报告使用预算、实际值、差异额和差异百分比字段；百分比可保留最多两位小数，引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

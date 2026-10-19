@@ -1,4 +1,4 @@
-按ss_health模型加权，各正向指标min(value/max,1)*weight，Inverse=(1-min(value/max,1))*weight；分类用未舍入分数>=healthy、>=at_risk、其余critical，报告分数保留两位小数。联系人公司无usage仅unknown，不当0不计分布。追加对应health tag，at-risk与critical都创建intercom_tickets(title=Customer health <tag> - <公司>/company_id/contact_email/health_score两位小数文本/state=submitted)及intercom_notes(contact_id/body含health/公司/score/tag)。源没CSM地址，补csm-team@company.example.com统一内部告警，只列风险者；另对critical客户发原要求的关怀IM，不向健康客户发。customer-health含batch code、仅五个已知usage客户的分数/tag及分布，不将unknown列入分母。
+结合 Intercom 会话与 ss_health/ws_usage_data、ws_scoring_model 计算客户健康，加 health 标签，为 at-risk 账户建票并提醒 CSM；公司没有 usage 行时只标 unknown，不推断零分、不纳入分布。向 customer-health 发布分布及 scoring config 的 batch_tracking_code。使用 intercom_contacts、intercom_tickets、intercom_notes；源缺 CSM 地址时用 csm-team@company.example.com，Gmail 适配为飞书邮箱。包含来源相关金额。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

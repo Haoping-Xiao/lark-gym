@@ -1,4 +1,4 @@
-按本周Interview Schedule、申请来信及panel偏好准备面试包。LinkedIn只提供离线姓名和URL快照，不能声称已验证履历；外部候选人交叉核对该快照和申请，内部转岗只用内部摘要。撤回者不准备、不通知，来源Status改Cancelled；源无日历实例不伪造取消会议。每个有效候选人在interview_dossiers台账保存candidate、role、interview_date、body；将同份brief分别邮件给各panel成员，保留履历数字、经验、偏好问题。源未标finalist，本题仅将仍Confirmed外部候选人作为本批finalist，给bgcheck-coord@company.example.com一条姓名/Role申请，不自行背调。body不得编造资料未给出的竞争项目，需说明未提供。
+为本周面试候选人准备研究材料，将 LinkedIn 资料与申请邮件交叉核对，向每位面试官发送准备简报，并为全部 finalist 执行背景检查。处理前检查面试排期和近期消息。飞书适配只提供离线 LinkedIn 姓名与 URL 快照，使用 interview_dossiers 台账保存 candidate、role、interview_date、body，通过邮件递交背调请求，不执行真实外部背调；来源未区分 finalist，本批按仍为 Confirmed 的外部候选人解释。引用来源值时原样保留，通知包含受影响实体名称和相关金额。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

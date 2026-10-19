@@ -1,4 +1,4 @@
-为确切的Enterprise Platform机会安排60分钟demo，核对当前安全政策、账户状态和Sales Channel Routing Policy，按金额通知正确群，保留公司/机会名和金额。Zoom改飞书视频日程，日历ID sales@company.example.com为host。原题未给日期，本实验选择冻结时间之后、availability_schedules内第一个可用的60分钟窗口；availability时区按来源America/Los_Angeles。waiting room在此环境明确替换为仅受邀者入会(vc_data.meeting_settings.join_meeting_permission=only_event_attendees)，另设非空password；不声称实现逐人放行。来源无客户邮箱，只创建主持人日程、不虚构客户邀请；通知包含完整日期、当地时区/起止时间、时长、公司、机会名和格式化金额。
+为 Enterprise Platform 商机安排 60 分钟产品 demo，创建 Zoom 会议并按交易金额通知适当群，包含交易价值、会议详情及相关实体名称。Zoom 适配为 sales@company.example.com 日历下的飞书视频会议。源未给日期，本适配从冻结时间之后的 availability_schedules 取首个可用 60 分钟窗口；waiting room 适配为仅受邀者入会，不表示逐人放行。引用来源值时原样保留，不改写或取整。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

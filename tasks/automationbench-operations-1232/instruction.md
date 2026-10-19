@@ -1,4 +1,4 @@
-核查frontdesk@company.example.com最新visitor NDA完成来信，准确区分提醒和签署事实。创建airtable_comments(applicationId=base_ops/tableName=Visitors/recordId取来信/commentText准确记录NDA签署完成事实，姓名和签署日期保留来源原文)，此表记录原Airtable comment，不伪造缺失visitor实体。邮件host-ops@company.example.com，主题NDA并含同一姓名/日期/记录ID，不替其他visitor标签署。
+检查 frontdesk@company.example.com 最新 visitor NDA 邮件，为 base_ops/Visitors 对应访客记录添加 NDA 完成评论，并邮件 host-ops@company.example.com 通知主人。Airtable 评论适配为 airtable_comments（applicationId、tableName、recordId、commentText），记录引用来自源邮件。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

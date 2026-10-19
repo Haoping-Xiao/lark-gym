@@ -1,4 +1,4 @@
-按ss_workload/ws_baselines只处理active人员，PTO不进forecast/通知。按assignee_id统计open+pending，closed不计；utilization=100*load/capacity，ws_forecast写文本数值，整数不带小数点，非整数两位小数。严格高于Overload_Threshold才向对应Team Lead Email发飞书邮件，含Report_Reference、overload、姓名、load/capacity/百分比；不直接通知agent，不更改会话分派。
+根据 Hiver conversations 与 ss_workload/ws_baselines 预测人员负载，登记 ws_forecast 利用率，向超负荷人员 team leads 告警，包含 ws_config 的 Report_Reference、相关实体名称和金额。Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

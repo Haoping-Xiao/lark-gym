@@ -1,4 +1,4 @@
-读Fire Safety Inventory/Config/Hold Policy，按日期天数差严格>配置interval且Deployed Status=Active、无FSR hold才检查。Monthly/Quarterly使用30/90固定日，等于阈值不选，支持MM/DD/YYYY。为每unit在cal_fire创建检查日程，标题包含原Unit ID并表达检查用途，Feb12 09–09:30UTC，description原Location，原无attendee不补。向Safety Officer邮件全部ID/Location及时间，不改Last Inspection。
+今天为 2026-02-09，检查 ss_fire/ws_units、ws_config，根据各灭火器所在地规定的检查间隔确定逾期：距上次检查天数严格超过间隔才算逾期。只处理已部署设备，跳过存储中或更换中的设备。为每台逾期设备在 cal_fire 创建 2 月 12 日 09:00 UTC 开始、30 分钟的检查日历，并邮件安全官完整名单。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-今天2026-03-20，按Affected Employees及Notes发送重组通知。Manager收详细Change和New Direct Reports名单，IC仅收自己的Change和New Manager。禁运项不通知、不进leadership汇总；不改来源。
+向受重组影响的团队成员发送通知：经理收到包含新团队名单的详细说明，个人贡献者收到包含新经理的简要通知，并在 leadership 群发布摘要。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

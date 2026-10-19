@@ -1,3 +1,3 @@
-跨Re:amaze unresolved和Freshdesk开放票(status2/3)去重，先用contact邮箱及ss_dedup/ws_aliases确认为同一客户，再核对subject/正文是否同一问题；同客户不同问题、同问题不同客户均不能合并。重复项Re:amaze标resolved并新增内部reamaze_notes(conversation_id/author_type=staff/body含Freshdesk ID/internal=true文本)；Freshdesk新增私有freshdesk_notes(ticket_id/body含Re:amaze ID/private=true文本)，原状态不变。ws_log每对写Reamaze ID/Freshdesk ID/Email=原Re:amaze邮箱（保留alias）/Status=Deduplicated。无匹配不动、不发外部回复。
+对 Re:amaze 与 Freshdesk 去重，确认同客户同问题，检查 ss_dedup/ws_aliases 的已知别名邮箱。关闭 Re:amaze 一侧并加交叉引用备注，Freshdesk 加含 Re:amaze conversation ID 的对应内部备注，登记 ws_log。使用 reamaze_conversations、reamaze_notes、freshdesk_tickets、freshdesk_notes。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

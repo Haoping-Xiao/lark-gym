@@ -1,4 +1,4 @@
-按Departments全部Review Policies/Q1 Eligibility及最新HR/COO邮件，评估2026年度评审资格，选有效headcount最多者、同分最早Review Start。DocuSign改signature_requests(template_id/template_name/signer_email/status=Sent)并邮件dept head签署请求。原缺会议时刻，明确Review Start当日10UTC2小时cal_hr飞书视频日历<Department> Review Calibration并邀请head；Monday原缺board明确brd_hr_reviews，创建monday_items(board_id/item_name=<Department> 2026 Review Cycle)；Confluence原只有HR无ID，使用业务父目录=HR的飞书文档(space/title=2026 Review Cycle: <Department>/body)。页面及部门群含annual review、当前headcount、N eligible department总数及UTC会议安排；headcount更新不自动解除EXEMPT。
+启动 2026 年年度评审周期，先阅读当前评审政策及 Q1 资格更新。从待开展 2026 评审且预算已批准的部门中选人数最多者，同分选最早 Review Start。向部门负责人发送年度评审 acknowledgment 签署请求，安排 2 小时 <Department> Review Calibration 会议，创建 <Department> 2026 Review Cycle 跟踪项及 HR 空间的 2026 Review Cycle: <Department> 页面，并向部门群公告人数及评估为合格的部门总数。飞书适配：signature_requests 加邮件签署请求；cal_hr 视频会议，源未给时刻时用 Review Start 当日 10:00 UTC；monday_items 的 brd_hr_reviews；父目录 HR 的原生文档。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-今天是 2026-02-10。关联 quickbooks_customers 与 Credit Limits，依 AR Management Guidelines 只报告需关注的账户：负余额调查、超限建议暂停、零余额且90日以上无活动列 inactive candidate。向 ar-manager@company.example.com 发飛书邮件，保留账户名、原余额、相关阈值或活动日、原因及建议。源余额字符串照录并可附千位逗号展示；本轮只提建议，不直接停用客户或改余额。
+执行月度客户余额审查，检查所有客户的贷方余额、陈旧余额及超信用额度情况，遵循应收款管理指南，向 ar-manager@company.example.com 发送审查结果。QuickBooks 客户适配为 quickbooks_customers 台账，Credit Limits 为额度表。本适配交付审查建议；引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

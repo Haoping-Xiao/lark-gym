@@ -1,3 +1,3 @@
-按Lead Sync所有规则，将有lead_score且允许同步的HubSpot联系人对齐aud_main的mailchimp_subscribers.tags。JSON数组中只留正确temperature tag，保留其他非温度标签。不存在的联系人创建mailchimp_subscribers(list_id/email/tags)，本题不补订阅状态。opted-out已有者只移除温度标签，legal hold完全不动。ws_log每个实际变更追加Email/Score/Temperature/Action，Action=Synced或Removed，Removed行Temperature为空；不改HubSpot分数或发通知。
+从 HubSpot 获取有 lead_score 的联系人，按 lead sync rules 中评分档位同步到主 Mailchimp audience，确保每人只有一个正确 temperature 标签，移除错误温度标签；完成后登记 sync log 工作表。HubSpot 适配为 contacts，Mailchimp 适配为 mailchimp_subscribers（list_id、email、tags JSON 数组）。日志使用 Email、Score、Temperature、Action，Action 可选 Synced、Removed。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,3 +1,3 @@
-按ss_contacts邮箱映射判断同客户同问题的跨渠道重复，不能同人不同问题就合并。无时间戳时保留email渠道为主、chat为重复；先两边追加内部reamaze_messages(conversation_id/body含merged及双ID和问题要点/author_type=staff/internal=true文本)，再将重复status=resolved；主票状态及所有历史消息原样。ws_dedup_log四列完整，Reason说明实际同一问题；support-dedup含Batch_Reference、merged数量、逐客户双ID/姓名和相关原始金额或数量。
+利用 ss_contacts 的 contact map 清理 Re:amaze 同客户同问题跨渠道重复，登记所有变更，并向 support-dedup 汇总合并情况，包含 merged 一词、tracker Config 的 Batch_Reference 和来源相关金额。使用 reamaze_conversations、reamaze_messages，源无时间戳时保留 email 为主、chat 为重复。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

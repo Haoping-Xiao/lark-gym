@@ -1,4 +1,4 @@
-读mailchimp_subscribers中aud_main的状态和ss_sync_policy/ws_mailchimp_rules，处理可更新的cleaned联系人。源Contacts表为空，本适配明确按email upsert：不存在则新建airtable_contacts(applicationId=base_contacts/tableName=Contacts/email/Email Status=Invalid)，不是伪称更新已有实体。遵守GDPR deletion hold，不改源订阅或其他状态。向政策Report Recipient邮件报告实际处理邮箱及Invalid、总数。
+检查 aud_main 中退信订阅者，按 ss_sync_policy/ws_mailchimp_rules 同步政策更新 base_contacts 的 Contacts 记录，并向同表 Report Recipient 发送报告。Mailchimp 适配为 mailchimp_subscribers，Airtable 适配为 airtable_contacts（applicationId、tableName、email、Email Status）。源 Contacts 初始为空，本适配允许按 email upsert，不存在时创建对应联系人。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

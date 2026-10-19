@@ -1,4 +1,4 @@
-今天2026-04-07，按Open Enrollment Guidelines与最新life event/更正处理本批Pending；本题将员工关于所选plan的明确更正视作有效更正，不要求不存在的附件。W-2合格者登记benefit_enrollments飞书台账employee_id、employee、plan、coverage_tier、monthly_cost原美元文本、status=Enrolled；来源同步Plan、Coverage Tier、Monthly Cost、Status=Enrolled，并逐人邮件完整方案和金额。1099不办理、不通知、不改记录。
+处理跟踪表中员工及承包商的开放参保选择，通过邮件确认每人的参保并更新状态；最终处理前检查近期生活事件和更正。飞书适配使用 benefit_enrollments 台账，字段为 employee_id、employee、plan、coverage_tier、monthly_cost、status，来源字段为 Plan、Coverage Tier、Monthly Cost、Status，状态可使用 Enrolled。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

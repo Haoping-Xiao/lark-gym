@@ -1,4 +1,4 @@
-按照 Expense Approval Guidelines 处理 Expense Requests 的Pending项，数据已映射到 airtable_records 飞书台账，保留原base/table/record身份。Approved项更新Status；不合规项Rejected并新增Reason；须VP审批的高额设备写Status=On Hold、Reason说明而不是Rejected。餐费按明确人数分摊。逐提交者发飞书邮件告知姓名、原金额、状态和理由，不能只通知不更新记录。
+处理费用跟踪表中的待审批请求，逐条依据 Expense Approval Guidelines 审查并更新状态；批准项使用 Approved，拒绝项使用 Rejected 并注明原因。通过飞书邮件告知每位提交者处理结果。Airtable 费用表适配为 airtable_records 台账，保留原 base/table/record 身份；字段为 Status、Reason，Status 可选值为 Pending、Approved、Rejected、On Hold。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

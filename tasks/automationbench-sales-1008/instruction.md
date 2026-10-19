@@ -1,4 +1,4 @@
-处理Acme合作合同请求，核对来信、CRM批准条件和contract-process政策。原材料存在客户请求金额与内部approved contract value不一致；本适配将内部批准金额作为发送上限，不能把客户要价当内部批准。收件人以最新客户明确的签署人指示为准。DocuSign改signature_requests台账，写template_id/template_name/account_id/opportunity_id/recipient_email/status=Sent/amount/subject/deadline/revenue_share/territory/term，并向正确签署人邮件；deadline定义为close_date加政策规定天数。满足政策门槛才新建calendly_event_types记录，不虚构预约时间。本适配的发送完成要求同一机会的正确模板、签署人和批准金额等发送字段已经保存在 Sent 台账，且已向正确签署人发出完整签署请求；两者都完成后更新机会amount、stage_name及description，保留批准值与请求差异的审计说明，不改原来信。
+完成 Acme 合作交易合同流程，遵循标准政策并更新 Salesforce。DocuSign 适配为 signature_requests（template_id、template_name、account_id、opportunity_id、recipient_email、status=Sent、amount、subject、deadline、revenue_share、territory、term）加原生邮件签署请求，CRM 使用 opportunities；Calendly 类型使用 calendly_event_types。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

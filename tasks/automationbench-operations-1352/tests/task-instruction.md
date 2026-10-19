@@ -1,4 +1,4 @@
-按Holiday Staffing全部policy只统计Confirmed且无LEAVE/OT-HOLD者，仅Holiday Coverage Required=Yes部门；人数>=Min才排班，否则只邮件dept head缺口，不给不足部门部分排班。原未定时区明确UTC，Feb16 08–17在cal_holiday为够员部门安排班次；可合并全员或分为多个日程，标题包含原部门名并表达假日值班用途，实际attendees完整覆盖所有合格confirmed员工且不得重复安排。operations群报每部门eligible/min及short/covered、无需值班部门not required，不发hr。通知及记录中引用来源值须逐字保留，不得改写或四舍五入。
+为 2026-02-16 Presidents’ Day 检查 holiday staffing 的可用员工、部门需求及假期值班政策。已确认人数足够的部门，按政策标准班次在 cal_holiday 为 confirmed 员工安排日历；不足部门通知负责人补人。向 operations 群汇总整体情况。源未给时区时本适配使用 UTC。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

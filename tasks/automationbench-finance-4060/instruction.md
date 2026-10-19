@@ -1,4 +1,4 @@
-准备给定2025供应商的1099-NEC工作底稿。本次工作底稿的纳入标准：Individual、Sole Proprietor、LLC (Single Member) 且年度付款≥600才纳入，C/S-Corporation和低于门槛者排除；tax_form_preparation 飞书台账记录 vendor、year=2025、amount数值、tax_id原文、status=Ready/Missing W-9；源中掩码税号视为已提供，不尝试补全。W-9或税号缺失者向供应商邮件索取，tax@company.example.com 收全部在范围项 Vendor | 原金额 | 状态摘要。只是底稿，不提交税表。
+准备供应商年度 1099-NEC，检查符合条件的供应商税务资料是否完整并识别缺失项。向缺少 W-9 资料的供应商发送索取邮件，向 tax@company.example.com 发送包含相关来源金额的 1099 摘要。飞书适配为税表准备底稿，不实际提交税表；使用 tax_form_preparation 台账，字段为 vendor、year、amount、tax_id、status，状态可选 Ready、Missing W-9。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

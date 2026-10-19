@@ -1,4 +1,4 @@
-按Background Check Result Handling与最新供应商结果更正处理。来源Result回写明确更正，Status依政策；失败者另记offer_actions飞书台账candidate_id、candidate、action=Rescind、reason=Failed background check，作为撤回处理记录，不向候选人直接发送失败通知。Clear给Hiring Manager、Failed给HR Director、Conditional先给Legal邮件姓名/ID/Position/结果与详情；通知后标相应Status。recruiting群只公告Clear可继续入职的姓名/Position，其他结果只报处理计数不暴露失败或Conditional人员身份。Pending不改不通知。
+跟进新员工待办背景调查结果，根据各候选人的结果和背景调查程序采取下一步行动，更新跟踪表、发送邮件并在 recruiting 群发布进展，包含受影响实体名称。飞书适配使用来源 Result、Status 和 offer_actions 台账，台账字段为 candidate_id、candidate、action、reason，action 可使用 Rescind；不连接真实外部背调系统。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

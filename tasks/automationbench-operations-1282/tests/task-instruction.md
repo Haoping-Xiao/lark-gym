@@ -1,4 +1,4 @@
-核对Event Registrations所有Sync Policy及最新Legal/Privacy/Registration邮件，只同步符合当前规则且尚未Synced者，使用更正后的邮箱。Mailchimp改subscribers(audience_id/email/name/company/status=subscribed/tags为JSON数组)，标签和audience按配置。此任务只创建订阅台账，不发送newsletter、不改源表Synced或邮箱；原文未要求回写，保留源事实。marketing-ops报全部本次姓名、公司及总数；free email政策明确informational不另加阻断，privacy冻结不能被opt-in覆盖。
+将 ss_event_registrations/ws_registrations 中需要同步且符合最新资格规则的报名者加入 aud_newsletter 并打标签，注意近期法务和隐私要求。完成后向 marketing-ops 报告已同步者姓名、公司和总数。Mailchimp 适配为 subscribers 飞书台账（audience_id、email、name、company、status、tags JSON 数组），status 可用 subscribed。引用来源值时原样保留，不改写或取整。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

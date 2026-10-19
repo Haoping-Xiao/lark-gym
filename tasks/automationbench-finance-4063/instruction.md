@@ -1,4 +1,4 @@
-今天是 2026-02-10。根据旅行预支结算政策核对 Pending Settlements。完整报告按实际费用与预支差额给员工发飞书邮件结算通知，分别列 Advance、Actual Expenses、Reimbursement/Repayment/Balanced 与差额。需要还款者给从今天起14天后的期限；缺收据者暂停且不通知、不修改。不执行付款或扣薪，源数据没有逐笔明细，因此分解仅到给定的预支与实际费用总额。
+结算尚未处理的旅行预支，将员工旅行后的费用报告与预支比较，计算应退还或应补付金额，遵循旅行结算政策，并向每位员工发送结算通知。飞书适配不执行付款或扣薪，来源只提供费用总额，通知使用 Advance、Actual Expenses、Reimbursement/Repayment/Balanced 和差额字段。引用相关来源金额时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

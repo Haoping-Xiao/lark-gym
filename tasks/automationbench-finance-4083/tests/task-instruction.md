@@ -1,4 +1,4 @@
-今天是 2026-02-01，按 Recurring JE Posting Procedures 登记二月有效的 Active 分录。journal_entries 飞书台账保存 entry、period=2026-02、debit_account、credit_account、amount数值、status=Posted。需反转者同时创建 journal_reversals 队列，entry、due_date=下月1日、对调的debit_account/credit_account、amount、status=Scheduled；这是未来反转计划，不声称今天已经反转。向 controller@company.example.com 发邮件，逐行 Entry | Debit 科目 | Credit 科目 | 原Amount，报告 Total debits/Total credits，并列反转日期。
+登记本月重复分录，检查重复分录排期，按入账程序在系统中创建记录，向 controller@company.example.com 发送包含相关来源金额的摘要。飞书适配使用 journal_entries（entry、period、debit_account、credit_account、amount、status）和 journal_reversals（entry、due_date、debit_account、credit_account、amount、status），period 使用 YYYY-MM，状态可选 Posted、Scheduled；journal_reversals 表示反转计划。报告字段为 Entry、Debit、Credit、Amount、Total debits、Total credits。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

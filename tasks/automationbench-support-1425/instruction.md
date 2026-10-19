@@ -1,4 +1,4 @@
-按refund policy处理open且精确refund-approved票，按完整订单号匹配；VIP只按当前客户email非姓名。判定顺序补明：Not Found、超过window Expired、category不符Denied，再fraud/repeat refunder Escalated，最后loyalty免金额或<=阈值Draft，否则Escalated；源refund-approved视已确认服装条件，不猜额外检查。不同ticket分别日志即使同订单。在飞书邮箱保存与原工单对应的真实草稿，填写收件人、主题和正文，Draft只准备确认不实际退款，body须说明未执行退款；升级jira_issues(project=FIN/issuetype=Task/summary含order/ticket_id/description含姓名金额原因)。每处理票写gorgias_replies(ticket_id/sender_type=agent/body含姓名/order/原金额/规定outcome词)，ws_refund_log逐笔追加，不存在order Amount留空。finance-ops汇总各Action计数及已查到金额分组总额；Draft总额与Escalated总额按票计算，不能把两笔同order跨票消重。不改原订单状态。
+今天为 2026-02-01，按 ss_refund_policy 处理 Gorgias 退款请求，用其规则和订单资料决定起草确认或升级 Jira FIN 项目的 Task。ws_refund_log 的 Action 使用 Draft、Escalated、Not Found、Expired、Denied；逐票回复对应包含 confirmation、escalated、not found、window、denied 的结果词，并向 finance-ops 汇总。Gorgias 回复用 gorgias_replies，Jira 用 jira_issues（project、issuetype、summary、ticket_id、description）；Gmail 草稿适配为飞书邮箱真实草稿，起草不代表实际退款。引用来源值及相关金额时原样保留，不改写或取整。
 
 邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。
 

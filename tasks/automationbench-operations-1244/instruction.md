@@ -1,4 +1,4 @@
-核对ss_escalations全部规则和相关Finance/CSM邮件，从可处理Pending Enterprise中选择最高有效ARR的客户问题。Salesforce改cases记录(account_id/subject/priority=High/status=New/reference)，Jira改jira_issues(project从Customer Escalations查、issuetype=Incident/summary/reference)，文档使用飞书文档(父目录=SP_ESCALATIONS/title/body)。页面和escalations、account-management通知需保留当前ARR与reference，页面和account-management还写正确CSM。不存在CRM账号不得自行补建，不修改来源政策、ARR表或客户账户。通知或记录引用来源值时须原样保留，不得改写或舍入。
+从 ss_escalations/ws_pending 处理最关键的企业客户问题，遵循全部升级政策，包括 reference ID 格式和 CSM 归属要求。通过 Salesforce 和 Jira Customer Escalations 项目升级，在 cloud_ops/SP_ESCALATIONS 记录，并向 escalations 与 account-management 通知当前 ARR。飞书适配：cases（account_id、subject、priority、status、reference），jira_issues（project、issuetype、summary、reference），SP_ESCALATIONS 下原生文档；priority/status 可用 High、New。引用来源值和相关金额时原样保留，不改写或取整。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

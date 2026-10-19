@@ -1,4 +1,4 @@
-时间窗口明确为Jan29 00:00至Jan30 00:00 UTC（完整最近24小时），检查未读subject含Feedback的外部邮件，排除已有PROCESSED标签。由agent分析情绪，读取全部routing/override；正文最新resolved覆盖原负面，seasonal规则查域名及正文，neutral不发群。向所需群分别发原sender及保留事实的摘要（关键词沿用原文，quality下降用decline、账务用billing），不直接回复客户。全部符合处理范围的邮件，包括hold/neutral/resolved，在飞书邮箱中将这些邮件标为已读，保留其他标签，不额外加PROCESSED。先完成所有路由消息再标已读。
+处理最近 24 小时（自 2026-01-29 起）主题含 Feedback 的未读邮件，跳过 PROCESSED 标签及内部 @company.example.com 发件人。由 agent 分析 positive、negative 或 neutral 情绪，查阅 feedback config 中 routing rules 及所有 override 工作表，按规则路由，完成后将处理邮件标为已读。原题今天为 2026-01-29；为明确完整窗口，本适配使用 2026-01-29 00:00 至 2026-01-30 00:00 UTC。原 Slack 路由使用飞书群消息。引用来源值时原样保留，不改写或取整。
 
 来信从飞书邮箱读取；来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

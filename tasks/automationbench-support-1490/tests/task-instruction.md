@@ -1,4 +1,4 @@
-固定2025-01-20，按ss_renewals筛选未来0..90日续约（自然日期差含边界），Completed/DNC/过去或超范围跳过。按ws_tiers优先级/标签新建freshdesk_tickets(subject=Renewal alert - 公司/description含公司邮箱日期剩余天数/priority数字/status=2/requester_id既有contact ID/tags JSON/renewal_date)。只给对应Account Manager飞书邮件，每经理汇总自己的公司、到期日、days和tier tag/数量，包含Batch_Reference，不直接联系客户；不更改未要求的schedule状态。
+今天为 2025-01-20，检查 ss_renewals/ws_schedule，未来 90 天续约合同在 Freshdesk 建 alert ticket，遵守 ws_dnc，通过邮件通知对应 account managers，并参考跟踪记录合同详情和日期。使用 freshdesk_tickets、contacts，Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

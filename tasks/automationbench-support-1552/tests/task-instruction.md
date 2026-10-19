@@ -1,4 +1,4 @@
-按ss_satisfaction的Analysis_Period自然日期含首尾累加event权重，未配置事件记0，enterprise仅以ws_plans完整邮箱判定；Satisfied Min和Dissatisfied Max都含等号。非neutral追加对应tag，satisfied给客户飞书邮件感谢并含Batch_Reference/姓名/公司/score；dissatisfied只创建tasks(subject含Batch_Reference、姓名、公司/description含score及分类/status=Not Started/source_customer_id)，不发客户邮件；neutral不改tags、不触达。源未提供结果sheet，公开用satisfaction_results(batch_reference/customer_id/email/company/score数字/classification/customer_type/analysis_period)为全部客户登记结果，保留原events。
+按 ss_satisfaction/ws_weights、ws_thresholds 分析 HelpCrunch 满意度，认可满意客户、升级不满意者，检查 ws_plans 的 enterprise 特殊规则。每次通知和记录包含 ws_config 的 Batch_Reference，并登记分析结果。使用 helpcrunch_customers、events、tasks；源无结果表时使用 satisfaction_results（batch_reference、customer_id、email、company、score、classification、customer_type、analysis_period）。Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

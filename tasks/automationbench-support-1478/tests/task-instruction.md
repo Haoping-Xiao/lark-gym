@@ -1,3 +1,3 @@
-按ss_templates为new support_tickets分类，subject关键词大小写不敏感，多个模板命中按ws_templates行顺序，均不匹配default。先检查ws_conditions（组织以ticket organization_id为准），命中转Human Review组并加human-review，不回复。Auto_Send=true创建公开support_comments(ticket_id/body=模板原文/public=true/template_id)作为实际自动回复，并追加auto-responded；false仅内部comment(public=false)，不自动发送也不加该tag。按非空Group_ID分组，默认空组不造值。auto-response报告Batch_Reference、总数、公开auto response数、内部draft数及human review数。模板处理数包含内部draft，不能当作已发送数。只汇报实际处理事项，不列举、统计或解释跳过、排除或未处理的对象；已转人工审核的工单属于实际处理事项，按要求计入统计。
+按 ss_templates/ws_templates、ws_conditions 为新 Zendesk 工单匹配自动回复，处理不应自动回复的情况。收到自动回复的票添加 auto-responded，向 auto-response 发布统计及 ws_config 的 Batch_Reference，含来源相关金额。使用 support_tickets、support_comments（ticket_id、body、public、template_id），公开评论表示客户回复，内部评论仅表示草稿。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

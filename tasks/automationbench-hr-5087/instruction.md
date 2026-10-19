@@ -1,4 +1,4 @@
-核对Pending Transfers的当前经理邮件、接收经理群批准、可用headcount与Notes。只有全部满足者Status=Approved、邮件员工确认，并将Employee ID/From Dept/To Dept/Receiving Manager交hris-admin@company.example.com；不自行改BambooHR或headcount，不把批准写成后端变更已执行。不合格或Hold请求保持Pending、无确认通知。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。
+处理待办跨部门转岗，逐项核实当前经理和接收经理批准及接收部门可用编制，遵循各请求备注和暂停要求，更新员工新部门资料并向员工确认。BambooHR 更新适配为邮件处理请求，来源转岗表 Status 可使用 Approved，通知关联 Employee ID、From Dept、To Dept、Receiving Manager。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

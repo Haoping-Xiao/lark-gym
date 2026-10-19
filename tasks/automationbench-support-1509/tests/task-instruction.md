@@ -1,4 +1,4 @@
-按ss_audit检查所有人工reply线程；created_by含bot（不区分大小写）或显式自动回复标记则排除，customer/note与无回复会话不评。字数按字符数含空白；问候/结尾按配置词或词组整词匹配（不区分大小写），不能把this中的hi误算问候。逐回复逐失败Criterion在ws_log写Conversation ID/Violation Type=Criterion原名/Agent=created_by；问题会话追加quality-issue，其他字段原样。quality@ourcompany.example.com飞书邮件报告audit、人工回复总数/问题会话数/违规数、逐会话ID/subject/失败标准。
+按 ss_audit/ws_criteria 审计 HelpScout 回复质量，跳过自动或 bot 回复，有问题会话加 quality-issue，违规登记 ws_log，向 quality@ourcompany.example.com 发报告。使用 help_conversations，Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

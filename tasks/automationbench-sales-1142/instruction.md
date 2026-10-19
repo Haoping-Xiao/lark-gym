@@ -1,4 +1,4 @@
-读取邮箱来信中的“本轮合同完成触发”上下文，按该事件的envelope_id找到对应DocuSign合同，结合Pricing Adjustments、历史交易及最新Win Announcement Process处理其匹配商机。原ChatGPT摘要由agent完成，写入opportunity description，含合同ID、原金额、适用折扣、调整后金额、期限及special terms；只关闭该事件对应的合同，不将其他历史completed合同一并处理。庆祝消息写商机名、实际金额和当前tier，金额以来源整数字面格式保留。DocuSign原envelopes只读，不能把旧公告或无关商机催办当作本轮触发。
+找到刚完成的 DocuSign 合同，由 agent 完成原 ChatGPT 条款摘要，以正确调整后金额关闭匹配 Salesforce 商机，并按 win announcement process 庆祝，包含相关实体名称。合同使用 docusign_envelopes 资料，CRM 使用 opportunities。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

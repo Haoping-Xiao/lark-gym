@@ -1,4 +1,4 @@
-依 Payroll Review Procedures 比较当前与上一期工资，只报告绝对变动率严格超过10%的员工，并列新员工但不标异常；本期零工资的离职员工排除。给 hr@company.example.com 和 controller@company.example.com 分别发飞书邮件，异常行 Employee | 上期原金额 | 本期原金额 | 有符号差额 | 有符号变化率（两位小数）。不更新工资表或执行支付。
+检查本期工资差异，与上一期比较，按工资审查程序识别并标记显著变化。分别向 hr@company.example.com 和 controller@company.example.com 发送报告，包含相关来源金额。报告字段为 Employee、上期金额、本期金额、有符号差额、有符号变化率；变化率可使用两位小数。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

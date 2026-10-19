@@ -1,4 +1,4 @@
-今天是 2026-02-15。按 Requirements 检查 Active 供应商保险有效期及最低保障，Inactive 完全跳过。30日内到期和已过期者逐人发飞书邮件要求更新证书；过期者 Status=Non-Compliant，并在现有 Payment Hold 列的对应单元格写 Yes。向 vendor-management 群及 compliance@company.example.com 分别报告所有本轮Active供应商 Vendor | Expiry | Coverage | Compliant/Expiring within 30 days/Non-Compliant，冻结付款者补 Payment Hold Yes。其他源行不动。通知或记录中引用来源值时必须原样保留，不得改写、缩写或舍入；计算结果与引用的来源值区分。
+核实所有活跃供应商是否有有效保险证明，检查到期日并通知保险即将到期的供应商。遵循供应商合规要求；对保险已过期的活跃供应商，按要求将跟踪表 Status 更新为 Non-Compliant。在 vendor-management 群和 compliance@company.example.com 邮箱发布合规报告。飞书适配保留 Payment Hold 字段，可使用 Yes；报告字段为 Vendor、Expiry、Coverage、状态，状态可选 Compliant、Expiring within 30 days、Non-Compliant。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

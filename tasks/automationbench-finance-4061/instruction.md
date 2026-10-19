@@ -1,4 +1,4 @@
-今天是 2026-02-10。按 Approved Bills 和 Payment Processing Guidelines 处理未来7天内（含端点）的已批准账单，Hold不执行。当前源只有到期日、没有开票日，不能证明折扣窗口有效，因此本轮不扣提前付款折扣，并在摘要说明待核实。本次仅做付款台账登记：quickbooks_bill_payments 保存 bill_number、vendor_name、amount数值、date；单笔≤50000，超额分两笔，每笔为正数、各不超过50000且合计等于应付金额，不限定拆分比例或登记顺序。已有账单 balance 字符串置0；合格账单若尚未同步到账务系统，先按已批准表补 quickbooks_vendors（display_name、email）和 quickbooks_bills（doc_number、vendor_name、total_amt/balance字符串），再登记付款。逐供应商邮件确认账单、原额及拆分，accounts-payable 群汇总；通知中明确本次为账簿登记，未向银行发起付款。
+处理本周 QuickBooks 供应商账单付款，支付未来七天内到期且已批准的账单，遵循付款处理指南。告知各供应商付款正在发送，并在 accounts-payable 群发布付款批次摘要，包含相关来源金额。本适配仅登记模拟账务，未向银行发起付款。quickbooks_bill_payments 字段为 bill_number、vendor_name、amount、date；供应商和账单分别适配为 quickbooks_vendors（display_name、email）与 quickbooks_bills（doc_number、vendor_name、total_amt、balance），账单金额字段为字符串。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

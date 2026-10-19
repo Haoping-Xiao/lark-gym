@@ -1,3 +1,3 @@
-固定2026-02-07，按ss_csat各规则处理未Processed的有效评分，票不存在/评分非数字/已处理不动。七天冷却按运行前已发CSAT记录判断，整位客户全部跳过；本批同人多票分别做工单动作、合并一封客户邮件，不让本批首条通知阻止后续票。VIP以精确邮箱区分：个人电话接管者跳过全部自动动作，明确Email-only者仅免消息仍可记注/调优先级。低分priority按规则，低/中分新增freshdesk_notes(ticket_id/body含CSAT分数及原反馈/private=true文本)，中分补改善计划不升级；高分请求testimonial，VP例外必须从表中VP Email对应的已授权邮箱发送个人感谢邮件，主题使用Custom Subject，正文写VP邮箱不代表发件身份，不能再发testimonial。处理成功行Processed=Yes，跳过行保留No。使用真实mail邮件，普通跟进从agent@company.example.com发送；VP邮箱已在本模拟环境授予发送权限，实际邮件From和发送邮箱必须匹配；摘要只列处理数Low/Medium/High，不写Skipped或被跳过客户，不统计或解释跳过对象。
+今天为 2026-02-07，按 CSAT 表中的 responses 和分数 followup rules 处理最新调查、跟进客户，跳过已处理行。向 customer-success 汇总已处理结果，用 Low: <n>、Medium: <n>、High: <n> 分类，不包含跳过行。使用原生飞书邮箱和 freshdesk_notes；源规则指定其他已授权发件邮箱时，可使用本环境对应邮箱发送。
 
 本次业务处理以 2026-02-07T09:00:00Z 为时间基准。

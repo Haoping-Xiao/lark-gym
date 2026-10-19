@@ -1,3 +1,3 @@
-将Gorgias open票按完整customer.email归组，不用姓名或subject匹配。先读ss_consol/ws_notes，SUSPENDED/ON HOLD票排除且不作primary；每组按created_at最早保留open，同时间取ID最小，其他新增私有gorgias_replies(ticket_id/sender_type=agent/body含primaryID/public=false文本)链接后close，原messages不删除。每关闭一票ws_log写原Customer Email/Primary Ticket/Closed Ticket/Channel。单票、不同邮箱同名及被hold者不动，不额外发消息。
+合并 Gorgias 跨渠道同客户重复票，只按邮箱匹配，同名不等于同人。保留一票 open，关闭重复票并加注释链接，登记 ss_consol/ws_log。使用 gorgias_tickets，内部链接备注写 gorgias_replies（ticket_id、sender_type=agent、public=false、body）。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,4 +1,4 @@
-按最新All-hands时间和离职通知，只为仍活跃员工安排会议。Zoom注册改为primary飞书日历视频会议及attendees；不建立Executive session。来源明确EST，本题按固定UTC-05:00（不是夏令时EDT）换算，邮件通知适配为逐人飞书邮件，保留主题、日期、3:00 PM EST与90 minutes；company-announcements同样发布最新时间。不改原Directory。
+创建季度全员视频会议，为全部活跃员工注册，并安排紧接其后的高管会议。向每位已注册员工发送包含会议详情的日历邀请邮件，使用最新信息。Zoom 会议和注册适配为 primary 飞书日历视频会议及 attendees，通知使用飞书邮件。来源明确写 EST 时，使用固定 UTC-05:00，而非 EDT。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

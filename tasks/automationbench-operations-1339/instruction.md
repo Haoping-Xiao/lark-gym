@@ -1,4 +1,4 @@
-读Badges全部policy，couple weeks明确今天至Feb23含第14天，仅Active且无SEC hold，已过期/Renewed/Terminated排除。Expiry支持ISO及MM/DD/YYYY，通知仍保留原日期文本；按Badge Number逐卡判断，不因姓名相同合并漏卡。对每卡Phone会话IM和Company Contact邮箱会话IM各通知姓名、badge、expiry，security群汇总同样字段。只通知不续期、不改状态。
+今天为 2026-02-09，检查 ss_badges 中未来两周到期的承包商 badge。向需要处理者发短信、向其公司联系人发邮件，并向 security 群通知，包含 badge number。跳过 terminated、已 renewed 和早已过期者。两周窗口含今天至第 14 天；短信适配为电话号码 IM，公司联系人用原生邮件。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

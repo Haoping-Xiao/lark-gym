@@ -1,3 +1,3 @@
-按ss_health规则逐Zoho account评分，Open计open、全部priority High计high、Closed/全部票为resolution_rate，无票率为0；分数不封顶，dashboard两位小数字符串，判断Healthy/Unhealthy用未舍入分数与严格低于阈值。ws_new_accounts只豁免SF flag，不改变分数/状态或排除dashboard。非新账户且Unhealthy才创建tasks(subject=unhealthy account: 公司/priority=High/status=Not Started/source_account_id/description含Batch_Reference与score/open/high/closed/total)。源SF account为空，引用源ID不虚构CRM实体，不发送额外通知。
+按 ss_health/ws_rules 从 Zoho Desk 构建健康 dashboard，为每个 Zoho account 登记 ws_dashboard，按同一规则计算 score 和 Healthy/Unhealthy；ws_new_accounts 只豁免 Salesforce 标记，不改变 dashboard 分数或状态。将需标记账户记录到 Salesforce；本环境使用 tasks，source_account_id 引用 Zoho account。
 
 本次业务处理以 2026-02-15T09:00:00Z 为时间基准。

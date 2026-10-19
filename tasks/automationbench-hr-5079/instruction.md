@@ -1,4 +1,4 @@
-按Policy Acknowledgment Tracker与状态约定，仅向未签署且不在休假中的员工发policy acknowledgment签署请求。DocuSign改signature_requests台账（template_id、employee、email、status=Sent）和飞书邮件；发送后Signed列写Sent，暂缓者写Deferred，已Yes不动。不把发出请求写成Yes或已签署。
+向仍需签署更新版公司政策确认表的员工发送签署请求，并更新合规跟踪表。DocuSign 适配为 signature_requests 飞书台账及邮件请求，字段为 template_id、employee、email、status，status 可使用 Sent；来源 Signed 字段可使用 Sent、Deferred。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

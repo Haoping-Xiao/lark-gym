@@ -1,4 +1,4 @@
-处理AI Innovation Summit高参与者，研究现有LinkedIn资料并据seniority与company_size转入pipeline。原题未给高参与及seniority边界，本题明确attendance_duration>=45分钟且职位Director/VP/C-level，company_size必须>=50；简介中的定性声明不改数字门槛。合格者建leads(status=Qualified、姓名/email/company/title/source)、accounts(account_name、external_id为account:<公司名>)、opportunities(name包含公司与webinar、account_external_id关联账户、stage=Discovery、source)。金额未给则不编造。创建primary飞书Discovery Call并邀请，原题未定时刻统一2026-02-25 10:00 UTC按event type时长；邮件个性化跟进并marketing-qualified汇总。
+处理 AI Innovation Summit 高参与度参会者，查 LinkedIn，按职级和公司规模评估潜力，公司至少 50 人。为合格者建立 CRM 记录、安排 discovery call、发个性化跟进并向 marketing-qualified 汇总。CRM 使用 leads、accounts、opportunities，日历使用 primary 飞书日历；原题未给参与度、职级和排期边界，本适配定义停留至少 45 分钟、Director/VP/C-level，统一使用 2026-02-25 10:00 UTC 并按 event type 时长安排。accounts.external_id 与 opportunities.account_external_id 可作业务关联。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

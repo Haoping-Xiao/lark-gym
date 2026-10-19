@@ -1,3 +1,3 @@
-按ss_patterns检查所有带escalated的Hiver会话，包含closed，不额外限制状态；按Matching Tag分类，依Notes排除同from_team/to_team、vendor-test或load-test对应类别。只有显式相同非空team才认定同组。ws_analytics逐有效会话pattern记录；达到Jira Creation Threshold才创建issues(project=SUP/issuetype=Bug/summary=pattern-name: N conversations/priority配置/description逐来源ID及原subject)。support-ops严格用pattern-name: N conversations汇总，只报告非零pattern，不改源票。
+按 ss_patterns 的模式定义分析 escalated Hiver 会话的重复主题，登记发现，为严重模式创建工单，并向 ops 群分享分析。使用 hiver_conversations 和 issues 台账。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,4 +1,4 @@
-核对 HQ Books 与 Division Books 的双向公司间余额：HQ receivable 对 Division payable，HQ payable 对 Division receivable。只给 controller@company.example.com 发不一致方向的飞书邮件详情，关联 Entity、双方原余额和有符号差额（HQ-division），不因净额相等忽略方向差异，不改源账。
+核对各实体间公司间余额，比较各方账簿中的应收和应付余额是否匹配，识别差异并向 controller@company.example.com 发送对账结果。报告关联 Entity、双方来源余额和差额，差额可采用 HQ-division 的有符号值。引用相关来源金额时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

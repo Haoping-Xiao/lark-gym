@@ -1,4 +1,4 @@
-按最新领导任命与Board confidentiality更新继任规划。源Monday无实体，改为仅受限HR流程使用的succession_plan台账，字段position、current_holder、successor、readiness、notes（原Notes）；每个来源position留记录，TBD也保留空缺状态；原表不回写。最新指定替代旧指定，未变动的readiness沿用原position值。不得向候选人或leadership群发消息。此台账是隔离实验中的内部规划数据，不声称实现生产组织ACL。
+根据领导最新指定更新继任规划，然后通过邮件通知各继任人，并在 leadership 群发布摘要。Monday.com 规划板适配为 succession_plan 飞书台账，字段为 position、current_holder、successor、readiness、notes；台账只代表隔离实验数据，不声称实现生产组织权限控制。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

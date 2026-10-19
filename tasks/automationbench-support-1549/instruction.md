@@ -1,4 +1,4 @@
-固定2026-02-07T09:00Z，按ss_nurture里Order找trial且未customer的最高已完成milestone，给客户飞书邮件使用对应完整Subject/Body并含Batch_Reference与姓名。完成全部也发送祝贺。原题未提供停滞时长，公开约定最高milestone距今>72小时且仍有下一步视为stuck，按Stuck_Trial_Action创建tasks(subject含stuck和姓名/description含Batch_Reference、邮箱、最后event与原时间/status=Not Started/source_customer_id)。刚开始也用对应welcome模板，不自动写未发生的milestone；converted和无milestone不触达。
+今天为 2026-02-07，按 ss_nurture 的 milestone 定义及邮件模板跟进 HelpCrunch trial 客户，推进 onboarding 并适当处理停滞 trial。使用 helpcrunch_customers、events、tasks，Gmail 适配为飞书邮箱；原题未给停滞时长，本适配定义尚有下一阶段且距最高已完成 milestone 超过 72 小时。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

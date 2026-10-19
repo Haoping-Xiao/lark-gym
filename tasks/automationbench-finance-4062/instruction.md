@@ -1,4 +1,4 @@
-按给定 Sales Tax Tracker 与最新豁免通知计算 Q4 2025 分辖区应缴税额。应用税率生效日期，扣除豁免通知中的估计销售额，并明确这些估计待复核。向 tax@company.example.com 发飞书邮件：有非零税率的各辖区逐月 State | Month | 调整后Taxable Sales | Rate | Tax，随后各州 total 与 Total remittance；派生金额美元千位逗号两位小数。再列豁免金额与审阅状态。本轮只准备汇款计划，不申报或付款。
+计算 Q4 2025 的季度销售税义务，从收入跟踪表获取应税销售，按辖区应用正确税率，并准备汇款计划。向 tax@company.example.com 发送各辖区应缴金额摘要。飞书适配交付计划，不实际申报或付款；报告字段为 State、Month、Taxable Sales、Rate、Tax，以及各州 total 和 Total remittance，派生金额可用美元千位逗号和两位小数表示。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

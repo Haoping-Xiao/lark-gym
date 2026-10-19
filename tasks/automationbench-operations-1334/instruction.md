@@ -1,4 +1,4 @@
-读Server Monitoring全部阈值/policy，仅Active，严格超过阈值才告警，每server按最高触发级别归类。Critical创建jira_issues(project=INFRA/issuetype=Incident/summary=Critical: <Server>/description含全部原CPU/Memory/Disk百分比)，并infra-alerts群通知；原无项目key，本适配补定INFRA。Critical和Warning全部汇总邮件policy Contact，逐行写级别和全部指标，Warning不建票不发群。不改服务器指标或执行修复。
+今天为 2026-02-09，检查 server monitoring 表当前服务器读数，并阅读其他工作表中的告警阈值、联系人及政策约束，按要求标记和通知过热情况。飞书适配用 jira_issues（project、issuetype、summary、description）及原生群消息、邮件，源未提供 Jira 项目键时使用 INFRA。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

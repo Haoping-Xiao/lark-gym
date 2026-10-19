@@ -1,4 +1,4 @@
-审核用户内容队列 ss_mod / ws_queue：一般批准不提竞品的正面内容；核对封禁名单和图库，防止封禁用户与重复投稿进入图库。遵守版权及批次要求。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 存在法律争议，不能批准。合格内容追加到 ss_gallery / ws_approved 并把源行 status 设为 approved；其他源行保持原样。
+审核 ss_mod/ws_queue 的用户投稿，批准不提竞品的正面内容，核对封禁名单并避免批准封禁用户，同时与已批准内容查重，将批准项加入图库。查看内容负责人本轮批次说明。@brand_ambassador 是官方代言人，即使负面也批准；@legal_risk_user 有法律争议，不能批准。飞书适配图库为 ss_gallery/ws_approved，源 status 可使用 approved。消息包含相关来源金额。
 
 本批次的竞品限制指点名具体竞品品牌；未指明品牌的泛称 competitor 不构成竞品提及。封禁用户按完整账号精确匹配，不因拼写相似而视为同一用户。
 

@@ -1,4 +1,4 @@
-按精确customer_email聚合全部会话（含closed），Conversation Count全部计数，Total Replies仅thread_type=reply。原题无定量阈值，本题公开口径：HIGH为同一问题域反复求助且至少一会话>=5线程，或reassigned反复转交；其余有同问题跨会话再求助为MEDIUM，其他LOW。主题需读正文，不能将无关问题仅按同人拼成复发。ws_scores所有客户都写含四列的记录；high-effort只加到HIGH客户>=5线程或reassigned的高负担会话，非该条件会话不标。仅HIGH客户各一条飞书邮件致歉及指出实际问题域，不发客服agent。cx-insights含Report_Reference、high人数及所有客户邮箱/会话数/reply数/等级。
+根据 HelpScout reply 数、thread 长度及客户是否针对类似问题反复新开会话计算 effort score，登记 ss_effort/ws_scores，为 high-effort 客户加标签并邮件关怀，向 cx-insights 汇总含 ws_config 的 Report_Reference。使用 HelpScout 资料，Gmail 适配为飞书邮箱。 原题没有量化模型，本适配的 effort 等级口径为：同问题重复求助且至少一次会话有 5 条线程，或反复转交，记 HIGH；其他同问题跨会话求助记 MEDIUM；其余 LOW。high-effort 标签标记 HIGH 客户的长线程或转交会话。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

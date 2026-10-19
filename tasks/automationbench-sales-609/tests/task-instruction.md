@@ -1,3 +1,3 @@
-为新Enterprise客户Pinnacle Financial Group建立专属飞书群，查general的命名及账户团队准则，按确切account关联邀请成员，不误邀仅升级联系人。原Slack topic映射为飞书群description，群成员用lookup_users里的user_id，当前调用者有建群及邀请权限。发布欢迎消息，并按原系统集成要求保留CRM标记Slack channel created: #<channel-name>（本题实际建的是飞书群）。保留其他账户不变。
+为新 Enterprise 客户 Pinnacle Financial Group 建专属群，查 general 中置顶命名指南，邀请 account team，并更新 Salesforce 表示已建群。Slack 适配为飞书群，topic 映射 description，成员用 user_id；CRM 集成标记可保留 Slack channel created: #<channel-name>，表示本环境实际创建的飞书群。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

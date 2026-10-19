@@ -1,4 +1,4 @@
-今天2026-01-22，对Product Launch 2026主场webinar的注册者计分，查评分表及近期政策通知，为符合条件者创建CRM leads(first_name/last_name/company/email/status=New/rating/description)。description分项记录attendance、questions、polls得分及总分（格式可写Total: N points），保留参与数据，不修改原评分表或预览场资料。
+今天为 2026-01-22，为近期 Product Launch 2026 webinar 的 leads 按评分 rubric 计分，在 Salesforce 创建适当 rating 的 leads，并在 description 写评分分项。CRM 使用 leads，会议和参会资料使用飞书台账。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

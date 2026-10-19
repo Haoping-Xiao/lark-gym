@@ -1,4 +1,4 @@
-按Chemical Inventory全部audit rules及supplier邮件做模拟审核。数据解释约定：ws_storage每行是一条独立库存记录，同名行不能直接合并；同名时在工单和报告中用原表行号区分，行号表达不限定格式。无单位数量不得擅自补单位，也不能据此认定符合微量豁免。Status Interpretation对全部库存行生效，名称、位置或状态看似历史记录不构成额外豁免。仅严格指定status和de minimis完全排除；已issued/shipped SDS豁免过期，processing不豁免。精确isolated Notes者从compatibility pairing中移除但仍查SDS；只有剩余同location存在A/B才双向标记。每被flag化学品一条jira_issues(project=SAFETY/issuetype=Task/chemical/location/summary包含名字、地点和全部问题；SDS问题需N days overdue)。EHS邮箱报告仅flag项，safety-critical仅compatibility项，不改存放位置或SDS日期、不提供实际化学操作指导。通知和记录中的来源值须逐字保留，不得改写或四舍五入。
+审计 chemical inventory，先查 audit policies 及供应商邮件。标记 SDS Expiry Date 早于 2026-02-09 的化学品及同一 Storage Location 内 A、B Compatibility Group 共存问题；排除 In Transit、Pending Disposal。为每个被标记化学品在 SAFETY 创建安全工单，包含名称、问题类型、位置，SDS 过期时 summary 含逾期天数。向 ehs.manager@company.example.com 汇总且正文仅含被标记化学品，不提 In Transit、Pending Disposal 或 de minimis 排除项；向 safety-critical 通知存储不兼容问题。Jira 适配为 jira_issues（project、issuetype、chemical、location、summary），同名库存行用来源行号区分。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

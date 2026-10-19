@@ -1,3 +1,3 @@
-处理Quarterly Review - Apex Corp会议纪要，检查相关后续amendment，以仍有效的负责人/期限创建tasks(subject/owner_id/what_id/due_date/status=Not Started)，due_date采用会议年份YYYY-MM-DD。只为此QBR行动建任务，不纳入准备会或off-the-record材料。更新对应机会description记录QBR、讨论方向及行动数量，不修改Renewal机会和原日历。
+处理 Quarterly Review - Apex Corp 日历会议纪要，提取行动项，在 Salesforce 分配给正确负责人并更新对应商机。CRM 适配为 tasks（subject、owner_id、what_id、due_date、status）和 opportunities，status 可用 Not Started，due_date 使用 YYYY-MM-DD。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

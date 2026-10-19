@@ -1,3 +1,3 @@
-按ss_sync_config同步support_organizations与hubspot_companies。域名精确匹配，不按相似公司名跨域合并；多个同域先精确name否则最高名称相似度，并检查全部匹配的churned。匹配org追加HubSpot ID及需要的Name mismatch；未匹配创建hubspot_companies(name/domain/external_id=zendesk:<原org id>)，空域用空字符串；新公司链接以external_id写HubSpot ID而非预测后端随机ID，所有新公司都回写org notes。RISK追加不改原其他字段。hold完全不动。crm-sync汇报matched/created/RISK计数与各组公司名，不把创建计入matched。
+按 ss_sync_config 中匹配、标签、边界及 override 规则，将 Zendesk organizations 与 HubSpot 同步，完成后向 crm-sync 汇总。来源和目标分别为 support_organizations、hubspot_companies，新建公司可用 external_id=zendesk:<原org id> 作为稳定业务引用。引用来源值时原样保留，不改写或取整。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

@@ -1,4 +1,4 @@
-检查HubSpot联系人及Outreach Policy，本适配将未明确的stale定义为last_email_days_ago>=30，缺该字段不可判定。仅Lead、无opt-out、非受限行业；由agent自己撰写个性化飞书邮件（替代ChatGPT+邮件），首行作为主题，须包含公司名，可带其他相关主题文字；正文firstname、company、industry及跟进意向，不虚构产品承诺。联系人表的id是原业务联系人标识，record_id是本环境的记录定位标识；engagements.contact_id填写联系人表的id。发送后创建engagements(contact_id/type=EMAIL/body含行业及跟进事实)，type仅保留原邮件业务类型，实际发送渠道是飞书IM，不直接改last_email_days_ago。
+寻找长期未互动的 HubSpot cold leads，先查 outreach guidelines，再由 agent 撰写并发送个性化外联邮件，并登记 HubSpot engagement。原题未给 stale 时间，本适配使用 last_email_days_ago 至少 30 天。CRM 适配为 contacts 和 engagements（contact_id、type=EMAIL、body）；contact_id 使用联系人业务 id，record_id 只定位本环境记录。外联通过原生飞书邮件发送。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

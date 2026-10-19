@@ -1,4 +1,4 @@
-按Employee+Department区分同名人员，将Access与Role Permissions做精确系统名集合差；Approved Elevated Access免本轮review。对Offboarded员工明确已无员工角色授权，当前所有Access都列待撤销review，不直接撤权。创建asana_tasks(project取Audit Settings名称/name含员工和department/unauthorized_systems JSON数组/description)，并向IT Security Email报告所有需review人员、部门和具体系统；仅建review不改权限源数据。
+开展季度访问审计，对照 ss_access/ws_matrix 的员工实际权限与其他工作表的角色定义、审计设置，检查备注中的特别批准。为拥有角色不允许系统访问的人员创建 review 任务，列明各自具体未授权系统，并向 IT security 发送完整报告。Asana 适配为 asana_tasks（project、name、unauthorized_systems JSON 数组、description），同名人员以部门区分。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

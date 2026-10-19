@@ -1,4 +1,4 @@
-按Daily Close Process Runbook运行2026-01-21日终批次。本题冻结时间18:00 UTC以涵盖当天已给出的14:00完成事件；只处理今日已完成且可执行的真实合同。更新匹配商机stage/amount，逐签署人邮件欢迎致谢，按账户备注决定是否建tasks账单设置（subject含billing和客户，related_to_id为商机，status=Not Started），最后wins合并公告每个实体、原整数金额与total contract value。原DocuSign记录只读。
+今天为 2026-01-21，运行 daily close process，按惯常方式处理已完成合同，通知包含相关实体名称和金额。冻结时间为当日 18:00 UTC，合同及 CRM 适配为飞书台账，通知使用原生消息和邮件。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

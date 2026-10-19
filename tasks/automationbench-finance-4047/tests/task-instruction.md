@@ -1,4 +1,4 @@
-按 2026 Expense Policy 审核 February Submissions，酒店按晚、团队餐按明确人数计算；没有团队人数说明的餐饮按个人餐标准。原位设置 Status=Approved 或 Violation，仅给违规员工发飞书邮件，说明员工名、原金额和对应限制，向 compliance@company.example.com 汇总全部违规项；预批不能豁免舱位或费用类别限制。
+审计最新提交的报销，逐项对照公司政策识别违规，向每位违规员工发送通知并向合规团队发送汇总，更新费用跟踪表状态。飞书适配使用 Status 字段，可选值为 Approved、Violation。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

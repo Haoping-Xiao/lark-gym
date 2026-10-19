@@ -1,4 +1,4 @@
-依 Project Review Guidelines 分析项目利润，已完成项目仍纳入，备注明确排除者不纳入。Overhead=Labor Costs×15%，Profit=Revenue-Labor-Material-Overhead；负利润 At Risk 优先，否则利润率低于10%为 Low Margin，其余 Healthy。向 cfo@company.example.com 发飞书邮件，逐行 Project | Client | 原Revenue | Overhead | Profit | Margin（两位小数） | 分类；保持来源不变。
+计算各活跃项目的利润，将已确认收入与已发生费用比较，识别亏损项目，遵循项目审查指南。向 cfo@company.example.com 发送利润报告。报告字段为 Project、Client、Revenue、Overhead、Profit、Margin 和分类，分类可选 At Risk、Low Margin、Healthy；Margin 可使用两位小数。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

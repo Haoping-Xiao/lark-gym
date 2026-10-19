@@ -1,4 +1,4 @@
-今天2026-04-01，按最新intern政策处理有效实习生。Conditional须先向Legal完整通知本人及条件详情，然后才能为该实习生创建任务、通知导师或欢迎；其他已Clear实习生可独立办理；学校/日期/导师采用来源与有效更正。Asana改为intern_onboarding飞书台账字段name、school、department、mentor、mentor_email、start_date、status=Not Started。给导师邮件实习生学校、有效Start Date（ISO及June N）并请求书面批准email account，未获批前不能请求IT或创建账号；不办信用卡。interns群逐人欢迎，仅姓名、部门、有效入职日，不公开条件背调细节。不必修改原Roster。通知或记录引用来源值时须原样保留，不得改写或舍入。
+设立暑期实习生项目，仅纳入背景检查已通过的实习生。为每位实习生创建入职任务，向导师发送含学校和入职日期的资料，办理企业信用卡、创建公司邮箱，并在 interns 群欢迎；先检查导师可用性备注及近期项目更新。Asana 入职任务适配为 intern_onboarding 飞书台账，字段为 name、school、department、mentor、mentor_email、start_date、status，状态可使用 Not Started；账户与办卡操作适配为处理请求，不连接真实开户系统。引用来源值时原样保留，消息包含受影响实体名称。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

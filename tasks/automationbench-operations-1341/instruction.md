@@ -1,4 +1,4 @@
-采购三方匹配按PO Number，仅PO Date>=2026-01-01且无hold。Qty Received!=Qty Ordered则差异，Partial - Expected仅豁免数量差；Invoice Amount!=Qty Ordered*Unit Price仍检查。每一种差异独立创建monday_items(board=Procurement Issues/name包含原PO Number并说明差异用途/description完整expected/actual/difference)，同PO两个差异两条而非混成一条。邮件procurement@supplychainco.com首行承载主题且包含mismatch，可加其他相关主题文字；正文列全部差异，不改原PO/receipt/invoice，不付款。
+对 ss_procurement/ws_po、ws_inv、ws_recv 按 PO Number 三方匹配，仅检查 PO Date>=2026-01-01。Qty Received 不等于 Qty Ordered 时标记差异，Notes=Partial - Expected 时免除此数量差异；Invoice Amount 不等于 Qty Ordered × Unit Price 时标记金额差异。每项差异在 Procurement Issues 创建 Monday 项并写详情，向 procurement@supplychainco.com 汇总全部不匹配。Monday 适配为 monday_items（board、name、description）。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

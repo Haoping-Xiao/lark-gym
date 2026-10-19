@@ -1,5 +1,3 @@
-按ss_sync以exact subject+requester email对账。原政策internal.company.com与样本internal.company.example.com不一致，本题将二者及其子域都视内部并完全排除。先判matched，再仅对unmatched closed/solved或4/5跳过；matched的open/resolved不同须报差异。priority用表中映射，status公开等价new/open=2,pending=3,solved=4,closed=5。缺失counterpart时保留subject/description、映射priority，目标新票status=open或2。若目标联系人不存在，新建support_users或freshdesk_contacts，external_key=sync_原联系人ID；新票support_tickets/freshdesk_tickets的external_key=sync_原票ID，requester_id指向该联系人key，tags及comments/notes为空JSON数组。新增sync_log记source_platform/source_ticket_id/target_platform/target_ticket_key/requester_email/report_reference。差异逐字段追加ws_discrepancies原值，双方内部support_comments(body/public=false)/freshdesk_notes(body/private=true)，均含ticket_id。只flag不擅自同步冲突值。platform-sync含Report_Reference、实际新建及差异条目、原subject与客户姓名。 本题两系统priority/status共列，均以文本保存；Freshdesk数值代码写为字符串，原数值字面内容保持。
+按 ss_sync/ws_mapping 对账 Zendesk 和 Freshdesk，确保每票有 counterpart，标记状态或优先级差异，登记所有变更，向 platform-sync 汇总含 ws_config 的 Report_Reference。使用 support_tickets、support_comments、support_users、freshdesk_tickets、freshdesk_contacts、freshdesk_notes；新对象 external_key 可用 sync_<源ID>，映射进度用 sync_log，状态和优先级在本任务表内使用文本。引用来源值时原样保留，包含相关实体名称。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。
-
-汇总仅包含本轮实际创建和标记差异的项目，不加入跳过、排除或一致项目的概述或统计。

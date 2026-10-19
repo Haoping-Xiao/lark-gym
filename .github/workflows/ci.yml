@@ -49,6 +49,27 @@ jobs:
       # Tests retained import tooling on temporary fixtures; never regenerates maintained tasks.
       - name: Import tools - preserve source mail data when importing a fixture
         run: npm run test:import-tools
+      - uses: actions/checkout@v4
+        with:
+          repository: zapier/AutomationBench
+          ref: 4a8e1061254004d9dac807054eed33fad7d1ff14
+          path: runs/instruction-audit/upstream
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Instruction audit - snapshot upstream prompts and report additions
+        run: |
+          python3 scripts/migration/inventory.py runs/instruction-audit/upstream runs/instruction-audit/source-tasks.json
+          python3 scripts/migration/audit-instructions.py runs/instruction-audit/source-tasks.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: instruction-audit
+          path: |
+            runs/instruction-audit/source-prompts.json
+            runs/instruction-audit/report.json
+            runs/instruction-audit/report.md
       - name: CLI implementation - Go tests and static analysis
         run: npm run test:go
   # Ordinary CI does not call models. The separately gated job below can spend model tokens.

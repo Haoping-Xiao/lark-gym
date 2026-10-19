@@ -1,4 +1,4 @@
-缺失当前时间，本题固定2026-02-09 12:00UTC。审核open/pending会话，closed跳过；按customer_email域映射Tier，未知域Standard。首响减created_at，无首响以固定现在计，严格超Target才breach。追加sla-breach，ws_breaches全部列，Customer用原customer_name、Status=Breached或No response；小时精确计算不四舍五入。按Escalation Email每收件人汇总一条IM，群只报breach，含Report_Reference、逐票原subject/客户名/Tier/target hours/actual hours/status，不报告正常或跳过票。
+按 ss_sla/ws_targets、ws_tiers 和当前跟踪政策检查 Hiver 响应 SLA，考虑客户 tier，标记 breach 并适当升级，向 sla-monitoring 报告含 ws_config 的 Report_Reference。源缺当前时刻，本适配固定 2026-02-09 12:00 UTC；Gmail 适配为飞书邮箱，引用来源值及相关金额时原样保留。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-读Salesforce accounts、Compliance Tracker全部Audit Policy及最新compliance邮件，以精确SF Account ID关联。源accounts只有name没有status，本适配明确SF Status列视为该账号状态快照，最新compliance邮件可补充/覆盖状态和expiry，缺两者不推定Active。仅当前有效Active且过期并无exemption者向vendor-compliance报原name、account ID、document、expiry及总数non-compliant；不改tracker，不发general。
+在最终审计前核对每家供应商最新合规信息，将 Salesforce 活跃账户与 ss_compliance/ws_tracker 关联。今天为 2026-02-09，Doc Expiry 早于今天且账户状态 Active 才是不合规，向 vendor-compliance 通知供应商名、Salesforce account ID、过期文档类型及不合规总数，不通知已 Inactive 的供应商。Salesforce 适配为 accounts 台账；源 accounts 缺 status，本适配将 tracker 的 SF Status 作为账户状态快照。引用来源值时原样保留，不改写或取整。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

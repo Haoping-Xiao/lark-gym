@@ -1,4 +1,4 @@
-按FAQ Templates所有类别/模板/override处理freshdesk_tickets与contacts。以subject+description大小写不敏感匹配不同keyword，重复出现只算一次；最高命中数类别优先，同分按Categories行顺序，0命中No FAQ match。先skip status/已有notes/exclusion/never-draft；beta域override允许正命中低于threshold也draft。安全回复只在飞书邮箱保存与该工单对应的真实草稿，收件人为客户、主题为Re: 原subject、正文为原Template加priority>=3的原Urgent Note，是未发送的待审草稿，原 Urgent Note 只作为待审核模板保存，不代表本次已执行其中承诺或通知；不得向客户发送，也不得在对外消息或操作汇报中据此声称已通知工程。每个处理票新增freshdesk_notes(ticket_id/private为JSON文本true/body含FAQ match或Low confidence或No FAQ match及所选category)，保留旧notes；日志按原字段追加，无匹配Category空。support-automation汇报draft/low-confidence/no-match/skip人数及涉及姓名，所有其他原字段不动。
+检查 Freshdesk 重复问题与 FAQ library 的匹配情况，准备合适回复草稿；每票记录 FAQ match、Low confidence 或 No FAQ match。tracking log 的 Action 对已准备回复使用 Drafted，无法安全起草时使用 Manual Review，并向 support-automation 汇总。工单为 freshdesk_tickets、contacts，备注写 freshdesk_notes（ticket_id、private、body）；回复保存为飞书邮箱真实草稿，不发送。引用来源值及相关金额时原样保留，不改写或取整。
 
 邮件收发和草稿均使用飞书邮箱。草稿不要发送；工单备注与处理日志仍保存在相应飞书业务表，保持草稿与原工单及联系人的对应关系。
 

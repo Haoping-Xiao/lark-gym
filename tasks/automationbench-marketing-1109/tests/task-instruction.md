@@ -1,4 +1,4 @@
-今天为 2026-01-27。查看视频库和所有生产说明，按视频主管标准为合格录播生成社交片段建议，写入片段队列并指定平台。本批每个合格录播的所有 key_moments 均生成一条建议：演示片段去 Instagram、快速提示去 Twitter，其余专业内容去 LinkedIn。status=Suggested，priority 一般 Normal、明确优先片段 High；production_ref 填生产批次码，clip_description 保留原片段名及明确反应量。只规划，不实际剪辑或发布。
+从 webinar 录播中规划社交片段，查看视频库并按视频团队主管上周提供的标准，将片段建议及平台分配写入片段队列，开始前检查所有渠道中的制作说明。飞书适配队列字段包括 clip_description、status、priority、production_ref，status 可使用 Suggested，priority 可选 Normal、High；本次只提出建议，不实际剪辑或发布。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

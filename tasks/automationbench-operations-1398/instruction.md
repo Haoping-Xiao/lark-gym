@@ -1,4 +1,4 @@
-按Generator各worksheet规则筛选到今天+14日已到/将到测试期限者；Status 为 Under Repair 的机组跳过，Type 为 Portable 且 Assignment 为 Event 的机组跳过。Monthly/Quarterly为30/90日，Emergency run重置日期，firmware hold及active fuel rationing优先排除。next available weekday明确指今天之后首个工作日06–08UTC；源无忙闲事件按各building可并行，不虚构技术员冲突。在cal_generators为每项创建Generator Load Test - [ID]，description含Building/kW Rating（保持原值），无attendee来源不补。向每个实际排期楼的engineer邮箱邮件ID/building/kW/time、本人任务数及所有楼总数，不给无安排者通知、不改Last Load Test。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明按实际含义验收。
+今天为 2026-02-09，检查 ss_generators/ws_units 中未来 14 天内到期及已逾期的负载测试；Monthly 按 30 天、Quarterly 按 90 天。跳过 Under Repair 和 Portable 且 Assignment=Event；Notes 中最近 30 天 Emergency run 可视为测试，采用该日期。为每台需测试机组在 cal_generators 创建 Generator Load Test - [Unit ID]，下一个可用工作日 06:00 起 2 小时，向 ws_engineers 中楼宇工程师邮件已安排总数。为明确原题，本适配使用今天之后首个工作日及 UTC。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

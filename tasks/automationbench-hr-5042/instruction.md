@@ -1,3 +1,3 @@
-按March Hires与Eligibility为下一批全职新员工建立入职条目，尊重Notes更正。Monday入职项目改为 onboarding_items 飞书台账，每人一条，字段name为员工全名、department、start_date、status=Not Started；不为contractor或延期人员创建，不改来源表，不发通知。
+为下周入职的新员工建立入职条目，每项包含姓名、入职日期和部门，状态设为 Not Started。处理前阅读备注；承包商不通过此流程入职。Monday.com 条目适配为 onboarding_items 飞书台账，字段为 name、department、start_date、status。
 
 本次业务处理以 2026-03-20T09:00:00Z 为时间基准。

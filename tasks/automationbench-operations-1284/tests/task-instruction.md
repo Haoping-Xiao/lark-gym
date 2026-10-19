@@ -1,4 +1,4 @@
-核对Trade Show Leads全部qualification/exclusion及sales-ops最新邮件，仅处理Qualified空白且可处理的原始条目。HubSpot改contacts(name/email/company/company_size/budget/qualification)；Hot/Warm另创建deals(dealname=公司名/amount=Budget/contact_email/qualification)，Cold不建deal。不改原表Qualified字段（本题只要求建联系人与pipeline）。邮件sales@company.example.com，包含本次每位姓名/公司/预算/等级、Hot/Warm/Cold计数及仅Hot+Warm总pipeline；跳过对象不列入汇总。
+从 ss_tradeshow_leads/ws_leads 检查尚未资格评估的展会潜客，并查销售团队近期影响资格的邮件。为合格者创建 HubSpot 联系人，将高价值潜客优先加入 deal pipeline，向 sales@company.example.com 汇总资格分类及可建交易者总 pipeline value。HubSpot 适配为 contacts（name、email、company、company_size、budget、qualification）及 deals（dealname、amount、contact_email、qualification）；qualification 可选 Hot、Warm、Cold。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

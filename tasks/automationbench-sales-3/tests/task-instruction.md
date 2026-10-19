@@ -1,4 +1,4 @@
-处理新利益相关人的入职通知，按 Contact Onboarding SOP 将符合条件的人加入飞书 CRM contacts。处理 meetings@company.example.com 的未读 ACTION-REQUIRED 通知，排除草稿与已处理通知。按完整客户名称、邮箱识别对象，执行审核限制、去重及职级分类；description 采用 Seniority: <分类>。处理结束后按 SOP 向 crm-ops@company.example.com 发飞书邮件确认；SOP 明确要求时，说明被跳过的对象及理由。
+邮箱有新的 stakeholder 通知，按 contact onboarding procedures 处理。Salesforce 适配为 contacts 飞书台账，通知使用原生邮件，联系人 description 可记录职级分类。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,4 +1,4 @@
-今天是 2026-02-01。根据 New Rates 更新 wave_products 飞书产品台账，核对 Notes 中暂停与恢复销售的例外。更新 unit_price 保持为不带美元符号的数字字符串，需要归档时写 is_archived=true（字符串），不删除产品。向 operations@company.example.com 发飞书邮件，逐项 Product | 最终unit_price | Updated/Archived/Hold until Feb 15，保留暂停产品原价和所有来源资料。
+根据价格表中的新定价更新产品目录，应用新价格并归档已停产产品，向 operations@company.example.com 确认变更。Wave 产品目录适配为 wave_products 飞书台账：unit_price 使用不带美元符号的数字字符串，is_archived 使用字符串布尔值，归档通过该字段表达。通知列出 Product、unit_price 和处理状态。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

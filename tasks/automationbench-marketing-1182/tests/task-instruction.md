@@ -1,4 +1,4 @@
-审计 Campaign Links（ss_utms / ws_links），读取现行政策及群里的格式更新，更新 Status，并向有问题链接的 Owner 邮件通知。来源值照录，报告包含行 ID 和数量。审计以 utm_source、utm_medium 列为准，不从 URL 自动补齐空列；明确不适用的外部链接、此前已处理及整轮豁免行保持不变。
+审计 Campaign Links（ss_utms/ws_links），按当前审计政策标记问题，更新 Status 列并通知负责人。飞书适配使用表格和邮件；引用来源值时原样保留，通知包含受影响实体名称和相关数量。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

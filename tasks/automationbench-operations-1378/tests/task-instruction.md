@@ -1,4 +1,4 @@
-按Temp Staffing所有policy匹配全部Open Roles（本题包括表中March1职位，不限本月），Filled跳过，未标Status视Open/Active。按positions行顺序逐项，再按temps行顺序选第一个技能全包含、Available From<=Start<=Until且无hold/inactive者，每temp最多一次。Requires Certification=Yes需至少一个未标expired有效证书；无过期说明视有效，不强加未给的特定认证要求。邮件每位placed worker岗位ID/部门/start/name，并hr-ops汇总；不修改来源staff/position表，不给未匹配者通知。
+今天为 2026-02-09，为本月临时岗位匹配人员，查看 temp staffing 的空缺职位和 available pool，确认具备岗位所需技能且开始时可用。需认证的岗位至少有一项有效证书；多人合格时选找到的第一个，每人仅分配一次。邮件已安排人员岗位详情，向 hr-ops 群汇总。候选顺序使用表内行顺序。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

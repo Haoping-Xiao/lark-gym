@@ -1,4 +1,4 @@
-检查品牌提及表 ss_mentions / ws_social，按最新升级政策找出需要立即处理的负面提及，在 PR 团队 ss_tickets / ws_queue 建单并通知 pr-team 群。始终升级的低粉丝 VIP 采用 High 紧急度；其他紧急度按政策。保留源跟踪记录。
+检查 ss_mentions/ws_social 的品牌提及，找出有影响力账户可能损害品牌的负面帖子，按当前升级政策处理，在 PR 团队队列创建工单并通过群消息提醒。飞书适配工单目标为 ss_tickets/ws_queue，通知目标为 pr-team 群，紧急度可使用 High。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

@@ -1,3 +1,3 @@
-读ABM Config和blocklist，只选Tier1且超过inactivity threshold、无partnership/legal hold的账户，CRM联系人需VP以上且用LinkedIn近期帖子个性化。LinkedIn发送改linkedin_invitations(profile_url/message/status=Pending)业务请求，不实际联网；正文包含姓名、公司及原帖子主题和百分比，不虚构合作。每账户AE创建tasks(owner_id/what_id/subject=ABM Touch - <Account Name>)；ss_abm_tracker/ws_outreach每联系人追加Account/Contact/Profile/Status=Pending。abm-team通知实际账户、联系人和主题，不列被阻断名单。
+对长期无互动的 Tier 1 账户开展 ABM 外联：查 Salesforce 账户及 ABM outreach config 的无互动阈值、联系人职级标准，查询合格账户联系人并查看 LinkedIn 资料及近期帖子以个性化外联。发送 LinkedIn 连接请求，为各账户 AE 创建主题 ABM Touch - <Account Name> 的任务，登记 ABM tracker，向 abm-team 告知实际联系账户和联系人。今天为 2026-01-28。飞书适配用 linkedin_invitations（profile_url、message、status=Pending）记录连接请求，不实际联网；CRM 用 accounts、contacts、tasks 台账。引用来源值时原样保留，不改写或取整。
 
 本次业务处理以 2026-01-28T12:00:00Z 为时间基准。

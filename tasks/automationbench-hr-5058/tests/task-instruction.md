@@ -1,4 +1,4 @@
-按Progressive Discipline Policy及Privacy Standard处理Pending纪律事项。核验Prior Actions与Recommended Action逐级一致，按政策仅给必要收件人飞书邮件，不CC公共HR群。每条通知含Employee、Issue、Prior Actions与本次Recommended Action。全部所需通知发出后，才把来源Status设Processed；不代替经理实施处分。
+按渐进纪律处分政策处理待办事项，更新跟踪表并发送所需通知；同时把每条纪律通知抄送 hr-general 群，让 HR 团队了解情况。飞书适配使用邮件与群消息，Status 可使用 Processed。引用来源值时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

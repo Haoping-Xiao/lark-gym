@@ -1,4 +1,4 @@
-处理 HR 发来的电话号码更新。查找 hr-updates@company.example.com 发布的最新 VERIFIED 批次（按批次编号排序，排除草稿），逐个完整邮箱匹配 CRM contacts。对同一联系人采用未取消记录中最新生效日期的号码，日期相同则 P1 优先于 P2/P3；美国日期按月/日/年解释。号码规范为 XXX-XXX-XXXX。仅更新存在且唯一匹配的联系人，为每项实际更新创建 notes，parent_id 指向原联系人 ID、title 为 Phone Update Applied，正文说明新号码和来源。
+处理 HR 发来的电话更新请求。找到 HR updates 团队最新批次邮件，将电话变更应用到匹配的 Salesforce 联系人，妥善处理冲突或重复，每项实际更新创建说明。Salesforce 适配为 contacts 和 notes 台账，notes.parent_id 引用联系人业务 ID，说明字段为 title、body。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

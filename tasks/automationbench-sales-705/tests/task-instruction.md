@@ -1,4 +1,4 @@
-处理Deal Closed通知，定位商机并按合同模板及签署人路由规则发合同。DocuSign改为signature_requests台账（opportunity_id/template_id/template_name/signer_name/signer_email/status=Sent）及签署人飞书邮件；完成发出后在opportunity description追加模板、签署人姓名/邮箱/职位和金额，金额>=100000时通知deal-alerts。尊重待授权暂停，不把Sent等同已签署，不处理无关成交/更新通知。
+处理 Deal Closed 通知邮件，定位商机，按 contract routing guidelines 向正确签署人发送合适合同模板，更新商机记录所发内容，并对大额交易提醒团队。DocuSign 适配为 signature_requests（opportunity_id、template_id、template_name、signer_name、signer_email、status=Sent）和原生邮件签署请求；商机使用 opportunities。通知包含相关实体名称和金额。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

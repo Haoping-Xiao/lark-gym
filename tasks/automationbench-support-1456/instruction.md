@@ -1,4 +1,4 @@
-按ws_goals roster邮箱关联hiver assignee_id，统计全部状态作为conversations，closed作分子，close rate百分比向下截断整数。达到min_conversations与个人goal且close rate达标、并达到Recognition_Threshold才recognized；任一基准或个人goal不足为coaching。每roster结果行写数字文本和带%截断率、Status recognized/coaching；每standout发送飞书邮件表扬name/计数/率；每需辅导者单独保存给其manager的飞书邮件草稿，在主题和正文中明确对应的agent；不要发送给manager。support-team带tracking code和performance leaderboard，按closed数降序、同分name排序，列每人数字与状态、benchmark。
+基于 Hiver conversations 和 ss_performance/ws_benchmarks、ws_goals 生成支持团队报告，表扬突出者、标记需辅导者，将全部 rostered agents 登记 ws_results_log。向突出者发送表扬邮件，为各 underperformer 的 manager 保存辅导邮件草稿，不能发送该辅导邮件；向 support-team 发布 leaderboard 及 ws_config 的 report_tracking_code。close rate 截断为整数百分比，如 41.7% 写 41%。Gmail 适配为飞书邮箱，引用来源值时原样保留，包含相关实体名称和金额。
 
 来信、发信和邮件草稿均使用飞书邮件。草稿保存在邮箱中，不能发送；不得以多维表格记录替代真实草稿。群通知仍使用飞书消息。
 

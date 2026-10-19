@@ -1,4 +1,4 @@
-从Playbook Versions查After-hours Call Tree当前通用分发版本，先核对全部Publishing Policy及相关审批邮件。创建飞书文档(父目录=pg_ops/title=After-hours Call Tree/content含Version与Effective原文)，并向ops-updates通知文档名、版本和日期。不猜源材料未提供的具体紧急联系人；页面是版本发布登记，不能把hotfix专项范围当成通用版。
+发布当前 after-hours call tree 并通知团队。查看 playbook versions 表及 publishing policy 工作表的发布要求，在 pg_ops 下创建飞书文档（替代 Notion），内容包含所选版本和生效日期，并向 ops-updates 通知已发布。源未提供具体联系人时，只发布可获得的版本详情。引用来源值时原样保留，不改写或取整。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

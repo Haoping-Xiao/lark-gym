@@ -1,4 +1,4 @@
-今天是 2026-01-27。查看 ss_briefings/ws_schedule 的分析师简报安排和业务来信中的最新准备说明，整理 ss_metrics/ws_quarterly 的适用指标并发送飞书邮件。邮件首行保留原要求的邮件主题；指标逐行按“metric | q3_2025 | q4_2025 | change”列出，新增客户单独写“Net New Customers | 数量”。遵守披露范围、禁发期限和最新收件人安排，不重复计算子集。
+检查 ss_briefings/ws_schedule 的分析师简报安排，汇集相关指标，并在发送前遵循已有准备说明。飞书适配报告可使用 metric、q3_2025、q4_2025、change、Net New Customers 字段。引用相关来源金额时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

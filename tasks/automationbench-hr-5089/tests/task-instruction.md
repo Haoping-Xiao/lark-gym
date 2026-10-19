@@ -1,4 +1,4 @@
-按Severance Agreement Process及特殊授权发送允许的协议。DocuSign改signature_requests飞书台账加邮件签署请求；台账template_id、employee、employee_id、email、Severance Weeks数值、benefits_days=60、status=Sent。员工通知含姓名、周数、60 days及请求签署。诉讼件不发送；给Legal一条邮件转交诉讼详情及全部离职者non-compete作废请求，不自行作废（源无实际协议实体，不伪造ID）。不修改来源工资或状态。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明和计算结果按实际含义与准确性验收。消息包含与实际处理有关且统计对象明确的数量。
+通过签署系统向离职员工发送遣散协议，并因政策切换作废其现有竞业禁止协议；发送前检查特殊遣散条款和法律暂停。DocuSign 适配为 signature_requests 飞书台账和邮件签署请求，字段为 template_id、employee、employee_id、email、Severance Weeks、benefits_days、status，状态可使用 Sent。本环境不连接真实签署平台。引用来源值时原样保留，不改写或取整；消息包含相关且统计对象明确的数量。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

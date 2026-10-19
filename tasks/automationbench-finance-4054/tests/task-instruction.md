@@ -1,4 +1,4 @@
-今天是 2026-02-01，按 Depreciation Policy 为刚结束的 2026-01 计提折旧。按直线法计算、四舍五入至整数美元，排除 Disposed 与已提足资产；更新源 Accumulated，并在 journal_entries 飞书台账逐资产登记 asset_id、period、debit_account=Depreciation Expense、credit_account=Accumulated Depreciation、amount（数值）。给 controller@company.example.com 发飞书邮件逐行 Asset ID | Monthly charge $金额 | New accumulated $金额，并报告 Total charge。
+按折旧政策计算固定资产月度折旧并登记分录，向 controller@company.example.com 发送各资产月度费用和累计折旧。本适配的月度处理针对刚结束的月份；源表字段为 Accumulated，journal_entries 台账字段为 asset_id、period、debit_account、credit_account、amount。报告字段为 Asset ID、Monthly charge、New accumulated、Total charge。引用相关来源金额时原样保留，不改写或取整。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

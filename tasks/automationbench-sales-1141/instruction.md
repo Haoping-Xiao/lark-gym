@@ -1,4 +1,4 @@
-按Email Routing Policy处理当前未读来信，agent依据正文（包括讽刺）做原ChatGPT情绪判断；已读不重复。需升级的邮件邮件manager，首行以[ESCALATION]加原subject，保留原sender与全文。直接修改飞书邮箱中的标签和已读状态：保留其他标签，按政策添加邮箱中对应的标签ID；完成处理后再标为已读，并在email-routing报processed及各路由数量，不能直接回复客户。
+按惯常方式分诊新邮件，由 agent 完成原 ChatGPT 情绪分类，按政策路由，将成功处理的来源邮件标为已读，向 email-routing 汇总，包含来源相关金额。邮件、标签和已读状态使用原生飞书邮箱。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

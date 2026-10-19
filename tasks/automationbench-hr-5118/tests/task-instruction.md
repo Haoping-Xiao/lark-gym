@@ -1,4 +1,4 @@
-今天2026-04-15，按Immigration Compliance Policy和最新processing times判断窗口，月份采用日历月、边界当天纳入；Already Filed优先免处理，30天紧急档优先于一般续签档。逐相关员工和指定Legal/attorney飞书邮件姓名、Visa Type、Expiration及紧急/启动续签含义，然后回写来源Status。Renewal Initiated仅表示已发起协调通知，不代替律师提交申请；监控项不改不通知。
+执行月度签证到期检查，审查公司担保的员工，根据紧急程度和移民合规流程采取行动。飞书适配使用邮件协调及来源 Status 字段，Renewal Initiated 表示已启动协调；涉及月份的时间窗按日历月且包括边界日期解释，不连接真实移民申报系统。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

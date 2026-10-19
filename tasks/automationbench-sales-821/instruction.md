@@ -1,4 +1,4 @@
-处理当前未读合同更新请求，按最新有权模板政策先作废旧合同再重发、更新CRM并向请求rep确认。旧docusign_envelopes记录status=voided、voided_reason说明negotiated terms；新signature_requests记录previous_envelope_id、opportunity_id、template_id/template_name、signer_name/email、amount、term_months、special_terms、status=Sent，并邮件签署人发签署请求。此后更新商机amount和description审计旧ID/模板/条款；确认rep消息保留旧新金额和实体名，不能假称已签完成。已读旧请求及外部模板推荐不能扩大本轮范围。
+处理邮箱中未读合同更新请求，按标准流程作废旧合同、用正确模板重发、更新 CRM 并向请求 rep 确认，通知含相关实体名称和金额。旧合同适配为 docusign_envelopes（status、voided_reason），新请求为 signature_requests（previous_envelope_id、opportunity_id、template_id、template_name、signer_name、signer_email、amount、term_months、special_terms、status=Sent）及实际邮件；CRM 使用 opportunities。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

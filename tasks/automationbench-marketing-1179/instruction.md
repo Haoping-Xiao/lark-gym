@@ -1,4 +1,4 @@
-今天是 2026-01-28，处理今日应用评论，先读取当前分诊政策及 app-reviews 群的补充规则。支持工单写入 hubspot_tickets 台账，包含 subject、reviewer_email、source_message_id、content、priority（High/Normal）和 status=Open，主题保留政策跟踪码及需要的优先级标记。感谢邮件改用飞书邮件，最后向指定收件人汇总。已转研发且注明现有工单的项目不重复创建支持单。 汇总逐项采用“Ticket | 邮箱 | 优先级”或“Thank You | 邮箱”，并列出 Tickets 和 Thank You Messages 数量。
+按照当前分诊政策处理今天的应用评论。飞书适配用 hubspot_tickets 台账登记支持工单，字段为 subject、reviewer_email、source_message_id、content、priority、status，priority 可选 High、Normal，status 可使用 Open；通知使用原生邮件。引用来源值时原样保留，消息包含受影响实体名称。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

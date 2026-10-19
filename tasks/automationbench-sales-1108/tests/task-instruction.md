@@ -1,4 +1,4 @@
-今天2026-01-20，按Cadence Policy运行本日drip周期，对到期者发送Email Templates对应下一步（邮件改为邮件，第一行Subject），仅替换Name/Company占位符，原模板中的省略号不扩写。发送成功后更新Step及Last_Email_Date为今天；日历日差达到最少等待日数即到期，无历史发送日期的Step 0直接进入首步。其余字段及未到期/暂停/已回复者不改，不额外群发。
+今天为 2026-01-20，按 cadence policy 运行 drip campaign cycle，处理 leads 并推进到期者。外联使用原生飞书邮件，CRM 使用 leads 台账。
 
 来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 

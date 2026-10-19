@@ -1,4 +1,4 @@
-处理Maria最新改期来信，按当前政策核对确切邮箱、锁定及已有改期次数，避开primary日历冲突。在本题Thursday指2026-02-26、来信未给时区按UTC；选择14:00之后最早可容纳完整原会期的空档。原预约保留在calendly_scheduled_events台账，取消时改status=cancelled并记录cancellation_reason；新预约创建真实primary飞书日程并加入客户，标题保持event type。更新lead状态并建notes(parent_id/title/body)记录Rescheduled、日期、12小时起止时刻及原预约uri；不得取消LOCKED或同名他人安排。
+处理刚收到的改期请求，按 reschedule policy 取消并重新预约，确保无冲突，更新 CRM 并将所请求新时间记录为 12 小时制。原预约使用 calendly_scheduled_events（status、cancellation_reason），新预约使用 primary 飞书日历，CRM 记录用 leads 和 notes（parent_id、title、body）。请求仅写 Thursday 时对应 2026-02-26，未给时区时用 UTC。
 
 相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
