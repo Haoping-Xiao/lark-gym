@@ -158,7 +158,10 @@ test('domain shortcuts read back the same backend state and raw api is denied', 
       'rec_200',
     ]);
     assert.match(stdout, /2026-02-22T02:00:00Z/);
-    await assert.rejects(cli(m, ['api', 'GET', path]), /raw api disabled/);
+    await assert.rejects(cli(m, ['api', 'GET', path]), (err) => {
+      assert.match(err.stdout + err.stderr, /no-raw-api/);
+      return true;
+    });
   } finally {
     await m.close();
   }

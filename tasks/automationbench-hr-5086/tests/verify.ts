@@ -380,6 +380,8 @@ const creationChecks = expected.creates.map((fields, index) => {
   const match = created.find(
     (r) =>
       !consumed.has(r.record_id) &&
+      (fields.collection !== 'candidate_tags' ||
+        (typeof r.fields.tag === 'string' && r.fields.tag.trim().length > 0)) &&
       Object.entries(fields).every(([key, value]) =>
         contains[key]
           ? typeof r.fields[key] === 'string' &&

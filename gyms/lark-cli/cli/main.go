@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/larksuite/cli/cmd"
 	"github.com/larksuite/cli/extension/credential"
+	"github.com/larksuite/cli/extension/platform"
 	"github.com/larksuite/cli/extension/transport"
 	"net/http"
 	"net/url"
@@ -45,10 +46,12 @@ func main() {
 	// Evaluation pins its CLI version; update and skill notifications are unrelated IO.
 	_ = os.Setenv("LARKSUITE_CLI_NO_UPDATE_NOTIFIER", "1")
 	_ = os.Setenv("LARKSUITE_CLI_NO_SKILLS_NOTIFIER", "1")
-	if len(os.Args) > 1 && os.Args[1] == "api" {
-		fmt.Fprintln(os.Stderr, "raw api disabled in CLI evaluation; use domain commands")
-		os.Exit(2)
-	}
+	platform.Register(platform.NewPlugin("evaluation-domain-only", "1.0.0").Restrict(&platform.Rule{
+		Name:             "no-raw-api",
+		Description:      "Evaluation requires domain commands rather than raw API calls.",
+		Deny:             []string{"api", "api/**"},
+		AllowUnannotated: true,
+	}).MustBuild())
 	u, err := url.Parse(os.Getenv("FEISHU_MOCK_URL"))
 	if err != nil || u == nil || u.Scheme != "http" || (u.Hostname() != "127.0.0.1" && u.Hostname() != "mock") || u.Port() == "" || u.User != nil || u.RawQuery != "" || u.Path != "" {
 		fmt.Fprintln(os.Stderr, "FEISHU_MOCK_URL must be http://127.0.0.1:<port> or http://mock:<port>; this binary never uses production credentials")
