@@ -139,97 +139,30 @@
         "name": "name",
         "type": "text"
       }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_281832285f98",
+        "name": "成员资料",
+        "collection": "lookup_users",
+        "read_only": true,
+        "fields": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          }
+        ]
+      }
     ]
   },
   "chats": [
     {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "account@adagency.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "alerts@googleads.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "cmo@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "design@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "devon.wright@peakmktg.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_5",
-      "name": "digest@marketingweekly.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_6",
-      "name": "digest@socialmediatoday.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_7",
-      "name": "marketing@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_8",
-      "name": "newsletter@seojournal.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_9",
-      "name": "nora.chen@lumenatech.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_10",
-      "name": "noreply@buffer.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_11",
-      "name": "noreply@canva.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_12",
-      "name": "omar.hassan@stratosphere.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_13",
-      "name": "scheduling@calendly.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_14",
-      "name": "sonia.reyes@vantagepoint.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_15",
-      "name": "support@semrush.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_16",
-      "name": "web-team@company.example.com",
+      "chat_id": "oc_user_U_WEBANALYTICS",
+      "name": "U_WEBANALYTICS | Web Analytics Lead",
       "chat_mode": "p2p"
     },
     {
@@ -239,159 +172,6 @@
     }
   ],
   "messages": [
-    {
-      "message_id": "om_msg_lp_hist",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_lp_hist\\\", \\\"thread_id\\\": \\\"th_lp_hist\\\", \\\"from_\\\": \\\"me\\\", \\\"to\\\": [\\\"web-team@company.example.com\\\"], \\\"subject\\\": \\\"Re: Dec Landing Page Analysis\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2025-12-20T10:00:00Z\\\"}\\n消息 ID：msg_lp_hist\\n来源：me\\n收件人：web-team@company.example.com\\n日期：2025-12-20T10:00:00Z\\n主题：Re: Dec Landing Page Analysis\\nHere's the December analysis. Framework I used:\\n- Pages with CVR < 3% AND > 2000 visits = needs optimization (high traffic, low conversion)\\n- Include ALL qualifying pages: both underperformers and top performers for comparison\\n- Check notes column for data quality issues and exclusions\\n- Calculate actual CVR from conversions/visits when CVR field looks suspicious\\n- Include aggregate visits and conversions across all non-excluded pages\\n- Render aggregate integer totals with comma separators\\n- Flag 0% CVR pages as critical priority\\n- Send to web-team@company.example.com only\"}"
-      },
-      "create_time": "1766224800000"
-    },
-    {
-      "message_id": "om_msg_lp_cmo",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_lp_cmo\\\", \\\"thread_id\\\": \\\"th_lp_cmo\\\", \\\"from_\\\": \\\"cmo@company.example.com\\\", \\\"to\\\": [\\\"marketing@company.example.com\\\"], \\\"subject\\\": \\\"Landing page report - only flag critical issues\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": false, \\\"date\\\": \\\"2026-01-26T15:00:00Z\\\"}\\n消息 ID：msg_lp_cmo\\n来源：cmo@company.example.com\\n收件人：marketing@company.example.com\\n日期：2026-01-26T15:00:00Z\\n主题：Landing page report - only flag critical issues\\nFor this month's report, only flag pages below 1% CVR. The web team is already stretched thin and I don't want to overwhelm them with minor issues. Skip anything above 1%.\"}"
-      },
-      "create_time": "1769439600000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_019",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_019\\\", \\\"thread_id\\\": \\\"th_mkt_noise_019\\\", \\\"from_\\\": \\\"support@semrush.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Keyword tracking report ready\\\", \\\"date\\\": \\\"2025-12-26T01:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_019\\n来源：support@semrush.example.com\\n收件人：me\\n日期：2025-12-26T01:30:00Z\\n主题：Keyword tracking report ready\\nYour weekly keyword tracking report is ready. 14 keywords improved position, 3 dropped.\"}"
-      },
-      "create_time": "1766712600000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_005",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_005\\\", \\\"thread_id\\\": \\\"th_mkt_noise_005\\\", \\\"from_\\\": \\\"digest@socialmediatoday.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Social Media Today: Instagram Algorithm Changes\\\", \\\"date\\\": \\\"2025-12-26T09:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_005\\n来源：digest@socialmediatoday.example.com\\n收件人：me\\n日期：2025-12-26T09:15:00Z\\n主题：Social Media Today: Instagram Algorithm Changes\\nReels now prioritized 2x in feed ranking; carousel engagement up 22% in B2B verticals.\"}"
-      },
-      "create_time": "1766740500000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_034",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_034\\\", \\\"thread_id\\\": \\\"th_mkt_noise_034\\\", \\\"from_\\\": \\\"sonia.reyes@vantagepoint.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Case study interview — scheduling\\\", \\\"date\\\": \\\"2025-12-23T06:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_034\\n来源：sonia.reyes@vantagepoint.example.com\\n收件人：me\\n日期：2025-12-23T06:15:00Z\\n主题：Case study interview — scheduling\\nHappy to participate in the case study. Can we do next Wednesday at 2 PM? I have 30 minutes available.\"}"
-      },
-      "create_time": "1766470500000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_027",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_027\\\", \\\"thread_id\\\": \\\"th_mkt_noise_027\\\", \\\"from_\\\": \\\"alerts@googleads.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Budget alert: Campaign 'Brand Awareness' at 85%\\\", \\\"date\\\": \\\"2025-12-24T07:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_027\\n来源：alerts@googleads.example.com\\n收件人：me\\n日期：2025-12-24T07:30:00Z\\n主题：Budget alert: Campaign 'Brand Awareness' at 85%\\nYour Google Ads campaign 'Brand Awareness Q1' has used 85% of its monthly budget ($8,500 of $10,000).\"}"
-      },
-      "create_time": "1766561400000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_009",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_009\\\", \\\"thread_id\\\": \\\"th_mkt_noise_009\\\", \\\"from_\\\": \\\"nora.chen@lumenatech.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Re: Co-marketing proposal\\\", \\\"date\\\": \\\"2025-12-23T07:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_009\\n来源：nora.chen@lumenatech.example.com\\n收件人：me\\n日期：2025-12-23T07:15:00Z\\n主题：Re: Co-marketing proposal\\nThanks for sending over the draft. Our team is reviewing and will circle back by Thursday.\"}"
-      },
-      "create_time": "1766474100000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_012",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_012\\\", \\\"thread_id\\\": \\\"th_mkt_noise_012\\\", \\\"from_\\\": \\\"design@company.example.com\\\", \\\"to\\\": [\\\"marketing@company.example.com\\\"], \\\"subject\\\": \\\"Brand guidelines updated — v3.1\\\", \\\"date\\\": \\\"2025-12-25T07:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_012\\n来源：design@company.example.com\\n收件人：marketing@company.example.com\\n日期：2025-12-25T07:00:00Z\\n主题：Brand guidelines updated — v3.1\\nNew brand guidelines are live. Key changes: updated color palette and social media templates.\"}"
-      },
-      "create_time": "1766646000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_029",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_029\\\", \\\"thread_id\\\": \\\"th_mkt_noise_029\\\", \\\"from_\\\": \\\"noreply@buffer.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Weekly social performance summary\\\", \\\"date\\\": \\\"2025-12-24T02:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_029\\n来源：noreply@buffer.example.com\\n收件人：me\\n日期：2025-12-24T02:45:00Z\\n主题：Weekly social performance summary\\nThis week: 45 posts scheduled, 38 published, 7 in queue. Top post: 1.2k impressions on LinkedIn.\"}"
-      },
-      "create_time": "1766544300000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_007",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_007\\\", \\\"thread_id\\\": \\\"th_mkt_noise_007\\\", \\\"from_\\\": \\\"scheduling@calendly.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"New Event: Content Calendar Review\\\", \\\"date\\\": \\\"2025-12-24T05:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_007\\n来源：scheduling@calendly.example.com\\n收件人：me\\n日期：2025-12-24T05:30:00Z\\n主题：New Event: Content Calendar Review\\nTeam scheduled a 45-minute Content Calendar Review on March 6 at 3:00 PM.\"}"
-      },
-      "create_time": "1766554200000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_016",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_016\\\", \\\"thread_id\\\": \\\"th_mkt_noise_016\\\", \\\"from_\\\": \\\"account@adagency.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Creative assets for March campaign ready\\\", \\\"date\\\": \\\"2025-12-24T05:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_016\\n来源：account@adagency.example.com\\n收件人：me\\n日期：2025-12-24T05:00:00Z\\n主题：Creative assets for March campaign ready\\nHi, the display ad creatives for the March awareness campaign are ready for review. 5 variants attached.\"}"
-      },
-      "create_time": "1766552400000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_010",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_010\\\", \\\"thread_id\\\": \\\"th_mkt_noise_010\\\", \\\"from_\\\": \\\"omar.hassan@stratosphere.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Webinar partnership — follow-up\\\", \\\"date\\\": \\\"2025-12-23T08:40:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_010\\n来源：omar.hassan@stratosphere.example.com\\n收件人：me\\n日期：2025-12-23T08:40:00Z\\n主题：Webinar partnership — follow-up\\nHi, following up on the webinar co-host opportunity. Can we finalize the topic list by Monday?\"}"
-      },
-      "create_time": "1766479200000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_018",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_018\\\", \\\"thread_id\\\": \\\"th_mkt_noise_018\\\", \\\"from_\\\": \\\"noreply@canva.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Your team's Canva designs this week\\\", \\\"date\\\": \\\"2025-12-23T09:30:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_018\\n来源：noreply@canva.example.com\\n收件人：me\\n日期：2025-12-23T09:30:00Z\\n主题：Your team's Canva designs this week\\nYour team created 12 designs this week. Top performer: Social Media Templates folder.\"}"
-      },
-      "create_time": "1766482200000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_011",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_011\\\", \\\"thread_id\\\": \\\"th_mkt_noise_011\\\", \\\"from_\\\": \\\"cmo@company.example.com\\\", \\\"to\\\": [\\\"marketing@company.example.com\\\"], \\\"subject\\\": \\\"Q1 Marketing Review — Key Takeaways\\\", \\\"date\\\": \\\"2025-12-26T00:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_011\\n来源：cmo@company.example.com\\n收件人：marketing@company.example.com\\n日期：2025-12-26T00:00:00Z\\n主题：Q1 Marketing Review — Key Takeaways\\nTeam, great quarter. Highlights: MQL target exceeded by 18%, CPL down 12%. See attached slides.\"}"
-      },
-      "create_time": "1766707200000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_024",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_024\\\", \\\"thread_id\\\": \\\"th_mkt_noise_024\\\", \\\"from_\\\": \\\"devon.wright@peakmktg.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Link exchange proposal\\\", \\\"date\\\": \\\"2025-12-24T01:15:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\", \\\"UNREAD\\\"], \\\"is_read\\\": false}\\n消息 ID：msg_mkt_noise_024\\n来源：devon.wright@peakmktg.example.com\\n收件人：me\\n日期：2025-12-24T01:15:00Z\\n主题：Link exchange proposal\\nWe noticed your blog on SaaS marketing. Would you be open to a reciprocal backlink placement?\"}"
-      },
-      "create_time": "1766538900000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_001\\\", \\\"thread_id\\\": \\\"th_mkt_noise_001\\\", \\\"from_\\\": \\\"digest@marketingweekly.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"Marketing Weekly — March 3 Issue\\\", \\\"date\\\": \\\"2025-12-23T10:00:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_001\\n来源：digest@marketingweekly.example.com\\n收件人：me\\n日期：2025-12-23T10:00:00Z\\n主题：Marketing Weekly — March 3 Issue\\nTop story: Email open rates climb 8% YoY as personalization matures across B2B.\"}"
-      },
-      "create_time": "1766484000000"
-    },
-    {
-      "message_id": "om_msg_mkt_noise_004",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_mkt_noise_004\\\", \\\"thread_id\\\": \\\"th_mkt_noise_004\\\", \\\"from_\\\": \\\"newsletter@seojournal.example.com\\\", \\\"to\\\": [\\\"me\\\"], \\\"subject\\\": \\\"SEO Journal: Google's March Core Update Summary\\\", \\\"date\\\": \\\"2025-12-25T07:45:00Z\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true}\\n消息 ID：msg_mkt_noise_004\\n来源：newsletter@seojournal.example.com\\n收件人：me\\n日期：2025-12-25T07:45:00Z\\n主题：SEO Journal: Google's March Core Update Summary\\nKey changes: E-E-A-T signals weighted 15% more; product review pages saw volatility.\"}"
-      },
-      "create_time": "1766648700000"
-    },
     {
       "message_id": "om_slack_0",
       "chat_id": "oc_ch_webanalytics",
@@ -500,5 +280,441 @@
       },
       "create_time": "1741080024.000024"
     }
-  ]
+  ],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfbHBfaGlzdA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9scF9oaXN0",
+        "smtp_message_id": "msg_lp_hist@fixture.invalid",
+        "subject": "Re: Dec Landing Page Analysis",
+        "head_from": {
+          "mail_address": "agent@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "web-team@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGVyZSdzIHRoZSBEZWNlbWJlciBhbmFseXNpcy4gRnJhbWV3b3JrIEkgdXNlZDoKLSBQYWdlcyB3aXRoIENWUiA8IDMlIEFORCA-IDIwMDAgdmlzaXRzID0gbmVlZHMgb3B0aW1pemF0aW9uIChoaWdoIHRyYWZmaWMsIGxvdyBjb252ZXJzaW9uKQotIEluY2x1ZGUgQUxMIHF1YWxpZnlpbmcgcGFnZXM6IGJvdGggdW5kZXJwZXJmb3JtZXJzIGFuZCB0b3AgcGVyZm9ybWVycyBmb3IgY29tcGFyaXNvbgotIENoZWNrIG5vdGVzIGNvbHVtbiBmb3IgZGF0YSBxdWFsaXR5IGlzc3VlcyBhbmQgZXhjbHVzaW9ucwotIENhbGN1bGF0ZSBhY3R1YWwgQ1ZSIGZyb20gY29udmVyc2lvbnMvdmlzaXRzIHdoZW4gQ1ZSIGZpZWxkIGxvb2tzIHN1c3BpY2lvdXMKLSBJbmNsdWRlIGFnZ3JlZ2F0ZSB2aXNpdHMgYW5kIGNvbnZlcnNpb25zIGFjcm9zcyBhbGwgbm9uLWV4Y2x1ZGVkIHBhZ2VzCi0gUmVuZGVyIGFnZ3JlZ2F0ZSBpbnRlZ2VyIHRvdGFscyB3aXRoIGNvbW1hIHNlcGFyYXRvcnMKLSBGbGFnIDAlIENWUiBwYWdlcyBhcyBjcml0aWNhbCBwcmlvcml0eQotIFNlbmQgdG8gd2ViLXRlYW1AY29tcGFueS5leGFtcGxlLmNvbSBvbmx5",
+        "body_preview": "SGVyZSdzIHRoZSBEZWNlbWJlciBhbmFseXNpcy4gRnJhbWV3b3JrIEkgdXNlZDoKLSBQYWdlcyB3aXRoIENWUiA8IDMlIEFORCA-IDIwMDAgdmlzaXRzID0gbmVlZHMgb3B0aW1pemF0aW9uIChoaWdoIHRyYWZm",
+        "body_html": "",
+        "internal_date": "1766224800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbHBfY21v",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9scF9jbW8",
+        "smtp_message_id": "msg_lp_cmo@fixture.invalid",
+        "subject": "Landing page report - only flag critical issues",
+        "head_from": {
+          "mail_address": "cmo@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "marketing@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "Rm9yIHRoaXMgbW9udGgncyByZXBvcnQsIG9ubHkgZmxhZyBwYWdlcyBiZWxvdyAxJSBDVlIuIFRoZSB3ZWIgdGVhbSBpcyBhbHJlYWR5IHN0cmV0Y2hlZCB0aGluIGFuZCBJIGRvbid0IHdhbnQgdG8gb3ZlcndoZWxtIHRoZW0gd2l0aCBtaW5vciBpc3N1ZXMuIFNraXAgYW55dGhpbmcgYWJvdmUgMSUu",
+        "body_preview": "Rm9yIHRoaXMgbW9udGgncyByZXBvcnQsIG9ubHkgZmxhZyBwYWdlcyBiZWxvdyAxJSBDVlIuIFRoZSB3ZWIgdGVhbSBpcyBhbHJlYWR5IHN0cmV0Y2hlZCB0aGluIGFuZCBJIGRvbid0IHdhbnQgdG8gb3Zlcndo",
+        "body_html": "",
+        "internal_date": "1769439600000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxOQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDE5",
+        "smtp_message_id": "msg_mkt_noise_019@fixture.invalid",
+        "subject": "Keyword tracking report ready",
+        "head_from": {
+          "mail_address": "support@semrush.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciB3ZWVrbHkga2V5d29yZCB0cmFja2luZyByZXBvcnQgaXMgcmVhZHkuIDE0IGtleXdvcmRzIGltcHJvdmVkIHBvc2l0aW9uLCAzIGRyb3BwZWQu",
+        "body_preview": "WW91ciB3ZWVrbHkga2V5d29yZCB0cmFja2luZyByZXBvcnQgaXMgcmVhZHkuIDE0IGtleXdvcmRzIGltcHJvdmVkIHBvc2l0aW9uLCAzIGRyb3BwZWQu",
+        "body_html": "",
+        "internal_date": "1766712600000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA1",
+        "smtp_message_id": "msg_mkt_noise_005@fixture.invalid",
+        "subject": "Social Media Today: Instagram Algorithm Changes",
+        "head_from": {
+          "mail_address": "digest@socialmediatoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UmVlbHMgbm93IHByaW9yaXRpemVkIDJ4IGluIGZlZWQgcmFua2luZzsgY2Fyb3VzZWwgZW5nYWdlbWVudCB1cCAyMiUgaW4gQjJCIHZlcnRpY2Fscy4",
+        "body_preview": "UmVlbHMgbm93IHByaW9yaXRpemVkIDJ4IGluIGZlZWQgcmFua2luZzsgY2Fyb3VzZWwgZW5nYWdlbWVudCB1cCAyMiUgaW4gQjJCIHZlcnRpY2Fscy4",
+        "body_html": "",
+        "internal_date": "1766740500000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAzNA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDM0",
+        "smtp_message_id": "msg_mkt_noise_034@fixture.invalid",
+        "subject": "Case study interview — scheduling",
+        "head_from": {
+          "mail_address": "sonia.reyes@vantagepoint.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGFwcHkgdG8gcGFydGljaXBhdGUgaW4gdGhlIGNhc2Ugc3R1ZHkuIENhbiB3ZSBkbyBuZXh0IFdlZG5lc2RheSBhdCAyIFBNPyBJIGhhdmUgMzAgbWludXRlcyBhdmFpbGFibGUu",
+        "body_preview": "SGFwcHkgdG8gcGFydGljaXBhdGUgaW4gdGhlIGNhc2Ugc3R1ZHkuIENhbiB3ZSBkbyBuZXh0IFdlZG5lc2RheSBhdCAyIFBNPyBJIGhhdmUgMzAgbWludXRlcyBhdmFpbGFibGUu",
+        "body_html": "",
+        "internal_date": "1766470500000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNw",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDI3",
+        "smtp_message_id": "msg_mkt_noise_027@fixture.invalid",
+        "subject": "Budget alert: Campaign 'Brand Awareness' at 85%",
+        "head_from": {
+          "mail_address": "alerts@googleads.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciBHb29nbGUgQWRzIGNhbXBhaWduICdCcmFuZCBBd2FyZW5lc3MgUTEnIGhhcyB1c2VkIDg1JSBvZiBpdHMgbW9udGhseSBidWRnZXQgKCQ4LDUwMCBvZiAkMTAsMDAwKS4",
+        "body_preview": "WW91ciBHb29nbGUgQWRzIGNhbXBhaWduICdCcmFuZCBBd2FyZW5lc3MgUTEnIGhhcyB1c2VkIDg1JSBvZiBpdHMgbW9udGhseSBidWRnZXQgKCQ4LDUwMCBvZiAkMTAsMDAwKS4",
+        "body_html": "",
+        "internal_date": "1766561400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwOQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA5",
+        "smtp_message_id": "msg_mkt_noise_009@fixture.invalid",
+        "subject": "Re: Co-marketing proposal",
+        "head_from": {
+          "mail_address": "nora.chen@lumenatech.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhhbmtzIGZvciBzZW5kaW5nIG92ZXIgdGhlIGRyYWZ0LiBPdXIgdGVhbSBpcyByZXZpZXdpbmcgYW5kIHdpbGwgY2lyY2xlIGJhY2sgYnkgVGh1cnNkYXku",
+        "body_preview": "VGhhbmtzIGZvciBzZW5kaW5nIG92ZXIgdGhlIGRyYWZ0LiBPdXIgdGVhbSBpcyByZXZpZXdpbmcgYW5kIHdpbGwgY2lyY2xlIGJhY2sgYnkgVGh1cnNkYXku",
+        "body_html": "",
+        "internal_date": "1766474100000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDEy",
+        "smtp_message_id": "msg_mkt_noise_012@fixture.invalid",
+        "subject": "Brand guidelines updated — v3.1",
+        "head_from": {
+          "mail_address": "design@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "marketing@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "TmV3IGJyYW5kIGd1aWRlbGluZXMgYXJlIGxpdmUuIEtleSBjaGFuZ2VzOiB1cGRhdGVkIGNvbG9yIHBhbGV0dGUgYW5kIHNvY2lhbCBtZWRpYSB0ZW1wbGF0ZXMu",
+        "body_preview": "TmV3IGJyYW5kIGd1aWRlbGluZXMgYXJlIGxpdmUuIEtleSBjaGFuZ2VzOiB1cGRhdGVkIGNvbG9yIHBhbGV0dGUgYW5kIHNvY2lhbCBtZWRpYSB0ZW1wbGF0ZXMu",
+        "body_html": "",
+        "internal_date": "1766646000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyOQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDI5",
+        "smtp_message_id": "msg_mkt_noise_029@fixture.invalid",
+        "subject": "Weekly social performance summary",
+        "head_from": {
+          "mail_address": "noreply@buffer.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrOiA0NSBwb3N0cyBzY2hlZHVsZWQsIDM4IHB1Ymxpc2hlZCwgNyBpbiBxdWV1ZS4gVG9wIHBvc3Q6IDEuMmsgaW1wcmVzc2lvbnMgb24gTGlua2VkSW4u",
+        "body_preview": "VGhpcyB3ZWVrOiA0NSBwb3N0cyBzY2hlZHVsZWQsIDM4IHB1Ymxpc2hlZCwgNyBpbiBxdWV1ZS4gVG9wIHBvc3Q6IDEuMmsgaW1wcmVzc2lvbnMgb24gTGlua2VkSW4u",
+        "body_html": "",
+        "internal_date": "1766544300000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNw",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA3",
+        "smtp_message_id": "msg_mkt_noise_007@fixture.invalid",
+        "subject": "New Event: Content Calendar Review",
+        "head_from": {
+          "mail_address": "scheduling@calendly.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGVhbSBzY2hlZHVsZWQgYSA0NS1taW51dGUgQ29udGVudCBDYWxlbmRhciBSZXZpZXcgb24gTWFyY2ggNiBhdCAzOjAwIFBNLg",
+        "body_preview": "VGVhbSBzY2hlZHVsZWQgYSA0NS1taW51dGUgQ29udGVudCBDYWxlbmRhciBSZXZpZXcgb24gTWFyY2ggNiBhdCAzOjAwIFBNLg",
+        "body_html": "",
+        "internal_date": "1766554200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxNg",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDE2",
+        "smtp_message_id": "msg_mkt_noise_016@fixture.invalid",
+        "subject": "Creative assets for March campaign ready",
+        "head_from": {
+          "mail_address": "account@adagency.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIHRoZSBkaXNwbGF5IGFkIGNyZWF0aXZlcyBmb3IgdGhlIE1hcmNoIGF3YXJlbmVzcyBjYW1wYWlnbiBhcmUgcmVhZHkgZm9yIHJldmlldy4gNSB2YXJpYW50cyBhdHRhY2hlZC4",
+        "body_preview": "SGksIHRoZSBkaXNwbGF5IGFkIGNyZWF0aXZlcyBmb3IgdGhlIE1hcmNoIGF3YXJlbmVzcyBjYW1wYWlnbiBhcmUgcmVhZHkgZm9yIHJldmlldy4gNSB2YXJpYW50cyBhdHRhY2hlZC4",
+        "body_html": "",
+        "internal_date": "1766552400000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDEw",
+        "smtp_message_id": "msg_mkt_noise_010@fixture.invalid",
+        "subject": "Webinar partnership — follow-up",
+        "head_from": {
+          "mail_address": "omar.hassan@stratosphere.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIGZvbGxvd2luZyB1cCBvbiB0aGUgd2ViaW5hciBjby1ob3N0IG9wcG9ydHVuaXR5LiBDYW4gd2UgZmluYWxpemUgdGhlIHRvcGljIGxpc3QgYnkgTW9uZGF5Pw",
+        "body_preview": "SGksIGZvbGxvd2luZyB1cCBvbiB0aGUgd2ViaW5hciBjby1ob3N0IG9wcG9ydHVuaXR5LiBDYW4gd2UgZmluYWxpemUgdGhlIHRvcGljIGxpc3QgYnkgTW9uZGF5Pw",
+        "body_html": "",
+        "internal_date": "1766479200000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxOA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDE4",
+        "smtp_message_id": "msg_mkt_noise_018@fixture.invalid",
+        "subject": "Your team's Canva designs this week",
+        "head_from": {
+          "mail_address": "noreply@canva.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "WW91ciB0ZWFtIGNyZWF0ZWQgMTIgZGVzaWducyB0aGlzIHdlZWsuIFRvcCBwZXJmb3JtZXI6IFNvY2lhbCBNZWRpYSBUZW1wbGF0ZXMgZm9sZGVyLg",
+        "body_preview": "WW91ciB0ZWFtIGNyZWF0ZWQgMTIgZGVzaWducyB0aGlzIHdlZWsuIFRvcCBwZXJmb3JtZXI6IFNvY2lhbCBNZWRpYSBUZW1wbGF0ZXMgZm9sZGVyLg",
+        "body_html": "",
+        "internal_date": "1766482200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAxMQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDEx",
+        "smtp_message_id": "msg_mkt_noise_011@fixture.invalid",
+        "subject": "Q1 Marketing Review — Key Takeaways",
+        "head_from": {
+          "mail_address": "cmo@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "marketing@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGVhbSwgZ3JlYXQgcXVhcnRlci4gSGlnaGxpZ2h0czogTVFMIHRhcmdldCBleGNlZWRlZCBieSAxOCUsIENQTCBkb3duIDEyJS4gU2VlIGF0dGFjaGVkIHNsaWRlcy4",
+        "body_preview": "VGVhbSwgZ3JlYXQgcXVhcnRlci4gSGlnaGxpZ2h0czogTVFMIHRhcmdldCBleGNlZWRlZCBieSAxOCUsIENQTCBkb3duIDEyJS4gU2VlIGF0dGFjaGVkIHNsaWRlcy4",
+        "body_html": "",
+        "internal_date": "1766707200000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAyNA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDI0",
+        "smtp_message_id": "msg_mkt_noise_024@fixture.invalid",
+        "subject": "Link exchange proposal",
+        "head_from": {
+          "mail_address": "devon.wright@peakmktg.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "V2Ugbm90aWNlZCB5b3VyIGJsb2cgb24gU2FhUyBtYXJrZXRpbmcuIFdvdWxkIHlvdSBiZSBvcGVuIHRvIGEgcmVjaXByb2NhbCBiYWNrbGluayBwbGFjZW1lbnQ_",
+        "body_preview": "V2Ugbm90aWNlZCB5b3VyIGJsb2cgb24gU2FhUyBtYXJrZXRpbmcuIFdvdWxkIHlvdSBiZSBvcGVuIHRvIGEgcmVjaXByb2NhbCBiYWNrbGluayBwbGFjZW1lbnQ_",
+        "body_html": "",
+        "internal_date": "1766538900000",
+        "message_state": 1,
+        "label_ids": ["UNREAD"],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwMQ",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDAx",
+        "smtp_message_id": "msg_mkt_noise_001@fixture.invalid",
+        "subject": "Marketing Weekly — March 3 Issue",
+        "head_from": {
+          "mail_address": "digest@marketingweekly.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VG9wIHN0b3J5OiBFbWFpbCBvcGVuIHJhdGVzIGNsaW1iIDglIFlvWSBhcyBwZXJzb25hbGl6YXRpb24gbWF0dXJlcyBhY3Jvc3MgQjJCLg",
+        "body_preview": "VG9wIHN0b3J5OiBFbWFpbCBvcGVuIHJhdGVzIGNsaW1iIDglIFlvWSBhcyBwZXJzb25hbGl6YXRpb24gbWF0dXJlcyBhY3Jvc3MgQjJCLg",
+        "body_html": "",
+        "internal_date": "1766484000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      },
+      {
+        "message_id": "Zml4dHVyZTptc2dfbWt0X25vaXNlXzAwNA",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9ta3Rfbm9pc2VfMDA0",
+        "smtp_message_id": "msg_mkt_noise_004@fixture.invalid",
+        "subject": "SEO Journal: Google's March Core Update Summary",
+        "head_from": {
+          "mail_address": "newsletter@seojournal.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "agent@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "S2V5IGNoYW5nZXM6IEUtRS1BLVQgc2lnbmFscyB3ZWlnaHRlZCAxNSUgbW9yZTsgcHJvZHVjdCByZXZpZXcgcGFnZXMgc2F3IHZvbGF0aWxpdHku",
+        "body_preview": "S2V5IGNoYW5nZXM6IEUtRS1BLVQgc2lnbmFscyB3ZWlnaHRlZCAxNSUgbW9yZTsgcHJvZHVjdCByZXZpZXcgcGFnZXMgc2F3IHZvbGF0aWxpdHku",
+        "body_html": "",
+        "internal_date": "1766648700000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

@@ -1,10 +1,5 @@
-今天是 2026-02-01，按 Recurring JE Posting Procedures 登记二月有效的 Active 分录。journal_entries 飞书台账保存 entry、period=2026-02、debit_account、credit_account、amount数值、status=Posted。需反转者同时创建 journal_reversals 队列，entry、due_date=下月1日、对调的debit_account/credit_account、amount、status=Scheduled；这是未来反转计划，不声称今天已经反转。向 controller@company.example.com 发私聊，逐行 Entry | Debit 科目 | Credit 科目 | 原Amount，报告 Total debits/Total credits，并列反转日期。
+登记本月重复分录，检查重复分录排期，按入账程序在系统中创建记录，向 controller@company.example.com 发送包含相关来源金额的摘要。飞书适配使用 journal_entries（entry、period、debit_account、credit_account、amount、status）和 journal_reversals（entry、due_date、debit_account、credit_account、amount、status），period 使用 YYYY-MM，状态可选 Posted、Scheduled；journal_reversals 表示反转计划。报告字段为 Entry、Debit、Credit、Amount、Total debits、Total credits。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_recurring_je：Recurring JE Schedule；工作表 ws_schedule_je（Schedule）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-01T10:00:00Z。
+本次业务处理以 2026-02-01T10:00:00Z 为时间基准。

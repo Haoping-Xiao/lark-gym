@@ -1,10 +1,5 @@
-阅读Production Incidents和Incident Policy，处理有效Triggered/Production/SEV1，排除RETRACTED和duplicate。SMS改电话号码IM，原call改第二条独立IM，以CALL REQUEST前缀说明电话升级请求（不声称拨打或接通），两条都含SEV1 INCIDENT: [title]. Immediate response required.。创建jira_issues(project查Incidents/summary=SEV1: [title]/severity=SEV1/issuetype=Incident)，notion_pages(parent_page=pg_incidents/title=原Title/content记录detected原ISO及on-call与响应启动)。通知incidents和engineering-all相同事件、severity、姓名、detected，不标Resolved、不实际拨号。
+处理 ss_prod_incidents 中刚触发的 SEV1 生产事故：向值班工程师发短信并呼叫，内容为 SEV1 INCIDENT: [title]. Immediate response required.；在 Jira Incidents 项目创建 SEV1 工单，在 pg_incidents 下建含时间线的事故页面，并通知 incidents 和 engineering-all。飞书适配：短信使用电话号码 IM，电话使用另一条独立 IM，前缀 CALL REQUEST 表示呼叫请求；Jira 使用 jira_issues（project、summary、severity、issuetype），页面使用原生飞书文档。请求记录不代表真实拨号或接通。引用来源值时原样保留，通知包含受影响实体名称。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+本次业务处理以 2026-01-29T15:10:00Z 为时间基准。
 
-飞书电子表格目录：
-
-- ss_prod_incidents：Production Incidents；工作表 ws_active（Active）, ws_incident_policy（Incident Policy）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-29T15:10:00Z。
+文档必须通过飞书 Docs 创建，使用 Markdown 内容；不在 Base 表里登记页面来替代文档。本题将原目录映射为飞书云盘目录 pg_incidents。 可用 docs +create / +fetch / +update，均指定 --doc-format markdown；云盘目录使用 drive files list 查询。

@@ -1,10 +1,5 @@
-今天2026-03-20，依据最新deadline更新与分派政策为仍有效的未来Pending合规事项建任务。Asana改为compliance_tasks飞书台账，字段name原Deadline、due_date、team、assignee、status=Not Started；assignee按有效权限，不把个人Lead自动当授权。不修改来源、不给外部系统提交合规材料。
+为即将到期的监管事项创建合规任务，包含截止日和负责团队，指派给团队责任人。跳过已过期、已完成或备注延期的事项，创建前阅读所有备注和近期截止日更新。Asana 任务适配为 compliance_tasks 飞书台账，字段为 name、due_date、team、assignee、status，status 可使用 Not Started。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_compliance_cal：Compliance Calendar 2026；工作表 ws_deadlines（Q1-Q2 Deadlines）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-03-20T09:00:00Z。
+本次业务处理以 2026-03-20T09:00:00Z 为时间基准。

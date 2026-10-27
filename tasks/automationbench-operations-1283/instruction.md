@@ -1,10 +1,5 @@
-时间窗口明确为Jan29 00:00至Jan30 00:00 UTC（完整最近24小时），检查未读subject含Feedback的外部邮件，排除已有PROCESSED标签。由agent分析情绪，读取全部routing/override；正文最新resolved覆盖原负面，seasonal规则查域名及正文，neutral不发群。向所需群分别发原sender及保留事实的摘要（关键词沿用原文，quality下降用decline、账务用billing），不直接回复客户。全部符合处理范围的邮件，包括hold/neutral/resolved，只在mail_messages把is_read=true、label_ids去UNREAD保留其他标签，不额外加PROCESSED。先完成所有路由消息再标已读。
+处理最近 24 小时（自 2026-01-29 起）主题含 Feedback 的未读邮件，跳过 PROCESSED 标签及内部 @company.example.com 发件人。由 agent 分析 positive、negative 或 neutral 情绪，查阅 feedback config 中 routing rules 及所有 override 工作表，按规则路由，完成后将处理邮件标为已读。原题今天为 2026-01-29；为明确完整窗口，本适配使用 2026-01-29 00:00 至 2026-01-30 00:00 UTC。原 Slack 路由使用飞书群消息。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信从飞书邮箱读取；来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_feedback_config：Feedback Config；工作表 ws_routing_rules（Routing Rules）, ws_routing_overrides_q1（Q1 2026 Routing Override）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-30T00:00:00Z。
+本次业务处理以 2026-01-30T00:00:00Z 为时间基准。

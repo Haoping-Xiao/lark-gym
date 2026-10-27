@@ -1,10 +1,5 @@
-今天2026-04-15，按Employment Verification Compliance Guide核验Incomplete项。本题工作日仅周一至周五、无额外假日，从Start Date之后开始计，第三个工作日当天仍在窗口内。窗口内员工与经理分别私聊同内容，首行Subject: I-9 Reminder；过期者给Legal合并报告姓名、Start Date及Violation。通知后才回写I-9 Status=Reminder Sent或Violation - Legal Notified，不代填真实I-9、不改Complete项或公开群。
+检查近期入职员工的 I-9 核验情况，按雇佣核验程序确保合规并处理问题。飞书适配中工作日按周一至周五且无额外假日解释；I-9 Status 可使用 Reminder Sent、Violation - Legal Notified。本环境通过邮件和跟踪表处理，不向真实 I-9 系统提交表单。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_i9_5113：I-9 Verification Tracker；工作表 ws_i9_5113（Recent Hires）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-04-15T09:00:00Z。
+本次业务处理以 2026-04-15T09:00:00Z 为时间基准。

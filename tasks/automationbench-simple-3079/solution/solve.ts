@@ -7,7 +7,7 @@ const commands: string[][] = [
     '--chat-id',
     'oc_U003',
     '--text',
-    'Lisa，CRM迁移已完成90%，预计按3月5日截止时间完成。唯一剩余风险是数据校验步骤，本周正在测试。',
+    'Lisa，CRM migration（CRM迁移）已完成90%，预计按3月5日截止时间完成。唯一剩余风险是数据校验步骤，本周正在测试。',
   ],
 ];
 for (const args of commands)

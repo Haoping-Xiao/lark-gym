@@ -1,12 +1,5 @@
-读Fire Safety Inventory/Config/Hold Policy，按日期天数差严格>配置interval且Deployed Status=Active、无FSR hold才检查。Monthly/Quarterly使用30/90固定日，等于阈值不选，支持MM/DD/YYYY。为每unit在cal_fire创建Inspection: <ID>，Feb12 09–09:30UTC，description原Location，原无attendee不补。向Safety Officer私聊全部ID/Location及时间，不改Last Inspection。
+今天为 2026-02-09，检查 ss_fire/ws_units、ws_config，根据各灭火器所在地规定的检查间隔确定逾期：距上次检查天数严格超过间隔才算逾期。只处理已部署设备，跳过存储中或更换中的设备。为每台逾期设备在 cal_fire 创建 2 月 12 日 09:00 UTC 开始、30 分钟的检查日历，并邮件安全官完整名单。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-日程使用飞书 calendar 命令，日历 ID：primary, cal_fire。使用来源明确时区；未标时区按 UTC。
-
-飞书电子表格目录：
-
-- ss_fire：Fire Safety Equipment；工作表 ws_units（Extinguisher Inventory）, ws_config（Inspection Config）, ws_fire_hold_policy（Inspection Hold Policy）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-09T09:00:00Z。
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。

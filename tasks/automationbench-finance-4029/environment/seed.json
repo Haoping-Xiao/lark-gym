@@ -41,56 +41,67 @@
     "records": [],
     "fields": []
   },
-  "chats": [
-    {
-      "chat_id": "oc_mail",
-      "name": "业务来信",
-      "chat_mode": "group"
-    },
-    {
-      "chat_id": "oc_email_0",
-      "name": "controller@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_1",
-      "name": "finance@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_2",
-      "name": "hr@company.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_3",
-      "name": "newsletter@accountingtoday.example.com",
-      "chat_mode": "p2p"
-    },
-    {
-      "chat_id": "oc_email_4",
-      "name": "payroll@company.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_payroll_proc",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"msg_payroll_proc\\\", \\\"thread_id\\\": \\\"th_payroll_proc\\\", \\\"from_\\\": \\\"hr@company.example.com\\\", \\\"to\\\": [\\\"payroll@company.example.com\\\"], \\\"subject\\\": \\\"Payroll Review Procedures\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-02-01T08:00:00Z\\\"}\\n消息 ID：msg_payroll_proc\\n来源：hr@company.example.com\\n收件人：payroll@company.example.com\\n日期：2026-02-01T08:00:00Z\\n主题：Payroll Review Procedures\\nPayroll variance rules:\\n\\n1. Flag any employee with a change greater than 10% from previous period\\n2. New hires (no previous period data) should be noted but not flagged\\n3. Terminated employees (in current with $0) should be excluded from the report\\n4. Include the percentage change and dollar difference for each flagged employee\\n\\n- HR\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
+      }
+    ],
+    "messages": [
+      {
+        "message_id": "Zml4dHVyZTptc2dfcGF5cm9sbF9wcm9j",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTp0aF9wYXlyb2xsX3Byb2M",
+        "smtp_message_id": "msg_payroll_proc@fixture.invalid",
+        "subject": "Payroll Review Procedures",
+        "head_from": {
+          "mail_address": "hr@company.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "payroll@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "UGF5cm9sbCB2YXJpYW5jZSBydWxlczoKCjEuIEZsYWcgYW55IGVtcGxveWVlIHdpdGggYSBjaGFuZ2UgZ3JlYXRlciB0aGFuIDEwJSBmcm9tIHByZXZpb3VzIHBlcmlvZAoyLiBOZXcgaGlyZXMgKG5vIHByZXZpb3VzIHBlcmlvZCBkYXRhKSBzaG91bGQgYmUgbm90ZWQgYnV0IG5vdCBmbGFnZ2VkCjMuIFRlcm1pbmF0ZWQgZW1wbG95ZWVzIChpbiBjdXJyZW50IHdpdGggJDApIHNob3VsZCBiZSBleGNsdWRlZCBmcm9tIHRoZSByZXBvcnQKNC4gSW5jbHVkZSB0aGUgcGVyY2VudGFnZSBjaGFuZ2UgYW5kIGRvbGxhciBkaWZmZXJlbmNlIGZvciBlYWNoIGZsYWdnZWQgZW1wbG95ZWUKCi0gSFI",
+        "body_preview": "UGF5cm9sbCB2YXJpYW5jZSBydWxlczoKCjEuIEZsYWcgYW55IGVtcGxveWVlIHdpdGggYSBjaGFuZ2UgZ3JlYXRlciB0aGFuIDEwJSBmcm9tIHByZXZpb3VzIHBlcmlvZAoyLiBOZXcgaGlyZXMgKG5vIHByZXZp",
+        "body_html": "",
+        "internal_date": "1769932800000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
       },
-      "create_time": "1769932800000"
-    },
-    {
-      "message_id": "om_noise_fin_msg001",
-      "chat_id": "oc_mail",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"原始消息元数据：{\\\"id\\\": \\\"noise_fin_msg001\\\", \\\"thread_id\\\": \\\"noise_fin_th001\\\", \\\"from_\\\": \\\"newsletter@accountingtoday.example.com\\\", \\\"to\\\": [\\\"finance@company.example.com\\\"], \\\"subject\\\": \\\"Weekly Tax Update: New IRS Guidance\\\", \\\"label_ids\\\": [\\\"INBOX\\\"], \\\"is_read\\\": true, \\\"date\\\": \\\"2026-01-20T08:00:00Z\\\"}\\n消息 ID：noise_fin_msg001\\n来源：newsletter@accountingtoday.example.com\\n收件人：finance@company.example.com\\n日期：2026-01-20T08:00:00Z\\n主题：Weekly Tax Update: New IRS Guidance\\nThis week's tax update covers new IRS guidance on Section 174 R&D capitalization...\"}"
-      },
-      "create_time": "1768896000000"
-    }
-  ]
+      {
+        "message_id": "Zml4dHVyZTpub2lzZV9maW5fbXNnMDAx",
+        "mailbox_id": "agent@company.example.com",
+        "thread_id": "Zml4dHVyZTpub2lzZV9maW5fdGgwMDE",
+        "smtp_message_id": "noise_fin_msg001@fixture.invalid",
+        "subject": "Weekly Tax Update: New IRS Guidance",
+        "head_from": {
+          "mail_address": "newsletter@accountingtoday.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "finance@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_preview": "VGhpcyB3ZWVrJ3MgdGF4IHVwZGF0ZSBjb3ZlcnMgbmV3IElSUyBndWlkYW5jZSBvbiBTZWN0aW9uIDE3NCBSJkQgY2FwaXRhbGl6YXRpb24uLi4",
+        "body_html": "",
+        "internal_date": "1768896000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ],
+    "drafts": []
+  }
 }

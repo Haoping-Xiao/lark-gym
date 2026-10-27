@@ -33,4 +33,8 @@ func TestSyntheticCredentials(t *testing.T) {
 	if e != nil || tok.Value != "local-evaluation-only" {
 		t.Fatal("unexpected token source")
 	}
+	bot, e := p.ResolveToken(context.Background(), credential.TokenSpec{Type: credential.TokenTypeTAT})
+	if e != nil || bot.Value != "local-evaluation-only-bot" || bot.Value == tok.Value {
+		t.Fatal("user and bot credentials must be distinguishable")
+	}
 }

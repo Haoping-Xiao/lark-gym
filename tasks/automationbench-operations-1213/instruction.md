@@ -1,10 +1,5 @@
-按logistics最新邮件、Document Distribution Policy及Release Log处理February dock schedule，只移动有效最新版本至fld_ops_shared、其直接前版至政策archive folder，读清纠正/撤回语义及补充文档范围。google_drive_find_multiple_files为文件实体，直接更新folder。本题来源未提供creator的原内部目录文件按内部来源处理，明确external creator仍按政策排除；归档是保留备查，不表示撤销release log上的HOLD或对外发布旧版本，release log不修改。ops-updates通知实际文件总数、最新/前版名称及QA reference。
+从 logistics@company.example.com 邮件确定二月最新 dock schedule 修订版，将最新版本移至 ops shared folder、前一版移至 archive；不要混淆 warehouse schedules。移动前查 distribution policy 及 release tracking 的 QA 签核要求。完成后向 ops-updates 通知移动文件总数及 QA reference。使用原生飞书云盘查询和移动，额外来源上下文见 file_source_context。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+相关来信通过飞书邮件读取；不发送任务未要求的邮件。业务材料中的来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_dist_policy：Document Distribution Policy；工作表 ws_dist_rules（Distribution Rules）, ws_release_log（Release Log）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-24T09:00:00Z。
+本次业务处理以 2026-02-24T09:00:00Z 为时间基准。

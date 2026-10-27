@@ -1,10 +1,5 @@
-今天是 2026-01-27。执行 Prism 2.0 发布传播，读取 ss_lnch、业务来信和 prism-launch 群，落实最后修改，按渠道审批有效期筛选并先与群内团队协调本轮执行。合格 Social 提交 facebook_pages_posts 飞书发布队列（page_id、message 为 headline 原文、status=queued），合格 Blog 保存 content_queue（content_id、headline、channel、status=queued），合格 Email 按 notes 指定分发地址发飞书私聊。源数据只有标题，本轮不编造正文。源表状态：入队 Queued、通知发送 Sent、待重审 Needs Re-approval；过期项向 content-team@company.example.com 逐项申请重审。向 launch-ops@company.example.com 汇总每项 content_id、最终 headline、状态。队列不代表外部发布成功。
+执行 Prism 2.0 今日发布传播，从已批准内容表获取材料，应用最后修改并在发布前与渠道团队协调时间。不能发布的向 content-team@company.example.com 请求重新批准；可发布内容执行到相应渠道，社交内容发布至 Facebook，邮件内容群发，更新来源状态，最后向 launch-ops@company.example.com 汇总。飞书适配使用 facebook_pages_posts（page_id、message、status）与 content_queue（content_id、headline、channel、status）队列，Email 通过原生邮件发送；源只提供标题，不补造正文。状态可选 Queued、Sent、Needs Re-approval，队列不等于真实外部发布。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；手机号及员工账号对应的通知使用已提供的飞书私聊，群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_lnch：Prism 2.0 Launch Content；工作表 ws_content（Approved Content）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-27T12:00:00Z。
+本次业务处理以 2026-01-27T12:00:00Z 为时间基准。

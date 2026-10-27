@@ -1,14 +1,27 @@
 import { execFileSync } from 'node:child_process';
 const commands: string[][] = [
-  ['im', '+chat-messages-list', '--chat-id', 'oc_updates'],
-  ['im', '+chat-list', '--types=p2p,group'],
   [
-    'im',
-    '+messages-send',
-    '--chat-id',
-    'oc_recipient',
-    '--text',
-    'James，很抱歉仪表盘加载缓慢影响了你的使用。工程团队已找到原因，将在48小时内发布修复。我们为你的下次续约提供15%优惠。',
+    'mail',
+    '+messages',
+    '--mailbox',
+    'support@brightpath.example.com',
+    '--message-ids',
+    'msg_4004',
+    '--as',
+    'user',
+  ],
+  [
+    'mail',
+    '+reply',
+    '--mailbox',
+    'support@brightpath.example.com',
+    '--message-id',
+    'msg_4004',
+    '--body',
+    'Hi James, I apologize for the slow dashboard load times affecting your operations. Our engineering team has identified the cause and will deploy a fix within 48 hours. As a goodwill gesture, we offer a 15% discount on your next renewal.',
+    '--confirm-send',
+    '--as',
+    'user',
   ],
 ];
 for (const args of commands)

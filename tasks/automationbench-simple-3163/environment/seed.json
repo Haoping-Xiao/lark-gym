@@ -6,7 +6,8 @@
     {
       "calendar_id": "cal_primary",
       "summary": "工作日历",
-      "role": "owner"
+      "role": "owner",
+      "type": "primary"
     }
   ],
   "events": [],
@@ -16,26 +17,46 @@
     "records": [],
     "fields": []
   },
-  "chats": [
-    {
-      "chat_id": "oc_updates",
-      "name": "客户资料更新通知"
-    },
-    {
-      "chat_id": "oc_notice_0",
-      "name": "lena.park@apexsys.example.com",
-      "chat_mode": "p2p"
-    }
-  ],
-  "messages": [
-    {
-      "message_id": "om_msg_3163",
-      "chat_id": "oc_updates",
-      "msg_type": "text",
-      "body": {
-        "content": "{\"text\": \"来源联系人：lena.park@apexsys.example.com\\n主题：Meeting Request: Partnership Discussion\\n日期：2026-02-21T10:00:00Z\\nHi, we'd like to schedule a call to discuss a potential partnership. Would Feb 26 at 2pm work? Best, Lena Park, Apex Systems\"}"
+  "chats": [],
+  "messages": [],
+  "mail": {
+    "mailboxes": [
+      {
+        "email_address": "agent@company.example.com",
+        "email_type": "USER_PRIMARY"
       },
-      "create_time": "1771668000000"
-    }
-  ]
+      {
+        "email_address": "meetings@company.example.com",
+        "email_type": "PUBLIC"
+      }
+    ],
+    "drafts": [],
+    "messages": [
+      {
+        "message_id": "msg_3163",
+        "mailbox_id": "meetings@company.example.com",
+        "thread_id": "thr_3163",
+        "smtp_message_id": "msg_3163@fixture.invalid",
+        "subject": "Meeting Request: Partnership Discussion",
+        "head_from": {
+          "mail_address": "lena.park@apexsys.example.com"
+        },
+        "to": [
+          {
+            "mail_address": "meetings@company.example.com"
+          }
+        ],
+        "cc": [],
+        "bcc": [],
+        "body_plain_text": "SGksIHdlJ2QgbGlrZSB0byBzY2hlZHVsZSBhIGNhbGwgdG8gZGlzY3VzcyBhIHBvdGVudGlhbCBwYXJ0bmVyc2hpcC4gV291bGQgRmViIDI2IGF0IDJwbSB3b3JrPyBCZXN0LCBMZW5hIFBhcmssIEFwZXggU3lzdGVtcw",
+        "body_preview": "SGksIHdlJ2QgbGlrZSB0byBzY2hlZHVsZSBhIGNhbGwgdG8gZGlzY3VzcyBhIHBvdGVudGlhbCBwYXJ0bmVyc2hpcC4gV291bGQgRmViIDI2IGF0IDJwbSB3b3JrPyBCZXN0LA",
+        "body_html": "",
+        "internal_date": "1771668000000",
+        "message_state": 1,
+        "label_ids": [],
+        "folder_id": "INBOX",
+        "attachments": []
+      }
+    ]
+  }
 }

@@ -33,7 +33,7 @@
             [
               "Org size threshold",
               "Minimum 5 employees at the company",
-              "Applies to the associated company record"
+              "Applies to the associated company record. Below-minimum companies are out of scope and receive no reply."
             ],
             [
               "Contact classification",
@@ -42,8 +42,8 @@
             ],
             [
               "Decline response",
-              "Reply with 'unable to schedule a demo' for disqualified requests",
-              "Applies to competitor domains, never-schedule overrides, and other excluded contacts"
+              "Reply with 'unable to schedule a demo' only for competitor domains and never-schedule overrides",
+              "Adaptation: preserve source no-reply assertions. Below-minimum companies and other out-of-scope requests receive no reply; the original blanket decline wording is superseded."
             ]
           ]
         },
@@ -839,6 +839,112 @@
       {
         "name": "body",
         "type": "text"
+      }
+    ],
+    "tables": [
+      {
+        "table_id": "tbl_f838e95de93a",
+        "name": "intercom_companies",
+        "collection": "intercom_companies",
+        "fields": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "plan",
+            "type": "text"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_340d8a319d78",
+        "name": "intercom_contacts",
+        "collection": "intercom_contacts",
+        "fields": [
+          {
+            "name": "company_ids",
+            "type": "text"
+          },
+          {
+            "name": "contact_type",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "tags",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_466e562074c2",
+        "name": "intercom_conversations",
+        "collection": "intercom_conversations",
+        "fields": [
+          {
+            "name": "contact_ids",
+            "type": "text"
+          },
+          {
+            "name": "conversation_parts",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "state",
+            "type": "text"
+          },
+          {
+            "name": "tags",
+            "type": "text"
+          },
+          {
+            "name": "title",
+            "type": "text"
+          }
+        ],
+        "read_only": false
+      },
+      {
+        "table_id": "tbl_fafef0ae098e",
+        "name": "intercom_replies",
+        "collection": "intercom_replies",
+        "fields": [
+          {
+            "name": "body",
+            "type": "text"
+          },
+          {
+            "name": "conversation_id",
+            "type": "text"
+          }
+        ],
+        "read_only": false
       }
     ]
   },

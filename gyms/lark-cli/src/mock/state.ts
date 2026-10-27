@@ -58,14 +58,16 @@ export function createState(
         response: { code: e.code || 990002, msg: e.message },
       };
     }
-    calls.push({
+    const call: ApiCall = {
       seq: calls.length + 1,
+      timestamp: new Date().toISOString(),
       ...structuredClone(request),
       status: result.status,
       response: structuredClone(result.response),
       changed: !isDeepStrictEqual(before, world),
       mutations: collectMutations(before, world),
-    });
+    };
+    calls.push(call);
     onSnapshot?.(world, calls);
     return result;
   };

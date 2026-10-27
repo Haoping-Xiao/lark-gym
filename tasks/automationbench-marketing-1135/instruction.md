@@ -1,10 +1,5 @@
-今天是 2026-01-27。逐项审查 ss_ptnr 的合作伙伴内容，结合品牌指南和最新法务指示，使用飞书私聊逐投稿通知联系人；同一联系人有多篇投稿时分别通知。决定用 Approved、Rejected、Legal Hold，非批准项需说明原因。处理后给 partner-ops@company.example.com 发汇总，逐行“partner_name | title | 决定 | 依据”，保留原投稿标题。
+今天是 2026-01-27。逐项审查 ss_ptnr 的合作伙伴内容，结合品牌指南和最新法务指示，使用飞书邮件逐投稿通知联系人；同一联系人有多篇投稿时分别通知。决定用 Approved、Rejected、Legal Hold，非批准项需说明原因。处理后给 partner-ops@company.example.com 发汇总，逐行“partner_name | title | 决定 | 依据”，保留原投稿标题。通知或记录引用来源值时须原样保留，不得改写或舍入；自行撰写的说明与计算结果按实际含义和准确性验收。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_ptnr：Partner Content Review；工作表 ws_guidelines（Brand Guidelines）, ws_submissions（Pending Submissions）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-01-27T09:00:00Z。
+本次业务处理以 2026-01-27T09:00:00Z 为时间基准。

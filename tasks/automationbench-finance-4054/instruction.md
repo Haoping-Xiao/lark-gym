@@ -1,10 +1,5 @@
-今天是 2026-02-01，按 Depreciation Policy 为刚结束的 2026-01 计提折旧。按直线法计算、四舍五入至整数美元，排除 Disposed 与已提足资产；更新源 Accumulated，并在 journal_entries 飞书台账逐资产登记 asset_id、period、debit_account=Depreciation Expense、credit_account=Accumulated Depreciation、amount（数值）。给 controller@company.example.com 发飞书私聊逐行 Asset ID | Monthly charge $金额 | New accumulated $金额，并报告 Total charge。
+按折旧政策计算固定资产月度折旧并登记分录，向 controller@company.example.com 发送各资产月度费用和累计折旧。本适配的月度处理针对刚结束的月份；源表字段为 Accumulated，journal_entries 台账字段为 asset_id、period、debit_account、credit_account、amount。报告字段为 Asset ID、Monthly charge、New accumulated、Total charge。引用相关来源金额时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_fixed_assets：Fixed Assets；工作表 ws_asset_register（Asset Register）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-01T10:00:00Z。
+本次业务处理以 2026-02-01T10:00:00Z 为时间基准。

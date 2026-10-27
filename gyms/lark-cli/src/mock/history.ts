@@ -7,6 +7,22 @@ export function collectMutations(
 ): ApiCall['mutations'] {
   const mutations: ApiCall['mutations'] = [];
   for (const [kind, oldItems, newItems, key] of [
+    [
+      'mail_message',
+      before.mail?.messages || [],
+      world.mail?.messages || [],
+      'message_id',
+    ],
+    ['mail_draft', before.mail?.drafts || [], world.mail?.drafts || [], 'id'],
+    ['mail_label', before.mail?.labels || [], world.mail?.labels || [], 'id'],
+    [
+      'document',
+      before.docs?.documents || [],
+      world.docs?.documents || [],
+      'document_id',
+    ],
+    ['folder', before.docs?.folders || [], world.docs?.folders || [], 'token'],
+    ['drive_file', before.drive_files || [], world.drive_files || [], 'token'],
     ['event', before.events, world.events, 'event_id'],
     ['record', before.base.records, world.base.records, 'record_id'],
     ['message', before.messages, world.messages, 'message_id'],

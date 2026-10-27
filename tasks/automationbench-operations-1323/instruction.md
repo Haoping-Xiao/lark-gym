@@ -1,10 +1,5 @@
-按Access Management所有policy及routing处理Pending，用邮箱+Department对齐directory而非仅姓名；manager title满足对应level才创建asana_tasks(workspace/project/section取routing/name=原Requestor/email/department/access_level)。Denied只私聊requestor解释部门、申请级别、manager原title及未达审批级别。源只要求路由，故不改queue.Status、不授予实际权限，Processed完全跳过。
+今天为 2026-02-09，处理 ss_access_requests/ws_queue 中待办系统权限请求，用 ws_directory 核对申请人经理职级是否足以批准所申请访问级别，按 ws_provisioning_routing 路由处理，完全跳过已 Processed 请求。飞书适配使用 asana_tasks 台账（workspace、project、section、name、email、department、access_level）及邮件；台账表示配置任务，不等于实际授予权限。引用来源值时原样保留，不改写或取整。
 
-使用本环境的 Mock 版 lark-cli。CRM 业务映射为飞书多维表格 base_crm / tbl_crm，collection 为原业务集合名，记录 ID 为 rec_ 加原业务 ID。lookup_users 集合保留成员原始 ID 与姓名对应关系，可通过 base 查询。布尔、数组、空值在文本字段中采用 JSON 表示。政策和历史来信保留原文，位于飞书群 oc_mail；消息正文中的原始日期与消息 ID 是业务依据，未标注日期不能视为最新。原邮件发送改为飞书私聊，标题放在首行，其余为正文。通过 im +chat-list --types=p2p,group 查询所有会话，名称包含完整邮箱或群名。来源材料中的 Gmail/Slack 通知要求均使用上述飞书消息完成，Salesforce 写操作对应台账操作。只汇报实际处理的事项；除业务规则明确要求外，不列举跳过或拒绝的对象。不要改动无关数据，不直接访问 HTTP、后端文件、参考解或评分器。
+来信读取及向邮箱地址发送通知均使用飞书邮件；群通知仍使用飞书消息。来源邮件编号保留在 Message-ID（smtp_message_id）的 @ 前缀中。
 
-飞书电子表格目录：
-
-- ss_access_requests：Access Management；工作表 ws_queue（Pending Requests）, ws_directory（Staff Directory）, ws_policy（Access Policy）, ws_provisioning_routing（IT Provisioning Routing）
-  使用 sheets 业务命令读取表格。
-
-当前时间固定为 2026-02-09T09:00:00Z。
+本次业务处理以 2026-02-09T09:00:00Z 为时间基准。
