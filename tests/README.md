@@ -51,6 +51,8 @@ npx tsx --test tests/environment/native-documents.test.ts
 接口分布、缺失/损坏证据的区分，以及分析不修改 reward。轨迹关键词用于人工定位，
 不替代后端请求记录计数。该组包含在 `npm run check` 和普通 CI 中。
 
+普通 CI 的维护通知 oracle/no-op 容器检查通过 `packaging/maintenance_fixture.py` 创建临时任务副本，使用显式裁判替身；不会修改正式任务或证明语义质量。
+
 Docker/Harbor 超时验收使用 `python tests/packaging/harbor-timeout.py`：脚本复制维护通知任务，
 通过真实 CLI 触发一次 unsupported 后完成任务，再故意超过 Agent 时限；检查超时记录、
 后端产物、错误标记及最终得分。它使用脚本选手和临时显式裁判替身，不调用模型；只检查生命周期及接线，不证明语义评分质量，由 CI 容器检查执行。

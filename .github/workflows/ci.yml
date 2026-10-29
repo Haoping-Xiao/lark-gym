@@ -89,13 +89,15 @@ jobs:
       # Load every semantic.toml with the real RewardKit library, without network/model calls.
       - name: Judge configuration - validate schema and construct scoring criteria offline
         run: docker run --rm --network none -e LITELLM_LOCAL_MODEL_COST_MAP=True -v "$PWD:/repo:ro" --entrypoint python lark-gym-verifier:0.3.0 /repo/scripts/check-rewardkit-configs.py
-      # One small task checks container startup, backend artifacts and separate scoring.
+      # A temporary task with an explicit judge stub checks wiring without paid calls.
+      - name: Prepare isolated maintenance fixture with a stub judge
+        run: python tests/packaging/maintenance_fixture.py runs/harbor-fixtures/maintenance-notice
       - name: Container smoke - execute the maintenance reference solution
-        run: harbor run --path tasks/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
+        run: harbor run --path runs/harbor-fixtures/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
       - name: Container smoke - require reference reward 1 and no missing/error results
         run: python scripts/check-harbor-results.py runs/harbor/maintenance-oracle 1 maintenance-notice
       - name: Container smoke - execute no-op control
-        run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
+        run: harbor run --path runs/harbor-fixtures/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
       - name: Container smoke - require no-op reward 0 and no missing/error results
         run: python scripts/check-harbor-results.py runs/harbor/maintenance-nop 0 maintenance-notice
       - name: Container timeout - preserve gap evidence and grade completed work
