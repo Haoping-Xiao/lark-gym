@@ -1,0 +1,1 @@
+请以 2026-02-14T09:00:00Z 为本次排期的判断基准，为 Data Closet 安排已批准的断电维护。先阅读 Maintenance Plan（ss_maint_plan）中的全部排期政策，结合计划状态和备注选出可执行的窗口，排除草稿、仍受限制或已失效的安排。在 Operations 日历（cal_ops）创建一个维护日程，将安排写入多维表格 base_ops / tbl_maintenance 中 rec_200 的 Maintenance log 字段，并向 IT Operations 群（oc_it_ops）发送一条文本通知。维护记录和通知必须原样包含所选源数据中的 System、Start、End，不要改写或舍入时间。不要修改其他会议或维护记录，也不要向其他群发送通知。

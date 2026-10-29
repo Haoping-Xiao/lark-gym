@@ -58,8 +58,8 @@ by the index in `expected.messages`. Changes must be justified by the user reque
 or policy; do not add literal requirements to fit a reference answer.
 
 The verifier image installs `harbor-rewardkit==0.2.1`; the rubric defaults to
-`openai/gpt-6-astra`. Pass the provider configuration only to the separate verifier,
-for example Harbor `--ve OPENAI_API_KEY=...` and `--ve REWARDKIT_JUDGE=...`.
+`deepseek/deepseek-v4-pro` (thinking disabled). Pass the provider configuration only to the separate verifier,
+for example Harbor `--ve DEEPSEEK_API_KEY=...` and `--ve REWARDKIT_JUDGE=...`.
 Keep secrets out of task files and command history. Configure judge timeout and
 cost budgets for the actual provider before large runs. A completed local test of
 programmatic grading is not a claim of live judge validation.
