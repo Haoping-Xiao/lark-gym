@@ -284,6 +284,12 @@ export function createImRoutes(
         body.msg_type === 'post'
           ? postContent(world, chatId, body.content)
           : mentionContent(world, chatId, body.content);
+      while (
+        world.messages.some(
+          (message) => message.message_id === `om_${nextMessage}`,
+        )
+      )
+        nextMessage++;
       const msg = {
         message_id: `om_${nextMessage++}`,
         chat_id: chatId,
