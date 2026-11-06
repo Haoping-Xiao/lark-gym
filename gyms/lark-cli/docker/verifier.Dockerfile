@@ -6,3 +6,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --no-cache-dir -r /tmp/requirements.txt
 WORKDIR /tests
+COPY gyms/lark-cli/docker/rewardkit-deepseek.py /usr/local/bin/rewardkit
+RUN chmod 755 /usr/local/bin/rewardkit
+ENV DEEPSEEK_API_BASE=https://api.deepseek.com

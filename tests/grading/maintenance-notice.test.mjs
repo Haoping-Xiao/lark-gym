@@ -43,12 +43,13 @@ async function cli(mock, args) {
     timeout: 30000,
   });
 }
-test('real CLI reference trajectory passes and a fresh run cannot inherit state', async () => {
+test('real CLI reference satisfies structural gates and a fresh run cannot inherit state', async () => {
   const a = await startMock(seed),
     b = await startMock(seed);
   try {
     await oracle((args) => cli(a, args));
-    assert.equal(verify(seed, a.world, a.calls).status, 'pass');
+    assert.equal(verify(seed, a.world, a.calls).business_success, true);
+    assert.equal(verify(seed, a.world, a.calls).success, false);
     assert.equal(verify(seed, b.world, b.calls).status, 'fail');
     assert.deepEqual(b.world, seed);
     assert.ok(a.calls.some((c) => c.path === path && c.method === 'POST'));
@@ -99,7 +100,7 @@ test('verifier detects corrupt notification, collateral record mutation and miss
     await m.close();
   }
 });
-test('maintenance accepts a localized event title and target-only plan reads', async () => {
+test('maintenance defers event wording while accepting target-only plan reads', async () => {
   const mock = await startMock(seed);
   try {
     await oracle(async (args) => {
@@ -122,11 +123,22 @@ test('maintenance accepts a localized event title and target-only plan reads', a
       }
       return cli(mock, args);
     });
-    assert.equal(verify(seed, mock.world, mock.calls).status, 'pass');
+    assert.equal(
+      verify(seed, mock.world, mock.calls).status,
+      'pending_semantic',
+    );
     mock.world.events.find(
       (e) => !seed.events.some((s) => s.event_id === e.event_id),
     ).description = '';
-    assert.equal(verify(seed, mock.world, mock.calls).status, 'fail');
+    assert.equal(
+      verify(seed, mock.world, mock.calls).status,
+      'pending_semantic',
+    );
+    assert.ok(
+      verify(seed, mock.world, mock.calls).semantic.deferred.includes(
+        'events.business_purpose_and_optional_description',
+      ),
+    );
   } finally {
     await mock.close();
   }

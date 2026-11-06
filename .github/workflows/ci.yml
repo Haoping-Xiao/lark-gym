@@ -89,13 +89,15 @@ jobs:
       # Load every semantic.toml with the real RewardKit library, without network/model calls.
       - name: Judge configuration - validate schema and construct scoring criteria offline
         run: docker run --rm --network none -e LITELLM_LOCAL_MODEL_COST_MAP=True -v "$PWD:/repo:ro" --entrypoint python lark-gym-verifier:0.3.0 /repo/scripts/check-rewardkit-configs.py
-      # One small task checks container startup, backend artifacts and separate scoring.
+      # A temporary task with an explicit judge stub checks wiring without paid calls.
+      - name: Prepare isolated maintenance fixture with a stub judge
+        run: python tests/packaging/maintenance_fixture.py runs/harbor-fixtures/maintenance-notice
       - name: Container smoke - execute the maintenance reference solution
-        run: harbor run --path tasks/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
+        run: harbor run --path runs/harbor-fixtures/maintenance-notice --agent oracle --jobs-dir runs/harbor --job-name maintenance-oracle
       - name: Container smoke - require reference reward 1 and no missing/error results
         run: python scripts/check-harbor-results.py runs/harbor/maintenance-oracle 1 maintenance-notice
       - name: Container smoke - execute no-op control
-        run: harbor run --path tasks/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
+        run: harbor run --path runs/harbor-fixtures/maintenance-notice --agent nop --jobs-dir runs/harbor --job-name maintenance-nop
       - name: Container smoke - require no-op reward 0 and no missing/error results
         run: python scripts/check-harbor-results.py runs/harbor/maintenance-nop 0 maintenance-notice
       - name: Container timeout - preserve gap evidence and grade completed work
@@ -132,7 +134,7 @@ jobs:
     name: Optional model judges - reference and no-op controls
     needs: harbor_plan
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
     strategy:
       fail-fast: false
       max-parallel: 8
@@ -142,7 +144,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Require configured verifier credentials
-        run: test -n "$OPENAI_API_KEY"
+        run: test -n "$DEEPSEEK_API_KEY"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -154,18 +156,18 @@ jobs:
       - name: Check one native Harbor task before the full suite
         timeout-minutes: 10
         run: |
-          harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent oracle --jobs-dir runs/harbor --job-name smoke-oracle
+          harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --path tasks/automationbench-simple-3001 --agent oracle --jobs-dir runs/harbor --job-name smoke-oracle
           python scripts/check-harbor-results.py runs/harbor/smoke-oracle 1 automationbench-simple-3001
-          harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent nop --jobs-dir runs/harbor --job-name smoke-nop
+          harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --path tasks/automationbench-simple-3001 --agent nop --jobs-dir runs/harbor --job-name smoke-nop
           python scripts/check-harbor-results.py runs/harbor/smoke-nop 0 automationbench-simple-3001
       - name: Select this group of tasks for both controls
         run: python scripts/select-harbor-shard.py ${{ matrix.shard }} ${{ needs.harbor_plan.outputs.count }}
       - name: Semantic acceptance - run references with live judges
-        run: harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config runs/harbor/oracle.yaml
+        run: harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --config runs/harbor/oracle.yaml
       - name: Semantic acceptance - require all reference rewards 1
         run: python scripts/check-harbor-results.py runs/harbor/automationbench-oracle 1 @runs/harbor/selected-tasks.json
       - name: Semantic acceptance - run no-op controls (judge only when required)
-        run: harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config runs/harbor/nop.yaml
+        run: harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --config runs/harbor/nop.yaml
       - name: Semantic acceptance - require all no-op rewards 0
         run: python scripts/check-harbor-results.py runs/harbor/automationbench-nop 0 @runs/harbor/selected-tasks.json
       - uses: actions/upload-artifact@v4

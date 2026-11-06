@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import tempfile
 from pathlib import Path
+from maintenance_fixture import install_judge_stub
 
 root = Path(__file__).resolve().parents[2]
 runs = root / 'runs/harbor'
@@ -16,6 +17,7 @@ with tempfile.TemporaryDirectory(prefix='timeout-fixture-', dir=runs) as tempora
     text = config.read_text().replace('feishu/maintenance-notice', 'feishu/maintenance-timeout')
     text = re.sub(r'(\[agent\]\s*timeout_sec\s*=\s*)[0-9.]+', r'\g<1>10.0', text)
     config.write_text(text)
+    install_judge_stub(task)
     # Complete the task after an unsupported request, then exceed the native timeout.
     (task / 'solution/solve.sh').write_text('''#!/bin/sh
 set -eu

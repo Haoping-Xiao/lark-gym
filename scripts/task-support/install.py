@@ -6,6 +6,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SHARED = ('semantic.ts', 'semantic.toml', 'evaluate.ts', 'semantic-evidence.ts')
+MAINTENANCE_SHARED = ('semantic.toml', 'evaluate.ts', 'semantic-evidence.ts')
+
+def install_maintenance():
+    task = ROOT / 'tasks/maintenance-notice'
+    if not task.exists():
+        return
+    for name in MAINTENANCE_SHARED:
+        (task / 'tests' / name).write_bytes(Path(__file__).with_name(name).read_bytes())
+    (task / 'tests/task-instruction.md').write_bytes((task / 'instruction.md').read_bytes())
+
 def install_environment(task):
     """Select the shared backend image; task packages own their service layout."""
     docker = task / 'environment/mock.Dockerfile'
@@ -39,8 +49,14 @@ if __name__ == '__main__':
     tasks = sorted((ROOT / 'tasks').glob('automationbench-*'))
     if args.check:
         drift = [path for task in tasks for path in check(task)]
+        task = ROOT / 'tasks/maintenance-notice'
+        if task.exists():
+            drift += [str(task / 'tests' / name) for name in MAINTENANCE_SHARED if (task / 'tests' / name).read_bytes() != Path(__file__).with_name(name).read_bytes()]
+            if (task / 'tests/task-instruction.md').read_bytes() != (task / 'instruction.md').read_bytes():
+                drift.append(str(task / 'tests/task-instruction.md'))
         if drift:
             raise SystemExit('Shared verifier copies differ; run python3 scripts/task-support/install.py:\n' + '\n'.join(drift))
     else:
         for task in tasks:
             install(task)
+        install_maintenance()

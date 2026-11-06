@@ -39,7 +39,7 @@ npm run test:grading      # 专项评分规则：允许的替代做法能通过�
 npm run test:packaging    # CLI 资源、任务输入边界与独立进程入口
 ```
 
-`oracle` 是 `test:packaging` 中维护通知示例的快捷入口，已包含在 `check` 中；单独执行便于排错，CI 不再重复运行。它是本地进程测试，不会启动 Harbor 容器或调用模型。
+`oracle` 是 `test:packaging` 中维护通知示例的快捷入口，已包含在 `check` 中；单独执行便于排错，CI 不再重复运行。它是本地进程测试，使用显式 stub 检查语义裁判接线，不会启动 Harbor 容器或调用模型；不能据此证明真实裁判准确。
 
 这些检查不导入或重新生成任务。它们持续检查环境与评分是否正确；历史来源名不代表验证目的。程序检查通过不等于文本含义符合要求：例如 sales-703 的空操作仍需语义判定。本地检查不能代替 Harbor 容器或模型裁判验收。
 
@@ -50,9 +50,9 @@ npm run test:packaging    # CLI 资源、任务输入边界与独立进程入口
 ```bash
 pip install 'harbor @ git+https://github.com/harbor-framework/harbor.git@2993946dd5b64a46dac3aa766d03065f432a1468'
 bash scripts/build-images.sh
-harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent oracle
-harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --path tasks/automationbench-simple-3001 --agent nop
-harbor run --ve OPENAI_API_KEY="$OPENAI_API_KEY" --config experiments/eval/oracle.yaml
+harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --path tasks/automationbench-simple-3001 --agent oracle
+harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --path tasks/automationbench-simple-3001 --agent nop
+harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --config experiments/eval/oracle.yaml
 ```
 
 构建脚本会将当前 Mock 镜像标记为仓库任务引用的所有兼容版本，避免干净机器尝试从 Docker Hub 拉取不存在的本地镜像。这些标签指向当前代码构建，不是历史代码快照；复现实验仍需保存仓库提交和镜像摘要。脚本参数透传给每次 `docker build`，可用 `--build-arg HTTP_PROXY --build-arg HTTPS_PROXY` 传入当前环境的构建代理。
@@ -75,9 +75,9 @@ Wiki 空间的列表和详情读取使用 seed 中可选的 `wiki_spaces`（当�
 
 联系人查询将现有成员资料和邮箱命名的私聊收件人映射为模拟目录。`ou_mock_` ID 由来源 ID 确定生成，资料读取、群成员读写和群搜索使用同一映射，群内仍保存来源 ID；不会把模拟 ID 当作真实飞书 ID。未知姓名、邮箱和部门不补造；目录中的账号激活/租户标记仅描述模拟账号，不代表来源业务中的雇佣关系或现实租户归属，搜索结果带有说明。离职和组织关系筛选仍返回 501。
 
-示例 Agent 配置提供通用 CLI 工具入口说明，不包含任务答案。使用已有 Codex 登录时，可设置 `CODEX_AUTH_JSON_PATH` 指向本机登录文件；不要在此固定 Harbor 版本设置 `CODEX_FORCE_AUTH_JSON=1`，其敏感值脱敏会把产物中的数字 1 一并替换，导致 JSON 损坏。选手认证与 RewardKit 裁判认证是独立配置。
+示例 Agent 配置提供通用 CLI 工具入口说明，不包含任务答案。使用已有 Codex 登录时，可设置 `CODEX_AUTH_JSON_PATH` 指向本机登录文件；不要在此固定 Harbor 版本设置 `CODEX_FORCE_AUTH_JSON=1`，其敏感值脱敏会把产物中的数字 1 一并替换，导致 JSON 损坏。选手认证与 RewardKit 裁判认证是独立配置。裁判使用 `deepseek/deepseek-v4-pro`（关闭思考），通过 `DEEPSEEK_API_KEY` 认证。verifier 镜像将该模型的结构化响应请求转换为 DeepSeek 支持的 JSON 模式；RewardKit 仍在本地校验评分结构，解析失败视为裁判错误。
 
-模型评测使用 Harbor 内置 Agent，例如 `harbor run --config experiments/maintenance-codex.yaml`；需要单独配置该 Agent 的认证，运行可能产生模型费用。普通 CI 不调用模型；手动启用完整验收会运行语义 judge，oracle/nop 也可能产生模型费用。原生任务也可作为兼容 Harbor 的训练系统输入，本仓库不自建训练调度器，尚未验证实际 RL 训练。
+模型评测使用 Harbor 内置 Agent，例如 `harbor run --config experiments/maintenance-codex.yaml`；需要单独配置该 Agent 的认证，运行可能产生模型费用。维护通知示例也先执行结构、字面值和操作范围检查，再由独立语义裁判核对日程、记录和通知的业务含义；程序条件通过仅表示待语义审核，不会直接给成功分。日程允许明确的中文维护标题，记录与通知仍须原样保留来源字段。裁判不可用时属于验证错误，不输出任务奖励。普通 CI 不调用模型；手动启用完整验收会运行语义 judge，oracle/nop 也可能产生模型费用。原生任务也可作为兼容 Harbor 的训练系统输入，本仓库不自建训练调度器，尚未验证实际 RL 训练。
 
 ## 数据与改写
 
