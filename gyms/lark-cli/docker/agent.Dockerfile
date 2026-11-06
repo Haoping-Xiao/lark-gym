@@ -9,4 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends bash ca-certifi
 RUN npm install --global @openai/codex@0.156.1 && codex --version
 COPY --from=builder /build/gyms/lark-cli/bin/lark-cli /usr/local/bin/lark-cli
 WORKDIR /workspace
+# Codex reads AGENTS.md and Claude Code reads CLAUDE.md; both get the same tool notice.
+COPY gyms/lark-cli/docker/agent-tool-notice.md /workspace/AGENTS.md
+COPY gyms/lark-cli/docker/agent-tool-notice.md /workspace/CLAUDE.md
 CMD ["sleep", "infinity"]

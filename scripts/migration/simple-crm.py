@@ -238,7 +238,7 @@ cpus = 2
 memory_mb = 2048
 storage_mb = 10240
 ''')
-    (target/'environment/Dockerfile').write_text('FROM lark-gym-cli:0.2.1\nWORKDIR /workspace\n')
+    (target/'environment/Dockerfile').write_text('FROM lark-gym-cli:0.2.2\nWORKDIR /workspace\n')
     if extra.get(number,{}).get('agent_files'):
         folder=target/'environment/input-files'
         folder.mkdir(exist_ok=True)
