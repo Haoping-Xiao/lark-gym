@@ -57,7 +57,7 @@ harbor run --ve DEEPSEEK_API_KEY="$DEEPSEEK_API_KEY" --config experiments/eval/o
 
 构建脚本会将当前 Mock 镜像标记为仓库任务引用的所有兼容版本，避免干净机器尝试从 Docker Hub 拉取不存在的本地镜像。这些标签指向当前代码构建，不是历史代码快照；复现实验仍需保存仓库提交和镜像摘要。脚本参数透传给每次 `docker build`，可用 `--build-arg HTTP_PROXY --build-arg HTTPS_PROXY` 传入当前环境的构建代理。
 
-任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表。
+任务自己的 Dockerfile 决定环境，可以使用共享基础镜像，也可以自行扩展。Compose 为每次 trial 启动独立 agent 和 Mock，通过 `FEISHU_MOCK_URL` 配置连接。CLI 二进制直接位于 PATH，没有命令包装器、SDK 运行器或第二套 task 注册表。基础镜像在工作目录 `/workspace` 放置内容相同的 `AGENTS.md` 和 `CLAUDE.md`，只告知 agent 使用 lark-cli 及其帮助和内置文档，不含任何任务信息；Codex、Claude Code 等 agent 无需额外的运行参数即可获得同一份说明。
 
 Agent 镜像不包含 seed、后端状态、参考解或评分器。Mock 记录每次请求及状态变化；Harbor 采集后端 `state.json`，在独立 verifier 容器中评分。正常结果写 `/logs/verifier/reward.txt` 和诊断文件；未知接口始终记录环境覆盖不足，用于独立分析，不自动改变任务得分。
 
